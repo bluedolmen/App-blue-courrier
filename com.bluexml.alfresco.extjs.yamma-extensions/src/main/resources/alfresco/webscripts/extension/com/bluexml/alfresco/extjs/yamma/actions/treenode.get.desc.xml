@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Treenode</shortname>
+	<description><![CDATA[
+		  Get the children of a given node w.r.t. the main-menu requirements 
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/treenode</url>
+	<format default="json">argument</format>
+	<authentication>user</authentication>
+</webscript>
