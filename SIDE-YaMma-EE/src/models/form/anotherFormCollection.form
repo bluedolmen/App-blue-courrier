@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:ClassFormCollection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:clazz="http://www.kerblue.org/class/1.0" xmlns:form="http://www.kerblue.org/form/1.0" xmi:id="_5uyZcLYGEeGSo_XQepIvyw" name="anotherFormCollection">
+  <forms xsi:type="form:FormClass" xmi:id="_5uyZcbYGEeGSo_XQepIvyw" label="Mail" id="Mail">
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZcrYGEeGSo_XQepIvyw" label="Assignable" id="Assignable">
+      <ref href="../data/YaMma-EE.dt#_jecxELC6EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZc7YGEeGSo_XQepIvyw" label="Service" id="service" max_bound="-1">
+        <ref href="../data/YaMma-EE.dt#_zw17sLYDEeGSo_XQepIvyw"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZdLYGEeGSo_XQepIvyw" label="Commentable" id="Commentable">
+      <ref href="../data/YaMma-EE.dt#_zCkGkLC3EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZdbYGEeGSo_XQepIvyw" label="Comment" id="comment" help_text="A note that can be provided on a document for additional information">
+        <ref href="../data/YaMma-EE.dt#_1USRkLC3EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZdrYGEeGSo_XQepIvyw" label="Correspondent" id="Correspondent">
+      <ref href="../data/YaMma-EE.dt#_-qvgELC2EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZd7YGEeGSo_XQepIvyw" label="Correspondent Name" id="name" help_text="The name of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_azB14LC2EeGFgddOkpVJwg"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZeLYGEeGSo_XQepIvyw" label="Correspondent Address" id="address" help_text="The address of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_Fa-dwLC3EeGFgddOkpVJwg"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZebYGEeGSo_XQepIvyw" label="Correspondent Email" id="contactEmail" help_text="The email of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_S7KFQLC3EeGFgddOkpVJwg"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZerYGEeGSo_XQepIvyw" label="Correspondent Phone-Number" id="contactPhone" help_text="The phone-number of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_ZIejILC3EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZe7YGEeGSo_XQepIvyw" label="Digitizable" id="Digitizable">
+      <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
+      <children xsi:type="form:DateField" xmi:id="_5uyZfLYGEeGSo_XQepIvyw" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+        <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZfbYGEeGSo_XQepIvyw" label="Distributable" id="Distributable">
+      <ref href="../data/YaMma-EE.dt#_9CLqALC6EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZfrYGEeGSo_XQepIvyw" label="Services" id="services" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_0_YycLYDEeGSo_XQepIvyw"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZf7YGEeGSo_XQepIvyw" label="Mail" id="Mail">
+      <ref href="../data/YaMma-EE.dt#_UcVrgLC0EeGFgddOkpVJwg"/>
+      <children xsi:type="form:DateField" xmi:id="_5uyZgLYGEeGSo_XQepIvyw" label="Stamp Date" id="stampDate" help_text="The date on which the mail was stamped">
+        <ref href="../data/YaMma-EE.dt#_Z9QWYLC0EeGFgddOkpVJwg"/>
+      </children>
+      <children xsi:type="form:DateField" xmi:id="_5uyZgbYGEeGSo_XQepIvyw" label="Delivery Date" id="deliveryDate" help_text="The date on which the mail was delivered to the receiver">
+        <ref href="../data/YaMma-EE.dt#_l_tboLC0EeGFgddOkpVJwg"/>
+      </children>
+      <children xsi:type="form:DateField" xmi:id="_5uyZgrYGEeGSo_XQepIvyw" label="Writing Date" id="writingDate" help_text="The date on which the mail was written">
+        <ref href="../data/YaMma-EE.dt#_rlFIsLC0EeGFgddOkpVJwg"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZg7YGEeGSo_XQepIvyw" label="Object" id="object" help_text="The object of the mail">
+        <ref href="../data/YaMma-EE.dt#_y_IfcLC0EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZhLYGEeGSo_XQepIvyw" label="Prioritizable" id="Prioritizable">
+      <ref href="../data/YaMma-EE.dt#_9QIJ8LC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZhbYGEeGSo_XQepIvyw" label="Delay" id="delay" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_6oFC0LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZhrYGEeGSo_XQepIvyw" label="Privacy" id="Privacy">
+      <ref href="../data/YaMma-EE.dt#__erI4LOfEeGKr-5wI4QUkQ"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZh7YGEeGSo_XQepIvyw" label="Privacy Level" id="level" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_HicLALOgEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZiLYGEeGSo_XQepIvyw" label="Referenceable" id="Referenceable">
+      <ref href="../data/YaMma-EE.dt#_CuQDsLC1EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZibYGEeGSo_XQepIvyw" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZirYGEeGSo_XQepIvyw" label="Statusable" id="Statusable">
+      <ref href="../data/YaMma-EE.dt#_WWr0ILC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZi7YGEeGSo_XQepIvyw" label="Status" id="status" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_lahf8LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_UcVrgLC0EeGFgddOkpVJwg"/>
+  </forms>
+  <forms xsi:type="form:FormClass" xmi:id="_5uyZjLYGEeGSo_XQepIvyw" label="Delay" id="Delay">
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZjbYGEeGSo_XQepIvyw" label="Auditable" id="auditable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZjrYGEeGSo_XQepIvyw" label="Created" id="created">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZj7YGEeGSo_XQepIvyw" label="Creator" id="creator">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZkLYGEeGSo_XQepIvyw" label="Modified" id="modified">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZkbYGEeGSo_XQepIvyw" label="Modifier" id="modifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZkrYGEeGSo_XQepIvyw" label="Accessed" id="accessed">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZk7YGEeGSo_XQepIvyw" label="Object" id="cmobject">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZlLYGEeGSo_XQepIvyw" label="Name" id="name">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZlbYGEeGSo_XQepIvyw" label="Content" id="content">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrjh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZlrYGEeGSo_XQepIvyw" label="content" id="content">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZl7YGEeGSo_XQepIvyw" label="Referenceable" id="referenceable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZmLYGEeGSo_XQepIvyw" label="store-protocol" id="store-protocol">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZmbYGEeGSo_XQepIvyw" label="store-identifier" id="store-identifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZmrYGEeGSo_XQepIvyw" label="node-uuid" id="node-uuid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:IntegerField" xmi:id="_5uyZm7YGEeGSo_XQepIvyw" label="node-dbid" id="node-dbid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
+  </forms>
+  <forms xsi:type="form:FormClass" xmi:id="_5uyZnLYGEeGSo_XQepIvyw" label="PrivacyLevel" id="PrivacyLevel">
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZnbYGEeGSo_XQepIvyw" label="Auditable" id="auditable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZnrYGEeGSo_XQepIvyw" label="Created" id="created">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZn7YGEeGSo_XQepIvyw" label="Creator" id="creator">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZoLYGEeGSo_XQepIvyw" label="Modified" id="modified">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZobYGEeGSo_XQepIvyw" label="Modifier" id="modifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZorYGEeGSo_XQepIvyw" label="Accessed" id="accessed">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZo7YGEeGSo_XQepIvyw" label="Object" id="cmobject">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZpLYGEeGSo_XQepIvyw" label="Name" id="name">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZpbYGEeGSo_XQepIvyw" label="Content" id="content">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrjh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZprYGEeGSo_XQepIvyw" label="content" id="content">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZp7YGEeGSo_XQepIvyw" label="Referenceable" id="referenceable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZqLYGEeGSo_XQepIvyw" label="store-protocol" id="store-protocol">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZqbYGEeGSo_XQepIvyw" label="store-identifier" id="store-identifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZqrYGEeGSo_XQepIvyw" label="node-uuid" id="node-uuid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:IntegerField" xmi:id="_5uyZq7YGEeGSo_XQepIvyw" label="node-dbid" id="node-dbid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
+  </forms>
+  <forms xsi:type="form:FormClass" xmi:id="_5uyZrLYGEeGSo_XQepIvyw" label="Status" id="Status">
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZrbYGEeGSo_XQepIvyw" label="Auditable" id="auditable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZrrYGEeGSo_XQepIvyw" label="Created" id="created">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZr7YGEeGSo_XQepIvyw" label="Creator" id="creator">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZsLYGEeGSo_XQepIvyw" label="Modified" id="modified">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZsbYGEeGSo_XQepIvyw" label="Modifier" id="modifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZsrYGEeGSo_XQepIvyw" label="Accessed" id="accessed">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZs7YGEeGSo_XQepIvyw" label="Object" id="cmobject">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZtLYGEeGSo_XQepIvyw" label="Name" id="name">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZtbYGEeGSo_XQepIvyw" label="Content" id="content">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrjh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZtrYGEeGSo_XQepIvyw" label="content" id="content">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZt7YGEeGSo_XQepIvyw" label="Referenceable" id="referenceable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZuLYGEeGSo_XQepIvyw" label="store-protocol" id="store-protocol">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZubYGEeGSo_XQepIvyw" label="store-identifier" id="store-identifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZurYGEeGSo_XQepIvyw" label="node-uuid" id="node-uuid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:IntegerField" xmi:id="_5uyZu7YGEeGSo_XQepIvyw" label="node-dbid" id="node-dbid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+  </forms>
+  <forms xsi:type="form:FormClass" xmi:id="_5uyZvLYGEeGSo_XQepIvyw" label="AssignableSite" id="AssignableSite">
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZvbYGEeGSo_XQepIvyw" label="Auditable" id="auditable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZvrYGEeGSo_XQepIvyw" label="Created" id="created">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZv7YGEeGSo_XQepIvyw" label="Creator" id="creator">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZwLYGEeGSo_XQepIvyw" label="Modified" id="modified">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZwbYGEeGSo_XQepIvyw" label="Modifier" id="modifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:DateTimeField" xmi:id="_5uyZwrYGEeGSo_XQepIvyw" label="Accessed" id="accessed">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZw7YGEeGSo_XQepIvyw" label="Object" id="cmobject">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZxLYGEeGSo_XQepIvyw" label="Name" id="name">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZxbYGEeGSo_XQepIvyw" label="Content" id="content">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrjh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZxrYGEeGSo_XQepIvyw" label="content" id="content">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZx7YGEeGSo_XQepIvyw" label="Referenceable" id="referenceable">
+      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4jh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZyLYGEeGSo_XQepIvyw" label="store-protocol" id="store-protocol">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZybYGEeGSo_XQepIvyw" label="store-identifier" id="store-identifier">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:CharField" xmi:id="_5uyZyrYGEeGSo_XQepIvyw" label="node-uuid" id="node-uuid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="form:IntegerField" xmi:id="_5uyZy7YGEeGSo_XQepIvyw" label="node-dbid" id="node-dbid">
+        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
+  </forms>
+  <forms xsi:type="form:FormClass" xmi:id="_5uyZzLYGEeGSo_XQepIvyw" label="Document" id="Document">
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZzbYGEeGSo_XQepIvyw" label="Assignable" id="Assignable">
+      <ref href="../data/YaMma-EE.dt#_jecxELC6EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZzrYGEeGSo_XQepIvyw" label="Service" id="service" max_bound="-1">
+        <ref href="../data/YaMma-EE.dt#_zw17sLYDEeGSo_XQepIvyw"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZz7YGEeGSo_XQepIvyw" label="Commentable" id="Commentable">
+      <ref href="../data/YaMma-EE.dt#_zCkGkLC3EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZ0LYGEeGSo_XQepIvyw" label="Comment" id="comment" help_text="A note that can be provided on a document for additional information">
+        <ref href="../data/YaMma-EE.dt#_1USRkLC3EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZ0bYGEeGSo_XQepIvyw" label="Digitizable" id="Digitizable">
+      <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
+      <children xsi:type="form:DateField" xmi:id="_5uyZ0rYGEeGSo_XQepIvyw" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+        <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZ07YGEeGSo_XQepIvyw" label="Distributable" id="Distributable">
+      <ref href="../data/YaMma-EE.dt#_9CLqALC6EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZ1LYGEeGSo_XQepIvyw" label="Services" id="services" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_0_YycLYDEeGSo_XQepIvyw"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZ1bYGEeGSo_XQepIvyw" label="Prioritizable" id="Prioritizable">
+      <ref href="../data/YaMma-EE.dt#_9QIJ8LC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZ1rYGEeGSo_XQepIvyw" label="Delay" id="delay" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_6oFC0LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZ17YGEeGSo_XQepIvyw" label="Privacy" id="Privacy">
+      <ref href="../data/YaMma-EE.dt#__erI4LOfEeGKr-5wI4QUkQ"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZ2LYGEeGSo_XQepIvyw" label="Privacy Level" id="level" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_HicLALOgEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZ2bYGEeGSo_XQepIvyw" label="Referenceable" id="Referenceable">
+      <ref href="../data/YaMma-EE.dt#_CuQDsLC1EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharField" xmi:id="_5uyZ2rYGEeGSo_XQepIvyw" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_5uyZ27YGEeGSo_XQepIvyw" label="Statusable" id="Statusable">
+      <ref href="../data/YaMma-EE.dt#_WWr0ILC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ModelChoiceField" xmi:id="_5uyZ3LYGEeGSo_XQepIvyw" label="Status" id="status" max_bound="1">
+        <ref href="../data/YaMma-EE.dt#_lahf8LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_RUS8gLC0EeGFgddOkpVJwg"/>
+  </forms>
+</form:ClassFormCollection>

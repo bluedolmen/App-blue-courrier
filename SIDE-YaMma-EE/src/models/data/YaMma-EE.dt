@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clazz:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:clazz="http://www.kerblue.org/class/1.0" xmi:id="_B4EfELC0EeGFgddOkpVJwg" name="yamma-ee">
+  <classSet xmi:id="_RUS8gLC0EeGFgddOkpVJwg" name="Document" aspects="_CuQDsLC1EeGFgddOkpVJwg _zCkGkLC3EeGFgddOkpVJwg _jecxELC6EeGFgddOkpVJwg _9CLqALC6EeGFgddOkpVJwg _WWr0ILC7EeGFgddOkpVJwg _9QIJ8LC7EeGFgddOkpVJwg __erI4LOfEeGKr-5wI4QUkQ _PhfBcLC8EeGFgddOkpVJwg"/>
+  <classSet xmi:id="_UcVrgLC0EeGFgddOkpVJwg" name="Mail" generalizations="_RUS8gLC0EeGFgddOkpVJwg" aspects="_-qvgELC2EeGFgddOkpVJwg">
+    <attributes xmi:id="_Z9QWYLC0EeGFgddOkpVJwg" documentation="" description="The date on which the mail was stamped" name="stampDate" title="Stamp Date" typ="Date">
+      <metainfo xmi:id="_kHG7QLC0EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_kHMa0LC0EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_kHOQALC0EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_kHQsQLC0EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+    </attributes>
+    <attributes xmi:id="_l_tboLC0EeGFgddOkpVJwg" documentation="" description="The date on which the mail was delivered to the receiver" name="deliveryDate" title="Delivery Date" typ="Date">
+      <metainfo xmi:id="_qo_T4LC0EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_qpH2wLC0EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_qpK6ELC0EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+    </attributes>
+    <attributes xmi:id="_rlFIsLC0EeGFgddOkpVJwg" documentation="" description="The date on which the mail was written" name="writingDate" title="Writing Date" typ="Date">
+      <metainfo xmi:id="_wOXoALC0EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_wOcggLC0EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_wOgx8LC0EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+    </attributes>
+    <attributes xmi:id="_y_IfcLC0EeGFgddOkpVJwg" documentation="" description="The object of the mail" name="object" title="Object">
+      <metainfo xmi:id="_aKSkALOtEeG_kKcLJR6D8g" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_aKTLELOtEeG_kKcLJR6D8g" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_aKTLEbOtEeG_kKcLJR6D8g" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_aKTLErOtEeG_kKcLJR6D8g" key="propertySearched" value="True"/>
+    </attributes>
+  </classSet>
+  <classSet xmi:id="_cJA4ULOeEeGKr-5wI4QUkQ" name="Status">
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+  </classSet>
+  <classSet xmi:id="_3cbmMLOeEeGKr-5wI4QUkQ" name="Delay">
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+  </classSet>
+  <classSet xmi:id="_QkEZALOfEeGKr-5wI4QUkQ" name="PrivacyLevel">
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+  </classSet>
+  <classSet xmi:id="_HokJgLYDEeGSo_XQepIvyw" name="AssignableSite">
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+  </classSet>
+  <associationSet xmi:id="_lahf8LOeEeGKr-5wI4QUkQ" documentation="" description="Status" name="status" title="Status">
+    <firstEnd xmi:id="_lahf8bOeEeGKr-5wI4QUkQ" name="" title="" cardMax="-1" linkedClass="_WWr0ILC7EeGFgddOkpVJwg"/>
+    <secondEnd xmi:id="_lahf8rOeEeGKr-5wI4QUkQ" name="" title="" navigable="true" linkedClass="_cJA4ULOeEeGKr-5wI4QUkQ"/>
+  </associationSet>
+  <associationSet xmi:id="_6oFC0LOeEeGKr-5wI4QUkQ" documentation="" description="" name="delay" title="Delay">
+    <firstEnd xmi:id="_6oFC0bOeEeGKr-5wI4QUkQ" name="" title="" cardMax="-1" linkedClass="_9QIJ8LC7EeGFgddOkpVJwg"/>
+    <secondEnd xmi:id="_6oFC0rOeEeGKr-5wI4QUkQ" name="" title="" navigable="true" linkedClass="_3cbmMLOeEeGKr-5wI4QUkQ"/>
+  </associationSet>
+  <associationSet xmi:id="_HicLALOgEeGKr-5wI4QUkQ" documentation="" description="" name="level" title="Privacy Level">
+    <firstEnd xmi:id="_HicLAbOgEeGKr-5wI4QUkQ" name="" title="" cardMax="-1" linkedClass="__erI4LOfEeGKr-5wI4QUkQ"/>
+    <secondEnd xmi:id="_HicLArOgEeGKr-5wI4QUkQ" name="" title="" navigable="true" linkedClass="_QkEZALOfEeGKr-5wI4QUkQ"/>
+  </associationSet>
+  <associationSet xmi:id="_zw17sLYDEeGSo_XQepIvyw" documentation="" description="" name="service" title="Service">
+    <firstEnd xmi:id="_zw17sbYDEeGSo_XQepIvyw" name="" title="" cardMax="-1" linkedClass="_jecxELC6EeGFgddOkpVJwg"/>
+    <secondEnd xmi:id="_zw17srYDEeGSo_XQepIvyw" name="" title="" cardMax="-1" navigable="true" linkedClass="_HokJgLYDEeGSo_XQepIvyw"/>
+  </associationSet>
+  <associationSet xmi:id="_0_YycLYDEeGSo_XQepIvyw" documentation="" description="The services to which the document will be distributed" name="services" title="Services">
+    <firstEnd xmi:id="_0_YycbYDEeGSo_XQepIvyw" name="" title="" cardMax="-1" linkedClass="_9CLqALC6EeGFgddOkpVJwg"/>
+    <secondEnd xmi:id="_0_YycrYDEeGSo_XQepIvyw" name="" title="" navigable="true" linkedClass="_HokJgLYDEeGSo_XQepIvyw"/>
+  </associationSet>
+  <aspectSet xmi:id="_CuQDsLC1EeGFgddOkpVJwg" name="Referenceable">
+    <attributes xmi:id="_EXD0kLC1EeGFgddOkpVJwg" documentation="" description="The reference of a document" name="reference" title="Reference">
+      <metainfo xmi:id="_OLm30LC1EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_OLqiMLC1EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_OLuzoLC1EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_OLwo0LC1EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+    </attributes>
+  </aspectSet>
+  <aspectSet xmi:id="_-qvgELC2EeGFgddOkpVJwg" name="Correspondent">
+    <attributes xmi:id="_azB14LC2EeGFgddOkpVJwg" documentation="" description="The name of the correspondent" name="name" title="Correspondent Name">
+      <metainfo xmi:id="_YbaBwLC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_Ybb28LC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_YbdsILC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_YbgIYLC3EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+    </attributes>
+    <attributes xmi:id="_Fa-dwLC3EeGFgddOkpVJwg" documentation="" description="The address of the correspondent" name="address" title="Correspondent Address">
+      <metainfo xmi:id="_XoZ3gLC3EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_XocTwLC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_Xodh4LC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_Xof-ILC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+    </attributes>
+    <attributes xmi:id="_S7KFQLC3EeGFgddOkpVJwg" documentation="" description="The email of the correspondent" name="contactEmail" title="Correspondent Email">
+      <metainfo xmi:id="_Wuyu8LC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_Wu0kILC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_Wu3AYLC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_Wu41kLC3EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+    </attributes>
+    <attributes xmi:id="_ZIejILC3EeGFgddOkpVJwg" documentation="" description="The phone-number of the correspondent" name="contactPhone" title="Correspondent Phone-Number">
+      <metainfo xmi:id="_gGdo8LC3EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_gGgFMLC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_gGh6YLC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_gGjvkLC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+    </attributes>
+  </aspectSet>
+  <aspectSet xmi:id="_zCkGkLC3EeGFgddOkpVJwg" name="Commentable">
+    <attributes xmi:id="_1USRkLC3EeGFgddOkpVJwg" documentation="" description="A note that can be provided on a document for additional information" name="comment" title="Comment">
+      <metainfo xmi:id="_5lYTULC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_5laIgLC3EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_5lckwLC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_5leZ8LC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+    </attributes>
+  </aspectSet>
+  <aspectSet xmi:id="_jecxELC6EeGFgddOkpVJwg" name="Assignable"/>
+  <aspectSet xmi:id="_9CLqALC6EeGFgddOkpVJwg" name="Distributable"/>
+  <aspectSet xmi:id="_WWr0ILC7EeGFgddOkpVJwg" name="Statusable"/>
+  <aspectSet xmi:id="_9QIJ8LC7EeGFgddOkpVJwg" name="Prioritizable"/>
+  <aspectSet xmi:id="_PhfBcLC8EeGFgddOkpVJwg" name="Digitizable">
+    <attributes xmi:id="_SmWgoLC8EeGFgddOkpVJwg" documentation="" description="The date on which the mail was digitized" name="digitizedDate" title="Digitized Date" typ="Date">
+      <metainfo xmi:id="_VdXxELC8EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_VdaNULC8EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_VdcCgLC8EeGFgddOkpVJwg" key="index.atomic" value="True"/>
+    </attributes>
+  </aspectSet>
+  <aspectSet xmi:id="__erI4LOfEeGKr-5wI4QUkQ" description="" name="Privacy" title=""/>
+</clazz:Model>

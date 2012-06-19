@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ASCII"?>
+<app:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:app="http://www.bluexml.com/application/1.0/" name="YaMma-EE">
+  <elements xsi:type="app:Model" name="YaMma-EE.dt" file="/YaMma-EE/src/models/data/YaMma-EE.dt"/>
+  <elements xsi:type="app:Configuration" name="YaMma-EE Gen" description="">
+    <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.form.generator.alfresco.enterprise346.FormGenerator346e" id="com.bluexml.side.Form.generator.alfresco346E" metaModelName="KSR400 Form" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Form.generator.alfresco.enterprise346E" id_metamodel="http://www.kerblue.org/form/1.0" generatorName="Alfresco Share Forms Generator">
+      <options key="generator.main"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.formExtension346E" versionMin="1.0.35" versionMax="1.0.35" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.sharePortalExtension346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.Inputex" versionMin="1.0.4" versionMax="1.0.4" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.autoConnect346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.formProcessor346E" versionMin="1.0.26" versionMax="1.0.26" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="com.bluexml.side.Application.customModules.technologyVersion1" impl_class="com.bluexml.side.application.custommodules.Generator" id="side.customModules" metaModelName="com.bluexml.side.Application.customModules.metamodel1" technologyVersionName="com.bluexml.side.Application.customModules.technologyVersion1" technologyName="com.bluexml.side.Application.customModules.technology1" contributorId="com.bluexml.side.Application.customModules" id_metamodel="com.bluexml.side.Application.customModules.metamodel1" generatorName="side.customModules">
+      <moduleContraints moduleId="com.bluexml.side.Framework.share.savedSearch346E" versionMin="1.0.7" versionMax="1.0.7" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.doclist346E" versionMin="1.0.32" versionMax="1.0.32" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.clazz.generator.alfresco346e.AlfrescoGenerator346e" id="com.bluexml.side.Class.generator.alfresco346E" metaModelName="KSR500 Data" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Class.generator.alfresco346E" id_metamodel="http://www.kerblue.org/class/1.0" generatorName="SIDE Content Model Generator for Alfresco Enterprise">
+      <options key="alfresco.share.extension"/>
+      <options key="generator.main"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.model346E" versionMin="1.0.4" versionMax="1.0.4" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.customAssociationManagement346E" versionMin="1.0.8" versionMax="1.0.8" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.hotdeployer346E" versionMin="1.0.2" versionMax="1.0.2" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.singlePrimaryChildAssociation346E" versionMin="1.0.7" versionMax="1.0.7" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.propertiesUpdater346E" versionMin="1.0.9" versionMax="1.0.9" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.shareStandAloneForms346E" versionMin="1.0.2" versionMax="1.0.2" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.portal.generator.alfresco346e.PortalGenerator346e" id="com.bluexml.side.Portal.generator.alfresco3.46E" metaModelName="KSR200 Portal" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Portal.generator.alfresco346E" id_metamodel="http://www.kerblue.org/portal/1.0" generatorName="SIDE Alfresco Portal Generator 3.46E">
+      <options key="com.bluexml.side.Portal.generator.alfresco.doclist"/>
+      <options key="com.bluexml.side.Portal.generator.alfresco.forms"/>
+      <options key="generator.main"/>
+      <options key="portal.save.search"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.sharePortalExtension346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.cmisFacetMap346E" versionMin="1.0.7" versionMax="1.0.7" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.shareDoclist346E" versionMin="1.0.36" versionMax="1.0.36" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.doclist346E" versionMin="1.0.32" versionMax="1.0.32" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.formProcessor346E" versionMin="1.0.26" versionMax="1.0.26" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.share.savedSearch346E" versionMin="1.0.7" versionMax="1.0.7" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.view.generator.alfresco346e.ViewGenerator346e" id="com.bluexml.side.View.generator.alfresco346E" metaModelName="KSR300 View" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.View.generator.alfresco346E" id_metamodel="http://www.kerblue.org/view/1.0" generatorName="SIDE View Generator for Alfresco Share 346E">
+      <options key="generator.main"/>
+      <options key="view.generator.share.datagrid"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.clazz.generator.documentation.ClassDocumentationGenerator" id="com.bluexml.side.Class.generator.documentation" metaModelName="KSR500 Data" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Class.generator.documentation" id_metamodel="http://www.kerblue.org/class/1.0" generatorName="SIDE Class Documentation Generator">
+      <options key="doc.gen.screenshoot"/>
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.form.generator.documentation.FormDocumentationGenerator" id="com.bluexml.side.Form.generator.documentation" metaModelName="KSR400 Form" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Form.generator.documentation" id_metamodel="http://www.kerblue.org/form/1.0" generatorName="SIDE Form Documentation Generator">
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.view.generator.documentation.ViewDocumentationGenerator" id="com.bluexml.side.View.generator.documentation" metaModelName="KSR300 View" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.View.generator.documentation" id_metamodel="http://www.kerblue.org/view/1.0" generatorName="SIDE View Documentation Generator">
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.workflow.generator.documentation.WorkflowDocumentationGenerator" id="com.bluexml.side.Workflow.generator.documentation" metaModelName="KSR600 Workflow" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Workflow.generator.documentation" id_metamodel="http://www.kerblue.org/workflow/1.0" generatorName="SIDE Workflow Documentation Generator">
+      <options key="doc.gen.screenshoot"/>
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <parameters key="CATALINA_HOME" value="/home/pajot-b/opt/mail-management/tomcat" dataType="Directory"/>
+    <parameters key="generation.options.logPath" value="/YaMma-EE/build/logs" dataType=""/>
+    <parameters key="generation.options.destinationPath" value="/YaMma-EE/build/generated" dataType=""/>
+    <parameters key="generation.options.clean" value="true" dataType=""/>
+    <parameters key="generation.options.documentation" value="false"/>
+    <parameters key="generation.option.Skip.Validation" value="false"/>
+    <parameters key="generation.option.generate" value="true"/>
+    <parameters key="generation.option.complete" value="true"/>
+    <parameters key="generation.option.resolve.dependencies" value="true"/>
+    <parameters key="generation.option.offlineMode" value="false"/>
+    <deployerConfigurations id_techno_version="freemind" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.freemind" technologyVersionName="FreeMind" technologyName="mindmap" contributorId="com.bluexml.side.Requirements.generator" deployerName="freemind deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="office_excel" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.excel" technologyVersionName="Excel Document" technologyName="office" contributorId="com.bluexml.side.Requirements.generator" deployerName="excel deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="webproject_1_0" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.webproject" technologyVersionName="Web Project 1.0" technologyName="webproject" contributorId="com.bluexml.side.Requirements.generator" deployerName="webproject deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="opendocument_writer" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.doc" technologyVersionName="Open Document Writer" technologyName="opendocument" contributorId="com.bluexml.side.Requirements.generator" deployerName="doc deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.deployer.documentation.DocumentationDeployer" id="com.bluexml.side.Deployer.documentation" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Deployer.documentation" deployerName="SIDE Documentation Deployer"/>
+  </elements>
+  <elements xsi:type="app:Configuration" name="YaMma-EE Dep" description="">
+    <generatorConfigurations id_techno_version="com.bluexml.side.Application.customModules.technologyVersion1" impl_class="com.bluexml.side.application.custommodules.Generator" id="side.customModules" metaModelName="com.bluexml.side.Application.customModules.metamodel1" technologyVersionName="com.bluexml.side.Application.customModules.technologyVersion1" technologyName="com.bluexml.side.Application.customModules.technology1" contributorId="com.bluexml.side.Application.customModules" id_metamodel="com.bluexml.side.Application.customModules.metamodel1" generatorName="side.customModules"/>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.clazz.generator.documentation.ClassDocumentationGenerator" id="com.bluexml.side.Class.generator.documentation" metaModelName="KSR500 Data" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Class.generator.documentation" id_metamodel="http://www.kerblue.org/class/1.0" generatorName="SIDE Class Documentation Generator">
+      <options key="doc.gen.screenshoot"/>
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.form.generator.documentation.FormDocumentationGenerator" id="com.bluexml.side.Form.generator.documentation" metaModelName="KSR400 Form" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Form.generator.documentation" id_metamodel="http://www.kerblue.org/form/1.0" generatorName="SIDE Form Documentation Generator">
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.view.generator.documentation.ViewDocumentationGenerator" id="com.bluexml.side.View.generator.documentation" metaModelName="KSR300 View" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.View.generator.documentation" id_metamodel="http://www.kerblue.org/view/1.0" generatorName="SIDE View Documentation Generator">
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <generatorConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.workflow.generator.documentation.WorkflowDocumentationGenerator" id="com.bluexml.side.Workflow.generator.documentation" metaModelName="KSR600 Workflow" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Workflow.generator.documentation" id_metamodel="http://www.kerblue.org/workflow/1.0" generatorName="SIDE Workflow Documentation Generator">
+      <options key="doc.gen.screenshoot"/>
+      <options key="generator.main"/>
+    </generatorConfigurations>
+    <parameters key="CATALINA_HOME" value="/home/pajot-b/opt/mail-management/tomcat" dataType="Directory"/>
+    <parameters key="generation.options.logPath" value="/YaMma-EE/build/logs" dataType=""/>
+    <parameters key="generation.options.destinationPath" value="/YaMma-EE/build/generated" dataType=""/>
+    <parameters key="generation.options.clean" value="false" dataType=""/>
+    <parameters key="generation.options.documentation" value="false"/>
+    <parameters key="generation.option.Skip.Validation" value="false"/>
+    <parameters key="generation.option.generate" value="true"/>
+    <parameters key="generation.option.complete" value="true"/>
+    <parameters key="generation.option.resolve.dependencies" value="true"/>
+    <parameters key="generation.option.offlineMode" value="false"/>
+    <deployerConfigurations id_techno_version="freemind" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.freemind" technologyVersionName="FreeMind" technologyName="mindmap" contributorId="com.bluexml.side.Requirements.generator" deployerName="freemind deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="office_excel" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.excel" technologyVersionName="Excel Document" technologyName="office" contributorId="com.bluexml.side.Requirements.generator" deployerName="excel deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="webproject_1_0" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.webproject" technologyVersionName="Web Project 1.0" technologyName="webproject" contributorId="com.bluexml.side.Requirements.generator" deployerName="webproject deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="opendocument_writer" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.doc" technologyVersionName="Open Document Writer" technologyName="opendocument" contributorId="com.bluexml.side.Requirements.generator" deployerName="doc deployer">
+      <options key="generator.main"/>
+    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.deployer.documentation.DocumentationDeployer" id="com.bluexml.side.Deployer.documentation" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Deployer.documentation" deployerName="SIDE Documentation Deployer"/>
+    <deployerConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.deployer.alfrescodirectcopy346e.DirectDeployer" id="com.bluexml.side.Deployer.alfrescoDirectCopy346e" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Deployer.alfrescoDirectCopy346E" deployerName="SIDE Alfresco enterprise Direct Deployer"/>
+  </elements>
+  <elements xsi:type="app:Model" name="default.form" file="/YaMma-EE/src/models/form/default.form"/>
+  <elements xsi:type="app:Configuration" name="YaMma-EE">
+    <parameters key="generation.options.logPath" value="/YaMma-EE/build/logs" dataType=""/>
+    <parameters key="generation.options.destinationPath" value="/YaMma-EE/build/generated" dataType=""/>
+    <parameters key="generation.options.clean" value="true" dataType=""/>
+    <parameters key="generation.options.documentation" value="false"/>
+    <parameters key="generation.option.Skip.Validation" value="false"/>
+    <parameters key="generation.option.generate" value="true"/>
+    <parameters key="generation.option.complete" value="true"/>
+    <parameters key="generation.option.resolve.dependencies" value="true"/>
+    <parameters key="generation.option.offlineMode" value="false"/>
+  </elements>
+  <elements xsi:type="app:Model" name="YaMma-EE.portal" file="/YaMma-EE/src/models/portal/YaMma-EE.portal"/>
+  <elements xsi:type="app:Model" name="anotherFormCollection.form" file="/YaMma-EE/src/models/form/anotherFormCollection.form"/>
+  <elements xsi:type="app:Model" name="search.form" file="/YaMma-EE/src/models/form/search.form"/>
+  <elements xsi:type="app:Model" name="YaMma-EE.view" file="/YaMma-EE/src/models/view/YaMma-EE.view"/>
+  <elements xsi:type="app:Configuration" name="Form G+D" description="">
+    <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.form.generator.alfresco.enterprise346.FormGenerator346e" id="com.bluexml.side.Form.generator.alfresco346E" metaModelName="KSR400 Form" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Form.generator.alfresco.enterprise346E" id_metamodel="http://www.kerblue.org/form/1.0" generatorName="Alfresco Share Forms Generator">
+      <options key="generator.main"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.formExtension346E" versionMin="1.0.35" versionMax="1.0.35" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.sharePortalExtension346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.Inputex" versionMin="1.0.4" versionMax="1.0.4" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.autoConnect346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.formProcessor346E" versionMin="1.0.26" versionMax="1.0.26" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+    </generatorConfigurations>
+    <parameters key="generation.options.documentation" value="false"/>
+    <parameters key="generation.option.Skip.Validation" value="false"/>
+    <parameters key="generation.options.clean" value="false"/>
+    <parameters key="generation.option.generate" value="true"/>
+    <parameters key="generation.option.complete" value="true"/>
+    <parameters key="generation.option.resolve.dependencies" value="true"/>
+    <parameters key="generation.option.offlineMode" value="false"/>
+    <parameters key="generation.options.logPath" value="/YaMma-EE/build/logs"/>
+    <parameters key="generation.options.destinationPath" value="/YaMma-EE/build/generated"/>
+    <parameters key="CATALINA_HOME" value="/home/pajot-b/opt/mail-management/tomcat" dataType="Directory"/>
+    <deployerConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.deployer.alfrescodirectcopy346e.DirectDeployer" id="com.bluexml.side.Deployer.alfrescoDirectCopy346e" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Deployer.alfrescoDirectCopy346E" deployerName="SIDE Alfresco enterprise Direct Deployer">
+      <options key="com.bluexml.side.hotDeployment"/>
+    </deployerConfigurations>
+  </elements>
+  <elements xsi:type="app:Configuration" name="Form G" description="">
+    <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.form.generator.alfresco.enterprise346.FormGenerator346e" id="com.bluexml.side.Form.generator.alfresco346E" metaModelName="KSR400 Form" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Form.generator.alfresco.enterprise346E" id_metamodel="http://www.kerblue.org/form/1.0" generatorName="Alfresco Share Forms Generator">
+      <options key="generator.main"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.formExtension346E" versionMin="1.0.35" versionMax="1.0.35" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.sharePortalExtension346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.Inputex" versionMin="1.0.4" versionMax="1.0.4" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.share.autoConnect346E" versionMin="1.0.1" versionMax="1.0.1" moduleType="zip" technologyVersion="alfresco_3.4.6E"/>
+      <moduleContraints moduleId="com.bluexml.side.Framework.alfresco.formProcessor346E" versionMin="1.0.26" versionMax="1.0.26" moduleType="amp" technologyVersion="alfresco_3.4.6E"/>
+    </generatorConfigurations>
+    <parameters key="generation.options.documentation" value="false"/>
+    <parameters key="generation.option.Skip.Validation" value="false"/>
+    <parameters key="generation.options.clean" value="false"/>
+    <parameters key="generation.option.generate" value="true"/>
+    <parameters key="generation.option.complete" value="true"/>
+    <parameters key="generation.option.resolve.dependencies" value="true"/>
+    <parameters key="generation.option.offlineMode" value="false"/>
+    <parameters key="generation.options.logPath" value="/YaMma-EE/build/logs"/>
+    <parameters key="generation.options.destinationPath" value="/YaMma-EE/build/generated"/>
+    <parameters key="CATALINA_HOME" value="/home/pajot-b/opt/mail-management/tomcat" dataType="Directory"/>
+  </elements>
+</app:Application>
