@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+	
+    <title>extjsembedpdf</title>
+    <title-id>page.extjsembedpdf.title</title-id>
+    <description>Embed a pdf object in a page</description>
+    <description-id>page.extjsembedpdf.description</description-id>
+    <template-instance>extjsembedpdf</template-instance>    
+    <authentication>user</authentication>
+        
+</page>
+

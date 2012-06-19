@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>extjsviewform</id>
+   <page-type>extjsviewform</page-type>
+   <title>Formulaire d'affichage ExtJS</title>
+   <title-id>page.extjsviewform.title</title-id>
+   <description>Formulaire d'affichage ExtJS</description>
+   <description-id>page.extjsviewform.description</description-id>
+   <template-instance>extjsviewform</template-instance>
+   <authentication>user</authentication>
+</page>

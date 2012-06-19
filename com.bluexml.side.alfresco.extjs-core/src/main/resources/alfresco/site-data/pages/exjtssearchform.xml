@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>extjssearchform</id>
+   <page-type>extjssearchform</page-type>
+   <title>Formulaire de recherche ExtJS</title>
+   <title-id>page.extjssearchform.title</title-id>
+   <description>Formulaire de recherche ExtJS</description>
+   <description-id>page.extjssearchform.description</description-id>
+   <template-instance>extjssearchform</template-instance>
+   <authentication>user</authentication>
+</page>

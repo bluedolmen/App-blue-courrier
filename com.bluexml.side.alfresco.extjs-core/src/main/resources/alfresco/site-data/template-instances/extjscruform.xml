@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+	
+	<template-type>com/bluexml/extjs/cruform</template-type>
+	
+	<properties>
+		<pageFamily>ExtJS</pageFamily>
+	</properties>
+	
+	<components>
+		<component>
+			<region-id>cruform</region-id>
+			<url>/components/form</url>
+			
+			<properties>
+				<itemKind>type</itemKind>
+				<itemId>{itemId}</itemId>
+				<mode>{mode}</mode>
+				<formId>{formId}</formId>
+				<showCaption>{showCaption}</showCaption>
+				<showSubmitButton>{showSubmitButton}</showSubmitButton>
+				<showCancelButton>{showCancelButton}</showCancelButton>
+				<single>{single}</single>
+			</properties>
+			
+		</component>
+	</components>
+	   
+</template-instance>

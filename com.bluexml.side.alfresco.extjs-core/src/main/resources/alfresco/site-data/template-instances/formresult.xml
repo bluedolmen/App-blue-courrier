@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+   <template-type>com/bluexml/extjs/formresult</template-type>
+   <properties>
+      <pageFamily>ExtJS</pageFamily>
+   </properties>   
+</template-instance>
