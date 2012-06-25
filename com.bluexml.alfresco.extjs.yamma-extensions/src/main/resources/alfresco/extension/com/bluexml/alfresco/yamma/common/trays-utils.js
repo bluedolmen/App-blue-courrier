@@ -5,18 +5,16 @@ var TraysUtils = {
 	TRAYS_CONTAINER_TYPE : 'cm:folder',
 	TRAYS_FOLDER_NAME : 'trays',
 	
-	TRAY_CONTAINER_TYPE : 'cm:folder',
+	TRAY_CONTAINER_TYPE : 'yamma-ee:Tray',
 	INBOX_TRAY_NAME : 'inbox',
 	OUTBOX_TRAY_NAME : 'outbox',
 
 	getTray : function(document) {
+		
 		var iterator = document.parent;
 		while (iterator) {
-			var name = iterator.name;
-			if (!name) continue;
-			if (name.indexOf(this.TRAYS_FOLDER_NAME) > -1) return iterator;
-			
-			iterator = iterator.parent;
+			var typeShort = iterator.typeShort;
+			if (this.TRAYS_CONTAINER_TYPE == typeShort) return iterator;			
 		}
 	
 		return null;
@@ -53,7 +51,8 @@ var TraysUtils = {
 		var traysNode = this.getSiteTraysNode(siteNode);
 		if (!traysNode) return [];
 		
-		return traysNode.childAssocs['cm:contains'] || [];		
+		return traysNode.childrenByXPath("*[subtypeOf('" + this.TRAY_CONTAINER_TYPE + "')]") || [];
+		
 	},
 	
 	createSiteTrays : function(siteNode) {
@@ -81,17 +80,24 @@ var TraysUtils = {
 		}
 		
 		function createTrays(traysNode) {
-			if (!traysNode) return;
-			
-			if (!isChildNodeExisting(traysNode, me.INBOX_TRAY_NAME) )
-				traysNode.createNode(me.INBOX_TRAY_NAME, me.TRAY_CONTAINER_TYPE);
-				
-			if (!isChildNodeExisting(traysNode, me.OUTBOX_TRAY_NAME) )
-				traysNode.createNode(me.OUTBOX_TRAY_NAME, me.TRAY_CONTAINER_TYPE);			
+			if (!traysNode) return;			
+			createNonExistingChildNode(traysNode, me.INBOX_TRAY_NAME);
+			createNonExistingChildNode(traysNode, me.OUTBOX_TRAY_NAME);
 		}
 		
-		function isChildNodeExisting(parent, childName) {
-			return parent.childByNamePath(childName);
+		function createNonExistingChildNode(parent, childName) {
+			var childTray = parent.childByNamePath(childName);
+			if (!childTray) {
+				childTray = parent.createNode(childName, me.TRAY_CONTAINER_TYPE);
+			}
+			
+			if (!childTray) return null;
+			if (me.TRAY_CONTAINER_TYPE == childTray.typeShort) return childTray;
+			
+			var isSpecializedCorrectly = childTray.specializeType(me.TRAY_CONTAINER_TYPE);
+			if (!isSpecializedCorrectly) return null;
+			
+			return childTray;
 		}
 	}
 	

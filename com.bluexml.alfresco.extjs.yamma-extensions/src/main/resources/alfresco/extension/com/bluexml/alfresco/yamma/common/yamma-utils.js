@@ -4,6 +4,8 @@ const YAMMA_NS_PREFIX = 'yamma-ee';
 const YAMMA_PREFIX = '';
 const ADMIN_SITE_NAME = 'admin';
 
+const TRAY_TYPE_SHORTNAME = dfn('Tray');
+
 // DOCUMENT TYPE DEFINITION
 const DOCUMENT_TYPE_SHORTNAME = dfn('Document');
 
@@ -55,7 +57,7 @@ const STATUSABLE_STATUS_ASSOCNAME = dfna(STATUSABLE_ASPECT_SHORTNAME, STATUS_LEV
  * Get the declaration full-name based on the composition of the namespace prefix
  * and of the prefix.
  */
-function dfn(shortName) {
+function dfn(shortName, prefix) {
 	return YAMMA_NS_PREFIX + ':' + YAMMA_PREFIX + shortName;
 }
 
