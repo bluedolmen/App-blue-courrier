@@ -17,8 +17,6 @@ Ext.define('Side.alfresco.NodeInterface', {
     		type : 'boolean',
     		convert: function(value, record) {
             	var hasChildren  = record.get('hasChildren');
-            	if (!hasChildren) return false;
-            	
                 return ! hasChildren;
             }
     	}
