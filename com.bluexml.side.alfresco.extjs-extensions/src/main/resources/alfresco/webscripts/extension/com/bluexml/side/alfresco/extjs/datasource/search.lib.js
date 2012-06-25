@@ -75,7 +75,7 @@
 	
 	
 	
-	NodeSearch.prototype.buildLuceneQuery = function (filters) {
+	NodeSearch.prototype.buildLuceneQuery = function (searchParams) {
 	
 		var filterQuery = "";
 		
@@ -88,26 +88,43 @@
 		if (baseSearchType) {			
 			filterQuery += " +TYPE:\"" + baseSearchType + "\"";
 		}
-				
-		filterQuery = this.applyQueryFilters(filterQuery, filters);
+		
+		filterQuery = this.applyFieldFilters(filterQuery, searchParams.fieldFilters, searchParams.query);
+		filterQuery = this.applyQueryFilters(filterQuery, searchParams.filters);
 		filterQuery = this.postProcessQuery(filterQuery);
 		
 		return filterQuery;
 	};
 	
-	NodeSearch.prototype.postProcessQuery = function(query) {
+	NodeSearch.prototype.applyFieldFilters = function(query, fields, value) {
+		var me = this;
 		
-		var searchAdditional = this.datasourceDefinition.getSearchAdditional();
-		if (!searchAdditional) return query;
+		if (!value) return query;
+		value = Utils.trim(value);
+		if (!value || '*' == value) return query;
 		
-		var postProcessQuery = searchAdditional.postProcessQuery;
-		if (!postProcessQuery) return query;
-		if (!(postProcessQuery instanceof Function)) return query;
+		fields = fields || [];
 		
-		var postQuery = postProcessQuery(query);
-		if (!postQuery) return query;
+		var additionalQueryFilter = '';
+		
+		Utils.forEach(fields,
+		
+			function(field) {
+				var fieldDefinition = me.datasourceDefinition.getFieldDefinition(field);
+				if (null == fieldDefinition) return true;
+				
+				if (!fieldDefinition.isNative()) {
+					logger.warn("The field-filtering on field '" + field + "' is not supported since not native to the lucene query.");
+					return true;
+					//throw new Error('UnsupportedOperationException! The field-filtering is only supported on native fields');
+				}
+				
+				additionalQueryFilter += ' ' + Utils.getLuceneAttributeFilter(field, value);
+			}
+			
+		);
 
-		return postQuery;
+		return query + (additionalQueryFilter ? '+(' + additionalQueryFilter + ')' : '');
 		
 	};
 	
@@ -142,7 +159,22 @@
 		return query;
 	};
 	
+	NodeSearch.prototype.postProcessQuery = function(query) {
+		
+		var searchAdditional = this.datasourceDefinition.getSearchAdditional();
+		if (!searchAdditional) return query;
+		
+		var postProcessQuery = searchAdditional.postProcessQuery;
+		if (!postProcessQuery) return query;
+		if (!(postProcessQuery instanceof Function)) return query;
+		
+		var postQuery = postProcessQuery(query);
+		if (!postQuery) return query;
 
+		return postQuery;
+		
+	};
+	
 	
 	/**
 	 * Method that retrieves a list of nodes from Alfresco, based on the given
@@ -219,12 +251,17 @@
 			deferredSortParams = sortConfig.deferredSortParams;
 
 			var alfrescoSearchParameters = null;
+			
 			if (isAdvancedSearch()) {
 				alfrescoSearchParameters = getAdvancedSearchParameters(sortConfig.sortParams);
-			} else if (isSavedSearch()){
+			}
+			
+			else if (isSavedSearch()){
 				alfrescoSearchParameters = getSavedSearchParameters(sortConfig.sortParams);
-			} else {
-				var filterQuery = me.buildLuceneQuery(searchParams.filters);
+			}
+			
+			else {
+				var filterQuery = me.buildLuceneQuery(searchParams);
 				alfrescoSearchParameters = {
 					query : filterQuery,
 					language : 'lucene', // also default
@@ -253,7 +290,7 @@
 		}
 		
 		function isAdvancedSearch() {
-			return (undefined !== searchParams.query || undefined !== searchParams.term);
+			return (undefined !== searchParams.query && !searchParams.fieldFilters) || (undefined !== searchParams.term);
 		}
 		
 		function getAdvancedSearchParameters(sortParams) {
@@ -263,6 +300,7 @@
 			
 			var searchDefinition = getSearchDef({
 				term : term,
+				siteId : null,
 				query : query,
 				tag : null,
 				sort : sortParams

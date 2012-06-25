@@ -147,13 +147,27 @@
 		var type = fieldDefinition.getType();
 		if (undefined === type) return compareStringFunction; 
 
-		// Should provide different comparing function based on the type
+		switch (type) {
+			case 'int':
+				return compareIntFunction;
+			break;
+			
+			case 'string':
+				return compareStringFunction;
+			break;
+		}
+		
+		// Default
 		return compareStringFunction;		
 	}
 
 	function compareStringFunction(valueA, valueB) {
 		return valueA.toString().localeCompare(valueB.toString());
 	}	
+	
+	function compareIntFunction(valueA, valueB) {
+		return (valueB || 0) - (valueA || 0);
+	}
 
 	/**
 	 * This helper function returns a list without duplicates that may exist

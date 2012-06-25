@@ -52,9 +52,25 @@ var ParseArgs = {
 			startIndex : this.getIntParam("start", 0),
 			maxItems : this.getIntParam("maxItems", -1),
 			sort : getSort("group").concat(getSort()), // grouping is also a (prioritary) sort parameter
-			filters : getFilters()
+			filters : getFilters(),
+			fieldFilters : getFieldFilters(),
 			
-		}
+			getMappedFilters : function() {
+				var filters = this.filters || [];
+				var mappedFilters = {};
+				Utils.forEach(filters, function(filter) {
+					mappedFilters[filter.property] = filter.value;
+				});
+				return mappedFilters;
+			},
+			
+			getFilterValue : function(filterName) {
+				
+				var mappedFilters = this.getMappedFilters();
+				return mappedFilters[filterName] || null;
+				
+			}
+		};
 		
 		var query = args['query'];
 		if (null != query) {
@@ -125,6 +141,26 @@ var ParseArgs = {
 			);
 			
 			return result.slice(result.length - 1); // Only keep the last sorting parameter
+		}
+		
+		function getFieldFilters() {
+			
+			var fieldsParam = args["fields"];
+			if (null == fieldsParam) return null;
+
+			if (fieldsParam.indexOf('[') == 0) {
+				
+				if (fieldsParam.indexOf('function') > 0 || fieldsParam.indexOf('()') > 0) {
+					throw new Error('IllegalStateException! The provided fieldsParam cannot contain any function definition or call.');
+				}
+				
+				var fieldFilters = eval(fieldsParam);
+				return fieldFilters;
+				
+			} else {
+				throw new Error('IllegalStateException! The provided filterParam is not supported anymore, you may use the array form instead.')
+			}
+			
 		}
 		
 		function getFilters() {

@@ -35,19 +35,31 @@ function buildData(datasourceDefinition, params) {
 
 function buildNodeList(datasourceDefinition, params) {
 	
-	// The list of nodes is provided explicitely by a function 
-	var searchAdditional = datasourceDefinition.getSearchAdditional();
-	if (searchAdditional.listnodes) {
-		return listnodes.call(datasourceDefinition);
+	var result = buildExplicitNodeList(datasourceDefinition, params);
+	if (!result) {
+		// Search the matching list of nodes by using search
+		var nodeSearch = new NodeSearch(datasourceDefinition);
+		result = nodeSearch.searchNodes(params);
 	}
 	
-	// Search the matching list of nodes by using search
-	var nodeSearch = new NodeSearch(datasourceDefinition);
-	var result = nodeSearch.searchNodes(params);
-
 	return result;
-	
 }
+
+function buildExplicitNodeList(datasourceDefinition, params) {
+	// The list of nodes is provided explicitely by a function 
+	var searchAdditional = datasourceDefinition.getSearchAdditional();
+	var listnodes = searchAdditional.listnodes;
+	if (!listnodes) return null;
+		
+	var nodes = listnodes.call(datasourceDefinition, params);
+	var result = {
+		nodes : nodes, 
+		count : nodes.length
+	};
+	NodeSearch.PagingHelper.slice(result, 1, -1);
+	return result;
+}
+
 
 // AGGREGATION DEFINITIONS
 
