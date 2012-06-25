@@ -39,7 +39,7 @@ Ext.define('Yamma.view.MainView',{
 					region : 'center'
 				},
 				{
-					xtype : 'mailreferences',
+					xtype : 'referencesview',
 //					padding : '0 0 0 2',
 					frame : true,
 					region : 'east',
