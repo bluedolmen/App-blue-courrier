@@ -23,10 +23,10 @@
 			var siteName = site.name;
 			logger.log("Checking site '" + siteName + "' for trays structure...");
 			
-			var trays = TraysUtils.getSiteTraysNode(site);
-			if (trays) return;
-			
-			logger.log('Missing trays. Creating them.');
+//			var trays = TraysUtils.getSiteTraysNode(site);
+//			if (trays) return;
+//			
+//			logger.log('Missing trays. Creating them.');
 			TraysUtils.createSiteTrays(site);
 			
 		});	
