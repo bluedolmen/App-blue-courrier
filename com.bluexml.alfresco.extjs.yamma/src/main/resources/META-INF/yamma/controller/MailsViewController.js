@@ -10,6 +10,11 @@ Ext.define('Yamma.controller.MailsViewController', {
 	    {
 	    	ref : 'displayView',
 	    	selector : 'displayview'
+	    },
+	    
+	    {
+	    	ref : 'referencesView',
+	    	selector : 'referencesview'
 	    }
 	],
 	
@@ -46,10 +51,35 @@ Ext.define('Yamma.controller.MailsViewController', {
 		var mimetype = record.get('mimetype');
 		var title = record.get('cm:title') || record.get('cm:name') || 'preview';
 		
+		this.displayAttachedFiles(nodeRef);
 		this.displayEditForm(nodeRef, typeShort);
 		this.displayPreview(nodeRef, title, mimetype);
 	},
 	
+	displayAttachedFiles : function(nodeRef) {
+		
+		var referencesView = this.getReferencesView();
+		if (!referencesView) return;
+		
+		var state = referencesView.getState();
+		if (!state) return;
+		
+		var hasAttachedFiles = this.hasAttachedFiles(nodeRef);
+		if (state.collapsed && hasAttachedFiles) {
+			referencesView.collapse(Ext.Component.DIRECTION_LEFT);
+			return;
+		}
+		
+		if (!state.collapsed && !hasAttachedFiles) {
+			referencesView.collapse(Ext.Component.DIRECTION_RIGHT);
+			return;			
+		}
+		
+	},
+	
+	hasAttachedFiles : function(nodeRef) {
+		return false;
+	},
 	
 	displayEditForm : function(nodeRef, typeShort) {
 		

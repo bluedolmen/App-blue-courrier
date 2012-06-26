@@ -45,10 +45,13 @@ Ext.define('Yamma.view.MainView',{
 					region : 'east',
 					headerPosition : 'right',
 					width : '35%',
-					collapsed : true,
-					collapsible : true
+					collapsed : false,
+					collapsible : true,
+					animCollapse : true
+					
 				}
-			]
+			]			
+			
 		},
 		
 		{
@@ -73,7 +76,9 @@ Ext.define('Yamma.view.MainView',{
 					region : 'east',
 //					padding : '0 0 0 2',					
 					headerPosition : 'right',
-					width : '35%'
+					width : '35%',
+					frame : true
+
 				}
 			]
 			
