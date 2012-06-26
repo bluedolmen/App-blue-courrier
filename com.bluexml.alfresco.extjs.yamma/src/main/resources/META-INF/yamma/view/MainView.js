@@ -26,7 +26,6 @@ Ext.define('Yamma.view.MainView',{
 			
 			border : false,
 			height : '30%',
-//			margin : '0 0 4 0',	
 			
 			defaults : {
 				split : true
@@ -35,12 +34,10 @@ Ext.define('Yamma.view.MainView',{
 			items : [
 				{
 					xtype : 'mailsview',
-//					padding : '0 2 0 0',
 					region : 'center'
 				},
 				{
 					xtype : 'referencesview',
-//					padding : '0 0 0 2',
 					frame : true,
 					region : 'east',
 					headerPosition : 'right',
@@ -67,14 +64,12 @@ Ext.define('Yamma.view.MainView',{
 				{
 					xtype : 'displayview',
 					region : 'center',
-//					padding : '0 2 0 0',
 					title : '',
 					headerPosition : 'right'
 				},
 				{
 					xtype : 'editdocumentview',
 					region : 'east',
-//					padding : '0 0 0 2',					
 					headerPosition : 'right',
 					width : '35%',
 					frame : true
