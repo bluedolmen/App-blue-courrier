@@ -26,7 +26,7 @@ Ext.define('Yamma.view.MailsView', {
 	DISTRIBUTE_ACTION_ICON : Yamma.Constants.getIconDefinition('email_go'),
 	DISTRIBUTE_ACTION_WS_URL : 'alfresco://bluexml/yamma/distribute',
 	
-	title : 'Courriers',
+	title : 'Courrier',
 	
 	nextDocument : function() {
 		
