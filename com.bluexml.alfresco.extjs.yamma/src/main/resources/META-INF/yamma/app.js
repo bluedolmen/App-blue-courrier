@@ -54,7 +54,9 @@ Ext.application(
 		controllers : [
 			'menus.MainMenuController',
 			'MailsViewController',
-			'EditDocumentViewController'
+			'EditDocumentViewController',
+			'ReferencesViewController',
+			'DisplayViewController'
 		],
 		
 		autoCreateViewport : true,
