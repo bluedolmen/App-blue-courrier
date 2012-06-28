@@ -19,6 +19,7 @@ Ext.define('Yamma.view.MailsView', {
 	
 	ASSIGNED_SERVICE_LABEL : 'Service',
 	ASSIGNED_SERVICE_QNAME : 'yamma-ee:Assignable_service',
+	ASSIGNED_SERVICE_ISDELIVERED_QNAME : 'yamma-ee:Assignable_service_isDelivered',
 	
 	DELIVERY_DATE_LABEL : 'Date dépôt',
 	DELIVERY_DATE_QNAME : 'yamma-ee:Mail_deliveryDate',
@@ -213,7 +214,9 @@ Ext.define('Yamma.view.MailsView', {
 			
 		function canLaunchActionOnDocument(record) {
 			var documentAssignedService = record.get(me.ASSIGNED_SERVICE_QNAME);
-			return documentAssignedService;
+			var isDocumentDelivered = record.get(me.ASSIGNED_SERVICE_ISDELIVERED_QNAME);
+			
+			return (documentAssignedService && !isDocumentDelivered);
 		}
 	},
 	
