@@ -58,7 +58,13 @@
 		var filteredSiteNodes = Utils.filter(sitesNode.children, function(siteNode) {
 			return !YammaUtils.isAdminSite(siteNode);
 		});
-		return getChildrenDescription(filteredSiteNodes);
+		return getChildrenDescription(
+			filteredSiteNodes,
+			{},
+			getSelectNodeDescendantNumberFunction(
+				".//*[subtypeOf('" + TRAY_TYPE_SHORTNAME + "')]//*[subtypeOf('" + DOCUMENT_TYPE_SHORTNAME + "')]"
+			)			
+		);
 	}
 	
 	function getSiteTraysChildren() {
@@ -68,10 +74,12 @@
 			{
 				type : 'tray',
 				hasChildren : false
-			}
+			},
+			getSelectNodeDescendantNumberFunction(
+				".//*[subtypeOf('" + DOCUMENT_TYPE_SHORTNAME + "')]"
+			)			
 		);
 	}
-	
 	
 	function getDocumentLibraryChildren() {
 		var documentLibraryNode = treeNode.childByNamePath('documentLibrary');
@@ -80,14 +88,34 @@
 		return getChildrenDescription(documentLibraryNode.children);
 	}
 	
+	function getSelectNodeDescendantNumberFunction(query) {
+		
+		if (!query)
+			throw "IllegalStateException! The provided xpath-like expression cannot be undefined nor null";
+		
+		return function(rootNode) {
+			if (!rootNode) return 0;
+			var matchingNodes = rootNode.childrenByXPath(query) || [];
+			
+			return matchingNodes.length;			
+		}		
+		
+	}
+	
 	function getAllChildren() {
 		return getChildrenDescription(treeNode.children);
 	}
 	
-	function getChildrenDescription(children, config) {
+	function getChildrenDescription(children, overrideConfig, countFunction) {
+		overrideConfig = overrideConfig || {};
+		
 		return Utils.map( children,
 			function(child) {
-				return getChildDescription(child, config);
+				var count = countFunction ? countFunction(child) : null;
+				if (null != count) {
+					overrideConfig.count = count;
+				}
+				return getChildDescription(child, overrideConfig);
 			}
 		);		
 	}

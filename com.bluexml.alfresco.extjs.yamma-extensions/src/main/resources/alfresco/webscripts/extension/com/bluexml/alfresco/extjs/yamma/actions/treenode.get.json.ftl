@@ -1,3 +1,4 @@
+<#import "/com/bluexml/side/alfresco/extjs/datasource/item.lib.ftl" as itemLib />
 <#escape x as jsonUtils.encodeJSONString(x)>
 {
 	"totalChildren": ${totalChildren?c},
@@ -5,12 +6,7 @@
 	"itemCount" : ${itemCount?c},
 	"children": [
 	<#list children as child>
-		{
-			"type" : "${child.type}",
-			"title" : "${child.title}",
-			"ref" : "${child.ref}",
-			"hasChildren" : ${child.hasChildren?string}
-		}<#if child_has_next>,</#if>
+		<@itemLib.renderObject child /><#if child_has_next>,</#if>
 	</#list>
 	]
 }
