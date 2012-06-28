@@ -42,5 +42,30 @@
 		</property>
 		
 	</bean>
+
+
+	<bean id="onCreateMailNode" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateNode</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.alfresco.org/model/content/1.0}content</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>alfresco/extension/com/bluexml/alfresco/yamma/policies/onCreateTrayContent.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		
+	</bean>
 				
 </beans>
