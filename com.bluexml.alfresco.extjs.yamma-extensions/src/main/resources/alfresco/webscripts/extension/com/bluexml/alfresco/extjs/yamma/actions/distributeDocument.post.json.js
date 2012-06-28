@@ -7,7 +7,6 @@
 
 	// PRIVATE
 	var documentNode;
-	var assignedServiceTray;
 	
 	// MAIN LOGIC
 	
@@ -27,32 +26,58 @@
 	
 	function main() {
 		
-		assignedServiceTray = getAssignedServiceTray(TraysUtils.INBOX_TRAY_NAME);
+		var assignedServiceTray = moveDocument();
+		var copiedDocuments = copyDocument();
+		
+		setModel(assignedServiceTray, copiedDocuments);
+	}	
+
+	/**
+	 * Move the document in the selected service tray
+	 * @returns the tray-node in which the document was moved
+	 */
+	function moveDocument() {
+		
+		var assignedServiceNode = YammaUtils.getAssignedService(documentNode);
+		var assignedServiceName = assignedServiceNode.name;
+		var assignedServiceTray = getServiceTray(assignedServiceName, TraysUtils.INBOX_TRAY_NAME);		
 		if (!assignedServiceTray) return;
 		
-		moveDocument();
-	}
-	
-	function getAssignedServiceTray(trayName) {
-		
-		var assignedServiceNodes = documentNode.assocs[ASSIGNABLE_SERVICE_ASSOCNAME];
-		if (!assignedServiceNodes) return null;
-		if (0 == assignedServiceNodes.length) return null;
-		
-		var assignedServiceNode = assignedServiceNodes[0];
-		var assignedServiceName = assignedServiceNode.name;
-		if (!assignedServiceName) {
-			logger.warn('Assigned service to document with nodeRef ' + documentNode.nodeRef + ' is null or empty');
-			return null;
+		if (!documentNode.move(assignedServiceTray)) {
+			logger.warn('Cannot move the document ' + documentNode + ' to the new tray ' + assignedServiceTray);
 		}
 		
-		var siteNode = getSiteNodeFromSiteLabel(assignedServiceName); 		
+		return assignedServiceTray;
+	}
+	
+	function copyDocument() {
+		
+		var distributedServiceNodes = YammaUtils.getDistributedServices(documentNode);
+		var distributedServiceTrays = Utils.map(distributedServiceNodes, function(distributedServiceNode) {
+			var distributedServiceName = distributedServiceNode.name;
+			return getServiceTray(distributedServiceName, TraysUtils.INBOX_TRAY_NAME);
+		});
+		
+		var copiedFiles = Utils.map(distributedServiceTrays, function(tray) {
+			return documentNode.copy(tray);
+		});
+		
+		return copiedFiles;
+		
+	}	
+	
+	function getServiceTray(serviceName, trayName) {
+		
+		if (!serviceName) return null;
+		
+		var siteNode = getSiteNodeFromSiteLabel(serviceName); 		
 		if (!siteNode) {
-			logger.warn('Assigned service to document with nodeRef ' + documentNode.nodeRef + ' is set to an invalid service (no matching site): ' + assignedServiceName);
+			logger.warn('Service assigned to document with nodeRef ' + documentNode.nodeRef + ' is set to an invalid service (no matching site): ' + serviceName);
 			return null;			
 		}
 		
 		return TraysUtils.getSiteTray(siteNode, trayName);
+		
 	}
 	
 	function getSiteNodeFromSiteLabel(siteLabel) {
@@ -65,17 +90,11 @@
 		
 		return null;
 	}
-
-	function moveDocument() {
-		
-		if (!documentNode.move(assignedServiceTray)) {
-			logger.warn('Cannot move the document ' + documentNode + ' to the new tray ' + assignedServiceTray);
-		}
-		
-	}
 	
-	function setModel(childrenDescription) {
-		model.targetTrayNodeRef = '' + assignedServiceTray.nodeRef;
+	
+	function setModel(tray, newCopiedDocuments) {
+		model.targetTrayNodeRef = '' + tray.nodeRef;
+		model.newCopiedDocuments = newCopiedDocuments || []; 
 	}
 	
 	

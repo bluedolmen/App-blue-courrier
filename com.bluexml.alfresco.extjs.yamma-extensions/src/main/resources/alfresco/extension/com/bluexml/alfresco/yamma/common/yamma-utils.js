@@ -116,7 +116,48 @@ var YammaUtils = {
 		if (!siteName) return false;
 		
 		return (ADMIN_SITE_NAME == siteName);
-	}	
+	},
+	
+	isMailDelivered : function(mailNode) {
+		
+		if (!this.isDocumentNode(mailNode))
+			throw new Error('IllegalArgumentException! The provided node is not of the correct type');
+		
+		var enclosingSite = this.getSite(mailNode);
+		if (!enclosingSite) return false;
+		
+		var enclosingSiteName = enclosingSite.name;
+			
+		var assignedService = this.getAssignedService(mailNode); 
+		if (!assignedService) return false;		
+		
+		var assignedServiceName = assignedService.name;
+		if (!assignedServiceName) return false;
+		
+		return Utils.asString(enclosingSiteName) == Utils.asString(assignedServiceName); // Stirng Object-s
+	},
+	
+	getAssignedService : function(node) {
+		if (!this.isDocumentNode(node))
+			throw new Error('IllegalArgumentException! The provided node is not of the correct type');
+		
+		var assignedService = node.assocs[ASSIGNABLE_SERVICE_ASSOCNAME];
+		if (!assignedService || 0 == assignedService.length ) return null;
+		
+		var firstAssignedService = assignedService[0];
+		return firstAssignedService;
+	},
+	
+	getDistributedServices : function(node) {
+		if (!this.isDocumentNode(node))
+			throw new Error('IllegalArgumentException! The provided node is not of the correct type');
+		
+		return node.assocs[DISTRIBUTABLE_SERVICES_ASSOCNAME] || [];
+	},
+	
+	isDocumentNode : function(node) {
+		return node && ('undefined' != typeof node.isSubType) && node.isSubType(DOCUMENT_TYPE_SHORTNAME);
+	}
 	
 	
 };
