@@ -60,6 +60,14 @@
 				},
 				
 				{
+					name : YAMMA_NS_PREFIX + ':Assignable_service_isDelivered',
+					type : 'boolean',
+					evaluate : function(node) {
+						return YammaUtils.isMailDelivered(node);
+					}
+				},
+				
+				{
 					name : YAMMA_NS_PREFIX + ':Distributable_services',
 					type : 'string',
 					evaluate : function(node) {
