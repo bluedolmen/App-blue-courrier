@@ -4,10 +4,13 @@ var TraysUtils = {
 	
 	TRAYS_CONTAINER_TYPE : 'cm:folder',
 	TRAYS_FOLDER_NAME : 'trays',
+	TRAYS_FOLDER_TITLE : 'Bannettes',
 	
 	TRAY_CONTAINER_TYPE : 'yamma-ee:Tray',
 	INBOX_TRAY_NAME : 'inbox',
+	INBOX_TRAY_TITLE : 'Arrivée',
 	OUTBOX_TRAY_NAME : 'outbox',
+	OUTBOX_TRAY_TITLE : 'Départ',
 
 	getTray : function(document) {
 		
@@ -55,6 +58,13 @@ var TraysUtils = {
 		
 	},
 	
+	/**
+	 * Create site trays in a given site.
+	 * <p>
+	 * Also adapt the existing structure if one (partially) exists.
+	 * 
+	 * @param {The site-node} siteNode
+	 */
 	createSiteTrays : function(siteNode) {
 		
 		if (!siteNode) return;
@@ -76,24 +86,31 @@ var TraysUtils = {
 				return null;
 			}
 			
-			return traysParentNode.createNode(me.TRAYS_FOLDER_NAME, me.TRAYS_CONTAINER_TYPE);
+			return traysParentNode.createNode(me.TRAYS_FOLDER_NAME, me.TRAYS_CONTAINER_TYPE, {'cm:title' : me.TRAYS_FOLDER_TITLE});
 		}
 		
 		function createTrays(traysNode) {
 			if (!traysNode) return;			
-			createNonExistingChildNode(traysNode, me.INBOX_TRAY_NAME);
-			createNonExistingChildNode(traysNode, me.OUTBOX_TRAY_NAME);
+			createNonExistingChildNode(traysNode, me.INBOX_TRAY_NAME, me.INBOX_TRAY_TITLE);
+			createNonExistingChildNode(traysNode, me.OUTBOX_TRAY_NAME, me.OUTBOX_TRAY_TITLE);
 		}
 		
-		function createNonExistingChildNode(parent, childName) {
+		function createNonExistingChildNode(parent, childName, childTitle) {
 			var childTray = parent.childByNamePath(childName);
 			if (!childTray) {
-				childTray = parent.createNode(childName, me.TRAY_CONTAINER_TYPE);
+				childTray = parent.createNode(childName, me.TRAY_CONTAINER_TYPE, {'cm:title' : childTitle});
+			}
+			if (!childTray) return null;
+			
+			// Check title
+			var title = childTray.properties['cm:title'];
+			if (!title || childTitle != title) {
+				childTray.properties['cm:title'] = childTitle;
+				childTray.save();
 			}
 			
-			if (!childTray) return null;
+			// Check container-type
 			if (me.TRAY_CONTAINER_TYPE == childTray.typeShort) return childTray;
-			
 			var isSpecializedCorrectly = childTray.specializeType(me.TRAY_CONTAINER_TYPE);
 			if (!isSpecializedCorrectly) return null;
 			
