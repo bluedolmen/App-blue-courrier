@@ -3,6 +3,8 @@
 
 (function() {
 	
+	const ASSIGNABLE_SITE_CONTAINER_TITLE = 'Services destinataires';
+	
 	main();
 	
 	function main() {
@@ -49,7 +51,13 @@
 			if (site) continue;
 			// create site-name data-list item
 			logger.log("Site '" + siteName + "' does not exist in Site data-list. Creating it.");
-			siteDataListContainer.createNode(siteName, ASSIGNABLE_SITE_TYPE_SHORTNAME);			
+			
+          	var actualSite = siteService.getSite(siteName);
+			var properties = {
+				'cm:title' : actualSite ? actualSite.title : siteName
+			};
+			
+			siteDataListContainer.createNode(siteName, ASSIGNABLE_SITE_TYPE_SHORTNAME, properties);			
 		}
 		
 	}
@@ -69,9 +77,9 @@
 		var dataListsContainer = adminSite.childByNamePath('dataLists');
 		if (!dataListsContainer) return null;
 		
-		var dataListName = localName(ASSIGNABLE_SITE_TYPE_SHORTNAME);
+		//var dataListName = localName(ASSIGNABLE_SITE_TYPE_SHORTNAME);
 		var dataListProperties = {
-			'cm:title' : dataListName,
+			'cm:title' : ASSIGNABLE_SITE_CONTAINER_TITLE,
 			'dl:dataListItemType' : ASSIGNABLE_SITE_TYPE_SHORTNAME
 		};
 		var dataListContainer = dataListsContainer.createNode(null, 'dl:dataList', dataListProperties);
@@ -103,4 +111,3 @@
 	
 	
 })();
-
