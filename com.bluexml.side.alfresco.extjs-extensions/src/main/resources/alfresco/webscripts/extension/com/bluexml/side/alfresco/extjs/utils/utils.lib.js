@@ -113,6 +113,15 @@
 		return array;
     };
     
+    Utils.wrapAsList = function(element) {
+    	
+    	if (Utils.isArray(element)) return element;
+    	if (null == element) return [];
+    	
+    	return [element];
+    	
+    };
+    
     Utils.ArrayToMap = function(array, keyFunction) {
     	
     	if (!array) return {};
