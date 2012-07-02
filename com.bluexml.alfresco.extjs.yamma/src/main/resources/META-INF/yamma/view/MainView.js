@@ -41,7 +41,7 @@ Ext.define('Yamma.view.MainView',{
 					frame : true,
 					region : 'east',
 					headerPosition : 'right',
-					width : '35%',
+					width : '33%',
 					collapsed : false,
 					collapsible : true,
 					animCollapse : true
@@ -71,7 +71,7 @@ Ext.define('Yamma.view.MainView',{
 					xtype : 'editdocumentview',
 					region : 'east',
 					headerPosition : 'right',
-					width : '35%',
+					width : '33%',
 					frame : true
 
 				}
