@@ -3,22 +3,47 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	extend : 'Ext.ux.ManagedIframe.Component',
 	alias : 'widget.formframe',
 	
-	config : {
-		autoLoad : false,
+	autoLoad : false,
+	
+	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'standaloneform',
+	
+	formConfig : {
+		
+		itemKind : 'node',
 		itemId : null,
-		nodeRef : null,
+		mode : null,
+		submitType : null,
+		showCaption : true,
+		showCancelButton : true,
+		editInline : null,
+		googleEditable : null,
+		
+		mimeType : null,
 		destination : null,
 		redirect : '/share/page/formresult',
-		site : ''
+		formId : null,
+		css : null,
+		js : null,
+		
+		site : null
+		
 	},
 	
 	constructor : function(config) {
 
-		config = config || {};
-		this.initConfig(config);
+		config = Ext.apply({}, config); // copy config
+		
+		var formConfig = Ext.apply({}, this.defaultFormConfig, this.formConfig);
+		
+		Ext.apply(
+			formConfig,
+			config.formConfig
+		);
+
+		config.formConfig = formConfig;
 		
 		this.callParent([config]);
-	},
+	},	
 	
 	initComponent : function() {
 		
@@ -39,34 +64,36 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	
 	load : function() {
 		
-		var me = this;
-		var url = getCheckedReturnedUrl();
-		url = updateRedirect(url);
-		url = updateSite(url);
+		var url = this.getCheckedUrl();		
 		this.setSrc(url);
 				
-		function getCheckedReturnedUrl() {
-			var itemId = me.getItemId();
-			var url = me.getSourceUrl(itemId);
-			if (null == url) {
-				throw new Error('IllegalStateException! The provided url is not valid (null or undefined)');
-			}
-			return url;
+	},
+	
+	getCheckedUrl : function() {
+		var formConfig = this.getFormConfig();
+		var itemId = formConfig.itemId;
+		if (!itemId) { // TODO: mandatory arguments should be checked generically
+			throw new Error('IllegalStateException! No item id is defined');
 		}
 		
-		function updateRedirect(url) {
-			return url.replace(/\{redirect\}/, me.getRedirect());
-		}
+		var parameters = Ext.Object.toQueryString(formConfig);
+		var url = this.getSourceUrl() + '?' + parameters;
 		
-		function updateSite(url) {
-			return url.replace(/\{site\}/, me.getSite());
-		}
-		
+		return url; // no checking here
 	},
 			
 	getSourceUrl : function() {
-		throw new Error('IllegalStateException! This method has to be overridden by subclasses.');
+		return this.sourceUrl;
 	},
+	
+	getFormConfig : function() {
+		return this.formConfig;
+	},
+	
+	/*
+	 * The following material is related to management of the IFrame content
+	 * to provide an interaction with the parent (ie current) environment.
+	 */
 	
 	getContentDocument : function() {
 		var frameElement = this.getContentTarget();

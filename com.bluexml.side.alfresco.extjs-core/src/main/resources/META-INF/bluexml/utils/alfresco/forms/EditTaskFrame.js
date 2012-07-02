@@ -3,20 +3,10 @@ Ext.define('Bluexml.view.forms.EditTaskFrame',{
 	extend : 'Bluexml.utils.alfresco.forms.FormFrame',
 	alias : 'widget.edittaskframe',
 	
-	statics : {
-		WS_URL : '/share/page/standaloneedittask' + 
-		'?taskId={taskId}' +
-		'&redirect={redirect}'
-	},
-	
-	config : {
+	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'standaloneedittask',
+
+	defaultFormConfig : {
 		taskId : null
-	},
-	
-	constructor : function(config) {
-		config = config || {};
-		this.initConfig(config);
-		this.callParent([config]);
 	},
 	
 	onDocumentLoaded : function(component, frameElement) {
@@ -50,18 +40,6 @@ Ext.define('Bluexml.view.forms.EditTaskFrame',{
 			return false; // stop iteration
 		});
 		
-	},
-	
-	getSourceUrl : function() {
-		
-		var taskId = this.getTaskId();
-		if (!taskId) throw new Error('IllegalStateException! The taskId must be defined');
-		
-		var url = 
-			Bluexml.view.forms.EditTaskFrame.WS_URL
-				.replace(/\{taskId\}/, taskId);
-				
-		return url;
 	},
 	
 	onContentDocumentSubmitButtonClicked : function(event, button, eOpts) {

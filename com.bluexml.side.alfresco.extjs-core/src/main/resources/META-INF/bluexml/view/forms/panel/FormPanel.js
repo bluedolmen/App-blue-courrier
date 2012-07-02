@@ -13,6 +13,24 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 		
 	},
 	
+	loadNode : function(nodeRef, extraConfig) {
+		
+		var formConfig = Ext.apply(
+			{
+				itemId : nodeRef
+			},
+			extraConfig ? extraConfig.formConfig : null
+		);
+		
+		this.load(Ext.applyIf(
+			{
+				formConfig : formConfig
+			},
+			extraConfig
+		));
+		
+	},
+	
 	load : function(config) {
 		
 		var me = this;
