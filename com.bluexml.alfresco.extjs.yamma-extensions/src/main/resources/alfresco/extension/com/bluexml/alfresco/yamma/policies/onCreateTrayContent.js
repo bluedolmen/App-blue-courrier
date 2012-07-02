@@ -1,5 +1,5 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/utils.lib.js">
-///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-utils.js">
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 
 (function() {
 	
@@ -41,14 +41,14 @@
 	}
 
 	function specializeDocumentType() {
-		document.specializeType(MAIL_TYPE_SHORTNAME);
+		document.specializeType(YammaModel.MAIL_TYPE_SHORTNAME);
 	}
 
 	function initializeDates() {
 		var NOW = new Date();
-		document.properties[MAIL_STAMP_DATE_PROPNAME] = NOW;
-		document.properties[MAIL_DELIVERY_DATE_PROPNAME] = NOW;
-		document.properties[MAIL_WRITING_DATE_PROPNAME] = NOW;
+		document.properties[YammaModel.MAIL_STAMP_DATE_PROPNAME] = NOW;
+		document.properties[YammaModel.MAIL_DELIVERY_DATE_PROPNAME] = NOW;
+		document.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME] = NOW;
 		document.save();
 	}
 	
@@ -58,7 +58,7 @@
 			logger.warn('[onCreateTrayContent] Cannot get the parent of the new created node.');
 			return false;
 		}
-		return (parent.typeShort && TRAY_TYPE_SHORTNAME == parent.typeShort);
+		return (parent.typeShort && YammaModel.TRAY_TYPE_SHORTNAME == parent.typeShort);
 	}	
 	
 })();

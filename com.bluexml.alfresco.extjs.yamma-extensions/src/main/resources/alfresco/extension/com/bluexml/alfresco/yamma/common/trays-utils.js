@@ -6,7 +6,8 @@ var TraysUtils = {
 	TRAYS_FOLDER_NAME : 'trays',
 	TRAYS_FOLDER_TITLE : 'Bannettes',
 	
-	TRAY_CONTAINER_TYPE : 'yamma-ee:Tray',
+	TRAY_CONTAINER_TYPE : YammaModel.TRAY_TYPE_SHORTNAME,
+	// TODO: Should define I18N mechanism
 	INBOX_TRAY_NAME : 'inbox',
 	INBOX_TRAY_TITLE : 'Arrivée',
 	OUTBOX_TRAY_NAME : 'outbox',

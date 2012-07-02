@@ -15,7 +15,7 @@
 		{
 			
 			baseSearchPath : 'app:company_home/st:sites/cm:{site}/cm:documentLibrary/cm:' + TraysUtils.TRAYS_FOLDER_NAME + '/cm:{tray}/*',
-			baseSearchType : DOCUMENT_TYPE_SHORTNAME,
+			baseSearchType : YammaModel.DOCUMENT_TYPE_SHORTNAME,
 			
 			searchAdditional : {
 				
@@ -47,20 +47,20 @@
 				'@typeShort',
 				'@mimetype',
 				'@nodeRef',
-				COMMENTABLE_COMMENT_PROPNAME,
-				DIGITIZABLE_DIGITIZED_DATE_PROPNAME,
-				REFERENCEABLE_REFERENCE_PROPNAME,
+				YammaModel.COMMENTABLE_COMMENT_PROPNAME,
+				YammaModel.DIGITIZABLE_DIGITIZED_DATE_PROPNAME,
+				YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,
 				
 				{
-					name : YAMMA_NS_PREFIX + ':Assignable_service',
+					name : YammaModel.YAMMA_NS_PREFIX + ':Assignable_service',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, ASSIGNABLE_SERVICE_ASSOCNAME, titleOrName, true)
+						return this.evaluateAssocProperty(node, YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME, titleOrName, true)
 					}
 				},
 				
 				{
-					name : YAMMA_NS_PREFIX + ':Assignable_service_isDelivered',
+					name : YammaModel.YAMMA_NS_PREFIX + ':Assignable_service_isDelivered',
 					type : 'boolean',
 					evaluate : function(node) {
 						return YammaUtils.isMailDelivered(node);
@@ -68,34 +68,34 @@
 				},
 				
 				{
-					name : YAMMA_NS_PREFIX + ':Distributable_services',
+					name : YammaModel.YAMMA_NS_PREFIX + ':Distributable_services',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, DISTRIBUTABLE_SERVICES_ASSOCNAME, titleOrName);
+						return this.evaluateAssocProperty(node, YammaModel.DISTRIBUTABLE_SERVICES_ASSOCNAME, titleOrName);
 					}
 				},
 				
 				{
-					name : YAMMA_NS_PREFIX + ':Prioritizable_delay',
+					name : YammaModel.YAMMA_NS_PREFIX + ':Prioritizable_delay',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, PRIORITIZABLE_DELAY_ASSOCNAME, 'cm:name', true);
+						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_DELAY_ASSOCNAME, 'cm:name', true);
 					}
 				},
 				
 				{
-					name : YAMMA_NS_PREFIX + ':Privacy_level',
+					name : YammaModel.YAMMA_NS_PREFIX + ':Privacy_level',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, PRIVACY_PRIVACY_LEVEL_ASSOCNAME, 'cm:name', true);
+						return this.evaluateAssocProperty(node, YammaModel.PRIVACY_PRIVACY_LEVEL_ASSOCNAME, 'cm:name', true);
 					}
 				},
 				
 				{
-					name : YAMMA_NS_PREFIX + ':Statusable_status',
+					name : YammaModel.YAMMA_NS_PREFIX + ':Statusable_status',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, STATUSABLE_STATUS_ASSOCNAME, 'cm:name', true);
+						return this.evaluateAssocProperty(node, YammaModel.STATUSABLE_STATUS_ASSOCNAME, 'cm:name', true);
 					}
 				}
 			

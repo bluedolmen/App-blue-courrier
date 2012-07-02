@@ -1,5 +1,5 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/utils.lib.js">
-///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-utils.js">
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 
 (function() {
 	
@@ -15,7 +15,7 @@
 	function checkDataListExists() {
 		
 		if ('undefined' != typeof sideDictionary) {
-			var type = sideDictionary.getType(ASSIGNABLE_SITE_TYPE_SHORTNAME);
+			var type = sideDictionary.getType(YammaModel.ASSIGNABLE_SITE_TYPE_SHORTNAME);
 			return type;
 		}
 		
@@ -57,7 +57,7 @@
 				'cm:title' : actualSite ? actualSite.title : siteName
 			};
 			
-			siteDataListContainer.createNode(siteName, ASSIGNABLE_SITE_TYPE_SHORTNAME, properties);			
+			siteDataListContainer.createNode(siteName, YammaModel.ASSIGNABLE_SITE_TYPE_SHORTNAME, properties);			
 		}
 		
 	}
@@ -77,10 +77,9 @@
 		var dataListsContainer = adminSite.childByNamePath('dataLists');
 		if (!dataListsContainer) return null;
 		
-		//var dataListName = localName(ASSIGNABLE_SITE_TYPE_SHORTNAME);
 		var dataListProperties = {
 			'cm:title' : ASSIGNABLE_SITE_CONTAINER_TITLE,
-			'dl:dataListItemType' : ASSIGNABLE_SITE_TYPE_SHORTNAME
+			'dl:dataListItemType' : YammaModel.ASSIGNABLE_SITE_TYPE_SHORTNAME
 		};
 		var dataListContainer = dataListsContainer.createNode(null, 'dl:dataList', dataListProperties);
 		
@@ -91,7 +90,7 @@
 		
 		var query = 
 			'+TYPE:"dl\:dataList" +' +
-			Utils.getLuceneAttributeFilter('dl:dataListItemType',ASSIGNABLE_SITE_TYPE_SHORTNAME);
+			Utils.getLuceneAttributeFilter('dl:dataListItemType',YammaModel.ASSIGNABLE_SITE_TYPE_SHORTNAME);
 			
 		return Utils.unwrapList(search.luceneSearch(query));
 		
