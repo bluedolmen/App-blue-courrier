@@ -1,6 +1,7 @@
 (function() {
 	
 	root = this;
+	if (undefined !== Utils) return; // do not redefine if included several times
 	
 	Utils = {};
 	
