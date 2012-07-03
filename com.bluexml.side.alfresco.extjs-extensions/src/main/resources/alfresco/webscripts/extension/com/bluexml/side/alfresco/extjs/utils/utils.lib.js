@@ -1,10 +1,21 @@
 (function() {
 	
+	root = this;
+	
 	Utils = {};
+	
+	Utils.ns = function(ns) {
+	 	var object = root;
+	 	Utils.forEach(ns.split('.'), function(nspart) {
+			if (undefined === object[nspart]) object[nspart] = {};
+			object = object[nspart];
+	 	});
+	 	return object;
+	};
 	
 	Utils.asString = function(object) {
 		return '' + object;
-	}
+	};
 	
 	/**
 	 * Helper method that tests whether the given argument is a javascript Array
