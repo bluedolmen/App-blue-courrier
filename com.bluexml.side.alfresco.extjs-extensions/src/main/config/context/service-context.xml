@@ -26,5 +26,11 @@
 		<property name="dictionaryService" ref="dictionaryService"/>
 		<property name="namespaceService" ref="namespaceService"/>
 	</bean>
+
+	<bean id="sideAuthenticationUtil" parent="baseJavaScriptExtension" class="com.bluexml.side.repo.jscript.AuthenticationUtilScript" >
+		<property name="extensionName">
+			<value>sideAuthenticationUtil</value>
+		</property>
+	</bean>
 	
 </beans>

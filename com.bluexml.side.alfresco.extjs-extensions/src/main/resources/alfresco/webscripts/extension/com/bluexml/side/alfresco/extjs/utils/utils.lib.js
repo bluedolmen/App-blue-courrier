@@ -1,7 +1,7 @@
 (function() {
 	
 	root = this;
-	if (undefined !== Utils) return; // do not redefine if included several times
+	if ('undefined' !== typeof Utils) return; // do not redefine if included several times
 	
 	Utils = {};
 	
@@ -29,6 +29,10 @@
 		return toString.call(object) === '[object Array]';
 		
 	};
+	
+	Utils.isFunction = function(object) {
+		return 'function' === typeof object;
+	}
 
 	/**
 	 * Apply an operation on each element of the given array
@@ -226,7 +230,31 @@
 
         return object;    	
     	
-    }    
+    }
+    
+    Utils.sortNodes = function(array, propertyNameOrFunction, compareFunction) {
+    	
+    	if (!Utils.isArray(array)) {
+    		throw new Error('IllegalArgumentException! The provided array of nodes is not a valid array.');
+    	}
+    	
+    	propertyNameOrFunction = ('undefined' === typeof propertyNameOrFunction ? 'cm:name' : propertyNameOrFunction);
+    	
+    	var compareFunction = compareFunction || 
+    		function(a,b) {
+    			if (a == b) return 0;
+    			a < b ? -1 : 1;
+    		};
+    		
+    	var sortingFunction = Utils.isFunction(propertyNameOrFunction) ? propertyNameOrFunction  :
+    		function(node1, node2) {
+    			var val1 = node1 ? node1.properties[propertyNameOrFunction] : '';
+    			var val2 = node2 ? node2.properties[propertyNameOrFunction] : '';
+    			return compareFunction(val1,val2);
+    		}
+    	
+    	return array.sort(sortingFunction);
+    };
     
     Utils.getPersonDisplayName = function(person) {
     	
@@ -281,6 +309,18 @@
     
     Utils.getCurrentUserName = function() {
     	return Utils.getPersonUserName(person); // Use person global Object defined as the currently authenticated user
-    }    
+    }
+    
+    Utils.getFullyAuthenticatedUserName = function() {
+    	
+    	if ('undefined' == typeof sideAuthenticationUtil) {
+    		logger.warn('Cannt get the sideAuthenticationUtil object to get the actual logged user. Returning current user-name instead.');
+    		return Utils.getCurrentUserName();
+    	}
+    	
+    	var fullyAuthenticatedUser = sideAuthenticationUtil.getFullyAuthenticatedUser();
+    	return Utils.asString(fullyAuthenticatedUser);
+    	
+    }
     
 })();
