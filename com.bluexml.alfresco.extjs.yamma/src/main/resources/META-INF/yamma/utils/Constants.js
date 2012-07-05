@@ -44,6 +44,52 @@ Ext.define('Yamma.utils.Constants', {
 			
 		},
 		
+		this.DOCUMENT_STATE_DEFINITIONS = {
+			
+			'pending' : Ext.apply(
+				{
+					title : 'En attente de routage'
+				}, 
+				this.getIconDefinition('hourglass')
+			),
+			
+			'delivering' : Ext.apply(
+				{
+					title : 'En cours de routage'
+				}, 
+				this.getIconDefinition('lorry')
+			),
+			
+			'processing' : Ext.apply(
+				{
+					title : 'En cours de traitement'
+				}, 
+				this.getIconDefinition('cog_edit')
+			),
+			
+			'validating!delivery' : Ext.apply(
+				{
+					title : 'En attente de validation de routage'
+				}, 
+				this.getIconDefinition('lorry_go')
+			),
+			
+			'validating!processed' : Ext.apply(
+				{
+					title : 'En attente de validation de la réponse'
+				}, 
+				this.getIconDefinition('cog_tick')
+			),
+			
+			'UNKNOWN' : Ext.apply(
+				{
+					title : 'Etat inconnu'
+				}, 
+				this.getIconDefinition('exclamation')
+			)			
+			
+		},
+		
 		this.MIME_TYPE_DEFINITIONS = {
 			
 			'application/pdf' : Ext.apply(

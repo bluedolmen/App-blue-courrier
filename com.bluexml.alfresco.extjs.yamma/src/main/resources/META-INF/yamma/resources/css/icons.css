@@ -1,8 +1,14 @@
+.icon-hourglass {
+    background-image: url(../icons/hourglass.png) !important;
+}
 .icon-report {
     background-image: url(../icons/report.png) !important;
 }
 .icon-page_edit_tick {
     background-image: url(../icons/page_edit_tick.png) !important;
+}
+.icon-lorry {
+    background-image: url(../icons/lorry.png) !important;
 }
 .icon-page_white_picture {
     background-image: url(../icons/page_white_picture.png) !important;
@@ -72,6 +78,9 @@
 }
 .icon-folder_table_house {
     background-image: url(../icons/folder_table_house.png) !important;
+}
+.icon-lorry_go {
+    background-image: url(../icons/lorry_go.png) !important;
 }
 .icon-cog_feed {
     background-image: url(../icons/cog_feed.png) !important;
@@ -204,4 +213,7 @@
 }
 .icon-page_white {
     background-image: url(../icons/page_white.png) !important;
+}
+.icon-exclamation {
+    background-image: url(../icons/exclamation.png) !important;
 }

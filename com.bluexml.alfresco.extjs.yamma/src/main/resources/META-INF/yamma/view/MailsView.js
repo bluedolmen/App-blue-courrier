@@ -4,7 +4,8 @@ Ext.define('Yamma.view.MailsView', {
 	alias : 'widget.mailsview',
 	
 	requires : [
-		'Bluexml.utils.grid.column.Action'
+		'Bluexml.utils.grid.column.Action',
+		'Yamma.view.windows.DocumentHistoryWindow'
 	],
 	
 	storeId : 'Mails',
@@ -23,6 +24,9 @@ Ext.define('Yamma.view.MailsView', {
 	
 	DELIVERY_DATE_LABEL : 'Date dépôt',
 	DELIVERY_DATE_QNAME : 'yamma-ee:Mail_deliveryDate',
+	
+	DOCUMENT_ISCOPY_QNAME : 'yamma-ee:Document_isCopy',
+	STATUSABLE_STATE_QNAME : 'yamma-ee:Statusable_state',
 	
 	DISTRIBUTE_ACTION_ICON : Yamma.Constants.getIconDefinition('email_go'),
 	DISTRIBUTE_ACTION_WS_URL : 'alfresco://bluexml/yamma/distribute',
@@ -74,60 +78,68 @@ Ext.define('Yamma.view.MailsView', {
 			/* Document object */
 			this.getObjectColumnDefinition(),
 			
+			/* State */
+			this.getStateColumnDefinition(),
+			
 			this.getActionsColumnDefinition()
 			
 		
 		];		
 	},	
 	
+	
 	getDocumentTypeColumnDefinition : function() {
+		return this.applyDefaultColumnDefinition (
 		
-		var coldef = this.applyDefaultColumnDefinition (
 			{
-				xtype : 'gridcolumn',
-				plugins : 'columnheaderimage',
-				iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls, 
+				xtype : 'actioncolumn',
 				width : 30,
-				align : 'center',
+				tooltip : 'Type de document', // if the plugin is applied on the containing table
+				plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
 				resizable : false,
-				dataIndex : 'typeShort',
-				renderer : function(value, metadata, record) {
-
-					var typeDefinition =
-						getTypeShortDefinition() ||
-						getMimeTypeDefinition() ||
-						Yamma.Constants.UNKNOWN_TYPE_DEFINITION;					
-					
-					value =  
-						'<img ' + 
-						'alt="' + typeDefinition.title + '" ' +
-						'src="' + typeDefinition.icon + '" ' +
-						'data-qtip="' + typeDefinition.title + '" ' +
-						'/>';
-						
-					return value;
-					
-					function getTypeShortDefinition() {
-						var typeShort = record.get('typeShort');
-						if (!typeShort) return null;
-						
-						return Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort];
-					}
-					
-					function getMimeTypeDefinition() {
-						var mimetype = record.get('mimetype');
-						if (!mimetype) return null;
-						
-						return Yamma.Constants.MIME_TYPE_DEFINITIONS[mimetype];
-					}
-						
-				}
+				menuDisabled : true,
+				sortable : false,
+				
+				items : [
+					this.getDocumentTypeActionDefinition()
+				]
+				
 			}
 		);
-
-		return coldef;
-
 	},
+	
+	getDocumentTypeActionDefinition : function() {
+		
+		return	{
+			
+			getClass : function(value, meta, record) {
+				
+				var typeDefinition =
+					getTypeShortDefinition(record) ||
+					getMimeTypeDefinition(record) ||
+					Yamma.Constants.UNKNOWN_TYPE_DEFINITION;					
+				
+				meta.tdAttr = 'data-qtip="' + typeDefinition.title + '"';
+				return typeDefinition.iconCls + ' ' + 'column-header-img';
+			}
+			
+		};
+		
+		function getTypeShortDefinition(record) {
+			var typeShort = record.get('typeShort');
+			if (!typeShort) return null;
+			
+			return Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort];
+		}
+		
+		function getMimeTypeDefinition(record) {
+			var mimetype = record.get('mimetype');
+			if (!mimetype) return null;
+			
+			return Yamma.Constants.MIME_TYPE_DEFINITIONS[mimetype];
+		}		
+		
+	},	
 	
 	getNameColumnDefinition : function() {
 		var coldef = this.applyDefaultColumnDefinition (
@@ -181,6 +193,55 @@ Ext.define('Yamma.view.MailsView', {
 		
 	},
 	
+	getStateColumnDefinition : function() {
+		return this.applyDefaultColumnDefinition (
+		
+			{
+				xtype : 'actioncolumn',
+				width : 30,
+				tooltip : 'État', // if the plugin is applied on the containing table
+				plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : 'icon-cog'}),
+				resizable : false,
+				menuDisabled : true,
+				sortable : false,
+				
+				items : [
+					this.getShowStateActionDefinition()
+				]
+				
+			}
+		);
+	},
+	
+	getShowStateActionDefinition : function() {
+		
+		var me = this;
+		
+		return	{
+			handler : this.onShowStateDetailsAction,
+			scope : this,
+			getClass : function(value, meta, record) {
+				var documentState = record.get(me.STATUSABLE_STATE_QNAME) || 'UNKNOWN';		
+				var documentStateDef = Yamma.utils.Constants.DOCUMENT_STATE_DEFINITIONS[documentState];
+				
+				meta.tdAttr = 'data-qtip="' + documentStateDef.title + '"';
+				return documentStateDef.iconCls + ' ' + 'column-header-img';
+			}
+		};			
+		
+	},
+	
+	onShowStateDetailsAction : function(grid, rowIndex, colIndex, item, e) {
+		
+		var record = grid.getStore().getAt(rowIndex);
+		var documentNodeRef = this.getDocumentNodeRefRecordValue(record);
+		
+		return Ext.create('Yamma.view.windows.DocumentHistoryWindow', {
+			nodeRef : documentNodeRef 
+		}).show();
+			
+	},
+	
 	getActionsColumnDefinition : function() {
 		
 		return this.applyDefaultColumnDefinition (
@@ -215,14 +276,15 @@ Ext.define('Yamma.view.MailsView', {
 		function canLaunchActionOnDocument(record) {
 			var documentAssignedService = record.get(me.ASSIGNED_SERVICE_QNAME);
 			var isDocumentDelivered = record.get(me.ASSIGNED_SERVICE_ISDELIVERED_QNAME);
+			var isCopy = record.get(me.DOCUMENT_ISCOPY_QNAME);
 			
-			return (documentAssignedService && !isDocumentDelivered);
+			return (documentAssignedService && !isDocumentDelivered && !isCopy);
 		}
 	},
 	
 	onDistributeAction : function(grid, rowIndex, colIndex, item, e) {
 		var record = grid.getStore().getAt(rowIndex);
-		var documentNodeRef = record.get(this.MAIL_NODEREF_QNAME);
+		var documentNodeRef = this.getDocumentNodeRefRecordValue(record);
 		this.distributeDocument(documentNodeRef);
 		
 		return false;
@@ -250,7 +312,10 @@ Ext.define('Yamma.view.MailsView', {
 		);		
 		
 		
-	}
+	},
 	
+	getDocumentNodeRefRecordValue : function(record) {
+		return record.get(this.MAIL_NODEREF_QNAME);	
+	}
 	
 });
