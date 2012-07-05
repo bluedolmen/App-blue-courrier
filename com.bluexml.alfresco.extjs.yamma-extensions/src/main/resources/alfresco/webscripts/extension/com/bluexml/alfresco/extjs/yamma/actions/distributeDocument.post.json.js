@@ -4,9 +4,12 @@
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 
 (function() {
+	
+	const DISTRIBUTION_EVENT_TYPE = 'distribution';
 
 	// PRIVATE
 	var documentNode;
+	var documentContainer;
 	
 	// MAIN LOGIC
 	
@@ -20,46 +23,89 @@
 				message : 'InvalidStateException! The provided nodeRef does not exist in the repository'
 			}
 		}
+		documentContainer = YammaUtils.getDocumentContainer(documentNode);
 		
 		main();
 	});
 	
 	function main() {
 		
-		var assignedServiceTray = moveDocument();
-		var copiedDocuments = copyDocument();
-		
-		setModel(assignedServiceTray, copiedDocuments);
+		var assignedServiceTray = moveDocumentToTray();
+		if (null == assignedServiceTray) {
+			setModel('',[]);
+			return;
+		}
+			
+		var copiedDocuments = copyDocumentToCCTrays();
+		setModel(assignedServiceTray || '', copiedDocuments || []);
 	}	
 
 	/**
 	 * Move the document in the selected service tray
 	 * @returns the tray-node in which the document was moved
 	 */
-	function moveDocument() {
+	function moveDocumentToTray() {
 		
 		var assignedServiceNode = YammaUtils.getAssignedService(documentNode);
 		var assignedServiceName = assignedServiceNode.name;
-		var assignedServiceTray = getServiceTray(assignedServiceName, TraysUtils.INBOX_TRAY_NAME);		
+		var currentTray = TraysUtils.getEnclosingTray(documentNode);
+		var assignedServiceTray = getServiceTray(assignedServiceName, currentTray.name || 'inbox');		
 		if (!assignedServiceTray) return;
 		
-		if (!documentNode.move(assignedServiceTray)) {
-			logger.warn('Cannot move the document ' + documentNode + ' to the new tray ' + assignedServiceTray);
+		var document = documentContainer;
+		if (!documentContainer) {
+			logger.warn('Cannot find the container of document ' + document.nodeRef + '. Using the actual document instead.');
+			document = documentNode;
 		}
+		
+		if (!document.move(assignedServiceTray)) {
+			logger.warn('Cannot move the document ' + document.name + ' to the new tray ' + assignedServiceTray);
+			return null;
+		}
+		
+		updateDocumentState();
+		udpateDocumentHistory(assignedServiceName);
 		
 		return assignedServiceTray;
 	}
 	
-	function copyDocument() {
+	function updateDocumentState() {
+		
+		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = YammaModel.DOCUMENT_STATE_DELIVERING;
+		documentNode.save();
+		
+	}
+	
+	function udpateDocumentHistory(assignedServiceName) {
+		
+		var message = msg.get('distribute.comment', [assignedServiceName]);
+		// set a new history event
+		HistoryUtils.addHistoryEvent(
+			documentNode, 
+			DISTRIBUTION_EVENT_TYPE, /* eventType */
+			message /* comment */
+		);
+		
+	}
+	
+	function copyDocumentToCCTrays() {
 		
 		var distributedServiceNodes = YammaUtils.getDistributedServices(documentNode);
 		var distributedServiceTrays = Utils.map(distributedServiceNodes, function(distributedServiceNode) {
 			var distributedServiceName = distributedServiceNode.name;
-			return getServiceTray(distributedServiceName, TraysUtils.INBOX_TRAY_NAME);
+			return getServiceTray(distributedServiceName, TraysUtils.CCBOX_TRAY_NAME);
 		});
 		
 		var copiedFiles = Utils.map(distributedServiceTrays, function(tray) {
-			return documentNode.copy(tray);
+			var documentCopy = documentNode.copy(tray);
+			if (documentCopy == null) return null;
+			
+			if (documentCopy.addAspect(YammaModel.DOCUMENT_COPY_ASPECT_SHORTNAME)) {
+				//success adding aspect, set the correct link
+				documentCopy.createAssociation(documentNode, YammaModel.DOCUMENT_COPY_ORIGINAL_ASSOCNAME);
+			}
+			
+			return documentCopy;
 		});
 		
 		return copiedFiles;
