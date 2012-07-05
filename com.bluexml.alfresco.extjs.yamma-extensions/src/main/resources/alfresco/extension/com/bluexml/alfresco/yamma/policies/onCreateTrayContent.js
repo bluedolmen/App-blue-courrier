@@ -22,6 +22,7 @@
 		logNewDocument();
 		specializeDocumentType();
 		initializeDates();
+		moveDocumentToContainer();
 	}
 
 	function logNewDocument() {
@@ -29,7 +30,7 @@
 
 		var documentName = document.name;
 
-		var tray = TraysUtils.getTray(document);
+		var tray = TraysUtils.getEnclosingTray(document);
 		if (!tray) return;
 		var trayName = tray.name;
 
@@ -42,6 +43,37 @@
 
 	function specializeDocumentType() {
 		document.specializeType(YammaModel.MAIL_TYPE_SHORTNAME);
+	}
+	
+	function moveDocumentToContainer() {
+		
+		var documentContainer = createContainer();
+		if (!documentContainer) {
+			logger.warn("Cannot create the container for document '" + document.name + "'.");
+			return null;
+		}
+		
+		if (!document.move(documentContainer)) {
+			logger.warn("Cannot move the document '" + document.name + "' to its container.");			
+		}
+	}
+	
+	function createContainer() {
+		
+		var documentName = document.name;
+		if (!documentName) return null;
+		
+		var containerName = documentName + '.container';		
+		var documentParent = document.parent;
+		if (!documentParent) return null;
+		
+		var documentContainer = documentParent.createFolder(containerName, YammaModel.DOCUMENT_CONTAINER_SHORTNAME);
+		if (!documentContainer) return null;
+		
+		documentContainer.createAssociation(document, YammaModel.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME);
+		
+		return documentContainer;
+		
 	}
 
 	function initializeDates() {

@@ -21,12 +21,7 @@
 			if (YammaUtils.isAdminSite(site)) return; // do not create trays in the admin site
 			
 			var siteName = site.name;
-			logger.log("Checking site '" + siteName + "' for trays structure...");
-			
-//			var trays = TraysUtils.getSiteTraysNode(site);
-//			if (trays) return;
-//			
-//			logger.log('Missing trays. Creating them.');
+			logger.log("Checking site '" + siteName + "' for trays structure...");			
 			TraysUtils.createSiteTrays(site);
 			
 		});	
