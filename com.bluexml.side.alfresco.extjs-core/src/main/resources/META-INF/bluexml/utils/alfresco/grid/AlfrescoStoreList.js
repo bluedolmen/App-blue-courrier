@@ -33,12 +33,17 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	plain : true,
 	stateful : true,
 	
+	config : {
+		hasPaging : true
+	},
+	
 	/**
 	 * @private
 	 * @type Boolean
 	 */
 	loaded : false, // custom private use
 	isDirty : false, // custom use
+	
 	
 	initComponent : function() {
 		
@@ -48,6 +53,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		setDockedItems();
 		setGroupingFeature();
 		saveDefaultTitle();
+		setPaging();
 	    this.callParent();
 	    
 	    changeHeaderMenuLabels(); // change sorting labels (french ones)
@@ -79,6 +85,22 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	    function saveDefaultTitle() {
 	    	if (!me.title) return;
 	    	me.defaultTitle = me.title;
+	    }
+	    
+	    function setPaging() {
+	    	if (!me.getHasPaging()) {
+	    		
+				me.storeConfigOptions = Ext.apply(
+					{
+					
+					    pageSize : -1, //no paging
+					    remoteSort : false // sort will be performed locally
+					    
+					},
+					me.storeConfigOptions
+				);
+	    		
+	    	}
 	    }
 	    
 	    function changeHeaderMenuLabels() {
@@ -131,6 +153,8 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
     },
     
     getDockedItemDefinitions : function() {
+    	
+    	if (!this.getHasPaging()) return [];
     	
 		return [
 			{
@@ -207,12 +231,9 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
  		var selection = keepSelection ? this.getSelectionModel().getSelection() : null;
  		
  		var pagingToolbar = this.getPagingToolbar();
- 		if (!pagingToolbar) {
- 			this.load(); // else the load will be performed by a side effect of paging-toolbar refresh
- 			return;
- 		}
+ 		if (pagingToolbar) pagingToolbar.doRefresh(); // using paging-toolbar context to refresh correctly
+ 		else this.load();
  		
- 		pagingToolbar.doRefresh();
  		this.setDirty(false);
  		
  		if (selection && keepSelection) this.getSelectionModel().select(selection);

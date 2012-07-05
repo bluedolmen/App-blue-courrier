@@ -115,7 +115,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
 	 */
 	retrieveColumnDefinition : function(onColumnDefRetrieved) {
  	
-		if (!storeId) {
+		if (!this.storeId) {
 			throw new Error('The storeId "' + this.storeId + '" is not a valid non-empty String');
 		}
 
