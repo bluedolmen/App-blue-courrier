@@ -60,8 +60,10 @@ Ext.define('Yamma.controller.EditDocumentViewController', {
 		var editDocumentView = this.getEditDocumentView();
 		if (!editDocumentView) return;
 		
-		editDocumentView.load({
-			nodeRef : nodeRef 		
+		editDocumentView.loadNode(nodeRef, {
+			formConfig : {
+				showCancelButton : false
+			}
 		});		    	
 		
 	}	
