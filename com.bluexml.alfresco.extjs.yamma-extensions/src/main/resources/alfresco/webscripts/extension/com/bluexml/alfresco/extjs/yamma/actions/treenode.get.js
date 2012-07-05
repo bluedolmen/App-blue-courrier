@@ -27,7 +27,9 @@
 	function main() {
 		
 		var children = getChildren();
-		setModel(children);
+		var sortedChildren = sortByTitle(children);
+		
+		setModel(sortedChildren);
 		
 	}
 	
@@ -145,6 +147,20 @@
 		model.startIndex = 1;
 		model.itemCount = childrenCount;
 		model.children = childrenDescription;
+		
+	}
+	
+	function sortByTitle(array) {
+		
+		array = array || [];
+		return array.sort(function(a,b) {
+			var aTitle = a.title || '';
+			var bTitle = b.title || '';
+			
+			if (aTitle == bTitle) return 0;
+			return aTitle < bTitle ? -1 : 1;
+			
+		});
 		
 	}
 
