@@ -11,6 +11,12 @@ var YammaModel = new (function(){
 	// DOCUMENT TYPE DEFINITION
 	this.DOCUMENT_TYPE_SHORTNAME = dfn('Document');
 	
+	this.DOCUMENT_COPY_ASPECT_SHORTNAME = dfn('DocumentCopy');
+	this.DOCUMENT_COPY_ORIGINAL_ASSOCNAME = dfna(this.DOCUMENT_COPY_ASPECT_SHORTNAME, this.DOCUMENT_TYPE_SHORTNAME, 'original');
+	
+	this.DOCUMENT_CONTAINER_SHORTNAME = dfn('DocumentContainer');
+	this.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME = dfna(this.DOCUMENT_CONTAINER_SHORTNAME, this.DOCUMENT_TYPE_SHORTNAME, 'reference');
+	
 	// MAIL TYPE DEFINITION
 	this.MAIL_TYPE_SHORTNAME = dfn('Mail');
 	this.MAIL_STAMP_DATE_PROPNAME = dfnp(this.MAIL_TYPE_SHORTNAME, 'stampDate');
@@ -53,7 +59,24 @@ var YammaModel = new (function(){
 	this.PRIVACY_PRIVACY_LEVEL_ASSOCNAME = dfna(this.PRIVACY_ASPECT_SHORTNAME, this.PRIVACY_LEVEL_TYPE_SHORTNAME, 'level');
 	
 	this.STATUSABLE_ASPECT_SHORTNAME = dfn('Statusable');
-	this.STATUSABLE_STATUS_ASSOCNAME = dfna(this.STATUSABLE_ASPECT_SHORTNAME, this.STATUS_LEVEL_TYPE_SHORTNAME, 'status');
+	this.STATUSABLE_EXTENDED_ASSOCNAME = dfna(this.STATUSABLE_ASPECT_SHORTNAME, this.STATUS_LEVEL_TYPE_SHORTNAME, 'extended');
+	this.STATUSABLE_STATE_PROPNAME = dfnp(this.STATUSABLE_ASPECT_SHORTNAME, 'state');
+
+	this.EVENT_TYPE_SHORTNAME = dfn('Event');
+	this.EVENT_DATE_PROPNAME = dfnp(this.EVENT_TYPE_SHORTNAME, 'date');
+	this.EVENT_EVENT_TYPE_PROPNAME = dfnp(this.EVENT_TYPE_SHORTNAME, 'eventType');
+	this.EVENT_COMMENT_PROPNAME = dfnp(this.EVENT_TYPE_SHORTNAME, 'comment');
+	this.EVENT_REFERRER_PROPNAME = dfnp(this.EVENT_TYPE_SHORTNAME, 'referrer');
+	
+	this.HISTORIZABLE_ASPECT_SHORTNAME = dfn('Historizable');
+	this.HISTORIZABLE_HISTORY_ASSOCNAME = dfna(this.HISTORIZABLE_ASPECT_SHORTNAME, this.EVENT_TYPE_SHORTNAME, 'history');
+	
+	this.DOCUMENT_STATE_PENDING = 'pending';
+	this.DOCUMENT_STATE_DELIVERING = 'delivering';
+	this.DOCUMENT_STATE_PROCESSING = 'processing';
+	this.DOCUMENT_STATE_VALIDATING_DELIVERY = 'validating!delivery';
+	this.DOCUMENT_STATE_VALIDATING_PROCESSED = 'validating!processed';
+	this.DOCUMENT_STATE_UNKNOWN = 'unknown';
 	
 	/**
 	 * Get the declaration full-name based on the composition of the namespace prefix

@@ -1,5 +1,3 @@
-///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/trays-utils.js">
-
 var YammaUtils = {
 	
 	getSite : function getSite(document) {
@@ -73,6 +71,40 @@ var YammaUtils = {
 	
 	isDocumentNode : function(node) {
 		return node && ('undefined' != typeof node.isSubType) && node.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME);
+	},
+	
+	isDocumentContainer : function(node) {
+		return node && ('undefined' != typeof node.isSubType) && node.isSubType(YammaModel.DOCUMENT_CONTAINER_SHORTNAME);
+	},
+	
+	/**
+	 * Returns the container of a document or itself if already the container.
+	 *  
+	 * @param {ScriptNode} document the document or the container
+	 * @return {ScriptNode} a document-container
+	 */
+	getDocumentContainer : function(document) {
+		
+		if (!document) return null;
+		if (this.isDocumentContainer(document)) return document;
+		
+		// Try with parent
+		var parent = document.parent;
+		if (this.isDocumentContainer(parent)) return parent;
+		
+		// Try with source-association
+		var source = document.sourceAssocs[YammaModel.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME][0];
+		if (this.isDocumentContainer(source)) return source;
+		
+		// Invalid Document node structure, log a message
+		logger.warn("Cannot get the container of the document '" + document.name + "' with nodeRef '" + document.nodeRef + "'.");
+		return null;
+	},
+	
+	getDocumentState : function(document) {
+		if (!document) return YammaModel.DOCUMENT_STATE_UNKNOWN;
+		
+		
 	}
 	
 	

@@ -1,30 +1,45 @@
-var TraysUtils = {
+(function() {
 	
-	TRAYS_LOCATION_SITE_PATH : 'documentLibrary',
+	TraysUtils = {
 	
-	TRAYS_CONTAINER_TYPE : 'cm:folder',
-	TRAYS_FOLDER_NAME : 'trays',
-	TRAYS_FOLDER_TITLE : 'Bannettes',
+		TRAYS_LOCATION_SITE_PATH : 'documentLibrary',
+		
+		TRAYS_CONTAINER_TYPE : 'cm:folder',
+		TRAYS_FOLDER_NAME : 'trays',
+		TRAYS_FOLDER_TITLE : 'Bannettes',
+		
+		TRAY_CONTAINER_TYPE : YammaModel.TRAY_TYPE_SHORTNAME,
+		// TODO: Should define I18N mechanism
+		INBOX_TRAY_NAME : 'inbox',
+		OUTBOX_TRAY_NAME : 'outbox',
+		CCBOX_TRAY_NAME :  'ccbox',
+		TRAYS : {} // defined hereafter
+	},
 	
-	TRAY_CONTAINER_TYPE : YammaModel.TRAY_TYPE_SHORTNAME,
-	// TODO: Should define I18N mechanism
-	INBOX_TRAY_NAME : 'inbox',
-	INBOX_TRAY_TITLE : 'Arrivée',
-	OUTBOX_TRAY_NAME : 'outbox',
-	OUTBOX_TRAY_TITLE : 'Départ',
-
-	getTray : function(document) {
+	setTrayTitle(TraysUtils.INBOX_TRAY_NAME, 'Arrivée');
+	setTrayTitle(TraysUtils.OUTBOX_TRAY_NAME, 'Départ');
+	setTrayTitle(TraysUtils.CCBOX_TRAY_NAME, 'Copie');
+	
+	function setTrayTitle(trayName, trayTitle) {
+		trayTitle = trayTitle || msg.get('tray.' + TraysUtils.INBOX_TRAY_NAME + '.title') || trayName;
+		TraysUtils.TRAYS[trayName] = {
+			title : trayTitle
+		};
+	}
+	
+	TraysUtils.getEnclosingTray = function(document) {
 		
 		var iterator = document.parent;
 		while (iterator) {
 			var typeShort = iterator.typeShort;
-			if (this.TRAYS_CONTAINER_TYPE == typeShort) return iterator;			
+			if ( (this.TRAY_CONTAINER_TYPE == typeShort) && this.TRAYS[iterator.name])  return iterator;
+			iterator = iterator.parent;
 		}
 	
 		return null;
-	},
+	};
 	
-	getTraysParent : function(siteNode) {
+	TraysUtils.getTraysParent = function(siteNode) {
 		if (!siteNode) return null;
 		
 		if ('st:site' != siteNode.typeShort) {
@@ -32,32 +47,32 @@ var TraysUtils = {
 		}
 		
 		return siteNode.childByNamePath(this.TRAYS_LOCATION_SITE_PATH);
-	},
+	};
 	
-	getSiteTraysNode : function(siteNode) {
+	TraysUtils.getSiteTraysNode = function(siteNode) {
 		
 		var traysParentNode = this.getTraysParent(siteNode);
 		if (!traysParentNode) return null;
 		
 		return traysParentNode.childByNamePath(this.TRAYS_FOLDER_NAME);
-	},
+	};
 	
-	getSiteTray : function(siteNode, trayName) {
+	TraysUtils.getSiteTray = function(siteNode, trayName) {
 		
 		var traysNode = this.getSiteTraysNode(siteNode);
 		if (!traysNode) return null;
 		
 		return traysNode.childByNamePath(trayName);
-	},
+	};
 	
-	getSiteTraysChildren : function(siteNode) {
+	TraysUtils.getSiteTraysChildren = function(siteNode) {
 		
 		var traysNode = this.getSiteTraysNode(siteNode);
 		if (!traysNode) return [];
 		
 		return traysNode.childrenByXPath("*[subtypeOf('" + this.TRAY_CONTAINER_TYPE + "')]") || [];
 		
-	},
+	};
 	
 	/**
 	 * Create site trays in a given site.
@@ -66,7 +81,7 @@ var TraysUtils = {
 	 * 
 	 * @param {The site-node} siteNode
 	 */
-	createSiteTrays : function(siteNode) {
+	TraysUtils.createSiteTrays = function(siteNode) {
 		
 		if (!siteNode) return;
 		
@@ -91,9 +106,11 @@ var TraysUtils = {
 		}
 		
 		function createTrays(traysNode) {
-			if (!traysNode) return;			
-			createNonExistingChildNode(traysNode, me.INBOX_TRAY_NAME, me.INBOX_TRAY_TITLE);
-			createNonExistingChildNode(traysNode, me.OUTBOX_TRAY_NAME, me.OUTBOX_TRAY_TITLE);
+			if (!traysNode) return;	
+			for (trayName in me.TRAYS) {
+				var trayTitle = me.TRAYS[trayName].title || trayName;
+				createNonExistingChildNode(traysNode, trayName, trayTitle);
+			}
 		}
 		
 		function createNonExistingChildNode(parent, childName, childTitle) {
@@ -117,6 +134,6 @@ var TraysUtils = {
 			
 			return childTray;
 		}
-	}
+	};
 	
-};
+})();
