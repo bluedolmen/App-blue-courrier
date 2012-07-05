@@ -12,6 +12,7 @@ Ext.define('Yamma.utils.grid.YammaStoreList', {
 	
 	getStoreFactory : function() {
 		return Yamma.utils.grid.YammaStoreList.YAMMA_STORE_FACTORY_INSTANCE;
-	}
+	}	
+	
 	
 });
