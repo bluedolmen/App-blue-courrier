@@ -14,7 +14,7 @@
 	DatasourceDefinitions.register('Documents',
 		{
 			
-			baseSearchPath : 'app:company_home/st:sites/cm:{site}/cm:documentLibrary/cm:' + TraysUtils.TRAYS_FOLDER_NAME + '/cm:{tray}/*',
+			baseSearchPath : 'app:company_home/st:sites/cm:{site}/cm:documentLibrary/cm:' + TraysUtils.TRAYS_FOLDER_NAME + '/cm:{tray}//*',
 			baseSearchType : YammaModel.DOCUMENT_TYPE_SHORTNAME,
 			
 			searchAdditional : {
@@ -50,6 +50,16 @@
 				YammaModel.COMMENTABLE_COMMENT_PROPNAME,
 				YammaModel.DIGITIZABLE_DIGITIZED_DATE_PROPNAME,
 				YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,
+				YammaModel.STATUSABLE_STATE_PROPNAME,				
+				
+				{
+					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '_isCopy',
+					type : 'boolean',
+					evaluate : function(node) {
+						var originalAssocs = node.assocs[YammaModel.DOCUMENT_COPY_ORIGINAL_ASSOCNAME];
+						return (null != originalAssocs) && (originalAssocs.length > 0);
+					}
+				},
 				
 				{
 					name : YammaModel.YAMMA_NS_PREFIX + ':Assignable_service',
@@ -95,7 +105,7 @@
 					name : YammaModel.YAMMA_NS_PREFIX + ':Statusable_status',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.STATUSABLE_STATUS_ASSOCNAME, 'cm:name', true);
+						return this.evaluateAssocProperty(node, YammaModel.STATUSABLE_EXTENDED_ASSOCNAME, 'cm:name', true);
 					}
 				}
 			
@@ -108,13 +118,20 @@
 					applyQueryFilter : function(query, trayNodeRef) {
 						
 						if (null == trayNodeRef) {
-							throw new Error('IllegalArgumentException! DatasourceDefinition.mails: The tray nodeRef is mandatory');
+							throw new Error('IllegalArgumentException! DatasourceDefinition.documents: The tray nodeRef is mandatory');
 						}
 						
-						var luceneQuery = 
-							'+PARENT:\"' + trayNodeRef + '\"'
+						var trayNode = search.findNode(trayNodeRef);
+						if (null == trayNode) return query;
+						var trayId = trayNode.name;
+						query = query.replace(/\{tray\}/, trayId);
 						
-						return query + ' ' + luceneQuery;
+						var enclosingSite = YammaUtils.getSite(trayNode);
+						if (!enclosingSite) return query;
+						var siteId = enclosingSite.name;
+						query = query.replace(/\{site\}/, siteId);
+						
+						return query;
 					}
 					
 				},
