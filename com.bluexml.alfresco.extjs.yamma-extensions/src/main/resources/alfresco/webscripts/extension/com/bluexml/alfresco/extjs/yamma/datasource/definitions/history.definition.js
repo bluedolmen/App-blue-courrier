@@ -2,10 +2,6 @@
 
 	function getEvents(documentNodeRef) {
 		
-		if (!documentNodeRef) return [];
-		var document = search.findNode(documentNodeRef);
-		if (!document)
-			throw new Error('[Datasource.History] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + documentNodeRef);
 		
 		if (document.isSubType && !document.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)) return [];
 		
@@ -26,7 +22,12 @@
 					if (!nodeRef)
 						throw new Error("[DataSource.History] IllegalStateException! There should be one filter named 'nodeRef'");
 					
-					return getEvents(nodeRef);
+					if (!nodeRef) return [];
+					var document = search.findNode(nodeRef);
+					if (!document)
+						throw new Error('[Datasource.History] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
+						
+					return HistoryUtils.getHistoryEvents(document);
 					
 				}
 				

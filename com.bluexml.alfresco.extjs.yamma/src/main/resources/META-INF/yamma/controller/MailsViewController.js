@@ -1,6 +1,15 @@
 Ext.define('Yamma.controller.MailsViewController', {
 	extend : 'Ext.app.Controller',
-		
+
+	refs : [
+	
+	    {
+			ref : 'mailsView',
+	    	selector : 'mailsview'
+	    }	    
+	    
+	],	
+	
 	init: function() {
 		
 		this.control({
@@ -10,7 +19,41 @@ Ext.define('Yamma.controller.MailsViewController', {
 			}
 		});
 		
+		this.application.on({
+			contextChanged : this.onContextChanged,
+			scope : this
+		});
+		
 	},
+	
+	onContextChanged : function(context) {		
+		this.displayTrayContent(context);
+	},
+	
+	displayTrayContent : function(context) {
+		
+		var mailsView = this.getMailsView();
+		if (!mailsView) return;
+		
+		var filters = context.getDocumentDatasourceFilters();
+		var label = context.getLabel();
+		
+		mailsView.load(
+			/* storeConfig */
+			{
+				filters : filters
+			},
+			
+			/* proxyConfig */
+			null,
+			
+			/* extraConfig */
+			{
+				ref : '^' + label
+			}
+		);
+		
+	},	
 	
 	onSelectionChange : function(selectionModel, selectedRecords, eOpts) {
 		

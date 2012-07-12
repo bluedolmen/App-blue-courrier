@@ -137,11 +137,17 @@ Ext.define('Bluexml.store.AlfrescoStoreFactory', {
 
 	},
 	
-	requestNew : function(storeId, onStoreCreated, storeConfig, proxyConfig) {
+	requestNew : function(config, onStoreCreated, storeConfig, proxyConfig) {
 		
 		var me = this;
-		storeConfig = storeConfig || {};
-		proxyConfig = proxyConfig || {};
+		var storeId = Ext.isString(config) ? config : config.storeId;
+		if (!storeId)
+			Ext.Error.raise('IllegalArgumentException! The storeId is a mandatory argument (non-null and non-empty string)');
+		
+		storeConfig = storeConfig || config.storeConfig || {};
+		proxyConfig = proxyConfig || config.proxyConfig || {};
+		onStoreCreated = onStoreCreated || config.onStoreCreated || Ext.emptyFn;
+		
 		var modelName = 'Bluexml.model.' + storeId;
 		var storeModel = Ext.ModelManager.getModel(modelName);
 		
@@ -159,6 +165,11 @@ Ext.define('Bluexml.store.AlfrescoStoreFactory', {
 		function onDatasourceDefinitionRetrieved(datasourceDefinition) {
 			
 			var modelFields = mapFieldsDefinition(datasourceDefinition.fields);
+			
+			var derivedFields = config.derivedFields;
+			if (Ext.isArray(derivedFields)) {
+				modelFields = modelFields.concat(derivedFields);
+			}
 			
 			Ext.define(modelName, 
 				{
@@ -228,12 +239,19 @@ Ext.define('Bluexml.store.AlfrescoStoreFactory', {
 			var fields = fieldsDefinition.map(
 				function (fieldDefinition) {
 				
-					return applyDefaultDefinition(
+					var defaultFieldDefinition = applyDefaultDefinition(
 						{
 							name : fieldDefinition.name,
 							type : me.mapAlfrescoType(fieldDefinition.type)
 						}
 					);
+					
+					var updatedFieldDefinition = null;
+					if (config.onFieldDefinitionRetrieved) {
+						updatedFieldDefinition = config.onFieldDefinitionRetrieved(fieldDefinition.name, defaultFieldDefinition);
+					}
+						
+					return updatedFieldDefinition || defaultFieldDefinition;
 					
 				}
 			);

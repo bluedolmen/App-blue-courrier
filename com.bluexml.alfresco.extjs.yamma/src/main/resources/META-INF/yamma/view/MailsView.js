@@ -5,33 +5,58 @@ Ext.define('Yamma.view.MailsView', {
 	
 	requires : [
 		'Bluexml.utils.grid.column.Action',
-		'Yamma.view.windows.DocumentHistoryWindow'
+		'Yamma.view.windows.DocumentHistoryWindow',
+		'Yamma.view.windows.DocumentStatisticsWindow',
+		'Yamma.utils.grid.MailsViewGrouping',
+		'Yamma.utils.datasources.Documents'
+	],
+	
+	mixins : [
+		'Yamma.view.gridactions.Distribute',
+		'Yamma.view.gridactions.StartProcessing'
+	],
+	
+	features : [
+		Ext.create('Yamma.utils.grid.MailsViewGrouping')
 	],
 	
 	storeId : 'Mails',
 	
 	MAIL_OBJECT_LABEL : 'Objet',
-	MAIL_OBJECT_QNAME : 'yamma-ee:Mail_object',
-	
 	MAIL_NAME_LABEL : 'Identifiant',
-	MAIL_NAME_QNAME : 'cm:name',
-	
-	MAIL_NODEREF_QNAME : 'nodeRef',
-	
 	ASSIGNED_SERVICE_LABEL : 'Service',
-	ASSIGNED_SERVICE_QNAME : 'yamma-ee:Assignable_service',
-	ASSIGNED_SERVICE_ISDELIVERED_QNAME : 'yamma-ee:Assignable_service_isDelivered',
-	
+	ASSIGNED_LABEL : 'Distribution',
 	DELIVERY_DATE_LABEL : 'Date dépôt',
-	DELIVERY_DATE_QNAME : 'yamma-ee:Mail_deliveryDate',
-	
-	DOCUMENT_ISCOPY_QNAME : 'yamma-ee:Document_isCopy',
-	STATUSABLE_STATE_QNAME : 'yamma-ee:Statusable_state',
-	
-	DISTRIBUTE_ACTION_ICON : Yamma.Constants.getIconDefinition('email_go'),
-	DISTRIBUTE_ACTION_WS_URL : 'alfresco://bluexml/yamma/distribute',
+	DUE_DATE_LABEL : 'Date échéance',
+	PRIORITY_LABEL : 'Priorité',
 	
 	title : 'Courrier',
+	
+//	initComponent : function() {
+//		var me = this;
+//		
+//		this.viewConfig = {
+//			getRowClass : function(record, rowIndex, rowParams, store) {
+//				var lateState = record.get(Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME);
+//				var isLate = me.LATE_STATE_LATE_VALUE === lateState;
+//				
+//				var cssClass = (isLate ? 'row-mail-late' : '');
+//				return cssClass;
+//			}			
+//		};
+//		
+//		this.callParent(arguments);
+//	},
+	
+//	initComponent : function() {
+//		
+//		this.storeConfigOptions = {
+//			groupField : Yamma.utils.datasources.Documents.ASSIGNED_SERVICE_QNAME
+//		};
+//		
+//		this.callParent(arguments);
+//	},
+	
 	
 	nextDocument : function() {
 		
@@ -62,24 +87,31 @@ Ext.define('Yamma.view.MailsView', {
 		this.refreshNode(lastIndex);
 	},
 
+	
 	getColumns : function() {
 		
 		return [
+		
+			/* State */
+			this.getStateColumnDefinition(),
 		
 			this.getDocumentTypeColumnDefinition(),
 		
 			this.getNameColumnDefinition(),
 			
-			this.getServiceColumnDefinition(),
+			/* Document object */
+			this.getObjectColumnDefinition(),			
 			
 			/* Delivery date */
 			this.getDeliveryDateColumnDefinition(),
 			
-			/* Document object */
-			this.getObjectColumnDefinition(),
+			/* Due-date */
+			this.getDueDateColumnDefinition(),
 			
-			/* State */
-			this.getStateColumnDefinition(),
+			/* Priority */
+			this.getPriorityColumnDefinition(),
+			
+			this.getAssignedColumnDefinition(),
 			
 			this.getActionsColumnDefinition()
 			
@@ -146,23 +178,61 @@ Ext.define('Yamma.view.MailsView', {
 			{
 				width : 150,
 				text : this.MAIL_NAME_LABEL,
-				dataIndex : this.MAIL_NAME_QNAME
+				dataIndex : Yamma.utils.datasources.Documents.MAIL_NAME_QNAME
 			}		
 		);
 		
 		return coldef;		
 	},
 	
-	getServiceColumnDefinition : function() {
+	getAssignedServiceColumnDefinition : function() {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				width : 150,
 				text : this.ASSIGNED_SERVICE_LABEL,
-				dataIndex : this.ASSIGNED_SERVICE_QNAME
+				dataIndex : Yamma.utils.datasources.Documents.ASSIGNED_SERVICE_QNAME
 			}		
 		);
 		
 		return coldef;		
+	},
+	
+	/**
+	 * A special column definition that displays either the assigned authority
+	 * if it is available, else the assigned service.
+	 * 
+	 */
+	getAssignedColumnDefinition : function() {
+		
+		var me = this;
+		var coldef = this.applyDefaultColumnDefinition (
+			{
+				width : 150,
+				text : this.ASSIGNED_LABEL,
+				sortable : false,
+				groupable : false,
+				menuDisabled : true,
+				dataIndex : Yamma.utils.datasources.Documents.ASSIGNED_SERVICE_QNAME,
+					
+				renderer : function (value, meta, record) {
+				
+					var assignedAuthority = record.get(Yamma.utils.datasources.Documents.ASSIGNED_AUTHORITY_QNAME);
+					if (assignedAuthority) {
+						meta.tdCls = 'assigned-user-cell';
+						return assignedAuthority.split('|')[0] || assignedAuthority;
+					}
+					
+					if (value) {
+						meta.tdCls = 'assigned-service-cell';
+					}
+					
+					return value.split('|')[0] || value;
+				}
+			}		
+		);
+		
+		return coldef;		
+		
 	},
 	
 	getObjectColumnDefinition : function() {
@@ -171,7 +241,7 @@ Ext.define('Yamma.view.MailsView', {
 			{
 				flex : 1,
 				text : this.MAIL_OBJECT_LABEL,
-				dataIndex : this.MAIL_OBJECT_QNAME
+				dataIndex : Yamma.utils.datasources.Documents.MAIL_OBJECT_QNAME
 			}		
 		);
 		
@@ -185,7 +255,7 @@ Ext.define('Yamma.view.MailsView', {
 			{
 				xtype : 'datecolumn',
 				text : this.DELIVERY_DATE_LABEL,
-				dataIndex : this.DELIVERY_DATE_QNAME
+				dataIndex : Yamma.utils.datasources.Documents.DELIVERY_DATE_QNAME
 			}		
 		);
 		
@@ -221,7 +291,7 @@ Ext.define('Yamma.view.MailsView', {
 			handler : this.onShowStateDetailsAction,
 			scope : this,
 			getClass : function(value, meta, record) {
-				var documentState = record.get(me.STATUSABLE_STATE_QNAME) || 'UNKNOWN';		
+				var documentState = record.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME) || 'UNKNOWN';		
 				var documentStateDef = Yamma.utils.Constants.DOCUMENT_STATE_DEFINITIONS[documentState];
 				
 				meta.tdAttr = 'data-qtip="' + documentStateDef.title + '"';
@@ -242,6 +312,50 @@ Ext.define('Yamma.view.MailsView', {
 			
 	},
 	
+	getDueDateColumnDefinition : function() {
+		
+		var me = this;
+		var dateRenderer = Ext.util.Format.dateRenderer(me.DEFAULT_DATE_FORMAT);
+		
+		var coldef = this.applyDefaultColumnDefinition (
+			{
+				xtype : 'gridcolumn', // !!! not datecolumn since renderer function is then overwritten
+				align : 'center',
+				text : this.DUE_DATE_LABEL,
+				dataIndex : Yamma.utils.datasources.Documents.DUE_DATE_QNAME,
+				renderer : function (value, meta, record) {
+				
+					var lateState = record.get(Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME);
+					if (Yamma.utils.datasources.Documents.LATE_STATE_LATE_VALUE === lateState) {
+						meta.tdCls = 'late-cell';
+					}
+					
+					return dateRenderer(value);
+				}
+			}		
+		);
+		
+		return coldef;
+		
+	},	
+	
+	getPriorityColumnDefinition : function() {
+		
+		var coldef = this.applyDefaultColumnDefinition (
+			{
+				width : 100,
+				align : 'center',
+				text : this.PRIORITY_LABEL,
+				dataIndex : Yamma.utils.datasources.Documents.PRIORITY_QNAME
+			}		
+		);
+		
+		return coldef;
+		
+	},
+	
+	
+	
 	getActionsColumnDefinition : function() {
 		
 		return this.applyDefaultColumnDefinition (
@@ -250,72 +364,18 @@ Ext.define('Yamma.view.MailsView', {
 				xtype : 'bluexmlactioncolumn',
 				width : 30,
 				items : [
-					this.getDistributeActionDefinition()
+					this.getDistributeActionDefinition(),
+					this.getStartProcessingActionDefinition()
 				]
 				
 			}
 		);
 		
-	},
+	},	
 	
-	getDistributeActionDefinition : function() {
-		
-		var me = this;
-		
-		return	{
-			icon : this.DISTRIBUTE_ACTION_ICON.icon,
-			tooltip : 'Distribuer le document',
-			handler : this.onDistributeAction,
-			scope : this,
-			getClass : function(value, meta, record) {
-				if (!canLaunchActionOnDocument(record)) return (Ext.baseCSSPrefix + 'hide-display');
-				return '';
-			}
-		};
-			
-		function canLaunchActionOnDocument(record) {
-			var documentAssignedService = record.get(me.ASSIGNED_SERVICE_QNAME);
-			var isDocumentDelivered = record.get(me.ASSIGNED_SERVICE_ISDELIVERED_QNAME);
-			var isCopy = record.get(me.DOCUMENT_ISCOPY_QNAME);
-			
-			return (documentAssignedService && !isDocumentDelivered && !isCopy);
-		}
-	},
-	
-	onDistributeAction : function(grid, rowIndex, colIndex, item, e) {
-		var record = grid.getStore().getAt(rowIndex);
-		var documentNodeRef = this.getDocumentNodeRefRecordValue(record);
-		this.distributeDocument(documentNodeRef);
-		
-		return false;
-	},
-	
-	distributeDocument : function(documentNodeRef) {
-		
-		var me = this;
-		
-		var url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-			this.DISTRIBUTE_ACTION_WS_URL
-		);
-		
-		Bluexml.Alfresco.jsonPost(
-			{
-				url : url,
-				dataObj : {
-					nodeRef : documentNodeRef
-				}
-			},
-			
-			function(jsonResponse) { /* onSuccess */
-				me.refresh(); 
-			}
-		);		
-		
-		
-	},
 	
 	getDocumentNodeRefRecordValue : function(record) {
-		return record.get(this.MAIL_NODEREF_QNAME);	
+		return record.get(Yamma.utils.datasources.Documents.MAIL_NODEREF_QNAME);	
 	}
 	
 });

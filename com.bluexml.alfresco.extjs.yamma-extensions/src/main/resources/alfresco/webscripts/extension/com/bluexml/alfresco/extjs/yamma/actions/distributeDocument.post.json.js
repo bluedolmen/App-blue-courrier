@@ -1,6 +1,5 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/common/common.lib.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/common/parseargs.lib.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/utils.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 
 (function() {
@@ -8,6 +7,7 @@
 	const DISTRIBUTION_EVENT_TYPE = 'distribution';
 
 	// PRIVATE
+	var fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName();
 	var documentNode;
 	var documentContainer;
 	
@@ -16,6 +16,7 @@
 	Common.securedExec(function() {
 		var parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true});
 		var documentNodeRef = parseArgs['nodeRef'];
+		
 		documentNode = search.findNode(documentNodeRef);
 		if (!documentNode) {
 			throw {
@@ -23,6 +24,14 @@
 				message : 'InvalidStateException! The provided nodeRef does not exist in the repository'
 			}
 		}
+		
+		if (!ActionUtils.canTakeProcessing(documentNode, fullyAuthenticatedUserName)) {
+			throw {
+				code : '403.1',
+				message : 'Forbidden! The action cannot be executed by you in the current context'
+			}			
+		}
+		
 		documentContainer = YammaUtils.getDocumentContainer(documentNode);
 		
 		main();
@@ -46,7 +55,7 @@
 	 */
 	function moveDocumentToTray() {
 		
-		var assignedServiceNode = YammaUtils.getAssignedService(documentNode);
+		var assignedServiceNode = DocumentUtils.getAssignedService(documentNode);
 		var assignedServiceName = assignedServiceNode.name;
 		var currentTray = TraysUtils.getEnclosingTray(documentNode);
 		var assignedServiceTray = getServiceTray(assignedServiceName, currentTray.name || 'inbox');		
@@ -64,7 +73,10 @@
 		}
 		
 		updateDocumentState();
-		udpateDocumentHistory(assignedServiceName);
+		updateDocumentHistory(
+			'distribute.comment', 
+			[assignedServiceNode.properties.title || assignedServiceName, assignedServiceTray.properties.title || assigneServiceTray.name]
+		);
 		
 		return assignedServiceTray;
 	}
@@ -76,9 +88,9 @@
 		
 	}
 	
-	function udpateDocumentHistory(assignedServiceName) {
+	function updateDocumentHistory(commentKey, args) {
 		
-		var message = msg.get('distribute.comment', [assignedServiceName]);
+		var message = msg.get(commentKey, args);
 		// set a new history event
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
@@ -90,15 +102,18 @@
 	
 	function copyDocumentToCCTrays() {
 		
-		var distributedServiceNodes = YammaUtils.getDistributedServices(documentNode);
-		var distributedServiceTrays = Utils.map(distributedServiceNodes, function(distributedServiceNode) {
-			var distributedServiceName = distributedServiceNode.name;
-			return getServiceTray(distributedServiceName, TraysUtils.CCBOX_TRAY_NAME);
-		});
+		var distributedServiceNodes = DocumentUtils.getDistributedServices(documentNode);
 		
-		var copiedFiles = Utils.map(distributedServiceTrays, function(tray) {
+		var successfulServicesNodes = []; // filled as a side effect of Utils.map 
+		var copiedFiles = Utils.map(distributedServiceNodes, function(serviceNode) {
+			var serviceName = serviceNode.name;
+			var tray = getServiceTray(serviceName, TraysUtils.CCBOX_TRAY_NAME);
+			if (!tray) return null;
+			
 			var documentCopy = documentNode.copy(tray);
 			if (documentCopy == null) return null;
+			
+			successfulServicesNodes.push(serviceNode);
 			
 			if (documentCopy.addAspect(YammaModel.DOCUMENT_COPY_ASPECT_SHORTNAME)) {
 				//success adding aspect, set the correct link
@@ -107,6 +122,18 @@
 			
 			return documentCopy;
 		});
+
+		// Update history
+		var formattedServicesTitle = Utils.reduce(
+			successfulServicesNodes, 
+			function(serviceNode, aggregateValue, isLast) {
+				var serviceTitle = serviceNode.properties.title || serviceNode.name;
+				return aggregateValue + serviceTitle + (isLast ? '' : ', ');
+			},
+			''
+		);
+		
+		updateDocumentHistory('copy.comment', [formattedServicesTitle]);
 		
 		return copiedFiles;
 		
@@ -139,7 +166,7 @@
 	
 	
 	function setModel(tray, newCopiedDocuments) {
-		model.targetTrayNodeRef = '' + tray.nodeRef;
+		model.targetTrayNodeRef = Utils.asString(tray.nodeRef);
 		model.newCopiedDocuments = newCopiedDocuments || []; 
 	}
 	

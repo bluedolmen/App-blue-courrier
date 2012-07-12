@@ -171,6 +171,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
     /**
      * Refresh the list by applying a given filter
      * 
+     * @deprecated This method should not be used anymore, using the load method directly is the prefererred method
      * @param {} filterConfiguration
      */
  	filter : function(filterConfiguration) {
@@ -245,6 +246,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	 * <p>
 	 * Subclasses may redefine or specialize this behaviour to take care of
 	 * additional information provided by the controller
+	 * @deprecated Used in conjunction with filter, this method is now deprecated
 	 */
 	mapFilters : function(filterConfiguration) {
 	

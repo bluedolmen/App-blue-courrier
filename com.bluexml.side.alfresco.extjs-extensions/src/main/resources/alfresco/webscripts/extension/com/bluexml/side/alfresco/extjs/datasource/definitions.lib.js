@@ -298,7 +298,10 @@
 			var datasourceField = new DatasourceDefinition.DatasourceField(
 				{
 					name : groupByFieldId,
-					type : 'string'
+					type : 'string',
+					evaluate : function(groupId) {
+						return groupId || '';
+					}
 				}, 
 				me, 
 				prefix

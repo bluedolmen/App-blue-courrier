@@ -104,7 +104,7 @@
 	}
 	
 	function getDataListItems(dataListContainer) {
-		return dataListContainer.childAssocs['cm:contains'] || [];
+		return dataListContainer.children || [];
 	}
 	
 	

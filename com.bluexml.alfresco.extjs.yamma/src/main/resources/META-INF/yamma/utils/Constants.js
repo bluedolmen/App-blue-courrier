@@ -48,42 +48,48 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'pending' : Ext.apply(
 				{
-					title : 'En attente de routage'
+					title : 'En attente de routage',
+					shortTitle : 'Attente'
 				}, 
 				this.getIconDefinition('hourglass')
 			),
 			
 			'delivering' : Ext.apply(
 				{
-					title : 'En cours de routage'
+					title : 'En cours de routage',
+					shortTitle : 'Routage'
 				}, 
 				this.getIconDefinition('lorry')
 			),
 			
 			'processing' : Ext.apply(
 				{
-					title : 'En cours de traitement'
+					title : 'En cours de traitement',
+					shortTitle : 'Traitement'
 				}, 
 				this.getIconDefinition('cog_edit')
 			),
 			
 			'validating!delivery' : Ext.apply(
 				{
-					title : 'En attente de validation de routage'
+					title : 'En attente de validation de routage',
+					shortTitle : 'Validation routage'
 				}, 
 				this.getIconDefinition('lorry_go')
 			),
 			
 			'validating!processed' : Ext.apply(
 				{
-					title : 'En attente de validation de la réponse'
+					title : 'En attente de validation de la réponse',
+					shortTitle : 'Validation'
 				}, 
 				this.getIconDefinition('cog_tick')
 			),
 			
 			'UNKNOWN' : Ext.apply(
 				{
-					title : 'Etat inconnu'
+					title : 'Etat inconnu',
+					shortTitle : 'Inconnu'
 				}, 
 				this.getIconDefinition('exclamation')
 			)			

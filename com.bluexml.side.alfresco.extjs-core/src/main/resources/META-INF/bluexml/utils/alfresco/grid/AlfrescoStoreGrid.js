@@ -8,65 +8,41 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
 	
 	requires : [
 		'Ext.ux.grid.HeaderTooltip',
-		'Bluexml.store.AlfrescoStoreFactory',
 		'Bluexml.utils.grid.column.HeaderImage'
 	],
+	
+	mixins : {
+		alfrescostoreaware : 'Bluexml.store.AlfrescoStoreAware'
+	},
 	
 	plugins : [
 		'headertooltip'
 	],
-	
-	storeId : '', // should be overridden
-	storeConfigOptions : null, // default options that will be applied to store configuration (if not overridden)
-	proxyConfigOptions :  null, // default options that will be applied to proxy configuration (if not overridden) 
 	
 	DEFAULT_DATE_FORMAT : 'd/m/Y',
 
  	load : function(storeConfigOptions, proxyConfigOptions) {
  		
  		var me = this;
- 		storeConfigOptions = storeConfigOptions || {};
- 		if (me.storeConfigOptions) Ext.applyIf(storeConfigOptions, me.storeConfigOptions);
- 		
- 		proxyConfigOptions = proxyConfigOptions || {};
- 		if (me.proxyConfigOptions) Ext.applyIf(proxyConfigOptions, me.proxyConfigOptions);
  		
  		if (me.columns && me.columns.length == 0) {
-	 		me.refreshColumns(/* onColumnRefreshed */ refreshStore );
+	 		this.refreshColumns(/* onColumnRefreshed */ delegatedLoad );
  		} else {
- 			refreshStore();
+ 			delegatedLoad();
+ 		};
+ 		
+ 		function delegatedLoad() {
+ 			me.mixins.alfrescostoreaware.load.call(me, storeConfigOptions, proxyConfigOptions);
  		}
- 		
- 		function refreshStore() {
- 		
- 			var storeFactory = me.getStoreFactory();
- 			if (!storeFactory) 
- 				Ext.Error.raise('IllegalStateException! The store-factory is not correctly set. It should return a valid instance of AlfrescoStoreFactory'); 
- 			
- 		    storeFactory.requestNew(
-				/* storeId */
-				me.storeId,
-				
-				/* onStoreCreated */
-				function(store) {					
-	    			me.reconfigure(store);
-	    			store.load();
-				},
-				
-				storeConfigOptions,
-				
-				proxyConfigOptions
-			);
- 		}
- 		
  	},
  	
- 	getStoreFactory : function() {
+ 	onStoreAvailable : function(store) {
  		
- 		Ext.Error.raise('UnsupportedOperationException! This method should be overridden by a subclass');
+ 		this.reconfigure(store);
+    	store.load();
  		
- 	},
-	
+ 	}, 	
+ 	
  	refreshColumns : function(onColumnRefreshed) {
  		
 		var me = this;
@@ -170,7 +146,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
 			
 		};
 		
-		var additional = {}
+		var additional = {};
 		
 		switch (xtype) {
 			case 'datecolumn' :
@@ -179,7 +155,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
 					align : 'center',
 					width : 100,
 					maxWidth : 150
-				}
+				};
 			break;
 		}
 		Ext.apply(definition, additional);

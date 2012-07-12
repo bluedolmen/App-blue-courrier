@@ -51,12 +51,12 @@
 		
 		if (reverse) {
 			for (var i = array.length - 1; i >= 0; i--) {
-				if (false === operation.call(undefined === scope ? array[i] : scope, array[i]))
+				if (false === operation.call(undefined === scope ? array[i] : scope, array[i], i == 0))
 					break;				
 			}
 		} else {		
 			for (var i = 0, len = array.length; i < len; i++) {
-				if (false === operation.call(undefined === scope ? array[i] : scope, array[i]))
+				if (false === operation.call(undefined === scope ? array[i] : scope, array[i], i == len - 1))
 					break;
 			}
 		}
@@ -71,8 +71,8 @@
 			array,
 		
 			/* operation */
-			function(arrayElement) {
-				var transformedValue = transform.call(undefined === scope ? arrayElement : scope, arrayElement);
+			function(arrayElement, isLast) {
+				var transformedValue = transform.call(undefined === scope ? arrayElement : scope, arrayElement, isLast);
 				result.push(transformedValue);
 			},
 			
@@ -90,8 +90,8 @@
 			array,
 			
 			/* operation */
-			function(arrayElement) {
-				var postAggregateValue = aggregateOperation.call(undefined === scope ? arrayElement : scope, arrayElement, aggregateValue);
+			function(arrayElement, isLast) {
+				var postAggregateValue = aggregateOperation.call(undefined === scope ? arrayElement : scope, arrayElement, aggregateValue, isLast);
 				if (undefined !== postAggregateValue) aggregateValue = postAggregateValue;
 			},
 			
@@ -155,8 +155,8 @@
     	);
     	
     	return result;
-    }
-	
+    };	
+    
 	Utils.escapeQName = function(qname) {
 		if (null == qname) {
 			throw new Error('IllegalArgumentException! The provided QName is not valid');

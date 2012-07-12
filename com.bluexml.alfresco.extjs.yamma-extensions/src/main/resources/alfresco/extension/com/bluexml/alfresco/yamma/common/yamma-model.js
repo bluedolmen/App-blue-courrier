@@ -4,7 +4,7 @@ var YammaModel = new (function(){
 	
 	this.YAMMA_NS_PREFIX = 'yamma-ee';
 	this.YAMMA_PREFIX = '';
-	this.ADMIN_SITE_NAME = 'admin'; // TODO: outside of model namesapce?
+	this.ADMIN_SITE_NAME = 'admin'; // TODO: outside of model namespace?
 	
 	this.TRAY_TYPE_SHORTNAME = dfn('Tray');
 	
@@ -27,6 +27,9 @@ var YammaModel = new (function(){
 	// DATALISTS TYPE DEFINITIONS
 	this.ASSIGNABLE_SITE_TYPE_SHORTNAME = dfn('AssignableSite');
 	this.DELAY_TYPE_SHORTNAME = dfn('Delay');
+	this.DELAY_DELAY_PROPNAME = dfnp(this.DELAY_TYPE_SHORTNAME, 'delay');
+	this.PRIORITY_TYPE_SHORTNAME = dfn('Priority');
+	this.PRIORITY_LEVEL_PROPNAME = dfnp(this.PRIORITY_TYPE_SHORTNAME, 'level');
 	this.PRIVACY_LEVEL_TYPE_SHORTNAME = dfn('PrivacyLevel');
 	this.STATUS_LEVEL_TYPE_SHORTNAME = dfn('Status');
 	
@@ -47,13 +50,18 @@ var YammaModel = new (function(){
 	this.REFERENCEABLE_REFERENCE_PROPNAME = dfnp(this.REFERENCEABLE_ASPECT_SHORTNAME, 'reference');
 	
 	this.ASSIGNABLE_ASPECT_SHORTNAME = dfn('Assignable');
+	this.ASSIGNABLE_AUTHORITY_PROPNAME = dfnp(this.ASSIGNABLE_ASPECT_SHORTNAME, 'searchableAuthority');
 	this.ASSIGNABLE_SERVICE_ASSOCNAME = dfna(this.ASSIGNABLE_ASPECT_SHORTNAME, this.ASSIGNABLE_SITE_TYPE_SHORTNAME, 'service');
+	this.ASSIGNABLE_AUTHORITY_ASSOCNAME = dfna(this.ASSIGNABLE_ASPECT_SHORTNAME, 'cm:authority', 'authority');
 	
 	this.DISTRIBUTABLE_ASPECT_SHORTNAME = dfn('Distributable');
 	this.DISTRIBUTABLE_SERVICES_ASSOCNAME = dfna(this.DISTRIBUTABLE_ASPECT_SHORTNAME, this.ASSIGNABLE_SITE_TYPE_SHORTNAME, 'services');
 	
 	this.PRIORITIZABLE_ASPECT_SHORTNAME = dfn('Prioritizable');
 	this.PRIORITIZABLE_DELAY_ASSOCNAME = dfna(this.PRIORITIZABLE_ASPECT_SHORTNAME, this.DELAY_TYPE_SHORTNAME, 'delay');
+	this.PRIORITIZABLE_PRIORITY_ASSOCNAME = dfna(this.PRIORITIZABLE_ASPECT_SHORTNAME, this.PRIORITY_TYPE_SHORTNAME, 'priority');
+	this.PRIORITIZABLE_DUE_DATE_PROPNAME = dfnp(this.PRIORITIZABLE_ASPECT_SHORTNAME, 'dueDate');
+	
 	
 	this.PRIVACY_ASPECT_SHORTNAME = dfn('Privacy');
 	this.PRIVACY_PRIVACY_LEVEL_ASSOCNAME = dfna(this.PRIVACY_ASPECT_SHORTNAME, this.PRIVACY_LEVEL_TYPE_SHORTNAME, 'level');
@@ -77,6 +85,22 @@ var YammaModel = new (function(){
 	this.DOCUMENT_STATE_VALIDATING_DELIVERY = 'validating!delivery';
 	this.DOCUMENT_STATE_VALIDATING_PROCESSED = 'validating!processed';
 	this.DOCUMENT_STATE_UNKNOWN = 'unknown';
+	this.DOCUMENT_STATES = [
+		this.DOCUMENT_STATE_PENDING,
+		this.DOCUMENT_STATE_DELIVERING,
+		this.DOCUMENT_STATE_PROCESSING,
+		this.DOCUMENT_STATE_VALIDATING_DELIVERY,
+		this.DOCUMENT_STATE_VALIDATING_PROCESSED
+	];
+	
+	this.LATE_STATE_UNDETERMINED = 'undetermined';
+	this.LATE_STATE_LATE = 'late';
+	this.LATE_STATE_ONTIME = 'onTime';
+	this.LATE_STATES = [
+		this.LATE_STATE_UNDETERMINED,
+		this.LATE_STATE_LATE,
+		this.LATE_STATE_ONTIME
+	];
 	
 	/**
 	 * Get the declaration full-name based on the composition of the namespace prefix

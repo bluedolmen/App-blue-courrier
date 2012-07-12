@@ -25,6 +25,33 @@
 	text-align : left; /* this property may be overridden by yui */
 }
 
+.row-mail-late .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+.late-cell {
+	text-align : center;
+	color: #900;
+	background-repeat: no-repeat; 
+	background-image: url(../icons/exclamation.png) !important;
+	background-position: right center; 
+}
+
+.assigned-service-cell {
+	background-repeat: no-repeat; 
+	background-image: url(../icons/group.png) !important;
+	background-position: left center;
+	padding-left : 16px;
+}
+
+.assigned-user-cell {
+	font-style : italic;
+	background-repeat: no-repeat; 
+	background-image: url(../icons/user.png) !important;
+	background-position: left center; 
+	padding-left : 16px;
+}
+
 #loading-mask {
 	position: absolute;
 	left:     0;

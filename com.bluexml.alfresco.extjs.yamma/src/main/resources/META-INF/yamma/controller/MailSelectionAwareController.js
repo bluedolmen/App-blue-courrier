@@ -20,4 +20,4 @@ Ext.define('Yamma.controller.MailSelectionAwareController', {
 		// DO NOTHING by default		
 	}
 	
-})
+});

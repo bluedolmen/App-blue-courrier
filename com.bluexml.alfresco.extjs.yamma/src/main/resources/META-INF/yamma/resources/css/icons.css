@@ -100,6 +100,9 @@
 .icon-cog_edit {
     background-image: url(../icons/cog_edit.png) !important;
 }
+.icon-pencil_go {
+    background-image: url(../icons/pencil_go.png) !important;
+}
 .icon-book {
     background-image: url(../icons/book.png) !important;
 }
@@ -120,6 +123,12 @@
 }
 .icon-zoom_lock {
     background-image: url(../icons/zoom_lock.png) !important;
+}
+.icon-page_white_medal {
+    background-image: url(../icons/page_white_medal.png) !important;
+}
+.icon-page_white_edit {
+    background-image: url(../icons/page_white_edit.png) !important;
 }
 .icon-folder_table {
     background-image: url(../icons/folder_table.png) !important;
@@ -154,6 +163,9 @@
 .icon-page_edit {
     background-image: url(../icons/page_edit.png) !important;
 }
+.icon-page_white_user {
+    background-image: url(../icons/page_white_user.png) !important;
+}
 .icon-folder {
     background-image: url(../icons/folder.png) !important;
 }
@@ -171,6 +183,9 @@
 }
 .icon-information {
     background-image: url(../icons/information.png) !important;
+}
+.icon-page_white_star {
+    background-image: url(../icons/page_white_star.png) !important;
 }
 .icon-transmit_go {
     background-image: url(../icons/transmit_go.png) !important;
@@ -192,6 +207,9 @@
 }
 .icon-house {
     background-image: url(../icons/house.png) !important;
+}
+.icon-chart_curve {
+    background-image: url(../icons/chart_curve.png) !important;
 }
 .icon-date_cog {
     background-image: url(../icons/date_cog.png) !important;

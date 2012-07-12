@@ -40,6 +40,7 @@ Ext.define('Yamma.view.Viewport', {
 						{
 							region : 'west',
 							xtype : 'mainmenu',
+							headerPosition : 'left',
 							width : 250,
 							minWidth : 150,
 							maxWidth : 400,
