@@ -28,7 +28,7 @@ Ext.define('Yamma.view.Footer', {
 		
 		{
 			xtype : 'image',
-			src : '/share/res/britair/resources/images/britair-dinamex-logo-small.png',
+			src : Alfresco.constants.URL_RESCONTEXT + 'yamma/resources/images/bluexml-ps-logo-small.png',
 			height : 50
 		},
 		{
@@ -37,9 +37,9 @@ Ext.define('Yamma.view.Footer', {
 		},
 		{
 			xtype : 'image',
-			src : '/share/res/britair/resources/images/britair-logo-small.png',
-			width : 200,
-			padding : 5
+			src : Alfresco.constants.URL_RESCONTEXT + 'yamma/resources/images/Alfresco_logo_transparent.png',
+			height : 50,
+			width : 50
 		}
 	]
 	
