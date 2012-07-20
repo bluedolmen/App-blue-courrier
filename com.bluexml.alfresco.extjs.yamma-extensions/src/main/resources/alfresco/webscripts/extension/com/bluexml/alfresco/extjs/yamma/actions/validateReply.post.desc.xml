@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Validate a reply of a given document/mail</shortname>
+	<description><![CDATA[
+		Validate the reply to a Mail
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/validate-reply</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

@@ -25,14 +25,14 @@
 			}
 		}
 		
-		if (!ActionUtils.canTakeProcessing(documentNode, fullyAuthenticatedUserName)) {
+		if (!ActionUtils.canDistribute(documentNode, fullyAuthenticatedUserName)) {
 			throw {
-				code : '403.1',
+				code : '403',
 				message : 'Forbidden! The action cannot be executed by you in the current context'
 			}			
 		}
 		
-		documentContainer = YammaUtils.getDocumentContainer(documentNode);
+		documentContainer = DocumentUtils.getDocumentContainer(documentNode);
 		
 		main();
 	});
@@ -108,10 +108,10 @@
 		var copiedFiles = Utils.map(distributedServiceNodes, function(serviceNode) {
 			var serviceName = serviceNode.name;
 			var tray = getServiceTray(serviceName, TraysUtils.CCBOX_TRAY_NAME);
-			if (!tray) return null;
+			if (!tray) return;
 			
 			var documentCopy = documentNode.copy(tray);
-			if (documentCopy == null) return null;
+			if (documentCopy == null) return;
 			
 			successfulServicesNodes.push(serviceNode);
 			
@@ -123,6 +123,9 @@
 			return documentCopy;
 		});
 
+		if (Utils.isArrayEmpty(copiedFiles)) return [];
+		
+		
 		// Update history
 		var formattedServicesTitle = Utils.reduce(
 			successfulServicesNodes, 
