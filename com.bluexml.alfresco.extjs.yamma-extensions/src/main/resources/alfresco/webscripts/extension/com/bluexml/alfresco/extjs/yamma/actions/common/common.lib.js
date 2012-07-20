@@ -42,27 +42,39 @@ const GENERIC_SENDMAIL_ERROR_MESSAGE = "Erreur durant l'envoi des notifications 
 			}
 		},
 		
-		securedExec : function(exec, finalExec) {
+		securedExec : function(exec, silent, finalExec) {
+			
 			try {
+				
 				exec();
+				
 			} catch (e) {
 				
-				if (e.code) status.code = e.code;
-				if (e.message) status.message = e.message;
+				var code = (e.code ? Number(e.code) : -1);
+				var message = 'string' == typeof e ? e : (e.message || '');
+				silent = 'undefined' == typeof silent ? false : !!silent;
 				
-				if (status.code && (status.code + '').indexOf('2') == 0) { // any form of success
-					
-					if (e && e.message) {
-						status.setCode(status.STATUS_INTERNAL_SERVER_ERROR, e.message);
+				if (code >= 0) 
+					status.code = code;
+				if (message) 
+					status.message = message;
+				
+				if (code >= 200 && code <300) { 
+					// any form of success => Code has not been set correctly
+					if (message) {
+						status.setCode(status.STATUS_INTERNAL_SERVER_ERROR, message);
 					}
 					
 				}
 				
-				throw e;
+				if (!silent) throw e;
 				
 			} finally {
+				
 				if (finalExec) finalExec();
+				
 			}
+			
 		}
 		
 		

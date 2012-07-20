@@ -61,21 +61,25 @@
 				if (jsonArgument) return jsonArgument;
 			}
 			
-			// Look for an HTTP GET argument
-			var getArgument = args[argumentName];
-			if (getArgument) return getArgument;
-			
 			// Look for an HTTP POST formdata argument 
 			if ('undefined' != typeof formdata && formdata.fields) {
 				for (var i = 0, len = formdata.fields.length; i < len; i++) {
 					var field = formdata.fields[i];
-					if (argumentName == field.name) return field.value;
+					
+					if (argumentName == field.name) {
+						if (field.isFile) return field;
+						else return field.value;
+					}
 				}
 			}
+			
+			// Look for an HTTP GET argument
+			var getArgument = args[argumentName];
+			if (getArgument) return getArgument;
 			
 			return null;
 		}
 		
 	}
-	
+		
 })();
