@@ -39,6 +39,16 @@
 		return null;
 	};
 	
+	TraysUtils.getSiblingTray = function(tray, trayName) {
+				
+		if (null == tray || null == tray.isSubType || !tray.isSubType(this.TRAY_CONTAINER_TYPE) || !trayName) return null;
+		var trayParent = tray.parent;
+		if (!trayParent || !trayParent.hasPermission('Read')) return null;
+		
+		return trayParent.childByNamePath(trayName);
+		
+	};
+	
 	TraysUtils.getTraysParent = function(siteNode) {
 		if (!siteNode) return null;
 		
