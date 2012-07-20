@@ -28,6 +28,30 @@
 		return  displayName + '|' + userName; 
 	}
 	
+	function getActionsFieldDefinitions() {
+		var definitions = [];
+		
+		for (var methodName in ActionUtils) {
+			if (!(methodName.indexOf('can') == 0)) continue;
+			
+			definitions.push({
+				name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '!Action_' + methodName,
+				type : 'boolean',
+				evaluate : getActionFunction(methodName)
+			});
+		}
+		
+		return definitions;
+		
+		function getActionFunction(functionName) {
+			var actualFunction = ActionUtils[functionName];
+			
+			return function(node) {
+				return actualFunction(node);
+			};
+		}
+	}
+	
 	DatasourceDefinitions.register('Documents',
 		{
 			
@@ -148,24 +172,16 @@
 				},
 				
 				{
-					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '!Action_canDistribute',
+					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '_hasReplies',
 					type : 'boolean',
 					evaluate : function(node) {
-						return ActionUtils.canDistribute(node);
-					}
-				},
-				
-				{
-					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '!Action_canTakeProcessing',
-					type : 'boolean',
-					evaluate : function(node) {
-						return ActionUtils.canTakeProcessing(node);
+						return ReplyUtils.hasReplies(node);
 					}
 				}				
 				
 				
-			
-			],
+			].concat(getActionsFieldDefinitions()),				
+				
 			
 			filters : {
 				
@@ -269,7 +285,10 @@
 						
 					}
 					
-				}
+				},
+				
+				'nodeRef' : CommonDatasourceFilters['nodeRef'],
+				'term' : CommonDatasourceFilters['term']
 				
 			}
 			
