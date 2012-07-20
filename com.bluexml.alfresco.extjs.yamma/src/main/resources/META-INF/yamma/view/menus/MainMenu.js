@@ -4,6 +4,7 @@ Ext.define('Yamma.view.menus.MainMenu', {
 	alias : 'widget.mainmenu',
 	
 	requires : [
+		'Ext.layout.container.Accordion',
 		'Yamma.view.menus.SiteTraysMenu',
 		'Yamma.view.menus.MyMenu'
 	],

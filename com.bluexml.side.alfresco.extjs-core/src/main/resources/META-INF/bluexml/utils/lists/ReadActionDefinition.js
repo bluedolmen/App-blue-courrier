@@ -4,14 +4,14 @@ Ext.define('Bluexml.view.lists.ReadActionDefinition', {
 		'Bluexml.view.forms.ViewFormWindow'
 	],
 	
-	ICON_READ_ACTION : Bluexml.Site.getIconDefinition('magnifier_zoom_in'),	
+	ICON_READ_ACTION : 'magnifier_zoom_in.png',	
 	
 	getReadActionDefinition : function(config) {
 		var me = this;
 		config = config || {};
 		
 		var genericDefinition = {
-			icon : this.ICON_READ_ACTION.icon,
+			icon : this.ICON_READ_ACTION,
 			tooltip : me.getReadActionTooltip(),
 			handler : me.onReadAction,
 			scope : me,

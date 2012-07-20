@@ -77,6 +77,16 @@ Ext.define('Yamma.controller.menus.MyMenuController', {
 				]);
 			break;
 			
+			default:
+				context.setTitle('Documents assignés');
+				context.setFilters([
+					{
+						property : 'mine',
+						value : true // fake value
+					}
+				]);
+			break;			
+			
 		}
 		
 		

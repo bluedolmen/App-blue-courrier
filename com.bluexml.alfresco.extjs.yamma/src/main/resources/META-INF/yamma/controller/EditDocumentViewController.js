@@ -1,8 +1,9 @@
 Ext.define('Yamma.controller.EditDocumentViewController', {
 
-	extend : 'Yamma.controller.MailSelectionAwareController',
+	extend : 'Ext.app.Controller',
 	
 	refs : [
+	
 	    {
 			ref : 'editDocumentView',
 	    	selector : 'editdocumentview'
@@ -27,7 +28,7 @@ Ext.define('Yamma.controller.EditDocumentViewController', {
 		
 	},
 	
-	onSuccessfulEdit : function(nodeRef) {
+	onSuccessfulEdit : function(formPanel, nodeRef) {
 		
 		var mailsView = this.getMailsView();
 		if (!mailsView) return;
@@ -38,34 +39,7 @@ Ext.define('Yamma.controller.EditDocumentViewController', {
 //		mailsView.nextDocument();
 		
 //		this.resumeEvents();
-	},
+	}
 	
-	onNewMailSelected : function(newMailRecord) {
-		var nodeRef = newMailRecord.get('nodeRef');
-		if (!nodeRef) return;
-		
-		var typeShort = newMailRecord.get('typeShort');
-		if (!typeShort) return;
-		
-		this.displayEditForm(nodeRef, typeShort);
-	},
-	
-	onClearSelectedMail : function() {
-		var editDocumentView = this.getEditDocumentView();
-		if (editDocumentView) editDocumentView.removeAll();
-	},
-	
-	displayEditForm : function(nodeRef, typeShort) {
-		
-		var editDocumentView = this.getEditDocumentView();
-		if (!editDocumentView) return;
-		
-		editDocumentView.loadNode(nodeRef, {
-			formConfig : {
-				showCancelButton : false
-			}
-		});		    	
-		
-	}	
-	
+			
 });

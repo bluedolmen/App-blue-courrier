@@ -29,11 +29,13 @@ function initApplication() {
 			controllers : [
 				'menus.SiteTraysMenuController',
 				'menus.MyMenuController',
+				'menus.AdvancedSearchMenuController',
 				'MailsViewController',
-				'EditDocumentViewController',
 				'ReferencesViewController',
 				'DisplayViewController',
-				'charts.StatesStatsViewController'
+				'charts.StatesStatsViewController',
+				'header.DropZoneController',
+				'header.OpenSearchController'
 			],
 			
 			autoCreateViewport : true,

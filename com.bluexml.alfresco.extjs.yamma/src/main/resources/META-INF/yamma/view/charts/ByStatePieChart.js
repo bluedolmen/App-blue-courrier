@@ -3,6 +3,10 @@ Ext.define('Yamma.view.charts.ByStatePieChart', {
 	extend : 'Yamma.view.charts.ByStateChart',
 	alias : 'widget.bystatepiechart',
 	
+	requires : [
+		'Ext.chart.series.Pie'
+	],
+	
     animate: true,
     shadow: true,
     

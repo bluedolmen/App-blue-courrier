@@ -30,6 +30,7 @@
 		
 	};
 	
+	
 	Utils.isFunction = function(object) {
 		return 'function' === typeof object;
 	}
@@ -63,6 +64,16 @@
 		
 	};
 	
+	Utils.isArrayEmpty = function(array) {
+		
+		if (! Utils.isArray(array)) {
+			throw new Error('IllegalArgumentException! The provided array element is not a valid Array');
+		}
+		
+		return 0 === array.length;
+	};
+
+	
 	Utils.map = function(array, transform, reverse, scope) {		
 		
 		var result = [];
@@ -73,6 +84,8 @@
 			/* operation */
 			function(arrayElement, isLast) {
 				var transformedValue = transform.call(undefined === scope ? arrayElement : scope, arrayElement, isLast);
+				if ('undefined' == typeof transformedValue) return;
+				
 				result.push(transformedValue);
 			},
 			
@@ -115,6 +128,17 @@
 
 		return filteredResult;
 	};
+	
+	/**
+	 * Remove null values from the array
+	 */
+	Utils.clear = function(array) {
+		
+		return Utils.filter(array, function(arrayElement) {
+			return (null !== arrayElement);
+		});
+		
+	}
 
     Utils.unwrapList = function(array) {
     	

@@ -51,7 +51,6 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		
 		setColumns();
 		setDockedItems();
-		setGroupingFeature();
 		saveDefaultTitle();
 		setPaging();
 	    this.callParent();
@@ -76,12 +75,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 			
 			me.dockedItems = ([] || me.dockedItems).concat(dockedItems);
 	    }
-	    
-	    function setGroupingFeature() {
-//	    	var groupingFeature = Ext.create('Yamma.view.lists.DocumentListGrouping');
-//	    	me.features = (me.features || []).concat([groupingFeature]);
-	    }
-	    
+	    	    
 	    function saveDefaultTitle() {
 	    	if (!me.title) return;
 	    	me.defaultTitle = me.title;

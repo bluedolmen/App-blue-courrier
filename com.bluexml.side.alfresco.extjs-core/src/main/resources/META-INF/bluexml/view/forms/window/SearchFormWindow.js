@@ -1,6 +1,7 @@
-Ext.define('Bluexml.view.forms.SearchFormWindow', {
+Ext.define('Bluexml.view.forms.window.SearchFormWindow', {
 	
-	extend : 'Bluexml.view.forms.FormWindow',
+	extend : 'Bluexml.view.forms.window.FormWindow',
+	
 	requires : [
 		'Bluexml.utils.alfresco.forms.SearchFormFrame'	
 	],

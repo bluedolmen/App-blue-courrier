@@ -9,6 +9,7 @@ Ext.define('Bluexml.utils.grid.column.Action', {
 	resizable : false,
 	menuDisabled : true,
 	sortable : false,
+	stopSelection : true,
 	
 	constructor : function(config) {
 		

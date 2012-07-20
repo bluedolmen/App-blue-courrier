@@ -3,6 +3,10 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 	extend : 'Yamma.view.charts.ByStateChart',
 	alias : 'widget.bystatebarchart',
 	
+	requires : [
+		'Ext.chart.series.Bar'
+	],	
+	
 	STATUSABLE_STATE_QNAME : 'yamma-ee:Statusable_state',
 	LATE_STATE_ONTIME_QNAME : 'onTimeStateNumber',
 	LATE_STATE_LATE_QNAME : 'lateStateNumber',

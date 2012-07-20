@@ -1,4 +1,4 @@
-Ext.define('Bluexml.view.windows.CommentInputDialog', {
+Ext.define('Bluexml.windows.CommentInputDialog', {
 
 	singleton : true,
 	
@@ -10,7 +10,7 @@ Ext.define('Bluexml.view.windows.CommentInputDialog', {
 		msg : 'Entrez un commentaire pour cette opération.'		
 	},
 	
-	askForComment : function(onCommentAvailable, overrideConfig) {
+	askForComment : function(overrideConfig, onCommentAvailable ) {
 		
 		if (!onCommentAvailable || !Ext.isFunction(onCommentAvailable)) {
 			throw new Error('IllegalArgumentException! The callback function onCommentAvailable is mandatory');

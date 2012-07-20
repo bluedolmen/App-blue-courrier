@@ -1,6 +1,9 @@
 .icon-hourglass {
     background-image: url(../icons/hourglass.png) !important;
 }
+.icon-email_upload_nb {
+    background-image: url(../icons/email_upload_nb.png) !important;
+}
 .icon-report {
     background-image: url(../icons/report.png) !important;
 }
@@ -94,14 +97,23 @@
 .icon-user_comment_tick {
     background-image: url(../icons/user_comment_tick.png) !important;
 }
+.icon-email_add {
+    background-image: url(../icons/email_add.png) !important;
+}
 .icon-page_white_office {
     background-image: url(../icons/page_white_office.png) !important;
+}
+.icon-email_attach {
+    background-image: url(../icons/email_attach.png) !important;
 }
 .icon-cog_edit {
     background-image: url(../icons/cog_edit.png) !important;
 }
 .icon-pencil_go {
     background-image: url(../icons/pencil_go.png) !important;
+}
+.icon-email {
+    background-image: url(../icons/email.png) !important;
 }
 .icon-book {
     background-image: url(../icons/book.png) !important;
@@ -169,6 +181,9 @@
 .icon-folder {
     background-image: url(../icons/folder.png) !important;
 }
+.icon-page_white_put {
+    background-image: url(../icons/page_white_put.png) !important;
+}
 .icon-pencil {
     background-image: url(../icons/pencil.png) !important;
 }
@@ -202,11 +217,17 @@
 .icon-zoom {
     background-image: url(../icons/zoom.png) !important;
 }
+.icon-email_upload {
+    background-image: url(../icons/email_upload.png) !important;
+}
 .icon-door_out {
     background-image: url(../icons/door_out.png) !important;
 }
 .icon-house {
     background-image: url(../icons/house.png) !important;
+}
+.icon-mail_reply {
+    background-image: url(../icons/mail_reply.png) !important;
 }
 .icon-chart_curve {
     background-image: url(../icons/chart_curve.png) !important;
@@ -231,6 +252,9 @@
 }
 .icon-page_white {
     background-image: url(../icons/page_white.png) !important;
+}
+.icon-email_delete {
+    background-image: url(../icons/email_delete.png) !important;
 }
 .icon-exclamation {
     background-image: url(../icons/exclamation.png) !important;

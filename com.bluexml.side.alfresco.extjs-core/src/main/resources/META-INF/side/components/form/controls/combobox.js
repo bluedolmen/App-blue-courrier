@@ -163,7 +163,8 @@ if (!Array.prototype.indexOf) {
                disabled : true,
                field : this.options.field,
                compactMode : true,
-               currentValue : this.initialValue
+               currentValue : this.initialValue,
+               labelKey : this.options.labelKey
             }).setMessages(this.messages);
          } else if (this.options.multipleSelectMode) {
             // cardinality n-n

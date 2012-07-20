@@ -10,6 +10,7 @@ Ext.define('Yamma.controller.MailSelectionAwareController', {
 			scope : this
 		});		
 		
+		this.callParent(arguments);
 	},
 	
 	onNewMailSelected : function(newMailRecord) {

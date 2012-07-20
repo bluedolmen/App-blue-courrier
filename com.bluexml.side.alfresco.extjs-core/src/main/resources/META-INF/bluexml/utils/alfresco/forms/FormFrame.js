@@ -70,16 +70,23 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	},
 	
 	getCheckedUrl : function() {
-		var formConfig = this.getFormConfig();
-		var itemId = formConfig.itemId;
-		if (!itemId) { // TODO: mandatory arguments should be checked generically
-			throw new Error('IllegalStateException! No item id is defined');
-		}
+		this.checkMandatoryParameters();
 		
+		var formConfig = this.getFormConfig();
 		var parameters = Ext.Object.toQueryString(formConfig);
 		var url = this.getSourceUrl() + '?' + parameters;
 		
 		return url; // no checking here
+	},
+	
+	checkMandatoryParameters : function() {
+		
+		var formConfig = this.getFormConfig();
+		var itemId = formConfig.itemId;
+		if (!itemId) { // TODO: mandatory arguments should be checked generically
+			Ext.Error.raise('IllegalStateException! No item id is defined');
+		}
+		
 	},
 			
 	getSourceUrl : function() {

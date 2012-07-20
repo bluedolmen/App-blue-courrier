@@ -1,10 +1,49 @@
 Ext.define('Yamma.utils.Context', {
 
 	config : {
+		// Generic context
 		title : null,
-		tray : null,
+		
+		// Service-based (tray) context
 		service : null,
-		filters : []
+		tray : null, 
+		
+		// Filter-based context
+		filters : [],
+		
+		// Advanced-search context
+		query : null,
+		term : null
+	},
+	
+	constructor : function(config) {
+		this.initConfig(config);
+		this.callParent(arguments);
+	},
+	
+	isTrayBased : function() {
+		
+		return !!(this.getService() || this.getTray());
+		
+	},
+	
+	isAdvancedSearchBased : function() {
+		
+		return !!(this.getQuery() || this.getTerm());
+		
+	},
+	
+	/**
+	 * Beware! isFitlerBased() returns true based on the
+	 * declared filters, not the implied ones (tray and service)
+	 * 
+	 * @return {Boolean}
+	 */
+	isFilterBased : function() {
+		
+		var localFilters = this.getFilters();
+		return (filters && filters.length > 0);
+		
 	},
 	
 	getDocumentDatasourceFilters : function() {

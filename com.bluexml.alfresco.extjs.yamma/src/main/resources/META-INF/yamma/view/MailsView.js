@@ -1,3 +1,5 @@
+Ext.require('Yamma.utils.grid.MailsViewGrouping');
+
 Ext.define('Yamma.view.MailsView', {
 
 	extend : 'Yamma.utils.grid.YammaStoreList',
@@ -8,12 +10,17 @@ Ext.define('Yamma.view.MailsView', {
 		'Yamma.view.windows.DocumentHistoryWindow',
 		'Yamma.view.windows.DocumentStatisticsWindow',
 		'Yamma.utils.grid.MailsViewGrouping',
-		'Yamma.utils.datasources.Documents'
+		'Yamma.utils.datasources.Documents',
+		'Ext.grid.column.Date',
+		'Bluexml.utils.grid.column.HeaderImage'
 	],
 	
 	mixins : [
 		'Yamma.view.gridactions.Distribute',
-		'Yamma.view.gridactions.StartProcessing'
+		'Yamma.view.gridactions.StartProcessing',
+		'Yamma.view.gridactions.Reply',
+		'Yamma.view.gridactions.SendReply',
+		'Yamma.view.gridactions.ValidateReply'
 	],
 	
 	features : [
@@ -57,6 +64,13 @@ Ext.define('Yamma.view.MailsView', {
 //		this.callParent(arguments);
 //	},
 	
+	initComponent : function() {
+		
+		this.addEvents('stateClick');
+		
+		this.callParent(arguments);
+		
+	},
 	
 	nextDocument : function() {
 		
@@ -125,12 +139,9 @@ Ext.define('Yamma.view.MailsView', {
 		
 			{
 				xtype : 'actioncolumn',
-				width : 30,
+				maxWidth : 30,
 				tooltip : 'Type de document', // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
-				resizable : false,
-				menuDisabled : true,
-				sortable : false,
 				
 				items : [
 					this.getDocumentTypeActionDefinition()
@@ -217,7 +228,7 @@ Ext.define('Yamma.view.MailsView', {
 				renderer : function (value, meta, record) {
 				
 					var assignedAuthority = record.get(Yamma.utils.datasources.Documents.ASSIGNED_AUTHORITY_QNAME);
-					if (assignedAuthority) {
+					if (assignedAuthority && value) {
 						meta.tdCls = 'assigned-user-cell';
 						return assignedAuthority.split('|')[0] || assignedAuthority;
 					}
@@ -306,9 +317,11 @@ Ext.define('Yamma.view.MailsView', {
 		var record = grid.getStore().getAt(rowIndex);
 		var documentNodeRef = this.getDocumentNodeRefRecordValue(record);
 		
-		return Ext.create('Yamma.view.windows.DocumentHistoryWindow', {
-			nodeRef : documentNodeRef 
-		}).show();
+		this.fireEvent('stateClick', documentNodeRef);
+		
+//		return Ext.create('Yamma.view.windows.DocumentHistoryWindow', {
+//			nodeRef : documentNodeRef 
+//		}).show();
 			
 	},
 	
@@ -362,10 +375,14 @@ Ext.define('Yamma.view.MailsView', {
 		
 			{
 				xtype : 'bluexmlactioncolumn',
-				width : 30,
+				maxWidth : 60,
 				items : [
 					this.getDistributeActionDefinition(),
-					this.getStartProcessingActionDefinition()
+					this.getStartProcessingActionDefinition(),
+					this.getReplyActionDefinition(),
+					this.getSendReplyActionDefinition(),
+					this.getAcceptReplyActionDefinition(),
+					this.getRefuseReplyActionDefinition()
 				]
 				
 			}

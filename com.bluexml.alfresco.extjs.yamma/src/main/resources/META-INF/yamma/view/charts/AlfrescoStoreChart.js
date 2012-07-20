@@ -11,7 +11,7 @@ Ext.define('Yamma.view.charts.AlfrescoStoreChart', {
 		alfrescostoreaware : 'Bluexml.store.AlfrescoStoreAware'
 	},
 	
-    store : Ext.create('Ext.data.ArrayStore'), // fake initial store
+    store : Ext.create('Ext.data.ArrayStore', {}), // fake initial store
     
     initComponent : function() {
     	

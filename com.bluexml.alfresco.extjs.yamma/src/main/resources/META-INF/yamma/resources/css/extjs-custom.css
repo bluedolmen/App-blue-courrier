@@ -2,6 +2,7 @@
 	display : block;
 	background : no-repeat;
 	width : 16px; /* default icon-width should be 16px */
+	height : 16px;
 	margin-top : 2px;
 	margin-left : auto;
 	margin-right : auto;
@@ -25,17 +26,13 @@
 	text-align : left; /* this property may be overridden by yui */
 }
 
-.row-mail-late .x-grid-cell {
-	background-color: #ffe2e2;
+.x-action-col-icon {
+	padding-left : 2px;
+	padding-right : 2px;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
-.late-cell {
-	text-align : center;
-	color: #900;
-	background-repeat: no-repeat; 
-	background-image: url(../icons/exclamation.png) !important;
-	background-position: right center; 
-}
 
 .assigned-service-cell {
 	background-repeat: no-repeat; 
@@ -50,6 +47,28 @@
 	background-image: url(../icons/user.png) !important;
 	background-position: left center; 
 	padding-left : 16px;
+}
+
+.drop-zone {
+	border: 2px dashed #BBB;
+	border-radius: 6px;
+	text-align: center;
+	font: 18pt bold;
+	font-family: Tahoma, Geneva, sans-serif;
+	color: #BBB;
+	margin: 1px;
+}
+
+.drop-zone-active {
+	background-repeat: no-repeat; 
+	background-image: url(../icons/email_upload.png) !important;
+	background-position: center center;
+}
+
+.drop-zone-inactive {
+	background-repeat: no-repeat; 
+	background-image: url(../icons/email_upload_nb.png) !important;
+	background-position: center center;
 }
 
 #loading-mask {
@@ -100,4 +119,25 @@
 	background-position: right center;
 	height:      70px;
 }
+
+/**
+ * Ext.ux.tab.Toolbar styles
+ */
+.x-tab-toolbar-right { z-index: 6; float: right; }
+.x-tab-toolbar-right .x-tab-toolbar { padding: 0 2px; border-width: 0 0 0 1px; }
+.x-tab-toolbar-left { z-index: 6; float: left; }
+.x-tab-toolbar-left .x-tab-toolbar { padding: 0 2px; border-width: 0 1px 0 0; }
+
+.row-mail-late .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+.late-cell {
+	text-align : center;
+	color: #900;
+	background-repeat: no-repeat; 
+	background-image: url(../icons/exclamation.png) !important;
+	background-position: right center; 
+}
+
 

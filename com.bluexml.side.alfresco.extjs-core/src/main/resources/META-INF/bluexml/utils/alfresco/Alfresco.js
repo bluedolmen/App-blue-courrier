@@ -67,7 +67,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	
 	resolveAlfrescoProtocol : function(url) {
 		
-		if (null === url) return null;
+		if (null == url) return null;
 
 		if (url.indexOf(this.ALFRESCO_PROTOCOL) != 0) {
 			return url;
@@ -183,7 +183,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	 *            call succeed (it is a shortcut when no advanced parameter is
 	 *            necessary, e.g. scope of the handler)
 	 */
-	jsonPost : function(config, onSuccess) {
+	jsonPost : function(config, onSuccess, onFailure) {
 		
 		var me = this;
 		config = config || {};
@@ -194,7 +194,13 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 			url : null, // must be overridden
 			
 			failureCallback : {
-				fn : Bluexml.Alfresco.genericFailureManager
+				fn : function() {
+					if (onFailure) {
+						onFailure(arguments, Bluexml.Alfresco.genericFailureManager);
+					} else {
+						Bluexml.Alfresco.genericFailureManager(arguments);
+					}
+				}
 			},
 			
 			successCallback : {
@@ -213,7 +219,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 					if (onSuccess) onSuccess(jsonResponse);
 				}				
 			}
-		}
+		};
 		
 		Ext.apply(ajaxCallConfig, config);
 		

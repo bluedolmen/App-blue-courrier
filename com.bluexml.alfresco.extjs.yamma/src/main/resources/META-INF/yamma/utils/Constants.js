@@ -26,12 +26,19 @@ Ext.define('Yamma.utils.Constants', {
 	BASE_ICON_PATH : '/share/res/yamma/resources/icons/',	
 	
 	/* MODEL */
-	YAMMA_NAMESPACE_PREFIX : 'yamma',
+	YAMMA_NAMESPACE_PREFIX : 'yamma-ee',
 	YAMMA_NAMESPACE : 'http://www.bluexml.com/model/content/bluexml/yamma/1.0',
 
 	initResources : function() {
 		
 		/* TYPES */
+		
+		this.ABSTRACT_DOCUMENT_TYPE_DEFINITION = Ext.apply(
+			{
+				title : 'Document'	
+			}, 
+			this.getIconDefinition('page_white')
+		);
 		
 		this.UNKNOWN_TYPE_DEFINITION = Ext.apply(
 			{
@@ -40,9 +47,18 @@ Ext.define('Yamma.utils.Constants', {
 			this.getIconDefinition('page_white')
 		);
 		
+		this.MAIL_TYPE_DEFINITION = Ext.apply(
+			{
+				title : 'Courrier'
+			},
+			this.getIconDefinition('email')
+		);
+		
 		this.DOCUMENT_TYPE_DEFINITIONS = {
 			
-		},
+			'yamma-ee:Mail' : this.MAIL_TYPE_DEFINITION
+			
+		};
 		
 		this.DOCUMENT_STATE_DEFINITIONS = {
 			
@@ -84,6 +100,22 @@ Ext.define('Yamma.utils.Constants', {
 					shortTitle : 'Validation'
 				}, 
 				this.getIconDefinition('cog_tick')
+			),
+			
+			'processed' : Ext.apply(
+				{
+					title : 'Traité et validé',
+					shortTitle : 'Traité'
+				},
+				this.getIconDefinition('tick')
+			),
+			
+			'archived' : Ext.apply(
+				{
+					title : 'Archivé',
+					shortTitle : 'Archivé'
+				},
+				this.getIconDefinition('package')
 			),
 			
 			'UNKNOWN' : Ext.apply(

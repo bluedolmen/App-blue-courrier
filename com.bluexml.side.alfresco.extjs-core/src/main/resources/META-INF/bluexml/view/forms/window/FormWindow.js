@@ -1,16 +1,13 @@
 Ext.define('Bluexml.view.forms.window.FormWindow', {
 
 	extend : 'Ext.window.Window',
-	uses : [
-		'Bluexml.Site'
-	],
 	
 	width : window.innerWidth ? window.innerWidth * 0.75 : 900,
 	height : window.innerHeight || 450,
 	layout : 'fit',
 	headerPosition : 'left',
 	delegatedFrame : null,
-	
+
 	constructor : function(config) {
 		
 		config = config || {};
@@ -29,7 +26,7 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 		}
 		
 		config = config || {};
-		updateTitle();		
+		this.updateTitle(config);		
 		updateItems();
 		if (!this.isVisible()) this.show(); 
 		
@@ -57,29 +54,32 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 			me.delegatedFrame = me.add(newItem);
 			me.delegatedFrame.load();
 		}
-
-		
-		/**
-		 * Update the title with the name of the type (if present)
-		 */
-		function updateTitle() {
-
-			var itemId = config.itemId;
-			if (!itemId) return;
-			var title = config.title || me.title;
-			if (!title) return;
-			
-			var typeDescription = Bluexml.Site.BRITAIR_DOCUMENT_TYPES[itemId];
-			if (null == typeDescription) return;
-			
-			var typeTitle = typeDescription.title;
-			if (null == typeTitle) return;
-			
-			me.setTitle(title + ' ' + typeTitle);
-			me.setIconCls(typeDescription.iconCls);
-		}
 		
 	},
+	
+	updateTitle : function(config) {
+		var title = config.title || this.title;
+		if (!title) return;
+		
+		var itemId = config.itemId;
+		if (!itemId) {
+			this.setTitle(title);
+			return;
+		}
+		
+		var itemDescription = this.getItemDescription(itemId);
+		if (!itemDescription) return;
+		
+		var itemTitle = itemDescription.title;
+		if (null == itemTitle) return;
+		
+		this.setTitle(title + ' ' + itemTitle);
+		this.setIconCls(itemDescription.iconCls);		
+	},
+	
+	getItemDescription : function(itemId) {
+		return null;
+	},	
 	
 	updateItemConfig : function(config) {
 		// do nothing but maybe overridden

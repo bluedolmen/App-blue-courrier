@@ -1,5 +1,9 @@
 Ext.define('Yamma.controller.MailsViewController', {
+	
 	extend : 'Ext.app.Controller',
+	uses : [
+		'Yamma.view.windows.DetailsWindow'
+	],
 
 	refs : [
 	
@@ -15,29 +19,36 @@ Ext.define('Yamma.controller.MailsViewController', {
 		this.control({
 			'mailsview': {
 				selectionchange : this.onSelectionChange,
-				itemclick : this.onItemClick
+				stateClick : this.onStateClick
 			}
 		});
 		
 		this.application.on({
 			contextChanged : this.onContextChanged,
+			metaDataEdited : this.onMetaDataEdited,
 			scope : this
 		});
 		
 	},
 	
-	onContextChanged : function(context) {		
-		this.displayTrayContent(context);
+	onContextChanged : function(context) {
+		
+		if (context.isAdvancedSearchBased()) {
+			this.displaySearchResult(context);
+			return;
+		}
+		
+		// Default behavior
+		this.displayFilterBasedContent(context);
+		
 	},
 	
-	displayTrayContent : function(context) {
-		
-		var mailsView = this.getMailsView();
-		if (!mailsView) return;
+	displayFilterBasedContent : function(context) {
 		
 		var filters = context.getDocumentDatasourceFilters();
 		var label = context.getLabel();
 		
+		var mailsView = this.getMailsView();
 		mailsView.load(
 			/* storeConfig */
 			{
@@ -53,7 +64,42 @@ Ext.define('Yamma.controller.MailsViewController', {
 			}
 		);
 		
-	},	
+	},
+	
+	displaySearchResult : function(context) {
+
+		var query = context.getQuery();
+		var term = context.getTerm();
+		if (!query && !term) return;
+		
+		var label = context.getLabel() || 'Recherche avancée';
+		var encodedQuery = Ext.JSON.encode(query);
+		
+		var mailsView = this.getMailsView();
+		mailsView.load(
+			null, /* storeConfig */
+			
+			{
+				extraParams : {
+					query : encodedQuery,
+					term : term
+				}
+			}, /* proxyConfig */
+			
+			{
+				ref : '^' + label
+			} /* extraConfig */
+		);		
+		
+	},
+	
+	
+	onMetaDataEdited : function(nodeRef) {
+		
+		var mailsView = this.getMailsView();
+		mailsView.refresh();
+		
+	},
 	
 	onSelectionChange : function(selectionModel, selectedRecords, eOpts) {
 		
@@ -66,9 +112,13 @@ Ext.define('Yamma.controller.MailsViewController', {
 		this.application.fireEvent('newmailselected', firstSelectedRecord);
 	},
 	
-	onItemClick : function(view, record, item) {
-		//this.displayItem(record);
-	}
+	onStateClick : function(nodeRef) {
+		var detailsWindow = Ext.create('Yamma.view.windows.DetailsWindow', {
+			documentNodeRef : nodeRef
+		});
+		
+		detailsWindow.show();
+	}	
 	
 
 });

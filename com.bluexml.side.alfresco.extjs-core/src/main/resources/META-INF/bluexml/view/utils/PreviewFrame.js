@@ -55,8 +55,8 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 		}		
 		
 		var url = (this.getMimeType() === 'application/pdf') 
-			? this.PREVIEW_PAGE_URL
-			: this.EMBED_PAGE_URL;
+			? this.EMBED_PAGE_URL
+			: this.PREVIEW_PAGE_URL;
 		
 		return url.replace(/\{nodeRef\}/, nodeRef);
 	}
