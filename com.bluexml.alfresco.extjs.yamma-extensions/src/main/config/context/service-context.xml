@@ -141,7 +141,7 @@
 		depends-on="SIDE_ModelExtension_yamma-ee.dictionaryBootstrap">
 		
 		<property name="policyName">
-			<value>{http://www.alfresco.org}onCreateAssociation</value>
+			<value>{http://www.alfresco.org}onDeleteAssociation</value>
 		</property>
 		
 		<property name="className">
