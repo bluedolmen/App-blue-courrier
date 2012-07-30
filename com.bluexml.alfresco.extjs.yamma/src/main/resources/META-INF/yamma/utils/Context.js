@@ -79,7 +79,7 @@ Ext.define('Yamma.utils.Context', {
 			var service = this.getService();
 			
 			return Ext.String.format(
-				'Banette {0} du service {1}',
+				'Bannette {0} du service {1}',
 				tray.label || '',
 				service.label || ''
 			);

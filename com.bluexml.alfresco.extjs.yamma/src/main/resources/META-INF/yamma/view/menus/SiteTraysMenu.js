@@ -81,7 +81,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 			
 	id : 'sitetrays-menu',
 	
-	title : 'Banettes',
+	title : 'Bannettes',
 	iconCls : 'icon-folder_page_white',
 
 	border : 1,
