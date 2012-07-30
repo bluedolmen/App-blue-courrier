@@ -151,7 +151,7 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		return {
 			eventType : eventType,
 			data : data
-		}
+		};
 	},
 	
 	onReceivedMessage : function(event) {
