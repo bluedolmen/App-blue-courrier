@@ -582,73 +582,76 @@
   </composedViews>
   <composedViews xmi:id="_5pitb7YGEeGSo_XQepIvyw" name="datagrid">
     <children xsi:type="view:DataList" xmi:id="_5pitcLYGEeGSo_XQepIvyw" name="Delay_DataList">
-      <children xsi:type="view:TextField" xmi:id="_5pitd7YGEeGSo_XQepIvyw" name="name">
+      <children xsi:type="view:TextField" xmi:id="_KKheN8dBEeGVoP7HZaHFtA" name="name">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
       </children>
-      <disabled xsi:type="view:DateTimeField" xmi:id="_0EHmgLlEEeGSo_XQepIvyw" name="accessed">
+      <children xsi:type="view:IntegerField" xmi:id="_KKheNMdBEeGVoP7HZaHFtA" name="delay">
+        <mapTo href="../data/YaMma-EE.dt#_y5_MYMc_EeGVoP7HZaHFtA"/>
+      </children>
+      <disabled xsi:type="view:DateTimeField" xmi:id="_MLbmAMdBEeGVoP7HZaHFtA" name="accessed">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_0EHmgblEEeGSo_XQepIvyw" name="content">
+      <disabled xsi:type="view:TextField" xmi:id="_MLbmAcdBEeGVoP7HZaHFtA" name="content">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:DateTimeField" xmi:id="_0EHmgrlEEeGSo_XQepIvyw" name="created">
+      <disabled xsi:type="view:DateTimeField" xmi:id="_MLbmAsdBEeGVoP7HZaHFtA" name="created">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_0EHmg7lEEeGSo_XQepIvyw" name="creator">
+      <disabled xsi:type="view:TextField" xmi:id="_MLbmA8dBEeGVoP7HZaHFtA" name="creator">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:DateTimeField" xmi:id="_0EHmhLlEEeGSo_XQepIvyw" name="modified">
+      <disabled xsi:type="view:DateTimeField" xmi:id="_MLcNEMdBEeGVoP7HZaHFtA" name="modified">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_0EHmhblEEeGSo_XQepIvyw" name="modifier">
+      <disabled xsi:type="view:TextField" xmi:id="_MLcNEcdBEeGVoP7HZaHFtA" name="modifier">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:IntegerField" xmi:id="_0EHmhrlEEeGSo_XQepIvyw" name="node-dbid">
+      <disabled xsi:type="view:IntegerField" xmi:id="_MLcNEsdBEeGVoP7HZaHFtA" name="node-dbid">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_0EINkLlEEeGSo_XQepIvyw" name="node-uuid">
+      <disabled xsi:type="view:TextField" xmi:id="_MLcNE8dBEeGVoP7HZaHFtA" name="node-uuid">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_0EINkblEEeGSo_XQepIvyw" name="store-identifier">
+      <disabled xsi:type="view:TextField" xmi:id="_MLcNFMdBEeGVoP7HZaHFtA" name="store-identifier">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_0EINkrlEEeGSo_XQepIvyw" name="store-protocol">
+      <disabled xsi:type="view:TextField" xmi:id="_MLcNFcdBEeGVoP7HZaHFtA" name="store-protocol">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
       </disabled>
       <viewOf xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
     </children>
     <children xsi:type="view:DataList" xmi:id="_5pitfLYGEeGSo_XQepIvyw" name="PrivacyLevel_DataList">
-      <children xsi:type="view:TextField" xmi:id="_5pitg7YGEeGSo_XQepIvyw" name="name">
+      <children xsi:type="view:TextField" xmi:id="_PTPrhsdBEeGVoP7HZaHFtA" name="name">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
       </children>
-      <disabled xsi:type="view:DateTimeField" xmi:id="_1spDgLlEEeGSo_XQepIvyw" name="accessed">
+      <disabled xsi:type="view:DateTimeField" xmi:id="_bwE_oMdBEeGVoP7HZaHFtA" name="accessed">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_1spDgblEEeGSo_XQepIvyw" name="content">
+      <disabled xsi:type="view:TextField" xmi:id="_bwE_ocdBEeGVoP7HZaHFtA" name="content">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:DateTimeField" xmi:id="_1spDgrlEEeGSo_XQepIvyw" name="created">
+      <disabled xsi:type="view:DateTimeField" xmi:id="_bwE_osdBEeGVoP7HZaHFtA" name="created">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_1spDg7lEEeGSo_XQepIvyw" name="creator">
+      <disabled xsi:type="view:TextField" xmi:id="_bwE_o8dBEeGVoP7HZaHFtA" name="creator">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:DateTimeField" xmi:id="_1spDhLlEEeGSo_XQepIvyw" name="modified">
+      <disabled xsi:type="view:DateTimeField" xmi:id="_bwE_pMdBEeGVoP7HZaHFtA" name="modified">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_1spDhblEEeGSo_XQepIvyw" name="modifier">
+      <disabled xsi:type="view:TextField" xmi:id="_bwE_pcdBEeGVoP7HZaHFtA" name="modifier">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:IntegerField" xmi:id="_1spDhrlEEeGSo_XQepIvyw" name="node-dbid">
+      <disabled xsi:type="view:IntegerField" xmi:id="_bwE_psdBEeGVoP7HZaHFtA" name="node-dbid">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_1spDh7lEEeGSo_XQepIvyw" name="node-uuid">
+      <disabled xsi:type="view:TextField" xmi:id="_bwE_p8dBEeGVoP7HZaHFtA" name="node-uuid">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_1spDiLlEEeGSo_XQepIvyw" name="store-identifier">
+      <disabled xsi:type="view:TextField" xmi:id="_bwE_qMdBEeGVoP7HZaHFtA" name="store-identifier">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
       </disabled>
-      <disabled xsi:type="view:TextField" xmi:id="_1spDiblEEeGSo_XQepIvyw" name="store-protocol">
+      <disabled xsi:type="view:TextField" xmi:id="_bwFmsMdBEeGVoP7HZaHFtA" name="store-protocol">
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
       </disabled>
       <viewOf xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
@@ -688,6 +691,45 @@
         <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
       </disabled>
       <viewOf xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+    </children>
+    <children xsi:type="view:DataList" xmi:id="_jUbh4MdBEeGVoP7HZaHFtA" name="Priority_DataList">
+      <children xsi:type="view:TextField" xmi:id="_tys3l8dBEeGVoP7HZaHFtA" name="name">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
+      </children>
+      <children xsi:type="view:IntegerField" xmi:id="_tys3lMdBEeGVoP7HZaHFtA" name="level">
+        <mapTo href="../data/YaMma-EE.dt#_outrMMc_EeGVoP7HZaHFtA"/>
+      </children>
+      <disabled xsi:type="view:DateTimeField" xmi:id="_wDaV8MdBEeGVoP7HZaHFtA" name="accessed">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:TextField" xmi:id="_wDaV8cdBEeGVoP7HZaHFtA" name="content">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZssDh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:DateTimeField" xmi:id="_wDaV8sdBEeGVoP7HZaHFtA" name="created">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:TextField" xmi:id="_wDaV88dBEeGVoP7HZaHFtA" name="creator">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:DateTimeField" xmi:id="_wDaV9MdBEeGVoP7HZaHFtA" name="modified">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:TextField" xmi:id="_wDaV9cdBEeGVoP7HZaHFtA" name="modifier">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:IntegerField" xmi:id="_wDaV9sdBEeGVoP7HZaHFtA" name="node-dbid">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:TextField" xmi:id="_wDa9AMdBEeGVoP7HZaHFtA" name="node-uuid">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:TextField" xmi:id="_wDa9AcdBEeGVoP7HZaHFtA" name="store-identifier">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <disabled xsi:type="view:TextField" xmi:id="_wDa9AsdBEeGVoP7HZaHFtA" name="store-protocol">
+        <mapTo href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
+      </disabled>
+      <viewOf xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_CngK8Mc8EeGVoP7HZaHFtA"/>
     </children>
     <disabled xsi:type="view:DataList" xmi:id="_6ma2ELlEEeGSo_XQepIvyw" name="AssignableSite_DataList">
       <children xsi:type="view:TextField" xmi:id="_6ma2EblEEeGSo_XQepIvyw" name="name">

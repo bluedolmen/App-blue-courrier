@@ -42,7 +42,7 @@
     <form xsi:type="form:ClassFormCollection" href="../form/default.form#_5sfTYLYGEeGSo_XQepIvyw"/>
   </internalPortletSet>
   <internalPortletSet xmi:id="_5xbd3bYGEeGSo_XQepIvyw" type="Form">
-    <form xsi:type="form:ClassFormCollection" href="../form/anotherFormCollection.form#_5uyZcLYGEeGSo_XQepIvyw"/>
+    <form xsi:type="form:ClassFormCollection" href="../form/default.form#_5sfTYLYGEeGSo_XQepIvyw"/>
   </internalPortletSet>
   <internalPortletSet xmi:id="_5xbd3rYGEeGSo_XQepIvyw" type="Form">
     <form xsi:type="form:SearchFormCollection" href="../form/search.form#_3Kw9gLYGEeGSo_XQepIvyw"/>

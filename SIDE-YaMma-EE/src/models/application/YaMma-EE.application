@@ -64,6 +64,7 @@
     <parameters key="generation.option.complete" value="true"/>
     <parameters key="generation.option.resolve.dependencies" value="true"/>
     <parameters key="generation.option.offlineMode" value="false"/>
+    <parameters key="com.bluexml.side.Class.generator.alfresco.module.version" value="1.0" dataType="String"/>
     <deployerConfigurations id_techno_version="freemind" impl_class="com.bluexml.side.util.deployer.FakeDeployer" id="com.bluexml.side.Requirements.deployer.freemind" technologyVersionName="FreeMind" technologyName="mindmap" contributorId="com.bluexml.side.Requirements.generator" deployerName="freemind deployer">
       <options key="generator.main"/>
     </deployerConfigurations>
@@ -117,7 +118,7 @@
       <options key="generator.main"/>
     </deployerConfigurations>
     <deployerConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.deployer.documentation.DocumentationDeployer" id="com.bluexml.side.Deployer.documentation" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Deployer.documentation" deployerName="SIDE Documentation Deployer"/>
-    <deployerConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.deployer.alfrescodirectcopy346e.DirectDeployer" id="com.bluexml.side.Deployer.alfrescoDirectCopy346e" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Deployer.alfrescoDirectCopy346E" deployerName="SIDE Alfresco enterprise Direct Deployer"/>
+    <deployerConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.deployer.alfrescodirectcopy346e.DirectDeployer" id="com.bluexml.side.Deployer.alfrescoDirectCopy346e" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="Alfresco" contributorId="com.bluexml.side.Deployer.alfrescoDirectCopy346E" deployerName="SIDE Alfresco enterprise Direct Deployer"/>
   </elements>
   <elements xsi:type="app:Model" name="default.form" file="/YaMma-EE/src/models/form/default.form"/>
   <elements xsi:type="app:Configuration" name="YaMma-EE">
@@ -154,9 +155,7 @@
     <parameters key="generation.options.logPath" value="/YaMma-EE/build/logs"/>
     <parameters key="generation.options.destinationPath" value="/YaMma-EE/build/generated"/>
     <parameters key="CATALINA_HOME" value="/home/pajot-b/opt/mail-management/tomcat" dataType="Directory"/>
-    <deployerConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.deployer.alfrescodirectcopy346e.DirectDeployer" id="com.bluexml.side.Deployer.alfrescoDirectCopy346e" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Deployer.alfrescoDirectCopy346E" deployerName="SIDE Alfresco enterprise Direct Deployer">
-      <options key="com.bluexml.side.hotDeployment"/>
-    </deployerConfigurations>
+    <deployerConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.deployer.alfrescodirectcopy346e.DirectDeployer" id="com.bluexml.side.Deployer.alfrescoDirectCopy346e" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Deployer.alfrescoDirectCopy346E" deployerName="SIDE Alfresco enterprise Direct Deployer"/>
   </elements>
   <elements xsi:type="app:Configuration" name="Form G" description="">
     <generatorConfigurations id_techno_version="alfresco_3.4.6E" impl_class="com.bluexml.side.form.generator.alfresco.enterprise346.FormGenerator346e" id="com.bluexml.side.Form.generator.alfresco346E" metaModelName="KSR400 Form" technologyVersionName="Alfresco3.4.6 Enterprise" technologyName="alfresco" contributorId="com.bluexml.side.Form.generator.alfresco.enterprise346E" id_metamodel="http://www.kerblue.org/form/1.0" generatorName="Alfresco Share Forms Generator">
