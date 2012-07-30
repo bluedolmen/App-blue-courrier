@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <template-instance>
-	<template-type>com/bluexml/extjs/cruform</template-type>
+	<template-type>com/bluexml/extjs/extjsform</template-type>
 	<properties>
 		<pageFamily>ExtJS</pageFamily>
 	</properties>
@@ -12,12 +12,11 @@
 			
 			<properties>
 				<itemKind>node</itemKind>
-				<itemId>{nodeRef}</itemId>
+				<itemId>{itemId}</itemId>
 				<mode>view</mode>
 				<showCaption>false</showCaption>
 				<showSubmitButton>false</showSubmitButton>
 				<showCancelButton>true</showCancelButton>
-				<single>{single}</single>
 			</properties>
 			
 		</component>

@@ -4,7 +4,7 @@
    <page-type>extjssearchform</page-type>
    <title>Formulaire de recherche ExtJS</title>
    <title-id>page.extjssearchform.title</title-id>
-   <description>Formulaire de recherche ExtJS</description>
+   <description>Formulaire de recherche extjs</description>
    <description-id>page.extjssearchform.description</description-id>
    <template-instance>extjssearchform</template-instance>
    <authentication>user</authentication>

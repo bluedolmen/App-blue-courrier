@@ -3,18 +3,19 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	extend : 'Ext.ux.ManagedIframe.Component',
 	alias : 'widget.formframe',
 	
-	autoLoad : false,
+	resetUrl : null,
+	preloadForm : false,
 	
-	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'standaloneform',
+	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'extjsform',
 	
 	formConfig : {
 		
-		itemKind : 'node',
+		itemKind : null,
 		itemId : null,
 		mode : null,
 		submitType : null,
 		showCaption : true,
-		showCancelButton : true,
+		showCancelButton : null,
 		editInline : null,
 		googleEditable : null,
 		
@@ -49,15 +50,20 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		
 		var me = this;
 		setEventConfiguration();
-		if (this.autoLoad) this.load();
+		if (true === this.preloadForm) this.load();
 		this.callParent();
 		
 		function setEventConfiguration() {
 			
-			me.enableBubble('formaction');
 			me.addEvents('formaction');
 			me.on('documentloaded', me.onDocumentLoaded);
+			me.on('destroy', onDestroy);
+			Ext.EventManager.addListener(window, 'message', me.onReceivedMessage, me);
 			
+		}
+		
+		function onDestroy() {
+			Ext.EventManager.removeListener(window, 'message', me.onReceivedMessage, me);
 		}
 		
 	},
@@ -73,7 +79,15 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		this.checkMandatoryParameters();
 		
 		var formConfig = this.getFormConfig();
-		var parameters = Ext.Object.toQueryString(formConfig);
+		
+		var cleanedFormConfig = {};
+		// Get a formConfig object removing null values
+		Ext.Object.each(formConfig, function(key, value, myself) {
+			if (null == value) return;
+			cleanedFormConfig[key] = value;
+		});
+		
+		var parameters = Ext.Object.toQueryString(cleanedFormConfig);
 		var url = this.getSourceUrl() + '?' + parameters;
 		
 		return url; // no checking here
@@ -83,7 +97,7 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		
 		var formConfig = this.getFormConfig();
 		var itemId = formConfig.itemId;
-		if (!itemId) { // TODO: mandatory arguments should be checked generically
+		if (!itemId) {
 			Ext.Error.raise('IllegalStateException! No item id is defined');
 		}
 		
@@ -102,115 +116,108 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	 * to provide an interaction with the parent (ie current) environment.
 	 */
 	
-	getContentDocument : function() {
-		var frameElement = this.getContentTarget();
-		if (null == frameElement) return null;
-		
-		var contentDocument = frameElement.dom.contentDocument;
-		return contentDocument;
-	},
-	
-	onDocumentLoaded : function(component, frameElement) {
-		var contentDocument = frameElement.dom.contentDocument;
-
-		this.registerButtonClickEvents(contentDocument);
-		this.bindYahooCustomEvent(contentDocument);
-		
+	onDocumentLoaded : function(component, frameElement) {		
+		// DO NOTHING by default
 	},
 	
 	/**
-	 * Registers the click event on button themselves for submit/cancel actions.
-	 * A click listener is also added on the document, but submit/cancel events
-	 * are not plugged by default. Indeed a side effect could arrise if a
-	 * subform is loaded in the main document.
-	 * <p>
-	 * The user is free to manage a specific behavior case-by-case
+	 * @protected
+	 * @param {Ext.EventObject} event The event as wrapped by Ext-JS
 	 */
-	registerButtonClickEvents : function(contentDocument) {
+	getMessageEventDescription : function(event) {
 		
-		var me = this;
-		contentDocument = contentDocument || this.getContentDocument();
+		if (!event) return null;
 		
-		Ext.EventManager.addListener(
-			contentDocument, 
-			'click',
-			Ext.Function.bind(this.onContentDocumentClicked, this)
-		);
-
-		var body = Ext.get(contentDocument.body); // Returns an Ext.Element
-		if (!body) return;
+		var browserEvent = event.browserEvent;
+		if (!browserEvent) return null;
 		
-		var buttons = body.query('button');
-		Ext.Array.forEach(buttons, function(button) {
-			
-			var buttonId = button.id;
-			if (undefined === buttonId) return;
-
-			if (buttonId.indexOf('cancel-button') > 0) {
-				registerButtonClickedEvent(button, me.onContentDocumentCancelButtonClicked);
-			} 
-			else if (buttonId.indexOf('submit-button') > 0) {
-				registerButtonClickedEvent(button, me.onContentDocumentSubmitButtonClicked);			
+		var data = browserEvent.data;
+		if (Ext.isString(data)) {
+			// Try to decode the string to an Object
+			try {
+				data = Ext.JSON.decode(data); // generate an exception if not valid...
+			} catch (e) {
+				Ext.log(Ext.String.format('The received message \'{0}\' is not a valid JSON String', data));
+				return null;
 			}
-			
-		});
+		} else {
+			data = Ext.apply({}, data); // clone
+		}
 		
-		function registerButtonClickedEvent(button, callback) {
-			
-			Ext.EventManager.addListener(
-				button, 
-				'click',
-				Ext.Function.bind(callback, me)
-			);
-			
+		var eventType = data.eventType;
+		if (!eventType) return null;
+		
+		delete data.eventType;
+		return {
+			eventType : eventType,
+			data : data
 		}
 	},
 	
-	bindYahooCustomEvent : function(contentDocument) {
+	onReceivedMessage : function(event) {
 		
-		var me = this;
-		contentDocument = contentDocument || this.getContentDocument();
+		var eventDescription = this.getMessageEventDescription(event);
+		if (!eventDescription) return;
 		
-		var onFormAction = contentDocument.onformaction;
-		if (!onFormAction || !onFormAction.subscribe) return;			
+		var eventType = eventDescription.eventType;
+		var data = eventDescription.data;
+		
+		switch(eventType) {
 			
-		onFormAction.subscribe(
-			function callOnFormAction(eventName, args) {
-				me.onFormAction.apply(me, args);
-			},
-			this
-		);			
+			case 'button-click':
+				this.onButtonClick(data);
+				break;
+				
+			case 'form-result':
+				this.onFormResult(data);
+				break;				
+				
+			default:
+				this.onFormAction(eventType, data);
+				
+		}
 		
 	},
 	
+	onButtonClick : function(data) {
+		
+		var buttonId = data.buttonId;
+		if (!buttonId) return;
+		
+		var handlerImplicitName = 'onContentDocument' + Ext.String.capitalize(buttonId) + 'ButtonClicked';
+		var handler = this[handlerImplicitName];
+		if (!Ext.isFunction(handler)) return;
+		
+		handler.call(this, data);
+		
+	},
+	
+	/*
+	 * Generic form-action
+	 */
 	onFormAction : function(actionName, data) {
 		
 		this.fireEvent('formaction', actionName, data);
 		
-	},
+	},	
 	
-	onContentDocumentClicked : function(event, htmlElement, eOpts) {
+	onFormResult : function(data) {
 		
-		if ('button' === htmlElement.type) {
-			var buttonId = htmlElement.id;
-			this.onContentDocumentButtonClicked(event, htmlElement, buttonId, eOpts);
-		}
-		
-	},
-	
-	onContentDocumentButtonClicked : function(event, button, buttonId, eOpts) {		
+		var state = data.state;
+		var message = data.message;
+		this.fireEvent('formaction', state, message);
 		
 	},
-	
-	onContentDocumentCancelButtonClicked : function(event, button, eOpts) {
+		
+	onContentDocumentCancelButtonClicked : function(data) {
 		
 		this.fireEvent('formaction', 'cancel', this);
 		
 	},
 	
-	onContentDocumentSubmitButtonClicked : function(event, button, eOpts) {
+	onContentDocumentSubmitButtonClicked : function(data) {
 		
-		this.fireEvent('formaction', 'success', this);
+		this.fireEvent('formaction', 'submit', this);
 		
 	}
 	

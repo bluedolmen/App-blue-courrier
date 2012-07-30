@@ -6,4 +6,4 @@
 <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/components/search/search.css" />
 <@script type="text/javascript" src="${page.url.context}/res/components/search/advsearch.js"></@script>
 <!-- overloading version -->
-<@script type="text/javascript" src="${page.url.context}/res/components/bluexml/search/advsearch.js"></@script>
+<@script type="text/javascript" src="${page.url.context}/res/components/bluexml/search/socket-advsearch.js"></@script>

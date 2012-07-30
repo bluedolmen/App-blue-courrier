@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>extjscreateform</id>
+   <page-type>extjscreateform</page-type>
+   <title>Formulaire de création ExtJS</title>
+   <title-id>page.extjscreateform.title</title-id>
+   <description>Formulaire de création extjs</description>
+   <description-id>page.extjscreateform.description</description-id>
+   <template-instance>extjscreateform</template-instance>
+   <authentication>user</authentication>
+</page>

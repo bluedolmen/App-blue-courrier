@@ -1,12 +1,7 @@
 <#assign el=args.htmlid>
-<#assign hiddenclass>
-<#if page.url.args["single"]??>
-hidden
-</#if>
-</#assign>
 
 <script type="text/javascript">//<![CDATA[
-   new Bluexml.AdvancedSearch("${el}").setOptions(
+   new Bluexml.SocketAdvancedSearch("${el}").setOptions(
    {
       siteId: "${siteId}",
       searchForms: [<#list searchForms as f>
@@ -25,42 +20,11 @@ hidden
 
 <div id="${el}-body" class="search">
 
-	<div class="yui-gc form-row ${hiddenclass}" >
-		<div class="yui-u first">
-			<span class="lookfor">${msg("label.lookfor")}:</span>
-         
-         <#-- component to show list of forms, displays current form -->
-			<span class="selected-form-button">
-				<span id="${el}-selected-form-button" class="yui-button yui-menu-button">
-					<span class="first-child">
-						<button type="button" tabindex="0"></button>
-					</span>
-				</span>
-			</span>
-         <#-- menu list of available forms -->
-			<div id="${el}-selected-form-list" class="yuimenu" style="visibility:hidden">
-				<div class="bd">
-					<ul>
-                  <#list searchForms as f>
-						<li>
-							<span class="form-type-name" tabindex="0">${f.label?html}</span>
-							<span class="form-type-description">${f.description?html}</span>
-						</li>
-                  </#list>
-					</ul>
-				</div>
-			</div>
-		</div>
-      
-      <#-- search button -->
-		<div class="yui-u align-right">
-			<span id="${el}-search-button-1" class="yui-button yui-push-button search-icon">
-				<span class="first-child">
-					<button type="button">${msg('button.search')}</button>
-				</span>
-			</span>
-		</div>
-	</div>   
+   <#-- keywords entry box -->
+   <div class="keywords-box <#if page.url.args["showKeywords"]!"false" != "true">hidden</#if>">
+      <div>${msg("label.keywords")}:</div>
+      <input type="text" class="terms" name="${el}-search-text" id="${el}-search-text" value="${(page.url.args["st"]!"")?html}" maxlength="1024" />
+   </div>
 	 
    <#-- container for forms retrieved via ajax -->
 	<div id="${el}-forms" class="forms-container form-fields"></div>

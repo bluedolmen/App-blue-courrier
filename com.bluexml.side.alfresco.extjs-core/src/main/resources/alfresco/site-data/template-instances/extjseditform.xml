@@ -6,19 +6,21 @@
 	</properties>
 	
 	<components>
+		
 		<component>
 			<region-id>formPortlet</region-id>
-			<url>/components/bluexml/search/advsearch</url>
+			<url>/components/form?formId={formId}&amp;redirect={redirect}&amp;css={css}&amp;js={js}</url>
 			
 			<properties>
-				<itemKind>type</itemKind>
+				<itemKind>node</itemKind>
 				<itemId>{itemId}</itemId>
 				<mode>edit</mode>
-				<formId>search</formId>
-				<showKeywords>true</showKeywords>
-			</properties>
-			
+				<showCaption>true</showCaption>
+				<showSubmitButton>true</showSubmitButton>
+				<showCancelButton>true</showCancelButton>
+				<submitType>{submitType}</submitType>
+			</properties>	
 		</component>
-	</components>
-	   
+		
+	</components>    
 </template-instance>

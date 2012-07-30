@@ -3,13 +3,35 @@ Ext.define('Bluexml.utils.alfresco.forms.SearchFormFrame',{
 	extend : 'Bluexml.utils.alfresco.forms.FormFrame',
 	alias : 'widget.searchformframe',
 	
-//	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'standalonesearchform',	
+//	defaultFormConfig : {
+//		itemKind : 'type',
+//		mode : 'edit',
+//		formId : 'search',
+//	}		
 	
-	defaultFormConfig : {
-		itemKind : 'type',
-		mode : 'edit',
-		formId : 'search',
-		single : true
-	}	
+	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'extjssearchform',
+	
+	onReceivedMessage : function(event) {
+		
+		var eventDescription = this.getMessageEventDescription(event);
+		if (!eventDescription) return;
+		
+		var eventType = eventDescription.eventType;
+		
+		if ('search' != eventType) 
+			return this.callParent(event);
+		
+		var data = eventDescription.data;
+		
+		this.onSearch(data);
+	},
+	
+	onSearch : function(data) {
+		
+		var term = data.term;
+		var query = data.formData;
+		this.fireEvent('formaction', 'search', term, query);
+		
+	}
 
 });
