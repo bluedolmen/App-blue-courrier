@@ -1,7 +1,6 @@
 Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 	
-	extend : 'Yamma.controller.menus.ClosingMenuController',
-	
+	extend : 'Yamma.controller.menus.MainMenuController',
 	
 	init: function() {
 		

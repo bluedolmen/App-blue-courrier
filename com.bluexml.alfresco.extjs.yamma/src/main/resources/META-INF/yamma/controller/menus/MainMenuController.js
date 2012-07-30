@@ -1,7 +1,7 @@
 /**
  * The controller associated to the MainMenu.
  */
-Ext.define('Yamma.controller.menus.ClosingMenuController', {
+Ext.define('Yamma.controller.menus.MainMenuController', {
 
 	extend : 'Ext.app.Controller',
 
