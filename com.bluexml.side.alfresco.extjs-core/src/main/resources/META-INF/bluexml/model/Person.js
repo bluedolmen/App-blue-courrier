@@ -48,6 +48,7 @@ Ext.define('Bluexml.model.Person', {
 		"sizeCurrent", 
 		"persondescription",
 		"capabilities",
+		"avatarRef",
 		{
 			name : 'isAdmin',
 			type : 'boolean',
@@ -101,6 +102,18 @@ Ext.define('Bluexml.model.Person', {
 	
 	isAdmin : function() {
 		return this.get('isAdmin');
+	},
+	
+	getAvatarUrl : function() {
+		var 
+			avatarRef = this.get('avatarRef'),
+			avatarUrl = avatarRef ?
+				'alfresco://api/node/' + avatarRef.replace('://','/') + '/content/thumbnails/avatar?c=queue&amp;ph=true' :
+				Alfresco.constants.URL_RESCONTEXT + 'components/images/no-user-photo-64.png'
+		;
+		
+		return Bluexml.Alfresco.resolveAlfrescoProtocol(avatarUrl);
+		
 	}
 	
 });

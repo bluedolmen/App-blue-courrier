@@ -4,12 +4,13 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	alias : 'widget.userbuttonmenu',
 	
 	requires : [
-		'Bluexml.model.PersonFactory'
+		'Bluexml.model.PersonFactory',
+		'Ext.Img'
 	],
 	
 	text : Bluexml.Alfresco.getCurrentUserName(),
-	iconCls : 'icon-user_suit',
-	
+	iconCls : 'icon-user_suit',	
+			
 	initComponent : function() {
 		this.customizeUserButtonLabel();
 		this.menu = this.getMenuDefinition();
@@ -28,7 +29,6 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	
 	getMenuItems : function() {
 		
-		var me = this;
 		var items = [];
 		
 		var profileMenu = this.getProfileMenuItemDeclaration();
@@ -46,7 +46,6 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	},
 	
 	getProfileMenuItemDeclaration : function() {
-		var me = this;
 		
 		return {
 			id : 'profile',
@@ -56,6 +55,7 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 				click : this.onProfileMenuItemClicked
 			}
 		};
+		
 	},
 	
 	getLogoutMenuItemDeclaration : function() {
@@ -81,11 +81,26 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 		Bluexml.model.PersonFactory.getPerson(username, onPersonAvailable);
 
 		function onPersonAvailable(person) {
-			var firstName = person.get('firstName') || person.get('userName');
-			var lastName = person.get('lastName') || '';
-			var displayName = firstName + (lastName ? ' ' + lastName : '');			
+			
+			var 
+				firstName = person.get('firstName') || person.get('userName'),
+				lastName = person.get('lastName') || '',
+				displayName = firstName + (lastName ? ' ' + lastName : ''),
+				btnIconEl = me.btnIconEl
+			;			
 			
 			me.setText(displayName);
+			
+			if (!btnIconEl) return;
+			
+			me.setScale('large');
+			Ext.create('Ext.Img', {
+				src : person.getAvatarUrl(),
+				renderTo : btnIconEl,
+				width : '32px',
+				height : '32px'
+			});
+			
 		}
 
 	},
