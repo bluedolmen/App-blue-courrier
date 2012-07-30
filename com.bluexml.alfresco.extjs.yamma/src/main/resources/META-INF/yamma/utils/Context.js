@@ -42,7 +42,7 @@ Ext.define('Yamma.utils.Context', {
 	isFilterBased : function() {
 		
 		var localFilters = this.getFilters();
-		return (filters && filters.length > 0);
+		return (localFilters && localFilters.length > 0);
 		
 	},
 	
