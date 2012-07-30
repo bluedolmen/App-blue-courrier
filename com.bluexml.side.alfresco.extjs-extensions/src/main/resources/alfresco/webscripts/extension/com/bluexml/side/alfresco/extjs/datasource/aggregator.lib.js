@@ -45,8 +45,10 @@
 		// MAIN LOGIC
 		Utils.forEach(nodeList,
 			function(node) {
-				var values = me.delegatedDatasource.evaluateNode(node);
-				aggregate(values);				
+				var values = Utils.wrapAsList(me.delegatedDatasource.evaluateNode(node));
+				Utils.forEach(values, function(value){
+					aggregate(value);
+				});
 			}
 		);
 		aggregate({}, true /* finalize */);
