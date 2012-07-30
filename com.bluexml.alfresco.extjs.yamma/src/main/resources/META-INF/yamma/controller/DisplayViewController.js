@@ -151,7 +151,8 @@ Ext.define('Yamma.controller.DisplayViewController',{
 		if (replyFilesButton.isDisabled()) return; 
 		replyFilesButton.disable();
 		
-		if (replyFilesButton.menu) Ext.destroy(replyFilesButton.menu);		
+		if (replyFilesButton.menu) Ext.destroy(replyFilesButton.menu);
+		replyFilesButton.setTooltip('');
 	},
 	
 	
