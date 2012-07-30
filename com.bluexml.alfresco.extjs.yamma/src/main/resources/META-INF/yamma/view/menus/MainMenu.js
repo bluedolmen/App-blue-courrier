@@ -12,6 +12,12 @@ Ext.define('Yamma.view.menus.MainMenu', {
 	id : 'main-menu',
 	title : 'Menu principal',
 	
+	/**
+	 * Store the state of the panel w.r.t. the pin/unpin actions
+	 * @type Boolean
+	 */
+	pinned : false,
+	
 	layout : 'accordion',
     layoutConfig: {
         // layout-specific configs go here
@@ -20,14 +26,39 @@ Ext.define('Yamma.view.menus.MainMenu', {
         activeOnTop: true
     },
     
+    tools : [
+	    {
+	    	itemId : 'unpin',
+	    	type : 'unpin',
+	    	handler : function(event, target, owner, tool) {
+	    		this.hide();
+	    		owner.child('#pin').show();
+	    		owner.up('panel').pinned = true;
+	    	}
+	    },
+	    {
+	    	itemId : 'pin',
+	    	type : 'pin',
+	    	hidden : true,
+	    	handler : function(event, target, owner, tool) {
+	    		this.hide();
+	    		owner.child('#unpin').show();
+	    		owner.up('panel').pinned = false;
+	    	}
+	    }
+    ],
+    
     items : [
 	    {
 	    	xtype : 'mymenu'
-	    	
 	    },
 	    {
 	    	xtype : 'sitetraysmenu'
 	    }
-    ]
+    ],
+    
+    isPinned : function() {
+    	return pinned;
+    }
 				
 });

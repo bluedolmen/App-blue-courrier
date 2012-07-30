@@ -1,3 +1,6 @@
+/**
+ * The controller associated to the MainMenu.
+ */
 Ext.define('Yamma.controller.menus.ClosingMenuController', {
 
 	extend : 'Ext.app.Controller',
@@ -33,7 +36,11 @@ Ext.define('Yamma.controller.menus.ClosingMenuController', {
 		
 		var mainMenu = this.getMainMenu();
 		if (!mainMenu) return;
-		mainMenu.collapse(Ext.Component.DIRECTION_LEFT);		
+		
+		// Do not close the menu if it is pinned
+		if (true === mainMenu.isPinned) return;
+		
+		mainMenu.toggleCollapse();		
 		
 	}
 	
