@@ -178,6 +178,9 @@
 .icon-page_white_user {
     background-image: url(../icons/page_white_user.png) !important;
 }
+.icon-file_upload {
+    background-image: url(../icons/file_upload.png) !important;
+}
 .icon-folder {
     background-image: url(../icons/folder.png) !important;
 }

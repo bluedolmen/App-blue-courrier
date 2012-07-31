@@ -6,7 +6,6 @@ Ext.define('Yamma.view.header.Header', {
 		'Bluexml.model.Person',
 		'Bluexml.utils.alfresco.button.UserButtonMenu',
 		'Yamma.view.menus.AdvancedSearchMenu',
-		'Yamma.view.windows.DropZone',
 		'Yamma.view.header.OpenSearch'
 	],
 	
@@ -17,20 +16,20 @@ Ext.define('Yamma.view.header.Header', {
 		{
 			xtype : 'userbuttonmenu'
 		},
-		{
-			xtype : 'advancedsearchmenu'
-		},
+		
 		{
 			xtype : 'tbspacer',
 			flex : 1
 		},
+		
+		'-',
 		{
-			xtype : 'opensearch'
+			xtype : 'advancedsearchmenu'
 		},
 		{
-			xtype : 'dropzone',
-			width : 100,
-			height : 50
+			xtype : 'opensearch',
+			width : 250,
+			padding : '0 10 0 0'
 		}
 		
 	],

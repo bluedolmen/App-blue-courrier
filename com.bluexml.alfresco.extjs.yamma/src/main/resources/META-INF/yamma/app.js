@@ -14,7 +14,8 @@ Ext.require([
 	'Bluexml.store.AlfrescoStore',
 	'Bluexml.utils.alfresco.Alfresco',
 	'Bluexml.utils.DirtyManager',
-	'Yamma.utils.Constants'
+	'Yamma.utils.Constants',
+	'Ext.window.MessageBox'
 ], function() {
 	initApplication();
 });
@@ -34,7 +35,7 @@ function initApplication() {
 				'ReferencesViewController',
 				'DisplayViewController',
 				'charts.StatesStatsViewController',
-				'header.DropZoneController',
+				'header.UploadButtonController',
 				'header.OpenSearchController'
 			],
 			

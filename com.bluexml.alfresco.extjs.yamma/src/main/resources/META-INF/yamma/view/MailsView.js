@@ -12,7 +12,11 @@ Ext.define('Yamma.view.MailsView', {
 		'Yamma.utils.grid.MailsViewGrouping',
 		'Yamma.utils.datasources.Documents',
 		'Ext.grid.column.Date',
-		'Bluexml.utils.grid.column.HeaderImage'
+		'Bluexml.utils.grid.column.HeaderImage',
+		
+		
+		'Ext.form.Label',
+		'Yamma.utils.button.UploadButton'
 	],
 	
 	mixins : [
@@ -37,7 +41,8 @@ Ext.define('Yamma.view.MailsView', {
 	DUE_DATE_LABEL : 'Date échéance',
 	PRIORITY_LABEL : 'Priorité',
 	
-	title : 'Courrier',
+	//title : 'Courrier',
+	title : '',
 	
 //	initComponent : function() {
 //		var me = this;
@@ -63,11 +68,44 @@ Ext.define('Yamma.view.MailsView', {
 //		
 //		this.callParent(arguments);
 //	},
+
+	tbar : [
+		{
+			xtype : 'label',
+			text : 'Courrier',
+			itemId : 'toolbarTitle',
+			margins : '0 0 0 5',
+			style : {
+				'font-size' : '1.2em',
+				'font-weight' : 'bold',
+				'color' : '#15498B'
+			}
+		},
+		'->',
+		{
+			xtype : 'uploadbutton',
+			scale : 'small',
+			text : ''
+		}
+	],
+	
+	/**
+	 * This method is overloaded in order to set the the label of the toolbar
+	 * and not the title of the panel (which is hidden).
+	 * 
+	 * @param {String}
+	 *            title
+	 */
+	setTitle : function(title) {
+		var label = this.down('#toolbarTitle');
+		if (!label) return;
+		
+		label.setText(title);
+	},
 	
 	initComponent : function() {
 		
 		this.addEvents('stateClick');
-		
 		this.callParent(arguments);
 		
 	},

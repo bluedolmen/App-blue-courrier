@@ -46,12 +46,14 @@ Ext.define('Yamma.view.header.OpenSearch', {
 		'Bluexml.Alfresco'
 	],
 	
-    fieldLabel: 'Recherche rapide',
+    fieldLabel: '',//Recherche rapide',
+    labelClsExtra : 'icon-magnifier_zoom_in',
+    labelWidth : 30,
     queryMode: 'remote',
     queryParam: '@term',
     valueField: 'nodeRef',
     hideTrigger : true,
-    width : 350,
+    width : 300,
     grow : true,
     
     listConfig: {
