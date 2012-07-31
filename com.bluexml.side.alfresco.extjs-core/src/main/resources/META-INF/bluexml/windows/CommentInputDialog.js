@@ -1,10 +1,10 @@
 Ext.define('Bluexml.windows.CommentInputDialog', {
-
+	
 	singleton : true,
 	
 	defaultConfig : {
 		title : 'Saisie',
-		buttons : Ext.Msg.OKCANCEL,
+		buttons : Ext.MessageBox.OKCANCEL,
 		multiline : true,
 		modal : false,
 		msg : 'Entrez un commentaire pour cette opération.'		
