@@ -38,7 +38,7 @@ Ext.define('Yamma.controller.menus.MainMenuController', {
 		if (!mainMenu) return;
 		
 		// Do not close the menu if it is pinned
-		if (true === mainMenu.isPinned) return;
+		if (mainMenu.isPinned()) return;
 		
 		mainMenu.toggleCollapse();		
 		

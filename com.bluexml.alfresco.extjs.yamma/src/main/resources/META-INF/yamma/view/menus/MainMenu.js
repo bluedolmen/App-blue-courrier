@@ -58,7 +58,7 @@ Ext.define('Yamma.view.menus.MainMenu', {
     ],
     
     isPinned : function() {
-    	return pinned;
+    	return this.pinned;
     }
 				
 });
