@@ -26,10 +26,6 @@ Ext.define('Yamma.view.ReferencesView', {
 		];		
 	},	
 	
-	/**
-	 * The version depends of the kind of Document => DocumentBritair or ReferentielExterne
-	 * @return {}
-	 */
 	getObjectColumnDefinition : function() {
 		
 		var coldef = this.applyDefaultColumnDefinition (
