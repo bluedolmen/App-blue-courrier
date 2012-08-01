@@ -11,11 +11,14 @@ Ext.Loader.setConfig(
 );
 
 Ext.require([
+	'Ext.window.MessageBox',
 	'Bluexml.store.AlfrescoStore',
 	'Bluexml.utils.alfresco.Alfresco',
 	'Bluexml.utils.DirtyManager',
+	'Bluexml.utils.tab.Tool',
+	'Bluexml.utils.grid.column.HeaderImage',
 	'Yamma.utils.Constants',
-	'Ext.window.MessageBox'
+	'Yamma.utils.grid.MailsViewGrouping'
 ], function() {
 	initApplication();
 });
@@ -24,19 +27,23 @@ function initApplication() {
 
 	Ext.application(
 		{
+			requires : [
+				
+			],
+			
 			name : 'Yamma',
 			appFolder : '/share/res/yamma',
 			
 			controllers : [
+				'header.UploadButtonController',
+				'header.OpenSearchController',
 				'menus.SiteTraysMenuController',
 				'menus.MyMenuController',
 				'menus.AdvancedSearchMenuController',
+				'charts.StatesStatsViewController',
 				'MailsViewController',
 				'ReferencesViewController',
-				'DisplayViewController',
-				'charts.StatesStatsViewController',
-				'header.UploadButtonController',
-				'header.OpenSearchController'
+				'DisplayViewController'
 			],
 			
 			autoCreateViewport : true,
