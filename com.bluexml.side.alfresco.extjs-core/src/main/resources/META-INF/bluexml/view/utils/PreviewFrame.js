@@ -25,7 +25,6 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 	
 	initComponent : function() {
 		
-		var me = this;
 		if (this.autoLoad) this.load();
 		this.callParent();
 				
