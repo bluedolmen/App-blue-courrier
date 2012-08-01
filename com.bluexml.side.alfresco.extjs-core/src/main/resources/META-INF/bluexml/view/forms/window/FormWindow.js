@@ -40,7 +40,10 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 			if (!formxtype) return;
 			
 			var newItem = {
-				xtype : formxtype
+				xtype : formxtype,
+				border : 0,
+				plain : true,
+				autoScroll : false
 			};
 			Ext.applyIf(newItem, config);
 			me.updateItemConfig(newItem);
