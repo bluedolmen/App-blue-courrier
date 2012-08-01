@@ -13,8 +13,6 @@ Ext.define('Yamma.view.MailsView', {
 		'Yamma.utils.datasources.Documents',
 		'Ext.grid.column.Date',
 		'Bluexml.utils.grid.column.HeaderImage',
-		
-		
 		'Ext.form.Label',
 		'Yamma.utils.button.UploadButton'
 	],
