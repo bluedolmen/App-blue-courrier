@@ -25,8 +25,7 @@
 		
 		getHistoryEvents : function(document) {
 			
-			if (!document) return [];			
-			if (document.isSubType && !document.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)) return [];
+			if (!document || !DocumentUtils.isDocumentNode(document)) return [];
 			
 			var events = document.childAssocs[YammaModel.HISTORIZABLE_HISTORY_ASSOCNAME];
 			if (!events) return [];
