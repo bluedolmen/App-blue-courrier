@@ -3,6 +3,10 @@ Ext.define('Bluexml.utils.grid.column.Action', {
 	extend : 'Ext.grid.column.Action',
 	alias : 'widget.bluexmlactioncolumn',
 	
+	requires : [
+		'Bluexml.utils.grid.column.HeaderImage'
+	],
+	
 	tooltip : 'Actions', // if the plugin is applied on the containing table
 	plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : 'icon-lightning'}),
 	align : 'center',
