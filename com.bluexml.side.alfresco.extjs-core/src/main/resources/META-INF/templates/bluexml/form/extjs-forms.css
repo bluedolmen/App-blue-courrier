@@ -1,0 +1,18 @@
+/*
+.alfresco-share .sticky-wrapper {
+	background-color: #DFE8F6
+}
+*/
+
+.share-form .form-container .form-fields {
+	width: inherit;
+	background-color: #DFE9F6;
+}
+
+.share-form .form-container .caption {
+	width: inherit;
+}
+
+.share-form .form-container .set-title {
+	border-bottom-color: #D2D2D2;
+}
