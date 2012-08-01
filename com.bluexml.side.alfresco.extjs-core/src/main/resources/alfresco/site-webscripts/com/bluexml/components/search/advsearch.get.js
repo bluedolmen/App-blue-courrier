@@ -4,8 +4,22 @@
 
 function main()
 {
-	var siteId = (page.url.templateArgs["site"] != null) ? page.url.templateArgs["site"] : "";   
-	var itemId = page.url.args["itemId"];
+	var 
+		siteId = (page.url.templateArgs["site"] != null) ? page.url.templateArgs["site"] : "",
+		itemId = page.url.args["itemId"],
+		searchForm = null,
+		searchForms = [];	
+	
+	if (null != itemId) {
+		searchForm = getForm(itemId);
+	}
+	
+	if (null != searchForm) {
+		searchForms.push(searchForm);
+	}
+	
+	prepareModel();
+	
    
 	function getForm(itemId) {
 		
@@ -52,11 +66,11 @@ function main()
 		
 	}
    	
-   
-   // Prepare the model
-   model.siteId = siteId;
-   model.searchForms = [getForm(itemId)];
-   
+   	function prepareModel() {
+	   model.siteId = siteId;
+	   model.searchForms = searchForms;   		
+   	}
+
 }
 
 main();
