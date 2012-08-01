@@ -251,7 +251,6 @@ Ext.define('Yamma.view.MailsView', {
 	 */
 	getAssignedColumnDefinition : function() {
 		
-		var me = this;
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				width : 150,
@@ -332,8 +331,6 @@ Ext.define('Yamma.view.MailsView', {
 	
 	getShowStateActionDefinition : function() {
 		
-		var me = this;
-		
 		return	{
 			handler : this.onShowStateDetailsAction,
 			scope : this,
@@ -355,10 +352,6 @@ Ext.define('Yamma.view.MailsView', {
 		
 		this.fireEvent('stateClick', documentNodeRef);
 		
-//		return Ext.create('Yamma.view.windows.DocumentHistoryWindow', {
-//			nodeRef : documentNodeRef 
-//		}).show();
-			
 	},
 	
 	getDueDateColumnDefinition : function() {
