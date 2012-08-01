@@ -25,9 +25,9 @@
 	 * Get the Alfresco local-name of a given Alfresco full-name (with
 	 * prefix).
 	 * 
-	 * @param typeName
+	 * @param {String} typeName
 	 *            the Alfresco full name, e.g. 'cm:content'
-	 * @return the part after the namespace
+	 * @return {String} the part after the namespace
 	 */
 	getAlfrescoLocalName : function(typeName) {
 		var colonIndex = typeName.indexOf(':');
@@ -38,12 +38,13 @@
 	
 	/***
 	 * Returns the Ext name corresponding to the Alfresco defined typename
-	 * <p>
+	 * 
 	 * Example:
-	 * <ul>
-	 * <li> <code> cm:content -> Content </code> </li> 
-	 * <li> <code> xx:com_bluexml_Content -> Com.bluexml.Content </code> </li> 
-	 * </ul> 
+	 * - `` cm:content -> Content ``
+	 * - `` xx:com_bluexml_Content -> Com.bluexml.Content ``
+	 * 
+	 * @param {String} the Alfresco full-qualified type-name
+	 * @return {String} The corresponding ExtJS class-name
 	 */
 	getExtTypeName : function(typeName) {
 
