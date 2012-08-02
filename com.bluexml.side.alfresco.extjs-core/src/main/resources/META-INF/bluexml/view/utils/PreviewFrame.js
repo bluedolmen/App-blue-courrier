@@ -10,7 +10,6 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 	autoScroll : false,	
 	
 	config : {
-		autoLoad : false,
 		nodeRef : null,
 		mimeType : null
 	},
@@ -21,13 +20,6 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 		this.initConfig(config);
 		
 		this.callParent([config]);
-	},
-	
-	initComponent : function() {
-		
-		if (this.autoLoad) this.load();
-		this.callParent();
-				
 	},
 	
 	load : function(config) {
