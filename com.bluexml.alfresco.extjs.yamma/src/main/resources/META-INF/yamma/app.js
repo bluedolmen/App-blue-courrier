@@ -35,7 +35,6 @@ function initApplication() {
 			appFolder : '/share/res/yamma',
 			
 			controllers : [
-				'header.UploadButtonController',
 				'header.OpenSearchController',
 				'menus.SiteTraysMenuController',
 				'menus.MyMenuController',
@@ -43,7 +42,7 @@ function initApplication() {
 				'charts.StatesStatsViewController',
 				'MailsViewController',
 				'ReferencesViewController',
-				'DisplayViewController'
+				'display.DisplayViewController'
 			],
 			
 			autoCreateViewport : true,

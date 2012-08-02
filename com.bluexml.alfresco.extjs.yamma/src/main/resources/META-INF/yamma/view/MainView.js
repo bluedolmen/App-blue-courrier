@@ -7,9 +7,9 @@ Ext.define('Yamma.view.MainView',{
 		'Yamma.view.menus.MainMenu',
 		'Yamma.view.MailsView',
 		'Yamma.view.ReferencesView',
-		'Yamma.view.DisplayView',
 		'Yamma.view.EditDocumentView',
-		'Yamma.view.charts.StatesStatsView'
+		'Yamma.view.charts.StatesStatsView',
+		'Yamma.view.display.DisplayView'
 	],	
 	
 	layout : 'border',
