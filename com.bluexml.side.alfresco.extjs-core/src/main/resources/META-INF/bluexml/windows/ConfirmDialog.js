@@ -6,7 +6,6 @@ Ext.define('Bluexml.windows.ConfirmDialog', {
 	
 	askConfirmation : function(messageBoxConfig /* or Title */, message, onConfirmation, scope) {
 
-		var me = this;
 		onConfirmation = onConfirmation || messageBoxConfig.onConfirmation;
 		scope = scope || this;
 		
@@ -14,9 +13,7 @@ Ext.define('Bluexml.windows.ConfirmDialog', {
 			
             messageBoxConfig = {
                 title: messageBoxConfig,
-                msg: message,
-                callback: fn,
-                scope: scope
+                msg: message
             };
             
         };
@@ -32,10 +29,7 @@ Ext.define('Bluexml.windows.ConfirmDialog', {
 		
 		
 		function onButtonClicked(buttonId) {
-			
-			//me.close();
-			if ('yes' !== buttonId) return;
-			
+			if ('yes' !== buttonId) return;			
 			if (onConfirmation) onConfirmation.call(scope);
 		}
 		
