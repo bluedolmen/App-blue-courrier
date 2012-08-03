@@ -168,6 +168,61 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 		
 	},
 	
+	getAjaxCallConfig : function(config) {
+		
+		config = config || {};
+		
+		onSuccess = config.onSuccess;
+		onFailure = config.onFailure;
+		delete config.onSuccess;
+		delete config.onFailure;
+		
+		var 
+			me = this,
+			
+			defaultAjaxCallConfig = {
+				
+				url : null, // must be overridden
+				
+				failureCallback : {
+					
+					fn : function() {
+						
+						if (onFailure) {
+							var failureExecResult = onFailure.apply(this, arguments);
+							if (false === failureExecResult) return;
+						} 
+						
+						Bluexml.Alfresco.genericFailureManager.apply(this, arguments);
+					}
+					
+				},
+				
+				successCallback : {
+					fn : function(response) {
+						var jsonResponse = response.json;
+						if (!jsonResponse) {
+							var serverResponse = response.serverResponse;
+							if (!serverResponse) return;
+							
+							jsonResponse = Ext.JSON.decode(serverResponse.responseText, false);
+							if (null == jsonResponse) return;
+						}
+						
+						me.genericSendMailFailureManager(jsonResponse);
+						me.genericNoActionFailureManager(jsonResponse);
+						if (onSuccess) onSuccess(jsonResponse);
+					}				
+				}
+			},
+			
+			ajaxCallConfig = Ext.apply(defaultAjaxCallConfig, config)
+		
+		;
+		
+		return ajaxCallConfig;
+	},
+	
 	/**
 	 * Provides a generic JsonPost (Ajax-call) method which relies upon
 	 * Alfresco.util.Ajax.
@@ -185,45 +240,39 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	 */
 	jsonPost : function(config, onSuccess, onFailure) {
 		
-		var me = this;
 		config = config || {};
+		config.method = 'POST';
 		
-		var ajaxCall = Bluexml.Alfresco.getAjax();
-		var ajaxCallConfig = {
-			
-			url : null, // must be overridden
-			
-			failureCallback : {
-				fn : function() {
-					if (onFailure) {
-						onFailure(arguments, Bluexml.Alfresco.genericFailureManager);
-					} else {
-						Bluexml.Alfresco.genericFailureManager(arguments);
-					}
-				}
-			},
-			
-			successCallback : {
-				fn : function(response) {
-					var jsonResponse = response.json;
-					if (!jsonResponse) {
-						var serverResponse = response.serverResponse;
-						if (!serverResponse) return;
-						
-						jsonResponse = Ext.JSON.decode(serverResponse.responseText, false);
-						if (null == jsonResponse) return;
-					}
-					
-					me.genericSendMailFailureManager(jsonResponse);
-					me.genericNoActionFailureManager(jsonResponse);
-					if (onSuccess) onSuccess(jsonResponse);
-				}				
-			}
-		};
+		this.jsonRequest.apply(this, arguments);
+	},
+	
+	/**
+	 * This is a proxy to jsonRequest of Share alfresco.js utility library.
+	 * 
+	 * 
+	 * @param {Object}
+	 *            config
+	 * @param {Function}
+	 *            onSuccess
+	 * @param {Function}
+	 *            onFailure
+	 */
+	jsonRequest : function(config, onSuccess, onFailure) {
 		
-		Ext.apply(ajaxCallConfig, config);
+		config.onSuccess = onSuccess || config.onSuccess;
+		config.onFailure = onFailure || config.onFailure;
 		
-		ajaxCall.jsonPost(ajaxCallConfig);
+		var 
+			ajaxCall = Bluexml.Alfresco.getAjax(),
+			ajaxCallConfig = this.getAjaxCallConfig(config)
+		;
+			
+		if (undefined === ajaxCallConfig.method) {
+			ajaxCallConfig.method = 'GET';
+		}
+			
+		ajaxCall.jsonRequest(ajaxCallConfig);
+		
 	},
 	
 	getCurrentUserName : function() {
