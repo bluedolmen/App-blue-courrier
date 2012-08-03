@@ -13,7 +13,7 @@
 		updateDueDate : function(documentNode, delay) {
 		
 			if (!documentNode) return;
-			var createdDate = documentNode.properties.created || new Date();
+			var createdDate = documentNode.properties[YammaModel.MAIL_DELIVERY_DATE_PROPNAME] || documentNode.properties.created || new Date();
 			
 			var delayInDays = ('number' == typeof delay) ? delay : PriorityUtils.getDelayInDays(delay);
 			var delayInMillis = delayInDays * 1000 * 60 * 60 *24;
