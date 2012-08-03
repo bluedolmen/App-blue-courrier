@@ -317,8 +317,9 @@
     }
     
     function isPersonScriptNode(person) {
-    	return (person && person.typeShort && 'cm:person' == '' + person.typeShort && person.properties);
+    	return (person && person.typeShort && 'cm:person' == Utils.asString(person.typeShort) && person.properties);
     }
+    
     
     Utils.getPersonUserName = function(person) {
     	
@@ -328,6 +329,27 @@
     	if ('string' == typeof person) return person; 
     	
     	throw new Error('IllegalArgumentException! The provided person is not a valid person');
+    	
+    }
+    
+    Utils.getPersonAvatarUrl = function(person) {
+    	
+    	if (null == person) return '';
+    	
+    	if (!isPersonScriptNode(person)) {
+    		person = people.getPerson(person);
+	    	if (!person) return '';
+    	}
+    	
+    	var avatars = person.assocs['cm:avatar'];
+    	if (!avatars || 0 == avatars.length) return '';
+    	
+		var 
+			avatar = avatars[0],
+			url = 'api/node/' + avatar.storeType + '/' + avatar.storeId + '/' + avatar.id + '/content/thumbnails/avatar'
+		;
+		
+		return url;
     	
     }
     
