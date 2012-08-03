@@ -78,6 +78,18 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 		
 	},
 	
+	refresh : function() {
+		
+		this.load();
+		
+	},
+	
+	clear : function() {
+		
+		this.removeAll();
+		
+	},	
+	
 	updateTitle : function(config) {
 		var title = config.title || this.title;
 		if (!title) return;
@@ -127,7 +139,6 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 		this.defaultFormActionBehaviour();		
 		callImplicitActionHandler.apply(this, arguments);
 		
-		return true;
 		
 		function callImplicitActionHandler() {
 			
@@ -140,6 +151,9 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 			return;
 			
 		}
+		
+		return true;
+		
 	},
 	
 	defaultFormActionBehaviour : function() {
