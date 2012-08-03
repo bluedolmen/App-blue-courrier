@@ -36,6 +36,21 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
  		}
  	},
  	
+ 	/**
+	 * Clears the embedded data.
+	 * 
+	 * @param {Boolean}
+	 *            [removeColumns=false] Also remove columns when clearing
+	 */
+ 	clear : function(removeColumns) {
+ 		
+ 		this.clearStore();
+ 		if (true === removeColumns) {
+ 			me.columns = null;
+ 		}
+ 		
+ 	},
+ 	
  	onStoreAvailable : function(store) {
  		
  		this.reconfigure(store);

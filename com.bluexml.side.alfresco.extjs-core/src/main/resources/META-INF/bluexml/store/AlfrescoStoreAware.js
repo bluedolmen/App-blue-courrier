@@ -24,6 +24,34 @@ Ext.define('Bluexml.store.AlfrescoStoreAware', {
  	},
  	
  	/**
+ 	 * Refresh the current store if any
+ 	 */
+ 	refresh : function() {
+ 		
+ 		var currentStore = this.currentStore;
+ 		
+ 		if (!currentStore) {
+ 			this.load();
+ 			return;
+ 		}
+ 		
+ 		currentStore.load();
+ 	},
+ 	
+ 	/**
+	 * Clear the current embedded store
+	 * 
+	 * @param {Boolean}
+	 *            silent Prevent the `clear` event from being fired.
+	 */
+ 	clearStore : function(silent) {
+ 		
+ 		currentStore.removeAll(silent);
+ 		this.currentStore = null;
+ 		
+ 	},
+ 	
+ 	/**
  	 * @private
  	 * @param {} storeConfigOptions
  	 * @param {} proxyConfigOptions

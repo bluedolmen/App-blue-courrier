@@ -227,7 +227,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
  		
  		var pagingToolbar = this.getPagingToolbar();
  		if (pagingToolbar) pagingToolbar.doRefresh(); // using paging-toolbar context to refresh correctly
- 		else this.load();
+ 		else this.mixins.alfrescostoregrid.refresh.apply(this); // delegates to AlfrescoStoreGrid mixin
  		
  		this.setDirty(false);
  		
