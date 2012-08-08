@@ -15,10 +15,6 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		'Yamma.view.windows.UploadFormWindow'
 	],
 
-	views : [
-		'button.UploadButton'
-	],
-	
 	refs : [
 	
 	    {
