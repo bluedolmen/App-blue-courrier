@@ -22,8 +22,9 @@ Ext.define('Yamma.controller.menus.AdvancedSearchMenuController', {
     
     onSearchByTypeMenuItemClicked : function(item, event, eOpts ) {
     	
-    	var me = this;
-    	var typeId = item.typeId;
+    	var 
+    		me = this,
+    		typeId = item.typeId;
     	if (null == typeId) return;
     	
     	Ext.define('Bluexml.view.forms.window.SearchFormWindow.YammaDocument', {
@@ -36,9 +37,10 @@ Ext.define('Yamma.controller.menus.AdvancedSearchMenuController', {
     		
 			onSearch : function(formData) {
 		
-	    		var term = formData.term;
+	    		var 
+	    			term = formData.term,
+	    			query = formData;
 	    		delete formData.term;
-	    		var query = formData;
 	    		launchSearch(typeId, term, query);
 	    		
 				this.callParent(arguments);
