@@ -1,3 +1,12 @@
+/**
+ * The UploadButton controller.
+ * 
+ * The upload button displays an upload-form on click. The upload is
+ * contextualized to the current displayed tray.
+ * 
+ * The button is made inactive if the currently displayed list of
+ * mails/documents is not related to an actual tray.
+ */
 Ext.define('Yamma.controller.button.UploadButtonController', {
 	
 	extend : 'Ext.app.Controller',
@@ -6,6 +15,10 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		'Yamma.view.windows.UploadFormWindow'
 	],
 
+	views : [
+		'button.UploadButton'
+	],
+	
 	refs : [
 	
 	    {
@@ -30,10 +43,23 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		
 	},
 	
+	/**
+	 * @private
+	 * 
+	 * @param {Yamma.utils.Context}
+	 *            context the new global context
+	 */
 	onContextChanged : function(context) {		
 		this.updateButtonState(context);
 	},
 	
+	/**
+	 * Update the document state of the button regarding the global context
+	 * 
+	 * @private
+	 * @param {Yamma.utils.Context}
+	 *            context the new global context
+	 */
 	updateButtonState : function(context) {
 
 		var 
@@ -50,10 +76,20 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		
 	},
 	
+	/**
+	 * Button click-handler.
+	 *
+	 * @private
+	 */
 	onUploadClick : function() {
 		this.showUploadForm();		
 	},
 		
+	/**
+	 * Displays an upload form to the current destination.
+	 * 
+	 * @private
+	 */
 	showUploadForm : function() {
 		
 		var uploadButton = this.getUploadButton();
