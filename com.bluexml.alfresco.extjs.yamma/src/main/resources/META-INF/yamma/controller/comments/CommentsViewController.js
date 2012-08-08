@@ -1,3 +1,8 @@
+/**
+ * The Comments View Controller.
+ * 
+ * This controller manages the addition of a new comment.
+ */
 Ext.define('Yamma.controller.comments.CommentsViewController', {
 
 	extend : 'Ext.app.Controller',
@@ -31,6 +36,11 @@ Ext.define('Yamma.controller.comments.CommentsViewController', {
 		
 	},
 	
+	/**
+	 * Add-Button click-handler.
+	 * 
+	 * @private
+	 */
 	onAddCommentClick : function() {
 		
 		var me = this;
@@ -47,6 +57,12 @@ Ext.define('Yamma.controller.comments.CommentsViewController', {
 		
 	},
 	
+	/**
+	 * Performs the action of adding a comment to the current document.
+	 * 
+	 * @param {String}
+	 *            comment The comment as a HTML formatted String
+	 */
 	addDocumentComment : function(comment) {
 
 		var
