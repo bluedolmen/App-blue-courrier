@@ -55,10 +55,13 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		setPaging();
 	    this.callParent();
 	    
+	    var view = this.getView();
+	    view.on('refresh', this.onViewRefresh, this);
+	    
 	    changeHeaderMenuLabels(); // change sorting labels (french ones)
 	    registerDirtyListener();
 	    registerReconfigureListener();
-	    
+	    	    
 	    /*
 	     * PRIVATE INNER FUNCTIONS
 	     */
@@ -123,6 +126,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	},	
     
     onReconfigure : function() {
+    	
     	var pagingToolbar = this.getPagingToolbar();
     	if (!pagingToolbar) return;
     	
@@ -219,20 +223,123 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		
 		this.setTitle(defaultTitle);
 	},
- 	
- 	refresh : function(keepSelection) {
+	
+	/**
+	 * Refresh the current list.
+	 * 
+	 * The keepSelection argument should be used to restore the selection but
+	 * the dual implementation using a potential paging-toolbar is ineffective
+	 * since the paging toolbar does not raise the refresh event on which we
+	 * count on. This functionality is thus deactivated.
+	 * 
+	 * @param {Boolean}
+	 *            keepSelection NOT USED YET
+	 */
+ 	refresh : function(keepSelection, onRefreshPerformed) {
  		if (!loaded) return; // no refresh if no store is defined yet
  		
- 		var selection = keepSelection ? this.getSelectionModel().getSelection() : null;
+ 		var me = this;
+ 		
+ 		this.onRefreshPerformed = onRefreshPerformed || null;
+ 		
+// 		if (onRefreshPerformed) {
+// 			
+// 			me.getView().on('refresh', function() {
+// 				onRefreshPerformed.call(me);
+// 				me.un('refresh')
+// 			}, me);
+// 			
+// 		}
+ 		
+// 		if (undefined !== keepSelection) {
+// 			Ext.log('Warning! keepSelection argument is not supported yet!');
+// 		}
+ 		
+// 		var view = this.getView();
+// 		var me = this;
+// 		var callback = function() {
+// 			Ext.MessageBox.alert(this.id + ' : view ready');
+// 			console.log(this.id + ' : view ready');
+// 			view.mun('viewready', callback, me);
+// 		};
+// 		view.mon('viewready', callback, this);
+// 		view.mon('refresh', callback, this);
+ 		
+ 		if (keepSelection) {
+ 			this.rememberSelection();
+ 		}
+ 		
+// 		var 
+// 			me = this,
+// 			store = this.getStore();
+// 			
+// 		store.on('load', function() {
+// 			me.getView().refresh();
+// 		}, me);
  		
  		var pagingToolbar = this.getPagingToolbar();
  		if (pagingToolbar) pagingToolbar.doRefresh(); // using paging-toolbar context to refresh correctly
  		else this.mixins.alfrescostoregrid.refresh.apply(this); // delegates to AlfrescoStoreGrid mixin
  		
+ 		
+// 		this.refreshSelection();
+// 		this.resetSelection();
  		this.setDirty(false);
  		
- 		if (selection && keepSelection) this.getSelectionModel().select(selection);
  	},
+ 	
+ 	onViewRefresh : function() {
+ 		
+ 		this.refreshSelection();
+ 		
+ 		if (this.onRefreshPerformed) {
+ 			this.onRefreshPerformed.call(this);
+ 			this.onRefreshPerformed = null;
+ 		}
+ 		
+ 	},
+ 	
+ 	/**
+ 	 * Reset saved selection
+ 	 * @private
+ 	 */
+ 	resetSelection : function() {
+ 		this.selectedRecords = null;
+ 	},
+ 	
+ 	/**
+ 	 * Store the selection state
+ 	 * @private
+ 	 */
+	rememberSelection : function() {
+		if (!this.rendered || Ext.isEmpty(this.el)) { return; }
+
+		this.selectedRecords = this.getSelectionModel().getSelection();
+		this.getView().saveScrollState();
+	},
+	
+	/**
+	 * Restore the selection state from the previously saved
+	 * @private
+	 */
+    refreshSelection : function() {
+    	
+		if (!this.selectedRecords || 0 >= this.selectedRecords.length) { return; }
+
+		var newRecordsToSelect = [];
+		for (var i = 0; i < this.selectedRecords.length; i++) {
+			record = this.getStore().getById(this.selectedRecords[i].getId());
+			if (!Ext.isEmpty(record)) {
+				newRecordsToSelect.push(record);
+			}
+		}
+
+		this.getSelectionModel().select(newRecordsToSelect);
+		Ext.defer(
+			this.setScrollTop, 30, this,
+			[this.getView().scrollState.top]
+		);
+	},
  	
  	/**
 	 * Helper function that maps inner filter definition to ExtJS filter
@@ -240,7 +347,9 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	 * <p>
 	 * Subclasses may redefine or specialize this behaviour to take care of
 	 * additional information provided by the controller
-	 * @deprecated Used in conjunction with filter, this method is now deprecated
+	 * 
+	 * @deprecated Used in conjunction with filter, this method is now
+	 *             deprecated
 	 */
 	mapFilters : function(filterConfiguration) {
 	

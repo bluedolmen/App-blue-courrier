@@ -17,11 +17,17 @@ function main() {
 		return;
 	}
 
-	model.fields = []; // globals for mergeFields	
 	model.datasourceId = datasourceId;
+	// globals for mergeFields
+	model.fields = []; 
 	
+	var idProperties = [];
 	var fields = datasourceDefinition.getFields();
 	mergeFields(fields);
+	if (idProperties.length > 0) {
+		model.idProperty = idProperties[0];
+	}
+	
 	
 	function mergeFields(fields) {
 		
@@ -29,7 +35,8 @@ function main() {
 			function(field) {
 				if ('composite' === field.getType()) {
 					mergeFields(field.getFields());
-				} else {				
+				} else {
+					
 					model.fields.push(
 						{
 							name : field.getName(),
@@ -38,6 +45,10 @@ function main() {
 							datatype : field.getType()
 						}
 					);
+					
+					if (field.isId()) {
+						idProperties.push(field.getName());
+					}
 				}
 			}
 		);

@@ -49,6 +49,7 @@
 	padding-left : 16px;
 }
 
+/* DROP ZONE */
 .drop-zone {
 	border: 2px dashed #BBB;
 	border-radius: 6px;
@@ -139,5 +140,19 @@
 	background-image: url(../icons/exclamation.png) !important;
 	background-position: right center; 
 }
+
+/* COMMENTS VIEW */
+.comments .author {
+	padding-bottom : 5px;
+	color : #B00
+}
+
+.comments .published {
+	font-style : italic; 
+	display : block; 
+	float : right; 
+	padding-top : 5px;
+}
+
 
 

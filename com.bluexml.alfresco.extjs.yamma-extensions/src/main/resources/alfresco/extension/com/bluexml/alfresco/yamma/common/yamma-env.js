@@ -8,3 +8,4 @@
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/action-utils.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/upload-utils.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/reply-utils.js">
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/comment-utils.js">

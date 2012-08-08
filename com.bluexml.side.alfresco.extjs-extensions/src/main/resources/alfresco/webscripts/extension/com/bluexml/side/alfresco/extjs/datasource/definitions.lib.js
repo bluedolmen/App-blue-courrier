@@ -162,6 +162,20 @@
 		}
 		
 		/**
+		 * Get the id-properties
+		 * 
+		 * @return {String[]} The list of id-properties.
+		 */
+		this.getIdProperties = function() {
+			
+			var idProperties = Utils.map(fields, function(field) {
+				if (field.isId()) return field.getName();
+			});
+			
+			return idProperties;
+		}
+		
+		/**
 		 * An accessor to a given filter identified by its id (name)
 		 */
 		this.getFilter = function(filterId) {
@@ -529,7 +543,8 @@
 		var localConfig = {
 			label : null,
 			description : null,
-			type : null
+			type : null,
+			isId : false
 		};
 		
 		
@@ -555,9 +570,14 @@
 			return localConfig.type;
 		}
 		
+		this.isId = function() {
+			return localConfig.isId;
+		}
+		
 		this.isNative = function() {
 			return isNative;
 		}
+		
 
 		
 		
@@ -567,9 +587,20 @@
 		
 		if ('string' == typeof(config)) {
 			
+			localConfig.isId = (/\*$/).test(config);
+			if (true === localConfig.isId) {
+				// Strip '*' character
+				config = config.substring(0, config.length - 1);
+			}
+			
 			isScriptNodeProperty = config.indexOf('@') == 0; // starts-with '@'
+			if (true === isScriptNodeProperty) {
+				// String '@' character
+				config = config.substring(1);
+			}
+			
 			isNative = !isScriptNodeProperty && !prefix;
-			localConfig.name = isScriptNodeProperty ? config.substring(1) : config;
+			localConfig.name = config;
 			
 		} else {
 			

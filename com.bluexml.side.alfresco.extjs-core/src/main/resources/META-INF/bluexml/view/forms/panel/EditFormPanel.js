@@ -17,7 +17,8 @@ Ext.define('Bluexml.view.forms.panel.EditFormPanel', {
 	},
 	
 	onSuccess : function() {
-		this.fireEvent('successfulEdit', this, arguments[0]);
+		var eventArgs = ['successfulEdit', this].concat(arguments);
+		this.fireEvent.apply(this, eventArgs);
 		this.callParent(arguments);
 	}	
 

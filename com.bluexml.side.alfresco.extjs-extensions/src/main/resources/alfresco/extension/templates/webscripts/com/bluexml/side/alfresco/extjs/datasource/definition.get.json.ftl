@@ -1,6 +1,8 @@
+<#macro displayDefinition>
 <#escape x as jsonUtils.encodeJSONString(x)>
 {
    "id" : "${datasourceId}",
+   <#if idProperty??>"idProperty" : "${idProperty}",</#if>
    "fields" :
    [
       <#list fields as field>
@@ -18,3 +20,4 @@
    ]
 }
 </#escape>
+</#macro>

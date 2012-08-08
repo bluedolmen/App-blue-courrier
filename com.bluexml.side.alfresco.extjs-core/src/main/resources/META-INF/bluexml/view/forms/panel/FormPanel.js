@@ -5,14 +5,6 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 	layout : 'fit',
 	delegatedFrame : null,
 	
-	constructor : function(config) {
-		
-		config = config || {};
-		this.callParent([config]);
-		this.on('formaction', this.onFormAction);
-		
-	},
-	
 	loadNode : function(nodeRef, extraConfig) {
 		
 		var formConfig = Ext.apply(
@@ -41,7 +33,8 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 		}
 		
 		config = config || {};
-		this.updateTitle(config);		
+		this.updateTitle(config);
+		if (this.delegatedFrame) this.clear();
 		updateItems();
 		if (!this.isVisible()) this.show(); 
 		
@@ -72,6 +65,7 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 			}
 			
 			me.delegatedFrame = me.add(newItem);
+			me.mon(me.delegatedFrame, 'formaction', me.onFormAction, me);
 			me.delegatedFrame.load();
 		}
 		
@@ -86,7 +80,9 @@ Ext.define('Bluexml.view.forms.panel.FormPanel', {
 	
 	clear : function() {
 		
+		this.mun(this.delegatedFrame, 'formaction', this.onFormAction, this);
 		this.removeAll();
+		this.delegatedFrame = null;
 		
 	},	
 	

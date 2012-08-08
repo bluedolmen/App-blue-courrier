@@ -40,6 +40,9 @@
 .icon-pencil_wrench {
     background-image: url(../icons/pencil_wrench.png) !important;
 }
+.icon-comment_add {
+    background-image: url(../icons/comment_add.png) !important;
+}
 .icon-tick {
     background-image: url(../icons/tick.png) !important;
 }
@@ -99,6 +102,9 @@
 }
 .icon-email_add {
     background-image: url(../icons/email_add.png) !important;
+}
+.icon-comment_delete {
+    background-image: url(../icons/comment_delete.png) !important;
 }
 .icon-page_white_office {
     background-image: url(../icons/page_white_office.png) !important;
@@ -202,6 +208,9 @@
 .icon-information {
     background-image: url(../icons/information.png) !important;
 }
+.icon-comment {
+    background-image: url(../icons/comment.png) !important;
+}
 .icon-page_white_star {
     background-image: url(../icons/page_white_star.png) !important;
 }
@@ -237,6 +246,9 @@
 }
 .icon-date_cog {
     background-image: url(../icons/date_cog.png) !important;
+}
+.icon-comments {
+    background-image: url(../icons/comments.png) !important;
 }
 .icon-email_go {
     background-image: url(../icons/email_go.png) !important;

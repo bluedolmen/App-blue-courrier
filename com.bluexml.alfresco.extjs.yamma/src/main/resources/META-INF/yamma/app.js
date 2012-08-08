@@ -42,7 +42,8 @@ function initApplication() {
 				'charts.StatesStatsViewController',
 				'MailsViewController',
 				'ReferencesViewController',
-				'display.DisplayViewController'
+				'display.DisplayViewController',
+				'comments.CommentsViewController'
 			],
 			
 			autoCreateViewport : true,

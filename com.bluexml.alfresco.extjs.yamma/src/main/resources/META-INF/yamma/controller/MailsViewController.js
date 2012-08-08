@@ -93,25 +93,53 @@ Ext.define('Yamma.controller.MailsViewController', {
 		
 	},
 	
-	
+	/**
+	 * Executed when the metadata of the main document are edited.
+	 * 
+	 * Ideally, we should update the modified tuple locally in order to avoid a
+	 * full server datasource-request. However for the sake of simplicity, we
+	 * update the full view, keeping active selection (that point needs a little
+	 * hack).
+	 * 
+	 * @private
+	 * @param {String}
+	 *            nodeRef The nodeRef of the metadata-edited document.
+	 * @return {Boolean} `true` means "do refresh the form" (else the form not
+	 *         displayed anymore)
+	 */
 	onMetaDataEdited : function(nodeRef) {
 		
-		var mailsView = this.getMailsView();
-		mailsView.refresh();
+		var 
+			me = this,
+			mailsView = this.getMailsView()
+		;
 		
+		/*
+		 * refresh & keepSelection will raise deselect/select, which we have to
+		 * manage locally in order to avoid propagation of selection/deselection
+		 * to the other components
+		 */
+		me.isRefreshing = true;
+		mailsView.refresh(
+			true, /* keepSelection */
+			function() {
+				me.isRefreshing = false;
+			} /* onRefreshPerformed */
+		);
+		
+		return true; // tells the edited form to update
 	},
 	
 	onSelectionChange : function(selectionModel, selectedRecords, eOpts) {
+		if (true === this.isRefreshing) { return; } // ignore remove/new selection while refreshing 
 		
-		if (!selectedRecords || !Ext.isArray(selectedRecords) || selectedRecords.length == 0) {
+		if (selectedRecords.length == 0) {
 			this.application.fireEvent('clearselectedmail');
-			return;
+		} else {
+			this.application.fireEvent('newmailselected', selectedRecords[0]);
 		}
-		
-		var firstSelectedRecord = selectedRecords[0];
-		this.application.fireEvent('newmailselected', firstSelectedRecord);
 	},
-	
+		
 	onStateClick : function(nodeRef) {
 		var detailsWindow = Ext.create('Yamma.view.windows.DetailsWindow', {
 			documentNodeRef : nodeRef

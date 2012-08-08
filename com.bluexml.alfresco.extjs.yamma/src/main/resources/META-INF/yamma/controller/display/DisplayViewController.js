@@ -10,7 +10,9 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	views : [
 		'display.DisplayView',
 		'display.ReplyFilesButton',
-		'EditDocumentView'
+		'edit.EditDocumentView',
+		'edit.EditDocumentForm',
+		'comments.CommentsView'
 	],
 
 	refs : [
@@ -22,7 +24,17 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	    {
 			ref : 'editDocumentView',
 	    	selector : 'editdocumentview'
-	    },	    
+	    },
+	    
+	    {
+			ref : 'editDocumentForm',
+	    	selector : 'editdocumentform'
+	    },
+	    
+	    {
+	    	ref : 'commentsView',
+	    	selector : 'commentsview'
+	    },
 	    
 	    {
 	    	ref : 'replyFilesButton',
@@ -35,6 +47,15 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	    }
 	    
 	],
+	
+	/**
+	 * Stores the main-document nodeRef. The main-document is the one selected
+	 * in the mails-view.
+	 * 
+	 * @private
+	 * @type String
+	 */
+	mainDocumentNodeRef : null,
 	
 	init: function() {
 		
@@ -49,13 +70,9 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 				tabdblclick : this.onTabDblClick
 			},
 			
-			'editdocumentview': {
+			'editdocumentform': {
 				successfulEdit : this.onSuccessfulFormEdit
-			},
-			
-			'#showCommentsButton': {
-				click : this.onShowCommentsButtonClicked
-			}
+			}			
 			
 		});
 
@@ -75,14 +92,15 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		var nodeRef = newMailRecord.get('nodeRef'); // mandatory
 		if (!nodeRef) return;
 		
-		this.displayMailPreview(nodeRef, newMailRecord);
-		this.updateReplyFilesButton(nodeRef);
+		this.mainDocumentNodeRef = nodeRef;
+		this.displayMailPreview(newMailRecord);
+		this.updateReplyFilesButton();
 
 		this.callParent(arguments);
 		
 	},
 	
-	displayMailPreview : function(nodeRef, documentRecord) {
+	displayMailPreview : function(documentRecord) {
 		
 		var 
 			displayView = this.getDisplayView();
@@ -96,7 +114,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		// New document includes clearing of the tabs
 		displayView.clear();
 		displayView.addPreviewTab(
-			nodeRef, 
+			this.mainDocumentNodeRef, 
 			mimetype /* mimetype */,
 			{
 				title : title,
@@ -109,16 +127,22 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 	
-	onMainDocumentMetaDataEdited : function(nodeRef) {
+	onMainDocumentMetaDataEdited : function() {
 		
-		this.application.fireEvent('metaDataEdited', nodeRef);
+		var 
+			doRefresh = this.application.fireEvent('metaDataEdited', this.mainDocumentNodeRef),
+			editDocumentForm = this.getEditDocumentForm();
+		
+		if (doRefresh) {
+			editDocumentForm.refresh();
+		}
 		
 	},
 	
-	updateReplyFilesButton : function(documentNodeRef) {
+	updateReplyFilesButton : function() {
 		
 		var replyFilesButton = this.getReplyFilesButton();
-		replyFilesButton.updateStatus(documentNodeRef || null);
+		replyFilesButton.updateStatus(this.mainDocumentNodeRef || null);
 		
 	},
 	
@@ -151,6 +175,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		;
 			
 		displayView.clear();
+		this.mainDocumentNodeRef = null;
 		editDocumentView.clear();
 		this.updateReplyFilesButton();
 		
@@ -170,7 +195,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			typeShort = newCard.context.get('typeShort')
 		;
 		
-		this.displayEditForm(nodeRef, typeShort);
+		this.updateEditView(nodeRef, typeShort);
 	},
 	
 	getPreviewFrame : function(previewTab) {
@@ -184,27 +209,44 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},	
 	
-	displayEditForm : function(nodeRef, typeShort) {
+	updateEditView : function(nodeRef, typeShort) {
 		
 		if (!nodeRef) return;
 		
 		var editDocumentView = this.getEditDocumentView();
-		editDocumentView.displayEditForm(nodeRef, typeShort);	    	
+		editDocumentView.updateContext(nodeRef, typeShort);	    	
 		
 	},	
 	
+	/**
+	 * When double-clicking on a preview tab, we display a maximized window of
+	 * the content.
+	 * 
+	 * Should we display another navigator window in order to enable the user to
+	 * work with a dual screen more easily?
+	 * 
+	 * @private
+	 * @param {Ext.tab.Panel}
+	 *            container
+	 * @param {Ext.tab.Tab}
+	 *            tab
+	 */
 	onTabDblClick : function(container, tab) {
 		
-		var tabPanel = tab.card;
-		if (!tabPanel) return;
+		var tabContentPanel = tab.card;
+		if (!tabContentPanel) return;
 		
-		var previewFrame = tabPanel.child('previewframe');
+		var previewFrame = tabContentPanel.child('previewframe');
 		if (!previewFrame) return;
 		
-		var nodeRef = previewFrame.nodeRef;
-		var mimeType = previewFrame.mimeType;
+		var 
+			nodeRef = previewFrame.nodeRef,
+			mimeType = previewFrame.mimeType,
+			title = tabContentPanel.title
+		;
 		
-		var previewWindow = Ext.create('Bluexml.windows.PreviewWindow', {
+		Ext.create('Bluexml.windows.PreviewWindow', {
+			title : title,
 			nodeRef : nodeRef,
 			mimeType : mimeType
 		}).maximize().show();
@@ -222,7 +264,8 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		var 
 			displayView = this.getDisplayView(),
 			nodeRef = item.itemId,
-			previewTab = displayView.getPreviewTab(nodeRef);
+			previewTab = displayView.getPreviewTab(nodeRef)
+		;
 		
 		if (!nodeRef) return;		
 		if (previewTab) {
@@ -246,13 +289,10 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	onReplyFileMetaDataEdited : function(nodeRef) {
 		
 		// refresh the edit-form
-		var editDocumentView = this.getEditDocumentView();		
-		editDocumentView.refresh();
-		
-	},
-	
-	onShowCommentsButtonClicked : function() {
+		var editDocumentForm = this.getEditDocumentForm();		
+		editDocumentForm.refresh();
 		
 	}
+	
 		
 });

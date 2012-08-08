@@ -28,7 +28,7 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 		
 		var documentNodeRef = this.getDocumentNodeRef();
 		if (!documentNodeRef) {
-			Ext.Error.raise('IllegalStateException! The window has to be initialized with a valid documentNodeRef')
+			Ext.Error.raise('IllegalStateException! The window has to be initialized with a valid documentNodeRef');
 		}
 		
 		this.items = this.getItems();
@@ -43,7 +43,6 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 		var viewForm = Ext.create('Bluexml.utils.alfresco.forms.ViewFormFrame', {
 			width : '100%',
 			flex : 4,
-//			height : 400,
 			plain : true,
 			autoScroll : false,
 			

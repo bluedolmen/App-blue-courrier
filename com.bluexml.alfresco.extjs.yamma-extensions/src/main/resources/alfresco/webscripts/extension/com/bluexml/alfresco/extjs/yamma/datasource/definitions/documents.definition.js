@@ -87,7 +87,7 @@
 				'cm:name',
 				'@typeShort',
 				'@mimetype',
-				'@nodeRef',
+				'@nodeRef*',
 				YammaModel.COMMENTABLE_COMMENT_PROPNAME,
 				YammaModel.DIGITIZABLE_DIGITIZED_DATE_PROPNAME,
 				YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,

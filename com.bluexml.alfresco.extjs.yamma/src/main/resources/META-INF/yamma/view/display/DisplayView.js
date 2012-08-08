@@ -30,12 +30,6 @@ Ext.define('Yamma.view.display.DisplayView', {
             	{
 	            	xtype : 'replyfilesbutton',
 	            	disabled : true
-	            },
-	            {
-	            	xtype : 'button',
-	            	id : 'showCommentsButton',
-	            	iconCls : 'icon-comment',
-	            	disabled : false
 	            }
 			]
         })
@@ -114,9 +108,10 @@ Ext.define('Yamma.view.display.DisplayView', {
 	getPreviewTab : function(nodeRef) {
 		
 		if (!nodeRef) return null;
-		
-		var nodeId = Bluexml.Alfresco.getNodeId(nodeRef);
-		var previewTab = this.child('#' + nodeId);
+		var 
+			nodeId = Bluexml.Alfresco.getNodeId(nodeRef),
+			previewTab = this.child('#' + nodeId);
+			
 		return previewTab;
 		
 	},

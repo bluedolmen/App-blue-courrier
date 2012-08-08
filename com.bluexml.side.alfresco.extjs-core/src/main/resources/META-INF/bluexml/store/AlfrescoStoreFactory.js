@@ -164,21 +164,37 @@ Ext.define('Bluexml.store.AlfrescoStoreFactory', {
 		
 		function onDatasourceDefinitionRetrieved(datasourceDefinition) {
 			
-			var modelFields = mapFieldsDefinition(datasourceDefinition.fields);
-			
-			var derivedFields = config.derivedFields;
+			var 
+				modelFields = mapFieldsDefinition(datasourceDefinition.fields),
+				idProperty = datasourceDefinition.idProperty || 'nodeRef',
+				derivedFields = config.derivedFields;
+				
 			if (Ext.isArray(derivedFields)) {
 				modelFields = modelFields.concat(derivedFields);
 			}
 			
-			Ext.define(modelName, 
+			Ext.define(modelName,
 				{
 					extend : 'Ext.data.Model',
-					fields : modelFields
+					fields : modelFields,
+					idProperty : idProperty
 				},
 				createStore // onClassCreated
 			);
 			
+		};
+		
+		function getIdProperty(fields) {
+			var idProperty = null;
+			
+			Ext.Array.forEach(fields, function(fieldDefinition) {
+				if (true === fieldDefinition) {
+					idProperty = fieldDefinition.name;
+					return false; // stop iteration
+				}
+			});
+			
+			return idProperty;
 		}
 		
 		/**
