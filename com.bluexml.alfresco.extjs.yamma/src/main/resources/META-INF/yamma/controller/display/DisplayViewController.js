@@ -1,3 +1,10 @@
+/**
+ * The Display View Controller.
+ * 
+ * This is a major controller which is used to orchestrate the behaviour of the
+ * displayed preview documents and the viewing/editing of the various features
+ * associated.
+ */
 Ext.define('Yamma.controller.display.DisplayViewController',{
 	
 	extend : 'Yamma.controller.MailSelectionAwareController',
@@ -85,6 +92,13 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 * NEW MAIL SELECTED LOGIC
 	 */
 	
+	/**
+	 * New Mail selected hander.
+	 * 
+	 * @private
+	 * @param {Ext.data.Model}
+	 *            newMailRecord The MailsView record selected in the mails-list
+	 */
 	onNewMailSelected : function(newMailRecord) {
 		
 		if (!newMailRecord) return;
@@ -100,6 +114,13 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 	
+	/**
+	 * Display a mail preview given the selected mails-view record.
+	 * 
+	 * @private
+	 * @param {Ext.data.Model}
+	 *            documentRecord the MailsView record
+	 */
 	displayMailPreview : function(documentRecord) {
 		
 		var 
@@ -127,11 +148,18 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 	
+	/**
+	 * Handler called when the main-document metadata are edited (action
+	 * performed successfully).
+	 * 
+	 * @private
+	 */
 	onMainDocumentMetaDataEdited : function() {
 		
 		var 
 			doRefresh = this.application.fireEvent('metaDataEdited', this.mainDocumentNodeRef),
-			editDocumentForm = this.getEditDocumentForm();
+			editDocumentForm = this.getEditDocumentForm()
+		;
 		
 		if (doRefresh) {
 			editDocumentForm.refresh();
@@ -139,6 +167,12 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 	
+	/**
+	 * Updates the reply-files button status given the current main-document
+	 * context
+	 * 
+	 * @private
+	 */
 	updateReplyFilesButton : function() {
 		
 		var replyFilesButton = this.getReplyFilesButton();
@@ -149,6 +183,17 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	
 	/*
 	 * SUCCESSFUL EDIT FORM
+	 */
+	
+	/**
+	 * Handler of the successfully edited form.
+	 * 
+	 * @private
+	 * @param {Bluexml.view.forms.panel.EditFormPanel}
+	 *            formPanel The causing-event form panel.
+	 * @param {String}
+	 *            nodeRef The nodeRef of the metadata-edited document (as a
+	 *            nodeRef)
 	 */
 	onSuccessfulFormEdit : function(formPanel, nodeRef) {
 		
@@ -168,6 +213,13 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 * CLEAR SELECTED MAIL LOGIC
 	 */
 	
+	/**
+	 * Handler of the clear selected mail.
+	 * 
+	 * This handler removes the currently displayed document information.
+	 * 
+	 * @private
+	 */
 	onClearSelectedMail : function() {
 		var 
 			displayView = this.getDisplayView(),
@@ -186,6 +238,14 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	/*
 	 * TAB CHANGE
 	 */
+	/**
+	 * Tab-change Handler.
+	 * 
+	 * @private
+	 * @param {Yamma.view.display.DisplayView} displayView
+	 * @param {Ext.layout.container.Card} newCard the new card
+	 * @param {Ext.layout.container.Card} oldCard the old card
+	 */
 	onTabChange : function(displayView, newCard, oldCard) {
 		
 		if (!newCard.context) return;
@@ -198,17 +258,15 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		this.updateEditView(nodeRef, typeShort);
 	},
 	
-	getPreviewFrame : function(previewTab) {
-		
-		if (!previewTab) return null;
-		
-		var previewFrame = previewTab.child('previewframe');
-		if (!previewFrame) return null;
-		
-		return previewFrame.getNodeRef();
-		
-	},	
-	
+	/**
+	 * Update the edit view display.
+	 * 
+	 * @private
+	 * @param {String}
+	 *            nodeRef The mandatory nodeRef to the displayed edit form
+	 * @param {String}
+	 *            typeShort The optional type as an Alfresco Short Name
+	 */
 	updateEditView : function(nodeRef, typeShort) {
 		
 		if (!nodeRef) return;
@@ -259,6 +317,16 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 * REPLY MENU (ITEMS)
 	 */
 	
+	/**
+	 * Reply-file menu-item clicked handler.
+	 * 
+	 * This handler displays a new tab with a preview of the clicked reply
+	 * document.
+	 * 
+	 * @private
+	 * @param {Ext.menu.Item}
+	 *            item The selected menu-item
+	 */
 	onReplyFileClick : function(item) {
 		
 		var 
@@ -286,6 +354,15 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 	
+	/**
+	 * Reply-file metadata-edited handler.
+	 * 
+	 * This handler only refreshes the current form.
+	 * 
+	 * @private
+	 * @param {String}
+	 *            nodeRef The Alfresco document nodeRef
+	 */
 	onReplyFileMetaDataEdited : function(nodeRef) {
 		
 		// refresh the edit-form
