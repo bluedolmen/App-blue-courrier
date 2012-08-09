@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <clazz:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:clazz="http://www.kerblue.org/class/1.0" xmi:id="_B4EfELC0EeGFgddOkpVJwg" name="yamma-ee">
-  <classSet xmi:id="_RUS8gLC0EeGFgddOkpVJwg" name="Document" aspects="_CuQDsLC1EeGFgddOkpVJwg _zCkGkLC3EeGFgddOkpVJwg _jecxELC6EeGFgddOkpVJwg _9CLqALC6EeGFgddOkpVJwg _WWr0ILC7EeGFgddOkpVJwg _9QIJ8LC7EeGFgddOkpVJwg __erI4LOfEeGKr-5wI4QUkQ _PhfBcLC8EeGFgddOkpVJwg _5ktN0MHiEeGVoP7HZaHFtA"/>
+  <classSet xmi:id="_RUS8gLC0EeGFgddOkpVJwg" name="Document" aspects="_CuQDsLC1EeGFgddOkpVJwg _jecxELC6EeGFgddOkpVJwg _9CLqALC6EeGFgddOkpVJwg _WWr0ILC7EeGFgddOkpVJwg _9QIJ8LC7EeGFgddOkpVJwg __erI4LOfEeGKr-5wI4QUkQ _PhfBcLC8EeGFgddOkpVJwg _5ktN0MHiEeGVoP7HZaHFtA"/>
   <classSet xmi:id="_UcVrgLC0EeGFgddOkpVJwg" name="Mail" generalizations="_RUS8gLC0EeGFgddOkpVJwg" aspects="_-qvgELC2EeGFgddOkpVJwg _UtZOMMHqEeGVoP7HZaHFtA">
     <attributes xmi:id="_Z9QWYLC0EeGFgddOkpVJwg" documentation="" description="The date on which the mail was stamped" name="stampDate" title="Stamp Date" typ="Date">
       <metainfo xmi:id="_kHG7QLC0EeGFgddOkpVJwg" key="index.atomic" value="True"/>
@@ -74,15 +74,6 @@
     </attributes>
     <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
   </classSet>
-  <classSet xmi:id="_hLOsEMHjEeGVoP7HZaHFtA" name="Comment">
-    <attributes xmi:id="_iR_f0MHjEeGVoP7HZaHFtA" documentation="" description="The content of the comment" name="comment" title="Comment">
-      <metainfo xmi:id="_nBFFIMHjEeGVoP7HZaHFtA" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_nBFsMMHjEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
-      <metainfo xmi:id="_nBFsMcHjEeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
-      <metainfo xmi:id="_nBGTQMHjEeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
-    </attributes>
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
-  </classSet>
   <classSet xmi:id="_-xcmMMRYEeGVoP7HZaHFtA" documentation="A DocumentContainer stores the main document to be processed.&#xA;It serves the purpose of storing document material in a structural view where the user can easily find related data (e.g., historical information, attached files, ...)." description="A container for storing document-related material" name="DocumentContainer" title="Document Container">
     <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrDh8EeG5-eDzZw5ZhQ"/>
   </classSet>
@@ -134,8 +125,8 @@
     <secondEnd xmi:id="_8UP9QsHiEeGVoP7HZaHFtA" name="" title="" cardMax="-1" navigable="true" linkedClass="_2EGxsMHeEeGVoP7HZaHFtA"/>
   </associationSet>
   <associationSet xmi:id="_Q6WCEMHkEeGVoP7HZaHFtA" documentation="" description="The comments associated to the document" name="discussion" title="Discussion" associationType="Composition">
-    <firstEnd xmi:id="_Q6WCEcHkEeGVoP7HZaHFtA" name="" title="" linkedClass="_zCkGkLC3EeGFgddOkpVJwg"/>
-    <secondEnd xmi:id="_Q6WCEsHkEeGVoP7HZaHFtA" name="" title="" cardMax="-1" navigable="true" linkedClass="_hLOsEMHjEeGVoP7HZaHFtA"/>
+    <firstEnd xmi:id="_Q6WCEcHkEeGVoP7HZaHFtA" name="" title=""/>
+    <secondEnd xmi:id="_Q6WCEsHkEeGVoP7HZaHFtA" name="" title="" cardMax="-1" navigable="true"/>
   </associationSet>
   <associationSet xmi:id="_0ELq4MHqEeGVoP7HZaHFtA" documentation="" description="The authority (person or even group) which is assigned to the document (if any)" name="authority" title="Assigned Authority">
     <firstEnd xmi:id="_0ELq4cHqEeGVoP7HZaHFtA" name="" title="" cardMax="-1" linkedClass="_jecxELC6EeGFgddOkpVJwg"/>
@@ -191,14 +182,6 @@
       <metainfo xmi:id="_gGgFMLC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
       <metainfo xmi:id="_gGh6YLC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
       <metainfo xmi:id="_gGjvkLC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
-    </attributes>
-  </aspectSet>
-  <aspectSet xmi:id="_zCkGkLC3EeGFgddOkpVJwg" name="Commentable">
-    <attributes xmi:id="_1USRkLC3EeGFgddOkpVJwg" documentation="" description="A note that can be provided on a document for additional information" name="comment" title="Comment">
-      <metainfo xmi:id="_5lYTULC3EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
-      <metainfo xmi:id="_5laIgLC3EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
-      <metainfo xmi:id="_5lckwLC3EeGFgddOkpVJwg" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_5leZ8LC3EeGFgddOkpVJwg" key="index.atomic" value="True"/>
     </attributes>
   </aspectSet>
   <aspectSet xmi:id="_jecxELC6EeGFgddOkpVJwg" name="Assignable">

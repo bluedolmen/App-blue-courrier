@@ -34,7 +34,7 @@
   <portletSet xmi:id="_5xbd17YGEeGSo_XQepIvyw" name="uploadableTypes" isPortletInternal="_5xbd3LYGEeGSo_XQepIvyw"/>
   <portletSet xmi:id="_5xbd2LYGEeGSo_XQepIvyw" name="toolbar-create-content" isPortletInternal="_5xbd3LYGEeGSo_XQepIvyw"/>
   <portletSet xmi:id="_5xbd2bYGEeGSo_XQepIvyw" name="document-details" isPortletInternal="_5xbd3bYGEeGSo_XQepIvyw"/>
-  <portletSet xmi:id="_5xbd2rYGEeGSo_XQepIvyw" name="advsearch" isPortletInternal="_5xbd3rYGEeGSo_XQepIvyw"/>
+  <portletSet xmi:id="_5xbd2rYGEeGSo_XQepIvyw" name="search" isPortletInternal="_5xbd3rYGEeGSo_XQepIvyw"/>
   <internalPortletSet xmi:id="_5xbd27YGEeGSo_XQepIvyw">
     <view xsi:type="view:ComposedView" href="../view/YaMma-EE.view#_5piGAbYGEeGSo_XQepIvyw"/>
   </internalPortletSet>

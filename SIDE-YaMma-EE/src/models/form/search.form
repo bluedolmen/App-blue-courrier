@@ -63,16 +63,6 @@
         <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KaTvDh8EeG5-eDzZw5ZhQ"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9lLYGEeGSo_XQepIvyw" label="Commentable" id="Commentable">
-      <ref href="../data/YaMma-EE.dt#_zCkGkLC3EeGFgddOkpVJwg"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_3Kw9lbYGEeGSo_XQepIvyw" label="Comment" id="comment" help_text="A note that can be provided on a document for additional information">
-        <ref href="../data/YaMma-EE.dt#_1USRkLC3EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_8eNkWdG2EeGVoP7HZaHFtA" label="Discussion" id="discussion">
-        <ref href="../data/YaMma-EE.dt#_Q6WCEMHkEeGVoP7HZaHFtA"/>
-        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_hLOsEMHjEeGVoP7HZaHFtA"/>
-      </children>
-    </children>
     <children xsi:type="form:FormGroup" xmi:id="_3Kw9lrYGEeGSo_XQepIvyw" label="Digitizable" id="Digitizable">
       <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
       <children xsi:type="form:DateSearchField" xmi:id="_3Kw9l7YGEeGSo_XQepIvyw" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
@@ -195,9 +185,6 @@
         <ref href="../data/YaMma-EE.dt#_zw17sLYDEeGSo_XQepIvyw"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eNkXdG2EeGVoP7HZaHFtA" label="searchableAuthority" id="searchableAuthority">
-        <ref href="../data/YaMma-EE.dt#_GaJvcMmoEeGVoP7HZaHFtA"/>
-      </children>
       <children xsi:type="form:ModelChoiceSearchField" xmi:id="_8eNkYtG2EeGVoP7HZaHFtA" label="Assigned Authority" id="authority">
         <ref href="../data/YaMma-EE.dt#_0ELq4MHqEeGVoP7HZaHFtA"/>
         <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KaTvDh8EeG5-eDzZw5ZhQ"/>
@@ -271,13 +258,6 @@
       <children xsi:type="form:ModelChoiceSearchField" xmi:id="_3Kw9yLYGEeGSo_XQepIvyw" label="Privacy Level" id="level">
         <ref href="../data/YaMma-EE.dt#_HicLALOgEeGKr-5wI4QUkQ"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
-      </children>
-    </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9y7YGEeGSo_XQepIvyw" label="Statusable" id="Statusable" presentation="vertical">
-      <metainfo xmi:id="_yUP1QNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
-      <ref href="../data/YaMma-EE.dt#_WWr0ILC7EeGFgddOkpVJwg"/>
-      <children xsi:type="form:ChoiceSearchField" xmi:id="_8eNkX9G2EeGVoP7HZaHFtA" label="State" id="state" help_text="State of the document">
-        <ref href="../data/YaMma-EE.dt#_s9ceMMUKEeGVoP7HZaHFtA"/>
       </children>
     </children>
     <children xsi:type="form:FormGroup" xmi:id="_8eNkWtG2EeGVoP7HZaHFtA" label="Recipient" id="Recipient" presentation="vertical">
@@ -581,54 +561,6 @@
       </children>
     </children>
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_-xcmMMRYEeGVoP7HZaHFtA"/>
-  </forms>
-  <forms xsi:type="form:FormSearch" xmi:id="_8eOyeNG2EeGVoP7HZaHFtA" label="Comment (search)" id="Comment_Search">
-    <children xsi:type="form:FormGroup" xmi:id="_8eOyedG2EeGVoP7HZaHFtA" label="Object" id="cmobject">
-      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOyetG2EeGVoP7HZaHFtA" label="Name" id="name">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspjh8EeG5-eDzZw5ZhQ"/>
-      </children>
-    </children>
-    <children xsi:type="form:FormGroup" xmi:id="_8eOye9G2EeGVoP7HZaHFtA" label="Comment" id="Comment">
-      <ref href="../data/YaMma-EE.dt#_hLOsEMHjEeGVoP7HZaHFtA"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOyfNG2EeGVoP7HZaHFtA" label="Comment" id="comment" help_text="The content of the comment">
-        <ref href="../data/YaMma-EE.dt#_iR_f0MHjEeGVoP7HZaHFtA"/>
-      </children>
-    </children>
-    <children xsi:type="form:FormGroup" xmi:id="_8eOyfdG2EeGVoP7HZaHFtA" label="Referenceable" id="referenceable">
-      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4jh8EeG5-eDzZw5ZhQ"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOyftG2EeGVoP7HZaHFtA" label="store-protocol" id="store-protocol">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY4zh8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOyf9G2EeGVoP7HZaHFtA" label="store-identifier" id="store-identifier">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY5jh8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOygNG2EeGVoP7HZaHFtA" label="node-uuid" id="node-uuid">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY6Th8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:NumericalSearchField" xmi:id="_8eOygdG2EeGVoP7HZaHFtA" label="node-dbid" id="node-dbid">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/systemmodel.dt#_3KHY7Dh8EeG5-eDzZw5ZhQ"/>
-      </children>
-    </children>
-    <children xsi:type="form:FormGroup" xmi:id="_8eOygtG2EeGVoP7HZaHFtA" label="Auditable" id="auditable">
-      <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63jh8EeG5-eDzZw5ZhQ"/>
-      <children xsi:type="form:DateSearchField" xmi:id="_8eOyg9G2EeGVoP7HZaHFtA" label="Created" id="created">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka63zh8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOyhNG2EeGVoP7HZaHFtA" label="Creator" id="creator">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka65Th8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_8eOyhdG2EeGVoP7HZaHFtA" label="Modified" id="modified">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka66Dh8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eOyhtG2EeGVoP7HZaHFtA" label="Modifier" id="modifier">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka67jh8EeG5-eDzZw5ZhQ"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_8eOyh9G2EeGVoP7HZaHFtA" label="Accessed" id="accessed">
-        <ref href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka68Th8EeG5-eDzZw5ZhQ"/>
-      </children>
-    </children>
-    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_hLOsEMHjEeGVoP7HZaHFtA"/>
   </forms>
   <forms xsi:type="form:FormSearch" xmi:id="_8eOyiNG2EeGVoP7HZaHFtA" label="Tray (search)" id="Tray_Search">
     <children xsi:type="form:FormGroup" xmi:id="_8eOyidG2EeGVoP7HZaHFtA" label="Object" id="cmobject">
