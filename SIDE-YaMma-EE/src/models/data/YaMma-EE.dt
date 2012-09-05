@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <clazz:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:clazz="http://www.kerblue.org/class/1.0" xmi:id="_B4EfELC0EeGFgddOkpVJwg" name="yamma-ee">
-  <classSet xmi:id="_RUS8gLC0EeGFgddOkpVJwg" name="Document" aspects="_CuQDsLC1EeGFgddOkpVJwg _jecxELC6EeGFgddOkpVJwg _9CLqALC6EeGFgddOkpVJwg _WWr0ILC7EeGFgddOkpVJwg _9QIJ8LC7EeGFgddOkpVJwg __erI4LOfEeGKr-5wI4QUkQ _PhfBcLC8EeGFgddOkpVJwg _5ktN0MHiEeGVoP7HZaHFtA"/>
+  <classSet xmi:id="_RUS8gLC0EeGFgddOkpVJwg" name="Document">
+    <aspects href="#_CuQDsLC1EeGFgddOkpVJwg"/>
+    <aspects href="#_jecxELC6EeGFgddOkpVJwg"/>
+    <aspects href="#_9CLqALC6EeGFgddOkpVJwg"/>
+    <aspects href="#_WWr0ILC7EeGFgddOkpVJwg"/>
+    <aspects href="#_9QIJ8LC7EeGFgddOkpVJwg"/>
+    <aspects href="#__erI4LOfEeGKr-5wI4QUkQ"/>
+    <aspects href="#_PhfBcLC8EeGFgddOkpVJwg"/>
+    <aspects href="#_5ktN0MHiEeGVoP7HZaHFtA"/>
+    <aspects href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Kbh7zh8EeG5-eDzZw5ZhQ"/>
+  </classSet>
   <classSet xmi:id="_UcVrgLC0EeGFgddOkpVJwg" name="Mail" generalizations="_RUS8gLC0EeGFgddOkpVJwg" aspects="_-qvgELC2EeGFgddOkpVJwg _UtZOMMHqEeGVoP7HZaHFtA">
     <attributes xmi:id="_Z9QWYLC0EeGFgddOkpVJwg" documentation="" description="The date on which the mail was stamped" name="stampDate" title="Stamp Date" typ="Date">
       <metainfo xmi:id="_kHG7QLC0EeGFgddOkpVJwg" key="index.atomic" value="True"/>
@@ -26,7 +36,7 @@
     </attributes>
   </classSet>
   <classSet xmi:id="_cJA4ULOeEeGKr-5wI4QUkQ" name="Status">
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/dlDatalistmodel.dt#_z4UAlsnWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_3cbmMLOeEeGKr-5wI4QUkQ" name="Delay">
     <attributes xmi:id="_y5_MYMc_EeGVoP7HZaHFtA" documentation="" description="The acceptable delay to process the document in days" name="delay" title="Delay (d)" typ="int">
@@ -35,17 +45,17 @@
       <metainfo xmi:id="_-oKDscc_EeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
       <metainfo xmi:id="_-oKDssc_EeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
     </attributes>
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/dlDatalistmodel.dt#_z4UAlsnWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_QkEZALOfEeGKr-5wI4QUkQ" name="PrivacyLevel">
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/dlDatalistmodel.dt#_z4UAlsnWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_HokJgLYDEeGSo_XQepIvyw" name="AssignableSite">
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
-    <aspects href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Ka6_jh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/dlDatalistmodel.dt#_z4UAlsnWEeGjKJcImRsXbg"/>
+    <aspects href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z37mW8nWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_LPmxEb6oEeGVoP7HZaHFtA" documentation="A Tray is a container which stores the inbound/outbound mails." description="" name="Tray" title="Tray">
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrDh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w78nWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_2EGxsMHeEeGVoP7HZaHFtA" documentation="" description="Any event, part of the history" name="Event" title="History Event">
     <attributes xmi:id="_IYaPgMHfEeGVoP7HZaHFtA" documentation="" description="Date (and time) of the event" name="date" title="Date" typ="DateTime">
@@ -72,10 +82,10 @@
       <metainfo xmi:id="_7bRRYcHjEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
       <metainfo xmi:id="_7bRRYsHjEeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
     </attributes>
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZspTh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w5snWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_-xcmMMRYEeGVoP7HZaHFtA" documentation="A DocumentContainer stores the main document to be processed.&#xA;It serves the purpose of storing document material in a structural view where the user can easily find related data (e.g., historical information, attached files, ...)." description="A container for storing document-related material" name="DocumentContainer" title="Document Container">
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KZsrDh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w78nWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_CngK8Mc8EeGVoP7HZaHFtA" name="Priority">
     <attributes xmi:id="_outrMMc_EeGVoP7HZaHFtA" documentation="This value should be used to order the assigned elements with the given priority" description="Level of the value" name="level" title="Level" typ="int">
@@ -84,22 +94,9 @@
       <metainfo xmi:id="_vzgjosc_EeGVoP7HZaHFtA" key="propertySearched" value="True"/>
       <metainfo xmi:id="_vzgjo8c_EeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
     </attributes>
-    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/datalistmodel.dt#_3KkEtDh8EeG5-eDzZw5ZhQ"/>
+    <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/dlDatalistmodel.dt#_z4UAlsnWEeGjKJcImRsXbg"/>
   </classSet>
-  <classSet xmi:id="_9vPTEM9gEeGVoP7HZaHFtA" name="Reply">
-    <attributes xmi:id="_FI3zEM9hEeGVoP7HZaHFtA" documentation="" description="" name="writingDate" title="Writing Date" typ="Date">
-      <metainfo xmi:id="_LtFuAM9hEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
-      <metainfo xmi:id="_LtFuAc9hEeGVoP7HZaHFtA" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_LtFuAs9hEeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
-    </attributes>
-    <attributes xmi:id="_O-VcUM9hEeGVoP7HZaHFtA" documentation="" description="The date on which the reply was sent" name="sentDate" title="Sent Date" typ="Date">
-      <metainfo xmi:id="_TEMecM9hEeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
-      <metainfo xmi:id="_TENFgM9hEeGVoP7HZaHFtA" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_TENFgc9hEeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
-      <metainfo xmi:id="_TENFgs9hEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
-    </attributes>
-  </classSet>
-  <classSet xmi:id="__ecm4M9gEeGVoP7HZaHFtA" name="OutboundMail" generalizations="_9vPTEM9gEeGVoP7HZaHFtA" aspects="_-qvgELC2EeGFgddOkpVJwg _UtZOMMHqEeGVoP7HZaHFtA"/>
+  <classSet xmi:id="__ecm4M9gEeGVoP7HZaHFtA" name="OutboundMail" aspects="_-qvgELC2EeGFgddOkpVJwg _UtZOMMHqEeGVoP7HZaHFtA _zqyKAexIEeGu9uCwQAeMqw"/>
   <associationSet xmi:id="_lahf8LOeEeGKr-5wI4QUkQ" documentation="The association is kept for a potential extension of the existing status.&#xA;" description="Status" name="extended" title="Status">
     <firstEnd xmi:id="_lahf8bOeEeGKr-5wI4QUkQ" name="" title="" cardMax="-1" linkedClass="_WWr0ILC7EeGFgddOkpVJwg"/>
     <secondEnd xmi:id="_lahf8rOeEeGKr-5wI4QUkQ" name="" title="" navigable="true" linkedClass="_cJA4ULOeEeGKr-5wI4QUkQ"/>
@@ -124,10 +121,6 @@
     <firstEnd xmi:id="_8UP9QcHiEeGVoP7HZaHFtA" name="" title="" linkedClass="_5ktN0MHiEeGVoP7HZaHFtA"/>
     <secondEnd xmi:id="_8UP9QsHiEeGVoP7HZaHFtA" name="" title="" cardMax="-1" navigable="true" linkedClass="_2EGxsMHeEeGVoP7HZaHFtA"/>
   </associationSet>
-  <associationSet xmi:id="_Q6WCEMHkEeGVoP7HZaHFtA" documentation="" description="The comments associated to the document" name="discussion" title="Discussion" associationType="Composition">
-    <firstEnd xmi:id="_Q6WCEcHkEeGVoP7HZaHFtA" name="" title=""/>
-    <secondEnd xmi:id="_Q6WCEsHkEeGVoP7HZaHFtA" name="" title="" cardMax="-1" navigable="true"/>
-  </associationSet>
   <associationSet xmi:id="_0ELq4MHqEeGVoP7HZaHFtA" documentation="" description="The authority (person or even group) which is assigned to the document (if any)" name="authority" title="Assigned Authority">
     <firstEnd xmi:id="_0ELq4cHqEeGVoP7HZaHFtA" name="" title="" cardMax="-1" linkedClass="_jecxELC6EeGFgddOkpVJwg"/>
     <secondEnd xmi:id="_0ELq4sHqEeGVoP7HZaHFtA" name="" title="" navigable="true">
@@ -146,9 +139,9 @@
     <firstEnd xmi:id="_Gmz5Icc8EeGVoP7HZaHFtA" name="" title="" cardMax="-1" linkedClass="_9QIJ8LC7EeGFgddOkpVJwg"/>
     <secondEnd xmi:id="_Gmz5Isc8EeGVoP7HZaHFtA" name="" title="" navigable="true" linkedClass="_CngK8Mc8EeGVoP7HZaHFtA"/>
   </associationSet>
-  <associationSet xmi:id="_Uvs-AM9hEeGVoP7HZaHFtA" documentation="" description="" name="replies" title="">
-    <firstEnd xmi:id="_Uvs-Ac9hEeGVoP7HZaHFtA" name="" title="" linkedClass="_RUS8gLC0EeGFgddOkpVJwg"/>
-    <secondEnd xmi:id="_Uvs-As9hEeGVoP7HZaHFtA" name="" title="" cardMax="-1" navigable="true" linkedClass="_9vPTEM9gEeGVoP7HZaHFtA"/>
+  <associationSet xmi:id="_4jTYIOxIEeGu9uCwQAeMqw" documentation="" description="" name="replyTo" title="">
+    <firstEnd xmi:id="_4jTYIexIEeGu9uCwQAeMqw" name="replies" title="Replies" cardMax="-1" linkedClass="_zqyKAexIEeGu9uCwQAeMqw"/>
+    <secondEnd xmi:id="_4jTYIuxIEeGu9uCwQAeMqw" name="" title="" navigable="true" linkedClass="_RUS8gLC0EeGFgddOkpVJwg"/>
   </associationSet>
   <aspectSet xmi:id="_CuQDsLC1EeGFgddOkpVJwg" name="Referenceable">
     <attributes xmi:id="_EXD0kLC1EeGFgddOkpVJwg" documentation="" description="The reference of a document" name="reference" title="Reference">
@@ -234,6 +227,19 @@
     </attributes>
   </aspectSet>
   <aspectSet xmi:id="_rP4bIMREEeGVoP7HZaHFtA" description="The document copy may be created when copy-services are provided during the distribution step" name="DocumentCopy" title="Document Copy"/>
+  <aspectSet xmi:id="_zqyKAexIEeGu9uCwQAeMqw" name="Reply">
+    <attributes xmi:id="_FI3zEM9hEeGVoP7HZaHFtA" documentation="" description="" name="writingDate" title="Writing Date" typ="Date">
+      <metainfo xmi:id="_LtFuAM9hEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_LtFuAc9hEeGVoP7HZaHFtA" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_LtFuAs9hEeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
+    </attributes>
+    <attributes xmi:id="_O-VcUM9hEeGVoP7HZaHFtA" documentation="" description="The date on which the reply was sent" name="sentDate" title="Sent Date" typ="Date">
+      <metainfo xmi:id="_TEMecM9hEeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_TENFgM9hEeGVoP7HZaHFtA" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_TENFgc9hEeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_TENFgs9hEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
+    </attributes>
+  </aspectSet>
   <enumerationSet xmi:id="_KXKmsMUKEeGVoP7HZaHFtA" name="EStates">
     <literals xmi:id="_l9_ckNDuEeGVoP7HZaHFtA" value="pending" name="PENDING"/>
     <literals xmi:id="_l9_ckdDuEeGVoP7HZaHFtA" value="delivering" name="DELIVERING"/>

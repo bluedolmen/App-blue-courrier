@@ -15,7 +15,7 @@
       <element href="YaMma-EE.dt#_B4EfELC0EeGFgddOkpVJwg"/>
     </semanticModel>
     <contained xsi:type="di:GraphNode" position="698,660" size="88,81">
-      <anchorage graphEdge="//@diagrams.0/@contained.13 //@diagrams.0/@contained.14 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.17 //@diagrams.0/@contained.18 //@diagrams.0/@contained.19 //@diagrams.0/@contained.20 //@diagrams.0/@contained.41 //@diagrams.0/@contained.47 //@diagrams.0/@contained.50 //@diagrams.0/@contained.61"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.13 //@diagrams.0/@contained.14 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.17 //@diagrams.0/@contained.18 //@diagrams.0/@contained.19 //@diagrams.0/@contained.20 //@diagrams.0/@contained.41 //@diagrams.0/@contained.47 //@diagrams.0/@contained.50 //@diagrams.0/@contained.62 //@diagrams.0/@contained.64"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_RUS8gLC0EeGFgddOkpVJwg"/>
       </semanticModel>
@@ -177,7 +177,7 @@
       </contained>
     </contained>
     <contained xsi:type="di:GraphNode" position="918,801" size="164,130">
-      <anchorage graphEdge="//@diagrams.0/@contained.21 //@diagrams.0/@contained.62"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.21 //@diagrams.0/@contained.59"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_-qvgELC2EeGFgddOkpVJwg"/>
       </semanticModel>
@@ -583,7 +583,7 @@
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
     </contained>
     <contained xsi:type="di:GraphNode" position="926,983" size="140,91">
-      <anchorage graphEdge="//@diagrams.0/@contained.43 //@diagrams.0/@contained.63"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.43 //@diagrams.0/@contained.60"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_UtZOMMHqEeGVoP7HZaHFtA"/>
       </semanticModel>
@@ -641,7 +641,7 @@
       <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
       <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="1235,656" size="125,61">
+    <contained xsi:type="di:GraphNode" position="337,798" size="125,61">
       <anchorage graphEdge="//@diagrams.0/@contained.47"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_rP4bIMREEeGVoP7HZaHFtA"/>
@@ -823,42 +823,8 @@
     <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.38/@anchorage.0 //@diagrams.0/@contained.55/@anchorage.0">
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="Generalization"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="1252,782" size="176,91">
-      <anchorage graphEdge="//@diagrams.0/@contained.60 //@diagrams.0/@contained.61"/>
-      <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-        <element href="YaMma-EE.dt#_9vPTEM9gEeGVoP7HZaHFtA"/>
-      </semanticModel>
-      <contained xsi:type="di:GraphNode">
-        <property key="eStructuralFeatureID" value="11"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-          <element href="YaMma-EE.dt#_9vPTEM9gEeGVoP7HZaHFtA"/>
-        </semanticModel>
-        <contained xsi:type="di:GraphNode">
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
-          </semanticModel>
-        </contained>
-        <contained xsi:type="di:GraphNode">
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
-          </semanticModel>
-        </contained>
-      </contained>
-      <contained xsi:type="di:GraphNode">
-        <property key="eStructuralFeatureID" value="14"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-          <element href="YaMma-EE.dt#_9vPTEM9gEeGVoP7HZaHFtA"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di:GraphNode">
-        <property key="eStructuralFeatureID" value="13"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-          <element href="YaMma-EE.dt#_9vPTEM9gEeGVoP7HZaHFtA"/>
-        </semanticModel>
-      </contained>
-    </contained>
-    <contained xsi:type="di:GraphNode" position="1284,957" size="116,81">
-      <anchorage graphEdge="//@diagrams.0/@contained.60 //@diagrams.0/@contained.62 //@diagrams.0/@contained.63"/>
+    <contained xsi:type="di:GraphNode" position="1236,894" size="116,81">
+      <anchorage graphEdge="//@diagrams.0/@contained.59 //@diagrams.0/@contained.60 //@diagrams.0/@contained.65"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#__ecm4M9gEeGVoP7HZaHFtA"/>
       </semanticModel>
@@ -881,12 +847,52 @@
         </semanticModel>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.59/@anchorage.0 //@diagrams.0/@contained.58/@anchorage.0">
-      <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="Generalization"/>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.58/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
     </contained>
-    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.58/@anchorage.0">
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.58/@anchorage.0 //@diagrams.0/@contained.42/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="1191,574" size="111,62">
+      <anchorage graphEdge="//@diagrams.0/@contained.62"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-        <element href="YaMma-EE.dt#_Uvs-AM9hEeGVoP7HZaHFtA"/>
+        <element href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Kbh7zh8EeG5-eDzZw5ZhQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="11"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+          <element href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3Kbh7zh8EeG5-eDzZw5ZhQ"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.0/@anchorage.0 //@diagrams.0/@contained.61/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="1213,664" size="144,91">
+      <anchorage graphEdge="//@diagrams.0/@contained.64 //@diagrams.0/@contained.65"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+        <element href="YaMma-EE.dt#_zqyKAexIEeGu9uCwQAeMqw"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="11"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+          <element href="YaMma-EE.dt#_zqyKAexIEeGu9uCwQAeMqw"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+            <element href="YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+            <element href="YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.63/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+        <element href="YaMma-EE.dt#_4jTYIOxIEeGu9uCwQAeMqw"/>
       </semanticModel>
       <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject" uDistance="10" vDistance="10"/>
       <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="10" vDistance="-10"/>
@@ -894,10 +900,7 @@
       <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
       <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
     </contained>
-    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.59/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
-      <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
-    </contained>
-    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.59/@anchorage.0 //@diagrams.0/@contained.42/@anchorage.0">
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.58/@anchorage.0 //@diagrams.0/@contained.63/@anchorage.0">
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
     </contained>
   </diagrams>
