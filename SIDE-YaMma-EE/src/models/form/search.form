@@ -170,96 +170,130 @@
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
   </forms>
   <forms xsi:type="form:FormSearch" xmi:id="_3Kw9srYGEeGSo_XQepIvyw" label="Mail (search)" id="Mail_Search" presentation="borderless">
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9s7YGEeGSo_XQepIvyw" label="Assignable" id="Assignable" presentation="vertical">
-      <metainfo xmi:id="_f25JING3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP60oPsgEeGHHe2qtmDVXA" label="Assignable" id="Assignable">
       <ref href="../data/YaMma-EE.dt#_jecxELC6EeGFgddOkpVJwg"/>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_3Kw9tLYGEeGSo_XQepIvyw" label="Service" id="service">
+      <children xsi:type="form:CharSearchField" xmi:id="_mP60ofsgEeGHHe2qtmDVXA" label="searchableAuthority" id="searchableAuthority">
+        <ref href="../data/YaMma-EE.dt#_GaJvcMmoEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP60ovsgEeGHHe2qtmDVXA" label="Service" id="service">
         <ref href="../data/YaMma-EE.dt#_zw17sLYDEeGSo_XQepIvyw"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
       </children>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_VKGGiuxWEeGu9uCwQAeMqw" label="Assigned Authority" id="authority">
-        <ref href="../data/YaMma-EE.dt#_0ELq4MHqEeGVoP7HZaHFtA"/>
-        <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-3.4.6-EE/data/contentmodel.dt#_3KaTvDh8EeG5-eDzZw5ZhQ"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP60o_sgEeGHHe2qtmDVXA" label="Authority" id="authority">
+        <ref href="../data/YaMma-EE.dt#_ksnewPjDEeGu9uCwQAeMqw"/>
+        <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35xEcnWEeGjKJcImRsXbg"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9t7YGEeGSo_XQepIvyw" label="Correspondent" id="Correspondent" presentation="vertical">
-      <metainfo xmi:id="_qnTXsNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP60pPsgEeGHHe2qtmDVXA" label="Correspondent" id="Correspondent">
       <ref href="../data/YaMma-EE.dt#_-qvgELC2EeGFgddOkpVJwg"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_3Kw9uLYGEeGSo_XQepIvyw" label="Correspondent Name" id="name" help_text="The name of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_azB14LC2EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP60pfsgEeGHHe2qtmDVXA" label="Correspondent Name" id="name" help_text="The name of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7sPjIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_3Kw9ubYGEeGSo_XQepIvyw" label="Correspondent Address" id="address" help_text="The address of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_Fa-dwLC3EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP60pvsgEeGHHe2qtmDVXA" label="Correspondent Email" id="contactEmail" help_text="The email of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7tfjIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_3Kw9urYGEeGSo_XQepIvyw" label="Correspondent Email" id="contactEmail" help_text="The email of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_S7KFQLC3EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP60p_sgEeGHHe2qtmDVXA" label="Correspondent Phone-Number" id="contactPhone" help_text="The phone-number of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7uvjIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_3Kw9u7YGEeGSo_XQepIvyw" label="Correspondent Phone-Number" id="contactPhone" help_text="The phone-number of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_ZIejILC3EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP60qPsgEeGHHe2qtmDVXA" label="Correspondent Address" id="address" help_text="The address of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7v_jIEeGu9uCwQAeMqw"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9vLYGEeGSo_XQepIvyw" label="Digitizable" id="Digitizable" presentation="vertical">
-      <metainfo xmi:id="_r2RFMNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP60qfsgEeGHHe2qtmDVXA" label="Digitizable" id="Digitizable">
       <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
-      <children xsi:type="form:DateSearchField" xmi:id="_3Kw9vbYGEeGSo_XQepIvyw" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+      <children xsi:type="form:DateSearchField" xmi:id="_mP60qvsgEeGHHe2qtmDVXA" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
         <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9vrYGEeGSo_XQepIvyw" label="Distributable" id="Distributable" presentation="vertical">
-      <metainfo xmi:id="_sJ_5gNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP60q_sgEeGHHe2qtmDVXA" label="Distributable" id="Distributable">
       <ref href="../data/YaMma-EE.dt#_9CLqALC6EeGFgddOkpVJwg"/>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_3Kw9v7YGEeGSo_XQepIvyw" label="Services" id="services">
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP60rPsgEeGHHe2qtmDVXA" label="Services" id="services">
         <ref href="../data/YaMma-EE.dt#_0_YycLYDEeGSo_XQepIvyw"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9wLYGEeGSo_XQepIvyw" label="Mail" id="Mail" presentation="vertical">
-      <metainfo xmi:id="_sua1MNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
-      <ref href="../data/YaMma-EE.dt#_UcVrgLC0EeGFgddOkpVJwg"/>
-      <children xsi:type="form:DateSearchField" xmi:id="_3Kw9wbYGEeGSo_XQepIvyw" label="Stamp Date" id="stampDate" help_text="The date on which the mail was stamped">
-        <ref href="../data/YaMma-EE.dt#_Z9QWYLC0EeGFgddOkpVJwg"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP60rfsgEeGHHe2qtmDVXA" label="Historizable" id="Historizable">
+      <ref href="../data/YaMma-EE.dt#_5ktN0MHiEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP60rvsgEeGHHe2qtmDVXA" label="History" id="history">
+        <ref href="../data/YaMma-EE.dt#_8UP9QMHiEeGVoP7HZaHFtA"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_2EGxsMHeEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_3Kw9wrYGEeGSo_XQepIvyw" label="Delivery Date" id="deliveryDate" help_text="The date on which the mail was delivered to the receiver">
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_mP60r_sgEeGHHe2qtmDVXA" label="InboundDocument" id="InboundDocument">
+      <ref href="../data/YaMma-EE.dt#_ZUOWcPkAEeGHHe2qtmDVXA"/>
+      <children xsi:type="form:DateSearchField" xmi:id="_mP7bsPsgEeGHHe2qtmDVXA" label="Delivery Date" id="deliveryDate" help_text="The date on which the mail was delivered to the receiver">
         <ref href="../data/YaMma-EE.dt#_l_tboLC0EeGFgddOkpVJwg"/>
       </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_3Kw9w7YGEeGSo_XQepIvyw" label="Writing Date" id="writingDate" help_text="The date on which the mail was written">
-        <ref href="../data/YaMma-EE.dt#_rlFIsLC0EeGFgddOkpVJwg"/>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7bsfsgEeGHHe2qtmDVXA" label="Mail" id="Mail">
+      <ref href="../data/YaMma-EE.dt#_8NBzQPj-EeGHHe2qtmDVXA"/>
+      <children xsi:type="form:DateSearchField" xmi:id="_mP7bsvsgEeGHHe2qtmDVXA" label="Writing Date" id="writingDate">
+        <ref href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_3Kw9xLYGEeGSo_XQepIvyw" label="Object" id="object" help_text="The object of the mail">
+      <children xsi:type="form:DateSearchField" xmi:id="_mP7bs_sgEeGHHe2qtmDVXA" label="Sent Date" id="sentDate" help_text="The date on which the reply was sent">
+        <ref href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP7btPsgEeGHHe2qtmDVXA" label="Object" id="object" help_text="The object of the mail">
         <ref href="../data/YaMma-EE.dt#_y_IfcLC0EeGFgddOkpVJwg"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9xbYGEeGSo_XQepIvyw" label="Prioritizable" id="Prioritizable" presentation="vertical">
-      <metainfo xmi:id="_tEsAING3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7btfsgEeGHHe2qtmDVXA" label="Prioritizable" id="Prioritizable">
       <ref href="../data/YaMma-EE.dt#_9QIJ8LC7EeGFgddOkpVJwg"/>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_3Kw9xrYGEeGSo_XQepIvyw" label="Delay" id="delay">
-        <ref href="../data/YaMma-EE.dt#_6oFC0LOeEeGKr-5wI4QUkQ"/>
-        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_8eNkXtG2EeGVoP7HZaHFtA" label="Due Date" id="dueDate" hidden="true" help_text="The due-date of the document, when available">
+      <children xsi:type="form:DateSearchField" xmi:id="_mP7btvsgEeGHHe2qtmDVXA" label="Due Date" id="dueDate" hidden="true" help_text="The due-date of the document, when available">
         <ref href="../data/YaMma-EE.dt#_qy_okMdqEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_8eNkZdG2EeGVoP7HZaHFtA" label="Priority" id="priority">
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP7bt_sgEeGHHe2qtmDVXA" label="Priority" id="priority">
         <ref href="../data/YaMma-EE.dt#_Gmz5IMc8EeGVoP7HZaHFtA"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_CngK8Mc8EeGVoP7HZaHFtA"/>
       </children>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP7buPsgEeGHHe2qtmDVXA" label="Delay" id="delay">
+        <ref href="../data/YaMma-EE.dt#_6oFC0LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
+      </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_3Kw9x7YGEeGSo_XQepIvyw" label="Privacy" id="Privacy" presentation="vertical">
-      <metainfo xmi:id="_uldPUNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7bufsgEeGHHe2qtmDVXA" label="Privacy" id="Privacy">
       <ref href="../data/YaMma-EE.dt#__erI4LOfEeGKr-5wI4QUkQ"/>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_3Kw9yLYGEeGSo_XQepIvyw" label="Privacy Level" id="level">
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP7buvsgEeGHHe2qtmDVXA" label="Privacy Level" id="level">
         <ref href="../data/YaMma-EE.dt#_HicLALOgEeGKr-5wI4QUkQ"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_8eNkWtG2EeGVoP7HZaHFtA" label="Recipient" id="Recipient" presentation="vertical">
-      <metainfo xmi:id="_zdFFkNG3EeGVoP7HZaHFtA" key="appearance" value="title"/>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7bu_sgEeGHHe2qtmDVXA" label="Recipient" id="Recipient">
       <ref href="../data/YaMma-EE.dt#_UtZOMMHqEeGVoP7HZaHFtA"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eNkW9G2EeGVoP7HZaHFtA" label="Name" id="name" help_text="Name of the recipient">
-        <ref href="../data/YaMma-EE.dt#_Xz_LsMHqEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP7bvPsgEeGHHe2qtmDVXA" label="Recipient Name" id="name" help_text="The name of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLgPjIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8eNkXNG2EeGVoP7HZaHFtA" label="Address" id="address" help_text="Address of the recipient">
-        <ref href="../data/YaMma-EE.dt#_d8GZcMHqEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP7bvfsgEeGHHe2qtmDVXA" label="Recipient Email" id="contactEmail" help_text="The email of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLhfjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP7bvvsgEeGHHe2qtmDVXA" label="Recipient Phone-Number" id="contactPhone" help_text="The phone-number of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLivjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP7bv_sgEeGHHe2qtmDVXA" label="Recipient Address" id="address" help_text="The address of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLj_jIEeGu9uCwQAeMqw"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7bwPsgEeGHHe2qtmDVXA" label="Referenceable" id="Referenceable">
+      <ref href="../data/YaMma-EE.dt#_CuQDsLC1EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_mP7bwfsgEeGHHe2qtmDVXA" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7bwvsgEeGHHe2qtmDVXA" label="Statusable" id="Statusable">
+      <ref href="../data/YaMma-EE.dt#_WWr0ILC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ChoiceSearchField" xmi:id="_mP7bw_sgEeGHHe2qtmDVXA" label="State" id="state" help_text="State of the document">
+        <ref href="../data/YaMma-EE.dt#_s9ceMMUKEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP7bxPsgEeGHHe2qtmDVXA" label="Status" id="extended">
+        <ref href="../data/YaMma-EE.dt#_lahf8LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_mP7bxfsgEeGHHe2qtmDVXA" label="Attachable" id="attachable">
+      <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z380RsnWEeGjKJcImRsXbg"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_mP7bxvsgEeGHHe2qtmDVXA" label="attachments" id="attachments">
+        <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z36_aMnWEeGjKJcImRsXbg"/>
+        <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w5snWEeGjKJcImRsXbg"/>
       </children>
     </children>
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_UcVrgLC0EeGFgddOkpVJwg"/>
@@ -592,28 +626,89 @@
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_LPmxEb6oEeGVoP7HZaHFtA"/>
   </forms>
   <forms xsi:type="form:FormSearch" xmi:id="_8ePZg9G2EeGVoP7HZaHFtA" label="OutboundMail (search)" id="OutboundMail_Search">
-    <children xsi:type="form:FormGroup" xmi:id="_8ePZhNG2EeGVoP7HZaHFtA" label="Recipient" id="Recipient">
-      <ref href="../data/YaMma-EE.dt#_UtZOMMHqEeGVoP7HZaHFtA"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_8ePZhdG2EeGVoP7HZaHFtA" label="Name" id="name" help_text="Name of the recipient">
-        <ref href="../data/YaMma-EE.dt#_Xz_LsMHqEeGVoP7HZaHFtA"/>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiQPsgEeGHHe2qtmDVXA" label="Correspondent" id="Correspondent">
+      <ref href="../data/YaMma-EE.dt#_-qvgELC2EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiQfsgEeGHHe2qtmDVXA" label="Correspondent Name" id="name" help_text="The name of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7sPjIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8ePZhtG2EeGVoP7HZaHFtA" label="Address" id="address" help_text="Address of the recipient">
-        <ref href="../data/YaMma-EE.dt#_d8GZcMHqEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiQvsgEeGHHe2qtmDVXA" label="Correspondent Email" id="contactEmail" help_text="The email of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7tfjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiQ_sgEeGHHe2qtmDVXA" label="Correspondent Phone-Number" id="contactPhone" help_text="The phone-number of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7uvjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiRPsgEeGHHe2qtmDVXA" label="Correspondent Address" id="address" help_text="The address of the correspondent">
+        <ref href="../data/YaMma-EE.dt#_sKP7v_jIEeGu9uCwQAeMqw"/>
       </children>
     </children>
-    <children xsi:type="form:FormGroup" xmi:id="_8ePZitG2EeGVoP7HZaHFtA" label="Correspondent" id="Correspondent">
-      <ref href="../data/YaMma-EE.dt#_-qvgELC2EeGFgddOkpVJwg"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_8ePZi9G2EeGVoP7HZaHFtA" label="Correspondent Name" id="name" help_text="The name of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_azB14LC2EeGFgddOkpVJwg"/>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiRfsgEeGHHe2qtmDVXA" label="Digitizable" id="Digitizable">
+      <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
+      <children xsi:type="form:DateSearchField" xmi:id="_nOHiRvsgEeGHHe2qtmDVXA" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+        <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8ePZjNG2EeGVoP7HZaHFtA" label="Correspondent Address" id="address" help_text="The address of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_Fa-dwLC3EeGFgddOkpVJwg"/>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiR_sgEeGHHe2qtmDVXA" label="Historizable" id="Historizable">
+      <ref href="../data/YaMma-EE.dt#_5ktN0MHiEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_nOHiSPsgEeGHHe2qtmDVXA" label="History" id="history">
+        <ref href="../data/YaMma-EE.dt#_8UP9QMHiEeGVoP7HZaHFtA"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_2EGxsMHeEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8ePZjdG2EeGVoP7HZaHFtA" label="Correspondent Email" id="contactEmail" help_text="The email of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_S7KFQLC3EeGFgddOkpVJwg"/>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiSfsgEeGHHe2qtmDVXA" label="Mail" id="Mail">
+      <ref href="../data/YaMma-EE.dt#_8NBzQPj-EeGHHe2qtmDVXA"/>
+      <children xsi:type="form:DateSearchField" xmi:id="_nOHiSvsgEeGHHe2qtmDVXA" label="Writing Date" id="writingDate">
+        <ref href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="form:CharSearchField" xmi:id="_8ePZjtG2EeGVoP7HZaHFtA" label="Correspondent Phone-Number" id="contactPhone" help_text="The phone-number of the correspondent">
-        <ref href="../data/YaMma-EE.dt#_ZIejILC3EeGFgddOkpVJwg"/>
+      <children xsi:type="form:DateSearchField" xmi:id="_nOHiS_sgEeGHHe2qtmDVXA" label="Sent Date" id="sentDate" help_text="The date on which the reply was sent">
+        <ref href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiTPsgEeGHHe2qtmDVXA" label="Object" id="object" help_text="The object of the mail">
+        <ref href="../data/YaMma-EE.dt#_y_IfcLC0EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiTfsgEeGHHe2qtmDVXA" label="Privacy" id="Privacy">
+      <ref href="../data/YaMma-EE.dt#__erI4LOfEeGKr-5wI4QUkQ"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_nOHiTvsgEeGHHe2qtmDVXA" label="Privacy Level" id="level">
+        <ref href="../data/YaMma-EE.dt#_HicLALOgEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiT_sgEeGHHe2qtmDVXA" label="Recipient" id="Recipient">
+      <ref href="../data/YaMma-EE.dt#_UtZOMMHqEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiUPsgEeGHHe2qtmDVXA" label="Recipient Name" id="name" help_text="The name of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLgPjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiUfsgEeGHHe2qtmDVXA" label="Recipient Email" id="contactEmail" help_text="The email of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLhfjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiUvsgEeGHHe2qtmDVXA" label="Recipient Phone-Number" id="contactPhone" help_text="The phone-number of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLivjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiU_sgEeGHHe2qtmDVXA" label="Recipient Address" id="address" help_text="The address of the recipient">
+        <ref href="../data/YaMma-EE.dt#_u9NLj_jIEeGu9uCwQAeMqw"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiVPsgEeGHHe2qtmDVXA" label="Referenceable" id="Referenceable">
+      <ref href="../data/YaMma-EE.dt#_CuQDsLC1EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_nOHiVfsgEeGHHe2qtmDVXA" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiVvsgEeGHHe2qtmDVXA" label="Statusable" id="Statusable">
+      <ref href="../data/YaMma-EE.dt#_WWr0ILC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ChoiceSearchField" xmi:id="_nOHiV_sgEeGHHe2qtmDVXA" label="State" id="state" help_text="State of the document">
+        <ref href="../data/YaMma-EE.dt#_s9ceMMUKEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_nOHiWPsgEeGHHe2qtmDVXA" label="Status" id="extended">
+        <ref href="../data/YaMma-EE.dt#_lahf8LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_nOHiWfsgEeGHHe2qtmDVXA" label="Attachable" id="attachable">
+      <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z380RsnWEeGjKJcImRsXbg"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_nOHiWvsgEeGHHe2qtmDVXA" label="attachments" id="attachments">
+        <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z36_aMnWEeGjKJcImRsXbg"/>
+        <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w5snWEeGjKJcImRsXbg"/>
       </children>
     </children>
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#__ecm4M9gEeGVoP7HZaHFtA"/>
