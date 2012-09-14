@@ -16,3 +16,19 @@
 .share-form .form-container .set-title {
 	border-bottom-color: #D2D2D2;
 }
+
+.yui-navset .yui-content {
+	margin-bottom : 15px;
+
+}
+
+/*
+.yui-nav li em {
+	color: #15498B;
+	background-image: -webkit-linear-gradient(top,white,#F5F9FE 25%,#DEECFD 45%);
+	background-image: -moz-linear-gradient(top,white,#F5F9FE 25%,#DEECFD 45%);
+	background-image: -o-linear-gradient(top,white,#F5F9FE 25%,#DEECFD 45%);
+	background-image: -ms-linear-gradient(top,white,#F5F9FE 25%,#DEECFD 45%);
+	background-image: linear-gradient(top,white,#F5F9FE 25%,#DEECFD 45%);
+}
+*/
