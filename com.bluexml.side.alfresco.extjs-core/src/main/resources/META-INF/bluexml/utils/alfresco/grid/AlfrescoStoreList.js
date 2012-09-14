@@ -74,7 +74,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	    
 	    function setDockedItems() {
 			var dockedItems = me.getDockedItemDefinitions();
-			if (null == dockedItems) return;
+			if (!dockedItems || dockedItems.length == 0) return;
 			
 			me.dockedItems = ([] || me.dockedItems).concat(dockedItems);
 	    }
@@ -334,6 +334,8 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 			}
 		}
 
+		if (newRecordsToSelect.length == 0) {return; }; // Return if there is no records (else select produces an error)
+		
 		this.getSelectionModel().select(newRecordsToSelect);
 		Ext.defer(
 			this.setScrollTop, 30, this,
