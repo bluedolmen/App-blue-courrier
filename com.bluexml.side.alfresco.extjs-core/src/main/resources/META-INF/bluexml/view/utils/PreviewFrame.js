@@ -26,9 +26,10 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 		
 		config = config || {};
 		var nodeRef = Ext.isString(config) ? config : config.nodeRef;
-		if (nodeRef) this.setNodeRef(nodeRef);		
-		
-		this.setMimeType(config.mimetype || config.mimeType);
+		if (nodeRef) {
+			this.setNodeRef(nodeRef);		
+			this.setMimeType(config.mimetype || config.mimeType);
+		}		
 		
 		var url = this.getContentUrl();
 		this.setSrc(url);
@@ -45,11 +46,26 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 			Ext.Error.raise('IllegalStateException! The nodeRef is not available but is mandatory.');
 		}		
 		
-		var url = (this.getMimeType() === 'application/pdf') 
-			? this.EMBED_PAGE_URL
-			: this.PREVIEW_PAGE_URL;
+		var url = null;
+
+		switch (this.getMimeType()) {
+			
+			case 'application/pdf':
+				url = this.EMBED_PAGE_URL.replace(/\{nodeRef\}/, nodeRef);
+			break;
+			
+			case 'message/rfc822':
+				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
+					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
+				);
+			break;
+			
+			default:
+				url = this.PREVIEW_PAGE_URL.replace(/\{nodeRef\}/, nodeRef);
+				
+		}		
 		
-		return url.replace(/\{nodeRef\}/, nodeRef);
+		return url;
 	}
 	
 	

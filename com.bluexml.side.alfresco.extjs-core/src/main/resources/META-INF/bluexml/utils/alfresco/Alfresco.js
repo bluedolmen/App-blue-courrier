@@ -202,16 +202,31 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 					fn : function(response) {
 						var jsonResponse = response.json;
 						if (!jsonResponse) {
-							var serverResponse = response.serverResponse;
-							if (!serverResponse) return;
 							
-							jsonResponse = Ext.JSON.decode(serverResponse.responseText, false);
-							if (null == jsonResponse) return;
+							// Tries to interpret responseText as a json-response
+							var 
+								serverResponse = response.serverResponse,
+								responseText = serverResponse ? serverResponse.responseText : null
+							;
+							
+							if (responseText) {
+								jsonResponse = Ext.JSON.decode(serverResponse.responseText, true);
+								if (!jsonResponse) {
+									Ext.log({
+										msg : 'Cannot get a valid json-response from the server-response as text',
+										level : 'warn'
+									});
+								}
+							}
+							
+						}
+
+						if (jsonResponse) {
+							me.genericSendMailFailureManager(jsonResponse);
+							me.genericNoActionFailureManager(jsonResponse);
 						}
 						
-						me.genericSendMailFailureManager(jsonResponse);
-						me.genericNoActionFailureManager(jsonResponse);
-						if (onSuccess) onSuccess(jsonResponse);
+						if (onSuccess) onSuccess(jsonResponse || {});
 					}				
 				}
 			},
@@ -312,12 +327,19 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	
 	getNodeId : function(nodeRef) {
 		
-		if (!nodeRef || !Ext.isString(nodeRef) || -1 == nodeRef.indexOf('workspace://')) {
-			throw new Error('IllegalArgumentException! The provided nodeRef is not valid');
+		if (nodeRef && Ext.isString(nodeRef) && -1 != nodeRef.indexOf('://')) {
+			
+			var 
+				lastSlashIndex = nodeRef.lastIndexOf('/'),
+				nodeId = nodeRef.substr(lastSlashIndex + 1),
+				isValid = /[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}/.test(nodeId) 
+			;
+
+			if (isValid) return nodeId;
+		
 		}
 		
-		var lastSlashIndex = nodeRef.lastIndexOf('/');
-		return nodeRef.substr(lastSlashIndex + 1);
+		throw new Error('IllegalArgumentException! The provided nodeRef is not valid');
 	},
 	
 	
