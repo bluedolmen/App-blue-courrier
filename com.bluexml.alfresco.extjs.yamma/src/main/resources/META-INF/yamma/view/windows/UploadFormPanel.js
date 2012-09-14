@@ -12,25 +12,37 @@ Ext.define('Yamma.view.windows.UploadFormPanel.ErrorReader', {
 	
 	read : function(response) {
 		
-		var responseText = response.responseText || '';
-		var responseXML = response.responseXML;
+		var 
+			responseText = response.responseText || '',
+			responseXML = response.responseXML
+		;
 		
-		if ( responseText && responseText.search(/\\<pre/) && responseXML) {
-			
+		if (responseXML) {
 			var preElements = responseXML.getElementsByTagName('pre');
 			if (preElements.length > 0) {
 				
-				var preElement = preElements[0];
-				var responseJSON = Ext.JSON.decode(preElement.innerText || preElement.textContent);
+				var 
+					preElement = preElements[0],
+					responseJSON = Ext.JSON.decode(preElement.innerText || preElement.textContent)
+				;
 				response.responseJSON = responseJSON;
 				
 				return this._getJSONResponse(responseJSON);
 				
-			}
-			
+			}			
+		}
+				
+		var result = Ext.decode(responseText, true); // Cannot get a valid JSON string
+		if (!result) {
+			return {
+				success : false,
+				records : [
+					Ext.create('Yamma.view.windows.UploadFormPanel.ErrorReader.Error', {message : responseText})
+				]
+			};
 		}
 		
-		return Ext.decode(response.responseText);
+		return result;
 		
 	},
 	

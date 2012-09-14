@@ -56,7 +56,14 @@ Ext.define('Yamma.view.windows.UploadFormWindow', {
 			
 			onFailure : function(form, action) {
 				me.close();
-				var errorMessage = action.response.responseJSON ? action.response.responseJSON.message : 'Erreur inconnue';
+				var errorMessage = 
+					( 
+							action.result.errors[0] ||
+							{
+								message : action.response.responseJSON ? action.response.responseJSON.message : 'Erreur inconnue'
+							}
+					).message;
+					
 				Ext.Msg.alert("Échec de l'envoi du fichier", errorMessage);
 			}
 						
@@ -70,7 +77,6 @@ Ext.define('Yamma.view.windows.UploadFormWindow', {
 	
 	onSuccess : function(response) {
 		
-		Ext.log('Form response: ' + response);
 	}
 		
 	

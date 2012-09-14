@@ -26,6 +26,7 @@ Ext.define('Yamma.controller.MailsViewController', {
 		this.application.on({
 			contextChanged : this.onContextChanged,
 			metaDataEdited : this.onMetaDataEdited,
+			newDocumentAvailable : this.onNewDocumentAvailable,
 			scope : this
 		});
 		
@@ -146,6 +147,14 @@ Ext.define('Yamma.controller.MailsViewController', {
 		});
 		
 		detailsWindow.show();
+	},
+	
+	onNewDocumentAvailable : function(documentInformation) {
+		
+		var 
+			mailsView = this.getMailsView()
+		;
+		mailsView.refresh(true);
 	}	
 	
 

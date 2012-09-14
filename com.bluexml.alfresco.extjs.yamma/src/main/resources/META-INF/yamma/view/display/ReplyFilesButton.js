@@ -3,122 +3,106 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 	extend : 'Ext.button.Button',
 	alias : 'widget.replyfilesbutton',
 	
-	iconCls: 'icon-email',
+	iconCls: Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
 	
-	/**
-	 * Update the status of the button.
-	 * 
-	 * @param {String}
-	 *            documentNodeRef the document nodeRef on which to provide a
-	 *            file-selection menu
-	 */
-	updateStatus : function(documentNodeRef) {
+	menu : {
 		
-		if (null == documentNodeRef) {
-			this.clearMenu();
-			return;
-		}
-		
-		Yamma.store.YammaStoreFactory.requestNew({
-		
-			storeId : 'Replies',
-			onStoreCreated : Ext.bind(this.createMenu, this), 
-			proxyConfig : {
-    			extraParams : {
-    				'@nodeRef' : documentNodeRef
-    			}
-    		}
-			
-		});
-		
+		items : [
+	         {
+	        	 text : 'Ajouter une réponse',
+	        	 itemId : 'addReply',
+	        	 iconCls : 'icon-add'
+	         },
+	         {
+	        	 text : 'Supprimer la réponse',
+	        	 itemId : 'removeReply',
+	        	 iconCls : 'icon-delete'
+	         }
+		]
 	},
 	
 	/**
-	 * Clear the menu and disable the button
+	 * Update the status of the button menu.
 	 * 
-	 * @private
+	 * @param {Object}
+	 *            context
 	 */
-	clearMenu : function() {
+	updateStatus : function(context) {
 		
-		if (this.menu) { Ext.destroy(this.menu); }
-		this.setTooltip('');
-		this.disable();
-		
-	},
-	
-	/**
-	 * @private
-	 * @param {Ext.menu.Menu}
-	 *            menu
-	 */
-	updateMenu : function(menu) {
-		
-		if (!menu) {
-			this.clearMenu();
+		if (!context) {
+			this.disable();
 			return;
 		}
-		
-		var 
-			replyNumber = menu.items.length,
-			tooltipText = replyNumber + ' fichier(s) en réponse'
+
+		var
+			typeShort = context.get('typeShort')
 		;
 		
-		this.menu = menu;
-		this.setTooltip(tooltipText);
-		this.enable();
+		switch(typeShort) {
+		
+		case 'yamma-ee:InboundMail':
+			this.updateMenuForMainDocument(context);
+			break;
+			
+		case 'yamma-ee:Reply':
+			this.updateMenuForReply(context);
+			break;
+		
+		}
 		
 	},
 	
-	/**
-	 * @private
-	 * @param {Bluexml.store.AlfrescoStore}
-	 *            store
-	 */
-	createMenu : function(store) {
+	updateMenuForMainDocument : function(context) {
 		
-		var me = this;
+
+		var
+			canReply = !!context.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_REPLY),
+			hasReplies = !!context.get(Yamma.utils.datasources.Documents.DOCUMENT_HAS_REPLIES_QNAME),
+			addReplyMenuItem = this.menu.down('#addReply'),
+			removeReplyMenuItem = this.menu.down('#removeReply')
+		;
 		
-		store.load({
-		    scope   : this,
-		    callback: function(records, operation, success) {
-		    	if (!success) return;
-		    	
-		    	var menu = buildMenu(records);
-		    	me.updateMenu(menu);
-		    	
-		    }
+		removeReplyMenuItem.disable();
+		if (canReply && !hasReplies) {
+			addReplyMenuItem.enable();
+		} else {
+			addReplyMenuItem.disable();
+		}
+		
+		this.postProcessReplyMenu();
+		
+	},
+	
+	updateMenuForReply : function(context) {
+		
+		var
+			canDelete = !!context.get('canDelete'),
+			addReplyMenuItem = this.menu.down('#addReply'),
+			removeReplyMenuItem = this.menu.down('#removeReply')
+		;
+		
+		addReplyMenuItem.disable();
+		if (canDelete) {
+			removeReplyMenuItem.enable();
+		} else {
+			removeReplyMenuItem.disable();
+		}
+		
+		this.postProcessReplyMenu();
+	},
+	
+	postProcessReplyMenu : function() {
+		
+		var inactive = true;
+		Ext.Array.forEach(this.menu.query('menuitem'), function(item) {
+			inactive &= item.isDisabled();
 		});
-
 		
-		function buildMenu(records) {
-			
-			if (!Ext.isArray(records)) return null;
-		
-			var menuItems = Ext.Array.map(records, function(record) {
-				
-				var 
-					mimetype = record.get('mimetype'),
-					iconDefinition = Yamma.Constants.getMimeTypeIconDefinition(mimetype) || {}
-				;
-				
-				return {
-					itemId : record.get('nodeRef'),
-					text : record.get('cm:title') || record.get('cm:name'),
-					iconCls : iconDefinition.iconCls,
-					mimetype : mimetype,
-					context : record
-				};
-				
-			});
-			
-			if (0 == menuItems.length) return null;
-			
-			return Ext.create('Ext.menu.Menu', {
-			    items: menuItems
-			});
-			
-		};
-
+		if (inactive) {
+			this.disable();
+		} else {
+			this.enable();
+		}
 		
 	}
 	

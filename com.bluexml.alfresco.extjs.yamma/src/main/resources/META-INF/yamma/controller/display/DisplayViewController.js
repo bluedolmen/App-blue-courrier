@@ -68,8 +68,12 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.control({
 			
-			'replyfilesbutton menuitem' : {
-				click : this.onReplyFileClick
+			'replyfilesbutton #addReply' : {
+				click : this.onAddReply
+			},
+			
+			'replyfilesbutton #removeReply' : {
+				click : this.onRemoveReply
 			},
 			
 			'displayview' : {
@@ -108,7 +112,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.mainDocumentNodeRef = nodeRef;
 		this.displayMailPreview(newMailRecord);
-		this.updateReplyFilesButton();
+		this.displayReplyFiles(newMailRecord);
 
 		this.callParent(arguments);
 		
@@ -134,16 +138,17 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		// New document includes clearing of the tabs
 		displayView.clear();
-		displayView.addPreviewTab(
-			this.mainDocumentNodeRef, 
-			mimetype /* mimetype */,
-			{
+		displayView.addPreviewTab({
+			nodeRef : this.mainDocumentNodeRef, 
+			mimetype : mimetype,
+			tabConfig : {
 				title : title,
 				context : documentRecord,
+				iconCls : Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort].iconCls,
 				editMetaDataHandler : this.onMainDocumentMetaDataEdited
-			}, /* tabConfig */ 
-			true /* setActive */
-		);
+			}, 
+			setActive : true
+		});
 		
 		
 	},
@@ -164,19 +169,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		if (doRefresh) {
 			editDocumentForm.refresh();
 		}
-		
-	},
-	
-	/**
-	 * Updates the reply-files button status given the current main-document
-	 * context
-	 * 
-	 * @private
-	 */
-	updateReplyFilesButton : function() {
-		
-		var replyFilesButton = this.getReplyFilesButton();
-		replyFilesButton.updateStatus(this.mainDocumentNodeRef || null);
 		
 	},
 	
@@ -248,6 +240,8 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 */
 	onTabChange : function(displayView, newCard, oldCard) {
 		
+		this.updateReplyFilesButton(newCard.context); // newCard.context may be undefined here...
+		
 		if (!newCard.context) return;
 		
 		var 
@@ -257,6 +251,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.updateEditView(nodeRef, typeShort);
 	},
+	
 	
 	/**
 	 * Update the edit view display.
@@ -312,47 +307,258 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	},
 	
 	
-	
-	/*
-	 * REPLY MENU (ITEMS)
-	 */
+/*
+ * The following part of code may be used to build a reply menu in
+ * order to choose the reply to display if we need to attach
+ * several replies to a same inbound document...
+ */	
+//	/*
+//	 * REPLY MENU (ITEMS)
+//	 */
+//	
+//	/**
+//	 * Reply-file menu-item clicked handler.
+//	 * 
+//	 * This handler displays a new tab with a preview of the clicked reply
+//	 * document.
+//	 * 
+//	 * @private
+//	 * @param {Ext.menu.Item}
+//	 *            item The selected menu-item
+//	 */
+//	onReplyFileClick : function(item) {
+//		
+//		var 
+//			displayView = this.getDisplayView(),
+//			nodeRef = item.itemId,
+//			previewTab = displayView.getPreviewTab(nodeRef)
+//		;
+//		
+//		if (!nodeRef) return;		
+//		if (previewTab) {
+//			displayView.setActiveTab(previewTab);
+//			return;
+//		}
+//		
+//		displayView.addPreviewTab({
+//			nodeRef : nodeRef, 
+//			mimetype : item.mimetype,
+//			tabConfig : {
+//				title : item.text,
+//				context : item.context,
+//				iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
+//				editMetaDataHandler : this.onReplyFileMetaDataEdited,
+//				closable : true
+//			},
+//			setActive : true
+//		});
+//		
+//	},
+
+	displayReplyFiles : function() {
+		
+		var 
+			me = this,			
+			displayView = this.getDisplayView()
+		;
+		
+		Yamma.store.YammaStoreFactory.requestNew({
+			
+			storeId : 'Replies',
+			onStoreCreated : displayReplies, 
+			proxyConfig : {
+    			extraParams : {
+    				'@nodeRef' : this.mainDocumentNodeRef
+    			}
+    		}
+			
+		});
+		
+		function displayReplies(store) {
+			
+			store.load({
+			    scope   : me,
+			    callback: function(records, operation, success) {
+			    	if (!success) return;
+			    	
+			    	Ext.Array.forEach(records, function(record) {
+			    		
+			    		var
+			    			nodeRef = record.get('nodeRef'),
+			    			mimetype = record.get('mimetype')
+			    		;
+			    		
+			    		var existingTab = displayView.getPreviewTab(nodeRef);
+			    		if (existingTab) return; // skip existing replies
+			    		
+			    		displayView.addPreviewTab({
+			    			
+			    			nodeRef : nodeRef,
+			    			mimetype : mimetype,
+			    			tabConfig : {
+			    				context : record,
+			    				title : record.get('cm:title') || record.get('cm:name'),
+			    				iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
+			    				editMetaDataHandler : me.onReplyFileMetaDataEdited,
+			    			}
+			    			
+			    		});
+			    		
+			    	});
+			    	
+			    	updateMainContext(records);
+			    }
+			});
+			
+		}
+		
+		function updateMainContext(records) {
+			
+			if (!me.mainDocumentNodeRef) return;
+			
+			var
+				mainTab = displayView.getPreviewTab(me.mainDocumentNodeRef),
+				mainContext = mainTab.context
+			;
+			
+			mainContext.set(Yamma.utils.datasources.Documents.DOCUMENT_HAS_REPLIES_QNAME, records.length > 0);
+			me.updateReplyFilesButton();
+			
+		}
+		
+	},
+
 	
 	/**
-	 * Reply-file menu-item clicked handler.
-	 * 
-	 * This handler displays a new tab with a preview of the clicked reply
-	 * document.
+	 * Updates the reply-files button status given the current main-document
+	 * context
 	 * 
 	 * @private
-	 * @param {Ext.menu.Item}
-	 *            item The selected menu-item
 	 */
-	onReplyFileClick : function(item) {
+	updateReplyFilesButton : function(context) {
+		
+		if (undefined === context) {
+			var 
+				displayView = this.getDisplayView(),
+				activeTab = displayView.getActiveTab()
+			;
+			if (activeTab) {
+				context = activeTab.context;
+			}
+		}
+		
+		var replyFilesButton = this.getReplyFilesButton();
+		replyFilesButton.updateStatus(context || null);
+		
+	},	
+	
+	onAddReply : function(menuItem) {
+		
+		var documentNodeRef = this.mainDocumentNodeRef;
+		if (!documentNodeRef) return;
+		
+		return this.replyDocument(documentNodeRef);
+		
+	},
+
+	/**
+	 * @private
+	 * @param documentNodeRef
+	 */
+	replyDocument : function(documentNodeRef) {
+		
+		var 
+			me = this,
+			
+			uploadUrl = Bluexml.Alfresco.resolveAlfrescoProtocol(
+				'alfresco://bluexml/yamma/reply-mail'
+			)
+		;
+		
+		chooseFile();
+
+		function chooseFile() {
+	
+			Ext.create('Yamma.view.windows.UploadFormWindow', {
+				
+				title : 'Choisissez un fichier en <b>réponse</b>',
+				
+				formConfig : {
+					uploadUrl : uploadUrl + '?format=html', // force html response format due to ExtJS form submission restriction 
+					additionalFields : [{
+						name : 'nodeRef',
+						value : documentNodeRef
+					}]
+				},
+				
+				onSuccess : function() {
+					me.displayReplyFiles();
+				}
+				
+			}).show();
+
+			
+		};
+		
+	},
+	
+	onRemoveReply : function(menuItem) {
 		
 		var 
 			displayView = this.getDisplayView(),
-			nodeRef = item.itemId,
-			previewTab = displayView.getPreviewTab(nodeRef)
+			currentTab =  displayView.getActiveTab(),
+			context = null,
+			replyNodeRef = null
 		;
 		
-		if (!nodeRef) return;		
-		if (previewTab) {
-			displayView.setActiveTab(previewTab);
-			return;
-		}
+		if (!currentTab) return;
 		
-		displayView.addPreviewTab(
-			nodeRef, 
-			item.mimetype /* mimetype */,
-			{
-				title : item.text,
-				context : item.context,
-				editMetaDataHandler : this.onReplyFileMetaDataEdited
-			}, /* tabConfig */
-			true /* setActive */
-		);
+		context = currentTab.context;
+		if (!context) return;
+		
+		replyNodeRef = context.get('nodeRef');
+		this.removeReply(replyNodeRef);
 		
 	},
+	
+	removeReply : function(replyNodeRef) {
+		
+		if (!replyNodeRef) return;
+		
+		var 
+			me = this,
+			displayView = this.getDisplayView(),
+			currentTab =  displayView.getActiveTab()
+		;
+		
+		Bluexml.windows.ConfirmDialog.INSTANCE.askConfirmation(
+			'Supprimer la réponse ?', /* title */
+			'êtes-vous certain de vouloir supprimer la réponse ?', /* message */
+			deleteReply /* onConfirmation */
+		);
+		
+		function deleteReply() {
+			
+			var
+				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
+					'alfresco://bluexml/yamma/reply-mail/' + replyNodeRef.replace(/:\//,'')
+				)
+			;
+			
+			Bluexml.Alfresco.jsonRequest(
+				{
+					method : 'DELETE',
+					url : url,
+					onSuccess : function() {
+						displayView.remove(currentTab);
+						me.displayReplyFiles(); // update main-document context as a side effect
+					}
+				}
+			);	
+			
+		}
+		
+	},	
 	
 	/**
 	 * Reply-file metadata-edited handler.

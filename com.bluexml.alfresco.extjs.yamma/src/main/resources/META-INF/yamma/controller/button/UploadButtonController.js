@@ -88,16 +88,31 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	 */
 	showUploadForm : function() {
 		
-		var uploadButton = this.getUploadButton();
+		var 
+			me = this,
+			uploadButton = this.getUploadButton();
 		
 		Ext.create('Yamma.view.windows.UploadFormWindow', {
+			
 			title : 'Choisissez un fichier',
+			
 			formConfig : {
 				additionalFields : [{
 					name : 'destination',
 					value : uploadButton.getDestination()
 				}]
+			},
+			
+			onSuccess : function(response) {
+				var jsonResponse = response.responseJSON;
+				if (!jsonResponse) return;
+				
+				me.application.fireEvent('newDocumentAvailable', {
+					nodeRef : jsonResponse.nodeRef,
+					name : jsonResponse.fileName
+				});
 			}
+			
 		}).show();
 		
 	}	

@@ -41,9 +41,11 @@ function initApplication() {
 				'menus.AdvancedSearchMenuController',
 				'charts.StatesStatsViewController',
 				'MailsViewController',
+				'button.UploadButtonController',
 				'ReferencesViewController',
 				'display.DisplayViewController',
-				'comments.CommentsViewController'
+				'comments.CommentsViewController',
+				'attachments.AttachmentsViewController'
 			],
 			
 			autoCreateViewport : true,

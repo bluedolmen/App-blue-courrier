@@ -10,8 +10,10 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 	],
 	
 	statics : {
-		ICON_OK : Yamma.Constants.getIconDefinition('email_go'),
-		ICON_REFUSE : Yamma.Constants.getIconDefinition('email_delete')
+		ICON_OK : Yamma.Constants.getIconDefinition('email_tick'),
+		ICON_REFUSE : Yamma.Constants.getIconDefinition('email_cross'),
+		ICON_DELEGATE : Yamma.Constants.getIconDefinition('email_group'),
+		ICON_SERVICE : Yamma.Constants.getIconDefinition('group')
 	},
 	
 	VALIDATE_REPLY_ACTION_WS_URL : 'alfresco://bluexml/yamma/validate-reply',
@@ -20,12 +22,20 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 		
 		'accept' : {
 			CONFIRM_MESSAGE : "Validez-vous l'envoi de la réponse à l'expéditeur ?",
-			CONFIRM_TITLE : 'Valider la réponse'	
+			CONFIRM_TITLE : 'Valider la réponse',
+			CONFIRM_TYPE : 'yesno'
 		},
 		
 		'refuse' : {
 			CONFIRM_MESSAGE : "Quelle est la raison de ce refus ?",
-			CONFIRM_TITLE : 'Refuser la réponse'
+			CONFIRM_TITLE : 'Refuser la réponse',
+			CONFIRM_TYPE : 'comment'
+		},
+		
+		'delegate' : {
+			CONFIRM_MESSAGE : "Quelle est la raison de cette délégation (hors procédure standard) ?",
+			CONFIRM_TITLE : 'Déléguer la validation',
+			CONFIRM_TYPE : 'comment'
 		}
 		
 	},
@@ -45,27 +55,47 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 		return this.getValidateReplyActionDefinition(
 			'refuse', /* validateOperation */
 			Yamma.view.gridactions.ValidateReply.ICON_REFUSE.icon, /* icon */
-			'Refuser l\'envoi de la réponse', /* tooltip */
-			true /* askForComment */
+			'Refuser l\'envoi de la réponse' /* tooltip */
 		);
 		
 	},
 	
-	getValidateReplyActionDefinition : function(validateOperation, icon, tooltip, askForComment) {
+	getDelegateValidationActionDefinition : function() {
+		
+		var me = this;
+		
+		return Ext.apply(
+			this.getValidateReplyActionDefinition(
+				'delegate', /* validateOperation */
+				Yamma.view.gridactions.ValidateReply.ICON_DELEGATE.icon, /* icon */
+				"Déléguer la validation à un autre service", /* tooltip */
+				this.onDelegateValidationAction /* handler */
+			),
+			{
+				getClass : function(value, meta, record) {
+					if (me.canDelegateValidation(record)) return '';
+					else return (Ext.baseCSSPrefix + 'hide-display');
+				},
+				
+			}
+		);
+		
+	},
+	
+	getValidateReplyActionDefinition : function(validateOperation, icon, tooltip, handler) {
 		
 		var me = this;
 		
 		return	{
 			icon : icon,
 			tooltip : tooltip,
-			handler : this.onValidateReplyAction,
+			handler : handler ? handler : this.onValidateReplyAction,
 			scope : this,
 			getClass : function(value, meta, record) {
 				if (!me.canLaunchValidateReplyAction(record)) return (Ext.baseCSSPrefix + 'hide-display');
 				return '';
 			},
-			validateOperation : validateOperation,
-			askForComment : !!askForComment
+			validateOperation : validateOperation
 		};
 		
 	},
@@ -75,18 +105,37 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 		return userCanValidate;
 	},
 	
+	canDelegateValidation : function(record) {
+		var hasDelegatedSites = record.get(Yamma.utils.datasources.Documents.DOCUMENT_HAS_DELEGATED_SITES_QNAME);
+		return this.canLaunchValidateReplyAction(record) && hasDelegatedSites;
+	},
+	
 	onValidateReplyAction : function(grid, rowIndex, colIndex, item, e) {
 		
-		var me = this;
-		var record = grid.getStore().getAt(rowIndex);
-		var documentNodeRef = this.getDocumentNodeRefRecordValue(record);
-		var validateOperation = item.validateOperation;
-		var askForComment = !!item.askForComment;
+		var 
+			record = grid.getStore().getAt(rowIndex),
+			documentNodeRef = this.getDocumentNodeRefRecordValue(record),
+			validateOperation = item.validateOperation
+		;
 		
 		if (!validateOperation) {
 			Ext.Error.raise('IllegalStateException! Cannot get the reply-validation action');
 		}
-		var dialogConfig = me.DIALOG_CONFIG[validateOperation];
+		this.validateReply(documentNodeRef, validateOperation);
+		
+		return false;
+	},
+	
+	validateReply : function(documentNodeRef, operation, extraParams) {
+		
+		var
+			me = this,
+			dialogConfig = me.DIALOG_CONFIG[operation],
+			askForComment = ('comment' === dialogConfig.CONFIRM_TYPE),
+			url = Bluexml.Alfresco.resolveAlfrescoProtocol(
+				this.VALIDATE_REPLY_ACTION_WS_URL
+			);
+		;
 		
 		if (askForComment) askComment();
 		else askConfirmation();
@@ -103,7 +152,7 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 			);
 			
 			function onCommentAvailable(comment) {
-				me.validateReply.call(me, documentNodeRef, validateOperation, comment);
+				performAction(comment);
 			}
 			
 		}
@@ -113,41 +162,134 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 			Bluexml.windows.ConfirmDialog.FR.askConfirmation({
 				title : dialogConfig.CONFIRM_TITLE,
 				msg : dialogConfig.CONFIRM_MESSAGE,
-				onConfirmation : Ext.bind(me.validateReply, me, [documentNodeRef, validateOperation])
+				onConfirmation : performAction
 			});
 			
-		};
+		};		
 		
-		return false;
+		function performAction(comment) {
+			Bluexml.Alfresco.jsonPost(
+				{
+					url : url,
+					dataObj : Ext.applyIf(
+						{
+							nodeRef : documentNodeRef,
+							operation : operation,
+							comment : comment || ''
+						}, 
+						extraParams
+					)
+				},
+				
+				function(jsonResponse) { /* onSuccess */
+					me.refresh(); 
+				}
+			);
+		}
+		
 	},
 	
-	validateReply : function(documentNodeRef, operation, comment) {
+	onDelegateValidationAction : function(grid, rowIndex, colIndex, item, e) {
+		var 
+			record = grid.getStore().getAt(rowIndex),
+			documentNodeRef = this.getDocumentNodeRefRecordValue(record)
+		;
 		
-		var me = this;
-		
-		var url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-			this.VALIDATE_REPLY_ACTION_WS_URL
-		);		
-
-		Bluexml.Alfresco.jsonPost(
-			{
-				url : url,
-				dataObj : {
-					nodeRef : documentNodeRef,
-					operation : operation,
-					comment : comment || ''
-				}
-			},
-			
-			function(jsonResponse) { /* onSuccess */
-				me.refresh(); 
-			}
-		);	
-		
+		this.displayDelegatedServicesMenu(documentNodeRef, e.getXY());
 	},
+	
+	/**
+	 * @private
+	 */
+	displayDelegatedServicesMenu : function(documentNodeRef, xyPosition) {
+		
+		var 
+			me = this			
+		;
+		
+		loadDataSource();
+		
+		function loadDataSource() {
+			
+			Yamma.store.YammaStoreFactory.requestNew({
+				
+				storeId : 'DelegatedServices',
+				onStoreCreated : loadStore, 
+				proxyConfig : {
+	    			extraParams : {
+	    				'@nodeRef' : documentNodeRef
+	    			}
+	    		}
+				
+			});
+			
+			function loadStore(store) {
+				
+				store.load({
+				    scope   : me,
+				    callback: function(records, operation, success) {
+				    	if (!success) return;
+				    	
+						var menu = buildMenu(records);
+						if (!menu) return;
+						
+						menu.showAt(xyPosition);
+				    }
+				});
+				
+			}
+		}		
+		
+		function buildMenu(records) {
+			
+			if (!records || records.length == 0) return;
+			
+			var 
+				menuItems = []
+			;
+			
+	    	Ext.Array.forEach(records, function(record) {
+	    		
+	    		var
+	    			shortName = record.get('cm:name'),
+	    			title = record.get('cm:title')
+	    		;
+	    		
+	    		menuItems.push({
+	    			text : title,
+	    			shortName : shortName,
+	    			iconCls : Yamma.view.gridactions.ValidateReply.ICON_SERVICE.iconCls
+	    		});
+	    		
+	    	});
+			
+    		return Ext.create('Ext.menu.Menu', {
+    		    //width: 100,
+    		    margin: '0 0 10 0',
+    		    renderTo: Ext.getBody(),
+    		    items: menuItems,
+    		    listeners : {
+    		    	click : onItemClick
+    		    }
+    		});
+    		
+		}
+		
+		function onItemClick(menu, item, event, eOpts) {
+			
+			var serviceName = item.shortName;
+			me.validateReply(
+				documentNodeRef /* documentNodeRef */, 
+				'delegate' /* operation */, 
+				{service : serviceName} /* extraParams */
+			);
+			
+		}
+		
+	},	
 	
 	getDocumentNodeRefRecordValue : function(record) {
-		throw new Error('Should be redefined by the inclusive class');
+		throw new Error('Should be redefined by the including class');
 	}	
 	
 });

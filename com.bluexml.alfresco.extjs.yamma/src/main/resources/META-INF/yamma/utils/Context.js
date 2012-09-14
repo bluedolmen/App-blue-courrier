@@ -53,6 +53,9 @@ Ext.define('Yamma.utils.Context', {
 		var trayFilter = this.getTrayFilter();
 		if (trayFilter) filters.push(trayFilter);
 
+		var serviceFilter = this.getServiceFilter();
+		if (serviceFilter) filters.push(serviceFilter);
+		
 		return filters;		
 	},
 	
@@ -61,10 +64,23 @@ Ext.define('Yamma.utils.Context', {
 		var tray = this.getTray();
 		if (!tray) return null;
 			
-		var trayNodeRef = tray.nodeRef;
+		var trayName = tray.trayName;
 		return {
-			property : 'trayNodeRef',
-			value : trayNodeRef
+			property : 'tray',
+			value : trayName
+		};
+		
+	},
+	
+	getServiceFilter : function() {
+		
+		var service = this.getService();
+		if (!service) return null;
+		
+		var serviceName = service.serviceName;
+		return {
+			property : 'site',
+			value : serviceName
 		};
 		
 	},

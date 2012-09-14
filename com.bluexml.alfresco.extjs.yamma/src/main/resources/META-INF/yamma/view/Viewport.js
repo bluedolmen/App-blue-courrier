@@ -30,11 +30,11 @@ Ext.define('Yamma.view.Viewport', {
 							margin : 5	
 						},
 						
-						/* FOOTER */
-						{
-							xtype : 'yammafooter',
-							region : 'south'
-						}, 
+//						/* FOOTER */
+//						{
+//							xtype : 'yammafooter',
+//							region : 'south'
+//						}, 
 						
 						/* FILTERING MENU */
 						{
@@ -45,7 +45,7 @@ Ext.define('Yamma.view.Viewport', {
 							minWidth : 150,
 							maxWidth : 400,
 							split : true,
-							margin : '0 0 0 5',
+							margin : '0 0 10 5',
 							collapsible : true,
 							collapsed : false
 						},
@@ -54,7 +54,7 @@ Ext.define('Yamma.view.Viewport', {
 						{
 							region : 'center',
 							xtype : 'mainview',
-							margin : '0 5 0 0'
+							margin : '0 5 10 0'
 						}
 					]
 				};

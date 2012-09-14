@@ -5,7 +5,8 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 	
 	requires : [
 		'Yamma.view.edit.EditDocumentForm',
-		'Yamma.view.comments.CommentsView'
+		'Yamma.view.comments.CommentsView',
+		'Yamma.view.attachments.AttachmentsView'
 	],
 	
 	layout : 'accordion',
@@ -19,6 +20,9 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 			xtype : 'editdocumentform'
 		},
 		{
+			xtype : 'attachmentsview'
+		},
+		{
 			xtype : 'commentsview'
 		}
 	],
@@ -30,12 +34,14 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		}
 		
 		var 
-			editDocumentForm = this.child('editdocumentform'),
-			commentsView = this.child('commentsview')
+			editDocumentForm = this.getEditDocumentForm(),
+			commentsView = this.getCommentsView(),
+			attachmentsView = this.getAttachmentssView()
 		;
 		
 		editDocumentForm.loadDocument(nodeRef);
 		commentsView.loadComments(nodeRef);
+		attachmentsView.loadAttachments(nodeRef);
 		
 	},
 	
@@ -53,14 +59,24 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		return this.commentsView;
 	},
 	
+	getAttachmentssView : function() {
+		if (!this.attachmentsView) {
+			this.attachmentsView = this.child('attachmentsview');
+		}
+		return this.attachmentsView;
+	},
+	
 	clear : function() {
 		
-		var
+		var 
 			editDocumentForm = this.getEditDocumentForm(),
-			commentsView = this.getCommentsView()
+			commentsView = this.getCommentsView(),
+			attachmentsView = this.getAttachmentssView()
 		;
+		
 		editDocumentForm.clear();
 		commentsView.clear();
+		attachmentsView.clear();
 		
 	}
 	

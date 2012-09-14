@@ -24,16 +24,23 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		documentNodeRef : null
 	},
 	
-	bbar : [
-		'->',
-		{
-			xtype : 'button',
-			itemId : 'addComment',
-			iconCls : 'icon-comment_add',
-			tooltip : 'Ajouter un commentaire'
-		}
-	],
-	
+    getDockedItemDefinitions : function() {
+    	return [{
+		    xtype: 'toolbar',
+		    dock: 'bottom',
+		    border : '1 0 0 0',
+		    items: [
+	    		'->',
+	    		{
+	    			xtype : 'button',
+	    			itemId : 'addComment',
+	    			iconCls : 'icon-comment_add',
+	    			tooltip : 'Ajouter un commentaire'
+	    		}
+		    ]
+		}];    	
+    },
+		
 	loadComments : function(nodeRef) {
 		
 		if (!nodeRef || !Ext.isString(nodeRef)) {
@@ -68,6 +75,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 	 			name : 'avatarUrl', 
 	 			mapping : 'avatar' , 
 	 			convert : function(value, record) {
+	 				if (!value) return Bluexml.model.Person.NO_USER_AVATAR_URL;
 	 				return Bluexml.Alfresco.resolveAlfrescoProtocol('alfresco://' + value);
 	 			}
 	 		},

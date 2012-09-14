@@ -12,10 +12,12 @@ Ext.define('Yamma.view.header.Header', {
 	alias : 'widget.yammaheader',
 	
 	items : [
-	
-		{
-			xtype : 'userbuttonmenu'
+ 		{
+			xtype : 'image',
+			src : Alfresco.constants.URL_RESCONTEXT + 'yamma/resources/images/YaMma.png',
+			height : 50
 		},
+	
 		
 		{
 			xtype : 'tbspacer',
@@ -30,6 +32,11 @@ Ext.define('Yamma.view.header.Header', {
 			xtype : 'opensearch',
 			width : 250,
 			padding : '0 10 0 0'
+		},
+		
+		'-',
+		{
+			xtype : 'userbuttonmenu'
 		}
 		
 	],

@@ -47,16 +47,24 @@ Ext.define('Yamma.utils.Constants', {
 			this.getIconDefinition('page_white')
 		);
 		
-		this.MAIL_TYPE_DEFINITION = Ext.apply(
+		this.INBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
 			{
 				title : 'Courrier'
 			},
 			this.getIconDefinition('email')
 		);
 		
+		this.OUTBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
+			{
+				title : 'Courrier réponse'
+			},
+			this.getIconDefinition('email_go')
+		);
+				
 		this.DOCUMENT_TYPE_DEFINITIONS = {
 			
-			'yamma-ee:Mail' : this.MAIL_TYPE_DEFINITION
+			'yamma-ee:InboundMail' : this.INBOUND_MAIL_TYPE_DEFINITION,
+			'yamma-ee:OutboundMail' : this.OUTBOUND_MAIL_TYPE_DEFINITION
 			
 		};
 		

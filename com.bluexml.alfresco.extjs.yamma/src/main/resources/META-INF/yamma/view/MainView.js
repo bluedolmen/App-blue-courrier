@@ -45,18 +45,6 @@ Ext.define('Yamma.view.MainView',{
 					xtype : 'mailsview',
 					region : 'center'
 				}
-//				,
-//				{
-//					xtype : 'referencesview',
-//					frame : true,
-//					region : 'east',
-//					headerPosition : 'right',
-//					width : '33%',
-//					collapsed : false,
-//					collapsible : true,
-//					animCollapse : true
-//					
-//				}
 			]			
 			
 		},

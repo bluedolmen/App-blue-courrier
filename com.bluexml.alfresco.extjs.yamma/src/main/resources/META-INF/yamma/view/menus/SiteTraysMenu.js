@@ -3,12 +3,66 @@ Ext.define('Yamma.view.menus.SiteTraysMenu.TreeStore', {
 	extend : 'Ext.data.TreeStore',
 	
 	WS_URL : 'alfresco://bluexml/yamma/treenode',
-	ICON_CLS_MAPPING : {
-		'st:site' : Yamma.Constants.getIconDefinition('group'),
-		'cm:folder' : Yamma.Constants.getIconDefinition('folder'),
-		'cm:content' : Yamma.Constants.getIconDefinition('page')
+	
+	RECORD_MAPPING : {
+		'default' : {
+			iconCls : Yamma.Constants.getIconDefinition('folder').iconCls,
+			text : 'inconnu',
+			qtitle : 'inconnu'
+		},
+		'st:site' : {
+			iconCls : Yamma.Constants.getIconDefinition('group').iconCls
+		},
+		'cm:folder' : {
+			iconCls : Yamma.Constants.getIconDefinition('folder').iconCls
+		},
+		'cm:content' : {
+			iconCls : Yamma.Constants.getIconDefinition('page').iconCls
+		},
+		'tray' : {
+			iconCls : function(record) {
+				var trayName = record.get('name');
+				
+				switch (trayName) {
+				case 'inbox':
+					return Yamma.Constants.getIconDefinition('folder_in').iconCls;
+				case 'outbox':
+					return Yamma.Constants.getIconDefinition('folder_out').iconCls;
+				case 'ccbox':
+					return Yamma.Constants.getIconDefinition('page_white_stack').iconCls;
+				}
+				
+				return Yamma.Constants.getIconDefinition('folder_page').iconCls;
+			}
+		},
+		'state-tray' : {
+			iconCls : function(record) {
+				var 
+					stateId = record.get('name'),
+					stateDefinition = Yamma.Constants.DOCUMENT_STATE_DEFINITIONS[stateId]
+				;
+				
+				return stateDefinition.iconCls;
+			},
+			text : function(record) {
+				var 
+					stateId = record.get('name'),
+					stateDefinition = Yamma.Constants.DOCUMENT_STATE_DEFINITIONS[stateId]
+				;
+				
+				return stateDefinition.shortTitle;				
+			},
+			qtitle : function(record) {
+				var 
+					stateId = record.get('name'),
+					stateDefinition = Yamma.Constants.DOCUMENT_STATE_DEFINITIONS[stateId]
+				;
+				
+				return stateDefinition.title;								
+			}
+		}
 	},
-	DEFAULT_ICON_CLS : Yamma.Constants.getIconDefinition('folder'),
+	
 	
 	nodeParam : 'node',
 	title : 'Bannettes par service',
@@ -21,6 +75,24 @@ Ext.define('Yamma.view.menus.SiteTraysMenu.TreeStore', {
 		
 	},
 	
+	/**
+	 * @private
+	 * @param propertyName
+	 */
+	getRecordMapping : function(record, propertyName, defaultValue) {
+		
+		var 
+			type = record.get('type') || 'default',
+			recordMapping = this.RECORD_MAPPING[type],
+			propertyMapping = recordMapping[propertyName]
+		;
+		
+		if (!propertyMapping) return defaultValue;	
+		if (Ext.isFunction(propertyMapping)) return propertyMapping(record);
+		
+		return propertyMapping;
+	},
+	
 	getFieldsDefinition : function() {
 		
 		var me = this;
@@ -28,8 +100,23 @@ Ext.define('Yamma.view.menus.SiteTraysMenu.TreeStore', {
 		return [
 			{ name : 'id', type : 'string', mapping : 'ref'},
 			{ name : 'type', type : 'string'},
-	    	{ name : 'text', type : 'string' , mapping : 'title' },
-	    	{ name : 'qtitle', type : 'string' , mapping : 'description' },
+			{ name : 'name', type : 'string'},
+	    	{ 
+				name : 'text', 
+				type : 'string' , 
+				mapping : 'title',
+				convert : function(value, record) {
+					return me.getRecordMapping(record, 'text', value);
+				}
+			},
+	    	{ 
+				name : 'qtitle', 
+				type : 'string' , 
+				mapping : 'description',
+				convert : function(value,record) {
+					return me.getRecordMapping(record, 'qtitle', value);
+				}
+			},
 	    	{
 	    		name : 'leaf',
 	    		type : 'boolean',
@@ -42,13 +129,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu.TreeStore', {
 	    		name : 'iconCls',
 	    		type : 'string',
 	    		convert: function(value, record) {
-	    			var type = record.get('type');
-	    			if (type) {
-	    				var iconDef = me.ICON_CLS_MAPPING[type];
-	    				if (iconDef) return iconDef.iconCls;
-	    			}
-	    			
-	    			return me.DEFAULT_ICON_CLS.iconCls; 
+					return me.getRecordMapping(record, 'iconCls', value);
 	    		}
 	    	}
 	    ];

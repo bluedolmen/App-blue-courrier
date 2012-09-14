@@ -40,6 +40,9 @@
 .icon-pencil_wrench {
     background-image: url(../icons/pencil_wrench.png) !important;
 }
+.icon-folder_out {
+    background-image: url(../icons/folder_out.png) !important;
+}
 .icon-comment_add {
     background-image: url(../icons/comment_add.png) !important;
 }
@@ -85,6 +88,12 @@
 .icon-folder_table_house {
     background-image: url(../icons/folder_table_house.png) !important;
 }
+.icon-page_white_stack {
+    background-image: url(../icons/page_white_stack.png) !important;
+}
+.icon-email_cross {
+    background-image: url(../icons/email_cross.png) !important;
+}
 .icon-lorry_go {
     background-image: url(../icons/lorry_go.png) !important;
 }
@@ -94,8 +103,14 @@
 .icon-hourglass_go {
     background-image: url(../icons/hourglass_go.png) !important;
 }
+.icon-email_tick {
+    background-image: url(../icons/email_tick.png) !important;
+}
 .icon-package {
     background-image: url(../icons/package.png) !important;
+}
+.icon-email_group {
+    background-image: url(../icons/email_group.png) !important;
 }
 .icon-user_comment_tick {
     background-image: url(../icons/user_comment_tick.png) !important;
@@ -115,11 +130,17 @@
 .icon-cog_edit {
     background-image: url(../icons/cog_edit.png) !important;
 }
+.icon-folder_page {
+    background-image: url(../icons/folder_page.png) !important;
+}
 .icon-pencil_go {
     background-image: url(../icons/pencil_go.png) !important;
 }
 .icon-email {
     background-image: url(../icons/email.png) !important;
+}
+.icon-attach_add {
+    background-image: url(../icons/attach_add.png) !important;
 }
 .icon-book {
     background-image: url(../icons/book.png) !important;
@@ -199,8 +220,14 @@
 .icon-folder_go {
     background-image: url(../icons/folder_go.png) !important;
 }
+.icon-folder_in {
+    background-image: url(../icons/folder_in.png) !important;
+}
 .icon-user_suit {
     background-image: url(../icons/user_suit.png) !important;
+}
+.icon-attach_delete {
+    background-image: url(../icons/attach_delete.png) !important;
 }
 .icon-error {
     background-image: url(../icons/error.png) !important;

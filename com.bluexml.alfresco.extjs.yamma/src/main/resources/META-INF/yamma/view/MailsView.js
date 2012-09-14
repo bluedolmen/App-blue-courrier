@@ -20,7 +20,6 @@ Ext.define('Yamma.view.MailsView', {
 	mixins : [
 		'Yamma.view.gridactions.Distribute',
 		'Yamma.view.gridactions.StartProcessing',
-		'Yamma.view.gridactions.Reply',
 		'Yamma.view.gridactions.SendReply',
 		'Yamma.view.gridactions.ValidateReply'
 	],
@@ -404,14 +403,14 @@ Ext.define('Yamma.view.MailsView', {
 		
 			{
 				xtype : 'bluexmlactioncolumn',
-				maxWidth : 60,
+				maxWidth : 90,
 				items : [
 					this.getDistributeActionDefinition(),
 					this.getStartProcessingActionDefinition(),
-					this.getReplyActionDefinition(),
 					this.getSendReplyActionDefinition(),
 					this.getAcceptReplyActionDefinition(),
-					this.getRefuseReplyActionDefinition()
+					this.getRefuseReplyActionDefinition(),
+					this.getDelegateValidationActionDefinition()
 				]
 				
 			}
