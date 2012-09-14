@@ -13,7 +13,7 @@
 					
 					var document = search.findNode(nodeRef);
 					if (!document)
-						throw new Error('[Datasource.History] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
+						throw new Error('[Datasource.Replies] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
 						
 					return ReplyUtils.getReplies(document);
 					
@@ -24,11 +24,12 @@
 			fields : [
 				
 				'@nodeRef',
+				'@typeShort',
 				'@mimetype',
 				'cm:name',
 				'cm:title',
-				YammaModel.REPLY_WRITING_DATE_PROPNAME,
-				YammaModel.REPLY_SENT_DATE_PROPNAME,
+				YammaModel.MAIL_WRITING_DATE_PROPNAME,
+				YammaModel.MAIL_SENT_DATE_PROPNAME,
 				
 				{
 					name : YammaModel.REPLY_TYPE_SHORTNAME + '_author',
@@ -46,6 +47,27 @@
 						return Utils.getPersonDisplayName(author);
 
 					}
+				},
+				
+				{
+					name : 'canAttach',
+					type : 'boolean',
+					evaluate : function(reply) {
+						
+						return ReplyUtils.canAttach(reply);
+						
+					}
+				},
+				
+				{
+					name : 'canDelete',
+					type : 'boolean',
+					evaluate : function(reply) {
+						
+						return ReplyUtils.canDelete(reply);
+						
+					}
+					
 				}
 				
 			]			

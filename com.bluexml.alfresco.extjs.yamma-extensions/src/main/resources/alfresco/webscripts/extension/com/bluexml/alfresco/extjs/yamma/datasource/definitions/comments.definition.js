@@ -71,8 +71,8 @@
 					name : 'canDelete',
 					type : 'boolean',
 					evaluate : function(node) {
-						var canEdit = node.hasPermission('Delete');
-						return canEdit;
+						var canDelete = node.hasPermission('Delete');
+						return canDelete;
 					}
 				}
 				

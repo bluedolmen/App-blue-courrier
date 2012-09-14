@@ -7,10 +7,13 @@
 	const VALIDATE_REPLY_EVENT_TYPE = 'validate-reply';
 	
 	// PRIVATE
-	var fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName();
-	var documentNode;
-	var operation;
-	var comment = '(non renseigné)';
+	var 
+		documentNode = null,
+		documentContainer = null,
+		operation = null,
+		comment = '(non renseigné)',
+		service = null
+	;
 	
 	// MAIN LOGIC
 	
@@ -19,96 +22,122 @@
 		var parseArgs = new ParseArgs(
 			{ name : 'nodeRef', mandatory : true}, 
 			{ name : 'operation', mandatory : true, checkValue : checkOperationType }, 
-			'comment'
+			'comment',
+			'service'
 		);
 		var documentNodeRef = parseArgs['nodeRef'];
 		documentNode = search.findNode(documentNodeRef);
+		documentContainer = DocumentUtils.getDocumentContainer(documentNode) || documentNode;
 		
 		if (!documentNode) {
 			throw {
 				code : '512',
 				message : 'IllegalStateException! The provided nodeRef does not exist in the repository'
-			}
+			};
 		}
 		
-		operation = parseArgs['operation'];
-		comment = parseArgs['comment'] || comment;
+		operation = Utils.asString(parseArgs['operation']);
+		comment = Utils.asString(parseArgs['comment']) || comment;
+		service = Utils.asString(parseArgs['service']);
 					
 		main();
 		
 	});
 	
 	function checkOperationType(operation) {
-		if ('accept' == operation || 'refuse' == operation) return '';
-		return "The parameter 'operation' only accept values {accept,refuse}";
+		if ('accept' == operation || 'refuse' == operation || 'delegate' == operation) return '';
+		return "The parameter 'operation' only accept values {accept, refuse, delegate}";
 	}
 	
 	function main() {
 		
-		switch (operation) {
+		switch(operation) {
 			case 'accept':
 				acceptReply();
-				break;
+			break;
 			case 'refuse':
 				refuseReply();
-				break;
+			break;
+			case 'delegate':
+				delegateReply();
+			break;
+			default:
+				logger.warn('cannot find any operation to perform');
+				setModel('unknown',documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME]);
 		}
 		
 	}
 	
 	function acceptReply() {
-		var outboxTray = moveDocumentToOutbox();
+		moveDocumentToOutbox();
 		
 		// Now state the document as validating!delivery
-		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = YammaModel.DOCUMENT_STATE_PROCESSED;
-		documentNode.save();
-
+		updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSED);
 		setModel(operation, YammaModel.DOCUMENT_STATE_PROCESSED);
-	}
-	
-	function refuseReply() {
-		
-		// Back to processing state
-		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = YammaModel.DOCUMENT_STATE_PROCESSING;
-		documentNode.save();
-		
-		setModel(operation, YammaModel.DOCUMENT_STATE_PROCESSING);
 		
 	}
-	
 	
 	function moveDocumentToOutbox() {
 		
 		var enclosingTray = TraysUtils.getEnclosingTray(documentNode);
-		if (!enclosingTray) throw 'Cannot get the enclosing tray';
+		if (!enclosingTray) throw '[accept] Cannot get the enclosing tray';
 		
 		var outboxTray = TraysUtils.getSiblingTray(enclosingTray, TraysUtils.OUTBOX_TRAY_NAME);
-		if (!outboxTray) throw 'Cannot get the outbox tray';
+		if (!outboxTray) throw '[accept] Cannot get the outbox tray';
 
-		var documentContainer = DocumentUtils.getDocumentContainer(documentNode);
-		if (!documentContainer) throw 'Cannot get the document container';
-				
 		if (!documentContainer.move(outboxTray)) {
-			throw 'Cannot move the document to the outbox container';
+			throw '[accept] Cannot move the document to the outbox container';
 		}
 		
-		updateDocumentState();
 		addHistoryComment();
 		
 		return outboxTray;
 		
+	}	
+	
+	function refuseReply() {
+		
+		// Back to processing state
+		updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSING);		
+		setModel(operation, YammaModel.DOCUMENT_STATE_PROCESSING);
+		
+	}
+	
+	function delegateReply() {
+		
+		if (!service) {
+			throw {
+				code : '512',
+				message : 'IllegalStateException! The service is mandatory when performing a delegation of validation'
+			};			
+		}
+		
+		var
+			siteName = service,
+			siteInboxTray = TraysUtils.getSiteTray(siteName, TraysUtils.INBOX_TRAY_NAME);
+		;		
+		if (!siteInboxTray) throw "[delegate] Cannot get the site inbox tray of service '" + siteName + "'";
+		
+		if (!documentContainer.move(siteInboxTray)) {
+			throw "[delegate] Cannot move the provied document to the site inbox tray of service '" + siteName + "'";
+		}
+
+		addHistoryComment([siteName, comment ? ' : ' + comment : '']);
+		setModel(operation, documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME]);
 	}
 	
 	
-	function updateDocumentState() {
-		
-		
+	
+	function updateDocumentState(newState) {
+		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = newState;
+		documentNode.save();		
 	}
 	
-	function addHistoryComment() {
+	function addHistoryComment(commentArgs) {
+		commentArgs = commentArgs || [comment];
 		
 		var msgKey = operation + 'Reply.comment';
-		updateDocumentHistory(msgKey, [comment]);
+		updateDocumentHistory(msgKey, commentArgs);
 		
 	}
 	

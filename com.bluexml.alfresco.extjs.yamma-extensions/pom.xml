@@ -92,36 +92,36 @@
 		<dependency>
 			<groupId>org.alfresco</groupId>
 			<artifactId>alfresco-core</artifactId>
-			<version>3.4.8</version>
-			<classifier>enterprise</classifier>
+			<version>4.0.d</version>
+			<classifier>community</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco</groupId>
 			<artifactId>alfresco-repository</artifactId>
-			<version>3.4.8</version>
+			<version>4.0.d</version>
 			<scope>provided</scope>
-			<classifier>enterprise</classifier>
+			<classifier>community</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco</groupId>
 			<artifactId>alfresco-data-model</artifactId>
-			<version>3.4.8</version>
-			<classifier>enterprise</classifier>
+			<version>4.0.d</version>
+			<classifier>community</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco</groupId>
 			<artifactId>alfresco-remote-api</artifactId>
-			<version>3.4.8</version>
-			<classifier>enterprise</classifier>
+			<version>4.0.d</version>
+			<classifier>community</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco</groupId>
 			<artifactId>alfresco-share</artifactId>
-			<version>3.4.8</version>
-			<classifier>enterprise</classifier>
+			<version>4.0.d</version>
+			<classifier>community</classifier>
 			<scope>provided</scope>
 		</dependency>
 
@@ -164,35 +164,9 @@
 			<groupId>acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
 			<version>0.8.2-patched</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Don't add here amp dependencies as it will break amp packaging -->
-		<dependency>
-			<groupId>com.bluexml.side.alfresco</groupId>
-			<artifactId>metadatawriter</artifactId>
-			<version>1.0</version>
-			<classifier>classes</classifier>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>1.8</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.5</version>
-		</dependency>
 	</dependencies>
 	<!-- The scm is required for the buildnumber-maven-plugin which is required 
 		for AMP version numbering -->

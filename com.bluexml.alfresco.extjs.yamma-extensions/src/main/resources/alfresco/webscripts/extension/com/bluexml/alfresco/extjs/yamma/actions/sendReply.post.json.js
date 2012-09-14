@@ -51,9 +51,9 @@
 		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED;
 		
 		// Also update writing-date if not filled
-		var writingDate = documentNode.properties[YammaModel.REPLY_WRITING_DATE_PROPNAME];
+		var writingDate = documentNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
 		if (!writingDate) {
-			documentNode.properties[YammaModel.REPLY_WRITING_DATE_PROPNAME] = new Date();
+			documentNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME] = new Date();
 		}
 		
 		documentNode.save();

@@ -26,11 +26,14 @@
 			};
 		}
 		
-		if (!ActionUtils.canReply(documentNode, fullyAuthenticatedUserName)) {
+		if (
+				DocumentUtils.isDocumentNode(documentNode) && !ActionUtils.canAttach(documentNode, fullyAuthenticatedUserName) ||
+				ReplyUtils.isReplyNode(documentNode) && !ReplyUtils.canAttach(documentNode, fullyAuthenticatedUserName)
+		) {
 			throw {
 				code : '403',
 				message : 'Forbidden! The action cannot be executed by you in the current context'
-			};			
+			};						
 		}
 		
 		fileData = parseArgs['filedata'];
@@ -49,35 +52,35 @@
 	
 	function main() {
 		
-		var replyNode = attachReply();
-		setModel(replyNode);
+		var attachmentNode = attachDocument();
+		setModel(attachmentNode);
 		
 	}
 		
-	function attachReply() {
+	function attachDocument() {
 		
 		var 
-			repliesContainer = ReplyUtils.getRepliesContainer(documentNode, /* createIfNotExists */ true),
-			replyNode = UploadUtils.getContainerChildByName(
-				repliesContainer, /* container */  
-				fileName, /* childName */ 
-				{type : YammaModel.REPLY_TYPE_SHORTNAME} /* createConfig */
+			attachmentsContainer = AttachmentUtils.getAttachmentsContainer(documentNode, /* createIfNotExists */ true),
+			attachmentNode = UploadUtils.getContainerChildByName(
+				attachmentsContainer, /* container */  
+				fileName /* childName */,
+				{} /* createConfig */ //Important! null means 'do not create'
 			)
-		;
+		; 
 		
-		replyNode.properties.content.write(fileData);
-		UploadUtils.updateMimetype(replyNode, fileName);
-		UploadUtils.extractMetadata(replyNode);
+		attachmentNode.properties.content.write(fileData);
+		UploadUtils.updateMimetype(attachmentNode, fileName);
+		UploadUtils.extractMetadata(attachmentNode);		
 		
-		return ReplyUtils.addReply(
-			documentNode, /* document */ 
-			replyNode /* replyNode */
+		return AttachmentUtils.addAttachment(
+			documentNode, /* document */
+			attachmentNode
 		);
 		
 	}	
 	
-	function setModel(replyNode) {
-		model.replyNodeRef = Utils.asString(replyNode.nodeRef);
+	function setModel(attachmentNode) {
+		model.attachmentNodeRef = Utils.asString(attachmentNode.nodeRef);
 	}
 	
 	

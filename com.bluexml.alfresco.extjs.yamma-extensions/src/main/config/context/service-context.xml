@@ -18,6 +18,34 @@
 
 -->
 <beans>
+	
+	<!-- This bean is overloaded in order to take into account local dependencies -->
+	<bean id="yamma-bootstrap-scripts" 
+		  parent="script-module-bootstrap" 
+		  depends-on="sideDictionaryScript,SIDE_ModelExtension_yamma-ee.dictionaryBootstrap" >
+
+		<property name="moduleId" value="com.bluexml.alfresco.extjs.yamma-extensions" />
+		<property name="name" value="${pom.name}" />
+		<property name="description" value="Init scripts for the YaMma-EE project" />
+		<property name="executeOnceOnly" value="false" />
+
+		<property name="scriptResources">
+			<list>
+				<value>classpath:${config.target.path}/init-scripts/*.js</value>
+			</list>
+		</property>
+    	
+	</bean>
+	   
+	<bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
+		
+		<property name="nodeService" ref="NodeService" />
+		<property name="prefixResolver" ref="namespaceService" />
+		<property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
+		<property name="policyComponent" ref="policyComponent" />
+		
+	</bean>   
+	 
 	   
 	<bean id="onCreateSiteNode" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
 		
@@ -67,6 +95,35 @@
 		</property>
 		
 	</bean>
+	
+	<!--  bean 
+			id="OnUpdateState" 
+			class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" 
+			parent="policyRegistration"
+			depends-on="SIDE_ModelExtension_yamma-ee.dictionaryBootstrap">
+
+			<property name="policyName">
+				<value>{http://www.alfresco.org}onUpdateProperties</value>
+			</property>
+
+			<property name="className">
+				<value>{http://www.bluexml.com/model/content/yamma-ee/1.0}Document</value>
+			</property>
+
+			<property name="behaviour">
+				<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+					<property name="location">
+						<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+							<constructor-arg>
+								<value>alfresco/extension/com/bluexml/alfresco/yamma/policies/onUpdateState.js</value>
+							</constructor-arg>
+						</bean>
+					</property>
+				</bean>
+			</property>
+
+		</bean -->
+	
 
 
 	<bean 
@@ -100,6 +157,7 @@
 		</property>
 		
 	</bean>
+
 
 
 	<bean 
@@ -165,6 +223,31 @@
 		</property>
 		
 	</bean>
+
+
+	<!--bean id="onAddImapContent" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onAddAspect</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.alfresco.org/model/imap/1.0}imapContent</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>alfresco/extension/com/bluexml/alfresco/yamma/policies/onAddImapContent.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		
+	</bean-->
 
 				
 </beans>

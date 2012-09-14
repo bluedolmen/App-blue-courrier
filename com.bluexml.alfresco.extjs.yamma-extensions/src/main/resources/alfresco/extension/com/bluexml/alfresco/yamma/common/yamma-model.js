@@ -4,7 +4,6 @@ var YammaModel = new (function(){
 	
 	this.YAMMA_NS_PREFIX = 'yamma-ee';
 	this.YAMMA_PREFIX = '';
-	this.ADMIN_SITE_NAME = 'admin'; // TODO: outside of model namespace?
 	
 	this.TRAY_TYPE_SHORTNAME = dfn('Tray');
 	
@@ -16,23 +15,20 @@ var YammaModel = new (function(){
 	
 	this.DOCUMENT_CONTAINER_SHORTNAME = dfn('DocumentContainer');
 	this.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME = dfna(this.DOCUMENT_CONTAINER_SHORTNAME, this.DOCUMENT_TYPE_SHORTNAME, 'reference');
+
+	// INBOUND_DOCUMENT TYPE DEFINITION
+	this.INBOUND_DOCUMENT_TYPE_SHORTNAME = dfn('InboundDocument');
+	this.INBOUND_DOCUMENT_DELIVERY_DATE_PROPNAME = dfnp(this.INBOUND_DOCUMENT_TYPE_SHORTNAME, 'deliveryDate');
 	
-	// MAIL TYPE DEFINITION
-	this.MAIL_TYPE_SHORTNAME = dfn('Mail');
-	this.MAIL_STAMP_DATE_PROPNAME = dfnp(this.MAIL_TYPE_SHORTNAME, 'stampDate');
-	this.MAIL_DELIVERY_DATE_PROPNAME = dfnp(this.MAIL_TYPE_SHORTNAME, 'deliveryDate');
-	this.MAIL_WRITING_DATE_PROPNAME = dfnp(this.MAIL_TYPE_SHORTNAME, 'writingDate');
-	this.MAIL_OBJECT_PROPNAME = dfnp(this.MAIL_TYPE_SHORTNAME, 'object');
-	
-	// REPLY_TYPE_DEFINITION
-	this.REPLY_TYPE_SHORTNAME = dfn('Reply');
-	this.REPLY_WRITING_DATE_PROPNAME = dfnp(this.REPLY_TYPE_SHORTNAME, 'writingDate');
-	this.REPLY_SENT_DATE_PROPNAME = dfnp(this.REPLY_TYPE_SHORTNAME, 'sentDate');
-	
-	this.DOCUMENT_REPLY_REPLIES_ASSOCNAME = dfna(this.DOCUMENT_TYPE_SHORTNAME, this.REPLY_TYPE_SHORTNAME, 'replies');
+	// INBOUND_MAIL TYPE DEFINITION
+	this.INBOUND_MAIL_TYPE_SHORTNAME = dfn('InboundMail');
 	
 	// OUTBOUND_MAIL_DEFINITION
 	this.OUTBOUND_MAIL_TYPE_SHORTNAME = dfn('OutboundMail');
+	
+	// REPLY TYPE DEFINITION
+	this.REPLY_TYPE_SHORTNAME = dfn('Reply');
+	this.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME = dfna(this.REPLY_TYPE_SHORTNAME, this.INBOUND_DOCUMENT_TYPE_SHORTNAME, 'replyTo');
 	
 	// DATALISTS TYPE DEFINITIONS
 	this.ASSIGNABLE_SITE_TYPE_SHORTNAME = dfn('AssignableSite');
@@ -41,9 +37,15 @@ var YammaModel = new (function(){
 	this.PRIORITY_TYPE_SHORTNAME = dfn('Priority');
 	this.PRIORITY_LEVEL_PROPNAME = dfnp(this.PRIORITY_TYPE_SHORTNAME, 'level');
 	this.PRIVACY_LEVEL_TYPE_SHORTNAME = dfn('PrivacyLevel');
-	this.STATUS_LEVEL_TYPE_SHORTNAME = dfn('Status');
+	this.STATUS_LEVEL_TYPE_SHORTNAME = dfn('Status');	
 	
 	// ASPECTS DEFINITIONS
+	
+	this.MAIL_ASPECT_SHORTNAME = dfn('Mail');
+	this.MAIL_SENT_DATE_PROPNAME = dfnp(this.MAIL_ASPECT_SHORTNAME, 'sentDate');
+	this.MAIL_WRITING_DATE_PROPNAME = dfnp(this.MAIL_ASPECT_SHORTNAME, 'writingDate');
+	this.MAIL_OBJECT_PROPNAME = dfnp(this.MAIL_ASPECT_SHORTNAME, 'object');
+	
 	this.COMMENTABLE_ASPECT_SHORTNAME = dfn('Commentable');
 	this.COMMENTABLE_COMMENT_PROPNAME = dfnp(this.COMMENTABLE_ASPECT_SHORTNAME, 'comment');
 	
@@ -52,6 +54,15 @@ var YammaModel = new (function(){
 	this.CORRESPONDENT_ADDRESS_PROPNAME = dfnp(this.CORRESPONDENT_ASPECT_SHORTNAME, 'address');
 	this.CORRESPONDENT_CONTACT_EMAIL_PROPNAME = dfnp(this.CORRESPONDENT_ASPECT_SHORTNAME, 'contactEmail');
 	this.CORRESPONDENT_CONTACT_PHONE_PROPNAME = dfnp(this.CORRESPONDENT_ASPECT_SHORTNAME, 'contactPhone');
+	
+	this.RECIPIENT_ASPECT_SHORTNAME = dfn('Recipient');
+	this.RECIPIENT_NAME_PROPNAME = dfnp(this.RECIPIENT_ASPECT_SHORTNAME, 'name');
+	this.RECIPIENT_ADDRESS_PROPNAME = dfnp(this.RECIPIENT_ASPECT_SHORTNAME, 'address');
+	this.RECIPIENT_CONTACT_EMAIL_PROPNAME = dfnp(this.RECIPIENT_ASPECT_SHORTNAME, 'contactEmail');
+	this.RECIPIENT_CONTACT_PHONE_PROPNAME = dfnp(this.RECIPIENT_ASPECT_SHORTNAME, 'contactPhone');
+	
+	this.REFERENCEABLE_ASPECT_SHORTNAME = dfn('Referenceable');
+	this.REFERENCEABLE_REFERENCE_PROPNAME = dfnp(this.REFERENCEABLE_ASPECT_SHORTNAME, "reference");
 	
 	this.DIGITIZABLE_ASPECT_SHORTNAME = dfn('Digitizable');
 	this.DIGITIZABLE_DIGITIZED_DATE_PROPNAME = dfnp(this.DIGITIZABLE_ASPECT_SHORTNAME, 'digitizedDate');
@@ -89,6 +100,11 @@ var YammaModel = new (function(){
 	this.HISTORIZABLE_ASPECT_SHORTNAME = dfn('Historizable');
 	this.HISTORIZABLE_HISTORY_ASSOCNAME = dfna(this.HISTORIZABLE_ASPECT_SHORTNAME, this.EVENT_TYPE_SHORTNAME, 'history');
 	
+	this.HIERARCHICAL_SERVICE_ASPECT_SHORTNAME = dfn('HierarchicalService');
+	this.HIERARCHICAL_SERVICE_PARENT_ASSOCNAME = dfna(this.HIERARCHICAL_SERVICE_ASPECT_SHORTNAME, 'st:site', 'parent');
+	
+	
+	
 	this.DOCUMENT_STATE_PENDING = 'pending';
 	this.DOCUMENT_STATE_DELIVERING = 'delivering';
 	this.DOCUMENT_STATE_PROCESSING = 'processing';
@@ -100,10 +116,10 @@ var YammaModel = new (function(){
 	this.DOCUMENT_STATES = [
 		this.DOCUMENT_STATE_PENDING,
 		this.DOCUMENT_STATE_DELIVERING,
-		this.DOCUMENT_STATE_PROCESSING,
 		this.DOCUMENT_STATE_VALIDATING_DELIVERY,
-		this.DOCUMENT_STATE_VALIDATING_PROCESSED,
+		this.DOCUMENT_STATE_PROCESSING,
 		this.DOCUMENT_STATE_PROCESSED,
+		this.DOCUMENT_STATE_VALIDATING_PROCESSED,
 		this.DOCUMENT_STATE_ARCHIVED
 	];
 	
@@ -115,6 +131,8 @@ var YammaModel = new (function(){
 		this.LATE_STATE_LATE,
 		this.LATE_STATE_ONTIME
 	];
+	
+	
 	
 	/**
 	 * Get the declaration full-name based on the composition of the namespace prefix

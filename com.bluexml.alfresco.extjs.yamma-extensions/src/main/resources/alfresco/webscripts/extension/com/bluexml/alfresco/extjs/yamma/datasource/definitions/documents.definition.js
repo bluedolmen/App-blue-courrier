@@ -97,7 +97,7 @@
 					name : YammaModel.ASSIGNABLE_ASPECT_SHORTNAME + '_service',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME, titleAndName, true)
+						return this.evaluateAssocProperty(node, YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME, titleAndName, true);
 					}
 				},
 				
@@ -105,7 +105,7 @@
 					name : YammaModel.ASSIGNABLE_ASPECT_SHORTNAME + '_authority',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.ASSIGNABLE_AUTHORITY_ASSOCNAME, authorityDisplayAndName, true)
+						return this.evaluateAssocProperty(node, YammaModel.ASSIGNABLE_AUTHORITY_ASSOCNAME, authorityDisplayAndName, true);
 					}					
 				},
 				
@@ -168,6 +168,15 @@
 					type : 'boolean',
 					evaluate : function(node) {
 						return DocumentUtils.isCopy(node);
+					}
+				},
+				
+				{
+					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + 'hasDelegatedSites',
+					type : 'boolean',
+					evaluate : function(document) {
+						var delegatedSites = ServicesUtils.getDelegatedServices(document);
+						return delegatedSites.length > 0;
 					}
 				},
 				

@@ -1,0 +1,16 @@
+<webscript>
+	<shortname>Add an attachment to a document</shortname>
+	<description><![CDATA[
+		Add an attachment to a document
+		<p>
+		The attachment has to be provided by a formData field of "file" type.
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/attachment</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

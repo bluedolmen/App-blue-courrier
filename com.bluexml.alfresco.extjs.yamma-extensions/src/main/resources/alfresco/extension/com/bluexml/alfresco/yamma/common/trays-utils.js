@@ -49,35 +49,46 @@
 		
 	};
 	
-	TraysUtils.getTraysParent = function(siteNode) {
+	TraysUtils.getTraysParent = function(site) {
+		
+		if (!site) return null;
+		
+		
+		if ('string' == typeof site) {
+			// Try to get the site from the potential site shortName
+			site = siteService.getSite(site);
+			if (!site) return null;			
+		}
+		
+		var siteNode = site.node ? site.node : site;
 		if (!siteNode) return null;
 		
-		if ('st:site' != siteNode.typeShort) {
-			throw new Error('IllegalArgumentException! The siteNode is not of expected type st:site');
+		if (!siteNode.isSubType('st:site')) {
+			throw new Error('IllegalStateException! The site is not of expected type st:site');
 		}
 		
 		return siteNode.childByNamePath(this.TRAYS_LOCATION_SITE_PATH);
 	};
 	
-	TraysUtils.getSiteTraysNode = function(siteNode) {
+	TraysUtils.getSiteTraysNode = function(site) {
 		
-		var traysParentNode = this.getTraysParent(siteNode);
+		var traysParentNode = this.getTraysParent(site);
 		if (!traysParentNode) return null;
 		
 		return traysParentNode.childByNamePath(this.TRAYS_FOLDER_NAME);
 	};
 	
-	TraysUtils.getSiteTray = function(siteNode, trayName) {
+	TraysUtils.getSiteTray = function(site, trayName) {
 		
-		var traysNode = this.getSiteTraysNode(siteNode);
+		var traysNode = this.getSiteTraysNode(site);
 		if (!traysNode) return null;
 		
 		return traysNode.childByNamePath(trayName);
 	};
 	
-	TraysUtils.getSiteTraysChildren = function(siteNode) {
+	TraysUtils.getSiteTraysChildren = function(site) {
 		
-		var traysNode = this.getSiteTraysNode(siteNode);
+		var traysNode = this.getSiteTraysNode(site);
 		if (!traysNode) return [];
 		
 		return traysNode.childrenByXPath("*[subtypeOf('" + this.TRAY_CONTAINER_TYPE + "')]") || [];
@@ -108,11 +119,33 @@
 		function createTraysNode(siteNode) {
 			var traysParentNode = me.getTraysParent(siteNode);
 			if (!traysParentNode) {
-				logger.warn("Cannot find the '" + me.TRAYS_LOCATION_SITE_PATH + "' directory in site '" + siteName + "'. Cannot create trays.");
-				return null;
+				logger.warn("Cannot find the '" + me.TRAYS_LOCATION_SITE_PATH + "' directory in site '" + siteName + "'. Creating folder '" + me.TRAYS_LOCATION_SITE_PATH + "'");
+				traysParentNode = me.getTraysParent(siteNode);
+				
+				if (!traysParentNode) {
+					logger.error("Cannot create the '" + me.TRAYS_LOCATION_SITE_PATH + "' directory in site '" + siteName + "'. Cannot create the trays folder.'");
+					return null;
+				}
 			}
 			
 			return traysParentNode.createNode(me.TRAYS_FOLDER_NAME, me.TRAYS_CONTAINER_TYPE, {'cm:title' : me.TRAYS_FOLDER_TITLE});
+		}
+		
+		function createPath(rootNode, path) {
+			var 
+				segments = rootNode.split('/'),
+				currentNode = rootNode
+			;	
+				
+			Utils.forEach(segments, function(segment) {
+				var childNode = currentNode.childByNamePath(segment);
+				if (!childNode) {
+					childNode = currentNode.createFolder(segment);
+				}
+				currentNode = childNode;
+			});
+			
+			return currentNode;
 		}
 		
 		function createTrays(traysNode) {

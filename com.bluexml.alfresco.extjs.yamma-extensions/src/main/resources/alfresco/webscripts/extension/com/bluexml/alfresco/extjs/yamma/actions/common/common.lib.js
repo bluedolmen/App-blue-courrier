@@ -50,7 +50,7 @@ const GENERIC_SENDMAIL_ERROR_MESSAGE = "Erreur durant l'envoi des notifications 
 				
 			} catch (e) {
 				
-				var code = (e.code ? Number(e.code) : -1);
+				var code = e.code = (e.code ? Number(e.code) : -1);
 				var message = 'string' == typeof e ? e : (e.message || '');
 				silent = 'undefined' == typeof silent ? false : !!silent;
 				

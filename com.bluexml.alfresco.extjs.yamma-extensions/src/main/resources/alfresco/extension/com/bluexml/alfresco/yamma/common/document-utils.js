@@ -1,5 +1,7 @@
 (function() {	
 
+	const CONTAINER_DOT_EXTENSION = ".container";
+	
 	DocumentUtils = {
 		
 		isCopy : function(documentNode) {
@@ -100,9 +102,11 @@
 		
 		getCurrentServiceSite : function(documentNode) {
 			DocumentUtils.checkDocument(documentNode);			
-			var siteShortName = documentNode.getSiteShortName();
+			var 
+				siteShortName = documentNode.getSiteShortName(),
+				site = siteService.getSite(siteShortName)
+			;
 			
-			var site = siteService.getSite(siteShortName);
 			return site;
 		},
 		
@@ -112,18 +116,26 @@
 		},
 		
 		isDocumentNode : function(documentNode) {
-			return documentNode && ('undefined' != typeof documentNode.isSubType) && documentNode.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME);
+			return (
+				documentNode && 
+				('undefined' != typeof documentNode.isSubType) && 
+				documentNode.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)
+			);
 		},
 		
 		isOriginalDocumentNode : function(documentNode) {
-			var isDocumentNode = DocumentUtils.isDocumentNode(documentNode);
-			var isCopy = DocumentUtils.isCopy(documentNode);
-
-			return isDocumentNode && !isCopy;
+			return (
+				DocumentUtils.isDocumentNode(documentNode) && 
+				!DocumentUtils.isCopy(documentNode)
+			);
 		},
 		
 		isDocumentContainer : function(node) {
-			return node && ('undefined' != typeof node.isSubType) && node.isSubType(YammaModel.DOCUMENT_CONTAINER_SHORTNAME);
+			return (
+				node && 
+				('undefined' != typeof node.isSubType) && 
+				node.isSubType(YammaModel.DOCUMENT_CONTAINER_SHORTNAME)
+			);
 		},	
 		
 		/**
@@ -137,19 +149,50 @@
 			if (!document) return null;
 			if (DocumentUtils.isDocumentContainer(document)) return document;
 			
-			// Try with parent
-			var parent = document.parent;
-			if (DocumentUtils.isDocumentContainer(parent)) return parent;
-			
 			// Try with source-association
 			var source = document.sourceAssocs[YammaModel.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME][0];
 			if (DocumentUtils.isDocumentContainer(source)) return source;
 			
-			// Invalid Document node structure, log a message
-			logger.warn("Cannot get the container of the document '" + document.name + "' with nodeRef '" + document.nodeRef + "'.");
+			// Try with parent => may lead to inconsistencies
+			var parent = document.parent;
+			if (DocumentUtils.isDocumentContainer(parent)) return parent;
+			
 			return null;
-		}		
+		},		
 		
+		/**
+		 * Creates the container of the provided document.
+		 * 
+		 * @param {ScriptNode} document the document as a ScriptNode
+		 * @param {Boolean} [moveInside=true] Whether to move the provided document inside its newly defined container
+		 * 
+		 */
+		createDocumentContainer : function(document, moveInside /* default=true */) {
+			
+			if (!document) return null;
+			
+			var documentName = document.name;
+			if (!documentName) return null;
+			
+			var 
+				containerName = documentName + CONTAINER_DOT_EXTENSION,		
+				documentParent = document.parent
+			;
+			if (!documentParent) return null;
+			
+			var documentContainer = documentParent.createFolder(containerName, YammaModel.DOCUMENT_CONTAINER_SHORTNAME);
+			if (!documentContainer) return null;
+			
+			if (moveInside) {
+				if (!document.move(documentContainer)) {
+					logger.warn("Cannot move the document '" + document.name + "' into its newly created container!");
+				}
+			}
+			documentContainer.createAssociation(document, YammaModel.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME);
+			
+			return documentContainer;
+			
+		}
 		
 	};
 

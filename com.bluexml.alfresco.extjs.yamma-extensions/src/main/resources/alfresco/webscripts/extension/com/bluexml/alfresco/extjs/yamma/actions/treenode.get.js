@@ -5,7 +5,7 @@
 (function() {
 
 	// PRIVATE
-	var treeNode;
+	var treeNode = null;
 	
 	// MAIN LOGIC
 	
@@ -26,60 +26,113 @@
 	function main() {
 		
 		var children = getChildren();
-		var sortedChildren = sortByTitle(children);
-		
-		setModel(sortedChildren);
+		setModel(children);
 		
 	}
 	
 	function getChildren() {
-		var children = null;
 		if (!treeNode) { // root-node => get sites
-			return getSiteNodes();
+			return sortByTitle(getServicesNodes());
 		}
 		
 		var treeNodeType = Utils.asString(treeNode.typeShort);
 		switch (treeNodeType) {
 			
 			case 'st:site':
-				return getSiteTraysChildren();
+				var siteTrays = getSiteTraysChildren();
+				var siteVirtualTrays = getSiteVirtualTraysChildren();
+				
+				return sortByTitle(siteTrays).concat(siteVirtualTrays);
 			break;
 			
 		}
 		
-		return getAllChildren();
+		return sortByTitle(getAllChildren());
 	}
 	
-	function getSiteNodes() {
+	/**
+	 * Get the services nodes.
+	 * 
+	 * Services are structured by sites.
+	 */
+	function getServicesNodes() {
 		var sitesNode = companyhome.childByNamePath('Sites');
 		if (!sitesNode) {
 			throw new Error('IllegalStateException! The Sites folder cannot be found');
 		}
 		
-		var filteredSiteNodes = Utils.filter(sitesNode.children, function(siteNode) {
-			return !YammaUtils.isAdminSite(siteNode);
+		var sites = siteService.listSites('','');		
+		var filteredSiteNodes = Utils.map(sites, function(site) {
+			if (YammaUtils.isConfigSite(site.shortName) ) return; // ignore config site
+			return site.node;
 		});
-		return getChildrenDescription(
-			filteredSiteNodes,
-			{},
-			getSelectNodeDescendantNumberFunction(
-				".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
-			)			
+		
+		var countFunction = getSelectNodeDescendantNumberFunction(
+			".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
 		);
+		
+		var hasChildren = function(node) {
+			return (node.childrenByXPath(".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]") || []).length > 0;
+		};
+		
+		return Utils.map(filteredSiteNodes, function(siteNode) {
+			
+			return {
+				type : siteNode.typeShort,
+				name : siteNode.name,
+				title : siteNode.properties.title,
+				ref : Utils.asString(siteNode.nodeRef),
+				hasChildren : hasChildren(siteNode) ,
+				count : countFunction(siteNode)
+			};
+			
+		});
+		
 	}
+
 	
 	function getSiteTraysChildren() {
 		var trayNodes = TraysUtils.getSiteTraysChildren(treeNode);
 				
-		return getChildrenDescription(trayNodes, 
-			{
-				type : 'tray',
-				hasChildren : false
-			},
-			getSelectNodeDescendantNumberFunction(
+		var countFunction = getSelectNodeDescendantNumberFunction(
 				".//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
-			)			
 		);
+			
+		return Utils.map(trayNodes, function(trayNode) {
+			return {
+				type : 'tray',
+				name : trayNode.name || '',
+				title : trayNode.properties.title,
+				ref : Utils.asString(trayNode.nodeRef),
+				hasChildren : false,
+				count : countFunction(trayNode)
+			};	
+		});
+	}
+	
+	function getSiteVirtualTraysChildren() {
+				
+		var parentName = Utils.asString(treeNode.name);
+		
+		function getStateTrayDefinition(stateName) {
+			return ({
+				type : 'state-tray',
+				name : stateName,
+				title : stateName,
+				ref : parentName + '|' + stateName, // ref has to be unique globally on a tree 
+				hasChildren : false
+			});			
+		}
+		
+		return Utils.map(YammaModel.DOCUMENT_STATES, function(stateName) {
+			
+			if (YammaModel.DOCUMENT_STATE_VALIDATING_DELIVERY == stateName) return; //ignore
+			if (YammaModel.DOCUMENT_STATE_ARCHIVED == stateName) return;
+			
+			return getStateTrayDefinition(stateName);
+		});
+		
+		
 	}
 	
 	function getDocumentLibraryChildren() {
@@ -99,7 +152,7 @@
 			var matchingNodes = rootNode.childrenByXPath(query) || [];
 			
 			return matchingNodes.length;			
-		}		
+		};	
 		
 	}
 	
@@ -107,36 +160,45 @@
 		return getChildrenDescription(treeNode.children);
 	}
 	
+	/**
+	 * Get the node children description.
+	 * 
+	 * @param {ScriptNode[]} children the list of Alfresco node children
+	 * @param {Object} overrideConfig the overriding config for each child
+	 * @param {Function} countFunction
+	 * 
+	 * @return {Object[]} An array of child description
+	 */
 	function getChildrenDescription(children, overrideConfig, countFunction) {
 		overrideConfig = overrideConfig || {};
 		
 		return Utils.map( children,
 			function(child) {
-				var count = countFunction ? countFunction(child) : null;
+				var 
+					count = countFunction ? countFunction(child) : null,
+					childDescription = getChildDescription(child)
+				;
+					
 				if (null != count) {
-					overrideConfig.count = count;
+					childDescription.count = count;
 				}
-				return getChildDescription(child, overrideConfig);
+				
+				Utils.apply(childDescription, overrideConfig);
+				
+				return childDescription;
 			}
 		);		
 	}
 	
-	function getChildDescription(child, config) {
+	function getChildDescription(child) {
 		
-		config = 'undefined' == typeof config ? {} : config;
-		
-		var childDescription = {
+		return {
 			type : child.typeShort,
 			title : child.properties.title || child.name,
 			ref : '' + child.nodeRef,
 			hasChildren : ('cm:content' != child.typeShort) && (child.children.length > 0)
-		}
+		};
 		
-		if ('undefined' != typeof config) {
-			Utils.apply(childDescription, config);
-		}
-		
-		return childDescription;
 	}
 	
 	function setModel(childrenDescription) {

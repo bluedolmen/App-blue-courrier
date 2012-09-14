@@ -1,33 +1,60 @@
 var YammaUtils = {
 	
+	CONFIG_SITE : {
+		preset : 'site-YaMma-EE',
+		name : 'config',
+		title : 'Configuration',
+		description : "Site dédié à la configuration de l'application",
+		visibility : siteService.PUBLIC_SITE
+	},
+		
 	getSiteNode : function(document) {
 		if (!document || !document.getSiteShortName) return null;
-		var siteShortName = document.getSiteShortName();
+		var 
+			siteShortName = document.getSiteShortName(),
+			site = siteService.getSite(siteShortName)
+		;
 		
-		var site = siteService.getSite(siteShortName);
 		if (!site) return null; // non-existing or non-accessible
-		
 		return site.getNode();		
 	},
 	
-	getAdminSite : function() {
+	getOrCreateConfigSite : function() {
 		
-		var query = '+TYPE:"st\:site" +' + 
-			Utils.getLuceneAttributeFilter('cm:name', YammaModel.ADMIN_SITE_NAME);
+		var 
+			me = this,
+			configSite = siteService.getSite(this.CONFIG_SITE.name);
+		
+		if (configSite) { return configSite.getNode(); }
+		
+		function createConfigSite () {
 			
-		var siteNodes = search.luceneSearch(query);
-		return Utils.unwrapList(siteNodes);
-		
+			return siteService.createSite(
+				me.CONFIG_SITE.preset, /* sitePreset */
+				me.CONFIG_SITE.name, /* shortName */
+				me.CONFIG_SITE.title, /* title */
+				me.CONFIG_SITE.description, /* description */
+				me.CONFIG_SITE.visibility /* visibility */				
+			);
+			
+		};
+
+		return createConfigSite();
+
 	},
 	
-	isAdminSite : function(siteNode) {
+	isConfigSite : function(site) {
 		
-		if (!siteNode || !siteNode.typeShort || 'st:site' != siteNode.typeShort) return false;
+		if (!site) return false;
 		
-		var siteName = siteNode.name;
+		var siteName = site;
+		
+		if (site.typeShort && 'st:site' == site.typeShort) {
+			siteName = site.name;			
+		}
+		
 		if (!siteName) return false;
-		
-		return (YammaModel.ADMIN_SITE_NAME == siteName);
+		return (this.CONFIG_SITE.name === Utils.asString(siteName));
 	}	
 	
 	

@@ -28,7 +28,7 @@
 			throw {
 				code : '403',
 				message : 'Forbidden! The action cannot be executed by you in the current context'
-			}			
+			}
 		}
 		
 		main();
