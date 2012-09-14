@@ -1,5 +1,5 @@
 <import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/sorting.lib.js">
-<import resource="classpath:/alfresco/extension/templates/webscripts/org/alfresco/slingshot/documentlibrary/doclistSearch.lib.js">
+<import resource="classpath:/alfresco/extension/templates/webscripts/org/alfresco/slingshot/search/search.lib.js">
 
 (function() {
 	

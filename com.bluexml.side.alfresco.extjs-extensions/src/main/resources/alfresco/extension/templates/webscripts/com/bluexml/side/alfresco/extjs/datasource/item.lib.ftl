@@ -9,27 +9,24 @@
 	</#escape>
 </#macro>
 
-<#macro renderValue value>
-<#if value?is_sequence><@renderDataList value />
-<#elseif value?is_hash><@renderObject value />
-<#else><@renderData value />
-</#if>
-</#macro>
-
 <#macro renderDataList data>
-[<#list data as value><@renderData value /><#if value_has_next>,</#if></#list>]
+[<#list data as value><@renderValue value /><#if value_has_next>,</#if></#list>]
 </#macro>
 
-<#macro renderData data>
+<#macro renderValue value>
 	<#escape x as jsonUtils.encodeJSONString(x)>
-		<#if data?is_boolean>
-${data?string}
-		<#elseif data?is_number>
-${data?c}
-		<#elseif data?is_date>
-"${data?datetime?iso_utc}"
-      <#else>
-"${data?string}"
+		<#if value?is_boolean>
+${value?string}
+		<#elseif value?is_number>
+${value?c}
+		<#elseif value?is_date>
+"${value?datetime?iso_utc}"
+		<#elseif value?is_sequence>
+<@renderDataList value />
+		<#elseif value?is_hash>
+<@renderObject value />
+		<#else>
+"${value?string}"
       </#if>
    </#escape>
 </#macro>

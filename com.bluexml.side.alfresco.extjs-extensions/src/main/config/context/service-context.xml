@@ -32,5 +32,46 @@
 			<value>sideAuthenticationUtil</value>
 		</property>
 	</bean>
+
+	<bean id="transformer.RFC822.html"
+		class="com.bluexml.side.repo.content.transform.EMLTransformer"
+		parent="baseContentTransformer" >
+		
+		<property name="explicitTransformations">
+			<list>
+				<bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+					<constructor-arg>
+						<value>message/rfc822</value>
+					</constructor-arg>
+					<constructor-arg>
+						<value>text/html</value>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+		
+		<property name="templateService" ref="templateService"/>
+		
+		<property name="plainTextHtmlTemplate">
+			<value>classpath:${config.target.path}/templates/plainTextHtmlTemplate.ftl</value>
+		</property>
+	</bean>
 	
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="thumbnailRegistry" />
+		<property name="targetMethod" value="addThumbnailDefinition" />
+		<property name="arguments">
+			<list>
+				<bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
+					<property name="name" value="html" />
+					<property name="mimetype" value="text/html" />
+					<property name="transformationOptions">
+						<!-- The thumbnail definition have transformationOptions mandatory -->
+						<bean class="org.alfresco.repo.content.transform.RuntimeExecutableContentTransformerOptions"/>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+         
 </beans>

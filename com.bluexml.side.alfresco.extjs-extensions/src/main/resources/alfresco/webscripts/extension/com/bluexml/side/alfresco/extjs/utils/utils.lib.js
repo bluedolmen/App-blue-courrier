@@ -26,7 +26,10 @@
 	 */
 	Utils.isArray = function(object) {
 		
-		return toString.call(object) === '[object Array]';
+		return (
+			(object instanceof Array) ||
+			(toString.call(object) === '[object Array]')
+		);
 		
 	};
 	
@@ -127,6 +130,18 @@
 		});
 
 		return filteredResult;
+	};
+	
+	Utils.contains = function(array, value) {
+		
+		var contains = false;
+		
+		Utils.forEach(array, function(arrayElement) {
+			contains = contains || arrayElement === value;
+			if (true === contains) return;
+		});
+		
+		return contains;
 	};
 	
 	/**
