@@ -17,8 +17,16 @@
 			var dueDate = documentNode.properties[YammaModel.PRIORITIZABLE_DUE_DATE_PROPNAME];
 			if (!dueDate) return YammaModel.LATE_STATE_UNDETERMINED;
 			
-			var now = new Date();
-			return (now.getTime() - dueDate.getTime() > 0) ? YammaModel.LATE_STATE_LATE : YammaModel.LATE_STATE_ONTIME;
+			var 
+				now = new Date(),
+				timeFromNowInDays = (dueDate.getTime() - now.getTime()) / 1000 / 60 / 60 / 24,
+				isLate = (timeFromNowInDays < 0),
+				isHurry = (timeFromNowInDays < 2)
+			;
+			
+			if (isLate) return YammaModel.LATE_STATE_LATE;
+			if (isHurry) return YammaModel.LATE_STATE_HURRY;			
+			return YammaModel.LATE_STATE_ONTIME;
 		},
 		
 		isDocumentDelivered : function(documentNode) {

@@ -28,6 +28,14 @@
 		return  displayName + '|' + userName; 
 	}
 	
+	function priorityDisplay(node) {
+		if (!node) return '';
+		var priorityLabel = node.name;
+		var priorityLevel = node.properties[YammaModel.PRIORITY_LEVEL_PROPNAME];
+		
+		return priorityLabel + '|' + priorityLevel;
+	}
+	
 	function getActionsFieldDefinitions() {
 		var definitions = [];
 		
@@ -91,7 +99,16 @@
 				YammaModel.COMMENTABLE_COMMENT_PROPNAME,
 				YammaModel.DIGITIZABLE_DIGITIZED_DATE_PROPNAME,
 				YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,
-				YammaModel.STATUSABLE_STATE_PROPNAME,				
+				YammaModel.STATUSABLE_STATE_PROPNAME,
+				
+				{
+					name : 'cm:generalclassifiable_categories',
+					type : 'string',
+					evaluate : function(node) {
+						var categories = node.properties['cm:categories'];
+						return Utils.asString(categories);
+					}
+				},
 				
 				{
 					name : YammaModel.ASSIGNABLE_ASPECT_SHORTNAME + '_service',
@@ -129,7 +146,7 @@
 					name : YammaModel.PRIORITIZABLE_ASPECT_SHORTNAME + '_priority',
 					type : 'string',
 					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_PRIORITY_ASSOCNAME, 'cm:name', true);
+						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_PRIORITY_ASSOCNAME, priorityDisplay, true);
 					}
 				},
 				

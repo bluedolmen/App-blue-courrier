@@ -126,9 +126,11 @@ var YammaModel = new (function(){
 	this.LATE_STATE_UNDETERMINED = 'undetermined';
 	this.LATE_STATE_LATE = 'late';
 	this.LATE_STATE_ONTIME = 'onTime';
+	this.LATE_STATE_HURRY = 'hurry';
 	this.LATE_STATES = [
 		this.LATE_STATE_UNDETERMINED,
 		this.LATE_STATE_LATE,
+		this.LATE_STATE_HURRY,
 		this.LATE_STATE_ONTIME
 	];
 	
