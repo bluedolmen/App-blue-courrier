@@ -252,25 +252,23 @@ Ext.define('Bluexml.store.AlfrescoStoreFactory', {
 		
 		function mapFieldsDefinition(fieldsDefinition) {
 			
-			var fields = fieldsDefinition.map(
-				function (fieldDefinition) {
+			var fields = Ext.Array.map(fieldsDefinition, function (fieldDefinition) {
 				
-					var defaultFieldDefinition = applyDefaultDefinition(
-						{
-							name : fieldDefinition.name,
-							type : me.mapAlfrescoType(fieldDefinition.type)
-						}
-					);
-					
-					var updatedFieldDefinition = null;
-					if (config.onFieldDefinitionRetrieved) {
-						updatedFieldDefinition = config.onFieldDefinitionRetrieved(fieldDefinition.name, defaultFieldDefinition);
+				var defaultFieldDefinition = applyDefaultDefinition(
+					{
+						name : fieldDefinition.name,
+						type : me.mapAlfrescoType(fieldDefinition.type)
 					}
-						
-					return updatedFieldDefinition || defaultFieldDefinition;
-					
+				);
+				
+				var updatedFieldDefinition = null;
+				if (config.onFieldDefinitionRetrieved) {
+					updatedFieldDefinition = config.onFieldDefinitionRetrieved(fieldDefinition.name, defaultFieldDefinition);
 				}
-			);
+					
+				return updatedFieldDefinition || defaultFieldDefinition;
+				
+			});
 			
 			return fields;
 		}
