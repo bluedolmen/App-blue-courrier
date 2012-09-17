@@ -7,6 +7,9 @@
 .icon-report {
     background-image: url(../icons/report.png) !important;
 }
+.icon-clock {
+    background-image: url(../icons/clock.png) !important;
+}
 .icon-page_edit_tick {
     background-image: url(../icons/page_edit_tick.png) !important;
 }
@@ -57,6 +60,9 @@
 }
 .icon-page_white_word {
     background-image: url(../icons/page_white_word.png) !important;
+}
+.icon-date_in {
+    background-image: url(../icons/date_in.png) !important;
 }
 .icon-page_white_compressed {
     background-image: url(../icons/page_white_compressed.png) !important;
@@ -208,6 +214,9 @@
 .icon-file_upload {
     background-image: url(../icons/file_upload.png) !important;
 }
+.icon-clock_in {
+    background-image: url(../icons/clock_in.png) !important;
+}
 .icon-folder {
     background-image: url(../icons/folder.png) !important;
 }
@@ -261,6 +270,12 @@
 }
 .icon-door_out {
     background-image: url(../icons/door_out.png) !important;
+}
+.icon-clock_red {
+    background-image: url(../icons/clock_red.png) !important;
+}
+.icon-clock_error {
+    background-image: url(../icons/clock_error.png) !important;
 }
 .icon-house {
     background-image: url(../icons/house.png) !important;

@@ -1,4 +1,7 @@
-Ext.require('Yamma.utils.grid.MailsViewGrouping');
+Ext.require([
+	'Yamma.utils.datasources.Documents',
+	'Yamma.utils.grid.MailsViewGrouping',
+], function() {
 
 Ext.define('Yamma.view.MailsView', {
 
@@ -10,7 +13,6 @@ Ext.define('Yamma.view.MailsView', {
 		'Yamma.view.windows.DocumentHistoryWindow',
 		'Yamma.view.windows.DocumentStatisticsWindow',
 		'Yamma.utils.grid.MailsViewGrouping',
-		'Yamma.utils.datasources.Documents',
 		'Ext.grid.column.Date',
 		'Bluexml.utils.grid.column.HeaderImage',
 		'Ext.form.Label',
@@ -30,32 +32,48 @@ Ext.define('Yamma.view.MailsView', {
 	
 	storeId : 'Mails',
 	
+	MAIL_SUBJECT_FIELD_ID : 'subject',
+	MAIL_SUBJECT_LABEL : 'Sujet',
 	MAIL_OBJECT_LABEL : 'Objet',
 	MAIL_NAME_LABEL : 'Identifiant',
 	ASSIGNED_SERVICE_LABEL : 'Service',
 	ASSIGNED_LABEL : 'Distribution',
 	DELIVERY_DATE_LABEL : 'Date dépôt',
 	DUE_DATE_LABEL : 'Date échéance',
+	DATES_LABEL : 'Dates',
 	PRIORITY_LABEL : 'Priorité',
 	
 	//title : 'Courrier',
 	title : '',
 	
-//	initComponent : function() {
-//		var me = this;
-//		
-//		this.viewConfig = {
-//			getRowClass : function(record, rowIndex, rowParams, store) {
-//				var lateState = record.get(Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME);
-//				var isLate = me.LATE_STATE_LATE_VALUE === lateState;
-//				
-//				var cssClass = (isLate ? 'row-mail-late' : '');
-//				return cssClass;
-//			}			
-//		};
-//		
-//		this.callParent(arguments);
-//	},
+	initComponent : function() {
+		var me = this;
+		
+		this.viewConfig = {
+			getRowClass : function(record, rowIndex, rowParams, store) {
+				var 
+					priority = record.get(Yamma.utils.datasources.Documents.PRIORITY_QNAME),
+					priorityLevel = Number(priority.split('|')[1] || -1),
+					rowClass = me.getRowClass(priorityLevel) || ''
+				;
+
+				return rowClass;
+			}			
+		};
+		
+		this.addEvents('stateClick');
+		
+		this.callParent(arguments);
+	},
+	
+	getRowClass : function(priorityLevel) {
+		
+		if (priorityLevel < 0) return null;
+		if (priorityLevel >= 90) return 'row-mail-vip';
+		if (priorityLevel >= 50) return 'row-mail-important';
+		return null;
+		
+	},
 	
 //	initComponent : function() {
 //		
@@ -100,13 +118,6 @@ Ext.define('Yamma.view.MailsView', {
 		label.setText(title);
 	},
 	
-	initComponent : function() {
-		
-		this.addEvents('stateClick');
-		this.callParent(arguments);
-		
-	},
-	
 	nextDocument : function() {
 		
 //		var store = this.getStore();
@@ -145,20 +156,24 @@ Ext.define('Yamma.view.MailsView', {
 			this.getStateColumnDefinition(),
 		
 			this.getDocumentTypeColumnDefinition(),
+			
+			this.getSubjectColumnDefinition(),
 		
-			this.getNameColumnDefinition(),
+//			this.getNameColumnDefinition(),
 			
-			/* Document object */
-			this.getObjectColumnDefinition(),			
+//			/* Document object */
+//			this.getObjectColumnDefinition(),			
 			
-			/* Delivery date */
-			this.getDeliveryDateColumnDefinition(),
+//			/* Delivery date */
+//			this.getDeliveryDateColumnDefinition(),
+//			
+//			/* Due-date */
+//			this.getDueDateColumnDefinition(),
+//			
+//			/* Priority */
+//			this.getPriorityColumnDefinition(),
 			
-			/* Due-date */
-			this.getDueDateColumnDefinition(),
-			
-			/* Priority */
-			this.getPriorityColumnDefinition(),
+			this.getDatesColumnDefinition(),
 			
 			this.getAssignedColumnDefinition(),
 			
@@ -168,6 +183,12 @@ Ext.define('Yamma.view.MailsView', {
 		];		
 	},	
 	
+		
+    applyDefaultColumnDefinition : function(columnDefinition) {
+    	var defaultConfig = this.callParent([columnDefinition]);
+    	defaultConfig.tdCls = 'cell-align-middle';
+    	return defaultConfig;
+    },	
 	
 	getDocumentTypeColumnDefinition : function() {
 		return this.applyDefaultColumnDefinition (
@@ -180,7 +201,7 @@ Ext.define('Yamma.view.MailsView', {
 				
 				items : [
 					this.getDocumentTypeActionDefinition()
-				]
+				]				
 				
 			}
 		);
@@ -210,13 +231,17 @@ Ext.define('Yamma.view.MailsView', {
 			return Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort];
 		}
 		
-		function getMimeTypeDefinition(record) {
-			var mimetype = record.get('mimetype');
-			if (!mimetype) return null;
-			
-			return Yamma.Constants.MIME_TYPE_DEFINITIONS[mimetype];
-		}		
 		
+	},
+	
+	/**
+	 * @private
+	 * @param record
+	 * @returns
+	 */
+	getMimeTypeDefinition : function(record) {
+		var mimetype = record.get('mimetype') || 'default';
+		return Yamma.Constants.MIME_TYPE_DEFINITIONS[mimetype];
 	},	
 	
 	getNameColumnDefinition : function() {
@@ -242,43 +267,75 @@ Ext.define('Yamma.view.MailsView', {
 		
 		return coldef;		
 	},
+
 	
-	/**
-	 * A special column definition that displays either the assigned authority
-	 * if it is available, else the assigned service.
-	 * 
-	 */
+	
+	
+	
+	
+	ASSIGNED_TEMPLATE : new Ext.XTemplate(
+		'<div class="document-assigned">',
+		'<div class="{assignedServiceClass}">{assignedService}</div>',
+		'<div class="{assignedAuthorityClass}">{assignedAuthority}</div>',
+		'</div>'
+	),
+	
+	ASSIGNED_TIP_TEMPLATE : new Ext.XTemplate(
+		'<div><emph>Expéditeur</emph></div>',
+		'<div>Nom : <strong>{name}</strong></div>',
+		'<div>Adresse : <strong>{address}</strong></div>',
+		'<div style="font-family: monospace;">Mél : <strong>{eMail}</strong></div>',
+		'<div style="font-family: monospace;">Tél : <strong>{phone}</strong></div>'
+	),
+	
 	getAssignedColumnDefinition : function() {
-		
-		var coldef = this.applyDefaultColumnDefinition (
-			{
+		var 
+			me = this,
+			dateRenderer = Ext.util.Format.dateRenderer(me.DEFAULT_DATE_FORMAT),
+			coldef = this.applyDefaultColumnDefinition ({
 				width : 150,
 				text : this.ASSIGNED_LABEL,
 				sortable : false,
 				groupable : false,
 				menuDisabled : true,
 				dataIndex : Yamma.utils.datasources.Documents.ASSIGNED_SERVICE_QNAME,
-					
-				renderer : function (value, meta, record) {
 				
-					var assignedAuthority = record.get(Yamma.utils.datasources.Documents.ASSIGNED_AUTHORITY_QNAME);
-					if (assignedAuthority && value) {
-						meta.tdCls = 'assigned-user-cell';
-						return assignedAuthority.split('|')[0] || assignedAuthority;
+				renderer : function (value, meta, record) {
+					
+					var 
+						assignedService = value ? value.split('|')[0] : '',
+						assignedServiceClass = assignedService ? 'assigned-service' : Ext.baseCSSPrefix + 'hide-display',
+						assignedAuthority = record.get(Yamma.utils.datasources.Documents.ASSIGNED_AUTHORITY_QNAME).split('|')[0],
+						assignedAuthorityClass = assignedAuthority ? 'assigned-authority' : Ext.baseCSSPrefix + 'hide-display',
+						correspondentName = record.get(Yamma.utils.datasources.Documents.CORREPONDENT_NAME),
+						correspondentAddress = record.get(Yamma.utils.datasources.Documents.CORREPONDENT_ADDRESS),
+						correspondentMail = record.get(Yamma.utils.datasources.Documents.CORREPONDENT_MAIL),
+						correspondentPhone = record.get(Yamma.utils.datasources.Documents.CORREPONDENT_PHONE),
+						tooltip = me.ASSIGNED_TIP_TEMPLATE.applyTemplate({
+							name : correspondentName,
+							address : correspondentAddress,
+							eMail : correspondentMail,
+							phone : correspondentPhone
+						})
+					;
+					
+					if (correspondentName || correspondentAddress || correspondentMail || correspondentPhone) {
+						meta.tdAttr = 'data-qtip="' + tooltip + "'";
 					}
 					
-					if (value) {
-						meta.tdCls = 'assigned-service-cell';
-					}
+					return me.ASSIGNED_TEMPLATE.applyTemplate({
+						assignedServiceClass : assignedServiceClass,
+						assignedService : assignedService,
+						assignedAuthorityClass : assignedAuthorityClass,
+						assignedAuthority : assignedAuthority
+					});
 					
-					return value.split('|')[0] || value;
 				}
-			}		
-		);
+			});
 		
 		return coldef;		
-		
 	},
+	
 	
 	getObjectColumnDefinition : function() {
 		
@@ -292,6 +349,60 @@ Ext.define('Yamma.view.MailsView', {
 		
 		return coldef;
 		
+	},
+	
+	SUBJECT_TEMPLATE : new Ext.XTemplate(
+		'<div class="document-subject">',
+		'<div class="{nameClass}">{name}</div>',
+		'<div class="{objectClass}">{object}</div>',
+		'</div>'
+	),	
+	
+	getSubjectColumnDefinition : function() {
+		
+		var 
+			me = this,
+			coldef = this.applyDefaultColumnDefinition (
+				{
+					flex : 1,
+					text : this.MAIL_SUBJECT_LABEL,
+					dataIndex : Yamma.utils.datasources.Documents.MAIL_OBJECT_QNAME,
+					renderer : function(value, meta, record) {
+						
+						var 
+							object = value,
+							objectClass = object ? 'object' : Ext.baseCSSPrefix + 'hide-display',
+							name = record.get(Yamma.utils.datasources.Documents.MAIL_NAME_QNAME),
+							mimeTypeDefinition = me.getMimeTypeDefinition(record),
+							nameClass = name ? 'name' : Ext.baseCSSPrefix + 'hide-display',
+							subject = me.SUBJECT_TEMPLATE.applyTemplate({
+								objectClass : objectClass,
+								object : object,
+								nameClass : nameClass + 
+									(mimeTypeDefinition && nameClass 
+											? ' ' + mimeTypeDefinition.iconCls 
+											: ''
+									),
+								name : name
+							})
+						;
+					
+						// Cell tooltip
+						meta.tdAttr =
+							'data-qtitle="' + name + '"' +
+							'data-qtip="' + object + '"' +
+							'data-qclass="' + objectClass + '"' +
+							'data-qwidth="200"'
+						;
+						
+						return subject;
+						
+					}
+					
+				}
+			);
+		
+		return coldef;
 	},
 	
 	getDeliveryDateColumnDefinition : function() {
@@ -334,8 +445,10 @@ Ext.define('Yamma.view.MailsView', {
 			handler : this.onShowStateDetailsAction,
 			scope : this,
 			getClass : function(value, meta, record) {
-				var documentState = record.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME) || 'UNKNOWN';		
-				var documentStateDef = Yamma.utils.Constants.DOCUMENT_STATE_DEFINITIONS[documentState];
+				var 
+					documentState = record.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME) || 'UNKNOWN',		
+					documentStateDef = Yamma.utils.Constants.DOCUMENT_STATE_DEFINITIONS[documentState]
+				;
 				
 				meta.tdAttr = 'data-qtip="' + documentStateDef.title + '"';
 				return documentStateDef.iconCls + ' ' + 'column-header-img';
@@ -346,35 +459,104 @@ Ext.define('Yamma.view.MailsView', {
 	
 	onShowStateDetailsAction : function(grid, rowIndex, colIndex, item, e) {
 		
-		var record = grid.getStore().getAt(rowIndex);
-		var documentNodeRef = this.getDocumentNodeRefRecordValue(record);
+		var 
+			record = grid.getStore().getAt(rowIndex),
+			documentNodeRef = this.getDocumentNodeRefRecordValue(record)
+		;
 		
 		this.fireEvent('stateClick', documentNodeRef);
 		
 	},
 	
-	getDueDateColumnDefinition : function() {
-		
-		var me = this;
-		var dateRenderer = Ext.util.Format.dateRenderer(me.DEFAULT_DATE_FORMAT);
-		
-		var coldef = this.applyDefaultColumnDefinition (
-			{
-				xtype : 'gridcolumn', // !!! not datecolumn since renderer function is then overwritten
-				align : 'center',
-				text : this.DUE_DATE_LABEL,
+	DATES_TEMPLATE : new Ext.XTemplate(
+		'<div class="document-dates">',
+		'<div class="{dueDateClass}">{dueDate}</div>',
+		'<div class="deliveryDate">{deliveryDate}</div>',
+		'</div>'
+	),
+	
+	DATES_TIP_TEMPLATE : new Ext.XTemplate(
+		'<div>Rédaction : <strong>{writing}</strong></div>',
+		'<div>Envoi : <strong>{sent}</strong></div>',
+		'<div>Réception : <strong>{delivered}</strong></div>',
+		'<div>Numérisation : <strong>{digitized}</strong></div>'
+	),
+	
+	getDatesColumnDefinition : function() {
+		var 
+			me = this,
+			dateRenderer = Ext.util.Format.dateRenderer(me.DEFAULT_DATE_FORMAT),
+			coldef = this.applyDefaultColumnDefinition ({
+				xtype : 'gridcolumn',
+				text : this.DATES_LABEL,
 				dataIndex : Yamma.utils.datasources.Documents.DUE_DATE_QNAME,
+				
 				renderer : function (value, meta, record) {
 				
-					var lateState = record.get(Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME);
-					if (Yamma.utils.datasources.Documents.LATE_STATE_LATE_VALUE === lateState) {
-						meta.tdCls = 'late-cell';
-					}
+					var 
+						lateState = record.get(Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME),
+						dueDate = record.get(Yamma.utils.datasources.Documents.DUE_DATE_QNAME),
+						dueDateClass =  dueDate ? me.getLateStateClass(lateState) : Ext.baseCSSPrefix + 'hide-display',
+						deliveryDate = record.get(Yamma.utils.datasources.Documents.DELIVERY_DATE_QNAME),
+						
+						writingDate = record.get(Yamma.utils.datasources.Documents.WRITING_DATE_QNAME),
+						sentDate = record.get(Yamma.utils.datasources.Documents.SENT_DATE_QNAME),
+						digitizedDate = record.get(Yamma.utils.datasources.Documents.DIGITIZED_DATE_QNAME),
+						tooltip = me.DATES_TIP_TEMPLATE.applyTemplate({
+							writing : dateRenderer(writingDate),
+							sent : dateRenderer(sentDate),
+							delivered : dateRenderer(deliveryDate),
+							digitized : dateRenderer(digitizedDate)
+						})
+					;
 					
-					return dateRenderer(value);
+					// tooltip
+					if (writingDate || sentDate || deliveryDate || digitizedDate) {						
+						meta.tdAttr = 'data-qtip="' + tooltip + '"';
+					}
+						
+					return me.DATES_TEMPLATE.applyTemplate({
+						dueDateClass : dueDateClass,
+						dueDate : dateRenderer(dueDate),
+						deliveryDate : dateRenderer(deliveryDate)
+					});
+					
 				}
-			}		
-		);
+			});
+		
+		return coldef;		
+	},
+	
+	/**
+	 * @private
+	 */
+	getLateStateClass : function(lateState) {
+		return lateState;
+	},
+	
+	getDueDateColumnDefinition : function() {
+		
+		var 
+			me = this,
+			dateRenderer = Ext.util.Format.dateRenderer(me.DEFAULT_DATE_FORMAT),
+			coldef = this.applyDefaultColumnDefinition (
+				{
+					xtype : 'gridcolumn', // !!! not datecolumn since renderer function is then overwritten
+					align : 'center',
+					text : this.DUE_DATE_LABEL,
+					dataIndex : Yamma.utils.datasources.Documents.DUE_DATE_QNAME,
+					renderer : function (value, meta, record) {
+					
+						var lateState = record.get(Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME);
+						if (Yamma.utils.datasources.Documents.LATE_STATE_LATE_VALUE === lateState) {
+							meta.tdCls = 'late-cell';
+						}
+						
+						return dateRenderer(value);
+					}
+				}		
+			)
+		;
 		
 		return coldef;
 		
@@ -423,4 +605,6 @@ Ext.define('Yamma.view.MailsView', {
 		return record.get(Yamma.utils.datasources.Documents.MAIL_NODEREF_QNAME);	
 	}
 	
+});
+
 });

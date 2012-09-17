@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOF=$(find .. -iname "*.js")
+LOF=$(find .. -iname "*.js" -o -iname "extjs-custom.css")
 ICONS_SOURCE_DIR=${HOME}/Images/icons/britair
 ICONS_DEST_DIR=icons
 

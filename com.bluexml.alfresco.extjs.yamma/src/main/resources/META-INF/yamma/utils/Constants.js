@@ -143,6 +143,13 @@ Ext.define('Yamma.utils.Constants', {
 					title : 'Document PDF'
 				}, 
 				this.getIconDefinition('page_white_acrobat')
+			),
+			
+			'default' : Ext.apply(
+				{
+					title : ''
+				},
+				this.getIconDefinition('page_white')				
 			)
 		}		
 	}

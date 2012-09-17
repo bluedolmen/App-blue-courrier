@@ -7,7 +7,7 @@
 	margin-left : auto;
 	margin-right : auto;
 }
-
+/*
 .submenu-title {
 	font-style : italic; 
 	display : block; 
@@ -21,6 +21,7 @@
 	float : right; 
 	color : #15498B;
 }
+*/
 
 .x-body {
 	text-align : left; /* this property may be overridden by yui */
@@ -33,21 +34,80 @@
 	padding-bottom: 0;
 }
 
+.cell-align-middle {
+	vertical-align: middle;
+}
 
-.assigned-service-cell {
+
+/* MAILS VIEW */
+.x-grid-cell div .document-assigned div {
 	background-repeat: no-repeat; 
-	background-image: url(../icons/group.png) !important;
 	background-position: left center;
-	padding-left : 16px;
+	padding-left: 18px;
+	padding-top: 5px;
 }
 
-.assigned-user-cell {
-	font-style : italic;
-	background-repeat: no-repeat; 
-	background-image: url(../icons/user.png) !important;
-	background-position: left center; 
-	padding-left : 16px;
+.x-grid-cell div .assigned-service {
+	background-image: url(../icons/group.png) !important;
 }
+
+.x-grid-cell div .assigned-authority {
+	font-style : italic;
+	background-image: url(../icons/user.png) !important;
+}
+
+.x-grid-cell div .object {
+	padding-top: 5px;
+	font-weight:bold;
+}
+
+.x-grid-cell div .name {
+	font-style : italic;
+	color: #a6a6a6;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-left: 18px;
+	padding-top: 5px;
+}
+
+.row-mail-late .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+.row-mail-vip .x-grid-cell {
+	background-color: #fcff7a;
+}
+
+.row-mail-important .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+.x-grid-cell div .document-dates div{
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-top: 5px;
+}
+
+.x-grid-cell div .late {
+	font-weight: bold;
+	color: #900;
+	background-image: url(../icons/clock_red.png) !important;
+}
+
+.x-grid-cell div .hurry {
+	font-style : italic;
+	background-image: url(../icons/clock_error.png) !important;
+}
+
+.x-grid-cell div .onTime {
+	background-image: url(../icons/clock.png) !important;
+}
+
+.x-grid-cell div .deliveryDate {
+	background-image: url(../icons/date_in.png) !important;
+}
+
 
 /* DROP ZONE */
 .drop-zone {
@@ -129,17 +189,6 @@
 .x-tab-toolbar-left { z-index: 6; float: left; }
 .x-tab-toolbar-left .x-tab-toolbar { padding: 0 2px; border-width: 0 1px 0 0; }
 
-.row-mail-late .x-grid-cell {
-	background-color: #ffe2e2;
-}
-
-.late-cell {
-	text-align : center;
-	color: #900;
-	background-repeat: no-repeat; 
-	background-image: url(../icons/exclamation.png) !important;
-	background-position: right center; 
-}
 
 /* COMMENTS VIEW */
 .comments .author {

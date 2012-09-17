@@ -123,24 +123,23 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		
 	},
 	
+	COMMENT_TEMPLATE : new Ext.XTemplate(
+		'<div class="author">{author}</div>',
+		'<div class="content">{content}</div>',
+		'<div class="published">' +
+			'<span class="created">Publié le {created:date("d/m/Y")}</span>' + 
+			'<tpl if="isModified"><span class="modified"> (modifié le {modified:date("d/m/Y")})</span></tpl>' + 
+		'</div>'
+	), 
+	
 	getCommentColumnDefinition : function() {
 		
-		var coldef = {
-			
+		return {	
 			xtype : 'templatecolumn',
 			flex : 1,
 			text : 'Commentaire',
-			tpl : new Ext.XTemplate(
-				'<div class="author">{author}</div>',
-				'<div class="content">{content}</div>',
-				'<div class="published">' +
-					'<span class="created">Publié le {created:date("d/m/Y")}</span>' + 
-					'<tpl if="isModified"><span class="modified"> (modifié le {modified:date("d/m/Y")})</span></tpl>' + 
-				'</div>'
-			)
+			tpl : this.COMMENT_TEMPLATE 
 		};
-		
-		return coldef;
 		
 	},
 	
