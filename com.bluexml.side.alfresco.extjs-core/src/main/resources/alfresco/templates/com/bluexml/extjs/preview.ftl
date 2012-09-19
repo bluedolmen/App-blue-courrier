@@ -1,15 +1,27 @@
 <#include "/org/alfresco/include/alfresco-template.ftl" />
 
 <@templateHeader>
+	<style type="text/css">
+		#Share div {
+			height: 100%;
+		}
+	</style>
 </@>
 
-<@templateBody>
-	<div id="bd">
-		<div class="share-preview">
-			<@region scope="page" id="web-preview" protected=true />
-		</div>
-	</div>
-</@>
+<#if !PORTLET>
+<body id="Share" class="yui-skin-${theme} alfresco-share">
+	<style type="text/css">
+		.web-preview .previewer {
+			height: 100%;
+		}
+	</style>
+</#if>
+	<@region scope="page" id="web-preview" protected=true />
 
 <@templateFooter>
+	<style type="text/css">
+		.sticky-footer {
+			display:none;
+		}
+	</style>
 </@>

@@ -1,24 +1,24 @@
-Ext.define('Bluexml.view.utils.PreviewFrame', {
+Ext.define('Bluexml.view.utils.WebPreview', {
 
-	extend : 'Ext.ux.ManagedIframe.Component',
-	alias : 'widget.previewframe',
+	extend : 'Ext.Component',
+	alias : 'widget.webpreview',
 	
 	PREVIEW_PAGE_URL : '/share/page/extjspreview?nodeRef={nodeRef}',
-	EMBED_PAGE_URL : '/share/page/extjsembedpdf?nodeRef={nodeRef}',
-	CONTENT_WS_URL : 'aflresco://api/node/content/',
+	
+	autoScroll : false,	
 	
 	config : {
 		nodeRef : null,
 		mimeType : null,
-		managePdf : true
+		managePdf : false
 	},
 	
 	constructor : function(config) {
 
-		this.initConfig(config || {});
-		this.setAutoScroll(false);
-		this.callParent();
+		config = config || {};
+		this.initConfig(config);
 		
+		this.callParent([config]);
 	},
 	
 	load : function(config) {

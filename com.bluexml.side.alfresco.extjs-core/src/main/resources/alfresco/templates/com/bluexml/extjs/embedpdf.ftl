@@ -1,7 +1,7 @@
 <#include "/org/alfresco/include/alfresco-template.ftl" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%" >
 	<head>
 		<title>${msg("page.title", pageTitle)}</title>
 		<meta http-equiv="X-UA-Compatible" content="Edge" />
