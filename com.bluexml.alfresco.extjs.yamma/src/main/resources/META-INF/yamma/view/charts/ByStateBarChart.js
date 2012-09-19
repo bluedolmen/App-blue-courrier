@@ -9,6 +9,7 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 	
 	STATUSABLE_STATE_QNAME : 'yamma-ee:Statusable_state',
 	LATE_STATE_ONTIME_QNAME : 'onTimeStateNumber',
+	LATE_STATE_HURRY_QNAME : 'hurryStateNumber',
 	LATE_STATE_LATE_QNAME : 'lateStateNumber',
 	LATE_STATE_UNDETERMINED_QNAME : 'undeterminedStateNumber',
 	
@@ -43,7 +44,7 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 			{
 		        type: 'Numeric',
 		        position: 'bottom',
-		        fields: [this.LATE_STATE_ONTIME_QNAME, this.LATE_STATE_LATE_QNAME, this.LATE_STATE_UNDETERMINED_QNAME],
+		        fields: [this.LATE_STATE_ONTIME_QNAME, this.LATE_STATE_HURRY_QNAME,  this.LATE_STATE_LATE_QNAME, this.LATE_STATE_UNDETERMINED_QNAME],
 		        title: false,
 		        grid: true,
 		        label: {
@@ -67,8 +68,8 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 	        axis: 'bottom',
 	        gutter: 80,
 	        xField: this.STATUSABLE_STATE_QNAME,
-	        yField: [this.LATE_STATE_ONTIME_QNAME, this.LATE_STATE_LATE_QNAME, this.LATE_STATE_UNDETERMINED_QNAME],
-	        title : ['Ok', 'En retard', 'Indéterminé'],
+	        yField: [this.LATE_STATE_ONTIME_QNAME, this.LATE_STATE_HURRY_QNAME, this.LATE_STATE_LATE_QNAME, this.LATE_STATE_UNDETERMINED_QNAME],
+	        title : ['Ok', 'Urgent', 'En retard', 'Indéterminé'],
 	        stacked: true,
 	        tips: this.getTipsDefinition()
     	};
@@ -83,34 +84,41 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
      */
     getTipsDefinition : function() {
     	
-    	var me = this;
-		var tipsDefinition = {
-			trackMouse : true,
-			width : 100,
-			height : 70,
-			tpl : new Ext.XTemplate(
-				'<p><b>{state} : {documentNumber}</b></p>',
-				'<p>Ok : {onTimeNumber}</p>',
-				'<p>Retard : {lateNumber}</p>',
-				'<p>Indeterminé : {undeterminedNumber}</p>'
-			),
-			renderer : function(record, item) {
-				
-				var documentNumber = record.get('documentNumber');
-				var lateNumber = record.get(me.LATE_STATE_LATE_QNAME);
-				var onTimeNumber = record.get(me.LATE_STATE_ONTIME_QNAME);
-				var undeterminedNumber = record.get(me.LATE_STATE_UNDETERMINED_QNAME);
-				var stateLabel = record.get('title');
-				
-				this.update({
-					state : stateLabel,
-					documentNumber : documentNumber,
-					onTimeNumber : onTimeNumber,
-					lateNumber : lateNumber,
-					undeterminedNumber : undeterminedNumber
-				});
+    	var 
+    		me = this,
+			tipsDefinition = {
+				trackMouse : true,
+				width : 100,
+				height : 70,
+				tpl : new Ext.XTemplate(
+					'<p><b>{state} : {documentNumber}</b></p>',
+					'<p>Ok : {onTimeNumber}</p>',
+					'<p>Urgent : {hurryNumber}</p>',
+					'<p>Retard : {lateNumber}</p>',
+					'<p>Indeterminé : {undeterminedNumber}</p>'
+				),
+				renderer : function(record, item) {
+					
+					var 
+						documentNumber = record.get('documentNumber'),
+						lateNumber = record.get(me.LATE_STATE_LATE_QNAME),
+						onTimeNumber = record.get(me.LATE_STATE_ONTIME_QNAME),
+						hurryNumber = record.get(me.LATE_STATE_HURRY_QNAME),
+						undeterminedNumber = record.get(me.LATE_STATE_UNDETERMINED_QNAME),
+						stateLabel = record.get('title')
+					;
+					
+					this.update({
+						state : stateLabel,
+						documentNumber : documentNumber,
+						onTimeNumber : onTimeNumber,
+						hurryNumber : hurryNumber,
+						lateNumber : lateNumber,
+						undeterminedNumber : undeterminedNumber
+					});
+				}
 			}
-		};
+    	;
 		
 		return tipsDefinition;
     }    

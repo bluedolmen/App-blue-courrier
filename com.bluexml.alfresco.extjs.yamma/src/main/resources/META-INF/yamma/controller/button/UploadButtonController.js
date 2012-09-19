@@ -32,7 +32,7 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		});
 		
 		this.control({
-			'uploadbutton': {
+			'uploadbutton menuitem': {
 				click : this.onUploadClick
 			}
 		});		
@@ -77,8 +77,10 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	 *
 	 * @private
 	 */
-	onUploadClick : function() {
-		this.showUploadForm();		
+	onUploadClick : function(item) {
+		var typeShort = item.typeShort;
+		
+		this.showUploadForm(typeShort);		
 	},
 		
 	/**
@@ -86,7 +88,7 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	 * 
 	 * @private
 	 */
-	showUploadForm : function() {
+	showUploadForm : function(typeShort) {
 		
 		var 
 			me = this,
@@ -97,10 +99,16 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 			title : 'Choisissez un fichier',
 			
 			formConfig : {
-				additionalFields : [{
-					name : 'destination',
-					value : uploadButton.getDestination()
-				}]
+				additionalFields : [
+					{
+						name : 'destination',
+						value : uploadButton.getDestination()
+					},
+					{
+						name : 'contentType',
+						value : typeShort
+					}
+				]
 			},
 			
 			onSuccess : function(response) {

@@ -21,7 +21,7 @@ Ext.define('Yamma.view.windows.UploadFormWindow', {
 		showCancelButton : true,
 		cancelButtonLabel : 'Annuler',
 		fileFieldLabel : 'Fichier',
-		nameFieldLabel : 'Nom'		
+		nameFieldLabel : 'Nom'
 	},
 	
 	constructor : function(config) {

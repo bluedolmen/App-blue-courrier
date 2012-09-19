@@ -11,6 +11,25 @@ Ext.define('Yamma.utils.button.UploadButton', {
 	tooltip : 'Charger un document',
 	text : '',
 	
+	menu : {
+		width : 100,
+		margin : '0 0 10 0',
+		renderTo : Ext.getBody(),
+		items : Ext.Array.map(
+			[
+				Yamma.Constants.INBOUND_MAIL_TYPE_DEFINITION,
+				Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION
+			],
+			function(typeDefinition) {
+				return  {
+					text : typeDefinition.title,
+					iconCls : typeDefinition.iconCls,
+					typeShort : typeDefinition.typeShort
+				};
+			}
+		)
+	},
+	
 	config : {
 		/**
 		 * @cfg {Boolean} showTrayLabel Whether the label should be displayed on the
@@ -69,7 +88,6 @@ Ext.define('Yamma.utils.button.UploadButton', {
 	 */
     _updateTrayLabel : function(trayLabel) {
     	if (! this.getShowTrayLabel()) return;
-    	
     	this.setText(trayLabel || this.defaultLabel);
     },
 	

@@ -205,8 +205,10 @@ Ext.define('Yamma.view.windows.UploadFormPanel', {
 	},	
 	
 	onFileFieldChanged : function(field, value) {
-		var form = this.getForm();
-		var nameField = form.findField(this.nameFieldName);
+		var 
+			form = this.getForm(),
+			nameField = form.findField(this.nameFieldName)
+		;
 		if (!nameField) return;
 		
 		var fileName = Yamma.view.windows.UploadFormPanel.extractFilename(value);

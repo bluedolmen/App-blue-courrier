@@ -11,6 +11,9 @@ Ext.define('Yamma.view.charts.StatesStatsView', {
 	title : 'Statistiques états',
 	iconCls : 'icon-chart_curve',
 	
+	currentFilters : [],
+	dirty : true,
+	
 	items : [
 	
 		{
@@ -32,12 +35,65 @@ Ext.define('Yamma.view.charts.StatesStatsView', {
 	
 	listeners : {
 		collapse : function(panel, eOpts) { this.updateNextViewToolVisibility(); },
-		expand : function(panel, eOpts) { this.updateNextViewToolVisibility(); }
+		expand : function(panel, eOpts) { this.updateNextViewToolVisibility(); },
 	},
 	
 	updateNextViewToolVisibility : function() {
 		var nextViewTool = this.query('#nextView')[0];
 		if (nextViewTool) nextViewTool.setVisible('right' != this.collapsed);		
+	},
+	
+	nextView : function() {
+		var nextChartView = this.getNextChartView();
+		this.update(nextChartView);
+	},
+	
+	update : function(chartView, filters) {
+		
+		if (undefined !== filters) {
+			this.currentFilters = filters || [];
+		}
+		
+		if (!chartView) {
+			chartView = this.getCurrentChartView();
+		}		
+		
+		if (!this.isVisible()) {
+			this.dirty = true;
+			return; // defer loading
+		}
+		
+		chartView.load(
+			/* storeConfig */
+			{
+				filters : this.currentFilters 
+			}
+		);
+		this.dirty = false;
+		
+	},
+	
+	isDirty : function() {
+		return this.dirty;
+	},
+	
+	/**
+	 * @private
+	 * @returns
+	 */
+	getNextChartView : function() {
+		var cardLayout = this.getLayout();
+		if (!cardLayout) return null;
+		
+		return cardLayout.next(true, true);		
+	},	
+	
+	/**
+	 * @private
+	 * @returns
+	 */
+	getCurrentChartView : function() {
+		return this.getLayout().getActiveItem();
 	}
 	
 	

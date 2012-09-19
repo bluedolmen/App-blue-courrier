@@ -108,6 +108,9 @@
 	background-image: url(../icons/date_in.png) !important;
 }
 
+.x-grid-cell div .writingDate {
+	background-image: url(../icons/date_edit.png) !important;
+}
 
 /* DROP ZONE */
 .drop-zone {

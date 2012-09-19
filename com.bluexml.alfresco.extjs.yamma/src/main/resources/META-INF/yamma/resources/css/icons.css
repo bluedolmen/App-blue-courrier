@@ -238,6 +238,9 @@
 .icon-attach_delete {
     background-image: url(../icons/attach_delete.png) !important;
 }
+.icon-date_edit {
+    background-image: url(../icons/date_edit.png) !important;
+}
 .icon-error {
     background-image: url(../icons/error.png) !important;
 }
@@ -294,6 +297,9 @@
 }
 .icon-email_go {
     background-image: url(../icons/email_go.png) !important;
+}
+.icon-email_in {
+    background-image: url(../icons/email_in.png) !important;
 }
 .icon-note {
     background-image: url(../icons/note.png) !important;

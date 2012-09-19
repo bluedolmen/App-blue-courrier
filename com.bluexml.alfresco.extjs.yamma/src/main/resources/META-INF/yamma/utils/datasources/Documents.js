@@ -29,7 +29,7 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	
 	DOCUMENT_USER_CAN_DISTRIBUTE : 'yamma-ee:Document!Action_canDistribute',
 	DOCUMENT_USER_CAN_PROCESS_DOCUMENT : 'yamma-ee:Document!Action_canTakeProcessing',
-	DOCUMENT_USER_CAN_REPLY : 'yamma-ee:Document!Action_canReply',
+	DOCUMENT_USER_CAN_SEND_OUTBOUND : 'yamma-ee:Document!Action_canSendOutbound',
 	DOCUMENT_USER_CAN_VALIDATE : 'yamma-ee:Document!Action_canValidate'
 	
 	

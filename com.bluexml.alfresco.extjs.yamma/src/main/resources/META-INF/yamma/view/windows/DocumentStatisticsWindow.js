@@ -4,7 +4,7 @@ Ext.define('Yamma.view.windows.DocumentStatisticsWindow', {
 	alias : 'widget.documentstatistics',
 	
 	requires : [
-		'Yamma.view.charts.ByStatePieChart'
+		'Yamma.view.charts.StatesStatsView'
 	],
 	
 	title : 'Statistiques du courrier',
@@ -14,34 +14,25 @@ Ext.define('Yamma.view.windows.DocumentStatisticsWindow', {
 	headerPosition : 'right',
 	renderTo : Ext.getBody(),
 	
+	tools:[
+		{
+		    type : 'next',
+		    tooltip : 'Vue suivante',
+		    itemId : 'nextView'
+		}
+	],	
+	
 	config : {
 		filters : []
 	},
 	
 	items : [
 		{
-			xtype : 'bystatepiechart',
+			xtype : 'statesstatsview',
 			border : false,
 			preventHeader : true
 		}		
-	],
+	]
 	
-	initComponent : function() {
-				
-		this.callParent(arguments);		
-		this.displayChart();
-			
-	},
-	
-	displayChart : function() {
-		
-		var matchingCharts = this.query('bystatepiechart');
-		if (!matchingCharts || 0 == matchingCharts.length) return;
-		
-		var chart = matchingCharts[0];
-		chart.load({
-			filters : this.getFilters() || []
-		});
-	}
 
 });

@@ -11,12 +11,18 @@ Ext.define('Yamma.controller.charts.StatesStatsViewController', {
 	    
 	],
 	
-	currentFilters : [],
-	
 	init: function() {
 		
 		this.control({
+			'documentstatistics': {
+				show : this.onShow
+			},
+			
 			'statesstatsview #nextView': {
+				click : this.onNextView
+			},
+			
+			'documentstatistics #nextView': {
 				click : this.onNextView
 			}
 		});
@@ -31,50 +37,24 @@ Ext.define('Yamma.controller.charts.StatesStatsViewController', {
 	
 	onContextChanged : function(context) {
 		
-		this.currentFilters = context.getDocumentDatasourceFilters();
-		this.loadViewWithCurrentFilters();
-		
-	},
-	
-	loadViewWithCurrentFilters : function(chartView) {
-		
-		if (!chartView) {
-			chartView = this.getCurrentChartView();
-		}
-		
-		var currentFilters = this.currentFilters || [];
-		
-		chartView.load(
-			/* storeConfig */
-			{
-				filters : currentFilters 
-			}
-		);
+		var 
+			currentFilters = context.getDocumentDatasourceFilters(),
+			statesStatsView = this.getStatesStatsView()
+		;
+		statesStatsView.update(null, currentFilters);
 		
 	},
 	
 	onNextView : function() {
-		var nextChartView = this.getNextChartView();
-		if (!nextChartView) return;
-		
-		this.loadViewWithCurrentFilters(nextChartView);
+		var statesStatsView = this.getStatesStatsView();
+		statesStatsView.nextView();		
 	},
 	
-	getNextChartView : function() {
+	onShow : function() {
 		var statesStatsView = this.getStatesStatsView();
-		if (!statesStatsView) return null;
-		
-		var cardLayout = statesStatsView.getLayout();
-		if (!cardLayout) return null;
-		
-		return cardLayout.next(true, true);		
-	},
-	
-	getCurrentChartView : function() {
-		var statesStatsView = this.getStatesStatsView();
-		if (!statesStatsView) return null;
-		
-		return statesStatsView.getLayout().getActiveItem();
+		if (statesStatsView.isDirty()) {
+			statesStatsView.update();
+		}	
 	}
 	
 });

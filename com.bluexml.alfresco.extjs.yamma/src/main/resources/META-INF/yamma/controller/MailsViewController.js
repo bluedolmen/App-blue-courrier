@@ -10,9 +10,14 @@ Ext.define('Yamma.controller.MailsViewController', {
 	    {
 			ref : 'mailsView',
 	    	selector : 'mailsview'
-	    }	    
+	    }
 	    
-	],	
+	],
+	
+	/**
+	 * @private
+	 */
+	statisticsView : null,
 	
 	init: function() {
 		
@@ -20,6 +25,9 @@ Ext.define('Yamma.controller.MailsViewController', {
 			'mailsview': {
 				selectionchange : this.onSelectionChange,
 				stateClick : this.onStateClick
+			},
+			'mailsview #statistics' : {
+				click : this.onStatisticsClick
 			}
 		});
 		
@@ -46,10 +54,12 @@ Ext.define('Yamma.controller.MailsViewController', {
 	
 	displayFilterBasedContent : function(context) {
 		
-		var filters = context.getDocumentDatasourceFilters();
-		var label = context.getLabel();
+		var 
+			label = context.getLabel(),
+			filters = context.getDocumentDatasourceFilters(),
+			mailsView = this.getMailsView()
+		;
 		
-		var mailsView = this.getMailsView();
 		mailsView.load(
 			/* storeConfig */
 			{
@@ -69,14 +79,18 @@ Ext.define('Yamma.controller.MailsViewController', {
 	
 	displaySearchResult : function(context) {
 
-		var query = context.getQuery();
-		var term = context.getTerm();
+		var 
+			query = context.getQuery(),
+			term = context.getTerm()
+		;
 		if (!query && !term) return;
 		
-		var label = context.getLabel() || 'Recherche avancée';
-		var encodedQuery = Ext.JSON.encode(query);
+		var 
+			label = context.getLabel() || 'Recherche avancée',
+			encodedQuery = Ext.JSON.encode(query),
+			mailsView = this.getMailsView()
+		;
 		
-		var mailsView = this.getMailsView();
 		mailsView.load(
 			null, /* storeConfig */
 			
@@ -150,11 +164,21 @@ Ext.define('Yamma.controller.MailsViewController', {
 	},
 	
 	onNewDocumentAvailable : function(documentInformation) {
-		
-		var 
-			mailsView = this.getMailsView()
-		;
+		var mailsView = this.getMailsView();
 		mailsView.refresh(true);
+	},
+	
+	onStatisticsClick : function() {
+		var 
+			mailsView = this.getMailsView(),
+			statisticsView = mailsView.getStatisticsView()
+		;
+		
+		if (statisticsView.isVisible()) {
+			statisticsView.hide();
+		} else {
+			statisticsView.show();
+		}
 	}	
 	
 

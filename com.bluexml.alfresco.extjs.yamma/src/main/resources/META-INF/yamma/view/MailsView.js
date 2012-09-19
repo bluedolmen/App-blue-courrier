@@ -22,7 +22,7 @@ Ext.define('Yamma.view.MailsView', {
 	mixins : [
 		'Yamma.view.gridactions.Distribute',
 		'Yamma.view.gridactions.StartProcessing',
-		'Yamma.view.gridactions.SendReply',
+		'Yamma.view.gridactions.SendOutbound',
 		'Yamma.view.gridactions.ValidateReply'
 	],
 	
@@ -62,6 +62,7 @@ Ext.define('Yamma.view.MailsView', {
 		};
 		
 		this.addEvents('stateClick');
+		this.getStatisticsView(); // instantiate the statistics view 
 		
 		this.callParent(arguments);
 	},
@@ -101,6 +102,13 @@ Ext.define('Yamma.view.MailsView', {
 			xtype : 'uploadbutton',
 			scale : 'small',
 			text : ''
+		},
+		{
+			xtype : 'button',
+			scale : 'small',
+			text : '',
+			iconCls : 'icon-chart_curve',
+			id : 'statistics'
 		}
 	],
 	
@@ -152,27 +160,12 @@ Ext.define('Yamma.view.MailsView', {
 		
 		return [
 		
-			/* State */
 			this.getStateColumnDefinition(),
 		
 			this.getDocumentTypeColumnDefinition(),
 			
 			this.getSubjectColumnDefinition(),
 		
-//			this.getNameColumnDefinition(),
-			
-//			/* Document object */
-//			this.getObjectColumnDefinition(),			
-			
-//			/* Delivery date */
-//			this.getDeliveryDateColumnDefinition(),
-//			
-//			/* Due-date */
-//			this.getDueDateColumnDefinition(),
-//			
-//			/* Priority */
-//			this.getPriorityColumnDefinition(),
-			
 			this.getDatesColumnDefinition(),
 			
 			this.getAssignedColumnDefinition(),
@@ -471,7 +464,8 @@ Ext.define('Yamma.view.MailsView', {
 	DATES_TEMPLATE : new Ext.XTemplate(
 		'<div class="document-dates">',
 		'<div class="{dueDateClass}">{dueDate}</div>',
-		'<div class="deliveryDate">{deliveryDate}</div>',
+		'<div class="{deliveryDateClass}">{deliveryDate}</div>',
+		'<div class="{writingDateClass}">{writingDate}</div>',		
 		'</div>'
 	),
 	
@@ -498,16 +492,28 @@ Ext.define('Yamma.view.MailsView', {
 						dueDate = record.get(Yamma.utils.datasources.Documents.DUE_DATE_QNAME),
 						dueDateClass =  dueDate ? me.getLateStateClass(lateState) : Ext.baseCSSPrefix + 'hide-display',
 						deliveryDate = record.get(Yamma.utils.datasources.Documents.DELIVERY_DATE_QNAME),
+						deliveryDateClass = deliveryDate ? 'deliveryDate' : Ext.baseCSSPrefix + 'hide-display',
 						
 						writingDate = record.get(Yamma.utils.datasources.Documents.WRITING_DATE_QNAME),
+						writingDateClass = !deliveryDate ? 'writingDate' : Ext.baseCSSPrefix + 'hide-display', // only displayed if no delivery-date is available
 						sentDate = record.get(Yamma.utils.datasources.Documents.SENT_DATE_QNAME),
 						digitizedDate = record.get(Yamma.utils.datasources.Documents.DIGITIZED_DATE_QNAME),
+						
 						tooltip = me.DATES_TIP_TEMPLATE.applyTemplate({
 							writing : dateRenderer(writingDate),
 							sent : dateRenderer(sentDate),
 							delivered : dateRenderer(deliveryDate),
 							digitized : dateRenderer(digitizedDate)
-						})
+						}),
+						
+						value = me.DATES_TEMPLATE.applyTemplate({
+							dueDate : dateRenderer(dueDate),
+							dueDateClass : dueDateClass,
+							deliveryDate : dateRenderer(deliveryDate),
+							deliveryDateClass : deliveryDateClass,
+							writingDate : dateRenderer(writingDate),
+							writingDateClass : writingDateClass
+						}); 
 					;
 					
 					// tooltip
@@ -515,11 +521,7 @@ Ext.define('Yamma.view.MailsView', {
 						meta.tdAttr = 'data-qtip="' + tooltip + '"';
 					}
 						
-					return me.DATES_TEMPLATE.applyTemplate({
-						dueDateClass : dueDateClass,
-						dueDate : dateRenderer(dueDate),
-						deliveryDate : dateRenderer(deliveryDate)
-					});
+					return value;
 					
 				}
 			});
@@ -585,11 +587,11 @@ Ext.define('Yamma.view.MailsView', {
 		
 			{
 				xtype : 'bluexmlactioncolumn',
-				maxWidth : 90,
+				maxWidth : 70,
 				items : [
 					this.getDistributeActionDefinition(),
 					this.getStartProcessingActionDefinition(),
-					this.getSendReplyActionDefinition(),
+					this.getSendOutboundActionDefinition(),
 					this.getAcceptReplyActionDefinition(),
 					this.getRefuseReplyActionDefinition(),
 					this.getDelegateValidationActionDefinition()
@@ -603,7 +605,21 @@ Ext.define('Yamma.view.MailsView', {
 	
 	getDocumentNodeRefRecordValue : function(record) {
 		return record.get(Yamma.utils.datasources.Documents.MAIL_NODEREF_QNAME);	
-	}
+	},
+	
+	/**
+	 * @private
+	 * @returns
+	 */
+	getStatisticsView : function() {
+		if (null == this.statisticsView) {
+			this.statisticsView = Ext.create('Yamma.view.windows.DocumentStatisticsWindow', {
+				closeAction : 'hide'
+			}); 
+		}
+		
+		return this.statisticsView;
+	}	
 	
 });
 

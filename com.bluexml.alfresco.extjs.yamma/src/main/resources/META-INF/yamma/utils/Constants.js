@@ -31,11 +31,15 @@ Ext.define('Yamma.utils.Constants', {
 
 	initResources : function() {
 		
+		var me = this;
+		
 		/* TYPES */
 		
 		this.ABSTRACT_DOCUMENT_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Document'	
+				title : 'Document',
+				typeShort : 'yamma-ee:Document',
+				"abstract" : true
 			}, 
 			this.getIconDefinition('page_white')
 		);
@@ -49,24 +53,31 @@ Ext.define('Yamma.utils.Constants', {
 		
 		this.INBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Courrier'
+				title : 'Courrier entrant',
+				typeShort : 'yamma-ee:InboundMail'
 			},
-			this.getIconDefinition('email')
+			this.getIconDefinition('email_in')
 		);
 		
 		this.OUTBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Courrier réponse'
+				title : 'Courrier sortant',
+				typeShort : 'yamma-ee:OutboundMail'
 			},
 			this.getIconDefinition('email_go')
 		);
 				
-		this.DOCUMENT_TYPE_DEFINITIONS = {
+		this.DOCUMENT_TYPE_DEFINITIONS = {};
+		Ext.Array.forEach([
+			this.ABSTRACT_DOCUMENT_TYPE_DEFINITION,
+	        this.INBOUND_MAIL_TYPE_DEFINITION,
+	        this.OUTBOUND_MAIL_TYPE_DEFINITION
+		], function(typeDefinition) {
+			var typeShort = typeDefinition.typeShort;
+			if (!typeShort) return;
 			
-			'yamma-ee:InboundMail' : this.INBOUND_MAIL_TYPE_DEFINITION,
-			'yamma-ee:OutboundMail' : this.OUTBOUND_MAIL_TYPE_DEFINITION
-			
-		};
+			me.DOCUMENT_TYPE_DEFINITIONS[typeShort] = typeDefinition;
+		});
 		
 		this.DOCUMENT_STATE_DEFINITIONS = {
 			
@@ -151,7 +162,8 @@ Ext.define('Yamma.utils.Constants', {
 				},
 				this.getIconDefinition('page_white')				
 			)
-		}		
+		}
+		
 	}
 	
 	
