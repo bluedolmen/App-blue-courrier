@@ -58,23 +58,31 @@
 		},
 		
 		/**
-		 * A user can reply to a document if:
+		 * A user can send an Outbound (Mail) if:
 		 * - The document is in processing state
 		 * - He is the assigned user
+		 * - The document is an Outbound Mail OR the document has replies
 		 */
-		canReply : function(documentNode, username) {
-			
-			if (!DocumentUtils.isOriginalDocumentNode(documentNode)) return false;
-			username = username || Utils.getCurrentUserName();
-			
-			var 
-				isDocumentProcessing = DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING),
-				isCurrentAssignedUser = DocumentUtils.isAssignedAuthority(documentNode, username)
-			; 
+		canSendOutbound : function(documentNode, username) {
 			
 			return (
-				isDocumentProcessing &&
-				isCurrentAssignedUser
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+				(
+					/* Document is an OutboundMail */
+					documentNode.isSubType(YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME) ||
+					
+					/* Document has replies */
+					ReplyUtils.hasReplies(documentNode) 
+				
+				) &&
+				
+				/* Document is in 'processing' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
+				
+				/* the user is the currently assigned user */
+				DocumentUtils.isAssignedAuthority(documentNode, username)
 			);
 			
 		},

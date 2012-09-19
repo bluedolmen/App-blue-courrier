@@ -37,14 +37,14 @@
     	
 	</bean>
 	   
-	<bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
+	<!--bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
 		
 		<property name="nodeService" ref="NodeService" />
 		<property name="prefixResolver" ref="namespaceService" />
 		<property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
 		<property name="policyComponent" ref="policyComponent" />
 		
-	</bean>   
+	</bean-->   
 	 
 	   
 	<bean id="onCreateSiteNode" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
@@ -66,13 +66,14 @@
 						</constructor-arg>
 					</bean>
 				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
 			</bean>
 		</property>
 		
 	</bean>
 
 
-	<bean id="onCreateMailNode" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
+	<bean id="onCreateTraycontent" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
 		
 		<property name="policyName">
 			<value>{http://www.alfresco.org}onCreateNode</value>
@@ -91,6 +92,7 @@
 						</constructor-arg>
 					</bean>
 				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
 			</bean>
 		</property>
 		
@@ -153,6 +155,7 @@
 						</constructor-arg>
 					</bean>
 				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
 			</bean>
 		</property>
 		

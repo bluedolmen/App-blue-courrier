@@ -3,49 +3,50 @@
 
 (function() {
 	
-	var childAssoc = behaviour.args[0];
-	var document = childAssoc.getChild();	
+	var 
+		childAssoc = behaviour.args[0],
+		tray = childAssoc.getParent(),
+		document = childAssoc.getChild()
+	;	
 	
 	if ('undefined' == typeof document) {
 		logger.warn('[onCreateTrayContent] Cannot find any contextual document.');
 		return;
 	}
-
+	
 	// Filters on yamma-ee:Tray children
 	if (!checkParentType()) return;
+	if (!TraysUtils.isInboxTray(tray)) return; // Only transform documents of inbox trays
 	
 	main();
 	
 	
 	function main() {
 		logNewDocument();
-		InboundMailUtils.createMail(document);
+		IncomingMailUtils.createMail(document);
 	}
 
 	function logNewDocument() {
 		if (!logger.isLoggingEnabled()) return;
 
-		var documentName = document.name;
-
-		var tray = TraysUtils.getEnclosingTray(document);
-		if (!tray) return;
-		var trayName = tray.name;
-
-		var message = 
-			"A new document '" + documentName + "' " +
-			"arrived in the tray '" + trayName + "'. ";
-			//"of site '" + siteName + "'";
+		var 
+			documentName = document.name,
+			trayName = tray.name,
+			message = 
+				"A new document '" + documentName + "' " +
+				"arrived in the tray '" + trayName + "'. "
+		;
+		
 		logger.log(message);
 	}
 	
 	function checkParentType() {
-		var parent = document.parent;
-		if (!parent) {
+		if (!tray) {
 			logger.warn('[onCreateTrayContent] Cannot get the parent of the new created node.');
 			return false;
 		}
 		
-		return parent.isSubType(YammaModel.TRAY_TYPE_SHORTNAME);
+		return tray.isSubType(YammaModel.TRAY_TYPE_SHORTNAME);
 	}	
 	
 })();

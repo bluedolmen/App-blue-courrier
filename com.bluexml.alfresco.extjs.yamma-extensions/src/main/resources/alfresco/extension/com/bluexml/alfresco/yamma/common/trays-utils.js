@@ -27,6 +27,13 @@
 		};
 	}
 	
+	TraysUtils.isInboxTray = function(tray) {
+		
+		if (!tray) return false;
+		return TraysUtils.INBOX_TRAY_NAME == tray.name;
+		
+	};
+	
 	TraysUtils.getEnclosingTray = function(document) {
 		
 		var iterator = document.parent;

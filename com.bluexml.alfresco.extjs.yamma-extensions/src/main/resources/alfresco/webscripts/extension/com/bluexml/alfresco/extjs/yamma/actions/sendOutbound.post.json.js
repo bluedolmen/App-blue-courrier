@@ -4,25 +4,29 @@
 
 (function() {
 	
-	const SEND_REPLY_EVENT_TYPE = 'send-reply';
+	const SEND_OUTBOUND_EVENT_TYPE = 'send-outbound';
 	
 	// PRIVATE
-	var fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName();
-	var documentNode;
+	var 
+		fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName(),
+		documentNode
+	;
 	
 	// MAIN LOGIC
 	
 	Common.securedExec(function() {
 		
-		var parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true});
-		var documentNodeRef = parseArgs['nodeRef'];
-		documentNode = search.findNode(documentNodeRef);
+		var 
+			parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true}),
+			documentNodeRef = parseArgs['nodeRef']
+		;
 		
+		documentNode = search.findNode(documentNodeRef);
 		if (!documentNode) {
 			throw {
 				code : '512',
 				message : 'IllegalStateException! The provided nodeRef does not exist in the repository'
-			}
+			};
 		}
 		
 		var documentHasReplies = ReplyUtils.hasReplies(documentNode);
@@ -30,7 +34,7 @@
 			throw {
 				code : '403',
 				message : 'Forbidden! The action cannot be executed by you in the current context'
-			}			
+			};			
 		}
 					
 		main();
@@ -62,19 +66,20 @@
 	
 	function addHistoryComment() {
 		
-		var replies = ReplyUtils.getReplies(documentNode);
-		
-		var formattedRepliesTitle = Utils.reduce(
-			replies, 
-			function(replyNode, aggregateValue, isLast) {
-				var replyTitle = replyNode.properties.title || replyNode.name;
-				return aggregateValue + replyTitle + (isLast ? '' : ', ');
-			},
-			''
-		);
+		var 
+			replies = ReplyUtils.getReplies(documentNode),
+			formattedRepliesTitle = Utils.reduce(
+				replies, 
+				function(replyNode, aggregateValue, isLast) {
+					var replyTitle = replyNode.properties.title || replyNode.name;
+					return aggregateValue + replyTitle + (isLast ? '' : ', ');
+				},
+				''
+			)
+		;
 		
 		updateDocumentHistory(
-			replies.length > 1 ? 'sendReplies.comment' : 'sendReply.comment', 
+			replies.length > 1 ? 'sendOutboundMails.comment' : 'sendOutboundMail.comment', 
 			[formattedRepliesTitle]
 		);
 	}
