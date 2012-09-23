@@ -122,10 +122,6 @@
     <firstEnd xmi:id="_GXopQfkDEeGHHe2qtmDVXA" name="replies" title="Replies" cardMax="-1" linkedClass="_z-tKIPkCEeGHHe2qtmDVXA"/>
     <secondEnd xmi:id="_GXopQvkDEeGHHe2qtmDVXA" name="" title="" navigable="true" linkedClass="_ZUOWcPkAEeGHHe2qtmDVXA"/>
   </associationSet>
-  <associationSet xmi:id="_w5y8wPkEEeGHHe2qtmDVXA" documentation="" description="" name="original" title="">
-    <firstEnd xmi:id="_w5y8wfkEEeGHHe2qtmDVXA" name="" title="" cardMax="-1" linkedClass="_rP4bIMREEeGVoP7HZaHFtA"/>
-    <secondEnd xmi:id="_w5y8wvkEEeGHHe2qtmDVXA" name="" title="" navigable="true" linkedClass="_RUS8gLC0EeGFgddOkpVJwg"/>
-  </associationSet>
   <associationSet xmi:id="_YtBQcPwJEeGHHe2qtmDVXA" documentation="" description="" name="parent" title="">
     <firstEnd xmi:id="_YtBQcfwJEeGHHe2qtmDVXA" name="" title="" cardMax="-1" linkedClass="_RLk8cPwCEeGHHe2qtmDVXA"/>
     <secondEnd xmi:id="_YtBQcvwJEeGHHe2qtmDVXA" name="" title="" navigable="true">
@@ -227,7 +223,6 @@
       <metainfo xmi:id="_DyaqY_jKEeGlL9aFmpi0Cg" key="regular-expression.match" value="True"/>
     </attributes>
   </aspectSet>
-  <aspectSet xmi:id="_rP4bIMREEeGVoP7HZaHFtA" description="The document copy may be created when copy-services are provided during the distribution step" name="DocumentCopy" title="Document Copy"/>
   <aspectSet xmi:id="__FwXIPg-EeGu9uCwQAeMqw" name="Contact"/>
   <aspectSet xmi:id="_8NBzQPj-EeGHHe2qtmDVXA" name="Mail">
     <attributes xmi:id="_FI3zEM9hEeGVoP7HZaHFtA" documentation="" description="" name="writingDate" title="Writing Date" typ="Date">
