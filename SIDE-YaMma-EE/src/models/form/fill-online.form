@@ -53,7 +53,12 @@
           <metainfo xmi:id="_tTNFUAZREeK5AtEnnPuSeg" key="template" value="/org/alfresco/components/form/controls/content.ftl"/>
           <metainfo xmi:id="_sLRDkwM1EeKRWqDAtKMhxg" key="editorHeight" value="200" constraintType="int"/>
           <metainfo xmi:id="_ewC94AZREeK5AtEnnPuSeg" key="editorWidth" value="500" constraintType="int"/>
+          <metainfo xmi:id="_KOgE0AbzEeK5AtEnnPuSeg" key="editorAppearance" value="full"/>
           <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w9cnWEeGjKJcImRsXbg"/>
+        </children>
+        <children xsi:type="form:CharField" xmi:id="_reYmkAbyEeK5AtEnnPuSeg" label="mimetype" id="prop_mimetype" mandatory="true">
+          <metainfo xmi:id="_reYmkQbyEeK5AtEnnPuSeg" key="template" value="/org/alfresco/components/form/controls/hidden.ftl"/>
+          <metainfo xmi:id="_3Lr7MAbyEeK5AtEnnPuSeg" key="contextProperty" value="mimeType"/>
         </children>
       </children>
     </children>
@@ -122,7 +127,7 @@
         </children>
       </children>
       <children xsi:type="form:ChoiceField" xmi:id="_H6AbQQZGEeK5AtEnnPuSeg" label="Origin" id="origin" hidden="true" help_text="Origin of the Inbound Document (when available)" initial="manual">
-        <metainfo xmi:id="_PI1TQAZjEeK5AtEnnPuSeg" key="template" value="/com/bluexml/components/form/controls/defaultvaluetextfield.ftl"/>
+        <metainfo xmi:id="_PI1TQAZjEeK5AtEnnPuSeg" key="template" value="/com/bluexml/components/form/controls/defaultvaluehiddenfield.ftl"/>
         <metainfo xmi:id="_ebdv0AZjEeK5AtEnnPuSeg" key="initialValue" value="manual"/>
         <ref href="../data/YaMma-EE.dt#_IEpEIAYpEeK5AtEnnPuSeg"/>
       </children>
