@@ -227,35 +227,47 @@
   </views>
   <composedViews xmi:id="_5piGAbYGEeGSo_XQepIvyw" name="groupedViewsDocLib">
     <children xsi:type="view:DataList" xmi:id="_5piGArYGEeGSo_XQepIvyw" name="InboundMail_DataList">
-      <children xsi:type="view:TextField" xmi:id="_5piGA7YGEeGSo_XQepIvyw" name="address">
-        <mapTo href="../data/YaMma-EE.dt#_Fa-dwLC3EeGFgddOkpVJwg"/>
+      <children xsi:type="view:TextField" xmi:id="_kmY1EAYjEeKRWqDAtKMhxg" name="address">
+        <mapTo href="../data/YaMma-EE.dt#_sKP7v_jIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="view:TextField" xmi:id="_5piGBbYGEeGSo_XQepIvyw" name="contactEmail">
-        <mapTo href="../data/YaMma-EE.dt#_S7KFQLC3EeGFgddOkpVJwg"/>
+      <children xsi:type="view:TextField" xmi:id="_kmY1EQYjEeKRWqDAtKMhxg" name="categories">
+        <mapTo href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z38NgMnWEeGjKJcImRsXbg"/>
       </children>
-      <children xsi:type="view:TextField" xmi:id="_5piGBrYGEeGSo_XQepIvyw" name="contactPhone">
-        <mapTo href="../data/YaMma-EE.dt#_ZIejILC3EeGFgddOkpVJwg"/>
+      <children xsi:type="view:TextField" xmi:id="_kmY1EgYjEeKRWqDAtKMhxg" name="contactEmail">
+        <mapTo href="../data/YaMma-EE.dt#_sKP7tfjIEeGu9uCwQAeMqw"/>
       </children>
-      <children xsi:type="view:DateField" xmi:id="_5piGB7YGEeGSo_XQepIvyw" name="deliveryDate">
+      <children xsi:type="view:TextField" xmi:id="_kmY1EwYjEeKRWqDAtKMhxg" name="contactPhone">
+        <mapTo href="../data/YaMma-EE.dt#_sKP7uvjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="view:DateField" xmi:id="_kmY1FAYjEeKRWqDAtKMhxg" name="deliveryDate">
         <mapTo href="../data/YaMma-EE.dt#_l_tboLC0EeGFgddOkpVJwg"/>
       </children>
-      <children xsi:type="view:DateField" xmi:id="_5piGCLYGEeGSo_XQepIvyw" name="digitizedDate">
+      <children xsi:type="view:DateField" xmi:id="_kmY1FQYjEeKRWqDAtKMhxg" name="digitizedDate">
         <mapTo href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
       </children>
-      <children xsi:type="view:TextField" xmi:id="_5piGCbYGEeGSo_XQepIvyw" name="name">
-        <mapTo href="../data/YaMma-EE.dt#_azB14LC2EeGFgddOkpVJwg"/>
+      <children xsi:type="view:DateTimeField" xmi:id="_kmY1FgYjEeKRWqDAtKMhxg" name="dueDate">
+        <mapTo href="../data/YaMma-EE.dt#_qy_okMdqEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="view:TextField" xmi:id="_5piGCrYGEeGSo_XQepIvyw" name="object">
+      <children xsi:type="view:TextField" xmi:id="_kmY1FwYjEeKRWqDAtKMhxg" name="name">
+        <mapTo href="../data/YaMma-EE.dt#_sKP7sPjIEeGu9uCwQAeMqw"/>
+      </children>
+      <children xsi:type="view:TextField" xmi:id="_kmY1GAYjEeKRWqDAtKMhxg" name="object">
         <mapTo href="../data/YaMma-EE.dt#_y_IfcLC0EeGFgddOkpVJwg"/>
       </children>
-      <children xsi:type="view:TextField" xmi:id="_5piGC7YGEeGSo_XQepIvyw" name="reference">
+      <children xsi:type="view:TextField" xmi:id="_kmY1GQYjEeKRWqDAtKMhxg" name="reference">
         <mapTo href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
       </children>
-      <children xsi:type="view:DateField" xmi:id="_5piGDLYGEeGSo_XQepIvyw" name="stampDate">
-        <mapTo href="../data/YaMma-EE.dt#_Z9QWYLC0EeGFgddOkpVJwg"/>
+      <children xsi:type="view:TextField" xmi:id="_kmY1GgYjEeKRWqDAtKMhxg" name="searchableAuthority">
+        <mapTo href="../data/YaMma-EE.dt#_GaJvcMmoEeGVoP7HZaHFtA"/>
       </children>
-      <children xsi:type="view:DateField" xmi:id="_5piGDbYGEeGSo_XQepIvyw" name="writingDate">
-        <mapTo href="../data/YaMma-EE.dt#_rlFIsLC0EeGFgddOkpVJwg"/>
+      <children xsi:type="view:DateField" xmi:id="_kmY1GwYjEeKRWqDAtKMhxg" name="sentDate">
+        <mapTo href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="view:TextField" xmi:id="_kmY1HAYjEeKRWqDAtKMhxg" name="state">
+        <mapTo href="../data/YaMma-EE.dt#_s9ceMMUKEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="view:DateField" xmi:id="_kmY1HQYjEeKRWqDAtKMhxg" name="writingDate">
+        <mapTo href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
       </children>
       <viewOf xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_UcVrgLC0EeGFgddOkpVJwg"/>
     </children>

@@ -173,5 +173,5 @@
     </deployerConfigurations>
     <deployerConfigurations id_techno_version="opendocument1_2" impl_class="com.bluexml.side.deployer.documentation.DocumentationDeployer" id="com.bluexml.side.Deployer.documentation" technologyVersionName="OpenDocument 1.2" technologyName="opendocument" contributorId="com.bluexml.side.Deployer.documentation" deployerName="SIDE Documentation Deployer"/>
   </elements>
-  <elements xsi:type="app:Model" name="create.form" file="/YaMma-EE/src/models/form/create.form"/>
+  <elements xsi:type="app:Model" name="fill-online.form" file="/YaMma-EE/src/models/form/fill-online.form"/>
 </app:Application>
