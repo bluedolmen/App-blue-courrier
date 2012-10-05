@@ -16,14 +16,31 @@
 		TRAYS : {} // defined hereafter
 	},
 	
-	setTrayTitle(TraysUtils.INBOX_TRAY_NAME, 'Arrivée');
-	setTrayTitle(TraysUtils.OUTBOX_TRAY_NAME, 'Départ');
-	setTrayTitle(TraysUtils.CCBOX_TRAY_NAME, 'Copie');
+	setTrayDefinition(
+		TraysUtils.INBOX_TRAY_NAME, 
+		'Arriv\u00E9e', 
+		[
+			YammaModel.DOCUMENT_STATE_PENDING,
+			YammaModel.DOCUMENT_STATE_DELIVERING,
+			YammaModel.DOCUMENT_STATE_PROCESSING,
+			YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED
+		]
+	);
+	setTrayDefinition(
+		TraysUtils.OUTBOX_TRAY_NAME, 
+		'D\u00E9part',
+		[
+			YammaModel.DOCUMENT_STATE_SENDING,
+			YammaModel.DOCUMENT_STATE_PROCESSED
+		]
+	);
+	setTrayDefinition(TraysUtils.CCBOX_TRAY_NAME, 'Copie');
 	
-	function setTrayTitle(trayName, trayTitle) {
-		trayTitle = trayTitle || msg.get('tray.' + TraysUtils.INBOX_TRAY_NAME + '.title') || trayName;
+	function setTrayDefinition(trayName, trayTitle, filters) {
+		trayTitle = trayTitle || msg.get('tray.' + trayName + '.title') || trayName;
 		TraysUtils.TRAYS[trayName] = {
-			title : trayTitle
+			title : trayTitle,
+			filters : filters || []
 		};
 	}
 	
@@ -31,6 +48,13 @@
 		
 		if (!tray) return false;
 		return TraysUtils.INBOX_TRAY_NAME == tray.name;
+		
+	};
+	
+	TraysUtils.isOutboxTray = function(tray) {
+		
+		if (!tray) return false;
+		return TraysUtils.OUTBOX_TRAY_NAME == tray.name;
 		
 	};
 	
@@ -136,23 +160,6 @@
 			}
 			
 			return traysParentNode.createNode(me.TRAYS_FOLDER_NAME, me.TRAYS_CONTAINER_TYPE, {'cm:title' : me.TRAYS_FOLDER_TITLE});
-		}
-		
-		function createPath(rootNode, path) {
-			var 
-				segments = rootNode.split('/'),
-				currentNode = rootNode
-			;	
-				
-			Utils.forEach(segments, function(segment) {
-				var childNode = currentNode.childByNamePath(segment);
-				if (!childNode) {
-					childNode = currentNode.createFolder(segment);
-				}
-				currentNode = childNode;
-			});
-			
-			return currentNode;
 		}
 		
 		function createTrays(traysNode) {

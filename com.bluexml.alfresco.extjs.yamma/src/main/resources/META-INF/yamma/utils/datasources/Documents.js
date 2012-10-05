@@ -11,7 +11,7 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	WRITING_DATE_QNAME : 'yamma-ee:Mail_writingDate',
 	SENT_DATE_QNAME : 'yamma-ee:Mail_sentDate',
 	DIGITIZED_DATE_QNAME : 'yamma-ee:Digitizable_digitizedDate',
-	DUE_DATE_QNAME : 'yamma-ee:Prioritizable_dueDate',
+	DUE_DATE_QNAME : 'yamma-ee:Dueable_dueDate',
 	PRIORITY_QNAME : 'yamma-ee:Prioritizable_priority',
 	STATUSABLE_STATE_QNAME : 'yamma-ee:Statusable_state',
 	DOCUMENT_ISCOPY_QNAME : 'yamma-ee:Document_isCopy',
@@ -22,15 +22,18 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	CORREPONDENT_MAIL : 'yamma-ee:Correspondent_contactEmail',
 	CORREPONDENT_PHONE : 'yamma-ee:Correspondent_contactPhone',
 	
-	DOCUMENT_LATE_STATE_QNAME : 'yamma-ee:Prioritizable_lateState',
+	DOCUMENT_LATE_STATE_QNAME : 'yamma-ee:Dueable_lateState',
 	LATE_STATE_LATE_VALUE : 'late',
 	LATE_STATE_HURRY_VALUE : 'hurry',
 	LATE_STATE_ONTIME_VALUE : 'onTime',
 	
 	DOCUMENT_USER_CAN_DISTRIBUTE : 'yamma-ee:Document!Action_canDistribute',
 	DOCUMENT_USER_CAN_PROCESS_DOCUMENT : 'yamma-ee:Document!Action_canTakeProcessing',
+	DOCUMENT_USER_CAN_REPLY : 'yamma-ee:Document!Action_canReply',
 	DOCUMENT_USER_CAN_SEND_OUTBOUND : 'yamma-ee:Document!Action_canSendOutbound',
-	DOCUMENT_USER_CAN_VALIDATE : 'yamma-ee:Document!Action_canValidate'
+	DOCUMENT_USER_CAN_VALIDATE : 'yamma-ee:Document!Action_canValidate',
+	DOCUMENT_USER_CAN_MARK_AS_SENT : 'yamma-ee:Document!Action_canMarkAsSent',
+	DOCUMENT_USER_CAN_ARCHIVE : 'yamma-ee:Document!Action_canArchive'
 	
 	
 });

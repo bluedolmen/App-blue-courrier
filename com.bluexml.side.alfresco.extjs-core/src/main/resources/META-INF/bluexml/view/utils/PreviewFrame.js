@@ -59,7 +59,19 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
 					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
 				);
-			break;			
+			break;
+			
+			case 'text/plain':
+				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
+					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
+				);
+			break;
+			
+			case 'text/html':
+				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
+					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
+				);
+			break;
 				
 		}		
 		

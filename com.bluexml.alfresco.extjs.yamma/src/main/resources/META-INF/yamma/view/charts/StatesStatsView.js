@@ -35,7 +35,7 @@ Ext.define('Yamma.view.charts.StatesStatsView', {
 	
 	listeners : {
 		collapse : function(panel, eOpts) { this.updateNextViewToolVisibility(); },
-		expand : function(panel, eOpts) { this.updateNextViewToolVisibility(); },
+		expand : function(panel, eOpts) { this.updateNextViewToolVisibility(); }
 	},
 	
 	updateNextViewToolVisibility : function() {
@@ -54,13 +54,13 @@ Ext.define('Yamma.view.charts.StatesStatsView', {
 			this.currentFilters = filters || [];
 		}
 		
-		if (!chartView) {
-			chartView = this.getCurrentChartView();
-		}		
-		
-		if (!this.isVisible()) {
+		if (!this.isVisible(true /* deep */)) {
 			this.dirty = true;
 			return; // defer loading
+		}
+		
+		if (!chartView) {
+			chartView = this.getCurrentChartView();
 		}
 		
 		chartView.load(

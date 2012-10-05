@@ -15,7 +15,7 @@ Ext.define('Yamma.controller.header.OpenSearchController', {
     	
 		this.control({
 			'opensearch' : {
-//				select : this.onOpenSearchSelect,
+				select : this.onOpenSearchSelect,
 				specialkey : this.onSpecialKey
 			}
     	});
@@ -25,7 +25,6 @@ Ext.define('Yamma.controller.header.OpenSearchController', {
     
     onOpenSearchSelect : function(combo, records, eOpts) {
     	
-    	return;
     	if (!records || 0 == records.length) return;
     	var record = records[0];
     	

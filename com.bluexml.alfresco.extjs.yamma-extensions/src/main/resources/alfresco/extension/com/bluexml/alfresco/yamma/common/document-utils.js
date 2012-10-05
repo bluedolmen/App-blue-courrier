@@ -7,14 +7,16 @@
 		isCopy : function(documentNode) {
 			DocumentUtils.checkDocument(documentNode);
 			
-			var originalAssocs = documentNode.assocs[YammaModel.DOCUMENT_COPY_ORIGINAL_ASSOCNAME];
+			if (!documentNode.hasAspect('cm:copiedfrom')) return false;
+						
+			var originalAssocs = documentNode.assocs['cm:original'];
 			return (null != originalAssocs) && (originalAssocs.length > 0);			
 		},
 		
 		getLateState : function(documentNode) {
 			if (!documentNode) return YammaModel.LATE_STATE_UNDETERMINED;
 			
-			var dueDate = documentNode.properties[YammaModel.PRIORITIZABLE_DUE_DATE_PROPNAME];
+			var dueDate = documentNode.properties[YammaModel.DUEABLE_DUE_DATE_PROPNAME];
 			if (!dueDate) return YammaModel.LATE_STATE_UNDETERMINED;
 			
 			var 
@@ -188,7 +190,10 @@
 			;
 			if (!documentParent) return null;
 			
-			var documentContainer = documentParent.createFolder(containerName, YammaModel.DOCUMENT_CONTAINER_SHORTNAME);
+			var
+				documentOwner = document.getOwner(),
+				documentContainer = documentParent.createFolder(containerName, YammaModel.DOCUMENT_CONTAINER_SHORTNAME)
+			;
 			if (!documentContainer) return null;
 			
 			if (moveInside) {
@@ -197,9 +202,53 @@
 				}
 			}
 			documentContainer.createAssociation(document, YammaModel.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME);
+			documentContainer.setOwner(documentOwner);
 			
 			return documentContainer;
 			
+		},
+		
+		getDocumentSubContainer : function(document, subContainerName, createIfNotExists) {
+			
+			if (!document || !subContainerName) {
+				throw 'IllegalArgumentException! The provided arguments are not valid (document and/or subContainerName have to be set)'; 
+			}
+			
+			var documentContainer = this.getDocumentContainer(document);
+			if (!documentContainer) return null;
+			
+			var subContainer = documentContainer.childByNamePath(subContainerName);
+			if (!subContainer && createIfNotExists) {
+				subContainer = this.createDocumentSubContainer(document, subContainerName)
+			}
+			
+			return subContainer;
+		},
+		
+		createDocumentSubContainer : function(document, subContainerName) {
+			
+			if (!document || !subContainerName) {
+				throw 'IllegalArgumentException! The provided arguments are not valid (document and/or subContainerName have to be set)';				
+			}
+			
+			var documentContainer = document;
+			if (!this.isDocumentContainer(documentContainer)) {
+				documentContainer = this.getDocumentContainer(document);
+			}
+			if (!documentContainer) {
+				throw "IllegalStateException! Cannot get a valid document container for document'" + document.name + "'";
+			}
+			
+			var
+				documentContainerOwner = documentContainer.getOwner(),
+				subContainer = documentContainer.createFolder(subContainerName)
+			;
+			if (!subContainer) {
+				throw "IllegalStateException! You are not allowed to create the container named '" + subContainerName + "' for the document '" + document.names + "'";
+			}
+			subContainer.setOwner(documentContainerOwner);
+			
+			return subContainer;			
 		}
 		
 	};

@@ -2,10 +2,21 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/common/parseargs.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 
+/**
+ * TODO: Refactor this to get a much better architecture separating the content
+ * of archives management and the one of trays management.
+ * 
+ * That may be performed by creating two webscripts, each of them using an helper
+ * library.
+ */
 (function() {
 
 	// PRIVATE
-	var treeNode = null;
+	var 
+		treeNodeRef = null,
+		treeNode = null,
+		rootType = Utils.asString(url.templateArgs.rootType)
+	;
 	
 	// MAIN LOGIC
 	
@@ -17,7 +28,7 @@
 	});
 	
 	function getTreeNode(parseArgs) {
-		var treeNodeRef = parseArgs['node'];
+		treeNodeRef = parseArgs['node'];
 		
 		if (treeNodeRef && 'root' !== treeNodeRef)
 			return Common.getExistingNode(treeNodeRef);	
@@ -25,29 +36,71 @@
 	
 	function main() {
 		
-		var children = getChildren();
+		var children = getTreeChildren();
 		setModel(children);
 		
 	}
 	
-	function getChildren() {
-		if (!treeNode) { // root-node => get sites
-			return sortByTitle(getServicesNodes());
-		}
+	function getTreeChildren() {
 		
-		var treeNodeType = Utils.asString(treeNode.typeShort);
-		switch (treeNodeType) {
+		if ('trays' == rootType) {
+			return getTraysTreeChildren();
+		} else if ('archives' == rootType) {
+			return getArchivesTreeChildren();
+		}
 			
-			case 'st:site':
-				var siteTrays = getSiteTraysChildren();
-				var siteVirtualTrays = getSiteVirtualTraysChildren();
+		return sortByTitle(getAllChildren());	
+	}
+	
+	function getTraysTreeChildren() {
+		
+		if ('root' == treeNodeRef) { // root-node => get sites
+			var children = getServicesNodes(
+			
+				/* hasChildren */
+				function(node) {
+					return (node.childrenByXPath(".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]") || []).length > 0;
+				},
 				
-				return sortByTitle(siteTrays).concat(siteVirtualTrays);
-			break;
+				/* countFunction */
+				getSelectNodeDescendantNumberFunction(
+					".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
+				)
+				
+			)
 			
+			return sortByTitle(children);
+		}
+
+		var treeNodeType = Utils.asString(treeNode.typeShort);	
+		if ('st:site' == treeNodeType) {
+			var 
+				siteTrays = getSiteTraysChildren()
+//				,siteVirtualTrays = getSiteVirtualTraysChildren()
+			;
+			return sortByTitle(siteTrays);//.concat(siteVirtualTrays);				
 		}
 		
-		return sortByTitle(getAllChildren());
+	}
+	
+	function getArchivesTreeChildren() {
+		
+		if ('root' == treeNodeRef) { // root-node => get sites
+			
+			var children = getServicesNodes(null, null,
+				function acceptSiteFunction(site) {
+					var 
+						siteNode = site.node,
+						archivesFolder = ArchivesUtils.getArchivesContainer(siteNode)
+					;
+					return !!archivesFolder;
+				}
+			);
+			
+			return sortByTitle(children);
+		}
+		
+		return [];
 	}
 	
 	/**
@@ -55,25 +108,21 @@
 	 * 
 	 * Services are structured by sites.
 	 */
-	function getServicesNodes() {
-		var sitesNode = companyhome.childByNamePath('Sites');
-		if (!sitesNode) {
-			throw new Error('IllegalStateException! The Sites folder cannot be found');
-		}
+	function getServicesNodes(hasChildren, countFunction, acceptSiteFunction) {
 		
-		var sites = siteService.listSites('','');		
-		var filteredSiteNodes = Utils.map(sites, function(site) {
-			if (YammaUtils.isConfigSite(site.shortName) ) return; // ignore config site
-			return site.node;
-		});
-		
-		var countFunction = getSelectNodeDescendantNumberFunction(
-			".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
-		);
-		
-		var hasChildren = function(node) {
-			return (node.childrenByXPath(".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]") || []).length > 0;
-		};
+		var 
+			sitesNode = ParameterCheck.mandatory(
+				companyhome.childByNamePath('Sites'), 
+				'IllegalStateException! The Sites folder cannot be found'
+			),
+			sites = siteService.listSites('',''),
+			
+			filteredSiteNodes = Utils.map(sites, function(site) {
+				if (YammaUtils.isConfigSite(site.shortName) ) return; // ignore config site
+				if (acceptSiteFunction && !acceptSiteFunction(site)) return; // ignore filtered sites
+				return site.node;
+			})
+		;		
 		
 		return Utils.map(filteredSiteNodes, function(siteNode) {
 			
@@ -82,8 +131,8 @@
 				name : siteNode.name,
 				title : siteNode.properties.title,
 				ref : Utils.asString(siteNode.nodeRef),
-				hasChildren : hasChildren(siteNode) ,
-				count : countFunction(siteNode)
+				hasChildren : hasChildren ? hasChildren(siteNode) : false,
+				count : countFunction ? countFunction(siteNode) : 0
 			};
 			
 		});
@@ -92,22 +141,53 @@
 
 	
 	function getSiteTraysChildren() {
-		var trayNodes = TraysUtils.getSiteTraysChildren(treeNode);
+		var 
+			trayNodes = TraysUtils.getSiteTraysChildren(treeNode),
+			serviceName = treeNode.name, // aka site-name
 				
-		var countFunction = getSelectNodeDescendantNumberFunction(
-				".//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
-		);
+			countFunction = getSelectNodeDescendantNumberFunction(
+					".//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
+			)
+		;
 			
 		return Utils.map(trayNodes, function(trayNode) {
-			return {
-				type : 'tray',
-				name : trayNode.name || '',
-				title : trayNode.properties.title,
-				ref : Utils.asString(trayNode.nodeRef),
-				hasChildren : false,
-				count : countFunction(trayNode)
-			};	
+			var 
+				trayName = trayNode.name || '',
+				trayDefinition = TraysUtils.TRAYS[trayName] || {},
+				trayTitle = trayNode.properties.title || trayDefinition.title,
+				trayFilters = trayDefinition.filters || [],
+				trayDefinition = {
+					type : 'tray',
+					name : trayName,
+					title : trayTitle,
+					ref : Utils.asString(trayNode.nodeRef),
+					hasChildren : false,
+					count : countFunction(trayNode)
+				}
+			;
+			
+			if (trayFilters.length > 0) {
+				trayDefinition.hasChildren = true;
+				trayDefinition.children = Utils.map(trayFilters, function(stateName) {
+					return getVirtualStateTrayDefinition(serviceName, trayName, stateName);
+				});
+			}
+			
+			return trayDefinition;
+			
 		});
+	}
+	
+	function getVirtualStateTrayDefinition(serviceName, trayName, stateName) {
+		
+		return ({
+			type : 'state-tray',
+			name : stateName,
+			title : stateName,
+			ref : serviceName + '|' + trayName + '|' + stateName, // ref has to be unique globally on a tree 
+			hasChildren : false
+		});
+		
 	}
 	
 	function getSiteVirtualTraysChildren() {

@@ -15,21 +15,17 @@ Ext.define('Yamma.model.OpenSearch',{
         	type : 'string', 
         	convert : function(value, record) {
         		
-        		var name = record.get('name');
-        		var reference = record.get('reference');
-        		var typeShort = record.get('typeShort');
-
-        		var typeDefinition = Yamma.utils.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort];
-        		var icon = typeDefinition.icon;
-        		
-        		var displayValue = '';
-        		if (icon)
-        			displayValue += '<img src="' + icon + '"></img> ';
-        		
-        		if (reference)
-        			displayValue += '<span><b>' + reference + '</b> – </span>';
-        		
-        		displayValue += '<span><i>' + name + '</i></span>';
+        		var 
+        			name = record.get('name'),
+        			reference = record.get('reference'),
+        			typeShort = record.get('typeShort'),
+        			typeDefinition = Yamma.utils.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort],
+        			icon = typeDefinition.icon,
+        			displayValue = ''
+        				+ icon ? '<img src="' + icon + '"></img> ' : ''
+        				+ reference ? '<span><b>' + reference + '</b> – </span>' : ''
+        				+ '<span><i>' + name + '</i></span>'
+        		;
         		
         		return displayValue;
         	}
@@ -63,7 +59,6 @@ Ext.define('Yamma.view.header.OpenSearch', {
 		//Custom rendering template for each item
 		getInnerTpl: function(displayField) {
 			return '{display}';
-            //return '<span><b>{reference}</b></span> – <span><i>{name}</i></span>';
 		}
 	},
     

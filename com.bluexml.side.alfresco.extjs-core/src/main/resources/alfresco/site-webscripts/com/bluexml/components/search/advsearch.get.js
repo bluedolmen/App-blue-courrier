@@ -23,13 +23,19 @@ function main()
    
 	function getForm(itemId) {
 		
-		var formsElements = config.scoped["AdvancedSearch"]["advanced-search"].getChildren("forms");
+		var 
+			formsElements = config.scoped["AdvancedSearch"]["advanced-search"].getChildren("forms"),
+			formsElement = null,
+			form = null,
+			formValue = null
+		;
 		
 		for (var i = 0, len_i = formsElements.size(); i < len_i; i++) {
-			var formsElement = formsElements.get(i).childrenMap['form'];
+			formsElement = formsElements.get(i).childrenMap['form'];
+			
 			for (var j = 0, len_j = formsElement.size(); j < len_j; j++) {
-				var form = formsElement.get(j);
-				var formValue = form.value;
+				form = formsElement.get(j);
+				formValue = form.value;
 				
 				if (itemId == formValue) return getFormDefinition(form);
 			}

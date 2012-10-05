@@ -279,11 +279,12 @@
     	
     	propertyNameOrFunction = ('undefined' === typeof propertyNameOrFunction ? 'cm:name' : propertyNameOrFunction);
     	
-    	var compareFunction = compareFunction || 
+    	var compareFunction = compareFunction ||
     		function(a,b) {
     			if (a == b) return 0;
     			a < b ? -1 : 1;
-    		};
+    		}
+    	;
     		
     	var sortingFunction = Utils.isFunction(propertyNameOrFunction) ? propertyNameOrFunction  :
     		function(node1, node2) {
@@ -382,6 +383,47 @@
     	var fullyAuthenticatedUser = sideAuthenticationUtil.getFullyAuthenticatedUser();
     	return Utils.asString(fullyAuthenticatedUser);
     	
-    }
+    },
+    
+	Utils.createPath = function(rootNode, path, createFolderHandler) {
+		
+		if (path.indexOf('/') == 0) { // ignore starting '/'
+			path = substr(1);
+		}
+		
+		var 
+			segments = path.split('/'),
+			currentNode = rootNode
+		;	
+		
+		createFolderHandler = createFolderHandler ||
+			function(parentNode, childName) {
+				return parentNode.createFolder(childName);
+			}
+		;
+			
+		Utils.forEach(segments, function(segment) {
+			
+			var childNode = segment.indexOf(':') >= 0 
+				? currentNode.childrenByXPath(segment)[0] 
+				: currentNode.childByNamePath(segment)
+			;
+			
+			if (!childNode) {
+				childNode = createFolderHandler(currentNode, segment);
+			}
+			
+			currentNode = childNode;
+		});
+		
+		return currentNode;
+	}
+
+	
+	Utils.String = {};
+	
+	Utils.String.trim = function(str) {
+		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	}
     
 })();

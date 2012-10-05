@@ -5,27 +5,30 @@
 	
 	var 
 		childAssoc = behaviour.args[0],
+		isNew = behaviour.args[1],
 		tray = childAssoc.getParent(),
 		document = childAssoc.getChild()
 	;	
 	
-	if ('undefined' == typeof document) {
-		logger.warn('[onCreateTrayContent] Cannot find any contextual document.');
+	if (
+			/* The document is not available */
+			('undefined' == typeof document) ||
+			
+			/* The document was only moved and not created */
+			!isNew ||
+			
+			/* The document is not a content document */
+			!document.isSubType('cm:content') ||
+			
+			/* The tray is not an inbox */
+			!TraysUtils.isInboxTray(tray)
+	) {
 		return;
-	}
+	}	
 	
-	// Filters on yamma-ee:Tray children
-	if (!checkParentType()) return;
-	if (!TraysUtils.isInboxTray(tray)) return; // Only transform documents of inbox trays
+	logNewDocument();
+	IncomingMailUtils.createMail(document);
 	
-	main();
-	
-	
-	function main() {
-		logNewDocument();
-		IncomingMailUtils.createMail(document);
-	}
-
 	function logNewDocument() {
 		if (!logger.isLoggingEnabled()) return;
 
@@ -38,15 +41,6 @@
 		;
 		
 		logger.log(message);
-	}
-	
-	function checkParentType() {
-		if (!tray) {
-			logger.warn('[onCreateTrayContent] Cannot get the parent of the new created node.');
-			return false;
-		}
-		
-		return tray.isSubType(YammaModel.TRAY_TYPE_SHORTNAME);
 	}	
 	
 })();

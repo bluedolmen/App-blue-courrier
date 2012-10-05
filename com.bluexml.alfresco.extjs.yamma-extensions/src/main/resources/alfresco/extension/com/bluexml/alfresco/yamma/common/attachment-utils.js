@@ -12,21 +12,9 @@
 			
 			createIfNotExists = ('undefined' == typeof createIfNotExists ? true : !!createIfNotExists);
 
-			/*
-			 * Here we may restrict the attachments container to be
-			 * inside a DocumentContainer...
-			 */			
-			var 
-				documentParent = document.parent,
-				attachmentsContainer = documentParent.childByNamePath(ATTACHMENTS_CONTAINER_NAME);
-			if (!attachmentsContainer && createIfNotExists) {
-				attachmentsContainer = documentParent.createFolder(ATTACHMENTS_CONTAINER_NAME);
-				if (!attachmentsContainer) {
-					throw new Error('IllegalStateException! Cannot create a valid container for storing attachments of the document');
-				}
-			}
-			
+			var attachmentsContainer = DocumentUtils.getDocumentSubContainer(document, ATTACHMENTS_CONTAINER_NAME, createIfNotExists /* createIfNotExists */);
 			return attachmentsContainer;
+			
 		},
 		
 		addAttachment : function(document, attachment) {			

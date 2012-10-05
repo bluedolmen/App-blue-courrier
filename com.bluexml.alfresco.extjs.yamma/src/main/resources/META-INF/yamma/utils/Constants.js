@@ -59,6 +59,14 @@ Ext.define('Yamma.utils.Constants', {
 			this.getIconDefinition('email_in')
 		);
 		
+		this.INBOUND_MAIL_FILLED_CONTENT_TYPE_DEFINITION = Ext.apply(
+			{
+				title : 'Message manuel entrant',
+				typeShort : 'yamma-ee:InboundMail'
+			},
+			this.getIconDefinition('email_edit_in')
+		);
+		
 		this.OUTBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
 			{
 				title : 'Courrier sortant',
@@ -121,6 +129,14 @@ Ext.define('Yamma.utils.Constants', {
 				this.getIconDefinition('cog_tick')
 			),
 			
+			'sending' : Ext.apply(
+				{
+					title : "En cours d'envoi",
+					shortTitle : 'Envoi'
+				},
+				this.getIconDefinition('cog_go')
+			),
+			
 			'processed' : Ext.apply(
 				{
 					title : 'Traité et validé',
@@ -156,6 +172,20 @@ Ext.define('Yamma.utils.Constants', {
 				this.getIconDefinition('page_white_acrobat')
 			),
 			
+			'text/html' : Ext.apply(
+				{
+					title : 'Document HTML'
+				}, 
+				this.getIconDefinition('page_white_code')
+			),
+			
+			'text/plain' : Ext.apply(
+				{
+					title : 'Document texte'
+				}, 
+				this.getIconDefinition('page_white_text')
+			),
+				
 			'default' : Ext.apply(
 				{
 					title : ''

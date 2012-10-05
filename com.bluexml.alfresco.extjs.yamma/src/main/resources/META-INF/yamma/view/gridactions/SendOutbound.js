@@ -12,7 +12,7 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 		ICON : Yamma.Constants.getIconDefinition('email_go')
 	},
 	
-	SEND_REPLY_ACTION_WS_URL : 'alfresco://bluexml/yamma/send-reply', 
+	SEND_REPLY_ACTION_WS_URL : 'alfresco://bluexml/yamma/send-outbound', 
 	CONFIRM_MESSAGE : "Confirmez-vous l'envoi du document au destinataire ?</br>" +
 						"Tout envoi devra être validé par une personne accréditée.",
 	CONFIRM_TITLE : 'Envoyer ?',

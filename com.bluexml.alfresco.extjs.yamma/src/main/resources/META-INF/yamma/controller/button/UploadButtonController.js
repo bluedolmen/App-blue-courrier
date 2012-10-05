@@ -78,9 +78,17 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	 * @private
 	 */
 	onUploadClick : function(item) {
-		var typeShort = item.typeShort;
+		var 
+			typeShort = item.typeShort,
+			action = item.action
+		;
 		
-		this.showUploadForm(typeShort);		
+		if ('uploadForm' == action) {
+			this.showUploadForm(typeShort);
+		} else if ('createForm' == action) {
+			this.showCreateForm(typeShort);
+		}
+		
 	},
 		
 	/**
@@ -123,6 +131,37 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 			
 		}).show();
 		
-	}	
+	},
+	
+	showCreateForm : function(typeShort) {
+		var
+			uploadButton = this.getUploadButton(),
+			destination = uploadButton.getDestination()
+		;
+		
+        Ext.define('Yamma.view.windows.CreateFormWindow.DocumentBritair', {
+            extend : 'Bluexml.view.forms.window.CreateFormWindow',            
+
+            onSuccess : function() {
+				this.callParent(arguments);
+            }
+             
+	    }, function() {
+	            
+            var createFormWindow = new this();
+            createFormWindow.load({
+                typeShort : typeShort,
+                formConfig : {
+                        destination : destination,
+                        itemId : typeShort,
+                        formId : 'fill-online',
+                        showCancelButton : false,
+                        mimeType : 'text/html'
+                }
+            });
+	               
+	    });
+        
+	}
 
 });

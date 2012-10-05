@@ -102,26 +102,35 @@
 	
 	function copyDocumentToCCTrays() {
 		
-		var distributedServiceNodes = DocumentUtils.getDistributedServices(documentNode);
-		
-		var successfulServicesNodes = []; // filled as a side effect of Utils.map 
-		var copiedFiles = Utils.map(distributedServiceNodes, function(serviceNode) {
-			var serviceName = serviceNode.name;
-			var tray = getServiceTray(serviceName, TraysUtils.CCBOX_TRAY_NAME);
-			if (!tray) return;
+		var 
+			distributedServiceNodes = DocumentUtils.getDistributedServices(documentNode),
 			
-			var documentCopy = documentNode.copy(tray);
-			if (documentCopy == null) return;
+			successfulServicesNodes = [], // filled as a side effect of Utils.map
 			
-			successfulServicesNodes.push(serviceNode);
-			
-			if (documentCopy.addAspect(YammaModel.DOCUMENT_COPY_ASPECT_SHORTNAME)) {
-				//success adding aspect, set the correct link
-				documentCopy.createAssociation(documentNode, YammaModel.DOCUMENT_COPY_ORIGINAL_ASSOCNAME);
-			}
-			
-			return documentCopy;
-		});
+			copiedFiles = Utils.map(distributedServiceNodes, function(serviceNode) {
+				
+				var 
+					serviceName = serviceNode.name,
+					tray = getServiceTray(serviceName, TraysUtils.CCBOX_TRAY_NAME)
+				;
+				if (!tray) return;
+				
+				var documentCopy = documentNode.copy(tray);
+				if (documentCopy == null) return;
+				
+				successfulServicesNodes.push(serviceNode);
+	
+				// if the copy correctly performed herebefore then the cm:copiedfrom
+				// is already set as expected.
+				// So this piece of code may be superfluous
+				if (!documentCopy.hasAspect('cm:copiedfrom')) {
+					documentCopy.addAspect('cm:copiedfrom');
+					documentCopy.createAssociation(documentNode, 'cm:original');
+				}
+				
+				return documentCopy;
+			})
+		;
 
 		if (Utils.isArrayEmpty(copiedFiles)) return [];
 		

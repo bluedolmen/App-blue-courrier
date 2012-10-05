@@ -399,7 +399,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			    				context : record,
 			    				title : record.get('cm:title') || record.get('cm:name'),
 			    				iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
-			    				editMetaDataHandler : me.onReplyFileMetaDataEdited,
+			    				editMetaDataHandler : me.onReplyFileMetaDataEdited
 			    			}
 			    			
 			    		});

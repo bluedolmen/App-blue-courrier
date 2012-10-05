@@ -1,6 +1,6 @@
 Ext.require([
 	'Yamma.utils.datasources.Documents',
-	'Yamma.utils.grid.MailsViewGrouping',
+	'Yamma.utils.grid.MailsViewGrouping'
 ], function() {
 
 Ext.define('Yamma.view.MailsView', {
@@ -23,7 +23,9 @@ Ext.define('Yamma.view.MailsView', {
 		'Yamma.view.gridactions.Distribute',
 		'Yamma.view.gridactions.StartProcessing',
 		'Yamma.view.gridactions.SendOutbound',
-		'Yamma.view.gridactions.ValidateReply'
+		'Yamma.view.gridactions.ValidateReply',
+		'Yamma.view.gridactions.MarkAsSent',
+		'Yamma.view.gridactions.Archive'
 	],
 	
 	features : [
@@ -201,6 +203,7 @@ Ext.define('Yamma.view.MailsView', {
 	},
 	
 	getDocumentTypeActionDefinition : function() {
+		var me = this;
 		
 		return	{
 			
@@ -208,7 +211,7 @@ Ext.define('Yamma.view.MailsView', {
 				
 				var typeDefinition =
 					getTypeShortDefinition(record) ||
-					getMimeTypeDefinition(record) ||
+					me.getMimeTypeDefinition(record) ||
 					Yamma.Constants.UNKNOWN_TYPE_DEFINITION;					
 				
 				meta.tdAttr = 'data-qtip="' + typeDefinition.title + '"';
@@ -234,7 +237,11 @@ Ext.define('Yamma.view.MailsView', {
 	 */
 	getMimeTypeDefinition : function(record) {
 		var mimetype = record.get('mimetype') || 'default';
-		return Yamma.Constants.MIME_TYPE_DEFINITIONS[mimetype];
+		
+		return (
+			Yamma.Constants.MIME_TYPE_DEFINITIONS[mimetype] || 
+			Yamma.Constants.MIME_TYPE_DEFINITIONS['default']
+		);
 	},	
 	
 	getNameColumnDefinition : function() {
@@ -274,11 +281,11 @@ Ext.define('Yamma.view.MailsView', {
 	),
 	
 	ASSIGNED_TIP_TEMPLATE : new Ext.XTemplate(
-		'<div><emph>Expéditeur</emph></div>',
-		'<div>Nom : <strong>{name}</strong></div>',
-		'<div>Adresse : <strong>{address}</strong></div>',
-		'<div style="font-family: monospace;">Mél : <strong>{eMail}</strong></div>',
-		'<div style="font-family: monospace;">Tél : <strong>{phone}</strong></div>'
+		'<div style="text-align: right;"><i>Expéditeur</i></div>',
+		'<div>Nom : <b>{name}</b></div>',
+		'<div>Adresse : <b>{address}</b></div>',
+		'<div>Mél : <span style="font-family: monospace;">{eMail}</span></div>',
+		'<div>Tél : <span style="font-family: monospace;">{phone}</span></div>'
 	),
 	
 	getAssignedColumnDefinition : function() {
@@ -313,7 +320,7 @@ Ext.define('Yamma.view.MailsView', {
 					;
 					
 					if (correspondentName || correspondentAddress || correspondentMail || correspondentPhone) {
-						meta.tdAttr = 'data-qtip="' + tooltip + "'";
+						meta.tdAttr = 'data-qtip="' + Ext.htmlEncode(tooltip) + '"';
 					}
 					
 					return me.ASSIGNED_TEMPLATE.applyTemplate({
@@ -470,10 +477,10 @@ Ext.define('Yamma.view.MailsView', {
 	),
 	
 	DATES_TIP_TEMPLATE : new Ext.XTemplate(
-		'<div>Rédaction : <strong>{writing}</strong></div>',
-		'<div>Envoi : <strong>{sent}</strong></div>',
-		'<div>Réception : <strong>{delivered}</strong></div>',
-		'<div>Numérisation : <strong>{digitized}</strong></div>'
+		'<div>Rédaction : <b>{writing}</b></div>',
+		'<div>Envoi : <b>{sent}</b></div>',
+		'<div>Réception : <b>{delivered}</b></div>',
+		'<div>Numérisation : <b>{digitized}</b></div>'
 	),
 	
 	getDatesColumnDefinition : function() {
@@ -594,7 +601,9 @@ Ext.define('Yamma.view.MailsView', {
 					this.getSendOutboundActionDefinition(),
 					this.getAcceptReplyActionDefinition(),
 					this.getRefuseReplyActionDefinition(),
-					this.getDelegateValidationActionDefinition()
+					this.getDelegateValidationActionDefinition(),
+					this.getMarkAsSentActionDefinition(),
+					this.getArchiveActionDefinition()
 				]
 				
 			}

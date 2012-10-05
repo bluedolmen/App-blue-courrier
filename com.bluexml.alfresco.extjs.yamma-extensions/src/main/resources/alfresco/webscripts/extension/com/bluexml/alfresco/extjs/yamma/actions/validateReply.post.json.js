@@ -70,10 +70,11 @@
 	
 	function acceptReply() {
 		moveDocumentToOutbox();
+		addHistoryComment();
 		
 		// Now state the document as validating!delivery
-		updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSED);
-		setModel(operation, YammaModel.DOCUMENT_STATE_PROCESSED);
+		updateDocumentState(YammaModel.DOCUMENT_STATE_SENDING);
+		setModel(operation, YammaModel.DOCUMENT_STATE_SENDING);
 		
 	}
 	
@@ -87,9 +88,7 @@
 
 		if (!documentContainer.move(outboxTray)) {
 			throw '[accept] Cannot move the document to the outbox container';
-		}
-		
-		addHistoryComment();
+		}		
 		
 		return outboxTray;
 		

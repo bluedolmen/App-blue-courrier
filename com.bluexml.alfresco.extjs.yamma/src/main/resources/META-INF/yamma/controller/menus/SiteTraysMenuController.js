@@ -10,6 +10,7 @@ Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 			}
 		});
 		
+		this.callParent();
 	},
 	
 	extractContext : function(record) {

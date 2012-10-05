@@ -135,14 +135,6 @@
 				},
 				
 				{
-					name : YammaModel.PRIORITIZABLE_ASPECT_SHORTNAME + '_delay',
-					type : 'string',
-					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_DELAY_ASSOCNAME, 'cm:name', true);
-					}
-				},
-				
-				{
 					name : YammaModel.PRIORITIZABLE_ASPECT_SHORTNAME + '_priority',
 					type : 'string',
 					evaluate : function(node) {
@@ -150,10 +142,18 @@
 					}
 				},
 				
-				YammaModel.PRIORITIZABLE_DUE_DATE_PROPNAME,
+				{
+					name : YammaModel.DUEABLE_ASPECT_SHORTNAME + '_delay',
+					type : 'string',
+					evaluate : function(node) {
+						return this.evaluateAssocProperty(node, YammaModel.DUEABLE_DELAY_ASSOCNAME, 'cm:name', true);
+					}
+				},
+				
+				YammaModel.DUEABLE_DUE_DATE_PROPNAME,
 				
 				{
-					name : YammaModel.PRIORITIZABLE_ASPECT_SHORTNAME + '_lateState',
+					name : YammaModel.DUEABLE_ASPECT_SHORTNAME + '_lateState',
 					type : 'string',
 					evaluate : function(node) {
 						return DocumentUtils.getLateState(node);
@@ -292,7 +292,7 @@
 						
 						query += 
 							' +@' + 
-							Utils.escapeQName(YammaModel.PRIORITIZABLE_DUE_DATE_PROPNAME) +
+							Utils.escapeQName(YammaModel.DUEABLE_DUE_DATE_PROPNAME) +
 							':' + (late ? '[MIN TO NOW]' : '[NOW TO MAX]');
 						
 						return query;
@@ -307,6 +307,21 @@
 						if (null == stateId) return query;
 						
 						query += ' +' + Utils.getLuceneAttributeFilter(YammaModel.STATUSABLE_STATE_PROPNAME, stateId);
+						return query;
+						
+					}
+					
+				},
+				
+				'archived' : {
+					
+					applyQueryFilter : function(query, value) {
+						
+						if ('true' !== value) return query;
+						
+						query = query.replace(/cm:documentLibrary\/.*\/\/\*/,'cm:documentLibrary/cm:' + ArchivesUtils.ARCHIVES_FOLDER_NAME + '//*');
+						query += ' +' + Utils.getLuceneAttributeFilter(YammaModel.STATUSABLE_STATE_PROPNAME, YammaModel.DOCUMENT_STATE_ARCHIVED);
+						
 						return query;
 						
 					}

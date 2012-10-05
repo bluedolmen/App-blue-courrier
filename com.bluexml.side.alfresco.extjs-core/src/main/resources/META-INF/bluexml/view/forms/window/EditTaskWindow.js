@@ -1,6 +1,6 @@
-Ext.define('Bluexml.view.forms.EditTaskWindow', {
+Ext.define('Bluexml.view.forms.window.EditTaskWindow', {
 	
-	extend : 'Bluexml.view.forms.LongTimeRunningFormWindow',
+	extend : 'Bluexml.view.forms.window.LongTimeRunningFormWindow',
 	requires : [
 		'Bluexml.view.forms.EditTaskFrame'	
 	],

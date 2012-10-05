@@ -4,7 +4,7 @@ Ext.define('Yamma.view.header.Header', {
 	requires : [
 		'Bluexml.Alfresco',
 		'Bluexml.model.Person',
-		'Bluexml.utils.alfresco.button.UserButtonMenu',
+		'Yamma.view.header.YammaUserButtonMenu',
 		'Yamma.view.menus.AdvancedSearchMenu',
 		'Yamma.view.header.OpenSearch'
 	],
@@ -36,7 +36,7 @@ Ext.define('Yamma.view.header.Header', {
 		
 		'-',
 		{
-			xtype : 'userbuttonmenu'
+			xtype : 'yammauserbuttonmenu'
 		}
 		
 	],

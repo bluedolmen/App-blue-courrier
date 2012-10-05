@@ -3,6 +3,10 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	extend : 'Ext.button.Button',
 	alias : 'widget.userbuttonmenu',
 	
+	statics : {
+		STATISTICS_URL : 'http://www.bluexml.com/bluecourrier/stats'
+	},
+	
 	requires : [
 		'Bluexml.model.PersonFactory',
 		'Ext.Img'
@@ -29,20 +33,16 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	
 	getMenuItems : function() {
 		
-		var items = [];
+		return Ext.clean(
+			[
+				this.getProfileMenuItemDeclaration()
+			].concat(
+				this.getAdditionalMenuItems() || []
+			).concat([
+				this.getLogoutMenuItemDeclaration()
+			])
+		);
 		
-		var profileMenu = this.getProfileMenuItemDeclaration();
-		if (profileMenu) items.push(profileMenu);
-		
-		var additionalMenuItems = this.getAdditionalMenuItems();
-		if (additionalMenuItems && Ext.isArray(additionalMenuItems)) {
-			items = items.concat(additionalMenuItems);
-		}
-		
-		var logoutMenu = this.getLogoutMenuItemDeclaration();
-		if (logoutMenu) items.push(logoutMenu);
-		
-		return items;
 	},
 	
 	getProfileMenuItemDeclaration : function() {
@@ -59,12 +59,14 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	},
 	
 	getLogoutMenuItemDeclaration : function() {
+		
 		return {
 			id : 'logout',
 			text : 'Déconnecter',
 			iconCls : 'icon-door_out',
 			href : 'dologout'
 		};
+		
 	},
 	
 	getAdditionalMenuItems : function() {
@@ -109,6 +111,10 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
     onProfileMenuItemClicked : function() {    	
 		var userProfileWindow = Ext.create('Bluexml.view.windows.UserProfileWindow');
 		userProfileWindow.show();
+    },
+    
+    onStatisticsMenuItemClicked : function() {
+    	window.open(Bluexml.utils.alfresco.button.UserButtonMenu.STATISTICS_URL);
     }
 	
 	

@@ -14,20 +14,26 @@
 		 */
 		canDistribute : function(documentNode, username) {
 			
-			if (!DocumentUtils.isOriginalDocumentNode(documentNode)) return false;
 			username = username || Utils.getCurrentUserName();
-			
-			var 
-				isTargetServiceAssigned = !!DocumentUtils.getAssignedService(documentNode),
-				isDocumentDelivered = DocumentUtils.isDocumentDelivered(documentNode),
-				isDocumentPending = DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PENDING),
-				isDocumentDelivering = DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_DELIVERING)
-			;
-			
+						
 			return (
-				(isDocumentPending || isDocumentDelivering) &&
-				isTargetServiceAssigned &&
-				!isDocumentDelivered 
+				
+				/* Document is original */					
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+				
+				(
+						/* Document is in 'pending' state */
+						DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PENDING) ||
+						
+						/* Document is in 'delivering' state */
+						DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_DELIVERING)
+				) &&
+				
+				/* Document target service is assigned */
+				!!DocumentUtils.getAssignedService(documentNode) &&
+				
+				/* Document is delivered */
+				!DocumentUtils.isDocumentDelivered(documentNode)
 			);
 			
 		},
@@ -40,22 +46,50 @@
 		 */
 		canTakeProcessing : function(documentNode, username) {
 			
-			if (!DocumentUtils.isOriginalDocumentNode(documentNode)) return false;
 			username = username || Utils.getCurrentUserName();
 			
-			var 
-				isDocumentDelivered = DocumentUtils.isDocumentDelivered(documentNode),
-				isDocumentDelivering = DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_DELIVERING),
-				isCurrentAssignedUser = DocumentUtils.isAssignedAuthority(documentNode, username)
-			; 
-			
 			return (
-				isDocumentDelivering &&
-				isDocumentDelivered && 
-				isCurrentAssignedUser
+					
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+				
+				/* Document is in 'delivering' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_DELIVERING) &&
+				
+				/* Document is delivered */
+				DocumentUtils.isDocumentDelivered(documentNode) &&
+				
+				/* Document is assigned to the current user */
+				DocumentUtils.isAssignedAuthority(documentNode, username)
+				
 			);
 			
 		},
+		
+		/**
+		 * A user can reply to an inbound document if:
+		 * - The document is in processing state
+		 * - He is the assigned user
+		 */
+		canReply : function(documentNode, username) {
+			
+			username = username || Utils.getCurrentUserName();			
+			
+			return (
+					/* Document is original */
+					DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+					/* Document is a kind of inbound document */
+					documentNode.hasAspect(YammaModel.INBOUND_DOCUMENT_ASPECT_SHORTNAME) &&						
+					
+					/* Document is in 'processing' state */
+					DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
+					
+					/* the user is the currently assigned user */
+					DocumentUtils.isAssignedAuthority(documentNode, username)
+				);
+			
+		},		
 		
 		/**
 		 * A user can send an Outbound (Mail) if:
@@ -65,7 +99,10 @@
 		 */
 		canSendOutbound : function(documentNode, username) {
 			
+			username = username || Utils.getCurrentUserName();			
+			
 			return (
+					
 				/* Document is original */
 				DocumentUtils.isOriginalDocumentNode(documentNode) &&
 					
@@ -83,6 +120,7 @@
 				
 				/* the user is the currently assigned user */
 				DocumentUtils.isAssignedAuthority(documentNode, username)
+				
 			);
 			
 		},
@@ -95,11 +133,19 @@
 		 */
 		canAttach : function(documentNode, username /* not used */) {
 			
-			if (!DocumentUtils.isOriginalDocumentNode(documentNode)) return false;
-							
-			var isDocumentPending = DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PENDING);
-			return AttachmentUtils.canAttach(documentNode) && isDocumentPending;				
-			
+			return (
+					
+					/* Document is original */
+					DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+					/* Document is in 'pending' state */
+					DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PENDING) &&
+					
+					/* Document can contain attachments */
+					AttachmentUtils.canAttach(documentNode)
+					
+			);
+						
 		},
 		
 		
@@ -110,19 +156,54 @@
 		 */
 		canValidate : function(documentNode, username) {
 			
-			if (!DocumentUtils.isOriginalDocumentNode(documentNode)) return false;
 			username = username || Utils.getCurrentUserName();
 			
-			var 
-				isDocumentValidating = DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED),
-				isServiceManager = DocumentUtils.isServiceManager(documentNode, username)
-			;
+			return (
+					
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+				/* Document is in 'validating-processed' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED) &&
+				
+				/* the user is the current service manager */
+				DocumentUtils.isServiceManager(documentNode, username)
+				
+			);
+		
+
+		},
+		
+		canMarkAsSent : function(documentNode, username) {
+			
+			username = username || Utils.getCurrentUserName();
 			
 			return (
-				isDocumentValidating &&
-				isServiceManager
+					
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+				/* Document is in 'sending' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_SENDING)
+								
 			);
-
+			
+		},
+		
+		canArchive : function(documentNode, username) {
+			
+			username = username || Utils.getCurrentUserName();
+			
+			return (
+					
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+				/* Document is in 'processed' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSED)
+								
+			);
+			
 		}
 		
 		

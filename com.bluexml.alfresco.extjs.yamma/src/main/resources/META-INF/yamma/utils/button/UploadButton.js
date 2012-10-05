@@ -24,10 +24,18 @@ Ext.define('Yamma.utils.button.UploadButton', {
 				return  {
 					text : typeDefinition.title,
 					iconCls : typeDefinition.iconCls,
-					typeShort : typeDefinition.typeShort
+					typeShort : typeDefinition.typeShort,
+					action : 'uploadForm'
 				};
 			}
-		)
+		).concat([
+			{
+				text : Yamma.Constants.INBOUND_MAIL_FILLED_CONTENT_TYPE_DEFINITION.title,
+				iconCls : Yamma.Constants.INBOUND_MAIL_FILLED_CONTENT_TYPE_DEFINITION.iconCls,
+				typeShort : Yamma.Constants.INBOUND_MAIL_FILLED_CONTENT_TYPE_DEFINITION.typeShort,
+				action : 'createForm'
+			}
+		])
 	},
 	
 	config : {

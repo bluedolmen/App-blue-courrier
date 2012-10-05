@@ -7,7 +7,7 @@
 				throw new Error('IllegalArgumentException! The provided documentNode is not a valid node');
 			}
 			
-			return documentNode.properties[YammaModel.PRIORITIZABLE_DUE_DATE_PROPNAME] != null;			
+			return documentNode.properties[YammaModel.DUEABLE_DUE_DATE_PROPNAME] != null;			
 		},
 		
 		updateDueDate : function(documentNode, delay) {
@@ -19,7 +19,7 @@
 			var delayInMillis = delayInDays * 1000 * 60 * 60 *24;
 			var dueDateMillis = createdDate.getTime() + delayInMillis;
 			
-			documentNode.properties[YammaModel.PRIORITIZABLE_DUE_DATE_PROPNAME] = new Date(dueDateMillis);
+			documentNode.properties[YammaModel.DUEABLE_DUE_DATE_PROPNAME] = new Date(dueDateMillis);
 			documentNode.save();
 		},
 		

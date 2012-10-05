@@ -5,8 +5,9 @@ Ext.define('Yamma.view.menus.MainMenu', {
 	
 	requires : [
 		'Ext.layout.container.Accordion',
+		'Yamma.view.menus.MyMenu',
 		'Yamma.view.menus.SiteTraysMenu',
-		'Yamma.view.menus.MyMenu'
+		'Yamma.view.menus.SiteArchivesMenu'
 	],
 	
 	id : 'main-menu',
@@ -54,6 +55,9 @@ Ext.define('Yamma.view.menus.MainMenu', {
 	    },
 	    {
 	    	xtype : 'sitetraysmenu'
+	    },
+	    {
+	    	xtype : 'sitearchivesmenu'
 	    }
     ],
     

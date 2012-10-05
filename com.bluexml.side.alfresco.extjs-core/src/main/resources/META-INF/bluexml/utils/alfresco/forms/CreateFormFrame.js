@@ -5,12 +5,9 @@ Ext.define('Bluexml.utils.alfresco.forms.CreateFormFrame',{
 	
 	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'extjscreateform',	
 	
-//	defaultFormConfig : {
-//		itemKind : 'type',
-//		mode : 'create',
-//		editInline : true,
-//		googleEditable : true		
-//	},
+	defaultFormConfig : {
+		showCancelButton : true
+	},
 	
 	onContentDocumentSubmitButtonClicked : function(event, button, eOpts) {
 		// override => DO NOTHING

@@ -1,6 +1,6 @@
-Ext.define('Bluexml.view.forms.ViewFormWindow', {
+Ext.define('Bluexml.view.forms.window.ViewFormWindow', {
 	
-	extend : 'Bluexml.view.forms.FormWindow',
+	extend : 'Bluexml.view.forms.window.FormWindow',
 	requires : [
 		'Bluexml.view.forms.ViewFormFrame'	
 	],

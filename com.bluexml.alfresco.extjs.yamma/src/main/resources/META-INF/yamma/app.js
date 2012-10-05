@@ -36,8 +36,11 @@ function initApplication() {
 			
 			controllers : [
 				'header.OpenSearchController',
+				
 				'menus.SiteTraysMenuController',
+				'menus.SiteArchivesMenuController',
 				'menus.MyMenuController',
+				
 				'menus.AdvancedSearchMenuController',
 				'charts.StatesStatsViewController',
 				'MailsViewController',

@@ -26,19 +26,7 @@
 			}
 			createIfNotExists = ('undefined' == typeof createIfNotExists ? true : !!createIfNotExists);
 			
-			var documentContainer = DocumentUtils.getDocumentContainer(document);
-			if (!documentContainer) {
-				throw new Error('IllegalStateException! Cannot get a valid container for the document');
-			}
-			
-			var repliesContainer = documentContainer.childByNamePath(REPLIES_CONTAINER_NAME);
-			if (!repliesContainer && createIfNotExists) {
-				repliesContainer = documentContainer.createFolder(REPLIES_CONTAINER_NAME);
-				if (!repliesContainer) {
-					throw new Error('IllegalStateException! Cannot create a valid container for storing replies of the document');
-				}
-			}
-			
+			var repliesContainer = DocumentUtils.getDocumentSubContainer(document, REPLIES_CONTAINER_NAME, createIfNotExists);			
 			return repliesContainer;
 		},
 		
@@ -61,16 +49,13 @@
 			DocumentUtils.createDocumentContainer(replyNode, true /* moveInside */); // Creates a container for this document
 			
 			fillWritingDate();
-			fillRecipient();
+			fillObject();
 			fillCorrespondent();
+			fillRecipient();
 			replyNode.save();
 			
 			// create replyTo association
 			replyNode.createAssociation(document, YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME);
-			
-			function fillCorrespondent() {
-				// Correspondent is the current user
-			}
 			
 			function fillWritingDate() {
 				var writingDate = replyNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
@@ -78,6 +63,40 @@
 				if (!writingDate) {
 					replyNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME] = new Date();
 				}				
+			}
+			
+			function fillObject() {
+				var object = replyNode.properties[YammaModel.MAIL_OBJECT_PROPNAME];
+				if (!object) {
+					replyNode.properties[YammaModel.MAIL_OBJECT_PROPNAME] = 'Re: ' + document.properties[YammaModel.MAIL_OBJECT_PROPNAME];
+				}
+			}
+			
+			function fillCorrespondent() {
+				var assignedAuthority = DocumentUtils.getAssignedAuthority(document);
+				if (null == assignedAuthority) return;
+				
+				var
+					firstName = assignedAuthority.properties['cm:firstName'],
+					lastName = assignedAuthority.properties['cm:lastName'],
+					telephone = 
+						assignedAuthority.properties['cm:companytelephone'] ||
+						assignedAuthority.properties['cm:telephone'] || 
+						assignedAuthority.properties['cm:mobile'],
+					email = 
+						assignedAuthority.properties['cm:companyemail'] ||
+						assignedAuthority.properties['cm:email'],
+					address = 
+						assignedAuthority.properties['cm:companyaddress1'] + ' ' +
+						assignedAuthority.properties['cm:companyaddress2'] + ' ' +
+						assignedAuthority.properties['cm:companyaddress3']
+				;
+				
+				replyNode.properties['YammaModel.CORRESPONDENT_NAME_PROPNAME'] = lastName + ' ' + firstName;
+				replyNode.properties['YammaModel.CORRESPONDENT_ADDRESS_PROPNAME'] = address;
+				replyNode.properties['YammaModel.CORRESPONDENT_CONTACT_EMAIL_PROPNAME'] = email;
+				replyNode.properties['YammaModel.CORRESPONDENT_CONTACT_PHONE_PROPNAME'] = telephone;				
+				
 			}
 			
 			function fillRecipient() {
@@ -98,7 +117,7 @@
 				;
 				
 				// fill recipient information
-				for (var i = 0, len = sourceProperties.length; i++; i < len) {
+				for (var i = 0, len = sourceProperties.length; i < len; i++) {
 					
 					var 
 						sourcePropertyName = sourceProperties[i],
@@ -107,8 +126,8 @@
 						targetPropertyValue = replyNode.properties[targetPropertyName]
 					;
 					
-					if (targetPropertyValue != null) { // if not already set
-						targetNode.properties[propertyName] = sourcePropertyValue;
+					if (targetPropertyValue == null) { // if not already set
+						replyNode.properties[targetPropertyName] = sourcePropertyValue;
 					}
 					
 				}
@@ -136,15 +155,8 @@
 		
 		getReplies : function(document) {
 			
-			if (!document) return [];
-			
-//			// This couple of lines ensures that the replies container actually exists
-//			// Not sure this should be enforced!
-//			var repliesContainer = ReplyUtils.getRepliesContainer(document, /* createIfNotExists */ false);
-//			if (!repliesContainer) return [];
-
+			if (!document) return [];			
 			return document.sourceAssocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [];
-//			return repliesContainer.childrenByXPath('*[subtypeOf("' + YammaModel.REPLY_TYPE_SHORTNAME + '")]') || [];
 			
 		},
 		

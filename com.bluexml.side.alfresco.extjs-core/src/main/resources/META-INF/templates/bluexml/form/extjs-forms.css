@@ -22,6 +22,18 @@
 
 }
 
+.object-finder {
+	width: 500px !important;
+}
+
+.object-finder .panel-right {
+	width: 49%;
+}
+
+.yui-skin-default .yui-panel .hd, .yui-skin-default .yui-panel .form-buttons, .yui-skin-default .yui-panel .bdft, .yui-skin-default .yui-panel .ft {
+	background-color: #DFE9F6;
+}
+
 /*
 .yui-nav li em {
 	color: #15498B;

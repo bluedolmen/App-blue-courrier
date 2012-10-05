@@ -16,7 +16,7 @@
 				<mode>create</mode>
 				<showCaption>true</showCaption>
 				<showSubmitButton>true</showSubmitButton>
-				<showCancelButton>true</showCancelButton>
+				<showCancelButton>{showCancelButton}</showCancelButton>
 				<submitType>{submitType}</submitType>
 			</properties>
 			

@@ -94,6 +94,9 @@
 .icon-folder_table_house {
     background-image: url(../icons/folder_table_house.png) !important;
 }
+.icon-page_white_code {
+    background-image: url(../icons/page_white_code.png) !important;
+}
 .icon-page_white_stack {
     background-image: url(../icons/page_white_stack.png) !important;
 }
@@ -168,6 +171,9 @@
 }
 .icon-zoom_lock {
     background-image: url(../icons/zoom_lock.png) !important;
+}
+.icon-email_edit_in {
+    background-image: url(../icons/email_edit_in.png) !important;
 }
 .icon-page_white_medal {
     background-image: url(../icons/page_white_medal.png) !important;

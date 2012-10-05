@@ -10,7 +10,7 @@
 	<arguments>
 	
 	</arguments>
-	<url>/bluexml/yamma/send-reply</url>
+	<url>/bluexml/yamma/send-outbound</url>
 	<format default="json" />
 	<authentication runas="admin">user</authentication>
 </webscript>

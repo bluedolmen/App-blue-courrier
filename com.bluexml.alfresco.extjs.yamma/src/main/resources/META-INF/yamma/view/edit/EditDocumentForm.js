@@ -14,11 +14,14 @@ Ext.define('Yamma.view.edit.EditDocumentForm', {
 	
 	loadDocument : function(nodeRef) {
 				
-		this.loadNode(nodeRef, {
-			formConfig : {
-				showCancelButton : false
-			}
-		});
+		this.loadNode(
+			nodeRef,
+			{
+				formConfig : {
+					showCancelButton : false				
+				}
+			} /* extra-config */
+		);
 		
 		// Has to be called after loadNode, since loadNode will call clear() as a side-effect
 		this.editedDocumentNodeRef = nodeRef;

@@ -65,7 +65,7 @@ Ext.define('Yamma.view.menus.MyMenu', {
 					
 				}
 			]
-		}
+		};
 		
 	}
 	

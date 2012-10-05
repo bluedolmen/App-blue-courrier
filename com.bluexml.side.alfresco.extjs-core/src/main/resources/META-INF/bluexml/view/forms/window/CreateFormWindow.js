@@ -1,6 +1,6 @@
-Ext.define('Bluexml.view.forms.CreateFormWindow', {
+Ext.define('Bluexml.view.forms.window.CreateFormWindow', {
 	
-	extend : 'Bluexml.view.forms.LongTimeRunningFormWindow',
+	extend : 'Bluexml.view.forms.window.LongTimeRunningFormWindow',
 	requires : [
 		'Bluexml.utils.alfresco.forms.CreateFormFrame'	
 	],

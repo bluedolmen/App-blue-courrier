@@ -12,9 +12,9 @@
 
    <plugin-conditions>
 
-      <!--condition mimeType="application/pdf">
+      <condition mimeType="text/html">
          <plugin>EmbedAsObject</plugin>
-      </condition-->
+      </condition>
 
       <!-- Video with posters -->
 

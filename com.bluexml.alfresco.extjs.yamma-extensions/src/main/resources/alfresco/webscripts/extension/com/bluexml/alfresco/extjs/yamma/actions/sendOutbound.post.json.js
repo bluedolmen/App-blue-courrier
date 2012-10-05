@@ -8,8 +8,9 @@
 	
 	// PRIVATE
 	var 
-		fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName(),
-		documentNode
+		fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName(), /* string */
+		documentNode, /* ScriptNode */ 
+		sentByMail /* boolean */
 	;
 	
 	// MAIN LOGIC
@@ -17,9 +18,11 @@
 	Common.securedExec(function() {
 		
 		var 
-			parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true}),
+			parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true}, { name : 'sentByMail', defaultValue : 'true' } ),
 			documentNodeRef = parseArgs['nodeRef']
 		;
+		
+		sentByMail = ( Utils.asString(parseArgs['sentByMail']) === 'true' );
 		
 		documentNode = search.findNode(documentNodeRef);
 		if (!documentNode) {
@@ -29,8 +32,7 @@
 			};
 		}
 		
-		var documentHasReplies = ReplyUtils.hasReplies(documentNode);
-		if (!ActionUtils.canReply(documentNode, fullyAuthenticatedUserName) || !documentHasReplies) {
+		if (!ActionUtils.canSendOutbound(documentNode, fullyAuthenticatedUserName)) {
 			throw {
 				code : '403',
 				message : 'Forbidden! The action cannot be executed by you in the current context'
@@ -44,6 +46,7 @@
 	function main() {
 		
 		updateDocumentState();
+		manageSentByMail();
 		addHistoryComment();
 		setModel(documentNode);
 		
@@ -62,6 +65,18 @@
 		
 		documentNode.save();
 		
+	}
+	
+	function manageSentByMail() {
+		if (sentByMail !== true) return;
+		
+		var 
+			replies = ReplyUtils.getReplies(documentNode)
+		;
+			
+		Utils.forEach(replies, function(reply) {
+			reply.addAspect(YammaModel.SENT_BY_EMAIL_ASPECT_SHORTNAME);
+		});
 	}
 	
 	function addHistoryComment() {
@@ -91,7 +106,7 @@
 		// set a new history event
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
-			SEND_REPLY_EVENT_TYPE, /* eventType */
+			SEND_OUTBOUND_EVENT_TYPE, /* eventType */
 			message /* comment */
 		);
 		

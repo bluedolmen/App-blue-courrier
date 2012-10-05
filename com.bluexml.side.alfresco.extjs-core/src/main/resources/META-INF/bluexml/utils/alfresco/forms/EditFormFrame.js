@@ -5,10 +5,9 @@ Ext.define('Bluexml.utils.alfresco.forms.EditFormFrame',{
 	
 	sourceUrl : Alfresco.constants.URL_PAGECONTEXT + 'extjseditform',
 	
-//	defaultFormConfig : {
-//		itemKind : 'node',
-//		mode : 'edit'
-//	},	
+	defaultFormConfig : {
+		showCancelButton : true
+	},	
 	
 	onContentDocumentSubmitButtonClicked : function(event, button, eOpts) {
 		// override => DO NOTHING

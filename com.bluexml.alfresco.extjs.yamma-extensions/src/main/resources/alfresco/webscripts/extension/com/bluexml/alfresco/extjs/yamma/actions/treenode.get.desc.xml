@@ -8,7 +8,7 @@
 	<arguments>
 	
 	</arguments>
-	<url>/bluexml/yamma/treenode</url>
+	<url>/bluexml/yamma/treenode/{rootType}</url>
 	<format default="json">argument</format>
 	<authentication>user</authentication>
 </webscript>
