@@ -53,12 +53,13 @@
           <metainfo xmi:id="_tTNFUAZREeK5AtEnnPuSeg" key="template" value="/org/alfresco/components/form/controls/content.ftl"/>
           <metainfo xmi:id="_sLRDkwM1EeKRWqDAtKMhxg" key="editorHeight" value="200" constraintType="int"/>
           <metainfo xmi:id="_ewC94AZREeK5AtEnnPuSeg" key="editorWidth" value="500" constraintType="int"/>
-          <metainfo xmi:id="_KOgE0AbzEeK5AtEnnPuSeg" key="editorAppearance" value="full"/>
           <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w9cnWEeGjKJcImRsXbg"/>
         </children>
-        <children xsi:type="form:CharField" xmi:id="_reYmkAbyEeK5AtEnnPuSeg" label="mimetype" id="prop_mimetype" mandatory="true">
-          <metainfo xmi:id="_reYmkQbyEeK5AtEnnPuSeg" key="template" value="/org/alfresco/components/form/controls/hidden.ftl"/>
-          <metainfo xmi:id="_3Lr7MAbyEeK5AtEnnPuSeg" key="contextProperty" value="mimeType"/>
+        <children xsi:type="form:CharField" xmi:id="_4Vx8cQyoEeKRXaunBtoWhQ" label="content" id="content" mandatory="true">
+          <metainfo xmi:id="_Q6-wkAypEeKRXaunBtoWhQ" key="pseudo-field" value="mimetype" constraintType="String"/>
+          <metainfo xmi:id="_4Vx8cgyoEeKRXaunBtoWhQ" key="template" value="/com/bluexml/components/form/controls/defaultvaluehiddenfield.ftl"/>
+          <metainfo xmi:id="_4Vx8cwyoEeKRXaunBtoWhQ" key="initialValue" value="text/html" constraintType="String"/>
+          <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w9cnWEeGjKJcImRsXbg"/>
         </children>
       </children>
     </children>

@@ -227,4 +227,50 @@
     </children>
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#__ecm4M9gEeGVoP7HZaHFtA"/>
   </forms>
+  <forms xsi:type="form:FormSearch" xmi:id="_tR1f0A4GEeKRXaunBtoWhQ" label="Document (search)" id="Document_Search">
+    <children xsi:type="form:FormGroup" xmi:id="_v-moEA4GEeKRXaunBtoWhQ" label="Digitizable" id="Digitizable">
+      <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
+      <children xsi:type="form:DateSearchField" xmi:id="_v-moEQ4GEeKRXaunBtoWhQ" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+        <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_v-moEg4GEeKRXaunBtoWhQ" label="Historizable" id="Historizable">
+      <ref href="../data/YaMma-EE.dt#_5ktN0MHiEeGVoP7HZaHFtA"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_v-moEw4GEeKRXaunBtoWhQ" label="History" id="history">
+        <ref href="../data/YaMma-EE.dt#_8UP9QMHiEeGVoP7HZaHFtA"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_2EGxsMHeEeGVoP7HZaHFtA"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_v-moFA4GEeKRXaunBtoWhQ" label="Privacy" id="Privacy">
+      <ref href="../data/YaMma-EE.dt#__erI4LOfEeGKr-5wI4QUkQ"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_v-moFQ4GEeKRXaunBtoWhQ" label="Privacy Level" id="level">
+        <ref href="../data/YaMma-EE.dt#_HicLALOgEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_QkEZALOfEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_v-moFg4GEeKRXaunBtoWhQ" label="Referenceable" id="Referenceable">
+      <ref href="../data/YaMma-EE.dt#_CuQDsLC1EeGFgddOkpVJwg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_v-moFw4GEeKRXaunBtoWhQ" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_v-moGA4GEeKRXaunBtoWhQ" label="Statusable" id="Statusable">
+      <ref href="../data/YaMma-EE.dt#_WWr0ILC7EeGFgddOkpVJwg"/>
+      <children xsi:type="form:ChoiceSearchField" xmi:id="_v-moGQ4GEeKRXaunBtoWhQ" label="State" id="state" help_text="State of the document">
+        <ref href="../data/YaMma-EE.dt#_s9ceMMUKEeGVoP7HZaHFtA"/>
+      </children>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_v-moGg4GEeKRXaunBtoWhQ" label="Status" id="extended">
+        <ref href="../data/YaMma-EE.dt#_lahf8LOeEeGKr-5wI4QUkQ"/>
+        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_cJA4ULOeEeGKr-5wI4QUkQ"/>
+      </children>
+    </children>
+    <children xsi:type="form:FormGroup" xmi:id="_v-moGw4GEeKRXaunBtoWhQ" label="Attachable" id="attachable">
+      <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z380RsnWEeGjKJcImRsXbg"/>
+      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_v-moHA4GEeKRXaunBtoWhQ" label="attachments" id="attachments">
+        <ref href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z36_aMnWEeGjKJcImRsXbg"/>
+        <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w5snWEeGjKJcImRsXbg"/>
+      </children>
+    </children>
+    <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_RUS8gLC0EeGFgddOkpVJwg"/>
+  </forms>
 </form:SearchFormCollection>
