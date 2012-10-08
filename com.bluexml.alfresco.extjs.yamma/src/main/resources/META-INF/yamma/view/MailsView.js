@@ -33,6 +33,11 @@ Ext.define('Yamma.view.MailsView', {
 	],
 	
 	storeId : 'Mails',
+	proxyConfigOptions : {
+		extraParams : {
+			'@discardReplies' : true // Just another permanent filter
+		}
+	},
 	
 	MAIL_SUBJECT_FIELD_ID : 'subject',
 	MAIL_SUBJECT_LABEL : 'Sujet',

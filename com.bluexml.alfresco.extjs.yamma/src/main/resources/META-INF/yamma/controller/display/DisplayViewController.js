@@ -421,7 +421,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 				mainContext = mainTab.context
 			;
 			
-			mainContext.set(Yamma.utils.datasources.Documents.DOCUMENT_HAS_REPLIES_QNAME, records.length > 0);
+			mainContext.set(Yamma.utils.datasources.Documents.MAIL_HAS_REPLIES_QNAME, records.length > 0);
 			me.updateReplyFilesButton();
 			
 		}

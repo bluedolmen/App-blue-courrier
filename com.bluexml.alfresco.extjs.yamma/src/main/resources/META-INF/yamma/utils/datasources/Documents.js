@@ -15,12 +15,12 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	PRIORITY_QNAME : 'yamma-ee:Prioritizable_priority',
 	STATUSABLE_STATE_QNAME : 'yamma-ee:Statusable_state',
 	DOCUMENT_ISCOPY_QNAME : 'yamma-ee:Document_isCopy',
-	DOCUMENT_HAS_REPLIES_QNAME : 'yamma-ee:Document_hasReplies',
 	DOCUMENT_HAS_DELEGATED_SITES_QNAME : 'yamma-ee:Document_hasDelegatedSites',
 	CORREPONDENT_NAME : 'yamma-ee:Correspondent_name',
 	CORREPONDENT_ADDRESS : 'yamma-ee:Correspondent_address',
 	CORREPONDENT_MAIL : 'yamma-ee:Correspondent_contactEmail',
 	CORREPONDENT_PHONE : 'yamma-ee:Correspondent_contactPhone',
+	MAIL_HAS_REPLIES_QNAME : 'yamma-ee:Mail_hasReplies',
 	
 	DOCUMENT_LATE_STATE_QNAME : 'yamma-ee:Dueable_lateState',
 	LATE_STATE_LATE_VALUE : 'late',

@@ -57,7 +57,7 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 
 		var
 			canReply = !!context.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_REPLY),
-			hasReplies = !!context.get(Yamma.utils.datasources.Documents.DOCUMENT_HAS_REPLIES_QNAME),
+			hasReplies = !!context.get(Yamma.utils.datasources.Documents.MAIL_HAS_REPLIES_QNAME),
 			addReplyMenuItem = this.menu.down('#addReply'),
 			removeReplyMenuItem = this.menu.down('#removeReply')
 		;
