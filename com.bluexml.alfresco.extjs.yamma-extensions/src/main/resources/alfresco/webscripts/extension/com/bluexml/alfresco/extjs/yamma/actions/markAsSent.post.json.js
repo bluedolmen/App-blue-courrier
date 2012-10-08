@@ -66,8 +66,8 @@
 	}
 	
 	function sendByMailIfNecessary() {
-		if (!OutcomingMailUtils.isSentByMail(documentNode)) return;
-		var errorMessage = OutcomingMailUtils.sendMail(documentNode);
+		if (!OutcomingMailUtils.isSentByMail(outboundDocumentNode)) return;
+		var errorMessage = OutcomingMailUtils.sendMail(outboundDocumentNode);
 		
 		if (errorMessage) {
 			// Failed sending the mail

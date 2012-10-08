@@ -15,7 +15,7 @@
 		isReplyNode : function(node) {
 			
 			if (!node) return false;
-			return node.isSubType(YammaModel.REPLY_TYPE_SHORTNAME);
+			return node.hasAspect(YammaModel.REPLY_ASPECT_SHORTNAME);
 			
 		},
 			
@@ -54,8 +54,7 @@
 			fillRecipient();
 			replyNode.save();
 			
-			// create replyTo association
-			replyNode.createAssociation(document, YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME);
+			associateToDocument();
 			
 			function fillWritingDate() {
 				var writingDate = replyNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
@@ -132,6 +131,13 @@
 					
 				}
 				
+			}
+			
+			function associateToDocument() {
+				if (!replyNode.hasAspect(YammaModel.REPLY_ASPECT_SHORTNAME)) {
+					replyNode.addAspect(YammaModel.REPLY_ASPECT_SHORTNAME);
+				}
+				replyNode.createAssociation(document, YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME);
 			}
 						
 			return replyNode;

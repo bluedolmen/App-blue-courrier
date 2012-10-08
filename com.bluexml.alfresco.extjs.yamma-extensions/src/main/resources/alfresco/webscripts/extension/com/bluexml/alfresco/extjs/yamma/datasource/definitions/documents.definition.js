@@ -195,15 +195,7 @@
 						var delegatedSites = ServicesUtils.getDelegatedServices(document);
 						return delegatedSites.length > 0;
 					}
-				},
-				
-				{
-					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '_hasReplies',
-					type : 'boolean',
-					evaluate : function(node) {
-						return ReplyUtils.hasReplies(node);
-					}
-				}				
+				}
 				
 				
 			].concat(getActionsFieldDefinitions()),				

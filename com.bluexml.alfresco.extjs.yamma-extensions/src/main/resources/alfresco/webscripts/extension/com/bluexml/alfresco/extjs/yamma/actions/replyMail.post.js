@@ -61,7 +61,7 @@
 			replyNode = UploadUtils.getContainerChildByName(
 				repliesContainer, /* container */  
 				fileName, /* childName */ 
-				{type : YammaModel.REPLY_TYPE_SHORTNAME} /* createConfig */
+				{type : YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME} /* createConfig */
 			)
 		;
 		

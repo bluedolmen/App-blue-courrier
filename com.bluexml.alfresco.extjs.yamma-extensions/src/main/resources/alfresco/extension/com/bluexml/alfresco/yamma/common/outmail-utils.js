@@ -103,6 +103,14 @@
 		
 		getTemplateDefinition : function(document) {
 			
+			if (!document) {
+				throw new Error('IllegalArgumentException! The provided document is not valid (null or undefined)');
+			}
+			
+			if (document.hasAspect(YammaModel.REPLY_ASPECT_SHORTNAME)) {
+				return new TemplateDefinition['Reply'](document);
+			}
+			
 			var 
 				typeShort = document.typeShort,
 				localName = typeShort.split(':')[1] || ''

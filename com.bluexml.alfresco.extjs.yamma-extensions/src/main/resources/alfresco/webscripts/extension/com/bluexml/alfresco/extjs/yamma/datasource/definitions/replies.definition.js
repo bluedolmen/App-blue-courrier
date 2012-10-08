@@ -32,7 +32,7 @@
 				YammaModel.MAIL_SENT_DATE_PROPNAME,
 				
 				{
-					name : YammaModel.REPLY_TYPE_SHORTNAME + '_author',
+					name : YammaModel.MAIL_TYPE_SHORTNAME + '_author',
 					type : 'string',
 					evaluate : function(reply) {
 					
