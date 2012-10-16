@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+
+<model name="buildInLibraryAlfresco:model" xmlns="http://www.alfresco.org/model/dictionary/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<!-- Definition of the model -->
+
+	<description>buildInLibraryAlfresco</description>
+	<author>Alfresco Generator</author>
+	<version>1.0</version>
+	
+		<!-- Imports are required to allow references to definitions in other models -->
+		<!-- SIDE / JCR has not been imported -->
+		<imports>
+			<!-- Import all Alfresco definitions, even if not used -->
+			<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+			<import uri="http://www.alfresco.org/model/application/1.0" prefix="app"/>
+			<import uri="http://www.alfresco.org/model/wcmmodel/1.0" prefix="wcm"/>
+	      	<import uri="http://www.alfresco.org/model/forum/1.0" prefix="fm"/>
+	      	<import uri="http://www.alfresco.org/model/bpm/1.0" prefix="bpm" />
+	      	<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	        <import uri="http://www.alfresco.org/model/user/1.0" prefix="usr"/>
+	      	<import uri="http://www.alfresco.org/model/system/1.0" prefix="sys" />
+	      	<import uri="http://www.alfresco.org/model/datalist/1.0" prefix="dl" />
+	      	<import uri="http://www.alfresco.org/model/blogintegration/1.0" prefix="blg" />
+	      	<import uri="http://www.alfresco.org/model/calendar" prefix="ia" />
+	      	<import uri="http://www.alfresco.org/model/cmis/1.0/cs01" prefix="cmis" />
+	      	<import uri="http://www.alfresco.org/model/rendition/1.0" prefix="rn" />
+	      	<import uri="http://www.alfresco.org/model/exif/1.0" prefix="exif" />
+	      	<import uri="http://www.alfresco.org/model/emailserver/1.0" prefix="emailserver" />
+	      	<import uri="http://www.alfresco.org/model/forum/1.0" prefix="fm" />
+	      	<import uri="http://www.alfresco.org/model/imap/1.0" prefix="imap" />
+	      	<import uri="http://www.alfresco.org/model/linksmodel/1.0" prefix="lnk" />
+	  
+	      	<import uri="http://www.alfresco.org/model/site/1.0" prefix="st" />
+	      	<import uri="http://www.alfresco.org/model/transfer/1.0" prefix="trx" />
+	      	
+	      	<import uri="http://www.alfresco.org/model/wcmmodel/1.0" prefix="wcm" />
+	      	<import uri="http://www.alfresco.org/model/wcmappmodel/1.0" prefix="wca" />
+	      	
+	      	<!-- Import BlueXML Definitions -->
+	      	<import uri="http://www.bluexml.com/model/content/1.0" prefix="bxcm" />
+	      	
+	      	
+	      	
+		</imports>
+	
+		<!-- Introduction of new namespaces defined by this model -->
+		<namespaces>
+			
+			<!-- STARTMMLOOP -->
+			<namespace uri="http://www.bluexml.com/model/content/buildInLibraryAlfresco/1.0" prefix="buildInLibraryAlfresco" />
+			 
+			 
+			<!-- ENDMMLOOP -->
+		</namespaces>
+	
+		 <constraints>
+			<constraint name="buildInLibraryAlfresco:nomenclature:comparison" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+	                    <value>&lt;</value>
+	                    <value>&gt;</value>
+	                    <value>=</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+	        
+	        <constraint name="buildInLibraryAlfresco:nomenclature:booleanoperator" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+	                    <value>AND</value>
+	                    <value>OR</value>
+	                    <value>NOT</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+	        
+			<constraint name="buildInLibraryAlfresco:constraint:mail" type="REGEX">
+		        <parameter name="expression"><value>^(|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+)$</value></parameter>
+		        <parameter name="requiresMatch"><value>true</value></parameter>
+		    </constraint>
+		    
+		    
+			<!-- STARTMMLOOP -->
+			<!-- ENDMMLOOP -->
+	        
+		 </constraints>
+	
+	<types>
+		
+	</types>
+	<aspects>
+			
+				<aspect name="buildInLibraryAlfresco:HasTreeFilter">		
+					
+					
+					<!-- Generalization -->						
+					<!--parent>bxcm:content</parent-->
+
+					<archive>false</archive>
+					<!--<includedInSuperTypeQuery>false</includedInSuperTypeQuery>-->
+					<!-- Properties -->
+					<properties>
+						<!-- Properties for search association true-->
+						<!-- generate_searchFieldForAssociation -->
+					<!-- properties to store seachable associations target-->
+					<property name="buildInLibraryAlfresco:HasTreeFilter_hasTreeFilter_TreeFiltersearch">
+						<type>d:text</type>
+						<multiple>true</multiple>
+						<index enabled="true">
+					  	 	<atomic>true</atomic>
+					  	 	<stored>false</stored>
+					  		<tokenised>true</tokenised>
+						</index>
+					</property>
+
+					</properties>
+					<!-- Associations -->
+					<associations>
+						<association name="buildInLibraryAlfresco:HasTreeFilter_hasTreeFilter_TreeFilter">
+							<title>hasTreeFilter</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>buildInLibraryAlfresco:TreeFilter</class>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</target>
+						</association>							
+					</associations>
+
+			<!-- Aspects -->
+				</aspect>
+			
+				<aspect name="buildInLibraryAlfresco:TreeFilter">		
+					
+					
+					<!-- Generalization -->						
+					<!--parent>bxcm:content</parent-->
+
+					<archive>false</archive>
+					<!--<includedInSuperTypeQuery>false</includedInSuperTypeQuery>-->
+					<!-- Properties -->
+					<properties>
+						<property name="buildInLibraryAlfresco:TreeFilter_root">
+							<type>d:boolean</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>true</tokenised>
+					          </index>
+							
+						</property>
+						<!-- Properties for search association true-->
+						<!-- generate_searchFieldForAssociation -->
+					<!-- properties to store seachable associations target-->
+					<property name="buildInLibraryAlfresco:TreeFilter_AssociationTree_TreeFiltersearch">
+						<type>d:text</type>
+						<multiple>true</multiple>
+						<index enabled="true">
+					  	 	<atomic>true</atomic>
+					  	 	<stored>false</stored>
+					  		<tokenised>true</tokenised>
+						</index>
+					</property>
+
+					</properties>
+					<!-- Associations -->
+					<associations>
+						<association name="buildInLibraryAlfresco:TreeFilter_AssociationTree_TreeFilter">
+							<title>AssociationTree</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>buildInLibraryAlfresco:TreeFilter</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+
+			<!-- Aspects -->
+				</aspect>
+
+	</aspects> 
+	
+</model>
