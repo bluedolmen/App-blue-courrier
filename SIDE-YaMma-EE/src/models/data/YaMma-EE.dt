@@ -72,7 +72,6 @@
     <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/dlDatalistmodel.dt#_z4UAlsnWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="__ecm4M9gEeGVoP7HZaHFtA" name="OutboundMail" generalizations="_NhpO4AWmEeKRWqDAtKMhxg"/>
-  <classSet xmi:id="_z-tKIPkCEeGHHe2qtmDVXA" name="Reply" generalizations="__ecm4M9gEeGVoP7HZaHFtA"/>
   <classSet xmi:id="_NhpO4AWmEeKRWqDAtKMhxg" name="Mail" generalizations="_RUS8gLC0EeGFgddOkpVJwg" aspects="_-qvgELC2EeGFgddOkpVJwg _UtZOMMHqEeGVoP7HZaHFtA _9QIJ8LC7EeGFgddOkpVJwg">
     <attributes xmi:id="_FI3zEM9hEeGVoP7HZaHFtA" documentation="" description="" name="writingDate" title="Writing Date" typ="Date">
       <metainfo xmi:id="_LtFuAM9hEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
@@ -132,13 +131,13 @@
       <linkedClass xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/stSiteModel.dt#_z4KPk8nWEeGjKJcImRsXbg"/>
     </secondEnd>
   </associationSet>
-  <associationSet xmi:id="_5gTLAAWmEeKRWqDAtKMhxg" documentation="" description="" name="replies" title="">
-    <firstEnd xmi:id="_5gTLAQWmEeKRWqDAtKMhxg" name="" title="" cardMax="-1" linkedClass="_z-tKIPkCEeGHHe2qtmDVXA"/>
-    <secondEnd xmi:id="_5gTLAgWmEeKRWqDAtKMhxg" name="" title="" navigable="true" linkedClass="_UcVrgLC0EeGFgddOkpVJwg"/>
-  </associationSet>
   <associationSet xmi:id="_YPIBoAYcEeKRWqDAtKMhxg" documentation="" description="" name="delay" title="">
     <firstEnd xmi:id="_YPIBoQYcEeKRWqDAtKMhxg" name="" title="" cardMax="-1" linkedClass="_VnlXoAYcEeKRWqDAtKMhxg"/>
     <secondEnd xmi:id="_YPIBogYcEeKRWqDAtKMhxg" name="" title="" navigable="true" linkedClass="_3cbmMLOeEeGKr-5wI4QUkQ"/>
+  </associationSet>
+  <associationSet xmi:id="__Xa10BEfEeKIfbAIvqKz3Q" documentation="" description="" name="replyTo" title="">
+    <firstEnd xmi:id="__Xa10REfEeKIfbAIvqKz3Q" name="replies" title="" cardMax="-1" linkedClass="_YAFqIREfEeKIfbAIvqKz3Q"/>
+    <secondEnd xmi:id="__Xa10hEfEeKIfbAIvqKz3Q" name="" title="" navigable="true" linkedClass="_NhpO4AWmEeKRWqDAtKMhxg"/>
   </associationSet>
   <aspectSet xmi:id="_CuQDsLC1EeGFgddOkpVJwg" name="Referenceable">
     <attributes xmi:id="_EXD0kLC1EeGFgddOkpVJwg" documentation="" description="The reference of a document" name="reference" title="Reference">
@@ -251,16 +250,31 @@
       <metainfo xmi:id="_JTNpoMdrEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
     </attributes>
   </aspectSet>
+  <aspectSet xmi:id="_g_MB8AfxEeK5AtEnnPuSeg" name="SentByEmail">
+    <attributes xmi:id="_jqoUgAfxEeK5AtEnnPuSeg" documentation="" description="The date on which the outbound-mail was (successfully) sent by email" name="sentDate" title="Email Sent Date" typ="DateTime">
+      <metainfo xmi:id="_zK_EAAfxEeK5AtEnnPuSeg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_zK_rEAfxEeK5AtEnnPuSeg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_zK_rEQfxEeK5AtEnnPuSeg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_zK_rEgfxEeK5AtEnnPuSeg" key="index.tokenised" value="true"/>
+    </attributes>
+    <attributes xmi:id="_0T2wkAfxEeK5AtEnnPuSeg" documentation="" description="The date on which the outbound-mail cannot be sent by email" name="lastFailureDate" title="Email last Failure Date" typ="DateTime">
+      <metainfo xmi:id="_-kU60AfxEeK5AtEnnPuSeg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_-kU60QfxEeK5AtEnnPuSeg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_-kU60gfxEeK5AtEnnPuSeg" key="index.atomic" value="True"/>
+    </attributes>
+  </aspectSet>
+  <aspectSet xmi:id="_YAFqIREfEeKIfbAIvqKz3Q" name="Reply"/>
   <enumerationSet xmi:id="_KXKmsMUKEeGVoP7HZaHFtA" name="EStates">
-    <literals xmi:id="_l9_ckNDuEeGVoP7HZaHFtA" value="pending" name="PENDING"/>
-    <literals xmi:id="_l9_ckdDuEeGVoP7HZaHFtA" value="delivering" name="DELIVERING"/>
-    <literals xmi:id="_l9_cktDuEeGVoP7HZaHFtA" value="processing" name="PROCESSING"/>
-    <literals xmi:id="_l9_ck9DuEeGVoP7HZaHFtA" value="validating!delivery" name="VALIDATING_DELIVERY"/>
-    <literals xmi:id="_l9_clNDuEeGVoP7HZaHFtA" value="validating!processed" name="VALIDATING_PROCESSED"/>
-    <literals xmi:id="_l9_cldDuEeGVoP7HZaHFtA" value="processed" name="PROCESSED"/>
-    <literals xmi:id="_l9_cltDuEeGVoP7HZaHFtA" value="archived" name="ARCHIVED"/>
+    <literals xmi:id="_zGKREQukEeK4krQYEcLr-w" value="pending" name="PENDING"/>
+    <literals xmi:id="_zGKREgukEeK4krQYEcLr-w" value="delivering" name="DELIVERING"/>
+    <literals xmi:id="_zGKREwukEeK4krQYEcLr-w" value="processing" name="PROCESSING"/>
+    <literals xmi:id="_zGKRFAukEeK4krQYEcLr-w" value="validating!delivery" name="VALIDATING_DELIVERY"/>
+    <literals xmi:id="_zGKRFQukEeK4krQYEcLr-w" value="validating!processed" name="VALIDATING_PROCESSED"/>
+    <literals xmi:id="_zGKRFgukEeK4krQYEcLr-w" value="sending" name="SENDING"/>
+    <literals xmi:id="_zGKRFwukEeK4krQYEcLr-w" value="processed" name="PROCESSED"/>
+    <literals xmi:id="_zGKRGAukEeK4krQYEcLr-w" value="archived" name="ARCHIVED"/>
   </enumerationSet>
-  <enumerationSet xmi:id="_PDHSIAYpEeK5AtEnnPuSeg" name="Origin">
+  <enumerationSet xmi:id="_PDHSIAYpEeK5AtEnnPuSeg" name="EOrigin">
     <literals xmi:id="_W_O0IAYpEeK5AtEnnPuSeg" value="digitized" name="DIGITIZED"/>
     <literals xmi:id="_W_O0IQYpEeK5AtEnnPuSeg" value="manual" name="MANUAL"/>
     <literals xmi:id="_W_O0IgYpEeK5AtEnnPuSeg" value="imap" name="IMAP"/>
