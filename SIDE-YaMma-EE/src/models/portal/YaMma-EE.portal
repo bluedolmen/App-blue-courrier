@@ -14,17 +14,17 @@
       <positionGroup xmi:id="_5xbdy7YGEeGSo_XQepIvyw" position="1" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
     </portlets>
     <portlets xmi:id="_5xbdzLYGEeGSo_XQepIvyw" associationPortlet="_5xbd2LYGEeGSo_XQepIvyw" associationPage="_5xbdx7YGEeGSo_XQepIvyw">
-      <positionGroup xmi:id="_5xbdzbYGEeGSo_XQepIvyw" position="2" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
+      <positionGroup xmi:id="_5xbdzbYGEeGSo_XQepIvyw" position="4" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
     </portlets>
   </pageSet>
   <pageSet xmi:id="_5xbdzrYGEeGSo_XQepIvyw" ID="document-details" useLayout="_5xbd1LYGEeGSo_XQepIvyw" visibility="Private" generate="false">
     <portlets xmi:id="_5xbdz7YGEeGSo_XQepIvyw" associationPortlet="_5xbd2bYGEeGSo_XQepIvyw" associationPage="_5xbdzrYGEeGSo_XQepIvyw">
-      <positionGroup xmi:id="_5xbd0LYGEeGSo_XQepIvyw" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
+      <positionGroup xmi:id="_5xbd0LYGEeGSo_XQepIvyw" position="3" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
     </portlets>
   </pageSet>
   <pageSet xmi:id="_5xbd0bYGEeGSo_XQepIvyw" ID="advsearch" useLayout="_5xbd1LYGEeGSo_XQepIvyw" visibility="Private" generate="false">
     <portlets xmi:id="_5xbd0rYGEeGSo_XQepIvyw" associationPortlet="_5xbd2rYGEeGSo_XQepIvyw" associationPage="_5xbd0bYGEeGSo_XQepIvyw">
-      <positionGroup xmi:id="_5xbd07YGEeGSo_XQepIvyw" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
+      <positionGroup xmi:id="_5xbd07YGEeGSo_XQepIvyw" position="2" onColumn="_5xbd1bYGEeGSo_XQepIvyw" onLayout="_5xbd1LYGEeGSo_XQepIvyw"/>
     </portlets>
   </pageSet>
   <layoutSet xmi:id="_5xbd1LYGEeGSo_XQepIvyw" name="defaultLayout">
@@ -39,12 +39,12 @@
     <view xsi:type="view:ComposedView" href="../view/YaMma-EE.view#_5piGAbYGEeGSo_XQepIvyw"/>
   </internalPortletSet>
   <internalPortletSet xmi:id="_5xbd3LYGEeGSo_XQepIvyw" type="Form">
-    <form xsi:type="form:ClassFormCollection" href="../form/default.form#_5sfTYLYGEeGSo_XQepIvyw"/>
+    <form xsi:type="form:ClassFormCollection" href="../form/default.form#_KbbikPjGEeGu9uCwQAeMqw"/>
   </internalPortletSet>
   <internalPortletSet xmi:id="_5xbd3bYGEeGSo_XQepIvyw" type="Form">
-    <form xsi:type="form:ClassFormCollection" href="../form/default.form#_5sfTYLYGEeGSo_XQepIvyw"/>
+    <form xsi:type="form:ClassFormCollection" href="../form/default.form#_KbbikPjGEeGu9uCwQAeMqw"/>
   </internalPortletSet>
   <internalPortletSet xmi:id="_5xbd3rYGEeGSo_XQepIvyw" type="Form">
-    <form xsi:type="form:SearchFormCollection" href="../form/search.form#_3Kw9gLYGEeGSo_XQepIvyw"/>
+    <form xsi:type="form:SearchFormCollection" href="../form/search.form#_x_ZWMAYmEeK5AtEnnPuSeg"/>
   </internalPortletSet>
 </portal:Portal>
