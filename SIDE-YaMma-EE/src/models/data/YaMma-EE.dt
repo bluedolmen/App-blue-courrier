@@ -96,6 +96,7 @@
     <secondEnd xmi:id="_lahf8rOeEeGKr-5wI4QUkQ" name="" title="" navigable="true" linkedClass="_cJA4ULOeEeGKr-5wI4QUkQ"/>
   </associationSet>
   <associationSet xmi:id="_HicLALOgEeGKr-5wI4QUkQ" documentation="" description="" name="level" title="Privacy Level">
+    <metainfo xmi:id="_6v_8UR3kEeK0zYngBbIqCA" key="searchable" value="True"/>
     <firstEnd xmi:id="_HicLAbOgEeGKr-5wI4QUkQ" name="" title="" cardMax="-1" linkedClass="__erI4LOfEeGKr-5wI4QUkQ"/>
     <secondEnd xmi:id="_HicLArOgEeGKr-5wI4QUkQ" name="" title="" navigable="true" linkedClass="_QkEZALOfEeGKr-5wI4QUkQ"/>
   </associationSet>
@@ -116,6 +117,7 @@
     <secondEnd xmi:id="_Ip-KgsRZEeGVoP7HZaHFtA" name="" title="" navigable="true" linkedClass="_RUS8gLC0EeGFgddOkpVJwg"/>
   </associationSet>
   <associationSet xmi:id="_Gmz5IMc8EeGVoP7HZaHFtA" documentation="" description="" name="priority" title="Priority">
+    <metainfo xmi:id="_9ipqIB3kEeK0zYngBbIqCA" key="searchable" value="True"/>
     <firstEnd xmi:id="_Gmz5Icc8EeGVoP7HZaHFtA" name="" title="" cardMax="-1" linkedClass="_9QIJ8LC7EeGFgddOkpVJwg"/>
     <secondEnd xmi:id="_Gmz5Isc8EeGVoP7HZaHFtA" name="" title="" navigable="true" linkedClass="_CngK8Mc8EeGVoP7HZaHFtA"/>
   </associationSet>
@@ -132,6 +134,7 @@
     </secondEnd>
   </associationSet>
   <associationSet xmi:id="_YPIBoAYcEeKRWqDAtKMhxg" documentation="" description="" name="delay" title="">
+    <metainfo xmi:id="_A28FYB3lEeK0zYngBbIqCA" key="searchable" value="True"/>
     <firstEnd xmi:id="_YPIBoQYcEeKRWqDAtKMhxg" name="" title="" cardMax="-1" linkedClass="_VnlXoAYcEeKRWqDAtKMhxg"/>
     <secondEnd xmi:id="_YPIBogYcEeKRWqDAtKMhxg" name="" title="" navigable="true" linkedClass="_3cbmMLOeEeGKr-5wI4QUkQ"/>
   </associationSet>
