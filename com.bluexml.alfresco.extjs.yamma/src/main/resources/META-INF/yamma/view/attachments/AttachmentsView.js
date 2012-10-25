@@ -8,7 +8,8 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 	],
 	
 	mixins : {
-		deleteattachmentaction : 'Yamma.view.attachments.DeleteAttachmentAction'
+		deleteattachmentaction : 'Yamma.view.attachments.DeleteAttachmentAction',
+		deferredloading : 'Yamma.view.edit.DeferredLoading'
 	},
 	
 	title : 'Attachements',
@@ -100,6 +101,10 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 //        	button.show();
 //        }
 //	},
+	
+	loadInternal : function() {
+		this.loadAttachments.apply(this, arguments);
+	},	
 	
 	loadAttachments : function(nodeRef) {
 		

@@ -10,6 +10,7 @@ Ext.define('Yamma.model.OpenSearch',{
         {name: 'typeShort', type: 'string'},
         {name: 'name',  type: 'string', mapping : 'cm:name'},
         {name: 'reference', type : 'string', mapping : 'yamma-ee:Referenceable_reference'},
+        {name: 'title', type : 'string', mapping : 'cm:title'},
         {
         	name: 'display', 
         	type : 'string', 
@@ -17,14 +18,16 @@ Ext.define('Yamma.model.OpenSearch',{
         		
         		var 
         			name = record.get('name'),
-        			reference = record.get('reference'),
         			typeShort = record.get('typeShort'),
+        			title = record.get('title'),
         			typeDefinition = Yamma.utils.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort],
         			icon = typeDefinition.icon,
         			displayValue = ''
-        				+ icon ? '<img src="' + icon + '"></img> ' : ''
-        				+ reference ? '<span><b>' + reference + '</b> – </span>' : ''
-        				+ '<span><i>' + name + '</i></span>'
+        				+ '<div>'
+        				+ (icon ? '<img src="' + icon + '" align="left" style="padding-right:4px; vertical-align:middle" ></img> ' : '')
+        				+ (title ? '<span><b>' + title + '</b></span>' : '')
+        				+ (name ? '<span> (<i>' + name + '</i>)</span>' : '')
+        				+ '</div>'
         		;
         		
         		return displayValue;

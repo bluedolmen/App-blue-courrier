@@ -9,3 +9,4 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/datasource/definitions/attachments.definition.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/datasource/definitions/opensearch.definition.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/datasource/definitions/delegated-services.definition.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/datasource/definitions/statistics.definition.js">

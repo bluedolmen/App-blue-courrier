@@ -23,12 +23,18 @@
 			
 		},
 		
-		getHistoryEvents : function(document) {
+		getHistoryEvents : function(document, filteredType) {
 			
 			if (!document || !DocumentUtils.isDocumentNode(document)) return [];
 			
 			var events = document.childAssocs[YammaModel.HISTORIZABLE_HISTORY_ASSOCNAME];
 			if (!events) return [];
+			
+			if ('string' == typeof filteredType) {
+				return Utils.filter(events, function(event) {
+					return filteredType == Utils.asString(event.properties[YammaModel.EVENT_EVENT_TYPE_PROPNAME]);
+				});
+			}
 			
 			return events;
 			

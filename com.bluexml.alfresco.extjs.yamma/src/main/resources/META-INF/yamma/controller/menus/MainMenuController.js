@@ -20,7 +20,7 @@ Ext.define('Yamma.controller.menus.MainMenuController', {
 	
 	onItemClick : function(view, record, item, index, event, eOpts) {
 
-		var context = this.extractContext(record);
+		var context = this.extractContext(record, item);
 		if (!context) return;
 		
 		this.application.fireEvent('contextChanged', context);
@@ -28,7 +28,7 @@ Ext.define('Yamma.controller.menus.MainMenuController', {
 		
 	},
 	
-	extractContext : function(record) {
+	extractContext : function(record, item) {
 		return null;
 	},
 	

@@ -13,89 +13,94 @@ Ext.define('Yamma.controller.menus.MyMenuController', {
 		this.callParent();
 	},	
 	
-	extractContext : function(record) {
+	extractContext : function(record, item) {
 		
 		if (!record) return {};
 		
-		var context = Ext.create('Yamma.utils.Context');
-		var nodeId = record.get('id');
+		var 
+			context = null,
+			nodeId = record.get('id'),
+			text = record.get('text')
+		;
 		
-		switch (nodeId) {
-			
-			case Yamma.view.menus.MyMenu.MY_DOCUMENTS_ASSIGNED:
-				context.setTitle('Documents assignés à traiter');
-				context.setFilters([
-					{
-						property : 'mine',
-						value : true // fake value
-					},
-					{
-						property : 'state',
-						value : 'delivering'
-					}					
-				]);
-			break;
-			
-			case Yamma.view.menus.MyMenu.MY_DOCUMENTS_PROCESSING:
-				context.setTitle('Documents assignés en cours de traitement');
-				context.setFilters([
-					{
-						property : 'mine',
-						value : true // fake value
-					},
-					{
-						property : 'state',
-						value : 'processing'
-					}
-				]);
-			break;
-			
-			case Yamma.view.menus.MyMenu.MY_DOCUMENTS_VALIDATING:
-				context.setTitle('Documents assignés en cours de validation par la direction');
-				context.setFilters([
-					{
-						property : 'mine',
-						value : true // fake value
-					},
-					{
-						property : 'state',
-						value : 'validating!processed'
-					}
-				]);
-			break;
-			
-			case Yamma.view.menus.MyMenu.MY_DOCUMENTS_LATE:
-				context.setTitle('Documents assignés en retard à traiter');
-				context.setFilters([
-					{
-						property : 'mine',
-						value : true // fake value
-					},
-					{
-						property : 'late',
-						value : true
-					}
-				]);
-			break;
-			
-			default:
-				context.setTitle('Documents assignés');
-				context.setFilters([
-					{
-						property : 'mine',
-						value : true // fake value
-					}
-				]);
-			break;			
-			
+		if (!nodeId) return;
+		
+		if (0 == nodeId.indexOf('myDocuments!')) {
+			context = this.getMyDocumentsContext(nodeId, text);
+		} else if (0 == nodeId.indexOf('myActions!')) {
+			context = this.getMyActionsContext(nodeId, text);
 		}
-		
 		
 		return context;
 		
+	},
+	
+	getMyDocumentsContext : function(id, title) {
+		
+		var
+			context = Ext.create('Yamma.utils.Context'),
+			matchState = /state!(.*)/.exec(id) || [],
+			stateId = matchState[1],
+			matchLate = /late!(.*)/.exec(id) || [],
+			lateState = matchLate[1] !== 'false',
+			filters = [
+				{
+					property : 'mine',
+					value : true // fake value
+				}
+			]
+		;
+				
+		
+		if (stateId) {
+			
+			filters.push(
+				{
+					property : 'state',
+					value : stateId
+				}					
+			);
+			
+		} else if (lateState) {
+			
+			filters.push(
+				{
+					property : 'late',
+					value : true
+				}
+			);			
+			
+		}
+		
+		context.setTitle(title);
+		context.setFilters(filters);
+		
+		return context;
+	},
+	
+	getMyActionsContext : function(id, title) {
+		
+		var
+			context = Ext.create('Yamma.utils.Context'),
+			matchAction = /myActions!(.*)/.exec(id) || [],
+			actionId = matchAction[1],
+			filters = [
+				{
+					property : 'mine',
+					value : true // fake value
+				},
+				{
+					property : 'can',
+					value : actionId
+				}
+			]
+		;
+		
+		context.setTitle(title);
+		context.setFilters(filters);
+		
+		return context;
 	}
-	
-	
 	
 	
 });

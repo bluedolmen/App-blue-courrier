@@ -343,6 +343,67 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		);
 	},
  	
+	/**
+	 * This method visually updates the record designed by the given id by
+	 * retrieving values from the configured proxy.
+	 * 
+	 * TODO: Brice => This method may be weak and subject to problems! (making a
+	 * clean method would require a deep understanding of the ExtJS internals)
+	 * 
+	 * @param {String}
+	 *            id the id of the refreshed element
+	 */
+	refreshSingle : function(id, idParam) {
+		
+		var 
+			me = this,
+			store = this.getStore(),
+			proxy = store.getProxy(),
+			index = store.indexOfId(id),
+			options = {
+				action : 'read',
+				filters : [
+					{
+						property : idParam || 'id',
+						value : id
+					}
+				]
+			},
+			operation
+		;
+		
+		if (-1 == index) return; // The given element id is not available in the store
+
+        operation = Ext.create('Ext.data.Operation', options);
+		proxy.read(operation, onProxyPrefetch);
+				
+		function onProxyPrefetch(operation) {
+			
+			var 
+				records = operation.getRecords(),
+				newRecord = records[0],
+				currentRecord = store.getAt(index),
+				successful = operation.wasSuccessful()
+			;
+			
+			if (!successful || !newRecord) return;
+			
+			newRecord.fields.each(function(field){
+				var 
+					name = field.name,
+					newValue = newRecord.get(name)
+				;
+				currentRecord.set(name, newValue);
+				// Brice... Berk!!!! This is far too low-level
+				currentRecord.dirty = false;
+				currentRecord.modified = {};
+			});
+
+			me.getView().refreshNode(index);
+		}
+		
+	},
+	
  	/**
 	 * Helper function that maps inner filter definition to ExtJS filter
 	 * definition

@@ -91,7 +91,7 @@
 		
 		var query = 
 			'+TYPE:"dl\:dataList" +' +
-			Utils.getLuceneAttributeFilter('dl:dataListItemType',YammaModel.ASSIGNABLE_SITE_TYPE_SHORTNAME);
+			Utils.Alfresco.getLuceneAttributeFilter('dl:dataListItemType',YammaModel.ASSIGNABLE_SITE_TYPE_SHORTNAME);
 			
 		return Utils.unwrapList(search.luceneSearch(query));
 		

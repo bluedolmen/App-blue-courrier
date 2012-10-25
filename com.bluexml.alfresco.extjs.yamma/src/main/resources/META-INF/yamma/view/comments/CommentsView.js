@@ -9,7 +9,8 @@ Ext.define('Yamma.view.comments.CommentsView', {
 	
 	mixins : {
 		editcommentaction : 'Yamma.view.comments.EditCommentAction',
-		deletecommentaction : 'Yamma.view.comments.DeleteCommentAction'
+		deletecommentaction : 'Yamma.view.comments.DeleteCommentAction',
+		deferredloading : 'Yamma.view.edit.DeferredLoading'
 	},
 	
 	title : 'Commentaires',
@@ -40,7 +41,11 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		    ]
 		}];    	
     },
-		
+	
+    loadInternal : function() {
+    	this.loadComments.apply(this, arguments);
+    },
+    
 	loadComments : function(nodeRef) {
 		
 		if (!nodeRef || !Ext.isString(nodeRef)) {

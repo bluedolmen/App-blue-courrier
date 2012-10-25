@@ -44,7 +44,7 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 			this.updateMenuForMainDocument(context);
 			break;
 			
-		case 'yamma-ee:Reply':
+		case 'yamma-ee:OutboundMail':
 			this.updateMenuForReply(context);
 			break;
 		

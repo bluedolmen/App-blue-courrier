@@ -8,12 +8,12 @@
 				
 				if (!term) return query;
 				
-				var referenceFilter = Utils.getLuceneAttributeFilter(
+				var referenceFilter = Utils.Alfresco.getLuceneAttributeFilter(
 					YammaModel.REFERENCEABLE_REFERENCE_PROPNAME, 
 					term
 				);
 				
-				var nameFilter = Utils.getLuceneAttributeFilter(
+				var nameFilter = Utils.Alfresco.getLuceneAttributeFilter(
 					'cm:name', 
 					term
 				);

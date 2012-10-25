@@ -30,12 +30,6 @@ Ext.define('Yamma.view.Viewport', {
 							margin : 5	
 						},
 						
-//						/* FOOTER */
-//						{
-//							xtype : 'yammafooter',
-//							region : 'south'
-//						}, 
-						
 						/* FILTERING MENU */
 						{
 							region : 'west',

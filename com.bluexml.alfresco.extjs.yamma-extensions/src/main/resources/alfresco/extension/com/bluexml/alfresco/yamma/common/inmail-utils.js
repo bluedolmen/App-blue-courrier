@@ -44,6 +44,7 @@
 			
 			function processImapMail() {
 				ImapMailUtils.mapImapMail(document, document); // the target mail is also the document
+				ImapMailUtils.sendAcknowledgment(document);
 			}
 
 			function initializeDates() {

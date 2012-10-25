@@ -20,6 +20,7 @@
 			'@nodeRef',
 			'@typeShort',
 			'cm:name',
+			'cm:title',
 			YammaModel.REFERENCEABLE_REFERENCE_PROPNAME
 		],
 		

@@ -4,16 +4,20 @@ Ext.define('Yamma.view.gridactions.Distribute', {
 		'Yamma.utils.datasources.Documents'
 	],
 	
-	DISTRIBUTE_ACTION_ICON : Yamma.Constants.getIconDefinition('email_go'),
-	DISTRIBUTE_ACTION_WS_URL : 'alfresco://bluexml/yamma/distribute',
+	statics : {
+		ICON : Yamma.Constants.getIconDefinition('lorry_go'),
+		LABEL : 'Distribuer le document',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_DISTRIBUTE,
+		ACTION_WS_URL : 'alfresco://bluexml/yamma/distribute'
+	},
 	
 	getDistributeActionDefinition : function() {
 		
 		var me = this;
 		
 		return	{
-			icon : this.DISTRIBUTE_ACTION_ICON.icon,
-			tooltip : 'Distribuer le document',
+			icon : Yamma.view.gridactions.Distribute.ICON.icon,
+			tooltip : Yamma.view.gridactions.Distribute.LABEL,
 			handler : this.onDistributeAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -25,7 +29,7 @@ Ext.define('Yamma.view.gridactions.Distribute', {
 	},
 	
 	canLaunchDistributeAction : function(record) {
-		var userCanDistribute = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_DISTRIBUTE);
+		var userCanDistribute = record.get(Yamma.view.gridactions.Distribute.FIELD);
 		return !!userCanDistribute;
 	},
 	
@@ -42,7 +46,7 @@ Ext.define('Yamma.view.gridactions.Distribute', {
 		var me = this;
 		
 		var url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-			this.DISTRIBUTE_ACTION_WS_URL
+			Yamma.view.gridactions.Distribute.ACTION_WS_URL
 		);
 		
 		Bluexml.Alfresco.jsonPost(

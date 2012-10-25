@@ -10,7 +10,8 @@ Ext.define('Yamma.view.gridactions.Archive', {
 	
 	statics : {
 		ICON : Yamma.Constants.getIconDefinition('package'),
-		TOOLTIP : 'Archiver',
+		LABEL : 'Archiver',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_ARCHIVE,
 		ACTION_WS_URL : 'alfresco://bluexml/yamma/archive', 
 		CONFIRM_MESSAGE : "Confirmez-vous l'archivage du document ?</br>" +
 							"Une fois le document archivé, le document ne sera plus disponible dans l'application.",
@@ -23,7 +24,7 @@ Ext.define('Yamma.view.gridactions.Archive', {
 		
 		return	{
 			icon : Yamma.view.gridactions.Archive.ICON.icon,
-			tooltip : Yamma.view.gridactions.Archive.TOOLTIP,
+			tooltip : Yamma.view.gridactions.Archive.LABEL,
 			handler : this.onArchiveAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -35,7 +36,7 @@ Ext.define('Yamma.view.gridactions.Archive', {
 	},
 	
 	canLaunchArchiveAction : function(record) {
-		var userCanArchive = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_ARCHIVE);
+		var userCanArchive = record.get(Yamma.view.gridactions.Archive.FIELD);
 		return userCanArchive;
 	},
 	

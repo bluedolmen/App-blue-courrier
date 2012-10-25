@@ -127,15 +127,31 @@ function main() {
 	if (params == null) return;
 	
 	// Get datasource-definition
-	var datasourceDefinition = DatasourceDefinitions.getDefinition(params.datasourceId);
-	if (datasourceDefinition == null) return; // bad status has been set just before
+	var 
+		datasourceId = params.datasourceId,
+		datasourceDefinition = DatasourceDefinitions.getDefinition(datasourceId)
+	;
+	if (null == datasourceDefinition) {
+		var 
+			datasourceIds = DatasourceDefinitions.getDatasourceIds(),
+			definedDatasources = Utils.String.join(datasourceIds, ','),
+			mesg = "The provided datasourceId '" + datasourceId + "' cannot be found. Here are the datasources defined: " + definedDatasources
+		;
+		status.setCode(status.STATUS_NOT_FOUND, mesg);
+		return;
+	}
 
-	var searchType = datasourceDefinition.getSearchType();
-	var isAggregate = ('aggregate' === searchType);
-	
-	var data = isAggregate
-		? buildAggregateData(datasourceDefinition, params)
-		: buildData(datasourceDefinition, params); 
+	var 
+		searchType = datasourceDefinition.getSearchType(),
+		isAggregate = ('aggregate' === searchType),
+		data = isAggregate
+			? buildAggregateData(datasourceDefinition, params)
+			: buildData(datasourceDefinition, params)
+	; 
 	
 	model.data = data;
+	if ('csv' == params.format) {
+		model.fields = DatasourceDefinitions.getFlatColumns(datasourceId);
+	}
+
 }

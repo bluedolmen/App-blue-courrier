@@ -99,7 +99,7 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 			Ext.create('Ext.Img', {
 				src : person.getAvatarUrl(),
 				renderTo : btnIconEl,
-				width : '32px',
+				//width : '32px',
 				height : '32px'
 			});
 			btnIconEl.setStyle('background-image','none');

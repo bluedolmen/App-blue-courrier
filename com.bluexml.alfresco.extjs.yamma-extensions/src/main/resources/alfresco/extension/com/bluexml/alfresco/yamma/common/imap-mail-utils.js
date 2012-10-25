@@ -1,8 +1,8 @@
 (function() {
 
 	const
-		EMAIL_ONLY_REGEXP = /^([A-Za-z_-]+@[A-Za-z\.-]+)\s*/,
-		EMAIL_REGEXP = /\s*([^<]+)\s*<\s*([A-Za-z_-]+@[A-Za-z\.-]+)\s*>.*/
+		USERNAME_AND_EMAIL_REGEXP = /^([^<]+)<(.*)>$/,
+		ACKNOWLEDGMENT_TEMPLATE_NAME = "incoming-acknowledgment_fr.html.ftl"
 	;
 	
 	ImapMailUtils = {
@@ -63,7 +63,7 @@
 				
 				var 
 					messageFrom = imapMail.properties['imap:messageFrom'],
-					emailMatch = extractMailInformation(messageFrom)
+					emailMatch = ImapMailUtils.extractMailInformation(messageFrom)
 				;
 				if (!emailMatch) return;
 				
@@ -77,7 +77,7 @@
 				
 				var 
 					messageTo = imapMail.properties['imap:messageTo'],
-					emailMatch = extractMailInformation(messageTo)
+					emailMatch = ImapMailUtils.extractMailInformation(messageTo)
 				;
 				if (!emailMatch) return;
 				
@@ -143,35 +143,200 @@
 				imapMail.removeAssociation(imapAttachmentsFolder, 'imap:attachmentsFolder');
 				imapAttachmentsFolder.remove();
 				
+			}			
+			
+		},
+
+		extractMailInformation : function(value) {
+			var
+				trimmedValue = Utils.String.trim(value),
+				emailMatch,
+				name,
+				email
+			;
+			if (!value) return null;
+			
+			if (Utils.String.isEmail(value)) {
+				name = trimmedValue;
+			} else {
+				emailMatch = USERNAME_AND_EMAIL_REGEXP.exec(value);
+				if (!emailMatch) return null;
+				
+				name = Utils.String.trim(emailMatch[1]) || '';
+				email = Utils.String.trim(emailMatch[2]) || '';
+				
+				if (!Utils.String.isEmail(email)) email = '';
+				
 			}
 			
-			function extractMailInformation(value) {
-				var 
-					emailMatch,
-					name,
-					email
-				;
-				if (!value) return null;
+			return {
+				name : name,
+				email : email || name
+			};
+		},
+		
+		
+		sendAcknowledgment : function(mailDocument) {
+						
+			var recipientEmail = getSenderEmail();
+			if (!recipientEmail) {
+				logger.warn("Document '" + mailDocument.name + "': " + 'cannot send an acknowledgment to the sender, since the email value cannot be found.');
+				return;
+			}
+
+			var templateDefinition = new TemplateDefinition.SendAcknowledgment(mailDocument);
+			
+			SendMailUtils.sendMail({
 				
-				emailMatch = EMAIL_ONLY_REGEXP.exec(value);
-				if (emailMatch) {
-					name = email = emailMatch[0];
-				} else {
-					emailMatch = EMAIL_REGEXP.exec(value);
-					if (!emailMatch) return null;
-					name = emailMatch[1] || '';
-					email = emailMatch[2] || '';
+				document : mailDocument,
+				recipientEmail : recipientEmail,
+				templateDefinition : templateDefinition,
+				
+				sendMailSuccess : sendMailSuccess,
+				sendMailFailure : sendMailFailure
+			
+			});
+						
+			function sendMailSuccess() {
+				
+			}
+			
+			function sendMailFailure(exception) {
+				
+			}
+
+			function getSenderEmail() {
+				
+				if (mailDocument.hasAspect('imap:imapContent')) {
+					
+					var messageFrom = mailDocument.properties['imap:messageFrom'];
+					if (messageFrom) return messageFrom;
+					
 				}
 				
-				return {
-					name : Utils.String.trim(name),
-					email : email
-				};
+				if (mailDocument.hasAspec('cm:emailed')) {
+					
+					var originator = mailDocument.properties['cm:originator'];
+					if (originator) return originator;
+				}
+				
+				return null;
 			}
 			
 		}
 		
 	
 	};
+	
+	
+	
+	TemplateDefinition.SendAcknowledgment = function(document) {
+		TemplateDefinition.Default.call(this, document, ACKNOWLEDGMENT_TEMPLATE_NAME /* templateName */);
+		return this;
+	};
+	TemplateDefinition.SendAcknowledgment.prototype = new TemplateDefinition.Default();
+	
+	Utils.apply(TemplateDefinition.SendAcknowledgment.prototype, {
+	
+		constructor : TemplateDefinition.SendAcknowledgment,
+		
+		getTemplateArgs : function() {
+			
+			var 
+				templateArgs = new Array()
+			;
+	
+			templateArgs['object'] = this._getObject();
+			templateArgs['sentDate'] = this._getSentDate();
+			templateArgs['senderName'] = this._getSenderName();
+			templateArgs['recipientName'] = this._getRecipientName();
+			
+			return templateArgs;
+			
+		},
+		
+		getMailSubject : function() {
+
+			var subject = this._getSubject();
+			if (subject) return ('Re: ' + subject);  
+			else return NO_SUBJECT;
+			
+		},
+		
+		_getSubject : function() {
+			
+			if (this.document.hasAspect('imap:imapContent')) {
+				return this.document.properties['imap:messageSubject'];
+			}
+			
+			if (this.document.hasAspect('cm:emailed')) {
+				return this.document.properties['cm:subjectline'];
+			}
+			
+			return this.document.properties['cm:title'];
+			
+		},
+		
+		_getObject : function() {
+			
+			return this._getSubject();
+			
+		},
+		
+		_getSentDate : function() {
+			
+			if (this.document.hasAspect('imap:imapContent')) {
+				return this.document.properties['imap:dateSent'];
+			}
+			
+			if (this.document.hasAspect('cm:emailed')) {
+				return this.document.properties['cm:sentdate'];
+			}
+			
+			return new Date();
+		},
+		
+		_getSenderName : function() {
+			
+			var 
+				email = '',
+				name = ''
+			;
+			
+			if (this.document.hasAspect('imap:imapContent')) {
+				email = this.document.properties['imap:messageFrom'];
+			}
+			
+			if (this.document.hasAspect('cm:emailed')) {
+				email = this.document.properties['cm:originator'];
+			}
+			
+			var mailExtract = ImapMailUtils.extractMailInformation(email);
+			if (!mailExtract) return '';
+			
+			return mailExtract.name || '';
+		},
+		
+		_getRecipientName : function() {
+			
+			var 
+				email = '',
+				name = ''
+			;
+			
+			if (this.document.hasAspect('imap:imapContent')) {
+				email = this.document.properties['imap:messageTo'];
+			}
+			
+			if (this.document.hasAspect('cm:emailed')) {
+				email = this.document.properties['cm:addressee'];
+			}
+			
+			var mailExtract = ImapMailUtils.extractMailInformation(email);
+			if (!mailExtract) return '';
+			
+			return mailExtract.name || '';
+		}
+	});
 	
 })();

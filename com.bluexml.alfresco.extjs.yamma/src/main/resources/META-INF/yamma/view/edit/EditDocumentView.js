@@ -6,7 +6,8 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 	requires : [
 		'Yamma.view.edit.EditDocumentForm',
 		'Yamma.view.comments.CommentsView',
-		'Yamma.view.attachments.AttachmentsView'
+		'Yamma.view.attachments.AttachmentsView',
+		'Yamma.utils.datasources.Documents'
 	],
 	
 	layout : 'accordion',
@@ -27,21 +28,20 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		}
 	],
 	
-	updateContext : function(nodeRef, typeShort) {
+	updateContext : function(context) {
 		
-		if (!nodeRef) {
-			Ext.Error.raise('IllegalArgumentException! The provided nodeRef is not valid');
-		}
-		
-		var 
+		var
+			nodeRef = context.get('nodeRef') || Ext.Error.raise('IllegalArgumentException! The provided nodeRef is not valid'),
+			origin = context.get(Yamma.utils.datasources.Documents.MAIL_ORIGIN_QNAME),
+			formId = ('manual' === origin ? 'fill-online' : null),
 			editDocumentForm = this.getEditDocumentForm(),
 			commentsView = this.getCommentsView(),
 			attachmentsView = this.getAttachmentssView()
 		;
 		
-		editDocumentForm.loadDocument(nodeRef);
-		commentsView.loadComments(nodeRef);
-		attachmentsView.loadAttachments(nodeRef);
+		editDocumentForm.dload(nodeRef, formId);
+		commentsView.dload(nodeRef);
+		attachmentsView.dload(nodeRef);
 		
 	},
 	

@@ -12,7 +12,6 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 		
 		config = config || {};
 		this.callParent([config]);
-		this.on('formaction', this.onFormAction);
 		
 	},
 	
@@ -50,11 +49,13 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 			
 			if (me.delegatedFrame) {
 				// Remove existing frame
+				me.mun(me.delegatedFrame, 'formaction', me.onFormAction, me);
 				me.remove(me.delegatedFrame);
 				me.delegatedFrame = null;
 			}
 			
 			me.delegatedFrame = me.add(newItem);
+			me.mon(me.delegatedFrame, 'formaction', me.onFormAction, me);
 			me.delegatedFrame.load();
 		}
 		

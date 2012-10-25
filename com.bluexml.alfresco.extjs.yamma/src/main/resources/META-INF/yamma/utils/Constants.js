@@ -118,12 +118,12 @@ Ext.define('Yamma.utils.Constants', {
 					title : 'En attente de validation de routage',
 					shortTitle : 'Validation routage'
 				}, 
-				this.getIconDefinition('lorry_go')
+				this.getIconDefinition('lorry_go') // TODO: should be lorry_tick (but does not exist yet)
 			),
 			
 			'validating!processed' : Ext.apply(
 				{
-					title : 'En attente de validation de la réponse',
+					title : 'En validation du courrier sortant',
 					shortTitle : 'Validation'
 				}, 
 				this.getIconDefinition('cog_tick')

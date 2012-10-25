@@ -35,14 +35,9 @@ Ext.define('Yamma.controller.menus.AdvancedSearchMenuController', {
 				return Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeId];
 			},	
     		
-			onSearch : function(formData) {
+			onSearch : function(term, query) {
 		
-	    		var 
-	    			term = formData.term,
-	    			query = formData;
-	    		delete formData.term;
-	    		launchSearch(typeId, term, query);
-	    		
+	    		launchSearch(typeId, term, query);	    		
 				this.callParent(arguments);
 				
 			}	

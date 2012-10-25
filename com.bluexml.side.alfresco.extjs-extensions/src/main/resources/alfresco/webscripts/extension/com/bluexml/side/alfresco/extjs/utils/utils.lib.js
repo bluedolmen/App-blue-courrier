@@ -14,6 +14,8 @@
 	 	return object;
 	};
 	
+	Utils.emptyFn = function() {/* do nothing */};
+	
 	Utils.asString = function(object) {
 		return '' + object;
 	};
@@ -203,18 +205,6 @@
 		
 		return qname.replace(/:/,'\\:');
 	};
-	
-	Utils.getLuceneAttributeFilter = function(propertyQName, value, encodeValue) {
-		
-		// !!! Mandatory here! Use an ancilliary variable else the returned result is undefined !!!
-		var result =
-			'@' +
-			Utils.escapeQName(propertyQName) +
-			':' +
-			'\"' + (encodeValue ? search.ISO9075Encode(value) : value) + '\"';
-		
-		return result;
-	}
 	
 	/**
 	 * This is a slightly modified version of the ExtJS apply function which
@@ -425,5 +415,60 @@
 	Utils.String.trim = function(str) {
 		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	}
+	
+	Utils.String.capitalize = function(str) {
+		if (!str) return '';
+		return str.charAt(0).toUpperCase() + str.substr(1);
+	}
+	
+	Utils.String.startsWith = function(str, start) {
+		return (0 == str.indexOf(start));
+	}
+	
+	Utils.String.join = function(array, sep) {
+		if (!array) return '';
+		if (!sep) sep = ' ';
+		
+		return Utils.reduce(
+			array, 
+			function(strPart, str, isLast) {
+				return str + strPart + (isLast ? '' : sep);
+			},
+			"" // initialValue
+		);
+	}
+	
+	Utils.String.emailRegex = /^([a-zA-Z0-9_\.\-]+)\@(?:([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+	
+	Utils.String.isEmail = function(value, trim /* default = false */) {
+		if (!value) return false;
+		
+		return Utils.String.emailRegex.test(
+			true === trim ? Utils.String.trim(value) : value 
+		);
+	}
+	
+	Utils.Alfresco = {};
+	Utils.Alfresco.getCompanyHome = function() {
+		
+		if ('undefined' == typeof companyhome) {
+			var companyhome = search.xpathSearch('/app:company_home')[0];
+		}		
+		
+		if (companyhome) return companyhome;
+		else throw new Error('IllegalStateException! Cannot get CompanyHome node');
+	}
+	Utils.Alfresco.getLuceneAttributeFilter = function(propertyQName, value, encodeValue) {
+		
+		// !!! Mandatory here! Use an ancilliary variable else the returned result is undefined !!!
+		var result =
+			'@' +
+			Utils.escapeQName(propertyQName) +
+			':' +
+			'\"' + (encodeValue ? search.ISO9075Encode(value) : value) + '\"';
+		
+		return result;
+	}
+	
     
 })();

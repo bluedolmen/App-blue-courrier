@@ -79,6 +79,9 @@
 .icon-cross {
     background-image: url(../icons/cross.png) !important;
 }
+.icon-stamp {
+    background-image: url(../icons/stamp.png) !important;
+}
 .icon-folder_magnify {
     background-image: url(../icons/folder_magnify.png) !important;
 }
@@ -285,6 +288,9 @@
 }
 .icon-clock_error {
     background-image: url(../icons/clock_error.png) !important;
+}
+.icon-postage_stamp {
+    background-image: url(../icons/postage_stamp.png) !important;
 }
 .icon-house {
     background-image: url(../icons/house.png) !important;

@@ -23,6 +23,10 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	],
 
 	refs : [
+		{
+			ref : 'mailsView',
+			selector : 'mailsview'
+		},
 	    {
 	    	ref : 'displayView',
 	    	selector : 'displayview'
@@ -159,15 +163,20 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 * 
 	 * @private
 	 */
-	onMainDocumentMetaDataEdited : function() {
+	onMainDocumentMetaDataEdited : function(nodeRef, context) {
 		
 		var 
 			doRefresh = this.application.fireEvent('metaDataEdited', this.mainDocumentNodeRef),
-			editDocumentForm = this.getEditDocumentForm()
+			editDocumentForm = this.getEditDocumentForm(),
+			
+			displayView = this.getDisplayView(),
+			origin = context.get(Yamma.utils.datasources.Documents.MAIL_ORIGIN_QNAME),
+			previewFrame = displayView.getPreviewFrame(this.mainDocumentNodeRef)
 		;
 		
 		if (doRefresh) {
 			editDocumentForm.refresh();
+			if ('manual' === origin) previewFrame.refresh();
 		}
 		
 	},
@@ -192,11 +201,12 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		var 
 			displayView = this.getDisplayView(),
 			previewTab = displayView.getPreviewTab(nodeRef),
-			handler = previewTab.editMetaDataHandler
+			handler = previewTab.editMetaDataHandler,
+			context = previewTab.context
 		;
 		
 		if (!handler) return;		
-		handler.call(this, nodeRef);
+		handler.call(this, nodeRef, context);
 		
 	},
 	
@@ -240,37 +250,18 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 */
 	onTabChange : function(displayView, newCard, oldCard) {
 		
-		this.updateReplyFilesButton(newCard.context); // newCard.context may be undefined here...
-		
-		if (!newCard.context) return;
-		
 		var 
-			nodeRef = newCard.context.get('nodeRef'),
-			typeShort = newCard.context.get('typeShort')
+			context = newCard.context,
+			editDocumentView = this.getEditDocumentView()
 		;
 		
-		this.updateEditView(nodeRef, typeShort);
+		this.updateReplyFilesButton(context); // newCard.context may be undefined here...
+		
+		if (!context) return;		
+		editDocumentView.updateContext(context);
 	},
 	
-	
-	/**
-	 * Update the edit view display.
-	 * 
-	 * @private
-	 * @param {String}
-	 *            nodeRef The mandatory nodeRef to the displayed edit form
-	 * @param {String}
-	 *            typeShort The optional type as an Alfresco Short Name
-	 */
-	updateEditView : function(nodeRef, typeShort) {
 		
-		if (!nodeRef) return;
-		
-		var editDocumentView = this.getEditDocumentView();
-		editDocumentView.updateContext(nodeRef, typeShort);	    	
-		
-	},	
-	
 	/**
 	 * When double-clicking on a preview tab, we display a maximized window of
 	 * the content.
@@ -472,7 +463,9 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			
 			uploadUrl = Bluexml.Alfresco.resolveAlfrescoProtocol(
 				'alfresco://bluexml/yamma/reply-mail'
-			)
+			),
+			
+			mailsView = this.getMailsView()
 		;
 		
 		chooseFile();
@@ -493,6 +486,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 				
 				onSuccess : function() {
 					me.displayReplyFiles();
+					mailsView.refreshSingle(me.mainDocumentNodeRef, 'nodeRef');
 				}
 				
 			}).show();
@@ -528,7 +522,8 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		var 
 			me = this,
 			displayView = this.getDisplayView(),
-			currentTab =  displayView.getActiveTab()
+			currentTab =  displayView.getActiveTab(),
+			mailsView = this.getMailsView()
 		;
 		
 		Bluexml.windows.ConfirmDialog.INSTANCE.askConfirmation(
@@ -551,6 +546,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 					url : url,
 					onSuccess : function() {
 						displayView.remove(currentTab);
+						mailsView.refreshSingle(me.mainDocumentNodeRef, 'nodeRef');
 						me.displayReplyFiles(); // update main-document context as a side effect
 					}
 				}

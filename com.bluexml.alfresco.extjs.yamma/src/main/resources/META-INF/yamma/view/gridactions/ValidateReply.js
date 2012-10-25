@@ -10,13 +10,15 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 	],
 	
 	statics : {
+		ICON : Yamma.Constants.getIconDefinition('email_tick'),
+		LABEL : 'Valider courrier sortant',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_VALIDATE,
 		ICON_OK : Yamma.Constants.getIconDefinition('email_tick'),
 		ICON_REFUSE : Yamma.Constants.getIconDefinition('email_cross'),
 		ICON_DELEGATE : Yamma.Constants.getIconDefinition('email_group'),
-		ICON_SERVICE : Yamma.Constants.getIconDefinition('group')
+		ICON_SERVICE : Yamma.Constants.getIconDefinition('group'),
+		ACTION_WS_URL : 'alfresco://bluexml/yamma/validate-reply'
 	},
-	
-	VALIDATE_REPLY_ACTION_WS_URL : 'alfresco://bluexml/yamma/validate-reply',
 	
 	DIALOG_CONFIG : {
 		
@@ -75,8 +77,7 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 				getClass : function(value, meta, record) {
 					if (me.canDelegateValidation(record)) return '';
 					else return (Ext.baseCSSPrefix + 'hide-display');
-				},
-				
+				}
 			}
 		);
 		
@@ -101,7 +102,7 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 	},
 	
 	canLaunchValidateReplyAction : function(record) {
-		var userCanValidate = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_VALIDATE);
+		var userCanValidate = record.get(Yamma.view.gridactions.ValidateReply.FIELD);
 		return userCanValidate;
 	},
 	
@@ -133,7 +134,7 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 			dialogConfig = me.DIALOG_CONFIG[operation],
 			askForComment = ('comment' === dialogConfig.CONFIRM_TYPE),
 			url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-				this.VALIDATE_REPLY_ACTION_WS_URL
+				Yamma.view.gridactions.ValidateReply.ACTION_WS_URL
 			);
 		;
 		

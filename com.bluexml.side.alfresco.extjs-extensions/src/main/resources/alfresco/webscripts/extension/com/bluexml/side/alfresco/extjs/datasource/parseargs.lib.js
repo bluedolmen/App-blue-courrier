@@ -51,6 +51,7 @@ var ParseArgs = {
 			datasourceId : datasourceId,
 			startIndex : this.getIntParam("start", 0),
 			maxItems : this.getIntParam("maxItems", -1),
+			format : args['format'],
 			sort : getSort("group").concat(getSort()), // grouping is also a (prioritary) sort parameter
 			filters : getFilters(),
 			fieldFilters : getFieldFilters(),

@@ -12,47 +12,19 @@ function main() {
 	}
 	
 	var datasourceDefinition = DatasourceDefinitions.getDefinition(datasourceId);
-	if (datasourceDefinition == null) {
-		// bad status has been set just before
+	if (null == datasourceDefinition) {
+		var 
+			datasourceIds = DatasourceDefinitions.getDatasourceIds(),
+			definedDatasources = Utils.String.join(datasourceIds, ','),
+			mesg = "The provided datasourceId '" + datasourceId + "' cannot be found. Here are the datasources defined: " + definedDatasources
+		;
+		status.setCode(status.STATUS_NOT_FOUND, mesg);
 		return;
 	}
 
 	model.datasourceId = datasourceId;
 	// globals for mergeFields
-	model.fields = []; 
-	
-	var idProperties = [];
-	var fields = datasourceDefinition.getFields();
-	mergeFields(fields);
-	if (idProperties.length > 0) {
-		model.idProperty = idProperties[0];
-	}
-	
-	
-	function mergeFields(fields) {
-		
-		Utils.forEach(fields,
-			function(field) {
-				if ('composite' === field.getType()) {
-					mergeFields(field.getFields());
-				} else {
-					
-					model.fields.push(
-						{
-							name : field.getName(),
-							label : field.getLabel(),
-							description : field.getDescription(),
-							datatype : field.getType()
-						}
-					);
-					
-					if (field.isId()) {
-						idProperties.push(field.getName());
-					}
-				}
-			}
-		);
-		
-	}
+	model.fields = datasourceDefinition.getFlatColumns();
+	model.idProperty = datasourceDefinition.getIdProperties()[0];
 
 };

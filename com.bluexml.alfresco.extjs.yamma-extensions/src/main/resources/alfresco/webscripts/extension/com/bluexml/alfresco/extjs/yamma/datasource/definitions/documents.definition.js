@@ -13,8 +13,10 @@
 	function titleAndName(node) {
 		if (!node) return '';
 		
-		var name = node.name;
-		var title = node.properties['cm:title'] || name;
+		var 
+			name = node.name,
+			title = node.properties['cm:title'] || name
+		;
 		
 		return title + '|' + name;
 	}
@@ -22,44 +24,46 @@
 	function authorityDisplayAndName(node) {
 		if (!node) return '';
 		
-		var userName = Utils.getPersonUserName(node);
-		var displayName = Utils.getPersonDisplayName(node); 
+		var 
+			userName = Utils.getPersonUserName(node),
+			displayName = Utils.getPersonDisplayName(node)
+		; 
 		
 		return  displayName + '|' + userName; 
 	}
 	
 	function priorityDisplay(node) {
 		if (!node) return '';
-		var priorityLabel = node.name;
-		var priorityLevel = node.properties[YammaModel.PRIORITY_LEVEL_PROPNAME];
+		var 
+			priorityLabel = node.name,
+			priorityLevel = node.properties[YammaModel.PRIORITY_LEVEL_PROPNAME]
+		;
 		
 		return priorityLabel + '|' + priorityLevel;
 	}
 	
 	function getActionsFieldDefinitions() {
-		var definitions = [];
 		
-		for (var methodName in ActionUtils) {
-			if (!(methodName.indexOf('can') == 0)) continue;
-			
-			definitions.push({
-				name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '!Action_' + methodName,
-				type : 'boolean',
-				evaluate : getActionFunction(methodName)
-			});
-		}
+		return Utils.map(ActionUtils.getAvailableActionNames(),
+			function(actionName) {
+				return {
+					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '!Action_' + actionName,
+					type : 'boolean',
+					evaluate : getActionFunction(actionName)
+				}; 
+			}
+		);
 		
-		return definitions;
-		
-		function getActionFunction(functionName) {
-			var actualFunction = ActionUtils[functionName];
-			
-			return function(node) {
-				return actualFunction(node);
-			};
-		}
 	}
 	
+	function getActionFunction(functionName) {
+		var actualFunction = ActionUtils[functionName];
+		
+		return function(node) {
+			return actualFunction(node);
+		};
+	}
+		
 	DatasourceDefinitions.register('Documents',
 		{
 			
@@ -95,7 +99,7 @@
 				'cm:name',
 				'@typeShort',
 				'@mimetype',
-				'@nodeRef*',
+				'@nodeRef*', // id field (*)
 				YammaModel.COMMENTABLE_COMMENT_PROPNAME,
 				YammaModel.DIGITIZABLE_DIGITIZED_DATE_PROPNAME,
 				YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,
@@ -105,8 +109,13 @@
 					name : 'cm:generalclassifiable_categories',
 					type : 'string',
 					evaluate : function(node) {
-						var categories = node.properties['cm:categories'];
-						return Utils.asString(categories);
+						var categories = node.properties['cm:categories'] || [];
+						return Utils.reduce(categories, 
+							function(category, aggregate, isLast) {
+								return aggregate + category.name + (isLast ? '' : ',');
+							},
+							''
+						);
 					}
 				},
 				
@@ -192,7 +201,7 @@
 					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + 'hasDelegatedSites',
 					type : 'boolean',
 					evaluate : function(document) {
-						var delegatedSites = ServicesUtils.getDelegatedServices(document);
+						var delegatedSites = ServicesUtils.getParentServices(document);
 						return delegatedSites.length > 0;
 					}
 				}
@@ -256,7 +265,7 @@
 						
 						if (null == authorityId) return query;
 						
-						query += ' +' + Utils.getLuceneAttributeFilter(YammaModel.ASSIGNABLE_AUTHORITY_PROPNAME, authorityId);
+						query += ' +' + Utils.Alfresco.getLuceneAttributeFilter(YammaModel.ASSIGNABLE_AUTHORITY_PROPNAME, authorityId);
 						return query;
 					}
 					
@@ -269,7 +278,7 @@
 						var authorityId = person.properties.userName;
 						if (null == authorityId) return query;
 						
-						query += ' +' + Utils.getLuceneAttributeFilter(YammaModel.ASSIGNABLE_AUTHORITY_PROPNAME, authorityId);
+						query += ' +' + Utils.Alfresco.getLuceneAttributeFilter(YammaModel.ASSIGNABLE_AUTHORITY_PROPNAME, authorityId);
 						return query;
 					}
 					
@@ -298,7 +307,7 @@
 						
 						if (null == stateId) return query;
 						
-						query += ' +' + Utils.getLuceneAttributeFilter(YammaModel.STATUSABLE_STATE_PROPNAME, stateId);
+						query += ' +' + Utils.Alfresco.getLuceneAttributeFilter(YammaModel.STATUSABLE_STATE_PROPNAME, stateId);
 						return query;
 						
 					}
@@ -312,10 +321,44 @@
 						if ('true' !== value) return query;
 						
 						query = query.replace(/cm:documentLibrary\/.*\/\/\*/,'cm:documentLibrary/cm:' + ArchivesUtils.ARCHIVES_FOLDER_NAME + '//*');
-						query += ' +' + Utils.getLuceneAttributeFilter(YammaModel.STATUSABLE_STATE_PROPNAME, YammaModel.DOCUMENT_STATE_ARCHIVED);
+						query += ' +' + Utils.Alfresco.getLuceneAttributeFilter(YammaModel.STATUSABLE_STATE_PROPNAME, YammaModel.DOCUMENT_STATE_ARCHIVED);
 						
 						return query;
 						
+					}
+					
+				},
+				
+				'can' : {
+					
+					acceptNode : function(node, value) {
+						
+						if (!value) return;
+						
+						var 
+							actionNames = [],
+							accept = false
+						;
+						
+						if ('*' == value) {
+							actionNames = ActionUtils.getAvailableActionNames();
+						} else if (-1 != value.indexOf(',')) { 
+							actionNames = Utils.map(value.split(','), function(val) { return Utils.String.trim(val); });
+						} else {
+							actionNames = [value]
+						}
+						
+						Utils.forEach(actionNames, function(actionName) {
+							actionName = Utils.String.startsWith(actionName,'can') ? actionName : ('can' + Utils.String.capitalize(actionName));
+							
+							var action = ActionUtils[actionName];
+							if (!action) return; // continue
+							
+							accept = action(node);
+							if (accept) return false; // break if know that the node is accepted
+						});
+						
+						return accept;
 					}
 					
 				},

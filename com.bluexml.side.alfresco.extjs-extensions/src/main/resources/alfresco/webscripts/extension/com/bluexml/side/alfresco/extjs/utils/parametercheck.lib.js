@@ -5,7 +5,7 @@
 	ParameterCheck.mandatoryParameter = function(value, parameterName) {
 		
 		var message = "The parameter '" + parameterName + "' is mandatory."
-		return this.mandatoryParameter(value, message);
+		return this.mandatory(value, message);
 		
 	}
 	
@@ -18,9 +18,9 @@
 		
 	}
 	
-	ParameterCheck.nonEmptyString = function(value, errorMessage) {
+	ParameterCheck.nonEmptyString = function(value, errorMessage, parameterName) {
 		
-		errorMessage = errorMessage || 'The provided value has to be a valid non-empty String';
+		errorMessage = errorMessage || 'The provided value ' + (parameterName ? "for parameter '" + parameterName + "' " : "") + 'has to be a valid non-empty String';
 		if (null == value || '' === value) {
 			throw new Error(errorMessage);
 		}

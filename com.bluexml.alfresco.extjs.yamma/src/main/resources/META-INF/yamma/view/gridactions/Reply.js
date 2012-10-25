@@ -9,10 +9,11 @@ Ext.define('Yamma.view.gridactions.Reply', {
 	],
 	
 	statics : {
-		ICON : Yamma.Constants.getIconDefinition('email_add')
+		ICON : Yamma.Constants.getIconDefinition('email_add'),
+		LABEL : 'Répondre au courrier',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_REPLY,
+		ACTION_WS_URL : 'alfresco://bluexml/yamma/reply-mail'
 	},
-	
-	REPLY_ACTION_WS_URL : 'alfresco://bluexml/yamma/reply-mail',
 	
 	getReplyActionDefinition : function() {
 		
@@ -20,7 +21,7 @@ Ext.define('Yamma.view.gridactions.Reply', {
 		
 		return	{
 			icon : Yamma.view.gridactions.Reply.ICON.icon,
-			tooltip : 'Répondre au courrier',
+			tooltip : Yamma.view.gridactions.Reply.LABEL,
 			handler : this.onReplyAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -32,7 +33,7 @@ Ext.define('Yamma.view.gridactions.Reply', {
 	},
 	
 	canLaunchReplyAction : function(record) {
-		var userCanReply = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_REPLY);
+		var userCanReply = record.get(Yamma.view.gridactions.Reply.FIELD);
 		return !!userCanReply;
 	},
 	
@@ -47,7 +48,7 @@ Ext.define('Yamma.view.gridactions.Reply', {
 	replyDocument : function(documentNodeRef) {
 		
 		var uploadUrl = Bluexml.Alfresco.resolveAlfrescoProtocol(
-			this.REPLY_ACTION_WS_URL
+			Yamma.view.gridactions.Reply.ACTION_WS_URL
 		);
 		
 		chooseFile();

@@ -6,6 +6,19 @@
 	 */
 	ActionUtils = {
 		
+		getAvailableActionNames : function() {
+			
+			var actionNames = [];
+			
+			for (var methodName in ActionUtils) {
+				if (!(methodName.indexOf('can') == 0)) continue;
+				actionNames.push(methodName);
+			}
+			
+			return actionNames;
+			
+		},
+		
 		/**
 		 * A user can distribute a document if:
 		 * - The document is in pending or delivering state

@@ -12,6 +12,16 @@
 	DatasourceDefinitions = {
 	
 		definitions : {},
+		
+		getDatasourceIds : function() {
+			
+			var definedDatasources = [];
+			for (datasourceDefinitionName in this.definitions) {
+				definedDatasources.push(datasourceDefinitionName);
+			};
+			
+			return definedDatasources;
+		},
 			
 		/**
 		 * Retrieve a new definition for a given datasource-id
@@ -32,16 +42,8 @@
 			var datasourceDefinition = this.getDeclarativeDefinition(datasourceId); 
 			
 			if (undefined === datasourceDefinition) {
-				
-				var definedDatasources = [];
-				for (datasourceDefinitionName in this.definitions) {
-					definedDatasources.push(datasourceDefinitionName);
-				};
-				var mesg = "The provided datasourceId '" + datasourceId + "' cannot be found. Here are the datasources defined: " + definedDatasources;
-				status.setCode(status.STATUS_NOT_FOUND, mesg);
 				return null;
-				
-			}
+			}				
 			
 			if (! (datasourceDefinition instanceof DatasourceDefinition) ) {
 				// The datasource-definition is supposed not to be initialized
@@ -81,6 +83,15 @@
 			}
 			
 			this.definitions[datasourceId] = declarativeDefinition;
+		},
+		
+		getFlatColumns : function(datasourceId) {
+			
+			var datasourceDefinition = DatasourceDefinitions.getDefinition(datasourceId);
+			if (null == datasourceDefinition) return [];
+					
+			return datasourceDefinition.getFlatColumns();
+			
 		}
 		
 	};
@@ -92,8 +103,10 @@
 	 */
 	function getExtendedAncestors(declarativeDefinition) {
 		
-		var extendedDefinitionId = declarativeDefinition.extend;
-		var ancestors = [];
+		var 
+			extendedDefinitionId = declarativeDefinition.extend,
+			ancestors = []
+		;
 		
 		while (null != extendedDefinitionId) {
 			var parentDefinition = DatasourceDefinitions.getDeclarativeDefinition(extendedDefinitionId);
@@ -114,13 +127,15 @@
 		manageExtendedDefinition(declarativeDefinition);
 		
 		// PRIVATE fields
-		var prefix = declarativeDefinition.prefix || '';
-		var _datasourceId = datasourceId;
-		var fields = [];
-		var quickAccessMap = {};
-		var filters = declarativeDefinition.filters || {};
-		var searchType = declarativeDefinition.searchType || 'lucene'; // default to lucene
-		var searchAdditional = declarativeDefinition.searchAdditional || {};
+		var 
+			prefix = declarativeDefinition.prefix || '',
+			_datasourceId = datasourceId,
+			fields = [],
+			quickAccessMap = {},
+			filters = declarativeDefinition.filters || {},
+			searchType = declarativeDefinition.searchType || 'lucene', // default to lucene
+			searchAdditional = declarativeDefinition.searchAdditional || {}
+		;
 
 		// PUBLIC methods
 		
@@ -752,6 +767,42 @@
 		}
 		
 	};
+	
+	DatasourceDefinition.prototype.getFlatColumns = function() {
+		
+		var 
+			fields = this.getFields(),
+			columns = []
+		;
+				
+		mergeFields(fields);
+		
+		function mergeFields(fields) {
+			
+			Utils.forEach(fields, function(field) {
+				
+				if ('composite' === field.getType()) {
+					mergeFields(field.getFields());
+				} else {
+					
+					columns.push(
+						{
+							name : field.getName(),
+							label : field.getLabel(),
+							description : field.getDescription(),
+							datatype : field.getType()
+						}
+					);
+					
+				}
+				
+			});
+			
+		}
+		
+		return columns;
+		
+	};
 
 	/**
 	 * For future use
@@ -844,7 +895,7 @@
 			throw new Error('IllegalStateException! The filter is not correctly configured (missing typeName for the default filtering function)');
 		}
 		
-		return Utils.getLuceneAttributeFilter(this.typeName, value);		
+		return Utils.Alfresco.getLuceneAttributeFilter(this.typeName, value);		
 	}
 	
 })();

@@ -9,10 +9,12 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 	],
 	
 	statics : {
-		ICON : Yamma.Constants.getIconDefinition('email_go')
+		ICON : Yamma.Constants.getIconDefinition('email_go'),
+		LABEL : 'Envoyer',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_SEND_OUTBOUND,
+		ACTION_WS_URL : 'alfresco://bluexml/yamma/send-outbound'
 	},
 	
-	SEND_REPLY_ACTION_WS_URL : 'alfresco://bluexml/yamma/send-outbound', 
 	CONFIRM_MESSAGE : "Confirmez-vous l'envoi du document au destinataire ?</br>" +
 						"Tout envoi devra être validé par une personne accréditée.",
 	CONFIRM_TITLE : 'Envoyer ?',
@@ -23,7 +25,7 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 		
 		return	{
 			icon : Yamma.view.gridactions.SendOutbound.ICON.icon,
-			tooltip : 'Envoyer',
+			tooltip : Yamma.view.gridactions.SendOutbound.LABEL,
 			handler : this.onSendOutboundAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -35,7 +37,7 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 	},
 	
 	canLaunchSendOutboundAction : function(record) {
-		var userCanSendOutbound = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_SEND_OUTBOUND);
+		var userCanSendOutbound = record.get(Yamma.view.gridactions.SendOutbound.FIELD);
 		return userCanSendOutbound;
 	},
 	
@@ -67,7 +69,7 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 		var 
 			me = this,
 			url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-				this.SEND_REPLY_ACTION_WS_URL
+				Yamma.view.gridactions.SendOutbound.ACTION_WS_URL
 			)
 		;		
 

@@ -72,7 +72,7 @@
 			}
 			
 			function fillCorrespondent() {
-				var assignedAuthority = DocumentUtils.getAssignedAuthority(document);
+				var assignedAuthority = DocumentUtils.getAssignedAuthority(document) || person;
 				if (null == assignedAuthority) return;
 				
 				var
@@ -91,10 +91,10 @@
 						assignedAuthority.properties['cm:companyaddress3']
 				;
 				
-				replyNode.properties['YammaModel.CORRESPONDENT_NAME_PROPNAME'] = lastName + ' ' + firstName;
-				replyNode.properties['YammaModel.CORRESPONDENT_ADDRESS_PROPNAME'] = address;
-				replyNode.properties['YammaModel.CORRESPONDENT_CONTACT_EMAIL_PROPNAME'] = email;
-				replyNode.properties['YammaModel.CORRESPONDENT_CONTACT_PHONE_PROPNAME'] = telephone;				
+				replyNode.properties[YammaModel.CORRESPONDENT_NAME_PROPNAME] = lastName + ' ' + firstName;
+				replyNode.properties[YammaModel.CORRESPONDENT_ADDRESS_PROPNAME] = address;
+				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_EMAIL_PROPNAME] = email;
+				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_PHONE_PROPNAME] = telephone;				
 				
 			}
 			

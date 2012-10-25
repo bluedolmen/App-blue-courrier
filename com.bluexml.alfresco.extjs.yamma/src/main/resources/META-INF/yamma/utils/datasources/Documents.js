@@ -5,6 +5,7 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	MAIL_OBJECT_QNAME : 'yamma-ee:Mail_object',
 	MAIL_NAME_QNAME : 'cm:name',
 	MAIL_NODEREF_QNAME : 'nodeRef',
+	MAIL_ORIGIN_QNAME : 'yamma-ee:InboundDocument_origin',
 	ASSIGNED_SERVICE_QNAME : 'yamma-ee:Assignable_service',
 	ASSIGNED_AUTHORITY_QNAME : 'yamma-ee:Assignable_authority',
 	DELIVERY_DATE_QNAME : 'yamma-ee:InboundDocument_deliveryDate',

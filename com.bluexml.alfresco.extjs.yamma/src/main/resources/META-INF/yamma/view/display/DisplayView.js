@@ -106,7 +106,7 @@ Ext.define('Yamma.view.display.DisplayView',
 				
 				items : [
 					previewFrame
-				],
+				]
 			},
 			
 			previewTabConfig = Ext.apply(defaultTabConfig, tabConfig),

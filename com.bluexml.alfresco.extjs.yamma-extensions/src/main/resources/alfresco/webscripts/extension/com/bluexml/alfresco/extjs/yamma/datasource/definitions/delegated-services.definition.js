@@ -16,7 +16,7 @@
 						throw new Error('[Datasource.DelegatedServices] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
 					
 					var enclosingSite = DocumentUtils.getCurrentServiceSite(document);
-					return ServicesUtils.getDelegatedServices(enclosingSite);
+					return ServicesUtils.getParentServices(enclosingSite);
 				}
 				
 			},

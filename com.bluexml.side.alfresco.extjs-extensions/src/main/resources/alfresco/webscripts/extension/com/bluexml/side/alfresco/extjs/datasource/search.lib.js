@@ -119,7 +119,7 @@
 					//throw new Error('UnsupportedOperationException! The field-filtering is only supported on native fields');
 				}
 				
-				additionalQueryFilter += ' ' + Utils.getLuceneAttributeFilter(field, value);
+				additionalQueryFilter += ' ' + Utils.Alfresco.getLuceneAttributeFilter(field, value);
 			}
 			
 		);
@@ -295,17 +295,24 @@
 		
 		function getAdvancedSearchParameters(sortParams) {
 			
-			var query = searchParams.query || null;
-			var term = searchParams.term || null;
+			var 
+				query = searchParams.query || null,
+				term = searchParams.term || null,
+				firstSortParam = sortParams[0],
+				sortParam = firstSortParam ?  firstSortParam.column.replace(/@/,'') + '|' + firstSortParam.ascending : ''
+					
+			;
 			
 			var searchDefinition = getSearchDef({
 				term : term,
 				siteId : null,
+				containerId : null,
 				query : query,
 				tag : null,
-				sort : sortParams
+				sort : sortParam
 			});
 			
+			delete searchDefinition.templates;
 			return searchDefinition;
 			
 		}

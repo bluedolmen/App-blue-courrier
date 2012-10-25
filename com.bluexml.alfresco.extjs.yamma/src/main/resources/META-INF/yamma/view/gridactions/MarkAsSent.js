@@ -9,10 +9,12 @@ Ext.define('Yamma.view.gridactions.MarkAsSent', {
 	],
 	
 	statics : {
-		ICON : Yamma.Constants.getIconDefinition('email_tick')
+		ICON : Yamma.Constants.getIconDefinition('stamp'),
+		LABEL : 'Marquer comme envoyé',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT,
+		ACTION_WS_URL : 'alfresco://bluexml/yamma/mark-as-sent' 
 	},
 	
-	MARK_AS_SENT_ACTION_WS_URL : 'alfresco://bluexml/yamma/mark-as-sent', 
 	
 	getMarkAsSentActionDefinition : function() {
 		
@@ -20,7 +22,7 @@ Ext.define('Yamma.view.gridactions.MarkAsSent', {
 		
 		return	{
 			icon : Yamma.view.gridactions.MarkAsSent.ICON.icon,
-			tooltip : 'Document envoyé',
+			tooltip : Yamma.view.gridactions.MarkAsSent.LABEL,
 			handler : this.onMarkAsSentAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -32,7 +34,7 @@ Ext.define('Yamma.view.gridactions.MarkAsSent', {
 	},
 	
 	canMarkAsSentAction : function(record) {
-		var userCanMarkAsSent = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT);
+		var userCanMarkAsSent = record.get(Yamma.view.gridactions.MarkAsSent.FIELD);
 		return userCanMarkAsSent;
 	},
 	
@@ -51,7 +53,7 @@ Ext.define('Yamma.view.gridactions.MarkAsSent', {
 		var 
 			me = this,
 			url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-				this.MARK_AS_SENT_ACTION_WS_URL
+				Yamma.view.gridactions.MarkAsSent.ACTION_WS_URL
 			)
 		;		
 

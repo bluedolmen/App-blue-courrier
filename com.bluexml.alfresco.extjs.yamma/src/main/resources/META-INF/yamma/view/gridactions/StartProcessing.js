@@ -5,18 +5,19 @@ Ext.define('Yamma.view.gridactions.StartProcessing', {
 	],
 	
 	statics : {
-		START_PROCESSING_ACTION_ICON : Yamma.Constants.getIconDefinition('pencil_go')
+		ICON : Yamma.Constants.getIconDefinition('pencil_go'),
+		LABEL : 'Traiter le document',
+		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_PROCESS_DOCUMENT,
+		ACTION_WS_URL : 'alfresco://bluexml/yamma/take-processing'
 	},
-	
-	START_PROCESSING_ACTION_WS_URL : 'alfresco://bluexml/yamma/take-processing',
 	
 	getStartProcessingActionDefinition : function() {
 		
 		var me = this;
 		
 		return	{
-			icon : Yamma.view.gridactions.StartProcessing.START_PROCESSING_ACTION_ICON.icon,
-			tooltip : 'Traiter le document',
+			icon : Yamma.view.gridactions.StartProcessing.ICON.icon,
+			tooltip : Yamma.view.gridactions.StartProcessing.LABEL,
 			handler : this.onStartProcessingAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -28,7 +29,7 @@ Ext.define('Yamma.view.gridactions.StartProcessing', {
 	},
 	
 	canLaunchStartProcessingAction : function(record) {
-		var userCanProcessDocument = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_PROCESS_DOCUMENT);
+		var userCanProcessDocument = record.get(Yamma.view.gridactions.StartProcessing.FIELD);
 		return !!userCanProcessDocument;
 	},
 	
@@ -45,7 +46,7 @@ Ext.define('Yamma.view.gridactions.StartProcessing', {
 		var me = this;
 		
 		var url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-			this.START_PROCESSING_ACTION_WS_URL
+			Yamma.view.gridactions.StartProcessing.ACTION_WS_URL
 		);
 		
 		Bluexml.Alfresco.jsonPost(
