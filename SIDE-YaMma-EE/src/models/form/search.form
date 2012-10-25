@@ -4,23 +4,11 @@
     <children xsi:type="form:FormGroup" xmi:id="_Ee5jRR3oEeK0zYngBbIqCA" label="Mail" id="Mail">
       <metainfo xmi:id="_lXAnsB3zEeK0zYngBbIqCA" key="appearance" value="bordered-panel"/>
       <ref href="../data/YaMma-EE.dt#_NhpO4AWmEeKRWqDAtKMhxg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_Ee5jUx3oEeK0zYngBbIqCA" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
       <children xsi:type="form:CharSearchField" xmi:id="_Ee5jRx3oEeK0zYngBbIqCA" label="Object" id="object" help_text="The object of the mail">
         <ref href="../data/YaMma-EE.dt#_y_IfcLC0EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_Ee5jRh3oEeK0zYngBbIqCA" label="Writing Date" id="writingDate">
-        <ref href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_Ee5jSB3oEeK0zYngBbIqCA" label="Sent Date" id="sentDate" help_text="The date on which the reply was sent">
-        <ref href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_Ee5jQx3oEeK0zYngBbIqCA" label="Delivery Date" id="deliveryDate" help_text="The date on which the mail was delivered to the receiver">
-        <ref href="../data/YaMma-EE.dt#_l_tboLC0EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_Ee5jOh3oEeK0zYngBbIqCA" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
-        <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_Ee5jPh3oEeK0zYngBbIqCA" label="Due Date" id="dueDate" hidden="true" help_text="The due-date of the document, when available">
-        <ref href="../data/YaMma-EE.dt#_qy_okMdqEeGVoP7HZaHFtA"/>
       </children>
       <children xsi:type="form:FormGroup" xmi:id="_Ee5jNB3oEeK0zYngBbIqCA" label="Correspondent" id="Correspondent">
         <metainfo xmi:id="_cdmT0B3vEeK0zYngBbIqCA" key="appearance" value="title"/>
@@ -54,6 +42,24 @@
           <ref href="../data/YaMma-EE.dt#_u9NLj_jIEeGu9uCwQAeMqw"/>
         </children>
       </children>
+      <children xsi:type="form:FormGroup" xmi:id="_ArGlYR6AEeKaVL7LXJzRRg" label="Dates" id="newGroupId">
+        <metainfo xmi:id="_7kbX8B6qEeKaVL7LXJzRRg" key="appearance" value="title"/>
+        <children xsi:type="form:DateSearchField" xmi:id="_ArGlYh6AEeKaVL7LXJzRRg" label="Writing Date" id="writingDate">
+          <ref href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
+        </children>
+        <children xsi:type="form:DateSearchField" xmi:id="_ArGlYx6AEeKaVL7LXJzRRg" label="Sent Date" id="sentDate" help_text="The date on which the reply was sent">
+          <ref href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
+        </children>
+        <children xsi:type="form:DateSearchField" xmi:id="_ArGlZB6AEeKaVL7LXJzRRg" label="Delivery Date" id="deliveryDate" help_text="The date on which the mail was delivered to the receiver">
+          <ref href="../data/YaMma-EE.dt#_l_tboLC0EeGFgddOkpVJwg"/>
+        </children>
+        <children xsi:type="form:DateSearchField" xmi:id="_ArGlZR6AEeKaVL7LXJzRRg" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+          <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
+        </children>
+        <children xsi:type="form:DateSearchField" xmi:id="_ArGlZh6AEeKaVL7LXJzRRg" label="Due Date" id="dueDate" hidden="true" help_text="The due-date of the document, when available">
+          <ref href="../data/YaMma-EE.dt#_qy_okMdqEeGVoP7HZaHFtA"/>
+        </children>
+      </children>
     </children>
     <children xsi:type="form:FormGroup" xmi:id="_Ee5jOx3oEeK0zYngBbIqCA" label="Distribution" id="Distribution">
       <metainfo xmi:id="_6g0IcB3yEeK0zYngBbIqCA" key="appearance" value="bordered-panel"/>
@@ -74,9 +80,6 @@
     <children xsi:type="form:FormGroup" xmi:id="_Ee5jOR3oEeK0zYngBbIqCA" label="Internal" id="Internal">
       <metainfo xmi:id="_nEF0kB3zEeK0zYngBbIqCA" key="appearance" value="bordered-panel"/>
       <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_Ee5jUx3oEeK0zYngBbIqCA" label="Reference" id="reference" help_text="The reference of a document">
-        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
-      </children>
       <children xsi:type="form:ModelChoiceSearchField" xmi:id="_Ee5jPx3oEeK0zYngBbIqCA" label="delay" id="delay">
         <ref href="../data/YaMma-EE.dt#_YPIBoAYcEeKRWqDAtKMhxg"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
@@ -96,23 +99,11 @@
     <children xsi:type="form:FormGroup" xmi:id="_ZX5U4B30EeK0zYngBbIqCA" label="Mail" id="Mail">
       <metainfo xmi:id="_ZX578B30EeK0zYngBbIqCA" key="appearance" value="bordered-panel"/>
       <ref href="../data/YaMma-EE.dt#_NhpO4AWmEeKRWqDAtKMhxg"/>
+      <children xsi:type="form:CharSearchField" xmi:id="_ZX58Ch30EeK0zYngBbIqCA" label="Reference" id="reference" help_text="The reference of a document">
+        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+      </children>
       <children xsi:type="form:CharSearchField" xmi:id="_ZX578R30EeK0zYngBbIqCA" label="Object" id="object" help_text="The object of the mail">
         <ref href="../data/YaMma-EE.dt#_y_IfcLC0EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_ZX578h30EeK0zYngBbIqCA" label="Writing Date" id="writingDate">
-        <ref href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_ZX578x30EeK0zYngBbIqCA" label="Sent Date" id="sentDate" help_text="The date on which the reply was sent">
-        <ref href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_ZX579B30EeK0zYngBbIqCA" label="Delivery Date" id="deliveryDate" help_text="The date on which the mail was delivered to the receiver">
-        <ref href="../data/YaMma-EE.dt#_l_tboLC0EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_ZX579R30EeK0zYngBbIqCA" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
-        <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
-      </children>
-      <children xsi:type="form:DateSearchField" xmi:id="_ZX579h30EeK0zYngBbIqCA" label="Due Date" id="dueDate" hidden="true" help_text="The due-date of the document, when available">
-        <ref href="../data/YaMma-EE.dt#_qy_okMdqEeGVoP7HZaHFtA"/>
       </children>
       <children xsi:type="form:FormGroup" xmi:id="_ZX579x30EeK0zYngBbIqCA" label="Correspondent" id="Correspondent">
         <metainfo xmi:id="_ZX57-B30EeK0zYngBbIqCA" key="appearance" value="title"/>
@@ -146,29 +137,22 @@
           <ref href="../data/YaMma-EE.dt#_u9NLj_jIEeGu9uCwQAeMqw"/>
         </children>
       </children>
-    </children>
-    <children xsi:type="form:FormGroup" xmi:id="_ZX58Ax30EeK0zYngBbIqCA" label="Distribution" id="Distribution">
-      <metainfo xmi:id="_ZX58BB30EeK0zYngBbIqCA" key="appearance" value="bordered-panel"/>
-      <ref href="../data/YaMma-EE.dt#_9CLqALC6EeGFgddOkpVJwg"/>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_ZX58BR30EeK0zYngBbIqCA" label="Service" id="service">
-        <ref href="../data/YaMma-EE.dt#_zw17sLYDEeGSo_XQepIvyw"/>
-        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
-      </children>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_ZX58Bh30EeK0zYngBbIqCA" label="Authority" id="authority">
-        <ref href="../data/YaMma-EE.dt#_ksnewPjDEeGu9uCwQAeMqw"/>
-        <real_class xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35xEcnWEeGjKJcImRsXbg"/>
-      </children>
-      <children xsi:type="form:ModelChoiceSearchField" xmi:id="_ZX58Bx30EeK0zYngBbIqCA" label="Services" id="services">
-        <ref href="../data/YaMma-EE.dt#_0_YycLYDEeGSo_XQepIvyw"/>
-        <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_HokJgLYDEeGSo_XQepIvyw"/>
+      <children xsi:type="form:FormGroup" xmi:id="_E345cB6BEeKaVL7LXJzRRg" label="Dates" id="newGroupId">
+        <metainfo xmi:id="_IchrwB6rEeKaVL7LXJzRRg" key="appearance" value="title"/>
+        <children xsi:type="form:DateSearchField" xmi:id="_E345cR6BEeKaVL7LXJzRRg" label="Writing Date" id="writingDate">
+          <ref href="../data/YaMma-EE.dt#_FI3zEM9hEeGVoP7HZaHFtA"/>
+        </children>
+        <children xsi:type="form:DateSearchField" xmi:id="_E345dB6BEeKaVL7LXJzRRg" label="Digitized Date" id="digitizedDate" help_text="The date on which the mail was digitized">
+          <ref href="../data/YaMma-EE.dt#_SmWgoLC8EeGFgddOkpVJwg"/>
+        </children>
+        <children xsi:type="form:DateSearchField" xmi:id="_E345ch6BEeKaVL7LXJzRRg" label="Sent Date" id="sentDate" help_text="The date on which the reply was sent">
+          <ref href="../data/YaMma-EE.dt#_O-VcUM9hEeGVoP7HZaHFtA"/>
+        </children>
       </children>
     </children>
     <children xsi:type="form:FormGroup" xmi:id="_ZX58CB30EeK0zYngBbIqCA" label="Internal" id="Internal">
       <metainfo xmi:id="_ZX58CR30EeK0zYngBbIqCA" key="appearance" value="bordered-panel"/>
       <ref href="../data/YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
-      <children xsi:type="form:CharSearchField" xmi:id="_ZX58Ch30EeK0zYngBbIqCA" label="Reference" id="reference" help_text="The reference of a document">
-        <ref href="../data/YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
-      </children>
       <children xsi:type="form:ModelChoiceSearchField" xmi:id="_ZX58DB30EeK0zYngBbIqCA" label="delay" id="delay">
         <ref href="../data/YaMma-EE.dt#_YPIBoAYcEeKRWqDAtKMhxg"/>
         <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_3cbmMLOeEeGKr-5wI4QUkQ"/>
