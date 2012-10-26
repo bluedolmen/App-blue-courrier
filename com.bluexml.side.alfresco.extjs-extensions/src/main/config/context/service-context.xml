@@ -33,6 +33,14 @@
 		</property>
 	</bean>
 
+	<bean id="sideInitHelperScript" parent="baseJavaScriptExtension" class="com.bluexml.side.repo.jscript.InitHelperScript" >
+		<property name="extensionName" value="sideInitHelper" />
+		<property name="nodeService" ref="NodeService" />
+		<property name="searchService" ref="SearchService" />
+		<property name="permissionService" ref="PermissionService" />
+		<property name="fileFolderService" ref="FileFolderService" />
+	</bean>
+	
 	<bean id="transformer.RFC822.html"
 		class="com.bluexml.side.repo.content.transform.EMLTransformer"
 		parent="baseContentTransformer" >

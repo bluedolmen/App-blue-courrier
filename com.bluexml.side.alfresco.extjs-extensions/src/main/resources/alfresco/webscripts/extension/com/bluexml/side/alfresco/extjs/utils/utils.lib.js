@@ -375,39 +375,6 @@
     	
     },
     
-	Utils.createPath = function(rootNode, path, createFolderHandler) {
-		
-		if (path.indexOf('/') == 0) { // ignore starting '/'
-			path = substr(1);
-		}
-		
-		var 
-			segments = path.split('/'),
-			currentNode = rootNode
-		;	
-		
-		createFolderHandler = createFolderHandler ||
-			function(parentNode, childName) {
-				return parentNode.createFolder(childName);
-			}
-		;
-			
-		Utils.forEach(segments, function(segment) {
-			
-			var childNode = segment.indexOf(':') >= 0 
-				? currentNode.childrenByXPath(segment)[0] 
-				: currentNode.childByNamePath(segment)
-			;
-			
-			if (!childNode) {
-				childNode = createFolderHandler(currentNode, segment);
-			}
-			
-			currentNode = childNode;
-		});
-		
-		return currentNode;
-	}
 
 	
 	Utils.String = {};
@@ -436,6 +403,15 @@
 			},
 			"" // initialValue
 		);
+	}
+	
+	Utils.String.leftPad = function(string, size, character) {
+        character = character || " ";
+        var result = String(string);
+        while (result.length < size) {
+            result = character + result;
+        }
+        return result;
 	}
 	
 	Utils.String.emailRegex = /^([a-zA-Z0-9_\.\-]+)\@(?:([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
@@ -470,5 +446,44 @@
 		return result;
 	}
 	
+	Utils.Alfresco.createPath = function(rootNode, path, createFolderHandler) {
+		
+		if (path.indexOf('/') == 0) { // ignore starting '/'
+			path = path.substr(1);
+		}
+		
+		var companyHomePrefix = 'app:company_home/';
+		if (Utils.String.startsWith(path, companyHomePrefix)) {
+			path = path.substr(companyHomePrefix.length); // +1 discards the leading '/' character
+			rootNode = Utils.Alfresco.getCompanyHome();
+		}
+		
+		var 
+			segments = path.split('/'),
+			currentNode = rootNode
+		;	
+		
+		createFolderHandler = createFolderHandler ||
+			function(parentNode, childName) {
+				return parentNode.createFolder(childName);
+			}
+		;
+			
+		Utils.forEach(segments, function(segment) {
+			
+			var childNode = segment.indexOf(':') >= 0 
+				? currentNode.childrenByXPath(segment)[0] 
+				: currentNode.childByNamePath(segment)
+			;
+			
+			if (!childNode) {
+				childNode = createFolderHandler(currentNode, segment);
+			}
+			
+			currentNode = childNode;
+		});
+		
+		return currentNode;
+	}
     
 })();

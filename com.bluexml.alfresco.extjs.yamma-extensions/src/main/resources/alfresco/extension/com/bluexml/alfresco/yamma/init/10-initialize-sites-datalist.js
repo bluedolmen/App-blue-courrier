@@ -1,15 +1,9 @@
-///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
-
-(function() {
+function initializeSitesDatalist() {
 	
 	const ASSIGNABLE_SITE_CONTAINER_TITLE = 'Services destinataires';
 	
-	main();
-	
-	function main() {
-		if (!checkDataListExists()) return;
-		synchronizeDataListItems();
-	}
+	if (!checkDataListExists()) return;
+	synchronizeDataListItems();
 	
 	function checkDataListExists() {
 		
@@ -53,7 +47,7 @@
 			// create site-name data-list item
 			logger.info("Site '" + siteName + "' does not exist in Site data-list. Creating it.");
 			
-          	var actualSite = siteService.getSite(siteName);
+	      	var actualSite = siteService.getSite(siteName);
 			var properties = {
 				'cm:title' : actualSite ? actualSite.title : siteName
 			};
@@ -97,10 +91,8 @@
 		
 	}
 	
-	function getSiteList() {
-		
-		return siteService.listSites('','');		
-		
+	function getSiteList() {		
+		return siteService.listSites('','');
 	}
 	
 	function getDataListItems(dataListContainer) {
@@ -108,5 +100,6 @@
 	}
 	
 	
-	
-})();
+}
+
+InitUtils && InitUtils.register(initializeSitesDatalist, 10);
