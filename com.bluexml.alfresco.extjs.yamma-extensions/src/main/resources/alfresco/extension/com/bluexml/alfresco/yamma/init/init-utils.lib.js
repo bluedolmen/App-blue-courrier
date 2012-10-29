@@ -1,5 +1,7 @@
 (function() {
 
+	const MAX_LEVEL_DIGIT_NB = 3;
+	
 	InitUtils = {
 		
 		constructor : function() {
@@ -12,7 +14,7 @@
 		
 		register : function(initFunction, level) {
 			
-			level = level || 0;
+			level = level || Number(Utils.String.leftPad('' + level, MAX_LEVEL_DIGIT_NB, '9'));
 			
 			if (!Utils.isFunction(initFunction)) {
 				throw new Error('IllegalArgumentException! The provided init-function is not a valid function');
@@ -24,7 +26,7 @@
 			
 			var
 				functionName = initFunction.name || ('anonymous' + this.getAnonymousIndex());
-				functionNameWithLevel = Utils.String.leftPad('' + level, 3, '0') + '-' + functionName 
+				functionNameWithLevel = Utils.String.leftPad('' + level, MAX_LEVEL_DIGIT_NB, '0') + '-' + functionName 
 			;
 			
 			this[functionName] = initFunction;
@@ -42,7 +44,7 @@
 			}
 			
 			var shiftedArgs = []; // slice does not work on arguments with Rhino !...
-			for(i = 1, len = arguments.length; i < len; i++) {
+			for(var i = 1, len = arguments.length; i < len; i++) {
 				shiftedArgs.push(arguments[i]);
 			}
 			
