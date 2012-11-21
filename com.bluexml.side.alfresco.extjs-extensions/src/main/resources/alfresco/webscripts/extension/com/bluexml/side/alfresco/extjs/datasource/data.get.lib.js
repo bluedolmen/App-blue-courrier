@@ -1,5 +1,6 @@
 <import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/utils.lib.js">
 <import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/common.lib.js">
+<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/helpers.lib.js">
 <import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/definitions.lib.js">
 <import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/search.lib.js">
 <import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/evaluator.lib.js">

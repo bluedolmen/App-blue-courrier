@@ -418,24 +418,26 @@
 		
 		function getValues() {
 			
-			var propertyValues = new DatasourceDefinition.NodeEvaluationResult();
-			var fieldsDefinition = me.getFields();
+			var 
+				propertyValues = new DatasourceDefinition.NodeEvaluationResult(),
+				fieldsDefinition = me.getFields()
+			;
 			
-			Utils.forEach(fieldsDefinition,
-				function(field) {
+			Utils.forEach(fieldsDefinition, function(field) {
 					
-					var itemValue = field.evaluate(node);
-					var fieldName = field.getName();
-					var fieldType = field.getType();
-					
-					if (COMPOSITE_TYPE === fieldType) {
-						Utils.apply(propertyValues, itemValue);
-					} else {
-						propertyValues[fieldName] = itemValue;
-					}
-					
+				var 
+					itemValue = field.evaluate(node),
+					fieldName = field.getName(),
+					fieldType = field.getType()
+				;
+				
+				if (COMPOSITE_TYPE === fieldType) {
+					Utils.apply(propertyValues, itemValue);
+				} else {
+					propertyValues[fieldName] = itemValue;
 				}
-			);
+					
+			});
 			
 			return propertyValues;
 			
@@ -452,14 +454,38 @@
 			
 		}
 		
+		// defines a cache of array-typed properties for optimization of isRich() function
+		var arrayTypedFields = Utils.ArrayToMap(
+		
+			Utils.filter(me.getFields(),
+				// acceptFunction
+				function(fieldDefinition) {
+					return 'array' == fieldDefinition.getType();
+				}
+			),
+			
+			// keyFunction
+			function(field) {
+				return field.getName();
+			}
+		
+		);		
+		
 		/**
 		 * Returns true if one of the value is of type Array (list of values)
 		 */
 		function isRich(values) {
 			
-			for (propertyName in values) {
-				var propertyValue = values[propertyName];
-				if (Utils.isArray(propertyValue)) return true;
+//			for (var propertyName in values) {
+//				var propertyValue = values[propertyName];
+//				if (Utils.isArray(propertyValue)) return true;
+//			}
+			
+			var propertyValue = null;
+			
+			for (var propertyName in values) {
+				propertyValue = values[propertyName];
+				if (Utils.isArray(propertyValue) && 'undefined' === arrayTypedFields[propertyName]) return true;
 			}
 			
 			return false;
@@ -551,16 +577,18 @@
 		
 		
 		/* PRIVATE FIELDS */
-		var me = this;
+		var 
+			me = this,
 		// if prefix is defined, it is not a native field... This logic has certainly to be improved
-		var isNative = true; 
-		var prefix = prefix || '';
-		var localConfig = {
-			label : null,
-			description : null,
-			type : null,
-			isId : false
-		};
+			isNative = true, 
+			prefix = prefix || '',
+			localConfig = {
+				label : null,
+				description : null,
+				type : 'string',
+				isId : false
+			}
+		;
 		
 		
 	
@@ -612,6 +640,12 @@
 			if (true === isScriptNodeProperty) {
 				// String '@' character
 				config = config.substring(1);
+				
+				var slashIndex = config.indexOf('/'); 
+				if (-1 != slashIndex) {
+					localConfig.type = config.substring(slashIndex + 1);
+					config = config.substring(0, slashIndex);
+				}
 			}
 			
 			isNative = !isScriptNodeProperty && !prefix;
@@ -712,17 +746,23 @@
 			me.evaluate = isScriptNodeProperty ? evaluateAsScriptNodeProperty : evaluateAsPropertyName;
 				
 			function evaluateAsPropertyName(node) {
-				var propertyName = localConfig.propertyName;
-				var propertyValue = node.properties[propertyName];
+				var 
+					propertyName = localConfig.propertyName,
+					propertyValue = node.properties[propertyName]
+				;
 				
 				return (null == propertyValue) ? "" : propertyValue;				
 			};
 			
 			function evaluateAsScriptNodeProperty(node) {
-				var propertyName = localConfig.name; // localConfig.propertyName would work so
-				var propertyValue = node[propertyName].toString();
+				var 
+					propertyName = localConfig.name, // localConfig.propertyName would work so
+					propertyType = localConfig.type,
+					propertyValue = node[propertyName]
+				;
 				
-				return (null == propertyValue) ? "" : propertyValue;				
+				if (null == propertyValue) return '';
+				return ('string' == propertyType) ? propertyValue.toString() : propertyValue;
 			}
 
 		}
@@ -842,13 +882,15 @@
 	 * the expected result is unique or a JSON Array string.
 	 */
 	DatasourceDefinition.DatasourceField.prototype.evaluateAssocProperty = function(node, assocName, propertyName, unique, noneValue) {
-		if (!node) return null;
+		if (null == node) return null;
 		if (!assocName) throw new Error('IllegalArgumentException! The provided association-name is invalid');
 		if (!propertyName) throw new Error('IllegalArgumentException! The provided property-name is invalid');
-		unique = 'undefined' != typeof(unique) && unique;
+		
+		unique = true === unique;
+		noneValue = undefined === noneValue ? '' : noneValue;
 		
 		var assocNodes = node.assocs[assocName];
-		if (!assocNodes || assocNodes.length == 0) return unwrapUniqueAsResult([]);
+		if (null == assocNodes || assocNodes.length == 0) return unwrapUniqueAsResult([]);
 		
 		if (unique && assocNodes.length > 1) {
 			logger.warn('Warning! Several matching nodes. This is an incorrect state. Only the first node-value will be returned!');
@@ -856,7 +898,7 @@
 		
 		var propertyValues = Utils.map(assocNodes, function(node) {
 			var propertyValue = ('function' == typeof propertyName) ? propertyName(node) : node.properties[propertyName];
-			if (!propertyValue) return '';
+			if (null == propertyValue) return '';
 			
 			return propertyValue;
 		});
@@ -866,7 +908,7 @@
 		
 		function unwrapUniqueAsResult(resultingArray) {
 			if (unique) {
-				if (resultingArray.length == 0) return noneValue || '';
+				if (resultingArray.length == 0) return noneValue;
 				else return resultingArray[0];
 			}
 			

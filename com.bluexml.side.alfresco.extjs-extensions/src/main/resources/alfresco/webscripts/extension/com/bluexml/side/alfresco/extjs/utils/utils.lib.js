@@ -6,7 +6,7 @@
 	Utils = {};
 	
 	Utils.ns = function(ns) {
-	 	var object = root;
+	 	var object = root || this;
 	 	Utils.forEach(ns.split('.'), function(nspart) {
 			if (undefined === object[nspart]) object[nspart] = {};
 			object = object[nspart];
@@ -196,7 +196,11 @@
     	);
     	
     	return result;
-    };	
+    };
+    
+    Utils.mapOfArray = Utils.ArrayToMap;
+    
+    Utils.arrayToMap = Utils.ArrayToMap; 
     
 	Utils.escapeQName = function(qname) {
 		if (null == qname) {
@@ -286,94 +290,6 @@
     	return array.sort(sortingFunction);
     };
     
-    Utils.getPersonDisplayName = function(person) {
-    	
-    	if (isPersonScriptNode(person)) 
-    		return Utils.getDisplayName(person.properties.firstName, person.properties.lastName);
-    	
-    	if ('string' == typeof person) {
-    		return Utils.getDisplayName(person /* username */);
-    	}
-    	
-    		
-    	throw new Error('IllegalArgumentException! The provided person is not a valid person');
-    	
-    	return (person.properties.firstName + " " + person.properties.lastName).replace(/^\s+|\s+$/g, "");
-    }
-    
-    Utils.getDisplayName = function(firstName, lastName) {
-    	
-    	if (undefined === lastName) {
-    		// firstName is supposed to be a username
-    		if (!firstName) {
-    			throw new Error('IllegalArgumentException! At least the firstName or the userName has to be provided.');
-    		}
-    		
-    		var username = firstName;
-			var person = Common.getPerson(Utils.asString(username));
-			firstName = person.firstName;
-			lastName = person.lastName;			
-    	}
-    	
-    	firstName = firstName || '';
-    	lastName = lastName || '';
-    	var displayName = firstName + (firstName ? ' ' : '') + lastName;
-    	
-    	return displayName.replace(/^\s+|\s+$/g, "");
-    }
-    
-    function isPersonScriptNode(person) {
-    	return (person && person.typeShort && 'cm:person' == Utils.asString(person.typeShort) && person.properties);
-    }
-    
-    
-    Utils.getPersonUserName = function(person) {
-    	
-    	if (!person) return '';
-    	if (isPersonScriptNode(person)) return Utils.asString(person.properties.userName);
-    	// typeof person on ScriptNode throws an exception and has to be performed after the isPersonScriptNode test
-    	if ('string' == typeof person) return person; 
-    	
-    	throw new Error('IllegalArgumentException! The provided person is not a valid person');
-    	
-    }
-    
-    Utils.getPersonAvatarUrl = function(person) {
-    	
-    	if (null == person) return '';
-    	
-    	if (!isPersonScriptNode(person)) {
-    		person = people.getPerson(person);
-	    	if (!person) return '';
-    	}
-    	
-    	var avatars = person.assocs['cm:avatar'];
-    	if (!avatars || 0 == avatars.length) return '';
-    	
-		var 
-			avatar = avatars[0],
-			url = 'api/node/' + avatar.storeType + '/' + avatar.storeId + '/' + avatar.id + '/content/thumbnails/avatar'
-		;
-		
-		return url;
-    	
-    }
-    
-    Utils.getCurrentUserName = function() {
-    	return Utils.getPersonUserName(person); // Use person global Object defined as the currently authenticated user
-    }
-    
-    Utils.getFullyAuthenticatedUserName = function() {
-    	
-    	if ('undefined' == typeof sideAuthenticationUtil) {
-    		logger.warn('Cannt get the sideAuthenticationUtil object to get the actual logged user. Returning current user-name instead.');
-    		return Utils.getCurrentUserName();
-    	}
-    	
-    	var fullyAuthenticatedUser = sideAuthenticationUtil.getFullyAuthenticatedUser();
-    	return Utils.asString(fullyAuthenticatedUser);
-    	
-    },
     
 
 	
@@ -425,6 +341,11 @@
 	}
 	
 	Utils.Alfresco = {};
+	
+	Utils.Alfresco.isScriptNode = function(node) {
+		return (undefined !== node.typeShort); // weak testing?
+	};
+	
 	Utils.Alfresco.getCompanyHome = function() {
 		
 		if ('undefined' == typeof companyhome) {
@@ -434,6 +355,7 @@
 		if (companyhome) return companyhome;
 		else throw new Error('IllegalStateException! Cannot get CompanyHome node');
 	}
+	
 	Utils.Alfresco.getLuceneAttributeFilter = function(propertyQName, value, encodeValue) {
 		
 		// !!! Mandatory here! Use an ancilliary variable else the returned result is undefined !!!
@@ -485,5 +407,158 @@
 		
 		return currentNode;
 	}
+
+	/**
+	 * @private
+	 */
+    function isPersonScriptNode(person) {
+    	if (null == person) return false;
+    	return ('cm:person' === Utils.asString(person.typeShort));
+    }	
+	
+    Utils.Alfresco.getPersonDisplayName = function(person) {
+    	
+    	if (isPersonScriptNode(person)) 
+    		return Utils.Alfresco.getDisplayName(person.properties.firstName, person.properties.lastName);
+    	
+    	if ('string' == typeof person)
+    		return Utils.Alfresco.getDisplayName(person /* username */);
+    		
+    	throw new Error('IllegalArgumentException! The provided person is not a valid person');    	
+    }
+    
+    Utils.Alfresco.getDisplayName = function(firstName, lastName) {
+    	
+    	if (undefined === lastName) {
+    		// firstName is supposed to be a username
+    		if (!firstName) {
+    			throw new Error('IllegalArgumentException! At least the firstName or the userName has to be provided.');
+    		}
+    		
+    		var 
+    			username = firstName,
+				person = Common.getPerson(Utils.asString(username))
+			;
+			firstName = person.firstName;
+			lastName = person.lastName;			
+    	}
+    	
+    	firstName = firstName || '';
+    	lastName = lastName || '';
+    	var displayName = firstName + (firstName ? ' ' : '') + lastName;
+    	
+    	return displayName.replace(/^\s+|\s+$/g, "");
+    }
+    
+    
+    Utils.Alfresco.getPersonUserName = function(person) {
+    	
+    	if (isPersonScriptNode(person)) return Utils.asString(person.properties.userName);
+    	// typeof person on ScriptNode throws an exception and has to be performed after the isPersonScriptNode test
+    	if ('string' == typeof person) return person || ''; 
+    	
+    	throw new Error('IllegalArgumentException! The provided person is not a valid person');
+    	
+    }
+    
+    Utils.Alfresco.getPersonAvatarUrl = function(person) {
+    	
+    	if (null == person) return '';
+    	
+    	if (!isPersonScriptNode(person)) {
+    		person = people.getPerson(person);
+	    	if (null == person) return '';
+    	}
+    	
+    	var avatars = person.assocs['cm:avatar'];
+    	if (null == avatars || 0 == avatars.length) return '';
+    	
+		var 
+			avatar = avatars[0],
+			url = 'api/node/' + avatar.storeType + '/' + avatar.storeId + '/' + avatar.id + '/content/thumbnails/avatar'
+		;
+		
+		return url;
+    	
+    }
+    
+    Utils.Alfresco.getCurrentUserName = function() {
+    	return Utils.Alfresco.getPersonUserName(person); // Use person global Object defined as the currently authenticated user
+    }
+    
+    Utils.Alfresco.getFullyAuthenticatedUserName = function() {
+    	
+    	if ('undefined' == typeof sideAuthenticationUtil) {
+    		logger.warn('Cannt get the sideAuthenticationUtil object to get the actual logged user. Returning current user-name instead.');
+    		return Utils.Alfresco.getCurrentUserName();
+    	}
+    	
+    	var fullyAuthenticatedUser = sideAuthenticationUtil.getFullyAuthenticatedUser();
+    	return Utils.asString(fullyAuthenticatedUser);
+    	
+    }	
+	
+	/**
+	 * Get a site whether the provided parameter is a string, a site node,
+	 * or a site object (the one returned by the site-service
+	 */
+	Utils.Alfresco.getSiteNode = function(site) {
+			
+		if (Utils.Alfresco.isScriptNode(site)) {
+			return site;
+		}
+		if ('string' == typeof site) {
+			site = siteService.getSite(site);
+		}
+		
+		var siteNode = site.node;
+		if (!siteNode.isSubType('st:site')) {
+			throw new Error('IllegalStateException! The site is not of expected type st:site');
+		}
+
+		return siteNode;
+	}
+
+	
+	
+	
+	
+	
+	
+	Utils.Object = {
+		
+		/*
+		 * Used for prototypal inheritence
+		 */
+		create : function(prototype, override, initArgs) {
+			
+			var 
+				F = function() {},
+				newInstance = null
+			;
+			F.prototype = prototype;
+						
+			newInstance = new F();
+			if (override) {
+				Utils.apply(newInstance, override);
+			}
+			
+			if (undefined !== newInstance._init) {
+				newInstance._init.apply(newInstance, initArgs);
+			}
+			
+			return newInstance;
+		},
+		
+		/*
+		 * Used for parasitic combination inheritence
+		 */
+		extend : function(subType, superType) {
+			var prototype = Utils.Object.create(superType.prototype);
+			prototype.constructor = subType;
+			subType.prototype = prototype;
+		}		
+		
+	};
     
 })();

@@ -25,6 +25,6 @@ function main() {
 	model.datasourceId = datasourceId;
 	// globals for mergeFields
 	model.fields = datasourceDefinition.getFlatColumns();
-	model.idProperty = datasourceDefinition.getIdProperties()[0];
+	model.idProperty = datasourceDefinition.getIdProperties()[0] || '';
 
 };

@@ -9,6 +9,17 @@
 	</#escape>
 </#macro>
 
+<#macro renderNode item>
+	<#escape x as jsonUtils.encodeJSONString(x)>
+	{   	
+		<#list item.properties?keys as propertyName>
+			<#assign value = item.properties[propertyName]>
+		"${propertyName}" : <@renderValue value /><#if propertyName_has_next>,</#if>
+		</#list>
+	}
+	</#escape>
+</#macro>
+
 <#macro renderDataList data>
 [<#list data as value><@renderValue value /><#if value_has_next>,</#if></#list>]
 </#macro>

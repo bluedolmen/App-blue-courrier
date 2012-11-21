@@ -77,7 +77,7 @@
 	
 	NodeSearch.prototype.buildLuceneQuery = function (searchParams) {
 	
-		var filterQuery = "";
+		var filterQuery = this.datasourceDefinition.luceneQuery || "";
 		
 		var baseSearchPath = this.datasourceDefinition.getBaseSearchPath && this.datasourceDefinition.getBaseSearchPath();
 		if (baseSearchPath) { // non-undefined, non-null and non-empty			
@@ -91,7 +91,7 @@
 		
 		filterQuery = this.applyFieldFilters(filterQuery, searchParams.fieldFilters, searchParams.query);
 		filterQuery = this.applyQueryFilters(filterQuery, searchParams.filters);
-		filterQuery = this.postProcessQuery(filterQuery);
+		filterQuery = this.postProcessQuery(filterQuery, searchParams.getMappedFilters());
 		
 		return filterQuery;
 	};
@@ -159,7 +159,7 @@
 		return query;
 	};
 	
-	NodeSearch.prototype.postProcessQuery = function(query) {
+	NodeSearch.prototype.postProcessQuery = function(query, mappedFilters) {
 		
 		var searchAdditional = this.datasourceDefinition.getSearchAdditional();
 		if (!searchAdditional) return query;
@@ -168,7 +168,9 @@
 		if (!postProcessQuery) return query;
 		if (!(postProcessQuery instanceof Function)) return query;
 		
-		var postQuery = postProcessQuery(query);
+		var
+			postQuery = postProcessQuery.call(this.datasourceDefinition, query, mappedFilters)
+		;
 		if (!postQuery) return query;
 
 		return postQuery;

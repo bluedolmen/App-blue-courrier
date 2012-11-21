@@ -24,7 +24,8 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	},
 	
 	uses : [
-		'Ext.toolbar.Paging'
+		'Ext.toolbar.Paging',		
+		'Bluexml.utils.DirtyManager'
 	],
 	
 	title : '', // should be overridden
@@ -418,6 +419,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 	
  		var filters = filterConfiguration.filters;
  		if (undefined === filters) return [];
+ 		if (!Ext.isArray(filters)) filters = [filters];
  		
  		return Ext.Array.map(filters,
  		

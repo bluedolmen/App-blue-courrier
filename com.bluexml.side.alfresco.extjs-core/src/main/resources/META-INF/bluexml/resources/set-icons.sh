@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOF=$(find .. -iname "*.js")
+LOF=$(find .. -iname "*.js" -o -iname "extjs-custom.css")
 ICONS_SOURCE_DIR=${HOME}/Images/icons/britair
 ICONS_DEST_DIR=icons
 
@@ -40,7 +40,14 @@ done
 
 # getIconDefinition
 egrep 'getIconDefinition' $LOF | while read match; do
-  basefilename=$(echo $match | tr "'" '%' | tr -d ' ' | sed 's/.*getIconDefinition.%\([A-Za-z0-9_]*\)%..*/\1/')
+  basefilename=$(echo $match | tr "'" '%' | tr -d ' ' | sed 's/.*getIconDefinition(%\([A-Za-z0-9_]*\)%).*/\1/')
+  filename=${basefilename}.png
+  copy_icon $filename
+done
+
+# buildIconDefinition
+egrep 'buildIconDefinition' $LOF | while read match; do
+  basefilename=$(echo $match | tr "'" '%' | tr -d ' ' | sed 's/.*buildIconDefinition([ tab]*%\([A-Za-z0-9_]*\)%.*/\1/')
   filename=${basefilename}.png
   copy_icon $filename
 done

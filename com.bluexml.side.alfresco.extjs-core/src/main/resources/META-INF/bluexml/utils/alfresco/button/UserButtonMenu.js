@@ -13,7 +13,7 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	],
 	
 	text : Bluexml.Alfresco.getCurrentUserName(),
-	icon : Yamma.Constants.getIconDefinition('user_suit').icon, // do not use iconCls since background style is set with '!important' and cannot be invalidated	
+	icon : Bluexml.Constants.getIconDefinition('user_suit').icon, // do not use iconCls since background style is set with '!important' and cannot be invalidated	
 			
 	initComponent : function() {
 		this.customizeUserButtonLabel();

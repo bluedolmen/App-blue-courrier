@@ -7,7 +7,7 @@
 Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
 	
 	requires : [
-		'Ext.ux.grid.HeaderTooltip',
+		'Bluexml.utils.grid.column.HeaderTooltip',
 		'Bluexml.utils.grid.column.HeaderImage'
 	],
 	
