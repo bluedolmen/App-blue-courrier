@@ -12,7 +12,7 @@
 						throw new Error("[DataSource.Attachments] IllegalStateException! There should be one filter named 'nodeRef'");
 					
 					var document = search.findNode(nodeRef);
-					if (!document)
+					if (null == document)
 						throw new Error('[Datasource.Attachments] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
 					
 					
@@ -31,10 +31,10 @@
 					name : 'sizeInBytes',
 					type : 'int',
 					evaluate : function(attachmentNode) {
-						if (!attachmentNode && !attachmentNode.properties) return 0;
+						if (null == attachmentNode && !attachmentNode.properties) return 0;
 						
 						var content = attachmentNode.properties.content;
-						if (!content) return 0;
+						if (null == content) return 0;
 						
 						return content.size;
 					}

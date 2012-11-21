@@ -32,7 +32,7 @@
 					type : 'string',
 					evaluate : function(node) {
 						var referrer = node.properties[YammaModel.EVENT_REFERRER_PROPNAME];
-						return Utils.getPersonDisplayName(referrer);
+						return Utils.Alfresco.getPersonDisplayName(referrer);
 					}
 				}
 				

@@ -37,9 +37,8 @@
 					applyQueryFilter : function(query, areRepliesDiscarded) {
 						
 						if ('true' !== Utils.asString(areRepliesDiscarded)) return query;
-
-						return (query + ' -ASPECT:"' + YammaModel.REPLY_ASPECT_SHORTNAME + '"');						
-						return query;
+						return (query + ' -ASPECT:"' + YammaModel.REPLY_ASPECT_SHORTNAME + '"');
+						
 					}
 					
 				}

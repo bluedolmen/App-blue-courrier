@@ -51,7 +51,13 @@
 		
 		if (!archivesFolder) {
 			var parentFolder = Utils.Alfresco.createPath(siteNode, this.ARCHIVES_SITE_ROOT_PATH);
-			archivesFolder = parentFolder.createNode(this.ARCHIVES_FOLDER_NAME, this.ARCHIVES_CONTAINER_TYPE);
+			archivesFolder = parentFolder.createNode(
+				this.ARCHIVES_FOLDER_TITLE, /* name */
+				this.ARCHIVES_CONTAINER_TYPE, /* type */
+				[], /* properties */
+				'cm:contains', 
+				'cm:' + this.ARCHIVES_FOLDER_NAME /* assocName */
+			);
 			
 			archivesFolder.addAspect('cm:titled');
 			archivesFolder.properties['cm:title'] = this.ARCHIVES_FOLDER_TITLE;

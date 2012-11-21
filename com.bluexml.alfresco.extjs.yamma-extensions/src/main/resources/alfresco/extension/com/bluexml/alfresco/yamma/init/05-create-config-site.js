@@ -7,4 +7,4 @@ function createConfigSite() {
 
 };
 	
-InitUtils && InitUtils.register(createConfigSite, 5);
+Init.Utils.register(createConfigSite, 5);

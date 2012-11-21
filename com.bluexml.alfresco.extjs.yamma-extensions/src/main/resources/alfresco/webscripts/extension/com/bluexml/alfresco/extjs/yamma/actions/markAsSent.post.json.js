@@ -1,5 +1,5 @@
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/common/common.lib.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/common/parseargs.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/outmail-utils.js">
 
@@ -9,7 +9,7 @@
 	
 	// PRIVATE
 	var 
-		fullyAuthenticatedUserName = Utils.getFullyAuthenticatedUserName(), /* string */
+		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(), /* string */
 		documentNode /* ScriptNode */,
 		outboundDocumentNode /* ScriptNode */
 	;

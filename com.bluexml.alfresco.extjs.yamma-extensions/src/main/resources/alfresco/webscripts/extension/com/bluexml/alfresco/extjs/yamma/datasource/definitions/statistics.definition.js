@@ -2,12 +2,12 @@
 	
 	
 	function titleOrName(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		return node.properties['cm:title'] || node.name || '';
 	};
 	
 	function titleAndName(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		
 		var 
 			name = node.name,
@@ -18,18 +18,18 @@
 	}
 	
 	function authorityDisplayAndName(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		
 		var 
-			userName = Utils.getPersonUserName(node),
-			displayName = Utils.getPersonDisplayName(node)
+			userName = Utils.Alfresco.getPersonUserName(node),
+			displayName = Utils.Alfresco.getPersonDisplayName(node)
 		; 
 		
 		return  displayName + '|' + userName; 
 	}
 	
 	function priorityDisplay(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		var 
 			priorityLabel = node.name,
 			priorityLevel = node.properties[YammaModel.PRIORITY_LEVEL_PROPNAME]

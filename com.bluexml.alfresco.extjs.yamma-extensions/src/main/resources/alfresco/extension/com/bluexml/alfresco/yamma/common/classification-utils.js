@@ -21,7 +21,7 @@
 		getMainCategories : function() {
 			
 			var yammaRootCategory = this.getYammaRootCategoryNode();
-			if (!yammaRootCategory) return [];
+			if (null == yammaRootCategory) return [];
 			
 			return yammaRootCategory.childrenByXPath('*[subtypeOf("cm:category")]') || [];
 			

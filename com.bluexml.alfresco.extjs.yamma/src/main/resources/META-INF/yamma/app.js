@@ -17,6 +17,7 @@ Ext.require([
 	'Bluexml.utils.DirtyManager',
 	'Bluexml.utils.tab.Tool',
 	'Bluexml.utils.grid.column.HeaderImage',
+	'Bluexml.utils.Constants',
 	'Yamma.utils.Constants',
 	'Yamma.utils.grid.MailsViewGrouping'
 ], function() {

@@ -11,7 +11,7 @@
 			var actionNames = [];
 			
 			for (var methodName in ActionUtils) {
-				if (!(methodName.indexOf('can') == 0)) continue;
+				if (methodName.indexOf('can') != 0) continue;
 				actionNames.push(methodName);
 			}
 			
@@ -27,7 +27,7 @@
 		 */
 		canDistribute : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 						
 			return (
 				
@@ -59,7 +59,7 @@
 		 */
 		canTakeProcessing : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			return (
 					
@@ -86,7 +86,7 @@
 		 */
 		canReply : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();			
+			username = username || Utils.Alfresco.getCurrentUserName();			
 			
 			return (
 					/* Document is original */
@@ -112,7 +112,7 @@
 		 */
 		canSendOutbound : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();			
+			username = username || Utils.Alfresco.getCurrentUserName();			
 			
 			return (
 					
@@ -169,7 +169,7 @@
 		 */
 		canValidate : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			return (
 					
@@ -189,7 +189,7 @@
 		
 		canMarkAsSent : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			return (
 					
@@ -205,7 +205,7 @@
 		
 		canArchive : function(documentNode, username) {
 			
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			return (
 					

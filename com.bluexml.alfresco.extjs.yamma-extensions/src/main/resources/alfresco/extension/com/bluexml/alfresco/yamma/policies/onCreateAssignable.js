@@ -21,7 +21,7 @@
 	main();
 	
 	function main() {
-		var personName = Utils.getPersonUserName(personNode);
+		var personName = Utils.Alfresco.getPersonUserName(personNode);
 		if (!personName) return;
 		
 		documentNode.properties[YammaModel.ASSIGNABLE_AUTHORITY_PROPNAME] = personName;

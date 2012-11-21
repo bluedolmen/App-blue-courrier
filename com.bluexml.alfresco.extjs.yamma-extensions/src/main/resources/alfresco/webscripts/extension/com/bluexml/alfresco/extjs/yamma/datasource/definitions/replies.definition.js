@@ -44,7 +44,7 @@
 							reply.properties['cm:creator'];
 							
 						if (!author) return '';
-						return Utils.getPersonDisplayName(author);
+						return Utils.Alfresco.getPersonDisplayName(author);
 
 					}
 				},

@@ -1,0 +1,11 @@
+{
+	name : '',
+	title : '',
+	description : '',
+	
+	parent : '',
+	managers : [],
+	contributors : [],
+	collaborators : [],
+	readers : []
+}

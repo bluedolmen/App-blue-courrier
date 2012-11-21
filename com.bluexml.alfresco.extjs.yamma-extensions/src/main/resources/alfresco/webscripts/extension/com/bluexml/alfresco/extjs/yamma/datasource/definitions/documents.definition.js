@@ -2,16 +2,13 @@
 	
 	
 	function titleOrName(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		
-		var title = node.properties['cm:title'];
-		if (title) return title;
-		
-		return node.name || '';
+		return node.properties['cm:title'] || node.name || '';		
 	};
 	
 	function titleAndName(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		
 		var 
 			name = node.name,
@@ -21,19 +18,19 @@
 		return title + '|' + name;
 	}
 	
-	function authorityDisplayAndName(node) {
-		if (!node) return '';
+	function authorityDisplayAndName(personNode) {
+		if (null == personNode) return '';
 		
 		var 
-			userName = Utils.getPersonUserName(node),
-			displayName = Utils.getPersonDisplayName(node)
+			userName = Utils.Alfresco.getPersonUserName(personNode),
+			displayName = Utils.Alfresco.getPersonDisplayName(personNode)
 		; 
 		
 		return  displayName + '|' + userName; 
 	}
 	
 	function priorityDisplay(node) {
-		if (!node) return '';
+		if (null == node) return '';
 		var 
 			priorityLabel = node.name,
 			priorityLevel = node.properties[YammaModel.PRIORITY_LEVEL_PROPNAME]
@@ -182,10 +179,9 @@
 					type : 'string',
 					evaluate : function(document) {
 						var siteNode = YammaUtils.getSiteNode(document);
-						if (!siteNode) return '';
+						if (null == siteNode) return '';
 						
-						if (siteNode.properties.title) return siteNode.properties.title;
-						return siteNode.name;
+						return siteNode.properties.title || siteNode.name;
 					}
 				},
 				
@@ -226,7 +222,7 @@
 						query = query.replace(/\{tray\}/, trayId);
 						
 						var enclosingSite = YammaUtils.getSiteNode(trayNode);
-						if (!enclosingSite) return query;
+						if (null == enclosingSite) return query;
 						var siteId = enclosingSite.name;
 						query = query.replace(/\{site\}/, siteId);
 						
@@ -275,7 +271,7 @@
 					
 					applyQueryFilter : function(query) {
 						
-						var authorityId = person.properties.userName;
+						var authorityId = Utils.Alfresco.getCurrentUserName();
 						if (null == authorityId) return query;
 						
 						query += ' +' + Utils.Alfresco.getLuceneAttributeFilter(YammaModel.ASSIGNABLE_AUTHORITY_PROPNAME, authorityId);

@@ -11,7 +11,7 @@
 			properties[YammaModel.EVENT_DATE_PROPNAME] = new Date();
 			properties[YammaModel.EVENT_EVENT_TYPE_PROPNAME] = eventType || GENERIC_EVENT_TYPENAME;
 			properties[YammaModel.EVENT_COMMENT_PROPNAME] = comment || '';
-			properties[YammaModel.EVENT_REFERRER_PROPNAME] = referrer || Utils.getFullyAuthenticatedUserName();			
+			properties[YammaModel.EVENT_REFERRER_PROPNAME] = referrer || Utils.Alfresco.getFullyAuthenticatedUserName();			
 			
 			var newEvent = document.createNode(null, YammaModel.EVENT_TYPE_SHORTNAME, properties, YammaModel.HISTORIZABLE_HISTORY_ASSOCNAME);
 			if (!newEvent) {

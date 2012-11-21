@@ -14,7 +14,7 @@
 		},
 		
 		getLateState : function(documentNode) {
-			if (!documentNode) return YammaModel.LATE_STATE_UNDETERMINED;
+			if (null == documentNode) return YammaModel.LATE_STATE_UNDETERMINED;
 			
 			var dueDate = documentNode.properties[YammaModel.DUEABLE_DUE_DATE_PROPNAME];
 			if (!dueDate) return YammaModel.LATE_STATE_UNDETERMINED;
@@ -35,12 +35,12 @@
 			DocumentUtils.checkDocument(documentNode);
 			
 			var enclosingSite = YammaUtils.getSiteNode(documentNode);
-			if (!enclosingSite) return false;
+			if (null == enclosingSite) return false;
 			
 			var enclosingSiteName = enclosingSite.name;
 				
 			var assignedService = DocumentUtils.getAssignedService(documentNode); 
-			if (!assignedService) return false;		
+			if (null == assignedService) return false;		
 			
 			var assignedServiceName = assignedService.name;
 			if (!assignedServiceName) return false;
@@ -52,8 +52,10 @@
 			
 			DocumentUtils.checkDocument(documentNode);
 				
-			var documentState = documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME];
-			var isInExpectedState = expectedDocumentState == Utils.asString(documentState); 
+			var 
+				documentState = documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME],
+				isInExpectedState = expectedDocumentState == Utils.asString(documentState)
+			; 
 			
 			return isInExpectedState;
 			
@@ -62,31 +64,29 @@
 		getAssignedService : function(documentNode) {
 			DocumentUtils.checkDocument(documentNode);
 			
-			var assignedService = documentNode.assocs[YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME];
-			if (!assignedService || 0 == assignedService.length ) return null;
+			var assignedServices = documentNode.assocs[YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME];
+			if (null == assignedServices || 0 == assignedServices.length ) return null;
 			
-			var firstAssignedService = assignedService[0];
-			return firstAssignedService;
+			return assignedServices[0];
 		},
 		
 		getAssignedAuthority : function(documentNode) {
 			DocumentUtils.checkDocument(documentNode);
 			
-			var assignedAuthority = documentNode.assocs[YammaModel.ASSIGNABLE_AUTHORITY_ASSOCNAME];
-			if (!assignedAuthority || 0 == assignedAuthority.length ) return null;
+			var assignedAuthorities = documentNode.assocs[YammaModel.ASSIGNABLE_AUTHORITY_ASSOCNAME];
+			if (null == assignedAuthorities || 0 == assignedAuthorities.length ) return null;
 			
-			var firstAssignedAuthority = assignedAuthority[0];
-			return firstAssignedAuthority;			
+			return assignedAuthorities[0];
 		},
 		
 		isAssignedAuthority : function(documentNode, username) {
 			DocumentUtils.checkDocument(documentNode);
 			
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			var assignedAuthority = DocumentUtils.getAssignedAuthority(documentNode);
 			if (!assignedAuthority) return false;
-			var assignedAuthorityUserName = Utils.getPersonUserName(assignedAuthority);
+			var assignedAuthorityUserName = Utils.Alfresco.getPersonUserName(assignedAuthority);
 			
 			return assignedAuthorityUserName == username;
 		},
@@ -94,10 +94,10 @@
 		isServiceManager : function(documentNode, username) {
 			
 			DocumentUtils.checkDocument(documentNode);
-			username = username || Utils.getCurrentUserName();
+			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			var currentServiceSite = DocumentUtils.getCurrentServiceSite(documentNode);
-			if (!currentServiceSite) return false;
+			if (null == currentServiceSite) return false;
 			
 			var memberRole = Utils.asString(currentServiceSite.getMembersRole(username));
 			return ('SiteManager' == memberRole);
@@ -127,7 +127,7 @@
 		
 		isDocumentNode : function(documentNode) {
 			return (
-				documentNode && 
+				null != documentNode && 
 				('undefined' != typeof documentNode.isSubType) && 
 				documentNode.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)
 			);
@@ -142,7 +142,7 @@
 		
 		isDocumentContainer : function(node) {
 			return (
-				node && 
+				null != node && 
 				('undefined' != typeof node.isSubType) && 
 				node.isSubType(YammaModel.DOCUMENT_CONTAINER_SHORTNAME)
 			);
@@ -156,7 +156,7 @@
 		 */
 		getDocumentContainer : function(document) {
 			
-			if (!document) return null;
+			if (null == document) return null;
 			if (DocumentUtils.isDocumentContainer(document)) return document;
 			
 			// Try with source-association
@@ -179,7 +179,7 @@
 		 */
 		createDocumentContainer : function(document, moveInside /* default=true */) {
 			
-			if (!document) return null;
+			if (null == document) return null;
 			
 			var documentName = document.name;
 			if (!documentName) return null;
@@ -188,13 +188,13 @@
 				containerName = documentName + CONTAINER_DOT_EXTENSION,		
 				documentParent = document.parent
 			;
-			if (!documentParent) return null;
+			if (null == documentParent) return null;
 			
 			var
 				documentOwner = document.getOwner(),
 				documentContainer = documentParent.createFolder(containerName, YammaModel.DOCUMENT_CONTAINER_SHORTNAME)
 			;
-			if (!documentContainer) return null;
+			if (null == documentContainer) return null;
 			
 			if (moveInside) {
 				if (!document.move(documentContainer)) {
@@ -210,15 +210,15 @@
 		
 		getDocumentSubContainer : function(document, subContainerName, createIfNotExists) {
 			
-			if (!document || !subContainerName) {
+			if (null == document || !subContainerName) {
 				throw 'IllegalArgumentException! The provided arguments are not valid (document and/or subContainerName have to be set)'; 
 			}
 			
 			var documentContainer = this.getDocumentContainer(document);
-			if (!documentContainer) return null;
+			if (null == documentContainer) return null;
 			
 			var subContainer = documentContainer.childByNamePath(subContainerName);
-			if (!subContainer && createIfNotExists) {
+			if (null == subContainer && createIfNotExists) {
 				subContainer = this.createDocumentSubContainer(document, subContainerName)
 			}
 			
@@ -227,7 +227,7 @@
 		
 		createDocumentSubContainer : function(document, subContainerName) {
 			
-			if (!document || !subContainerName) {
+			if (null == document || !subContainerName) {
 				throw 'IllegalArgumentException! The provided arguments are not valid (document and/or subContainerName have to be set)';				
 			}
 			
@@ -235,7 +235,7 @@
 			if (!this.isDocumentContainer(documentContainer)) {
 				documentContainer = this.getDocumentContainer(document);
 			}
-			if (!documentContainer) {
+			if (null == documentContainer) {
 				throw "IllegalStateException! Cannot get a valid document container for document'" + document.name + "'";
 			}
 			
@@ -243,7 +243,7 @@
 				documentContainerOwner = documentContainer.getOwner(),
 				subContainer = documentContainer.createFolder(subContainerName)
 			;
-			if (!subContainer) {
+			if (null == subContainer) {
 				throw "IllegalStateException! You are not allowed to create the container named '" + subContainerName + "' for the document '" + document.names + "'";
 			}
 			subContainer.setOwner(documentContainerOwner);

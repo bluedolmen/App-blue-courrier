@@ -18,7 +18,7 @@
 					term
 				);
 				
-				return query + ' +(' + referenceFilter + ' ' + nameFilter + ' TEXT:"term" )';
+				return query + ' +(' + referenceFilter + ' ' + nameFilter + ' TEXT:"' + term + '" )';
 				
 			}				
 			

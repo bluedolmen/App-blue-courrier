@@ -9,13 +9,13 @@ var YammaUtils = {
 	},
 		
 	getSiteNode : function(document) {
-		if (!document || !document.getSiteShortName) return null;
+		if (null == document || undefined === document.getSiteShortName) return null;
 		var 
 			siteShortName = document.getSiteShortName(),
 			site = siteService.getSite(siteShortName)
 		;
 		
-		if (!site) return null; // non-existing or non-accessible
+		if (null == site) return null; // non-existing or non-accessible
 		return site.getNode();		
 	},
 	
@@ -25,7 +25,7 @@ var YammaUtils = {
 			me = this,
 			configSite = siteService.getSite(this.CONFIG_SITE.name);
 		
-		if (configSite) { return configSite.getNode(); }
+		if (null != configSite) { return configSite.getNode(); }
 		
 		function createConfigSite () {
 			
@@ -45,7 +45,7 @@ var YammaUtils = {
 	
 	isConfigSite : function(site) {
 		
-		if (!site) return false;
+		if (null == site) return false;
 		
 		var siteName = site;
 		

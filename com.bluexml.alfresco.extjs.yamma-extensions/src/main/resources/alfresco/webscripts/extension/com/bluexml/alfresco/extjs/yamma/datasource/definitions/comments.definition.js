@@ -14,7 +14,7 @@
 						throw new Error("[DataSource.Comments] IllegalStateException! There should be one filter named 'nodeRef'");
 					
 					var document = search.findNode(nodeRef);
-					if (!document)
+					if (null == document)
 						throw new Error('[Datasource.Comments] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
 						
 					return CommentUtils.getComments(document);
@@ -34,7 +34,7 @@
 						var creator = node.properties['cm:creator'];
 						if (!creator) return UNKNOWN_AUTHOR;
 						
-						return Utils.getPersonDisplayName(creator);
+						return Utils.Alfresco.getPersonDisplayName(creator);
 					}
 				},
 				{
@@ -44,7 +44,7 @@
 						var creator = node.properties['cm:creator'];
 						if (!creator) return '';
 						
-						return Utils.getPersonAvatarUrl(creator);
+						return Utils.Alfresco.getPersonAvatarUrl(creator);
 					}
 					
 				},

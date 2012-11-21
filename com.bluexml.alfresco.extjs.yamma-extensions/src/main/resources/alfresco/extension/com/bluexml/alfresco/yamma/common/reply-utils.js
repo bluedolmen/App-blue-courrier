@@ -14,7 +14,7 @@
 		 */
 		isReplyNode : function(node) {
 			
-			if (!node) return false;
+			if (null == node) return false;
 			return node.hasAspect(YammaModel.REPLY_ASPECT_SHORTNAME);
 			
 		},
@@ -32,7 +32,7 @@
 		
 		addReply : function(document, replyNode) {			
 			
-			if (!document || !replyNode) {
+			if (null == document || null == replyNode) {
 				throw new Error('IllegalArgumentException! document and replyNode parameters are mandatory!');
 			}
 			
@@ -149,7 +149,7 @@
 				replyContainer = DocumentUtils.getDocumentContainer(replyNode)
 			;
 			
-			if (!replyContainer) {
+			if (null == replyContainer) {
 				logger.warn('Cannot get the reply-container. Some valid nodes may still define references on it.');
 				replyNode.remove();
 				return;
@@ -161,14 +161,14 @@
 		
 		getReplies : function(document) {
 			
-			if (!document) return [];			
+			if (null == document) return [];			
 			return document.sourceAssocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [];
 			
 		},
 		
 		getRepliedDocument : function(replyNode) {
 			
-			if (!replyNode) return null;
+			if (null == replyNode) return null;
 			return (replyNode.assocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [])[0];
 			
 		},

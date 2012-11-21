@@ -72,9 +72,10 @@
 	
 	TraysUtils.getSiblingTray = function(tray, trayName) {
 				
-		if (null == tray || null == tray.isSubType || !tray.isSubType(this.TRAY_CONTAINER_TYPE) || !trayName) return null;
+		if (null == tray || !trayName) return null;
+		if (undefined === tray.typeShort || this.TRAY_CONTAINER_TYPE != tray.typeShort) return null;
 		var trayParent = tray.parent;
-		if (!trayParent || !trayParent.hasPermission('Read')) return null;
+		if (null == trayParent || !trayParent.hasPermission('Read')) return null;
 		
 		return trayParent.childByNamePath(trayName);
 		
@@ -82,21 +83,10 @@
 	
 	TraysUtils.getTraysParent = function(site) {
 		
-		if (!site) return null;
+		if (null == site) return null;
 		
-		
-		if ('string' == typeof site) {
-			// Try to get the site from the potential site shortName
-			site = siteService.getSite(site);
-			if (!site) return null;			
-		}
-		
-		var siteNode = site.node ? site.node : site;
-		if (!siteNode) return null;
-		
-		if (!siteNode.isSubType('st:site')) {
-			throw new Error('IllegalStateException! The site is not of expected type st:site');
-		}
+		var siteNode = Utils.Alfresco.getSiteNode(site);
+		if (null == siteNode) return null;		
 		
 		return siteNode.childByNamePath(this.TRAYS_LOCATION_SITE_PATH);
 	};
@@ -104,7 +94,7 @@
 	TraysUtils.getSiteTraysNode = function(site) {
 		
 		var traysParentNode = this.getTraysParent(site);
-		if (!traysParentNode) return null;
+		if (null == traysParentNode) return null;
 		
 		return traysParentNode.childByNamePath(this.TRAYS_FOLDER_NAME);
 	};
@@ -112,7 +102,7 @@
 	TraysUtils.getSiteTray = function(site, trayName) {
 		
 		var traysNode = this.getSiteTraysNode(site);
-		if (!traysNode) return null;
+		if (null == traysNode) return null;
 		
 		return traysNode.childByNamePath(trayName);
 	};
@@ -120,7 +110,7 @@
 	TraysUtils.getSiteTraysChildren = function(site) {
 		
 		var traysNode = this.getSiteTraysNode(site);
-		if (!traysNode) return [];
+		if (null == traysNode) return [];
 		
 		return traysNode.childrenByXPath("*[subtypeOf('" + this.TRAY_CONTAINER_TYPE + "')]") || [];
 		
@@ -135,13 +125,15 @@
 	 */
 	TraysUtils.createSiteTrays = function(siteNode) {
 		
-		if (!siteNode) return;
+		if (null == siteNode) return;
 		
-		var me = this;
-		var siteName = siteNode.name;
+		var 
+			me = this,
+			siteName = siteNode.name,
+			traysNode = this.getSiteTraysNode(siteNode)
+		;
 		
-		var traysNode = this.getSiteTraysNode(siteNode);
-		if (!traysNode) { // create traysNode
+		if (null == traysNode) { // create traysNode
 			traysNode = createTraysNode(siteNode);
 		}
 		createTrays(traysNode);
@@ -149,11 +141,11 @@
 		
 		function createTraysNode(siteNode) {
 			var traysParentNode = me.getTraysParent(siteNode);
-			if (!traysParentNode) {
+			if (null == traysParentNode) {
 				logger.warn("Cannot find the '" + me.TRAYS_LOCATION_SITE_PATH + "' directory in site '" + siteName + "'. Creating folder '" + me.TRAYS_LOCATION_SITE_PATH + "'");
 				traysParentNode = me.getTraysParent(siteNode);
 				
-				if (!traysParentNode) {
+				if (null == traysParentNode) {
 					logger.error("Cannot create the '" + me.TRAYS_LOCATION_SITE_PATH + "' directory in site '" + siteName + "'. Cannot create the trays folder.'");
 					return null;
 				}
@@ -163,7 +155,7 @@
 		}
 		
 		function createTrays(traysNode) {
-			if (!traysNode) return;	
+			if (null == traysNode) return;	
 			for (trayName in me.TRAYS) {
 				var trayTitle = me.TRAYS[trayName].title || trayName;
 				createNonExistingChildNode(traysNode, trayName, trayTitle);
@@ -172,10 +164,10 @@
 		
 		function createNonExistingChildNode(parent, childName, childTitle) {
 			var childTray = parent.childByNamePath(childName);
-			if (!childTray) {
+			if (null == childTray) {
 				childTray = parent.createNode(childName, me.TRAY_CONTAINER_TYPE, {'cm:title' : childTitle});
+				if (null == childTray) return null;
 			}
-			if (!childTray) return null;
 			
 			// Check title
 			var title = childTray.properties['cm:title'];

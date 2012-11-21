@@ -1,5 +1,5 @@
 /**
- * The Britair Site instance
+ * The Constants (icons, models, ...) used by the YaMma application
  */
 Ext.define('Yamma.utils.Constants', {
 
@@ -20,7 +20,6 @@ Ext.define('Yamma.utils.Constants', {
 		this.callParent(arguments);
 		
 	},
-
 	
 	/* SYSTEM RESOURCES */
 	BASE_ICON_PATH : '/share/res/yamma/resources/icons/',	

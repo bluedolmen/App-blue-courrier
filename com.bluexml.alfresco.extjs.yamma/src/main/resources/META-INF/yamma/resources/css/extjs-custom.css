@@ -7,21 +7,6 @@
 	margin-left : auto;
 	margin-right : auto;
 }
-/*
-.submenu-title {
-	font-style : italic; 
-	display : block; 
-	float : right; 
-	padding-right : 2px;
-}
-
-.mainmenu-title {
-	font-weight : bold;
-	display : block; 
-	float : right; 
-	color : #15498B;
-}
-*/
 
 .x-body {
 	text-align : left; /* this property may be overridden by yui */
@@ -170,18 +155,6 @@
 	height:     120px;
 	border-top: 2px solid gray;
 	border-bottom: 2px solid gray;
-}
-
-#loading #logo-dinamex {
-	background: url(../images/britair-dinamex-logo-small.png) no-repeat;
-	background-position: left center;
-	height:      100px;
-}
-
-#loading #logo-britair {
-	background: url(../images/britair-logo-small.png) no-repeat;
-	background-position: right center;
-	height:      70px;
 }
 
 /**
