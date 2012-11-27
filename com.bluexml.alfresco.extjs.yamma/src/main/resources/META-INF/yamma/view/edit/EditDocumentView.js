@@ -31,19 +31,31 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 	updateContext : function(context) {
 		
 		var
-			nodeRef = context.get('nodeRef') || Ext.Error.raise('IllegalArgumentException! The provided nodeRef is not valid'),
-			origin = context.get(Yamma.utils.datasources.Documents.MAIL_ORIGIN_QNAME),
-			state = context.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME),
+			nodeRef = context.get('nodeRef') || Ext.Error.raise('IllegalArgumentException! The provided nodeRef is not valid'),			
+			formId = this.getFormId(context),
 			
-			formId = ('manual' === origin ? 'fill-online' : 'state_' + state),
 			editDocumentForm = this.getEditDocumentForm(),
 			commentsView = this.getCommentsView(),
-			attachmentsView = this.getAttachmentssView()
+			attachmentsView = this.getAttachmentsView()
 		;
 		
 		editDocumentForm.dload(nodeRef, formId);
 		commentsView.dload(nodeRef);
 		attachmentsView.dload(nodeRef);
+		
+	},
+	
+	getFormId : function(context) {
+		
+		var
+			origin = context.get(Yamma.utils.datasources.Documents.MAIL_ORIGIN_QNAME),
+			state = context.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME)
+		;
+			
+		if ('manual' == origin) return 'fill-online';
+		if (state) return 'state_' + state;
+		
+		return '';
 		
 	},
 	
@@ -61,7 +73,7 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		return this.commentsView;
 	},
 	
-	getAttachmentssView : function() {
+	getAttachmentsView : function() {
 		if (!this.attachmentsView) {
 			this.attachmentsView = this.child('attachmentsview');
 		}
@@ -73,7 +85,7 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		var 
 			editDocumentForm = this.getEditDocumentForm(),
 			commentsView = this.getCommentsView(),
-			attachmentsView = this.getAttachmentssView()
+			attachmentsView = this.getAttachmentsView()
 		;
 		
 		editDocumentForm.clear();
