@@ -33,7 +33,9 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		var
 			nodeRef = context.get('nodeRef') || Ext.Error.raise('IllegalArgumentException! The provided nodeRef is not valid'),
 			origin = context.get(Yamma.utils.datasources.Documents.MAIL_ORIGIN_QNAME),
-			formId = ('manual' === origin ? 'fill-online' : null),
+			state = context.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME),
+			
+			formId = ('manual' === origin ? 'fill-online' : 'state_' + state),
 			editDocumentForm = this.getEditDocumentForm(),
 			commentsView = this.getCommentsView(),
 			attachmentsView = this.getAttachmentssView()
