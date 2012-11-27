@@ -53,7 +53,7 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		;
 			
 		if ('manual' == origin) return 'fill-online';
-		if (state) return 'state_' + state;
+		if (state) return 'state_' + state.replace(/[^\w]/g,'_');
 		
 		return '';
 		
