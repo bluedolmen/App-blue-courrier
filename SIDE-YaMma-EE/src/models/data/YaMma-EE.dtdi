@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" activeDiagram="//@diagrams.0">
   <model href="YaMma-EE.dt#_B4EfELC0EeGFgddOkpVJwg"/>
-  <diagrams position="0,0" size="100,100" name="Main" zoom="0.75" viewport="126,0">
+  <diagrams position="0,0" size="100,100" name="Main" zoom="0.75" viewport="0,0">
     <property key="pageFormatName" value="A2"/>
     <property key="diagramWidth" value="1680"/>
     <property key="diagramHeight" value="2376"/>
@@ -188,7 +188,7 @@
         </contained>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphNode" position="608,1168" size="156,73">
+    <contained xsi:type="di:GraphNode" position="562,1165" size="204,73">
       <anchorage graphEdge="//@diagrams.0/@contained.20 //@diagrams.0/@contained.56 //@diagrams.0/@contained.72"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_jecxELC6EeGFgddOkpVJwg"/>
@@ -205,7 +205,7 @@
         </contained>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphNode" position="563,1048" size="201,73">
+    <contained xsi:type="di:GraphNode" position="565,1048" size="201,73">
       <anchorage graphEdge="//@diagrams.0/@contained.21 //@diagrams.0/@contained.73"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_9CLqALC6EeGFgddOkpVJwg"/>
@@ -510,7 +510,7 @@
       <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
       <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="470,122" size="-1,-1">
+    <contained xsi:type="di:GraphNode" position="470,103" size="-1,-1">
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_KXKmsMUKEeGVoP7HZaHFtA"/>
       </semanticModel>
@@ -521,42 +521,47 @@
         </semanticModel>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKREQukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIQEkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKREgukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIQUkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKREwukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIQkkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKRFAukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIQ0kwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKRFQukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIREkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKRFgukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIRUkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKRFwukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIRkkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
-            <element href="YaMma-EE.dt#_zGKRGAukEeK4krQYEcLr-w"/>
+            <element href="YaMma-EE.dt#_ZoyIR0kwEeK23vIhaSIj9Q"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+            <element href="YaMma-EE.dt#_ZoyISEkwEeK23vIhaSIj9Q"/>
           </semanticModel>
         </contained>
       </contained>
@@ -856,7 +861,7 @@
       </contained>
     </contained>
     <contained xsi:type="di:GraphNode" position="1337,656" size="224,120">
-      <property key="noteValue" value="The cm:copiedfrom aspect is applied on a Document when it is a copy.&#xA;This aspect replace the specific DocumentCopy aspect which purpose was the same."/>
+      <property key="noteValue" value="The cm:copiedfrom aspect is applied on a Document when it is a copy.&#xA;This aspect replaces the specific DocumentCopy aspect which purpose was the same."/>
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="Note"/>
     </contained>
     <contained xsi:type="di:GraphNode" position="906,791" size="144,129">
@@ -898,7 +903,7 @@
         </semanticModel>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphNode" position="616,1280" size="148,92">
+    <contained xsi:type="di:GraphNode" position="600,1277" size="166,92">
       <anchorage graphEdge="//@diagrams.0/@contained.65"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_WWDDwAWmEeKRWqDAtKMhxg"/>
@@ -941,7 +946,7 @@
     <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.60/@anchorage.0 //@diagrams.0/@contained.10/@anchorage.0">
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="hasAspect"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="574,920" size="190,85">
+    <contained xsi:type="di:GraphNode" position="576,920" size="190,85">
       <anchorage graphEdge="//@diagrams.0/@contained.70 //@diagrams.0/@contained.74"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_VnlXoAYcEeKRWqDAtKMhxg"/>

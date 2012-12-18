@@ -187,10 +187,10 @@
   <aspectSet xmi:id="_9CLqALC6EeGFgddOkpVJwg" name="Distributable"/>
   <aspectSet xmi:id="_WWr0ILC7EeGFgddOkpVJwg" name="Statusable">
     <attributes xmi:id="_s9ceMMUKEeGVoP7HZaHFtA" documentation="The status reveals the state of the document in the &quot;workflow&quot;. By using this additional property, the document lifecycle may be managed either by a workflow technology (like JBPM) or by simple coordinated actions and rules." description="State of the document" name="state" title="State" initialValue="pending" valueList="_KXKmsMUKEeGVoP7HZaHFtA">
-      <metainfo xmi:id="_c2404MULEeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
-      <metainfo xmi:id="_c2404cULEeGVoP7HZaHFtA" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_c2404sULEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
-      <metainfo xmi:id="_c24048ULEeGVoP7HZaHFtA" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_LctWwTirEeKVAaZB7gGkRw" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_Lct90DirEeKVAaZB7gGkRw" key="index.tokenised" value="false"/>
+      <metainfo xmi:id="_Lct90TirEeKVAaZB7gGkRw" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_Lct90jirEeKVAaZB7gGkRw" key="propertySearched" value="True"/>
     </attributes>
   </aspectSet>
   <aspectSet xmi:id="_9QIJ8LC7EeGFgddOkpVJwg" name="Prioritizable"/>
@@ -268,14 +268,15 @@
   </aspectSet>
   <aspectSet xmi:id="_YAFqIREfEeKIfbAIvqKz3Q" name="Reply"/>
   <enumerationSet xmi:id="_KXKmsMUKEeGVoP7HZaHFtA" name="EStates">
-    <literals xmi:id="_zGKREQukEeK4krQYEcLr-w" value="pending" name="PENDING"/>
-    <literals xmi:id="_zGKREgukEeK4krQYEcLr-w" value="delivering" name="DELIVERING"/>
-    <literals xmi:id="_zGKREwukEeK4krQYEcLr-w" value="processing" name="PROCESSING"/>
-    <literals xmi:id="_zGKRFAukEeK4krQYEcLr-w" value="validating!delivery" name="VALIDATING_DELIVERY"/>
-    <literals xmi:id="_zGKRFQukEeK4krQYEcLr-w" value="validating!processed" name="VALIDATING_PROCESSED"/>
-    <literals xmi:id="_zGKRFgukEeK4krQYEcLr-w" value="sending" name="SENDING"/>
-    <literals xmi:id="_zGKRFwukEeK4krQYEcLr-w" value="processed" name="PROCESSED"/>
-    <literals xmi:id="_zGKRGAukEeK4krQYEcLr-w" value="archived" name="ARCHIVED"/>
+    <literals xmi:id="_ZoyIQEkwEeK23vIhaSIj9Q" value="pending" name="PENDING"/>
+    <literals xmi:id="_ZoyIQUkwEeK23vIhaSIj9Q" value="delivering" name="DELIVERING"/>
+    <literals xmi:id="_ZoyIQkkwEeK23vIhaSIj9Q" value="validating!delivery" name="VALIDATING_DELIVERY"/>
+    <literals xmi:id="_ZoyIQ0kwEeK23vIhaSIj9Q" value="processing" name="PROCESSING"/>
+    <literals xmi:id="_ZoyIREkwEeK23vIhaSIj9Q" value="validating!processed" name="VALIDATING_PROCESSED"/>
+    <literals xmi:id="_ZoyIRUkwEeK23vIhaSIj9Q" value="signing" name="SIGNING"/>
+    <literals xmi:id="_ZoyIRkkwEeK23vIhaSIj9Q" value="sending" name="SENDING"/>
+    <literals xmi:id="_ZoyIR0kwEeK23vIhaSIj9Q" value="processed" name="PROCESSED"/>
+    <literals xmi:id="_ZoyISEkwEeK23vIhaSIj9Q" value="archived" name="ARCHIVED"/>
   </enumerationSet>
   <enumerationSet xmi:id="_PDHSIAYpEeK5AtEnnPuSeg" name="EOrigin">
     <literals xmi:id="_W_O0IAYpEeK5AtEnnPuSeg" value="digitized" name="DIGITIZED"/>
