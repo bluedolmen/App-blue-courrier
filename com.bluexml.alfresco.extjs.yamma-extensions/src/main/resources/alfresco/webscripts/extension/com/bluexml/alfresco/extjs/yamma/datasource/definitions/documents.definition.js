@@ -54,11 +54,12 @@
 	}
 	
 	function getActionFunction(functionName) {
-		var actualFunction = ActionUtils[functionName];
 		
+		var actualFunction = ActionUtils[functionName];
 		return function(node) {
 			return actualFunction(node);
 		};
+		
 	}
 		
 	DatasourceDefinitions.register('Documents',

@@ -4,37 +4,60 @@
 
 (function() {
 	
-	const VALIDATE_REPLY_EVENT_TYPE = 'validate-reply';
+	const 
+		VALIDATE_REPLY_EVENT_TYPE = 'validate-reply',
+		MSG_KEY_SUFFIX = 'Reply.comment'
+	;
 	
 	// PRIVATE
 	var 
+		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(),
+		isServiceManager = ServicesUtils.isServiceManager(fullyAuthenticatedUserName),
 		documentNode = null,
-		documentContainer = null,
 		operation = null,
-		comment = '(non renseigné)',
-		service = null
+		service = null,
+		comment = '',
+		commentArgs = null,
+		
+		operations = {
+			
+			'accept' : accept,
+			'refuse' : refuse,
+			'forward' : forward,
+			'acceptAndForward' : acceptAndForward,
+			'acceptForSignature' : acceptForSignature
+			
+		}
 	;
 	
 	// MAIN LOGIC
 	
 	Common.securedExec(function() {
 		
-		var parseArgs = new ParseArgs(
-			{ name : 'nodeRef', mandatory : true}, 
-			{ name : 'operation', mandatory : true, checkValue : checkOperationType }, 
-			'comment',
-			'service'
-		);
-		var documentNodeRef = parseArgs['nodeRef'];
-		documentNode = search.findNode(documentNodeRef);
-		documentContainer = DocumentUtils.getDocumentContainer(documentNode) || documentNode;
+		var 
+			parseArgs = new ParseArgs(
+				{ name : 'nodeRef', mandatory : true}, 
+				{ name : 'operation', mandatory : true, checkValue : checkOperationType }, 
+				'comment',
+				'service'
+			),
+			documentNodeRef = parseArgs['nodeRef']
+		;
 		
+		documentNode = search.findNode(documentNodeRef);		
 		if (!documentNode) {
 			throw {
 				code : '512',
 				message : 'IllegalStateException! The provided nodeRef does not exist in the repository'
 			};
 		}
+		
+		if (!ActionUtils.canValidate(documentNode, fullyAuthenticatedUserName)) {
+			throw {
+				code : '403',
+				message : 'Forbidden! The action cannot be executed by you in the current context'
+			}
+		}		
 		
 		operation = Utils.asString(parseArgs['operation']);
 		comment = Utils.asString(parseArgs['comment']) || comment;
@@ -45,64 +68,79 @@
 	});
 	
 	function checkOperationType(operation) {
-		if ('accept' == operation || 'refuse' == operation || 'delegate' == operation) return '';
-		return "The parameter 'operation' only accept values {accept, refuse, delegate}";
+		
+		if (undefined !== operations[operation]) return '';
+		return "The parameter 'operation' only accept values {accept, acceptAndForward, acceptForSignature, refuse, forward}";
+		
 	}
 	
 	function main() {
 		
-		switch(operation) {
-			case 'accept':
-				acceptReply();
-			break;
-			case 'refuse':
-				refuseReply();
-			break;
-			case 'delegate':
-				delegateReply();
-			break;
-			default:
-				logger.warn('cannot find any operation to perform');
-				setModel('unknown',documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME]);
-		}
-		
-	}
-	
-	function acceptReply() {
-		moveDocumentToOutbox();
+		operations[operation]();		
+		setModel();
 		addHistoryComment();
 		
-		// Now state the document as validating!delivery
+	}
+	
+	function accept() {
+		
+		// Move to outbox of the same service
+		var errorMessage = DocumentUtils.moveToSiblingTray(documentNode, TraysUtils.OUTBOX_TRAY_NAME);
+		if (errorMessage) {
+			throw {
+				code : '512',
+				message : 'IllegalStateException! While accepting, ' + errorMessage
+			};			
+		}
+
 		updateDocumentState(YammaModel.DOCUMENT_STATE_SENDING);
-		setModel(operation, YammaModel.DOCUMENT_STATE_SENDING);
 		
 	}
 	
-	function moveDocumentToOutbox() {
+	function acceptAndForward() {
 		
-		var enclosingTray = TraysUtils.getEnclosingTray(documentNode);
-		if (!enclosingTray) throw '[accept] Cannot get the enclosing tray';
+		addHistoryComment(null, 'accept'); // add an accepting comment to history
+		forward();
+		// State is kept in validation
 		
-		var outboxTray = TraysUtils.getSiblingTray(enclosingTray, TraysUtils.OUTBOX_TRAY_NAME);
-		if (!outboxTray) throw '[accept] Cannot get the outbox tray';
-
-		if (!documentContainer.move(outboxTray)) {
-			throw '[accept] Cannot move the document to the outbox container';
-		}		
-		
-		return outboxTray;
-		
-	}	
+	}
 	
-	function refuseReply() {
+	function acceptForSignature() {
+
+		updateDocumentState(YammaModel.DOCUMENT_STATE_SIGNING);
+
+	}
+	
+	function refuse() {
 		
 		// Back to processing state
-		updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSING);		
-		setModel(operation, YammaModel.DOCUMENT_STATE_PROCESSING);
+		updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSING);
+		
+		// And return the document in the initial (assigned) service
+		var assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode);
+		if (null == assignedServiceName) {
+			throw {
+				code : '512',
+				message : 'IllegalStateException! While refusing, the assigned service cannot be found on the document and cannot be routed back'
+			}
+		}
+		
+		var errorMessage = DocumentUtils.moveToServiceTray(documentNode, assignedServiceName, TraysUtils.INBOX_TRAY_NAME);
+		if (errorMessage) {
+			throw {
+				code : '512',
+				message : "IllegalStateException! While refusing, " + errorMessage
+			};						
+		}
+
+		commentArgs = [
+			comment ? (' : ' + comment) : ' (non renseign\u00E9)', 
+			Utils.Alfresco.getSiteTitle(assignedServiceName)
+		];
 		
 	}
 	
-	function delegateReply() {
+	function forward() {
 		
 		if (!service) {
 			throw {
@@ -110,32 +148,36 @@
 				message : 'IllegalStateException! The service is mandatory when performing a delegation of validation'
 			};			
 		}
-		
-		var
-			siteName = service,
-			siteInboxTray = TraysUtils.getSiteTray(siteName, TraysUtils.INBOX_TRAY_NAME);
-		;		
-		if (!siteInboxTray) throw "[delegate] Cannot get the site inbox tray of service '" + siteName + "'";
-		
-		if (!documentContainer.move(siteInboxTray)) {
-			throw "[delegate] Cannot move the provied document to the site inbox tray of service '" + siteName + "'";
-		}
 
-		addHistoryComment([siteName, comment ? ' : ' + comment : '']);
-		setModel(operation, documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME]);
+		var errorMessage = DocumentUtils.moveToServiceTray(documentNode, service);
+		if (errorMessage) {
+			throw {
+				code : '512',
+				message : "IllegalStateException! While refusing, " + errorMessage
+			};						
+		}
+		
+		commentArgs = [
+			Utils.Alfresco.getSiteTitle(service), 
+			comment ? (' : ' + comment) : ''
+		];
+		
 	}
 	
 	
 	
 	function updateDocumentState(newState) {
+		
 		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = newState;
-		documentNode.save();		
+		documentNode.save();
+		
 	}
 	
-	function addHistoryComment(commentArgs) {
-		commentArgs = commentArgs || [comment];
+	function addHistoryComment(customArgs, forcedOperation) {
 		
-		var msgKey = operation + 'Reply.comment';
+		commentArgs = customArgs || commentArgs || [comment];
+		
+		var msgKey = (forcedOperation || operation) + MSG_KEY_SUFFIX;
 		updateDocumentHistory(msgKey, commentArgs);
 		
 	}
@@ -147,15 +189,17 @@
 		// set a new history event
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
-			VALIDATE_REPLY_EVENT_TYPE, /* eventType */
+			VALIDATE_REPLY_EVENT_TYPE + '!' + operation, /* eventType */
 			message /* comment */
 		);
 		
 	}
 	
-	function setModel(operation, newState) {
+	function setModel() {
+		
 		model.operation = operation;
-		model.newState = newState;
+		model.newState = documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME];
+		
 	}
 	
 	

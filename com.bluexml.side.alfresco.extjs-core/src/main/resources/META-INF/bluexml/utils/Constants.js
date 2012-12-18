@@ -25,7 +25,11 @@ Ext.define('Bluexml.utils.Constants', {
 	
 	initResources : function() {
 		
+		this.defaultMimetypeIconDefinition = this._buildIconDefinition('page_white');
+		
 	},	
+	
+	 
 	
 	/**
 	 * 
@@ -35,53 +39,67 @@ Ext.define('Bluexml.utils.Constants', {
 	 */
 	getMimeTypeIconDefinition : function(mimetype, provideDefault /* default = true */) {
 		
-		if (!mimetype) return null;
-		
 		var me = this;
 		provideDefault = provideDefault !== false;
 		
+		function getDefault() {
+			return provideDefault ? me.defaultMimetypeIconDefinition : null;
+		}
+		
+		if (!mimetype) return getDefault();
+		
 		switch(mimetype) {
 			case 'default':
-				return buildIconDefinition('page_white');
+				return getDefault();
 			case 'text/plain':
-				return buildIconDefinition('page_white_text', 'Document texte');
+				return this._buildIconDefinition('page_white_text', 'Document texte');
 			case 'text/html':
-				return buildIconDefinition('page_white_code', 'Document html');
+				return this._buildIconDefinition('page_white_code', 'Document html');
 			case 'application/pdf':
-				return buildIconDefinition('page_white_acrobat', 'Document pdf');
+				return this._buildIconDefinition('page_white_acrobat', 'Document pdf');
 			case 'application/zip':
-				return buildIconDefinition('page_white_compressed', 'Archive compressée');
+				return this._buildIconDefinition('page_white_compressed', 'Archive compressée');
 		};
 		
 		if (
-			'application/msword' == mimeType ||
+			'application/msword' == mimetype ||
 			/application\/.*officedocument.*/.test(mimetype) ||
 			/application\/.vnd.ms-*/.test(mimetype) ||
 			/application\/.vnd.ms-*/.test(mimetype)
 		) {
-			return buildIconDefinition('page_white_office', 'Document office');
+			return this._buildIconDefinition('page_white_office', 'Document office');
 		}
 		
 		
 		if (/image.*/.test(mimetype)) {
-			return buildIconDefinition('page_white_picture', 'Image');
+			return this._buildIconDefinition('page_white_picture', 'Image');
 		}
 		
-		return provideDefault ? buildIconDefinition('page_white') : null;
+		return getDefault();		
 		
+	},
+	
+	/**
+	 * @param {} icon
+	 * @param {} title
+	 * @return {}
+	 * @private
+	 */
+	_buildIconDefinition : function(icon, title) {
 		
-		function buildIconDefinition(icon, title) {
-			if (null == icon) {
-				throw new Error('IllegalArgumentException! The icon has to be definend.');
-			}
-			title = title || '';
-			
-			return {
-				title : title,
-				icon : me.getIconDefinition(icon)
-			};
+		if (null == icon) {
+			throw new Error('IllegalArgumentException! The icon has to be definend.');
 		}
 		
-	}	
+		title = title || '';
+		
+		return Ext.apply(
+			{
+				title : title
+			},
+			this.getIconDefinition(icon)
+		);
+	}
+	
 	
 });

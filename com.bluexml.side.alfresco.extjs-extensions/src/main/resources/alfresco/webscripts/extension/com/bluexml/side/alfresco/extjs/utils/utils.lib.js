@@ -134,12 +134,16 @@
 		return filteredResult;
 	};
 	
-	Utils.contains = function(array, value) {
+	Utils.contains = function(array, value, equalsFunction) {
 		
 		var contains = false;
+		equalsFunction = Utils.isFunction(equalsFunction) ? equalsFunction :
+			function(a,b) {
+				return a == b;
+			}
 		
 		Utils.forEach(array, function(arrayElement) {
-			contains = contains || arrayElement === value;
+			contains = contains || equalsFunction(arrayElement, value);
 			if (true === contains) return;
 		});
 		
@@ -393,11 +397,14 @@
 			
 		Utils.forEach(segments, function(segment) {
 			
-			var childNode = segment.indexOf(':') >= 0 
-				? currentNode.childrenByXPath(segment)[0] 
-				: currentNode.childByNamePath(segment)
-			;
-			
+			var 
+                prefixedName = segment.indexOf(':') >= 0  ? segment : null,
+                fileName = prefixedName  ? segment.split(':')[1] : segment,
+                  
+                childNode = prefixedName
+                  ? currentNode.childrenByXPath(prefixedName)[0] 
+                  : currentNode.childByNamePath(fileName)
+			;			
 			if (!childNode) {
 				childNode = createFolderHandler(currentNode, segment);
 			}
@@ -511,15 +518,29 @@
 			site = siteService.getSite(site);
 		}
 		
-		var siteNode = site.node;
+		if (null == site) return null; // site does not exist
+		
+		var siteNode = null != site.node ? site.node : site;
+		if (!Utils.Alfresco.isScriptNode(siteNode)) {
+			throw new Error("IllegalArgumentException! The provided site attribute '" + site + "' does not match any known site type.");
+		}
+		
 		if (!siteNode.isSubType('st:site')) {
 			throw new Error('IllegalStateException! The site is not of expected type st:site');
 		}
 
 		return siteNode;
+		
 	}
 
-	
+	Utils.Alfresco.getSiteTitle = function(site) {
+		
+		var siteNode = Utils.Alfresco.getSiteNode(site);
+		if (!siteNode) return '';
+		
+		return siteNode.properties['cm:title'];
+		
+	}
 	
 	
 	
@@ -560,5 +581,14 @@
 		}		
 		
 	};
+	
+	
+	Utils.Error = {
+		
+		raise : function(message, exception) {
+			throw new Error(message);
+		}
+		
+	}
     
 })();

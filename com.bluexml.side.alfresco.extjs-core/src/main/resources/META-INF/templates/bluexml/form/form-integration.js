@@ -1,8 +1,9 @@
 (function() {
 	
-	var JSON = YAHOO.lang.JSON;
-	
-	var formIntegration = null;
+	var 
+		JSON = YAHOO.lang.JSON,
+		formIntegration = null
+	;
 	
 	/*
 	 * MAIN
@@ -25,8 +26,14 @@
 		
 		formIntegration = new Bluexml.FormIntegration(formUI);
 	};	
-
 	
+	function getElementsByClassName(className) {
+		if (document.getElementsByClassName) { 
+  			return document.getElementsByClassName(className); }
+		else { 
+			return document.querySelectorAll('.' + className); 
+		} 
+	}
 	
 	/*
 	 * FORM INTEGRATION OBJECT DEFINITION
@@ -44,21 +51,10 @@
 		
 		this.formUI = formUI;
 		this.socket = Bluexml.Socket.Default;
-				
-		(function registerButtonClickEvents() {
-			
-			var formButtons = me.formUI.buttons;
-			if (!formButtons) return;
-			
-			for (buttonId in formButtons) {
-				
-				var button = formButtons[buttonId];
-				button.addListener("click", me.onButtonClick, buttonId, me);
-				
-			}
-			
-		})();
 		
+		registerButtonClickEvents();
+		notifiyFormSize();
+				
 		YAHOO.Bubbling.on('beforeFormRuntimeInit', beforeFormRuntimeInit, this);
 		function beforeFormRuntimeInit(eventName, args) {
 			
@@ -82,6 +78,37 @@
 			);
 			
 		}
+		
+		function registerButtonClickEvents() {
+			
+			var 
+				formButtons = me.formUI.buttons,
+				button = null
+			;
+			if (!formButtons) return;
+			
+			for (var buttonId in formButtons) {
+				button = formButtons[buttonId];
+				button.addListener("click", me.onButtonClick, buttonId, me);
+			}
+			
+		}		
+		
+		function notifiyFormSize() {
+			var
+				matchingElements = getElementsByClassName('share-form'),
+				matchingElement = matchingElements[0]
+			;
+			if (!matchingElement) return;
+			
+			me.socket.postMessage({
+				eventType : 'form-size',
+				width : matchingElement.offsetWidth,
+				height : matchingElement.offsetHeight
+			});
+			
+		}
+		
 		
 		
 	};

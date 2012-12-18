@@ -29,6 +29,9 @@ Ext.define('Yamma.view.menus.SiteTraysMenu.TreeStore', {
 				}
 				
 				return Yamma.Constants.getIconDefinition('folder_page').iconCls;
+			},
+			expanded : function(record) {
+				return true;
 			}
 		},
 		

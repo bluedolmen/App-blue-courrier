@@ -70,6 +70,9 @@
 .icon-cog_tick {
     background-image: url(../icons/cog_tick.png) !important;
 }
+.icon-text_signature {
+    background-image: url(../icons/text_signature.png) !important;
+}
 .icon-user_add {
     background-image: url(../icons/user_add.png) !important;
 }
@@ -193,6 +196,9 @@
 .icon-text_list_bullets {
     background-image: url(../icons/text_list_bullets.png) !important;
 }
+.icon-checkbox {
+    background-image: url(../icons/checkbox.png) !important;
+}
 .icon-folder_page_white {
     background-image: url(../icons/folder_page_white.png) !important;
 }
@@ -219,6 +225,9 @@
 }
 .icon-page_white_user {
     background-image: url(../icons/page_white_user.png) !important;
+}
+.icon-check_mark {
+    background-image: url(../icons/check_mark.png) !important;
 }
 .icon-file_upload {
     background-image: url(../icons/file_upload.png) !important;

@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Treenode</shortname>
+	<description><![CDATA[
+		  Get the services 
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/services</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+</webscript>

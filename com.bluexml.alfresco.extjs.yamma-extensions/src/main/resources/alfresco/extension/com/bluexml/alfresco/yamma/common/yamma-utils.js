@@ -55,7 +55,31 @@ var YammaUtils = {
 		
 		if (!siteName) return false;
 		return (this.CONFIG_SITE.name === Utils.asString(siteName));
-	}	
+	},
 	
+	isManagedSite : function(site) {
+		return !YammaUtils.isConfigSite(site);
+	},
+	
+	/**
+	 * Beware.
+	 * This method will return the correct list of sites if the context user
+	 * has the right to see all the sites (mainly admin users)
+	 * 
+	 * @param {} site
+	 * @return {}
+	 */
+	getManagedSites : function() {
+		
+		var
+			sites = siteService.listSites('',''),
+			managedSites = Utils.filter(sites, function(site) {
+				return YammaUtils.isManagedSite(site); 
+			})
+		;
+		
+		return managedSites;
+	}
+		
 	
 };

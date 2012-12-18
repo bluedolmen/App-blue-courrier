@@ -7,15 +7,19 @@
 	const DISTRIBUTION_EVENT_TYPE = 'distribution';
 
 	// PRIVATE
-	var fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName();
-	var documentNode;
-	var documentContainer;
+	var 
+		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(),
+		documentNode,	
+		documentContainer
+	;
 	
 	// MAIN LOGIC
 	
 	Common.securedExec(function() {
-		var parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true});
-		var documentNodeRef = parseArgs['nodeRef'];
+		var 
+			parseArgs = new ParseArgs({ name : 'nodeRef', mandatory : true}),
+			documentNodeRef = parseArgs['nodeRef']
+		;
 		
 		documentNode = search.findNode(documentNodeRef);
 		if (!documentNode) {
@@ -55,10 +59,12 @@
 	 */
 	function moveDocumentToTray() {
 		
-		var assignedServiceNode = DocumentUtils.getAssignedService(documentNode);
-		var assignedServiceName = assignedServiceNode.name;
-		var currentTray = TraysUtils.getEnclosingTray(documentNode);
-		var assignedServiceTray = getServiceTray(assignedServiceName, currentTray.name || 'inbox');		
+		var 
+			assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode),
+			currentTray = TraysUtils.getEnclosingTray(documentNode),
+			currentTrayName = null != currentTray ? currentTray.name : TraysUtils.INBOX_TRAY_NAME,
+			assignedServiceTray = TraysUtils.getSiteTray(assignedServiceName, currentTrayName ) 
+		;		
 		if (!assignedServiceTray) return;
 		
 		var document = documentContainer;
@@ -68,14 +74,19 @@
 		}
 		
 		if (!document.move(assignedServiceTray)) {
-			logger.warn('Cannot move the document ' + document.name + ' to the new tray ' + assignedServiceTray);
-			return null;
+			throw {
+				code : '512',
+				message : 'IllegalStateException! Cannot move the document ' + document.name + ' to the new tray ' + assignedServiceTray
+			}
 		}
 		
 		updateDocumentState();
 		updateDocumentHistory(
 			'distribute.comment', 
-			[assignedServiceNode.properties.title || assignedServiceName, assignedServiceTray.properties.title || assigneServiceTray.name]
+			[
+				Utils.Alfresco.getSiteTitle(assignedServiceName), 
+				assignedServiceTray.properties.title || assigneServiceTray.name
+			]
 		);
 		
 		return assignedServiceTray;
@@ -139,7 +150,7 @@
 		var formattedServicesTitle = Utils.reduce(
 			successfulServicesNodes, 
 			function(serviceNode, aggregateValue, isLast) {
-				var serviceTitle = serviceNode.properties.title || serviceNode.name;
+				var serviceTitle = Utils.Alfresco.getSiteTitle(serviceNode) || serviceNode.name;
 				return aggregateValue + serviceTitle + (isLast ? '' : ', ');
 			},
 			''
@@ -151,35 +162,11 @@
 		
 	}	
 	
-	function getServiceTray(serviceName, trayName) {
-		
-		if (!serviceName) return null;
-		
-		var siteNode = getSiteNodeFromSiteLabel(serviceName); 		
-		if (!siteNode) {
-			logger.warn('Service assigned to document with nodeRef ' + documentNode.nodeRef + ' is set to an invalid service (no matching site): ' + serviceName);
-			return null;			
-		}
-		
-		return TraysUtils.getSiteTray(siteNode, trayName);
-		
-	}
-	
-	function getSiteNodeFromSiteLabel(siteLabel) {
-		var site = siteService.getSite(siteLabel);
-		if (site) return site.getNode();
-		
-		var query = '+TYPE:"st\:site" +@cm\\:title:"' + siteLabel + '"';
-		var siteNodes = search.luceneSearch(query);
-		if (siteNodes && siteNodes.length == 1) return siteNodes[0];
-		
-		return null;
-	}
-	
-	
 	function setModel(tray, newCopiedDocuments) {
+		
 		model.targetTrayNodeRef = Utils.asString(tray.nodeRef);
-		model.newCopiedDocuments = newCopiedDocuments || []; 
+		model.newCopiedDocuments = newCopiedDocuments || [];
+		
 	}
 	
 	

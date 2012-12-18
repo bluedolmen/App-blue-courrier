@@ -32,6 +32,7 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	DOCUMENT_USER_CAN_PROCESS_DOCUMENT : 'yamma-ee:Document!Action_canTakeProcessing',
 	DOCUMENT_USER_CAN_REPLY : 'yamma-ee:Document!Action_canReply',
 	DOCUMENT_USER_CAN_SEND_OUTBOUND : 'yamma-ee:Document!Action_canSendOutbound',
+	DOCUMENT_USER_CAN_SKIP_VALIDATION : 'yamma-ee:Document!Action_canSkipValidation',
 	DOCUMENT_USER_CAN_VALIDATE : 'yamma-ee:Document!Action_canValidate',
 	DOCUMENT_USER_CAN_MARK_AS_SENT : 'yamma-ee:Document!Action_canMarkAsSent',
 	DOCUMENT_USER_CAN_ARCHIVE : 'yamma-ee:Document!Action_canArchive'

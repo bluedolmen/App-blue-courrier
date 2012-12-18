@@ -43,7 +43,7 @@
 				) &&
 				
 				/* Document target service is assigned */
-				!!DocumentUtils.getAssignedService(documentNode) &&
+				DocumentUtils.hasAssignedService(documentNode) &&
 				
 				/* Document is delivered */
 				!DocumentUtils.isDocumentDelivered(documentNode)
@@ -89,18 +89,24 @@
 			username = username || Utils.Alfresco.getCurrentUserName();			
 			
 			return (
-					/* Document is original */
-					DocumentUtils.isOriginalDocumentNode(documentNode) &&
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+				
+				/* Document is a kind of inbound document */
+				documentNode.hasAspect(YammaModel.INBOUND_DOCUMENT_ASPECT_SHORTNAME) &&						
+				
+				/* Document is in 'processing' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
+				
+				(
+					/* The user is the currently assigned user */
+					DocumentUtils.isAssignedAuthority(documentNode, username) ||
 					
-					/* Document is a kind of inbound document */
-					documentNode.hasAspect(YammaModel.INBOUND_DOCUMENT_ASPECT_SHORTNAME) &&						
-					
-					/* Document is in 'processing' state */
-					DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
-					
-					/* the user is the currently assigned user */
-					DocumentUtils.isAssignedAuthority(documentNode, username)
-				);
+					/* The user is an assistant of the service */
+					DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+				)
+				
+			);
 			
 		},		
 		
@@ -131,9 +137,28 @@
 				/* Document is in 'processing' state */
 				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
 				
-				/* the user is the currently assigned user */
-				DocumentUtils.isAssignedAuthority(documentNode, username)
+				(
+					/* The user is the currently assigned user */
+					DocumentUtils.isAssignedAuthority(documentNode, username) ||
+					
+					/* The user is an assistant of the service */
+					DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+				)
 				
+			);
+			
+		},
+		
+		canSkipValidation : function(documentNode, username) {
+			
+			username = username || Utils.Alfresco.getCurrentUserName();
+			
+			return (
+				/* The user is the currently assigned user */
+				DocumentUtils.isAssignedAuthority(documentNode, username) ||
+				
+				/* The user is an assistant of the service */
+				DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
 			);
 			
 		},
@@ -141,7 +166,7 @@
 		/**
 		 * A user can attach a document if:
 		 * - The document is original
-		 * - The user can edit the document
+		 * - The user can attach documents
 		 * - The document is in pending state
 		 */
 		canAttach : function(documentNode, username /* not used */) {

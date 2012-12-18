@@ -23,7 +23,8 @@
 			YammaModel.DOCUMENT_STATE_PENDING,
 			YammaModel.DOCUMENT_STATE_DELIVERING,
 			YammaModel.DOCUMENT_STATE_PROCESSING,
-			YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED
+			YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED,
+			YammaModel.DOCUMENT_STATE_SIGNING
 		]
 	);
 	setTrayDefinition(
@@ -183,6 +184,7 @@
 			
 			return childTray;
 		}
-	};
+	};	
+
 	
 })();

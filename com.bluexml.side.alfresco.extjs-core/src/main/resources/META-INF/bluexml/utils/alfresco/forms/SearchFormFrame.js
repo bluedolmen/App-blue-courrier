@@ -16,20 +16,23 @@ Ext.define('Bluexml.utils.alfresco.forms.SearchFormFrame',{
 		var eventDescription = this.getMessageEventDescription(event);
 		if (!eventDescription) return;
 		
-		var eventType = eventDescription.eventType;
+		var 
+			eventType = eventDescription.eventType,
+			data = eventDescription.data
+		;
 		
 		if ('search' != eventType) 
-			return this.callParent(event);
-		
-		var data = eventDescription.data;
+			return this.callParent(arguments);
 		
 		this.onSearch(data);
 	},
 	
 	onSearch : function(data) {
 		
-		var term = data.term;
-		var query = data.formData;
+		var 
+			term = data.term,
+			query = data.formData
+		;
 		this.fireEvent('formaction', 'search', term, query);
 		
 	}

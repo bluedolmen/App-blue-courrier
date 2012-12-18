@@ -46,6 +46,63 @@
 			
 			return childSiteNode;
 			
+		},
+		
+		hasServiceRole : function(serviceName, userName, role) {
+			
+			return ServicesUtils._checkRole(serviceName, userName, role, role);
+			
+		},
+		
+		isServiceManager : function(serviceName, userName) {
+			
+			return ServicesUtils._checkRole(serviceName, userName, 'ServiceManager', 'ServiceManager');
+			
+		},
+		
+		isServiceInstructor : function(serviceName, userName) {
+			
+			return ServicesUtils._checkRole(serviceName, userName, 'ServiceInstructor', 'ServiceInstructor');
+			
+		},
+		
+		isServiceAssistant : function(serviceName, userName) {
+			
+			return ServicesUtils._checkRole(serviceName, userName, 'ServiceAssistant', 'ServiceAssistant');
+			
+		},
+		
+		/**
+		 * @private
+		 */
+		_checkRole : function(serviceName, userName, primaryRole, additionalRole) {
+			
+			userName = Utils.asString(userName);
+			
+			var serviceSite = siteService.getSite(serviceName);
+			if (!serviceSite) return false;
+			
+			var memberRole = Utils.asString(serviceSite.getMembersRole(userName));
+			if (memberRole) {
+				return (memberRole == primaryRole);
+			}
+			
+			var 
+				siteRoleGroupName = 'GROUP_site_' + serviceName + '_' + additionalRole,
+				siteRoleGroup = people.getGroup(siteRoleGroupName)
+			;
+			if (null == siteRoleGroup) return false;
+			
+			var 
+				members = people.getMembers(siteRoleGroup)
+			;
+			
+			return Utils.contains(members, 
+				function equals(a,b) {
+					return userName == Utils.asString(member.properties['cm:userName']); 
+				}
+			);
+			
 		}
 			
 	};

@@ -47,11 +47,13 @@ Ext.define('Bluexml.utils.tab.Tool', {
      * A single item, or an array of child Components to be added to this toolbar
 	 */
 	init: function(tab) {
-		var me  = this;
-		var items = me.items;
+		var 
+			me  = this,
+			items = me.items,
+			bar = tab.getTabBar()
+		;
 		if (!items) return;
 			
-		var bar = tab.getTabBar();
 		bar.flex = 1;
 		if(bar.plain){
 			bar.on({
@@ -65,7 +67,13 @@ Ext.define('Bluexml.utils.tab.Tool', {
 			xtype : 'container',
 			layout : 'hbox',
 			items : Ext.isArray(items) ? items : [items],
-			cls : Ext.baseCSSPrefix + 'tab-bar' 
+			cls : Ext.baseCSSPrefix + 'tab-bar',
+			
+			listeners : {
+				'beforeadd' : function(menu, component) {
+					component.ui = component.ui + '-toolbar';
+				}
+			}
 		};
 		
 		tab.removeDocked(bar, false);

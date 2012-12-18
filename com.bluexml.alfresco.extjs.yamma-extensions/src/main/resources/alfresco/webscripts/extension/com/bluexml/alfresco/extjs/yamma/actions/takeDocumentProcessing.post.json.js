@@ -7,8 +7,10 @@
 	const PROCESSING_EVENT_TYPE = 'processing';
 
 	// PRIVATE
-	var fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName();
-	var documentNode;
+	var 
+		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(),
+		documentNode
+	;
 	
 	// MAIN LOGIC
 	
@@ -39,7 +41,7 @@
 		updateDocumentState();
 		updateDocumentHistory(
 			'takeProcessing.comment', 
-			Utils.wrapAsList(Utils.Alfresco.getPersonUserName(fullyAuthenticatedUserName)) 
+			[Utils.Alfresco.getPersonDisplayName(fullyAuthenticatedUserName) + ' (' + fullyAuthenticatedUserName + ')'] 
 		);
 		
 		setModel();

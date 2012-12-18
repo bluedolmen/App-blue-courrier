@@ -15,9 +15,9 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 		ACTION_WS_URL : 'alfresco://bluexml/yamma/send-outbound'
 	},
 	
-	CONFIRM_MESSAGE : "Confirmez-vous l'envoi du document au destinataire ?</br>" +
-						"Tout envoi devra être validé par une personne accréditée.",
-	CONFIRM_TITLE : 'Envoyer ?',
+	CONFIRM_MESSAGE : "Le document va dorénavant être envoyé.</br>" +
+						"Désirez-vous valider l'envoi par une personne accréditée ?",
+	CONFIRM_TITLE : 'Envoyer avec validation ?',
 	
 	getSendOutboundActionDefinition : function() {
 		
@@ -46,25 +46,44 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 		var 
 			me = this,
 			record = grid.getStore().getAt(rowIndex),
-			documentNodeRef = this.getDocumentNodeRefRecordValue(record)
+			documentNodeRef = this.getDocumentNodeRefRecordValue(record),
+			userCanSkipValidation = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_SKIP_VALIDATION);
 		;
 		
-		askConfirmation();
-		
 		function askConfirmation () {
-			
-			Bluexml.windows.ConfirmDialog.FR.askConfirmation({
+
+			Ext.MessageBox.show({
 				title : me.CONFIRM_TITLE,
 				msg : me.CONFIRM_MESSAGE,
-				onConfirmation : Ext.bind(me.sendOutbound, me, [documentNodeRef])
+				buttonText : {
+					'yes' : 'Oui',
+					'no' : 'Non',
+					'cancel' : 'Annuler'
+				},
+				buttons: this.YESNOCANCEL,
+				icon : Ext.Msg.QUESTION,
+				fn : onButtonClicked 			
 			});
+
+			function onButtonClicked(buttonId) {
+				if ('cancel' == buttonId) return; // do nothing
+				
+				var skipValidation = 'no' === buttonId;
+				me.sendOutbound(documentNodeRef, skipValidation);				
+			}
 			
 		};
+		
+		if (userCanSkipValidation) {
+			askConfirmation();
+		} else {
+			me.sendOutbound(documentNodeRef, false /* skipValidation */);
+		}
 		
 		return false;
 	},
 	
-	sendOutbound : function(documentNodeRef) {
+	sendOutbound : function(documentNodeRef, skipValidation) {
 		
 		var 
 			me = this,
@@ -77,7 +96,8 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 			{
 				url : url,
 				dataObj : {
-					nodeRef : documentNodeRef
+					nodeRef : documentNodeRef,
+					skipValidation : skipValidation
 				}
 			},
 			

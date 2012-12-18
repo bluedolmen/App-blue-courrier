@@ -4,6 +4,7 @@
 
 	HistoryUtils = {
 		
+		// TODO: !!! HERE ADD A DELEGATE
 		addHistoryEvent : function(document, eventType, comment, referrer) {
 			
 			// Create the history event in the history-container of the document-container

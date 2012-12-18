@@ -14,6 +14,7 @@ Ext.define('Yamma.view.MailsView', {
 		'Yamma.view.windows.DocumentStatisticsWindow',
 		'Yamma.utils.grid.MailsViewGrouping',
 		'Ext.grid.column.Date',
+		'Ext.ux.grid.column.CheckColumn',
 		'Bluexml.utils.grid.column.HeaderImage',
 		'Ext.form.Label',
 		'Yamma.utils.button.UploadButton'
@@ -167,6 +168,8 @@ Ext.define('Yamma.view.MailsView', {
 		
 		return [
 		
+			this.getTickColumnDefinition(),
+		
 			this.getStateColumnDefinition(),
 		
 			this.getDocumentTypeColumnDefinition(),
@@ -189,6 +192,33 @@ Ext.define('Yamma.view.MailsView', {
     	defaultConfig.tdCls = 'cell-align-middle';
     	return defaultConfig;
     },	
+    
+    getTickColumnDefinition : function() {
+    	return this.applyDefaultColumnDefinition(
+	    	{
+	    		xtype : 'checkcolumn',
+	    		width : 30,
+	    		tooltip : 'Sélectionner le document',
+	    		plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls}),
+	    		resizable : false,
+				menuDisabled : true,
+				sortable : false,
+				dataIndex : 'selected'
+	    		
+	    	}	
+    	);
+    },
+    
+    getDerivedFields : function() {
+    	return [
+	    	{
+	    		name : 'selected',
+	    		type : 'boolean',
+	    		defaultValue : false
+	    	}
+    	];
+    	
+    },
 	
 	getDocumentTypeColumnDefinition : function() {
 		return this.applyDefaultColumnDefinition (

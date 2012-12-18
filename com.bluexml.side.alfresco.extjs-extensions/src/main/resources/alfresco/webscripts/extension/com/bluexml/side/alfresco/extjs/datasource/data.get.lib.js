@@ -147,12 +147,26 @@ function main() {
 		isAggregate = ('aggregate' === searchType),
 		data = isAggregate
 			? buildAggregateData(datasourceDefinition, params)
-			: buildData(datasourceDefinition, params)
+			: buildData(datasourceDefinition, params),
+		searchAdditional = datasourceDefinition.getSearchAdditional()
 	; 
 	
 	model.data = data;
+	
 	if ('csv' == params.format) {
 		model.fields = DatasourceDefinitions.getFlatColumns(datasourceId);
 	}
 
+	if (searchAdditional.metadata) {
+		
+		var metadata = Utils.isFunction(searchAdditional.metadata) 
+			? searchAdditional.metadata.call(datasourceDefinition, params)
+			: searchAdditional.metadata
+		;
+		
+		if (metadata) {
+			model.metadata = metadata;
+		}
+		
+	}
 }

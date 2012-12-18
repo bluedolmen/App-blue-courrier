@@ -108,10 +108,11 @@ var YammaModel = new (function(){
 	
 	this.DOCUMENT_STATE_PENDING = 'pending';
 	this.DOCUMENT_STATE_DELIVERING = 'delivering';
-	this.DOCUMENT_STATE_PROCESSING = 'processing';
 	this.DOCUMENT_STATE_VALIDATING_DELIVERY = 'validating!delivery';
+	this.DOCUMENT_STATE_PROCESSING = 'processing';
 	this.DOCUMENT_STATE_VALIDATING_PROCESSED = 'validating!processed';
 	this.DOCUMENT_STATE_SENDING = 'sending';
+	this.DOCUMENT_STATE_SIGNING = 'signing';
 	this.DOCUMENT_STATE_PROCESSED = 'processed';
 	this.DOCUMENT_STATE_ARCHIVED = 'archived';
 	this.DOCUMENT_STATE_UNKNOWN = 'unknown';
@@ -121,6 +122,7 @@ var YammaModel = new (function(){
 		this.DOCUMENT_STATE_VALIDATING_DELIVERY,
 		this.DOCUMENT_STATE_PROCESSING,
 		this.DOCUMENT_STATE_VALIDATING_PROCESSED,
+		this.DOCUMENT_STATE_SIGNING,
 		this.DOCUMENT_STATE_SENDING,
 		this.DOCUMENT_STATE_PROCESSED,
 		this.DOCUMENT_STATE_ARCHIVED

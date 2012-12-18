@@ -54,7 +54,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreGrid', {
  	onStoreAvailable : function(store) {
  		
  		this.reconfigure(store);
-    	store.load();
+ 		this.mixins.alfrescostoreaware.onStoreAvailable.call(this, store);
  		
  	}, 	
  	

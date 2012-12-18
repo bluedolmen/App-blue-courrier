@@ -1,42 +1,9 @@
-function initTemplates() {
-	
-	const 
-		TARGET_PATH = "app:company_home/app:dictionary/app:email_templates/cm:yamma"
-	; 
-	
-	getOrCreateTarget();
-	loadFileTemplates();
-	
-	function getOrCreateTarget() {
-		
-		var targets = search.luceneSearch('+PATH:"' + TARGET_PATH + '"');
-		if (targets && targets.length > 0) {
-			return targets[0];
-		}
-		
-		return Utils.Alfresco.createPath(null, TARGET_PATH);
-		
-	}
-	
-	function loadFileTemplates() {
-		
-		sideInitHelper.loadExternalResources(
-			"classpath:${config.target.path}/bootstrap/yamma-email-templates/*.ftl",
-			TARGET_PATH
-		);
-		
-	}
-	
-}
-
-Init.Utils.register(initTemplates);
-
 (function() {
 
 	var EmailTemplates = Utils.Object.create(Init.InitDefinition, {
 	
-		SOURCE_XPATH : "classpath:${config.target.path}/bootstrap/yamma-email-templates/*.ftl",
-		TARGET_PATH : "app:company_home/app:dictionary/app:email_templates/cm:yamma",
+		SOURCE_PATH : "classpath:${config.target.path}/bootstrap/yamma-email-templates/*.ftl",
+		TARGET_XPATH : "app:company_home/app:dictionary/app:email_templates/cm:yamma",
 		
 		id : 'email-templates',
 		
@@ -44,43 +11,48 @@ Init.Utils.register(initTemplates);
 			this.getOrCreateTarget();
 			
 			sideInitHelper.loadExternalResources(
-				this.SOURCE_XPATH,
-				this.TARGET_PATH
+				this.SOURCE_PATH,
+				this.TARGET_XPATH
 			);
 		},
 		
-		reset : function() {
+		clear : function() {
 			var target = this.getTarget();
 			if (!target) return;
 			
 			var 
 				resourcesStates = sideInitHelper.checkExternalResources(
-					this.SOURCE_XPATH,
-					this.TARGET_PATH
+					this.SOURCE_PATH,
+					this.TARGET_XPATH
 				),
 				state = null,
-				node = null
+				node = null,
+				success = false
 			;
 			
-			// Remove modified resources
+			// Remove resources
 			for (var nodeRef in resourcesStates) {
 				state = Utils.asString(resourcesStates[nodeRef]);
-				if ('MODIFIED' == state) {
-					node = search.findNode(nodeRef);
-					if (null == node) {
-						logger.warn("Cannot find the node with nodeRef='" + nodeRef + "' to be deleted while performing reset");
-						continue;
-					}
-						
-					var success = node.remove();
-					if (!success) {
-						logger.warn("Cannot delete the node '" + node.nodeRef + "' while performing reset");
-					}
+				if ('MISSING' != state) continue;
+					
+				node = search.findNode(nodeRef);
+				if (null == node) {
+					logger.warn("Cannot find the node with nodeRef='" + nodeRef + "' to be deleted while performing reset");
+					continue;
+				}
+					
+				success = node.remove();
+				if (!success) {
+					logger.warn("Cannot delete the node with nodeRef='" + node.nodeRef + "' while performing reset");
 				}
 			}
 			
-			// Then execute the installation again
-			this.init();
+			if (target.children.length == 0) {
+				target.remove();
+			} else {
+				logger.warn("The container was not empty; it was not removed. You should perform this operation manually if necessary")
+			}
+			
 		},
 		
 		checkInstalled : function() {
@@ -89,8 +61,8 @@ Init.Utils.register(initTemplates);
 			
 			var 
 				resourcesStates = sideInitHelper.checkExternalResources(
-					this.SOURCE_XPATH,
-					this.TARGET_PATH
+					this.SOURCE_PATH,
+					this.TARGET_XPATH
 				),
 				state = null
 			;
@@ -123,26 +95,32 @@ Init.Utils.register(initTemplates);
 			
 			var 
 				resourcesStates = sideInitHelper.checkExternalResources(
-					this.SOURCE_XPATH,
-					this.TARGET_PATH
+					this.SOURCE_PATH,
+					this.TARGET_XPATH
 				),
+				state = null,
 				node = null,
 				label = ""
 			;
 			
 			for (var nodeRef in resourcesStates) {
-				state = resourcesStates[nodeRef];
-				node = search.findNode(nodeRef);
-				label = node ? node.name + ' (' + nodeRef + ')' : nodeRef;
+				state = Utils.asString(resourcesStates[nodeRef]);
+				label = nodeRef;
 				
-				output += ( '[' + Utils.asString(state) + '] ' + label + '\n');
+				if ('MISSING' != state) {
+					// If missing, the nodeRef is not a nodeRef, it is a reference on the filesystem
+					node = search.findNode(nodeRef);
+					label = node.name + ' (' + nodeRef + ')';
+				}
+				
+				output += ( '[' + state + '] ' + label + '\n');
 			}
 			
 			return output;
 		},
 		
 		getTarget : function() {
-			var targets = search.luceneSearch('+PATH:"' + this.TARGET_PATH + '"') || [];
+			var targets = search.luceneSearch('+PATH:"' + this.TARGET_XPATH + '"') || [];
 			return targets[0];
 		},
 		
@@ -151,7 +129,7 @@ Init.Utils.register(initTemplates);
 			var target = this.getTarget();
 			if (target) return target;
 			
-			return Utils.Alfresco.createPath(null, TARGET_PATH);
+			return Utils.Alfresco.createPath(null, TARGET_XPATH);
 			
 		}	
 		

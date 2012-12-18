@@ -15,6 +15,14 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 		
 	},
 	
+	initComponent : function() {
+		
+		this.onFormSize();
+		
+		this.callParent();
+		
+	},
+	
 	load : function(config) {
 		
 		var me = this;
@@ -50,12 +58,14 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 			if (me.delegatedFrame) {
 				// Remove existing frame
 				me.mun(me.delegatedFrame, 'formaction', me.onFormAction, me);
+				me.mun(me.delegatedFrame, 'formsize', me.onFormSize, me);
 				me.remove(me.delegatedFrame);
 				me.delegatedFrame = null;
 			}
 			
 			me.delegatedFrame = me.add(newItem);
 			me.mon(me.delegatedFrame, 'formaction', me.onFormAction, me);
+			me.mon(me.delegatedFrame, 'formsize', me.onFormSize, me);
 			me.delegatedFrame.load();
 		}
 		
@@ -103,18 +113,16 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 	 */
 	onFormAction : function(actionId) {
 		
-		var me = this;
 		if (null == actionId || '' === actionId) return false;
 		
-		this.defaultFormActionBehaviour();		
-		callImplicitActionHandler.apply(this, arguments);
-		
-		return true;
+		var me = this;
 		
 		function callImplicitActionHandler() {
 			
-			var handlerName = 'on' + Ext.String.capitalize(actionId);
-			var handler = me[handlerName];
+			var 
+				handlerName = 'on' + Ext.String.capitalize(actionId),
+				handler = me[handlerName]
+			;
 			if (undefined === handler) return;
 			
 			var shiftArguments = Ext.Array.slice(arguments, 1); 
@@ -122,6 +130,30 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 			return;
 			
 		}
+		
+		this.defaultFormActionBehaviour();		
+		callImplicitActionHandler.apply(this, arguments);
+		
+		return true;
+	},
+	
+	onFormSize : function(width, height) {
+		
+		var
+			body = Ext.getBody(),
+			bodySize = body.getViewSize(),
+			bodyWidth = bodySize.width,
+			bodyHeight = bodySize.height
+		;
+		
+		width = width > 0 ? width : Number.MAX_VALUE;
+		height = height > 0 ? height : Number.MAX_VALUE;
+		
+		this.setSize(
+			Ext.Array.min([bodyWidth * .75, width]),
+			Ext.Array.min([bodyHeight * .75, height])
+		);
+		
 	},
 	
 	defaultFormActionBehaviour : function() {

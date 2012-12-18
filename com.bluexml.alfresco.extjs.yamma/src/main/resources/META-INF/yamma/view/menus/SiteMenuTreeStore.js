@@ -88,6 +88,13 @@ Ext.define('Yamma.view.menus.SiteMenuTreeStore', {
 	    		convert: function(value, record) {
 					return me.getRecordMapping(record, 'iconCls', value);
 	    		}
+	    	},
+	    	{
+	    		name : 'expanded',
+	    		type : 'boolean',
+	    		convert : function(value, record) {
+	    			return me.getRecordMapping(record, 'expanded', value);
+	    		}
 	    	}
 	    ];
 	    

@@ -558,6 +558,10 @@
 			
 			var sortColumnName = sortParam.column;
 			if (!sortColumnName) throw new Error('IllegalStateException! The provided sort-param is not valid');
+
+			// An escaped sort-column is always considered as non-deferred (you know what you do here)
+			var matchEscaped = /^@.*/.test(sortColumnName);
+			if (matchEscaped) return false;
 			
 			var fieldDefinition = me.datasourceDefinition.getFieldDefinition(sortColumnName);
 			if (null == fieldDefinition) return true; // undefined => maybe a composite field, else will provoke an error later
@@ -569,17 +573,21 @@
 			
 			checkSortParam(sortParam);
 			
-			var field = me.datasourceDefinition.getFieldDefinition(sortParam.column);
-			var propertyName = field.getPropertyName();
-			
-			var adaptedSortParam =
-				{
-					column : '@' + propertyName,
-					ascending : (undefined !== sortParam.ascending) ? sortParam.ascending : 'ASC' === sortParam.dir  
-				}
+			var
+				columnName = sortParam.column,
+				isNative = Utils.String.startsWith(columnName, '@')
 			;
 			
-			return adaptedSortParam;
+			if (!isNative) {
+				var field = me.datasourceDefinition.getFieldDefinition(sortParam.column);
+				columnName = '@' + field.getPropertyName();
+			}			
+			
+			return {
+				column : columnName,
+				ascending : (undefined !== sortParam.ascending) ? sortParam.ascending : 'ASC' === sortParam.dir  
+			};
+			
 		}
 		
 	}		

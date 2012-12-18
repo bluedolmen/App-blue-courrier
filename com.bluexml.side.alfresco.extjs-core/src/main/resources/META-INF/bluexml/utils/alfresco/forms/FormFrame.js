@@ -55,7 +55,8 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		
 		function setEventConfiguration() {
 			
-			me.addEvents('formaction');
+			me.addEvents('formaction', 'formsize');
+			
 			me.on('documentloaded', me.onDocumentLoaded);
 			me.on('destroy', onDestroy);
 			Ext.EventManager.addListener(window, 'message', me.onReceivedMessage, me);
@@ -78,25 +79,32 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	getCheckedUrl : function() {
 		this.checkMandatoryParameters();
 		
-		var formConfig = this.getFormConfig();
+		var 
+			formConfig = this.getFormConfig(),
+			cleanedFormConfig = {}
+		;
 		
-		var cleanedFormConfig = {};
 		// Get a formConfig object removing null values
 		Ext.Object.each(formConfig, function(key, value, myself) {
 			if (null == value) return;
 			cleanedFormConfig[key] = value;
 		});
 		
-		var parameters = Ext.Object.toQueryString(cleanedFormConfig);
-		var url = this.getSourceUrl() + '?' + parameters;
+		var 
+			parameters = Ext.Object.toQueryString(cleanedFormConfig),
+			url = this.getSourceUrl() + '?' + parameters
+		;
 		
 		return url; // no checking here
 	},
 	
 	checkMandatoryParameters : function() {
 		
-		var formConfig = this.getFormConfig();
-		var itemId = formConfig.itemId;
+		var 
+			formConfig = this.getFormConfig(),
+			itemId = formConfig.itemId
+		;
+		
 		if (!itemId) {
 			Ext.Error.raise('IllegalStateException! No item id is defined');
 		}
@@ -159,8 +167,10 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		var eventDescription = this.getMessageEventDescription(event);
 		if (!eventDescription) return;
 		
-		var eventType = eventDescription.eventType;
-		var data = eventDescription.data;
+		var 
+			eventType = eventDescription.eventType,
+			data = eventDescription.data
+		;
 		
 		switch(eventType) {
 			
@@ -170,7 +180,11 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 				
 			case 'form-result':
 				this.onFormResult(data);
-				break;				
+				break;
+				
+			case 'form-size':
+				this.onFormSize(data);
+				break;
 				
 			default:
 				this.onFormAction(eventType, data);
@@ -184,8 +198,10 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 		var buttonId = data.buttonId;
 		if (!buttonId) return;
 		
-		var handlerImplicitName = 'onContentDocument' + Ext.String.capitalize(buttonId) + 'ButtonClicked';
-		var handler = this[handlerImplicitName];
+		var 
+			handlerImplicitName = 'onContentDocument' + Ext.String.capitalize(buttonId) + 'ButtonClicked',
+			handler = this[handlerImplicitName]
+		;
 		if (!Ext.isFunction(handler)) return;
 		
 		handler.call(this, data);
@@ -203,10 +219,22 @@ Ext.define('Bluexml.utils.alfresco.forms.FormFrame', {
 	
 	onFormResult : function(data) {
 		
-		var state = data.state;
-		var message = data.message;
+		var 
+			state = data.state,
+			message = data.message
+		;
 		this.fireEvent('formaction', state, message);
 		
+	},
+	
+	onFormSize : function(data) {
+		
+		var
+			width = data.width || 0,
+			height = data.height || 0
+		;
+		
+		this.fireEvent('formsize', width, height);
 	},
 		
 	onContentDocumentCancelButtonClicked : function(data) {

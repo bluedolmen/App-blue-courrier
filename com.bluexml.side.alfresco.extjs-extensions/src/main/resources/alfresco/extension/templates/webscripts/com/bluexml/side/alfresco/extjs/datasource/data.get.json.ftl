@@ -5,6 +5,9 @@
 	"totalRecords": ${data.paging.totalRecords?c},
 	"startIndex": ${data.paging.startIndex?c},
 	"itemCount" : ${data.count?c},
+	<#if metadata??>
+	"metaData" : <@itemLib.renderObject metadata />,
+	</#if>
 	<#if data.query??>
 	"query" : ${data.query},
 	</#if>

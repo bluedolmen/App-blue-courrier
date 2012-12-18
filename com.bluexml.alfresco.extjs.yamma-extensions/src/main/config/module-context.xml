@@ -22,4 +22,6 @@
 
 	<import resource="classpath:${config.target.path}/context/service-context.xml" />
     
+    <!-- import resource="classpath:${config.target.path}/context/additional-roles-context.xml" / -->
+    
 </beans>

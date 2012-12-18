@@ -36,7 +36,7 @@
 		clear : null,
 		
 		checkInstalled : function() {
-			return InitFunction.InstallationStates.UNKNOWN;
+			return Init.InstallationStates.UNKNOWN;
 		},
 		
 		getDetails : null
@@ -53,9 +53,10 @@
 				me = this,
 				siteList = this.getSiteList()
 			;
+			
 			Utils.forEach(siteList, function(site) {
 				var siteName = me.getSiteName(site);
-				me.initSite(site);
+				me.initSite(site, siteName);
 			});			
 
 		},
@@ -72,7 +73,7 @@
 			;
 			Utils.forEach(siteList, function(site) {
 				var siteName = me.getSiteName(site);
-				me.initSite(site);
+				me.clearSite(site, siteName);
 			});			
 
 		},
@@ -83,7 +84,73 @@
 			return siteService.listSites('','');
 		},
 		
-		getSiteName : function(site) {  return site.shortName; }		
+		checkInstalled : function() {
+			
+			if (null == this.checkSiteInstalled || !Utils.isFunction(this.checkSiteInstalled)) return Init.InstallationStates.UNKNOWN;
+			
+			var
+				me = this,
+				siteList = this.getSiteList(),
+				siteName = null,
+				siteStatus = null,
+				full = true,
+				no = true,
+				modified = false,
+				state = null
+			;			
+			
+			Utils.forEach(siteList, function(site) {
+				siteName = me.getSiteName(site);
+				siteStatus = me.checkSiteInstalled(site);
+				
+				if (Init.InstallationStates.UNKNOWN == siteStatus || Init.InstallationStates.PARTIALLY == siteStatus) {
+					state = siteStatus;
+					return false; // break
+				}
+				
+				full = full && (Init.InstallationStates.FULL == siteStatus);
+				no = no && (Init.InstallationStates.NO == siteStatus);
+				modified = modified || (Init.InstallationStates.MODIFIED == siteStatus);
+			});
+			
+			if (state) return state;
+			else if (full) return Init.InstallationStates.FULL;
+			else if (modified) return Init.InstallationStates.MODIFIED;
+			else if (no) return Init.InstallationStates.NO;
+			else return Init.InstallationStates.PARTIALLY;
+		},
+		
+		checkSiteInstalled : function(site) {
+			return Init.InstallationStates.UNKNOWN;
+		},
+		
+		getDetails : function() {
+			
+			if (null == this.getSiteDetails || !Utils.isFunction(this.getSiteDetails)) return;
+			
+			var
+				me = this,
+				siteList = this.getSiteList(),
+				siteName = null,
+				output = ''
+			;
+			
+			Utils.forEach(siteList, function(site) {
+				siteName = me.getSiteName(site);
+				siteDetails = me.getSiteDetails(site);
+				
+				if (!siteDetails) return;
+				output += '[' + siteName + '] ' + siteDetails + '\n';
+			});
+			
+			return output;
+		},
+		
+		getSiteDetails : function(site) {
+			return null;
+		},
+		
+		getSiteName : function(site) {  return Utils.asString(site.shortName); }		
 		
 	});	
 	

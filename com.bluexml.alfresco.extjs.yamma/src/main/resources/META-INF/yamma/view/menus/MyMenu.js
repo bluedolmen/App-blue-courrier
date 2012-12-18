@@ -66,6 +66,7 @@ Ext.define('Yamma.view.menus.MyMenu', {
 				[
 					'processing',
 					'validating!processed',
+					'signing',
 					'sending',
 					'processed'
 				],

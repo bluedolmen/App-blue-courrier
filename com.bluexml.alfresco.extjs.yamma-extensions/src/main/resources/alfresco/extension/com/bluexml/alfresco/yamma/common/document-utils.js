@@ -37,15 +37,13 @@
 			var enclosingSite = YammaUtils.getSiteNode(documentNode);
 			if (null == enclosingSite) return false;
 			
-			var enclosingSiteName = enclosingSite.name;
-				
-			var assignedService = DocumentUtils.getAssignedService(documentNode); 
-			if (null == assignedService) return false;		
+			var 
+				enclosingSiteName = Utils.asString(enclosingSite.name),
+				assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode)
+			; 
+			if (null == assignedServiceName) return false;			
 			
-			var assignedServiceName = assignedService.name;
-			if (!assignedServiceName) return false;
-			
-			return Utils.asString(enclosingSiteName) == Utils.asString(assignedServiceName); // String Object-s
+			return enclosingSiteName == assignedServiceName;
 		},		
 		
 		checkDocumentState : function(documentNode, expectedDocumentState) {
@@ -61,13 +59,26 @@
 			
 		},
 		
-		getAssignedService : function(documentNode) {
+		getAssignedServiceName : function(documentNode) {
+			
 			DocumentUtils.checkDocument(documentNode);
 			
-			var assignedServices = documentNode.assocs[YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME];
-			if (null == assignedServices || 0 == assignedServices.length ) return null;
+			var 
+				assignedServices = documentNode.assocs[YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME],
+				servicesNumber = null == assignedServices ? 0 : assignedServices.length
+			;
+			if (0 == servicesNumber ) return null;
 			
-			return assignedServices[0];
+			var assignedService = assignedServices[0];
+			return Utils.asString(assignedService.name);
+			
+		},
+		
+		hasAssignedService : function(documentNode) {
+			
+			var assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode);
+			return (null != assignedServiceName);
+			
 		},
 		
 		getAssignedAuthority : function(documentNode) {
@@ -85,10 +96,22 @@
 			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			var assignedAuthority = DocumentUtils.getAssignedAuthority(documentNode);
-			if (!assignedAuthority) return false;
+			if (null == assignedAuthority) return false;
 			var assignedAuthorityUserName = Utils.Alfresco.getPersonUserName(assignedAuthority);
 			
 			return assignedAuthorityUserName == username;
+		},
+		
+		hasServiceRole : function(documentNode, username, role) {
+			
+			DocumentUtils.checkDocument(documentNode);
+			username = username || Utils.Alfresco.getCurrentUserName();
+			
+			var siteShortName = documentNode.getSiteShortName();
+			if (null == siteShortName) return false;
+			
+			return ServicesUtils.hasServiceRole(siteShortName, username, role);
+			
 		},
 		
 		isServiceManager : function(documentNode, username) {
@@ -96,11 +119,10 @@
 			DocumentUtils.checkDocument(documentNode);
 			username = username || Utils.Alfresco.getCurrentUserName();
 			
-			var currentServiceSite = DocumentUtils.getCurrentServiceSite(documentNode);
-			if (null == currentServiceSite) return false;
+			var siteShortName = documentNode.getSiteShortName();
+			if (null == siteShortName) return false;
 			
-			var memberRole = Utils.asString(currentServiceSite.getMembersRole(username));
-			return ('SiteManager' == memberRole);
+			return ServicesUtils.isServiceManager(siteShortName, username);
 			
 		},
 		
@@ -249,7 +271,53 @@
 			subContainer.setOwner(documentContainerOwner);
 			
 			return subContainer;			
+		},
+		
+		moveToSiblingTray : function(documentNode, trayName) {
+			
+			var documentContainer = DocumentUtils.getDocumentContainer(documentNode);
+			if (null == documentContainer) return 'Cannot get the document container';
+				
+			var enclosingTray = TraysUtils.getEnclosingTray(documentNode);
+			if (!enclosingTray) return 'Cannot get the enclosing tray';
+			
+			var tray = TraysUtils.getSiblingTray(enclosingTray, trayName);
+			if (!tray) return "Cannot get the tray of name '" + trayName + "'";
+	
+			if (!documentContainer.move(tray)) {
+				return 'Cannot move the document to the tray container';
+			}
+			
+			return '';
+		},
+	
+		/**
+		 * Move the provided document-node container to the tray of the provided
+		 * service-name. If the tray-name is not provided, then keep the same tray
+		 * as the one currently assigned.
+		 */
+		moveToServiceTray : function(documentNode, serviceName, trayName /* optional */) {
+			
+			var documentContainer = DocumentUtils.getDocumentContainer(documentNode);
+			if (null == documentContainer) return 'Cannot get the document container';
+			
+			if (null == trayName) {
+				var enclosingTray = TraysUtils.getEnclosingTray(documentNode);
+				if (!enclosingTray) return 'Cannot get the enclosing tray';
+				trayName = enclosingTray.name;
+			}
+			
+			var siteTargetTray = TraysUtils.getSiteTray(serviceName, trayName);		
+			if (!siteTargetTray) return "Cannot get the site inbox tray of service '" + serviceName + "'";
+			
+			if (!documentContainer.move(siteTargetTray)) {
+				return "Cannot move the provided document to the site tray '" + trayName + "' of service '" + serviceName + "'";
+			}
+			
+			return '';
+			
 		}
+		
 		
 	};
 

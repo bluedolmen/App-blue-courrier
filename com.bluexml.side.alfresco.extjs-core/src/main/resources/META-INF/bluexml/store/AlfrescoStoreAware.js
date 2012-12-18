@@ -71,8 +71,10 @@ Ext.define('Bluexml.store.AlfrescoStoreAware', {
 		 		
 		 		onStoreCreated : function(store) {
 				
+		 			var previousStore = me.currentStore;
 					me.currentStore = store;
-	    			me.onStoreAvailable(store);
+					
+	    			me.onStoreAvailable(store, previousStore);
 	    			
 				},
 				
@@ -88,9 +90,37 @@ Ext.define('Bluexml.store.AlfrescoStoreAware', {
  		
  	},
  	
- 	onStoreAvailable : function(store) {
+ 	onStoreAvailable : function(store, previousStore) {
  		
-    	store.load();
+ 		if (null != previousStore) {
+ 			this.mun(store, 'load', this._onStoreLoaded, this);
+ 		}
+ 		
+ 		this.mon(store, 'load', this._onStoreLoaded, this);
+    	store.load();    		
+    	
+ 	},
+ 	
+ 	/**
+ 	 * @param {} store
+ 	 * @param {} records
+ 	 * @param {} successful
+ 	 * @private
+ 	 */
+ 	_onStoreLoaded : function(store, records, successful) {
+ 		
+ 		if (!successful) return;
+ 		
+    	var 
+    		proxy = store.getProxy(),
+    		reader = proxy ? proxy.reader : null,
+    		metaData = reader ? reader.metaData : null
+    	;
+    	
+    	this.onMetaDataRetrieved(metaData || {}); 		
+ 	},
+ 	
+ 	onMetaDataRetrieved : function(metaData) {
  		
  	},
  	

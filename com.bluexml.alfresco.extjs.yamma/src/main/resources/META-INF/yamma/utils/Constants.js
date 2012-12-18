@@ -104,14 +104,6 @@ Ext.define('Yamma.utils.Constants', {
 				this.getIconDefinition('lorry')
 			),
 			
-			'processing' : Ext.apply(
-				{
-					title : 'En cours de traitement',
-					shortTitle : 'Traitement'
-				}, 
-				this.getIconDefinition('cog_edit')
-			),
-			
 			'validating!delivery' : Ext.apply(
 				{
 					title : 'En attente de validation de routage',
@@ -120,12 +112,28 @@ Ext.define('Yamma.utils.Constants', {
 				this.getIconDefinition('lorry_go') // TODO: should be lorry_tick (but does not exist yet)
 			),
 			
+			'processing' : Ext.apply(
+				{
+					title : 'En cours de traitement',
+					shortTitle : 'Traitement'
+				}, 
+				this.getIconDefinition('cog_edit')
+			),
+			
 			'validating!processed' : Ext.apply(
 				{
 					title : 'En validation du courrier sortant',
 					shortTitle : 'Validation'
 				}, 
 				this.getIconDefinition('cog_tick')
+			),
+			
+			'signing' : Ext.apply(
+				{
+					title : 'En signature',
+					shortTitle : 'Signature'					
+				},
+				this.getIconDefinition('text_signature')
 			),
 			
 			'sending' : Ext.apply(

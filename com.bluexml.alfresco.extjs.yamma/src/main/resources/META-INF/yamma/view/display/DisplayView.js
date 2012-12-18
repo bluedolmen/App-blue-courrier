@@ -21,6 +21,7 @@ Ext.define('Yamma.view.display.DisplayView',
     
         Ext.create('Bluexml.utils.tab.Tool', {
             ptype : 'itstabtool',
+            position : 'before',
             items: [
             	{
 	            	xtype : 'replyfilesbutton',
