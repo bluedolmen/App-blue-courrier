@@ -57,6 +57,12 @@
       <metainfo xmi:id="_7bRRYcHjEeGVoP7HZaHFtA" key="index.atomic" value="True"/>
       <metainfo xmi:id="_7bRRYsHjEeGVoP7HZaHFtA" key="regular-expression.match" value="True"/>
     </attributes>
+    <attributes xmi:id="_rJoqQEm8EeKhHaXgY57Dkg" documentation="" description="The delegate of the event (if any)" name="delegate" title="Delegate">
+      <metainfo xmi:id="_ubNIsEm8EeKhHaXgY57Dkg" key="index.tokenised" value="true"/>
+      <metainfo xmi:id="_ubNIsUm8EeKhHaXgY57Dkg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_ubNvwEm8EeKhHaXgY57Dkg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_ubNvwUm8EeKhHaXgY57Dkg" key="propertySearched" value="True"/>
+    </attributes>
     <generalizations xsi:type="clazz:Clazz" href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z35w5snWEeGjKJcImRsXbg"/>
   </classSet>
   <classSet xmi:id="_-xcmMMRYEeGVoP7HZaHFtA" documentation="A DocumentContainer stores the main document to be processed.&#xA;It serves the purpose of storing document material in a structural view where the user can easily find related data (e.g., historical information, attached files, ...)." description="A container for storing document-related material" name="DocumentContainer" title="Document Container">
