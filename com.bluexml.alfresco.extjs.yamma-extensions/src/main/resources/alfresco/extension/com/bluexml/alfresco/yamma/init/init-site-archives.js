@@ -1,6 +1,6 @@
 (function() {
 
-	var sitesArchives = Utils.Object.create(Init.InitDefinition.BySite, {
+	var sitesArchives = Utils.Object.create(Init.InitDefinition.BySite.Yamma, {
 		
 		id : 'sites-archives',
 		level : 20,
@@ -49,15 +49,7 @@
 			
 			if (null == archivesContainer) return 'MISSING';
 			else return 'OK';
-		},		
-		
-		getSiteList : function() {		
-			return Utils.filter(siteService.listSites('',''),
-				function accept(site) {
-					return !YammaUtils.isConfigSite(site.shortName);
-				}
-			);
-		}
+		}		
 		
 	});
 	

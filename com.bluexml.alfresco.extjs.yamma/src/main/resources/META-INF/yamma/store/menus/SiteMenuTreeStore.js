@@ -1,4 +1,4 @@
-Ext.define('Yamma.view.menus.SiteMenuTreeStore', {
+Ext.define('Yamma.store.menus.SiteMenuTreeStore', {
 
 	extend : 'Ext.data.TreeStore',
 	

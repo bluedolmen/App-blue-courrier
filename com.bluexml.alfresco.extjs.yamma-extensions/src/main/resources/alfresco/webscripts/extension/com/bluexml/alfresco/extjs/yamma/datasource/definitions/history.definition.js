@@ -34,7 +34,16 @@
 						var referrer = node.properties[YammaModel.EVENT_REFERRER_PROPNAME];
 						return Utils.Alfresco.getPersonDisplayName(referrer);
 					}
-				}
+				},
+				
+				{
+					name : YammaModel.EVENT_DELEGATE_PROPNAME + '_displayName',
+					type : 'string',
+					evaluate : function(node) {
+						var referrer = node.properties[YammaModel.EVENT_DELEGATE_PROPNAME];
+						return Utils.Alfresco.getPersonDisplayName(referrer);
+					}
+				}				
 				
 				
 			]			

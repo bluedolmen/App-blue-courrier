@@ -13,6 +13,7 @@
 	var 
 		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(),
 		isServiceManager = ServicesUtils.isServiceManager(fullyAuthenticatedUserName),
+		managerUserName = null,
 		documentNode = null,
 		operation = null,
 		service = null,
@@ -39,7 +40,8 @@
 				{ name : 'nodeRef', mandatory : true}, 
 				{ name : 'operation', mandatory : true, checkValue : checkOperationType }, 
 				'comment',
-				'service'
+				'service',
+				'manager'
 			),
 			documentNodeRef = parseArgs['nodeRef']
 		;
@@ -62,7 +64,20 @@
 		operation = Utils.asString(parseArgs['operation']);
 		comment = Utils.asString(parseArgs['comment']) || comment;
 		service = Utils.asString(parseArgs['service']);
-					
+		
+		
+		if (isServiceManager) {
+			managerUserName = fullyAuthenticatedUserName
+		} else {
+			managerUserName = Utils.asString(parseArgs['service']);
+			if (!managerUserName) {
+				throw {
+					code : '512',
+					message : 'IllegalStateException! The action cannot be executed by a service-assistant without providing a manager'
+				}			
+			}
+		}
+		
 		main();
 		
 	});
@@ -114,7 +129,7 @@
 	function refuse() {
 		
 		// Back to processing state
-		updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSING);
+		updateDocumentState(YammaModel.DOCUMENT_STATE_REVISING);
 		
 		// And return the document in the initial (assigned) service
 		var assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode);
@@ -190,7 +205,9 @@
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
 			VALIDATE_REPLY_EVENT_TYPE + '!' + operation, /* eventType */
-			message /* comment */
+			message, /* comment */
+			managerUserName, /* referrer */
+			fullyAuthenticatedUserName /* delegate */
 		);
 		
 	}

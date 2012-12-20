@@ -93,7 +93,7 @@
 						siteNode = site.node,
 						archivesFolder = ArchivesUtils.getArchivesContainer(siteNode)
 					;
-					return !!archivesFolder;
+					return null != archivesFolder;
 				}
 			);
 			
@@ -110,16 +110,17 @@
 	 */
 	function getServicesNodes(hasChildren, countFunction, acceptSiteFunction) {
 		
+		acceptSiteFunction = acceptSiteFunction || function() { return true; };
+		
 		var 
 			sitesNode = ParameterCheck.mandatory(
 				companyhome.childByNamePath('Sites'), 
 				'IllegalStateException! The Sites folder cannot be found'
 			),
-			sites = siteService.listSites('',''),
+			sites = ServicesUtils.getManagedServices(),
 			
 			filteredSiteNodes = Utils.map(sites, function(site) {
-				if (YammaUtils.isConfigSite(site.shortName) ) return; // ignore config site
-				if (acceptSiteFunction && !acceptSiteFunction(site)) return; // ignore filtered sites
+				if (!acceptSiteFunction(site)) return; // ignore filtered sites
 				return site.node;
 			})
 		;		

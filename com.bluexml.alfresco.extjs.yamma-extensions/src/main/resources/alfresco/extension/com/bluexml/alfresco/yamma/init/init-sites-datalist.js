@@ -1,6 +1,6 @@
 (function() {
 
-	var SitesDataList = Utils.Object.create(Init.InitDefinition.BySite, {
+	var SitesDataList = Utils.Object.create(Init.InitDefinition.BySite.Yamma, {
 		
 		ASSIGNABLE_SITE_CONTAINER_TITLE : 'Services destinataires',
 		
@@ -156,16 +156,7 @@
 			return dataListContainer.children || [];
 		},
 		
-		getNameFun : function(object) { return object.name; },
-		
-		getSiteList : function() {		
-			return Utils.filter(siteService.listSites('',''),
-				function accept(site) {
-					return !YammaUtils.isConfigSite(site.shortName);
-				}
-			);
-		}		
-		
+		getNameFun : function(object) { return object.name; }
 		
 	});
 	

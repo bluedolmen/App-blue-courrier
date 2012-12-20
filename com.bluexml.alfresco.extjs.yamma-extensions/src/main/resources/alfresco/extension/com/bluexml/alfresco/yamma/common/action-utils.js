@@ -34,13 +34,7 @@
 				/* Document is original */					
 				DocumentUtils.isOriginalDocumentNode(documentNode) &&
 				
-				(
-						/* Document is in 'pending' state */
-						DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PENDING) ||
-						
-						/* Document is in 'delivering' state */
-						DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_DELIVERING)
-				) &&
+				DocumentUtils.checkDocumentState(documentNode, [ YammaModel.DOCUMENT_STATE_PENDING, YammaModel.DOCUMENT_STATE_DELIVERING ] ) &&
 				
 				/* Document target service is assigned */
 				DocumentUtils.hasAssignedService(documentNode) &&
@@ -135,7 +129,7 @@
 				) &&
 				
 				/* Document is in 'processing' state */
-				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
+				DocumentUtils.checkDocumentState(documentNode, [ YammaModel.DOCUMENT_STATE_PROCESSING, YammaModel.DOCUMENT_STATE_REVISING ]) &&
 				
 				(
 					/* The user is the currently assigned user */
@@ -154,11 +148,13 @@
 			username = username || Utils.Alfresco.getCurrentUserName();
 			
 			return (
+			
 				/* The user is the currently assigned user */
 				DocumentUtils.isAssignedAuthority(documentNode, username) ||
 				
 				/* The user is an assistant of the service */
 				DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+				
 			);
 			
 		},
@@ -202,10 +198,15 @@
 				DocumentUtils.isOriginalDocumentNode(documentNode) &&
 					
 				/* Document is in 'validating-processed' state */
-				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED) &&
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED) &&				
 				
-				/* the user is the current service manager */
-				DocumentUtils.isServiceManager(documentNode, username)
+				(
+					/* the user is the current service manager */
+					DocumentUtils.isServiceManager(documentNode, username) ||
+					
+					/* The user is an assistant of the service */
+					DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+				)				
 				
 			);
 		
@@ -222,7 +223,10 @@
 				DocumentUtils.isOriginalDocumentNode(documentNode) &&
 					
 				/* Document is in 'sending' state */
-				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_SENDING)
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_SENDING) &&
+				
+				/* The user is an assistant of the service */
+				DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')				
 								
 			);
 			

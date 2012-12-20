@@ -17,6 +17,7 @@
 		var parseArgs = new ParseArgs('parentService', 'depth', 'rformat');
 		parentService = parseArgs['parentService'] || 'root';
 		depth = Number(parseArgs['depth']) || 1;
+		depth = (-1 == depth) ? Number.MAX_VALUE : depth;
 		rformat = parseArgs['rformat'] || 'tree';
 		
 		main();
@@ -26,7 +27,7 @@
 		
 		treeNodes = getTreeNodes();
 		treeNodes = processNodesAsTree(treeNodes, depth - 1);
-		if ('rformat' == 'list') {
+		if ('list' == rformat) {
 			flattenTree();
 		}
 		setModel();
@@ -36,56 +37,26 @@
 	function getTreeNodes() {
 		
 		if ('root' == parentService) {
-			return getRootSiteNodes();
+			return getRootServicesNodes();
 		} else {
-			return getChildrenSiteNodes(); 
+			return ServicesUtils.getChildrenServicesNodes(parentService); 
 		}		
 			
 	}
 	
-	function getRootSiteNodes() {
+	function getRootServicesNodes() {
 		
 		var
-			sites = siteService.listSites('','');
-			rootServices = Utils.map(sites, function accept(site) {
-				var 
-					siteNode = site.node,
-					parentSite = (siteNode.assocs[YammaModel.HIERARCHICAL_SERVICE_PARENT_ASSOCNAME] || [])[0]
-				;
-				
-				if (null != parentSite) return; // skip
-				else return siteNode;
+			rootServices = ServicesUtils.getRootServices(),
+			rootServicesNodes = Utils.map(rootServices, function(service) {
+				return service.node;
 			})
 		;
-		
-		return rootServices;
-		
-	}
-	
-	function getChildrenSiteNodes(site) {
-		
-		var siteNode = site;
-		
-		if ('string' == typeof site) {
-			var site = siteService.getSite(siteName);
-			if (null == site) {
-				throw {
-					code : '412',
-					message : "The provided parent site-name '" + siteName + "' does not match any existing site."
-				}
-			}
 			
-			siteNode = site.node;
-		}
-		
-		var
-			siteChildren = siteNode.sourceAssocs[YammaModel.HIERARCHICAL_SERVICE_PARENT_ASSOCNAME] || [] 
-		;
-		
-		return siteChildren;
+		return rootServicesNodes;
 		
 	}
-	
+		
 	function wrapTreeNode(treeNode, hasChildren) {
 		
 		return {
@@ -106,11 +77,12 @@
 			
 			var 
 				wrappedNode = wrapTreeNode(treeNode),
-				childrenSiteNodes = 'tree' == rformat ? getChildrenSiteNodes(treeNode) : []
+				childrenSiteNodes = ('tree' == rformat) ? ServicesUtils.getChildrenServicesNodes(treeNode) : [],
+				hasChildren = childrenSiteNodes.length > 0
 			;
-			wrappedNode.hasChildren = childrenSiteNodes.length > 0;
+			wrappedNode.hasChildren = hasChildren;
 			
-			if (depth > 0) {
+			if ( hasChildren && depth > 0 ) {
 				wrappedNode.children = processNodesAsTree(childrenSiteNodes, depth - 1 );
 			}
 			
@@ -141,6 +113,7 @@
 	
 	function setModel() {
 		
+		model.rformat = rformat;
 		model.items = treeNodes;
 		
 	}

@@ -65,6 +65,7 @@ Ext.define('Yamma.view.menus.MyMenu', {
 			Ext.Array.forEach(
 				[
 					'processing',
+					'revising',
 					'validating!processed',
 					'signing',
 					'sending',

@@ -6,7 +6,7 @@
 			
 		return {			
 			username : userName,
-			displayName : Utils.Alfresco.getDisplayName(userName),
+			displayName : Utils.Alfresco.getPersonDisplayName(userName),
 			avatarUrl : Utils.Alfresco.getPersonAvatarUrl(userName)
 		};
 		

@@ -61,6 +61,10 @@
 		};
 		
 	}
+	
+	_fullyAuthenticatedUserName = fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName();
+	_serviceManagersCache = Utils.Object.create(Utils.Cache, { cacheSize : 100});
+	_isServiceManagerCache = Utils.Object.create(Utils.Cache, { cacheSize : 100});
 		
 	DatasourceDefinitions.register('Documents',
 		{
@@ -176,14 +180,52 @@
 				},
 				
 				{
-					name : 'enclosingSite',
+					name : 'enclosingService',
 					type : 'string',
 					evaluate : function(document) {
 						var siteNode = YammaUtils.getSiteNode(document);
-						if (null == siteNode) return '';
-						
-						return siteNode.properties.title || siteNode.name;
+						return titleAndName(siteNode);
 					}
+				},
+				
+				{
+					name : 'serviceManagers',
+					type : 'array',
+					evaluate : function(document) {
+						
+						function getServiceManagers(serviceNode) {
+							var
+								serviceManagerNodes = ServicesUtils.getServiceRoleMembers(serviceNode, 'ServiceManager'),
+								displayNames = Utils.map(serviceManagerNodes, function(serviceManagerNode) {
+									if (null == serviceManagerNode) return '';
+									return {
+										displayName : Utils.Alfresco.getPersonDisplayName(serviceManagerNode),
+										userName : serviceManagerNode.properties.userName
+									}
+									//return Utils.Alfresco.getPersonDisplayName(serviceManagerNode) + '|' + serviceManagerNode.properties.userName;
+								})
+							;
+							
+							return displayNames;
+						}
+						
+						var 
+							siteNode = YammaUtils.getSiteNode(document),
+							serviceName = siteNode ? Utils.asString(siteNode.name) : ''
+						;
+						if (!serviceName) return [];
+						
+						var 
+							serviceManagers = _serviceManagersCache.getOrSetValue(
+								serviceName, /* key */
+								getServiceManagers, /* computeFun */
+								[siteNode] /* funArgs */
+							)
+						;
+						
+						return serviceManagers;
+					}
+					
 				},
 				
 				{
@@ -192,16 +234,16 @@
 					evaluate : function(node) {
 						return DocumentUtils.isCopy(node);
 					}
-				},
-				
-				{
-					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + 'hasDelegatedSites',
-					type : 'boolean',
-					evaluate : function(document) {
-						var delegatedSites = ServicesUtils.getParentServices(document);
-						return delegatedSites.length > 0;
-					}
 				}
+				
+//				{
+//					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '_hasDelegatedSites',
+//					type : 'boolean',
+//					evaluate : function(document) {
+//						var delegatedSites = ServicesUtils.getParentServices(document);
+//						return delegatedSites.length > 0;
+//					}
+//				}
 				
 				
 			].concat(getActionsFieldDefinitions()),				

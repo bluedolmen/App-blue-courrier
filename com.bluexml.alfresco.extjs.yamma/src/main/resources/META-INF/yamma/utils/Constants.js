@@ -117,7 +117,15 @@ Ext.define('Yamma.utils.Constants', {
 					title : 'En cours de traitement',
 					shortTitle : 'Traitement'
 				}, 
-				this.getIconDefinition('cog_edit')
+				this.getIconDefinition('pencil')
+			),
+			
+			'revising' : Ext.apply(
+				{
+					title : 'En correction',
+					shortTitle : 'Correction'
+				}, 
+				this.getIconDefinition('pencil_cross')
 			),
 			
 			'validating!processed' : Ext.apply(
@@ -125,7 +133,7 @@ Ext.define('Yamma.utils.Constants', {
 					title : 'En validation du courrier sortant',
 					shortTitle : 'Validation'
 				}, 
-				this.getIconDefinition('cog_tick')
+				this.getIconDefinition('tick')
 			),
 			
 			'signing' : Ext.apply(
@@ -141,7 +149,7 @@ Ext.define('Yamma.utils.Constants', {
 					title : "En cours d'envoi",
 					shortTitle : 'Envoi'
 				},
-				this.getIconDefinition('cog_go')
+				this.getIconDefinition('mail_send')
 			),
 			
 			'processed' : Ext.apply(
@@ -149,7 +157,7 @@ Ext.define('Yamma.utils.Constants', {
 					title : 'Traité et validé',
 					shortTitle : 'Traité'
 				},
-				this.getIconDefinition('tick')
+				this.getIconDefinition('thumb_up')
 			),
 			
 			'archived' : Ext.apply(

@@ -6,7 +6,8 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 	
 	uses : [
 		'Bluexml.windows.ConfirmDialog',
-		'Bluexml.windows.CommentInputDialog'
+		'Bluexml.windows.CommentInputDialog',
+		'Yamma.view.dialogs.ForwardDialog'
 	],
 	
 	statics : {
@@ -112,6 +113,9 @@ Ext.define('Yamma.view.gridactions.ValidateReply', {
 	},
 	
 	onValidateReplyAction : function(grid, rowIndex, colIndex, item, e) {
+		
+		Ext.create('Yamma.view.dialogs.ForwardDialog').show();
+		return;
 		
 		var 
 			record = grid.getStore().getAt(rowIndex),

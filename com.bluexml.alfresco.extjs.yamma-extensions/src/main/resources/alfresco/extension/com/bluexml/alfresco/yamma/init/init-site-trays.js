@@ -1,6 +1,6 @@
 (function() {
 
-	var sitesTrays = Utils.Object.create(Init.InitDefinition.BySite, {
+	var sitesTrays = Utils.Object.create(Init.InitDefinition.BySite.Yamma, {
 		
 		id : 'sites-trays',
 		level : 20,		
@@ -92,15 +92,8 @@
 				unknownTrays : unknownTrays
 			}
 			
-		},
-		
-		getSiteList : function() {		
-			return Utils.filter(siteService.listSites('',''),
-				function accept(site) {
-					return !YammaUtils.isConfigSite(site.shortName);
-				}
-			);
 		}
+		
 	});
 	
 	sideInitHelper.registerInitDefinition(sitesTrays);

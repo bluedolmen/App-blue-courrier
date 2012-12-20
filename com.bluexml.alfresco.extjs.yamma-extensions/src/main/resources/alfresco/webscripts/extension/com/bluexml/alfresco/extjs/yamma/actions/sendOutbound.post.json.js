@@ -121,16 +121,13 @@
 					return aggregateValue + replyTitle + (isLast ? '' : ', ');
 				},
 				''
-			),
-			isAssignedAuthority = DocumentUtils.isAssignedAuthority(documentNode, fullyAuthenticatedUserName)
+			)
 		;
 		
 		updateDocumentHistory(
 			replies.length > 1 ? 'sendOutboundMails.comment' : 'sendOutboundMail.comment', 
 			[
-				formattedRepliesTitle, 
-				skipValidation ? 'sans' : 'avec',
-				isAssignedAuthority ? '' : (' p/o ' + Utils.Alfresco.getPersonDisplayName(fullyAuthenticatedUserName) + ' (' + fullyAuthenticatedUserName + ')' ) 
+				formattedRepliesTitle 
 			]
 		);
 		
@@ -138,13 +135,19 @@
 	
 	function updateDocumentHistory(commentKey, args) {
 		
-		var message = msg.get(commentKey, args);
+		var 
+			message = msg.get(commentKey, args),
+			assignedAuthority = DocumentUtils.getAssignedAuthority(documentNode),
+			isAssignedAuthority = DocumentUtils.isAssignedAuthority(documentNode, fullyAuthenticatedUserName)
+		;
 		
 		// set a new history event
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
 			SEND_OUTBOUND_EVENT_TYPE, /* eventType */
-			message /* comment */
+			message, /* comment */
+			assignedAuthority, /* referrer */
+			isAssignedAuthority ? null : fullyAuthenticatedUserName /* delegate */
 		);
 		
 	}

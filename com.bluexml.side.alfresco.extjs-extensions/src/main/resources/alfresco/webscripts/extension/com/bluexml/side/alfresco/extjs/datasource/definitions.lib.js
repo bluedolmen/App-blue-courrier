@@ -403,14 +403,35 @@
 	 */
 	DatasourceDefinition.prototype.evaluateNode = function(node, fieldName) {
 				
-		var me = this;
+		var 
+			me = this,
+			
+			cache = Utils.Object.create(Utils.Cache, { cacheSize : 100 }),
+			values = (undefined === fieldName) 
+				? getValues()
+				: getSingleValue(),
+			result = [],
+			
+			// defines a cache of array-typed properties for optimization of isRich() function
+			arrayTypedFields = Utils.ArrayToMap(
+					
+				Utils.filter(me.getFields(),
+					// acceptFunction
+					function(fieldDefinition) {
+						return 'array' == fieldDefinition.getType();
+					}
+				),
+				
+				// keyFunction
+				function(field) {
+					return field.getName();
+				}
+			
+			)			
+		;
 		
-		var values = undefined === fieldName 
-			? getValues()
-			: getSingleValue();
 		if (!isRich(values)) return values;
 		
-		var result = [];
 		// Realize a JOIN-like operation on list-values
 		expandListValues(values); // Fill result as a side effect
 		return Utils.unwrapList(result);
@@ -426,7 +447,7 @@
 			Utils.forEach(fieldsDefinition, function(field) {
 					
 				var 
-					itemValue = field.evaluate(node),
+					itemValue = field.evaluate(node, cache),
 					fieldName = field.getName(),
 					fieldType = field.getType()
 				;
@@ -450,26 +471,10 @@
 			
 			// This is not a composite field in this context		
 			var fieldDefinition = me.getFieldDefinition(fieldName);
-			return fieldDefinition.evaluate(node);
+			return fieldDefinition.evaluate(node, cache);
 			
 		}
 		
-		// defines a cache of array-typed properties for optimization of isRich() function
-		var arrayTypedFields = Utils.ArrayToMap(
-		
-			Utils.filter(me.getFields(),
-				// acceptFunction
-				function(fieldDefinition) {
-					return 'array' == fieldDefinition.getType();
-				}
-			),
-			
-			// keyFunction
-			function(field) {
-				return field.getName();
-			}
-		
-		);		
 		
 		/**
 		 * Returns true if one of the value is of type Array (list of values)

@@ -51,11 +51,14 @@
 			DocumentUtils.checkDocument(documentNode);
 				
 			var 
-				documentState = documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME],
-				isInExpectedState = expectedDocumentState == Utils.asString(documentState)
-			; 
+				documentState = Utils.asString(documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME])
+			;
 			
-			return isInExpectedState;
+			if (Utils.isArray(expectedDocumentState)) {
+				return Utils.contains(expectedDocumentState, documentState);
+			} else {
+				return (expectedDocumentState == documentState)
+			}			
 			
 		},
 		
@@ -67,7 +70,7 @@
 				assignedServices = documentNode.assocs[YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME],
 				servicesNumber = null == assignedServices ? 0 : assignedServices.length
 			;
-			if (0 == servicesNumber ) return null;
+			if (0 == servicesNumber) return null;
 			
 			var assignedService = assignedServices[0];
 			return Utils.asString(assignedService.name);
@@ -90,16 +93,25 @@
 			return assignedAuthorities[0];
 		},
 		
-		isAssignedAuthority : function(documentNode, username) {
-			DocumentUtils.checkDocument(documentNode);
-			
-			username = username || Utils.Alfresco.getCurrentUserName();
+		getAssignedAuthorityUserName : function(documentNode) {
 			
 			var assignedAuthority = DocumentUtils.getAssignedAuthority(documentNode);
-			if (null == assignedAuthority) return false;
-			var assignedAuthorityUserName = Utils.Alfresco.getPersonUserName(assignedAuthority);
 			
+			return (null == assignedAuthority) ?
+				null :
+				Utils.Alfresco.getPersonUserName(assignedAuthority)
+			;
+				
+		},
+		
+		isAssignedAuthority : function(documentNode, username) {
+			
+			DocumentUtils.checkDocument(documentNode);
+			username = username || Utils.Alfresco.getCurrentUserName();
+			
+			var assignedAuthorityUserName = DocumentUtils.getAssignedAuthorityUserName(documentNode);
 			return assignedAuthorityUserName == username;
+			
 		},
 		
 		hasServiceRole : function(documentNode, username, role) {
@@ -147,12 +159,23 @@
 				throw new Error('IllegalArgumentException! The provided documentNode is not of the correct type');			
 		},
 		
+		_isDocumentNodeCache : Utils.Cache.create(20),
+		
 		isDocumentNode : function(documentNode) {
-			return (
-				null != documentNode && 
-				('undefined' != typeof documentNode.isSubType) && 
-				documentNode.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)
+			
+			if (null == documentNode) return false;
+			
+			var  nodeRef = Utils.asString(documentNode.nodeRef) || '';
+			return DocumentUtils._isDocumentNodeCache.getOrSetValue(
+				nodeRef, /* key */
+				function compute() {
+					return (
+						('undefined' != typeof documentNode.isSubType) && 
+						documentNode.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)
+					);						
+				}
 			);
+						
 		},
 		
 		isOriginalDocumentNode : function(documentNode) {

@@ -1,14 +1,9 @@
-Ext.define('Yamma.view.menus.SiteArchivesMenu.TreeStore', {
-	
-	extend : 'Yamma.view.menus.SiteMenuTreeStore',	
-	WS_URL : 'alfresco://bluexml/yamma/treenode/archives'
-	
-});
-
 Ext.define('Yamma.view.menus.SiteArchivesMenu', {
 
 	extend : 'Ext.tree.Panel',
 	alias : 'widget.sitearchivesmenu',
+	
+	requires : ['Yamma.store.menus.SiteArchivesTreeStore'],
 			
 	id : 'sitearchives-menu',
 	
@@ -45,7 +40,7 @@ Ext.define('Yamma.view.menus.SiteArchivesMenu', {
 	},
 		
 	getTreeStore : function() {
-		return Ext.create('Yamma.view.menus.SiteArchivesMenu.TreeStore');
+		return Ext.create('Yamma.store.menus.SiteArchivesTreeStore');
 	}
 	
 });

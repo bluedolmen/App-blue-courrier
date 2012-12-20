@@ -1,3 +1,5 @@
+// TODO: Finish the generalization
+
 Ext.define('Yamma.view.gridactions.GridAction', {
 
 	statics : {

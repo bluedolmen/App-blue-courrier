@@ -1,7 +1,13 @@
 <webscript>
 	<shortname>Treenode</shortname>
 	<description><![CDATA[
-		  Get the services 
+		  Get the services<br/> 
+		  arguments<br/>
+		  <ul>
+		  <li>parentService: string [root|nodeRef]</li>
+		  <li>depth: number [(0-9)+|-1]</li>
+		  <li>rformat: string [tree|list]</li>
+		  </ul>
 	]]>
 	</description>
 	<family>YaMma</family>

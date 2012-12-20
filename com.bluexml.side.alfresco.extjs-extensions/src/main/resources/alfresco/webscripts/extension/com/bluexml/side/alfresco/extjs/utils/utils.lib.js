@@ -423,38 +423,52 @@
     	return ('cm:person' === Utils.asString(person.typeShort));
     }	
 	
-    Utils.Alfresco.getPersonDisplayName = function(person) {
+    Utils.Alfresco.getPersonDisplayName = function(person, displayUserName) {
     	
-    	if (isPersonScriptNode(person)) 
-    		return Utils.Alfresco.getDisplayName(person.properties.firstName, person.properties.lastName);
+    	displayUserName = (true === displayUserName);
     	
-    	if ('string' == typeof person)
-    		return Utils.Alfresco.getDisplayName(person /* username */);
-    		
-    	throw new Error('IllegalArgumentException! The provided person is not a valid person');    	
+    	var
+    		personNode = person,
+    		firstName = '',
+    		lastName = '',
+    		userName = ''
+    	;
+    	
+    	
+		if (!isPersonScriptNode(personNode)) { // has to be tested before since typeof is buggy on ScriptNode for now
+			
+	    	if ('string' == typeof person) {
+	    		
+	    		personNode = people.getPerson(person);
+	    		if (null == personNode) return person; // don't known how to interpret the provided string
+	    		
+	    	} else {
+	    		throw new Error('IllegalArgumentException! The provided person argument is not of a recognized type');
+	    	}
+	    	
+		}
+			
+		firstName = personNode.properties.firstName;
+		lastName = personNode.properties.lastName;
+		if (displayUserName) {
+			userName = personNode.properties.userName;
+		}
+    	
+    	return Utils.Alfresco.getDisplayName(firstName, lastName, userName);
     }
     
-    Utils.Alfresco.getDisplayName = function(firstName, lastName) {
+    Utils.Alfresco.getDisplayName = function(firstName, lastName, userName) {
     	
-    	if (undefined === lastName) {
-    		// firstName is supposed to be a username
-    		if (!firstName) {
-    			throw new Error('IllegalArgumentException! At least the firstName or the userName has to be provided.');
-    		}
-    		
-    		var 
-    			username = firstName,
-				person = Common.getPerson(Utils.asString(username))
-			;
-			firstName = person.firstName;
-			lastName = person.lastName;			
-    	}
+    	firstName = Utils.String.trim(firstName) || '';
+    	lastName = Utils.String.trim(lastName) || '';
     	
-    	firstName = firstName || '';
-    	lastName = lastName || '';
-    	var displayName = firstName + (firstName ? ' ' : '') + lastName;
+    	var displayName = 
+    		firstName + (firstName ? ' ' : '') + 
+    		lastName + 
+    		( userName ? (' (' + userName + ')') : '' )
+    	;
     	
-    	return displayName.replace(/^\s+|\s+$/g, "");
+    	return displayName;
     }
     
     
@@ -589,6 +603,57 @@
 			throw new Error(message);
 		}
 		
-	}
+	};
+	
+	Utils.Cache = {
+		
+		_cacheSize : 10,
+		_cache : {},
+		_timeLine : [],
+		
+		create : function(cacheSize, name) {
+			
+			var newCache = Utils.Object.create(Utils.Cache, {
+				_cacheSize : cacheSize,
+				_name : name || ''
+			});
+			
+			delete newCache.create;
+			return newCache;
+			
+		},
+		
+		getValue : function(key) {
+			return this._cache[key];
+		},
+		
+		setValue : function(key, value) {
+			
+			if (this._cacheSize == this._timeLine.length) {
+				var removedKey = this._timeLine.shift();
+				delete this._cache[removedKey];
+			}
+			
+			this._cache[key] = value;
+			this._timeLine.push(key);
+		},
+		
+		getOrSetValue : function(key, computeFun, funArgs, scope) {
+			var value = this.getValue(key);
+			if (undefined == value) {
+				value = computeFun.apply(scope || this, funArgs || []);
+				this.setValue(key, value);
+			}
+			
+			return value;
+		},
+		
+		reset : function() {
+			this._cache = {},
+			this._timeLine = []
+		}
+		
+	};
+	
     
 })();
