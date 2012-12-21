@@ -145,6 +145,14 @@
       <ref href="../data/YaMma-EE.dt#_8UP9QMHiEeGVoP7HZaHFtA"/>
       <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_2EGxsMHeEeGVoP7HZaHFtA"/>
     </disabled>
+    <disabled xsi:type="form:CharField" xmi:id="_idHpQEnAEeKhHaXgY57Dkg" label="Copy Services" id="copyServices" help_text="The services to which the mail will be distributed">
+      <metainfo xmi:id="_idHpQUnAEeKhHaXgY57Dkg" key="getDataSource" multilineValue="function(component) {&#xA;&#x9;var &#xA;&#x9;&#x9;url = &#xA;&#x9;&#x9;&#x9;Alfresco.constants.PROXY_URI + &#xA;&#x9;&#x9;&#x9;'yamma/forms/picker/category/Gestion de courrier/descendants?' +&#xA;&#x9;&#x9;&#x9;'size=10',&#xA;&#x9;&#x9;encodedUrl = encodeURI(url),&#xA;&#x9;&#x9;dataSource = new YAHOO.util.XHRDataSource(url)&#xA;&#x9;;&#xA;&#xA;&#x9;dataSource.responseType = YAHOO.util.DataSource.TYPE_JSON;&#xA;&#x9;dataSource.responseSchema = {&#xA;&#x9;&#x9;fields : [ &quot;nodeRef&quot;, &quot;title&quot;, &quot;name&quot;],&#xA;&#x9;&#x9;resultsList : &quot;data.items&quot;&#xA;&#x9;};&#xA;&#xA;&#x9;return dataSource;&#xA;}&#xA;"/>
+      <metainfo xmi:id="_idHpQknAEeKhHaXgY57Dkg" key="selectableTypeIsAspect" value="false"/>
+      <metainfo xmi:id="_idHpQ0nAEeKhHaXgY57Dkg" key="multipleSelectMode" value="true" constraintType="boolean"/>
+      <metainfo xmi:id="_idHpREnAEeKhHaXgY57Dkg" key="template" value="controls/category.ftl"/>
+      <metainfo xmi:id="_idHpRUnAEeKhHaXgY57Dkg" key="compactMode" value="true"/>
+      <ref href="../data/YaMma-EE.dt#_1bJ9YEm8EeKhHaXgY57Dkg"/>
+    </disabled>
     <real_class xsi:type="clazz:Clazz" href="../data/YaMma-EE.dt#_UcVrgLC0EeGFgddOkpVJwg"/>
   </forms>
   <forms xsi:type="form:FormClass" xmi:id="_2v0xnfkDEeGHHe2qtmDVXA" label="Document" id="Document">
