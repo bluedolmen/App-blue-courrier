@@ -4,7 +4,7 @@
 
 (function() {
 	
-	const PROCESSING_EVENT_TYPE = 'processing';
+	const PROCESSING_EVENT_TYPE = 'take-processing';
 
 	// PRIVATE
 	var 
