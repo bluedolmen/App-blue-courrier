@@ -6,6 +6,8 @@
 			
 			if (null == site) return false;			
 			var siteNode = Utils.Alfresco.getSiteNode(site);
+			if (null == siteNode) return false;
+			
 			return siteNode.hasAspect(YammaModel.SERVICE_ASPECT_SHORTNAME);
 			
 		},
@@ -49,7 +51,7 @@
 			
 			siteNode.addAspect(YammaModel.SERVICE_ASPECT_SHORTNAME);
 			
-			var canSign = properties === 'true' || !!properties.canSign;
+			var canSign = (properties === 'true') || !!properties.canSign;
 			siteNode.properties[YammaModel.SERVICE_CAN_SIGN_PROPNAME] = canSign;
 			siteNode.save();
 			
@@ -62,7 +64,7 @@
 			
 		},
 		
-		canSign : function(site) {
+		isSigningService : function(site) {
 			
 			var siteNode = Utils.Alfresco.getSiteNode(site);
 			if (!ServicesUtils.isService(siteNode)) return false;
@@ -87,7 +89,7 @@
 			
 		},
 		
-		getParentServices : function(site) {
+		getParentServiceNodes : function(site) {
 			
 			if (null == site) return [];
 			
@@ -96,12 +98,12 @@
 			
 		},
 		
-		getParentService : function(site) {
-			return ServicesUtils.getParentServices(site)[0];
+		getParentServiceNode : function(site) {
+			return ServicesUtils.getParentServiceNodes(site)[0];
 		},
 		
 		isRootService : function(site) {
-			return null == ServicesUtils.getParentService(site);
+			return null == ServicesUtils.getParentServiceNode(site);
 		},		
 		
 		setParentService : function(childService, parentService, overrideExisting) {
@@ -120,7 +122,7 @@
 			ServicesUtils.setAsService(childSiteNode); // if not already set
 			ServicesUtils.setAsService(parentSiteNode);
 			
-			var currentParentService = ServicesUtils.getParentService(childSiteNode);
+			var currentParentService = ServicesUtils.getParentServiceNode(childSiteNode);
 			if (null != currentParentService) {
 				if (!overrideExisting) {
 					throw new Error('IllegalStateException! The parent service is already defined. Use the \'overrideExisting\" parameter if this is what you meant.');
@@ -162,7 +164,7 @@
 		getServiceRoleMembers : function(service, role) {
 			
 			var 
-				serviceName = Utils.asString(service.shortName || service.name || service)
+				serviceName = Utils.asString(service.shortName || service.name || service),
 				siteRoleGroupName = 'GROUP_site_' + serviceName + '_' + role,
 				siteRoleGroup = people.getGroup(siteRoleGroupName),
 				members = siteRoleGroup ? people.getMembers(siteRoleGroup) : [] 
@@ -202,6 +204,10 @@
 		_checkRole : function(serviceName, userName, primaryRole, additionalRole) {
 			
 			userName = Utils.asString(userName);
+			
+			if (Utils.Alfresco.isScriptNode(serviceName)) {
+				serviceName = serviceName.name;
+			}
 			
 			var serviceSite = siteService.getSite(serviceName);
 			if (!serviceSite) return false;

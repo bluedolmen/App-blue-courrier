@@ -1,6 +1,14 @@
 Ext.require([
 	'Yamma.utils.datasources.Documents',
-	'Yamma.utils.grid.MailsViewGrouping'
+	'Yamma.utils.grid.MailsViewGrouping',
+	'Yamma.view.gridactions.ForwardReply',
+	'Yamma.view.gridactions.RefuseReply',
+	'Yamma.view.gridactions.Distribute',
+	'Yamma.view.gridactions.StartProcessing',
+	'Yamma.view.gridactions.SendOutbound',
+	'Yamma.view.gridactions.MarkAsSent',
+	'Yamma.view.gridactions.MarkAsSigned',
+	'Yamma.view.gridactions.Archive'	
 ], function() {
 
 Ext.define('Yamma.view.MailsView', {
@@ -18,15 +26,6 @@ Ext.define('Yamma.view.MailsView', {
 		'Bluexml.utils.grid.column.HeaderImage',
 		'Ext.form.Label',
 		'Yamma.utils.button.UploadButton'
-	],
-	
-	mixins : [
-		'Yamma.view.gridactions.Distribute',
-		'Yamma.view.gridactions.StartProcessing',
-		'Yamma.view.gridactions.SendOutbound',
-		'Yamma.view.gridactions.ValidateReply',
-		'Yamma.view.gridactions.MarkAsSent',
-		'Yamma.view.gridactions.Archive'
 	],
 	
 	features : [
@@ -621,34 +620,21 @@ Ext.define('Yamma.view.MailsView', {
 		
 	},
 	
+	gridactions : [
+		Ext.create('Yamma.view.gridactions.ForwardReply'),
+		Ext.create('Yamma.view.gridactions.Distribute'),
+		Ext.create('Yamma.view.gridactions.StartProcessing'),
+		Ext.create('Yamma.view.gridactions.SendOutbound'),
+		Ext.create('Yamma.view.gridactions.MarkAsSigned'),
+		Ext.create('Yamma.view.gridactions.MarkAsSent'),
+		Ext.create('Yamma.view.gridactions.RefuseReply'), // RefuseReply should be defined after ForwardReply and MarkAsSigned for a better user-experience 
+		Ext.create('Yamma.view.gridactions.Archive')
+	],
 	
-	
-	getActionsColumnDefinition : function() {
-		
-		return this.applyDefaultColumnDefinition (
-		
-			{
-				xtype : 'bluexmlactioncolumn',
-				maxWidth : 70,
-				items : [
-					this.getDistributeActionDefinition(),
-					this.getStartProcessingActionDefinition(),
-					this.getSendOutboundActionDefinition(),
-					this.getAcceptReplyActionDefinition(),
-					this.getRefuseReplyActionDefinition(),
-					this.getDelegateValidationActionDefinition(),
-					this.getMarkAsSentActionDefinition(),
-					this.getArchiveActionDefinition()
-				]
-				
-			}
-		);
-		
-	},	
-	
+	maxAvailableActions : 3,	
 	
 	getDocumentNodeRefRecordValue : function(record) {
-		return record.get(Yamma.utils.datasources.Documents.MAIL_NODEREF_QNAME);	
+		return record.get(Yamma.utils.datasources.Documents.DOCUMENT_NODEREF_QNAME);	
 	},
 	
 	/**

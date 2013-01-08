@@ -118,7 +118,7 @@
 							name : 'Direction',
 							type : 'string',
 							evaluate : function(siteNode) {
-								var direction = ServicesUtils.getParentService(siteNode);
+								var direction = ServicesUtils.getParentServiceNode(siteNode);
 								return titleOrName(direction);
 							}
 						}

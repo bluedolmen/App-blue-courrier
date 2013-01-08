@@ -181,52 +181,56 @@
 				
 				{
 					name : 'enclosingService',
-					type : 'string',
+					type : 'object',
 					evaluate : function(document) {
 						var siteNode = YammaUtils.getSiteNode(document);
-						return titleAndName(siteNode);
+						return {
+							displayName : siteNode.properties['cm:title'] || siteNode.name,
+							name : siteNode.name
+						};
+						//return titleAndName(siteNode);
 					}
 				},
 				
-				{
-					name : 'serviceManagers',
-					type : 'array',
-					evaluate : function(document) {
-						
-						function getServiceManagers(serviceNode) {
-							var
-								serviceManagerNodes = ServicesUtils.getServiceRoleMembers(serviceNode, 'ServiceManager'),
-								displayNames = Utils.map(serviceManagerNodes, function(serviceManagerNode) {
-									if (null == serviceManagerNode) return '';
-									return {
-										displayName : Utils.Alfresco.getPersonDisplayName(serviceManagerNode),
-										userName : serviceManagerNode.properties.userName
-									}
-									//return Utils.Alfresco.getPersonDisplayName(serviceManagerNode) + '|' + serviceManagerNode.properties.userName;
-								})
-							;
-							
-							return displayNames;
-						}
-						
-						var 
-							siteNode = YammaUtils.getSiteNode(document),
-							serviceName = siteNode ? Utils.asString(siteNode.name) : ''
-						;
-						if (!serviceName) return [];
-						
-						var 
-							serviceManagers = _serviceManagersCache.getOrSetValue(
-								serviceName, /* key */
-								getServiceManagers, /* computeFun */
-								[siteNode] /* funArgs */
-							)
-						;
-						
-						return serviceManagers;
-					}
-					
-				},
+//				{
+//					name : 'serviceManagers',
+//					type : 'array',
+//					evaluate : function(document) {
+//						
+//						function getServiceManagers(serviceNode) {
+//							var
+//								serviceManagerNodes = ServicesUtils.getServiceRoleMembers(serviceNode, 'ServiceManager'),
+//								displayNames = Utils.map(serviceManagerNodes, function(serviceManagerNode) {
+//									if (null == serviceManagerNode) return '';
+//									return {
+//										displayName : Utils.Alfresco.getPersonDisplayName(serviceManagerNode),
+//										userName : serviceManagerNode.properties.userName
+//									}
+//									//return Utils.Alfresco.getPersonDisplayName(serviceManagerNode) + '|' + serviceManagerNode.properties.userName;
+//								})
+//							;
+//							
+//							return displayNames;
+//						}
+//						
+//						var 
+//							siteNode = YammaUtils.getSiteNode(document),
+//							serviceName = siteNode ? Utils.asString(siteNode.name) : ''
+//						;
+//						if (!serviceName) return [];
+//						
+//						var 
+//							serviceManagers = _serviceManagersCache.getOrSetValue(
+//								serviceName, /* key */
+//								getServiceManagers, /* computeFun */
+//								[siteNode] /* funArgs */
+//							)
+//						;
+//						
+//						return serviceManagers;
+//					}
+//					
+//				},
 				
 				{
 					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '_isCopy',
@@ -240,7 +244,7 @@
 //					name : YammaModel.DOCUMENT_TYPE_SHORTNAME + '_hasDelegatedSites',
 //					type : 'boolean',
 //					evaluate : function(document) {
-//						var delegatedSites = ServicesUtils.getParentServices(document);
+//						var delegatedSites = ServicesUtils.getParentServiceNodes(document);
 //						return delegatedSites.length > 0;
 //					}
 //				}

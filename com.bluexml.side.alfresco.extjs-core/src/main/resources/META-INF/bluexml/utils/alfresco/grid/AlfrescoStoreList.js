@@ -239,10 +239,9 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
  	refresh : function(keepSelection, onRefreshPerformed) {
  		if (!loaded) return; // no refresh if no store is defined yet
  		
- 		var me = this;
- 		
  		this.onRefreshPerformed = onRefreshPerformed || null;
  		
+// 		var me = this;
 // 		if (onRefreshPerformed) {
 // 			
 // 			me.getView().on('refresh', function() {
@@ -462,6 +461,43 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
     	);
  		
  		this.callParent(arguments);
- 	}
+ 	},
+ 	
+ 	/*
+ 	 * ACTIONS (COLUMN) MANAGEMENT
+ 	 */
+ 	
+	getActionsColumnDefinition : function() {
+		
+		var 
+			me = this,
+			gridactions = me.gridactions,
+			maxAvailableActions = me.maxAvailableActions || gridactions.length
+		;
+		
+		if (null == gridactions) return null;
+		if (!Ext.isArray(gridactions)) {
+			gridactions = [gridactions];
+		}
+		
+		Ext.Array.forEach(gridactions, function(gridaction) {
+			if (gridaction.init) {
+				gridaction.init(me);
+			}
+		});
+		
+		var items = Ext.Array.map(gridactions, function(gridaction) {
+			return gridaction.getActionDefinition();
+		});
+		
+		return this.applyDefaultColumnDefinition (
+			{
+				xtype : 'bluexmlactioncolumn',
+				maxWidth : maxAvailableActions * 20 + 10,
+				items : items				
+			}
+		);
+		
+	} 	
  	
 });

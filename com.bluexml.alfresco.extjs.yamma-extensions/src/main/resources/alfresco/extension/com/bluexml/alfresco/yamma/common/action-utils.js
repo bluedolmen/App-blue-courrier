@@ -129,7 +129,12 @@
 				) &&
 				
 				/* Document is in 'processing' state */
-				DocumentUtils.checkDocumentState(documentNode, [ YammaModel.DOCUMENT_STATE_PROCESSING, YammaModel.DOCUMENT_STATE_REVISING ]) &&
+				DocumentUtils.checkDocumentState(documentNode, 
+					[ 
+						YammaModel.DOCUMENT_STATE_PROCESSING, 
+						YammaModel.DOCUMENT_STATE_REVISING
+					]
+				) &&
 				
 				(
 					/* The user is the currently assigned user */
@@ -212,6 +217,30 @@
 		
 
 		},
+		
+		canMarkAsSigned : function(documentNode, username) {
+			
+			username = username || Utils.Alfresco.getCurrentUserName();
+			
+			return (
+					
+				/* Document is original */
+				DocumentUtils.isOriginalDocumentNode(documentNode) &&
+					
+				/* Document is in 'signing' state */
+				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_SIGNING) &&
+				
+				(
+					/* the user is the current service manager */
+					DocumentUtils.isServiceManager(documentNode, username) ||
+					
+					/* The user is an assistant of the service */
+					DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+				)				
+				
+			);
+			
+		},		
 		
 		canMarkAsSent : function(documentNode, username) {
 			

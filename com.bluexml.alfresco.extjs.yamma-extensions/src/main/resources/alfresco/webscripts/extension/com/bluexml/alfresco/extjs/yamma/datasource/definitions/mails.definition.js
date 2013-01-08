@@ -25,7 +25,15 @@
 					evaluate : function(node) {
 						return ReplyUtils.hasReplies(node);
 					}
-				}				
+				},
+				
+				{
+					name : YammaModel.MAIL_TYPE_SHORTNAME + '_hasSignableReplies',
+					type : 'boolean',
+					evaluate : function(node) {
+						return ReplyUtils.hasSignableReplies(node);
+					}
+				}
 								
 			
 			],

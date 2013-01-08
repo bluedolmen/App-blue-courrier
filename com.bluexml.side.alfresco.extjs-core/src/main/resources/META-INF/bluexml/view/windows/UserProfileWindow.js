@@ -12,7 +12,7 @@ Ext.define('Bluexml.view.windows.UserProfileWindow', {
 	width : 450,
 	height : 300,
 	layout : 'fit',
-	headerPosition : 'left',
+	headerPosition : Yamma.utils.Preferences.getPV(Yamma.utils.Preferences.PREFERED_HEADER_POSITION),
 	renderTo : Ext.getBody(),
 	border : false,
 	

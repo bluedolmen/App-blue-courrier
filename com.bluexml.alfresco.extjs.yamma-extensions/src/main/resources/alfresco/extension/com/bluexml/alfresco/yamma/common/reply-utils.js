@@ -85,14 +85,15 @@
 					email = 
 						assignedAuthority.properties['cm:companyemail'] ||
 						assignedAuthority.properties['cm:email'],
-					address = 
-						assignedAuthority.properties['cm:companyaddress1'] + ' ' +
-						assignedAuthority.properties['cm:companyaddress2'] + ' ' +
-						assignedAuthority.properties['cm:companyaddress3']
+					address = Utils.String.trim( 
+							(assignedAuthority.properties['cm:companyaddress1'] || '') + ' ' +
+							(assignedAuthority.properties['cm:companyaddress2'] || '') + ' ' +
+							(assignedAuthority.properties['cm:companyaddress3'] || '')
+						)
 				;
 				
-				replyNode.properties[YammaModel.CORRESPONDENT_NAME_PROPNAME] = lastName + ' ' + firstName;
-				replyNode.properties[YammaModel.CORRESPONDENT_ADDRESS_PROPNAME] = address;
+				replyNode.properties[YammaModel.CORRESPONDENT_NAME_PROPNAME] = Utils.String.trim(lastName + ' ' + firstName) || null;
+				replyNode.properties[YammaModel.CORRESPONDENT_ADDRESS_PROPNAME] = address || null;
 				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_EMAIL_PROPNAME] = email;
 				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_PHONE_PROPNAME] = telephone;				
 				
@@ -112,18 +113,19 @@
 	                    YammaModel.RECIPIENT_ADDRESS_PROPNAME,
 	                    YammaModel.RECIPIENT_CONTACT_EMAIL_PROPNAME,
 	                    YammaModel.RECIPIENT_CONTACT_PHONE_PROPNAME
-	                ]
+	                ],
+	                i, len,
+	                sourcePropertyName, targetPropertyName,
+	                sourcePropertyValue, targetPropertyValue
 				;
 				
 				// fill recipient information
-				for (var i = 0, len = sourceProperties.length; i < len; i++) {
+				for (i = 0, len = sourceProperties.length; i < len; i++) {
 					
-					var 
-						sourcePropertyName = sourceProperties[i],
-						targetPropertyName = targetProperties[i],
-						sourcePropertyValue = document.properties[sourcePropertyName],
-						targetPropertyValue = replyNode.properties[targetPropertyName]
-					;
+					sourcePropertyName = sourceProperties[i];
+					targetPropertyName = targetProperties[i];
+					sourcePropertyValue = document.properties[sourcePropertyName];
+					targetPropertyValue = replyNode.properties[targetPropertyName];
 					
 					if (targetPropertyValue == null) { // if not already set
 						replyNode.properties[targetPropertyName] = sourcePropertyValue;
@@ -159,23 +161,48 @@
 			
 		},
 		
-		getReplies : function(document) {
+		getReplies : function(documentNode) {
 			
-			if (null == document) return [];			
-			return document.sourceAssocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [];
+			if (null == documentNode) return [];			
+			return documentNode.sourceAssocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [];
 			
 		},
+		
+		hasReplies : function(documentNode) {
+			
+			return 0 !== ReplyUtils.getReplies(documentNode).length;
+			
+		},
+		
+		/**
+		 * Check whether the document is attached with replies that can be
+		 * signed.
+		 * 
+		 * This use-case should be transitional supporting only the case where
+		 * only one reply is attached to a document.
+		 * 
+		 * This may be invalidated in the future
+		 */
+		hasSignableReplies : function(documentNode) {
+			
+			if (!DocumentUtils.isDocumentNode(documentNode)) return false;
+			
+			var 
+				replies = ReplyUtils.getReplies(documentNode)
+			;
+			
+			return Utils.exists(replies,
+				function(replyNode) {
+					return ReplyUtils.canBeSigned(replyNode);
+				} // acceptFunction
+			);
+			
+		},		
 		
 		getRepliedDocument : function(replyNode) {
 			
 			if (null == replyNode) return null;
 			return (replyNode.assocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [])[0];
-			
-		},
-		
-		hasReplies : function(document) {
-			
-			return 0 !== ReplyUtils.getReplies(document).length;
 			
 		},
 		
@@ -189,7 +216,7 @@
 			if (!ReplyUtils.isReplyNode(replyNode)) return false;			
 				
 			var 
-				repliedDocument = (replyNode.assocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [])[0],
+				repliedDocument = ReplyUtils.getRepliedDocument(replyNode),
 				canAttach = AttachmentUtils.canAttach(repliedDocument) && ActionUtils.canReply(repliedDocument, username)
 			;
 				
@@ -202,11 +229,23 @@
 			if (!ReplyUtils.isReplyNode(replyNode)) return false;			
 			
 			var 
-				repliedDocument = (replyNode.assocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [])[0],
+				repliedDocument =  ReplyUtils.getRepliedDocument(replyNode),
 				canDelete = replyNode.hasPermission('Write') && ActionUtils.canReply(repliedDocument, username)
 			;
 				
 			return canDelete;
+			
+		},
+		
+		canBeSigned : function(replyNode, username) {
+			
+			function replyNeedsSignature(replyNode) {
+				var needsSignature = replyNode.properties[YammaModel.SIGNABLE_NEEDS_SIGNATURE_SHORTNAME] || false;	
+				return needsSignature;
+			}
+			
+			if (!ReplyUtils.isReplyNode(replyNode)) return false;
+			return replyNeedsSignature(replyNode);
 			
 		}
 				

@@ -144,11 +144,24 @@
 		
 		Utils.forEach(array, function(arrayElement) {
 			contains = contains || equalsFunction(arrayElement, value);
-			if (true === contains) return;
+			if (true === contains) return false; // stop iteration
 		});
 		
 		return contains;
 	};
+
+	Utils.exists = function(array, acceptFunction) {
+		
+		if (!Utils.isFunction(acceptFunction)) return false;
+		
+		var exists = false;
+		Utils.forEach(array, function(arrayElement) {
+			exists = exists || acceptFunction(arrayElement);
+			if (true === exists) return false; // stop iteration
+		});
+		
+		return exists;
+	};	
 	
 	/**
 	 * Remove null values from the array
@@ -555,9 +568,45 @@
 		return siteNode.properties['cm:title'];
 		
 	}
-	
-	
-	
+
+	/**
+	 * Returns a unique name that can be used to create a
+	 * child of the given parentNode.
+	 *
+	 * The name will be of form prefix_yyyy-mm-dd_hh-mm["","_x"],
+	 * where x represents a number > 1 and is only added if a node
+	 * with the base name already exists
+	 *
+	 * The date parameter is for testing and needn't be used.
+	 * 
+	 * This is extracted from nodenameutils.lib.js from Alfresco source code (4.0.d)
+	 */
+	Utils.Alfresco.getUniqueChildName = function(parentNode, prefix, date) {
+		
+		if ('undefined' === typeof date) {
+			date = new Date();
+		}
+		
+		var 
+			namePrefix = prefix + '-' + date.getTime(), 
+			name = namePrefix,
+			count = 0
+		;
+
+		if (null == parentNode.childByNamePath(name)) {
+			return name;
+		}
+		
+		name = namePrefix + "_" + Math.floor(Math.random() * 1000);
+		
+		while (null != parentNode.childByNamePath(finalName) && count < 100) {
+			name = namePrefix + "_" + Math.floor(Math.random() * 1000);
+			++count;
+		}
+		
+		return name
+		
+	}
 	
 	
 	Utils.Object = {

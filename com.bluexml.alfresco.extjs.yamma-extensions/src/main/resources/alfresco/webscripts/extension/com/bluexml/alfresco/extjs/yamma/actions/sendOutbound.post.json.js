@@ -1,6 +1,7 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/send-utils.js">
 
 (function() {
 	
@@ -10,7 +11,7 @@
 	var 
 		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(), /* string */
 		documentNode, /* ScriptNode */ 
-		sentByMail, /* boolean */
+		sendByMail, /* boolean */ // whether the reply will be sent by mail on the designed step
 		skipValidation
 	;
 	
@@ -21,13 +22,13 @@
 		var 
 			parseArgs = new ParseArgs(
 				{ name : 'nodeRef', mandatory : true}, 
-				{ name : 'sentByMail', defaultValue : 'true' }, 
+				{ name : 'sendByMail', defaultValue : 'true' }, 
 				{ name : 'skipValidation', defaultValue : 'false' } 
 			),
 			documentNodeRef = parseArgs['nodeRef']
 		;
 		
-		sentByMail = ( Utils.asString(parseArgs['sentByMail']) === 'true' );
+		sendByMail = ( Utils.asString(parseArgs['sendByMail']) === 'true' );
 		skipValidation = ( Utils.asString(parseArgs['skipValidation']) === 'true' );
 		
 		documentNode = search.findNode(documentNodeRef);
@@ -58,76 +59,62 @@
 	
 	function main() {
 		
-		updateDocumentState();
-		manageSentByMail();
-		manageSkippedValidation();
+		fillWritingDate();
+		manageSendByMail();
+		
+		if (skipValidation === true) {
+			SendUtils.sendDocument(documentNode);
+		} else {
+			sendToValidation();
+		}
+		
 		addHistoryComment();
 		setModel(documentNode);
 		
 	}
 	
-	function updateDocumentState() {
-		
-		var newState = (skipValidation === true) ?
-			YammaModel.DOCUMENT_STATE_SENDING :
-			YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED
-		;
-		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = newState;
+	function fillWritingDate() {
 		
 		// Also update writing-date if not yet filled
 		var writingDate = documentNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
 		if (!writingDate) {
 			documentNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME] = new Date();
 		}
-		
 		documentNode.save();
 		
 	}
 	
-	function manageSentByMail() {
+	function manageSendByMail() {
 		
-		if (sentByMail !== true) return;
+		if (sendByMail !== true) return;
 		
 		var replies = ReplyUtils.getReplies(documentNode);
 		Utils.forEach(replies, function(reply) {
 			reply.addAspect(YammaModel.SENT_BY_EMAIL_ASPECT_SHORTNAME);
 		});
 		
-	}
+	}	
 	
-	function manageSkippedValidation() {
-		
-		if (skipValidation !== true) return;
-
-		// Moves the document to the outbox tray of the service
-		var message = DocumentUtils.moveToSiblingTray(documentNode, TraysUtils.OUTBOX_TRAY_NAME);
-		if (message) {
-			throw {
-				code : '512',
-				message : 'IllegalStateException! ' + message
-			};			
-		}
-		
-	}
+	function sendToValidation() {
+		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED;
+		documentNode.save();
+	}	
 	
 	function addHistoryComment() {
 		
 		var 
 			replies = ReplyUtils.getReplies(documentNode),
-			formattedRepliesTitle = Utils.reduce(
-				replies, 
-				function(replyNode, aggregateValue, isLast) {
-					var replyTitle = replyNode.properties.title || replyNode.name;
-					return aggregateValue + replyTitle + (isLast ? '' : ', ');
-				},
-				''
-			)
+			replyNames = Utils.map(replies, function(replyNode) {
+				return replyNode.properties.title || replyNode.name;
+			}),			
+			formattedRepliesTitle = Utils.String.join(replyNames, ',')
 		;
 		
 		updateDocumentHistory(
 			replies.length > 1 ? 'sendOutboundMails.comment' : 'sendOutboundMail.comment', 
 			[
-				formattedRepliesTitle 
+				formattedRepliesTitle,
+				skipValidation ? 'envoi' : 'validation'
 			]
 		);
 		

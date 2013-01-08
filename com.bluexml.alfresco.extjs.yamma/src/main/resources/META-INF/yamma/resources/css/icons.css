@@ -127,6 +127,9 @@
 .icon-email_group {
     background-image: url(../icons/email_group.png) !important;
 }
+.icon-cancel {
+    background-image: url(../icons/cancel.png) !important;
+}
 .icon-user_comment_tick {
     background-image: url(../icons/user_comment_tick.png) !important;
 }
@@ -189,6 +192,9 @@
 }
 .icon-folder_table {
     background-image: url(../icons/folder_table.png) !important;
+}
+.icon-thumb_up {
+    background-image: url(../icons/thumb_up.png) !important;
 }
 .icon-cog {
     background-image: url(../icons/cog.png) !important;
@@ -265,6 +271,9 @@
 .icon-information {
     background-image: url(../icons/information.png) !important;
 }
+.icon-text_signature_tick {
+    background-image: url(../icons/text_signature_tick.png) !important;
+}
 .icon-comment {
     background-image: url(../icons/comment.png) !important;
 }
@@ -306,6 +315,12 @@
 }
 .icon-mail_reply {
     background-image: url(../icons/mail_reply.png) !important;
+}
+.icon-mail_send {
+    background-image: url(../icons/mail_send.png) !important;
+}
+.icon-arrow_double_right {
+    background-image: url(../icons/arrow_double_right.png) !important;
 }
 .icon-chart_curve {
     background-image: url(../icons/chart_curve.png) !important;

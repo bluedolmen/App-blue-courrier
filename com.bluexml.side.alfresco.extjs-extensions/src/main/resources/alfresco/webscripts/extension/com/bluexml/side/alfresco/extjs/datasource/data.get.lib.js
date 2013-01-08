@@ -1,19 +1,21 @@
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/utils.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/common.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/helpers.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/definitions.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/search.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/evaluator.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/aggregator.lib.js">
-<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/parseargs.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/utils.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/utils/common.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/helpers.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/definitions.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/search.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/evaluator.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/aggregator.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/datasource/parseargs.lib.js">
 
 // STANDARD DEFINITIONS
 
 function buildData(datasourceDefinition, params) {	
 		
-	var result = buildNodeList(datasourceDefinition, params);
-	var evaluator = new Evaluator(datasourceDefinition);
-	var dataList = evaluator.evaluateList(result.nodes);
+	var 
+		result = buildNodeList(datasourceDefinition, params),
+		evaluator = new Evaluator(datasourceDefinition),
+		dataList = evaluator.evaluateList(result.nodes)
+	;
 	
 	if (dataList.length > result.count) {
 		/*
@@ -48,15 +50,19 @@ function buildNodeList(datasourceDefinition, params) {
 
 function buildExplicitNodeList(datasourceDefinition, params) {
 	// The list of nodes is provided explicitely by a function 
-	var searchAdditional = datasourceDefinition.getSearchAdditional();
-	var listnodes = searchAdditional.listnodes;
+	var 
+		searchAdditional = datasourceDefinition.getSearchAdditional(),
+		listnodes = searchAdditional.listnodes
+	;
 	if (!listnodes) return null;
 		
-	var nodes = listnodes.call(datasourceDefinition, params);
-	var result = {
-		nodes : nodes, 
-		count : nodes.length
-	};
+	var 
+		nodes = listnodes.call(datasourceDefinition, params),
+		result = {
+			nodes : nodes, 
+			count : nodes.length
+		}
+	;
 	NodeSearch.PagingHelper.slice(result, 1, -1);
 	return result;
 }
@@ -71,9 +77,11 @@ function buildAggregateData(datasourceDefinition, params) {
 		throw new Error('UnsupportedOperationException! The aggregation operation does not support the query or term parameters');
 	}
 		
-	var result = buildAggregateNodeList(datasourceDefinition, params);
-	var aggregator = new Aggregator(datasourceDefinition);
-	var dataList = aggregator.evaluateList(result.nodes);
+	var 
+		result = buildAggregateNodeList(datasourceDefinition, params),
+		aggregator = new Aggregator(datasourceDefinition),
+		dataList = aggregator.evaluateList(result.nodes)
+	;
 	
 	result = {
 		count : dataList.length,
@@ -87,24 +95,26 @@ function buildAggregateData(datasourceDefinition, params) {
 
 function buildAggregateNodeList(datasourceDefinition, params) {
 	
-	var searchAdditional = datasourceDefinition.getSearchAdditional();
-	var delegatedDatasource = datasourceDefinition.getDelegated();
+	var 
+		searchAdditional = datasourceDefinition.getSearchAdditional(),
+		delegatedDatasource = datasourceDefinition.getDelegated(),
 	
-	var groupBy = searchAdditional.groupBy;
-	var delegatedParams = {
+		groupBy = searchAdditional.groupBy,
+		delegatedParams = Utils.Object.create(params, {
+				
+			datasourceId : delegatedDatasource.getDatasourceId(), // no matter
+			startIndex : 0,
+			maxItems : -1,
+			sort : [
+				{
+					column : groupBy,
+					dir : 'ASC'
+				}
+			]
+			// filters are forwarded
 			
-		datasourceId : delegatedDatasource.getDatasourceId(), // no matter
-		startIndex : 0,
-		maxItems : -1,
-		sort : [
-			{
-				column : groupBy,
-				dir : 'ASC'
-			}
-		],
-		filters : params.filters // forward filters
-		
-	}
+		})
+	;
 	
 	return buildNodeList(delegatedDatasource, delegatedParams);
 }

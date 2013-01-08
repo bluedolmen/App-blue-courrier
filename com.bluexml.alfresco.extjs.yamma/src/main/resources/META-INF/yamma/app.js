@@ -19,6 +19,7 @@ Ext.require([
 	'Bluexml.utils.grid.column.HeaderImage',
 	'Bluexml.utils.Constants',
 	'Yamma.utils.Constants',
+	'Yamma.utils.Preferences',
 	'Yamma.utils.grid.MailsViewGrouping'
 ], function() {
 	initApplication();

@@ -1,3 +1,5 @@
+// TODO: Refactor this action if used later
+
 Ext.define('Yamma.view.gridactions.DownloadDocument', {
 
 	requires : [

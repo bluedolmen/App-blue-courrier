@@ -5,6 +5,34 @@
  */
 var ParseArgs = {
 	
+	Params : {
+		
+			datasourceId : null,
+			startIndex : 0,
+			maxItems : -1,
+			format : args['format'],
+			sort : [],
+			filters : [],
+			fieldFilters : [],
+			
+			getMappedFilters : function() {
+				var filters = this.filters || [];
+				var mappedFilters = {};
+				Utils.forEach(filters, function(filter) {
+					mappedFilters[filter.property] = filter.value;
+				});
+				return mappedFilters;
+			},
+			
+			getFilterValue : function(filterName) {
+				
+				var mappedFilters = this.getMappedFilters();
+				return mappedFilters[filterName] || null;
+				
+			}
+		
+	},
+	
 	getIntParam : function (paramName, defaultValue) {
 		var param = args[paramName] || defaultValue;
 		if (typeof(param) == 'number') return param;
@@ -46,44 +74,46 @@ var ParseArgs = {
 			return null;
 		}
 		
-		var params = {
+		var 
+			params = Utils.Object.create(ParseArgs.Params, {
 			
-			datasourceId : datasourceId,
-			startIndex : this.getIntParam("start", 0),
-			maxItems : this.getIntParam("maxItems", -1),
-			format : args['format'],
-			sort : getSort("group").concat(getSort()), // grouping is also a (prioritary) sort parameter
-			filters : getFilters(),
-			fieldFilters : getFieldFilters(),
-			
-			getMappedFilters : function() {
-				var filters = this.filters || [];
-				var mappedFilters = {};
-				Utils.forEach(filters, function(filter) {
-					mappedFilters[filter.property] = filter.value;
-				});
-				return mappedFilters;
-			},
-			
-			getFilterValue : function(filterName) {
+				datasourceId : datasourceId,
+				startIndex : this.getIntParam("start", 0),
+				maxItems : this.getIntParam("maxItems", -1),
+				format : args['format'],
+				sort : getSort("group").concat(getSort()), // grouping is also a (prioritary) sort parameter
+				filters : getFilters(),
+				fieldFilters : getFieldFilters(),
 				
-				var mappedFilters = this.getMappedFilters();
-				return mappedFilters[filterName] || null;
+				getMappedFilters : function() {
+					var filters = this.filters || [];
+					var mappedFilters = {};
+					Utils.forEach(filters, function(filter) {
+						mappedFilters[filter.property] = filter.value;
+					});
+					return mappedFilters;
+				},
 				
-			}
-		};
+				getFilterValue : function(filterName) {
+					
+					var mappedFilters = this.getMappedFilters();
+					return mappedFilters[filterName] || null;
+					
+				}
+			}),
+			query = args['query'],
+			term = args['term'],
+			savedSearch = args['savedSearch']
+		;
 		
-		var query = args['query'];
 		if (null != query) {
 			params.query = query;
 		}
 		
-		var term = args['term'];
 		if (null != term) {
 			params.term = term;
 		}
 		
-		var savedSearch = args['savedSearch'];
 		if (savedSearch) {
 			if (savedSearch.indexOf('workspace://SpacesStore') != 0) {
 				var message = 'UnsupportedOperationException! The provided saved-search is not supported yet; should be a valid nodeRef';
@@ -115,31 +145,35 @@ var ParseArgs = {
 			var sortParam = args[sortParamName];
 			if (null == sortParam) return [];				
 			
-			var sortChunks = sortParam.split(',');
-			var result = Utils.map(sortChunks,
-				function(sortChunk) {
-					var sharpPosition = sortChunk.lastIndexOf('#');
-					var dir = 'ASC';
-					var property = sortChunk;
-					
-					if (sharpPosition > 0) {
-						dir = sortChunk.substring(sharpPosition + 1);
+			var 
+				sortChunks = sortParam.split(','),
+				result = Utils.map(sortChunks,
+					function(sortChunk) {
+						var 
+							sharpPosition = sortChunk.lastIndexOf('#'),
+							dir = 'ASC',
+							property = sortChunk
+						;
 						
-						if ("ASC" != dir && "DESC" != dir) {
-							var message = "IllegalArgumentException! The provided sort-direction '" + dir + "' is not valid w.r.t. the 'dir' param (ASC/DESC)";
-							status = status.setCode(412, message);
-							throw new Error(message);
+						if (sharpPosition > 0) {
+							dir = sortChunk.substring(sharpPosition + 1);
+							
+							if ("ASC" != dir && "DESC" != dir) {
+								var message = "IllegalArgumentException! The provided sort-direction '" + dir + "' is not valid w.r.t. the 'dir' param (ASC/DESC)";
+								status = status.setCode(412, message);
+								throw new Error(message);
+							}
+							
+							property = sortChunk.substring(0, sharpPosition);
 						}
 						
-						property = sortChunk.substring(0, sharpPosition);
+						return {
+							column : property,
+							dir : dir
+						}
 					}
-					
-					return {
-						column : property,
-						dir : dir
-					}
-				}
-			);
+				)
+			;
 			
 			return result.slice(result.length - 1); // Only keep the last sorting parameter
 		}
@@ -166,9 +200,10 @@ var ParseArgs = {
 		
 		function getFilters() {
 			
-			var filters = getImpliedFilters();
-			
-			var filterParam = args["filter"];
+			var 
+				filters = getImpliedFilters(),
+				filterParam = args["filter"]
+			;
 			if (null == filterParam) return filters;
 
 			if (filterParam.indexOf('[') == 0) {
@@ -202,9 +237,12 @@ var ParseArgs = {
 			 */
 			function getImpliedFilters() {
 				
-				var filters = [];
+				var 
+					arg,
+					filters = []
+				;
 				
-				for (var arg in args) {
+				for (arg in args) {
 					if (arg.indexOf('@') != 0) continue;
 					
 					filters.push(

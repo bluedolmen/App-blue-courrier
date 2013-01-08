@@ -1,6 +1,8 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/send-utils.js">
+
 
 (function() {
 	
@@ -17,16 +19,15 @@
 		documentNode = null,
 		operation = null,
 		service = null,
-		comment = '',
+		comment = '', // comment may be used to the simple 'forward' operation, but is currently not used...
 		commentArgs = null,
 		
 		operations = {
 			
-			'accept' : accept,
-			'refuse' : refuse,
 			'forward' : forward,
 			'acceptAndForward' : acceptAndForward,
-			'acceptForSignature' : acceptForSignature
+			'acceptForSignature' : acceptForSignature,
+			'acceptAndSend' : acceptAndSend
 			
 		}
 	;
@@ -45,6 +46,18 @@
 			),
 			documentNodeRef = parseArgs['nodeRef']
 		;
+		
+		managerUserName = Utils.asString(parseArgs['manager']);
+		if (!managerUserName) {
+			if (isServiceManager) {
+				managerUserName = fullyAuthenticatedUserName
+			} else {
+				throw {
+					code : '512',
+					message : 'IllegalStateException! The action cannot be executed by a service-assistant without providing a manager'
+				}			
+			}
+		}
 		
 		documentNode = search.findNode(documentNodeRef);		
 		if (!documentNode) {
@@ -65,19 +78,6 @@
 		comment = Utils.asString(parseArgs['comment']) || comment;
 		service = Utils.asString(parseArgs['service']);
 		
-		
-		if (isServiceManager) {
-			managerUserName = fullyAuthenticatedUserName
-		} else {
-			managerUserName = Utils.asString(parseArgs['service']);
-			if (!managerUserName) {
-				throw {
-					code : '512',
-					message : 'IllegalStateException! The action cannot be executed by a service-assistant without providing a manager'
-				}			
-			}
-		}
-		
 		main();
 		
 	});
@@ -85,7 +85,7 @@
 	function checkOperationType(operation) {
 		
 		if (undefined !== operations[operation]) return '';
-		return "The parameter 'operation' only accept values {accept, acceptAndForward, acceptForSignature, refuse, forward}";
+		return "The parameter 'operation' only accept values {accept, acceptAndForward, acceptForSignature, forward}";
 		
 	}
 	
@@ -97,18 +97,10 @@
 		
 	}
 	
-	function accept() {
+	function acceptAndSend() {
 		
-		// Move to outbox of the same service
-		var errorMessage = DocumentUtils.moveToSiblingTray(documentNode, TraysUtils.OUTBOX_TRAY_NAME);
-		if (errorMessage) {
-			throw {
-				code : '512',
-				message : 'IllegalStateException! While accepting, ' + errorMessage
-			};			
-		}
-
-		updateDocumentState(YammaModel.DOCUMENT_STATE_SENDING);
+		addHistoryComment(null, 'accept'); // add an accepting comment to history
+		SendUtils.sendDocument(documentNode);
 		
 	}
 	
@@ -119,40 +111,12 @@
 		// State is kept in validation
 		
 	}
-	
+
 	function acceptForSignature() {
 
+		addHistoryComment(null, 'accept'); // add an accepting comment to history
 		updateDocumentState(YammaModel.DOCUMENT_STATE_SIGNING);
 
-	}
-	
-	function refuse() {
-		
-		// Back to processing state
-		updateDocumentState(YammaModel.DOCUMENT_STATE_REVISING);
-		
-		// And return the document in the initial (assigned) service
-		var assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode);
-		if (null == assignedServiceName) {
-			throw {
-				code : '512',
-				message : 'IllegalStateException! While refusing, the assigned service cannot be found on the document and cannot be routed back'
-			}
-		}
-		
-		var errorMessage = DocumentUtils.moveToServiceTray(documentNode, assignedServiceName, TraysUtils.INBOX_TRAY_NAME);
-		if (errorMessage) {
-			throw {
-				code : '512',
-				message : "IllegalStateException! While refusing, " + errorMessage
-			};						
-		}
-
-		commentArgs = [
-			comment ? (' : ' + comment) : ' (non renseign\u00E9)', 
-			Utils.Alfresco.getSiteTitle(assignedServiceName)
-		];
-		
 	}
 	
 	function forward() {
@@ -177,9 +141,7 @@
 			comment ? (' : ' + comment) : ''
 		];
 		
-	}
-	
-	
+	}	
 	
 	function updateDocumentState(newState) {
 		

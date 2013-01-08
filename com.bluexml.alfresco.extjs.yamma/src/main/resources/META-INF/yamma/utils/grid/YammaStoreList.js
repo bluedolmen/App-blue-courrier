@@ -8,7 +8,6 @@ Ext.define('Yamma.utils.grid.YammaStoreList', {
 	
 	getStoreFactory : function() {
 		return Yamma.store.YammaStoreFactory;
-	}	
-	
+	}
 	
 });

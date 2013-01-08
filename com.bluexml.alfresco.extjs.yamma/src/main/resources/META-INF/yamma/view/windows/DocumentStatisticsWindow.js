@@ -11,7 +11,7 @@ Ext.define('Yamma.view.windows.DocumentStatisticsWindow', {
 	width : 500,
 	height : 300,
 	layout : 'fit',
-	headerPosition : 'right',
+	headerPosition : Yamma.utils.Preferences.getPV(Yamma.utils.Preferences.PREFERED_HEADER_POSITION),
 	renderTo : Ext.getBody(),
 	
 	tools:[

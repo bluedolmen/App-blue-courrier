@@ -57,7 +57,7 @@ Ext.define('Yamma.view.MainView',{
  					xtype : 'displayview',
  					region : 'center',
  					title : '',
- 					headerPosition : 'right',
+ 					headerPosition : Yamma.utils.Preferences.getPV(Yamma.utils.Preferences.PREFERED_HEADER_POSITION),
  					
  					listeners : {
  						afterrender : function() {

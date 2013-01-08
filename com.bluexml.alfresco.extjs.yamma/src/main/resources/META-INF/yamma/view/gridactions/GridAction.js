@@ -1,39 +1,24 @@
-// TODO: Finish the generalization
-
 Ext.define('Yamma.view.gridactions.GridAction', {
-
-	statics : {
-		ICON : Yamma.Constants.getIconDefinition('lorry_go'),
-		LABEL : 'Distribuer le document',
-		FIELD : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_DISTRIBUTE,
-		ACTION_WS_URL : 'alfresco://bluexml/yamma/distribute'
+	
+	extend : 'Bluexml.utils.alfresco.grid.GridAction',
+	
+	requires : [
+		'Yamma.utils.datasources.Documents'
+	],	
+	
+	mixins : {
+		jsonPostAction : 'Bluexml.utils.alfresco.grid.JsonPostAction'	
 	},
 	
-	getActionDefinition : function() {
-		
+	showBusy : true,
+	
+	getDocumentNodeRefRecordValue : function(record) {
+		return record.get(Yamma.utils.datasources.Documents.DOCUMENT_NODEREF_QNAME);	
 	},
 	
-	isAvailable : function(record) {
-		
-	},
-	
-	onActionLaunched : function(grid, rowIndex, colIndex, item, e) {
-		var 
-			record = grid.getStore().getAt(rowIndex),
-			parameters = this.getParameters(record)
-		;
-		
-		this.performAction.call(this, parameters);
-	},
-	
-	getParameters : function(record) {
-		return[];
-	},
-	
-	performAction : function(/* arguments */) {
-		
-	}
-	
-}, function() {
+	onSuccess : function() {
+		this.mixins.jsonPostAction.onSuccess.call(this);
+		this.refreshGrid();
+	}	
 	
 });

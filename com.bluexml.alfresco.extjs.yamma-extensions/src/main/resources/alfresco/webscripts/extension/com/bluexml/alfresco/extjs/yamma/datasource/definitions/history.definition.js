@@ -32,6 +32,8 @@
 					type : 'string',
 					evaluate : function(node) {
 						var referrer = node.properties[YammaModel.EVENT_REFERRER_PROPNAME];
+						if (!referrer) return '(unknown)'; // should not happen
+						
 						return Utils.Alfresco.getPersonDisplayName(referrer);
 					}
 				},
@@ -40,8 +42,10 @@
 					name : YammaModel.EVENT_DELEGATE_PROPNAME + '_displayName',
 					type : 'string',
 					evaluate : function(node) {
-						var referrer = node.properties[YammaModel.EVENT_DELEGATE_PROPNAME];
-						return Utils.Alfresco.getPersonDisplayName(referrer);
+						var delegate = node.properties[YammaModel.EVENT_DELEGATE_PROPNAME];
+						if (!delegate) return ''; // normal case
+						
+						return Utils.Alfresco.getPersonDisplayName(delegate);
 					}
 				}				
 				

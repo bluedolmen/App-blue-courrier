@@ -26,7 +26,20 @@ Ext.define('Yamma.view.services.ServicesView', {
 	setService : function(serviceShortName) {
 		
 		if (!serviceShortName) return;
-		this.getSelectionModel().select(serviceShortName, false /* keepSelection */);
+		
+		var store = this.getStore();
+		if (!store) return;
+		
+		var serviceNode = store.getNodeById(serviceShortName);
+		if (!serviceNode) return;
+		
+		Ext.defer(
+			function() {
+				this.getSelectionModel().select(serviceNode, false /* keepSelection */);
+			},
+			10,
+			this
+		);
 		
 	},
 	
@@ -38,7 +51,7 @@ Ext.define('Yamma.view.services.ServicesView', {
 		;
 		
 		if (!firstSelectedRecord) return null;
-		return firstSelectedRecord.name;
+		return firstSelectedRecord.get('name');
 		
 	}
 	

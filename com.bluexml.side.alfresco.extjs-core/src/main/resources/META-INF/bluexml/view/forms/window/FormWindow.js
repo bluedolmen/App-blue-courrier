@@ -5,7 +5,7 @@ Ext.define('Bluexml.view.forms.window.FormWindow', {
 	width : window.innerWidth ? window.innerWidth * 0.75 : 900,
 	height : window.innerHeight || 450,
 	layout : 'fit',
-	headerPosition : 'left',
+	headerPosition : Yamma.utils.Preferences.getPV(Yamma.utils.Preferences.PREFERED_HEADER_POSITION),
 	delegatedFrame : null,
 
 	constructor : function(config) {

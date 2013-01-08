@@ -1,12 +1,10 @@
 <webscript>
-	<shortname>Services</shortname>
+	<shortname>Service</shortname>
 	<description><![CDATA[
-		  Get the services<br/> 
+		  Get the service information<br/> 
 		  arguments<br/>
 		  <ul>
-		  <li>parentService: string [root|nodeRef]</li>
-		  <li>depth: number [(0-9)+|-1]</li>
-		  <li>rformat: string [tree|list]</li>
+		  <li>service: string</li>
 		  </ul>
 	]]>
 	</description>
@@ -14,7 +12,7 @@
 	<arguments>
 	
 	</arguments>
-	<url>/bluexml/yamma/services</url>
+	<url>/bluexml/yamma/service</url>
 	<format default="json">argument</format>
 	<authentication runas="admin">user</authentication>
 </webscript>

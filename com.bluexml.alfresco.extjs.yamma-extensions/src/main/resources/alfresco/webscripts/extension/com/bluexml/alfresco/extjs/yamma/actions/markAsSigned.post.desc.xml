@@ -1,14 +1,12 @@
 <webscript>
-	<shortname>Validate a reply of a given document/mail</shortname>
-	<description><![CDATA[
-		Validate the reply to a Mail
-	]]>
+	<shortname>Mark the document as signed</shortname>
+	<description>
 	</description>
 	<family>YaMma</family>
 	<arguments>
 	
 	</arguments>
-	<url>/bluexml/yamma/validate-reply</url>
+	<url>/bluexml/yamma/mark-as-signed</url>
 	<format default="json" />
 	<authentication runas="admin">user</authentication>
 </webscript>

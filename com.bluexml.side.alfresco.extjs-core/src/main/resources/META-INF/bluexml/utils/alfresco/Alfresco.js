@@ -168,17 +168,20 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 		
 	},
 	
+	
+	// TODO: Stop using alfresco share wrapper and define an indepedent ws call
+	// utility
 	getAjaxCallConfig : function(config) {
 		
 		config = config || {};
-		
-		onSuccess = config.onSuccess;
-		onFailure = config.onFailure;
-		delete config.onSuccess;
-		delete config.onFailure;
-		
+				
 		var 
 			me = this,
+			
+			onSuccess = config.onSuccess || Ext.emptyFn,
+			onFailure = config.onFailure || Ext.emptyFn,
+			onSuccessScope = config.onSuccessScope || config.scope || this,
+			onFailureScope = config.onFailureScope || config.scope || this,			
 			
 			defaultAjaxCallConfig = {
 				
@@ -189,7 +192,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 					fn : function() {
 						
 						if (onFailure) {
-							var failureExecResult = onFailure.apply(this, arguments);
+							var failureExecResult = onFailure.apply(onFailureScope, arguments);
 							if (false === failureExecResult) return;
 						} 
 						
@@ -199,6 +202,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 				},
 				
 				successCallback : {
+					
 					fn : function(response) {
 						var jsonResponse = response.json;
 						if (!jsonResponse) {
@@ -226,15 +230,20 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 							me.genericNoActionFailureManager(jsonResponse);
 						}
 						
-						if (onSuccess) onSuccess(jsonResponse || {});
-					}				
+						if (onSuccess) onSuccess.call(onSuccessScope, jsonResponse || {});
+					}
+					
 				}
-			},
-			
-			ajaxCallConfig = Ext.apply(defaultAjaxCallConfig, config)
+			}
 		
-		;
+		;		
 		
+		delete config.onSuccess;
+		delete config.onSuccessScope;
+		delete config.onFailure;
+		delete config.onFailureScope;
+		
+		var ajaxCallConfig = Ext.apply(defaultAjaxCallConfig, config);
 		return ajaxCallConfig;
 	},
 	
@@ -253,7 +262,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	 *            call succeed (it is a shortcut when no advanced parameter is
 	 *            necessary, e.g. scope of the handler)
 	 */
-	jsonPost : function(config, onSuccess, onFailure) {
+	jsonPost : function(config, onSuccess, onFailure, scope) {
 		
 		config = config || {};
 		config.method = 'POST';
@@ -272,7 +281,7 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	 * @param {Function}
 	 *            onFailure
 	 */
-	jsonRequest : function(config, onSuccess, onFailure) {
+	jsonRequest : function(config, onSuccess, onFailure, scope) {
 		
 		config.onSuccess = onSuccess || config.onSuccess;
 		config.onFailure = onFailure || config.onFailure;
@@ -358,8 +367,6 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 	 *            The config as defined by {@link Ext.Ajax.request}
 	 */
 	callWebscript : function(config) {
-		
-		var me = this;
 		
 		if (null == config) {
 			throw 'The provided config is not valid (undefined)';

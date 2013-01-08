@@ -4,7 +4,7 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	
 	MAIL_OBJECT_QNAME : 'yamma-ee:Mail_object',
 	MAIL_NAME_QNAME : 'cm:name',
-	MAIL_NODEREF_QNAME : 'nodeRef',
+	DOCUMENT_NODEREF_QNAME : 'nodeRef',
 	MAIL_ORIGIN_QNAME : 'yamma-ee:InboundDocument_origin',
 	ASSIGNED_SERVICE_QNAME : 'yamma-ee:Assignable_service',
 	ASSIGNED_AUTHORITY_QNAME : 'yamma-ee:Assignable_authority',
@@ -22,6 +22,8 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	CORREPONDENT_MAIL : 'yamma-ee:Correspondent_contactEmail',
 	CORREPONDENT_PHONE : 'yamma-ee:Correspondent_contactPhone',
 	MAIL_HAS_REPLIES_QNAME : 'yamma-ee:Mail_hasReplies',
+	MAIL_HAS_SIGNABLE_REPLIES_QNAME : 'yamma-ee:Mail_hasSignableReplies',
+	ENCLOSING_SERVICE : 'enclosingService',
 	
 	DOCUMENT_LATE_STATE_QNAME : 'yamma-ee:Dueable_lateState',
 	LATE_STATE_LATE_VALUE : 'late',
@@ -34,6 +36,7 @@ Ext.define('Yamma.utils.datasources.Documents', {
 	DOCUMENT_USER_CAN_SEND_OUTBOUND : 'yamma-ee:Document!Action_canSendOutbound',
 	DOCUMENT_USER_CAN_SKIP_VALIDATION : 'yamma-ee:Document!Action_canSkipValidation',
 	DOCUMENT_USER_CAN_VALIDATE : 'yamma-ee:Document!Action_canValidate',
+	DOCUMENT_USER_CAN_MARK_AS_SIGNED : 'yamma-ee:Document!Action_canMarkAsSigned',
 	DOCUMENT_USER_CAN_MARK_AS_SENT : 'yamma-ee:Document!Action_canMarkAsSent',
 	DOCUMENT_USER_CAN_ARCHIVE : 'yamma-ee:Document!Action_canArchive'
 	

@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Refuse a reply of a given document/mail</shortname>
+	<description><![CDATA[
+		Refuse the reply to a Mail
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/refuse-reply</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

@@ -31,20 +31,20 @@
 					name : 'author',
 					type : 'string',
 					evaluate : function(node) {
-						var creator = node.properties['cm:creator'];
-						if (!creator) return UNKNOWN_AUTHOR;
+						var author = node.getOwner();
+						if (null == author) return UNKNOWN_AUTHOR;
 						
-						return Utils.Alfresco.getPersonDisplayName(creator);
+						return Utils.Alfresco.getPersonDisplayName(Utils.asString(author));
 					}
 				},
 				{
 					name : 'avatar',
 					type : 'string',
 					evaluate : function(node) {
-						var creator = node.properties['cm:creator'];
-						if (!creator) return '';
+						var author = node.getOwner();
+						if (null == author) return '';
 						
-						return Utils.Alfresco.getPersonAvatarUrl(creator);
+						return Utils.Alfresco.getPersonAvatarUrl(Utils.asString(author));
 					}
 					
 				},
