@@ -279,7 +279,8 @@
       <metainfo xmi:id="_-kU60gfxEeK5AtEnnPuSeg" key="index.atomic" value="True"/>
     </attributes>
   </aspectSet>
-  <aspectSet xmi:id="_YAFqIREfEeKIfbAIvqKz3Q" name="Reply">
+  <aspectSet xmi:id="_YAFqIREfEeKIfbAIvqKz3Q" name="Reply"/>
+  <aspectSet xmi:id="_k-6Q4Fl0EeK-TdCf_eugzA" name="Signable">
     <attributes xmi:id="_mZfzoEqOEeKhHaXgY57Dkg" documentation="" description="Whether or not the reply has to be signed by an accredited person" name="needsSignature" title="Needs Signature" typ="boolean">
       <metainfo xmi:id="_9K-AUEqOEeKhHaXgY57Dkg" key="index.atomic" value="True"/>
       <metainfo xmi:id="_9K-AUUqOEeKhHaXgY57Dkg" key="index.tokenised" value="true"/>
