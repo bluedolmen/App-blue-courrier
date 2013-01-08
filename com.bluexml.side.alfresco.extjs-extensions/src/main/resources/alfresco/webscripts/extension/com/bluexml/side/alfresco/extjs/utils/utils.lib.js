@@ -21,6 +21,31 @@
 	};
 	
 	/**
+	 * Test whether the provided object is a String, being either a native
+	 * Javascript string, or a Java wrapped String.
+	 */
+	Utils.isString = function(object) {
+		if ('string' == typeof object) return true;
+		if (Utils.isFunction(object.getClass)) {
+			return ('java.lang.String' == object.getClass().getName());
+		}
+		
+		return false;
+	};
+
+	/**
+	 * Get a native Javascript String discarding the difference between native
+	 * and wrapped Java Strings.
+	 * 
+	 * Note that the behaviour is different from asString() that returns
+	 * inconditionnaly a native String from the provided object.
+	 */
+	Utils.wrapString = function(object) {
+		if (Utils.isString(object)) return Utils.asString(object);
+		else return object;
+	}
+	
+	/**
 	 * Helper method that tests whether the given argument is a javascript Array
 	 * 
 	 * @param {Object}
@@ -450,9 +475,9 @@
     	
 		if (!isPersonScriptNode(personNode)) { // has to be tested before since typeof is buggy on ScriptNode for now
 			
-	    	if ('string' == typeof person) {
+	    	if (Utils.isString(person)) {
 	    		
-	    		personNode = people.getPerson(person);
+	    		personNode = people.getPerson(Utils.asString(person));
 	    		if (null == personNode) return person; // don't known how to interpret the provided string
 	    		
 	    	} else {
@@ -472,8 +497,9 @@
     
     Utils.Alfresco.getDisplayName = function(firstName, lastName, userName) {
     	
-    	firstName = Utils.String.trim(firstName) || '';
-    	lastName = Utils.String.trim(lastName) || '';
+    	firstName = Utils.String.trim(Utils.asString(firstName)) || '';
+    	lastName  = Utils.String.trim(Utils.asString(lastName)) || '';
+    	userName = Utils.String.trim(Utils.asString(userName)) || '';
     	
     	var displayName = 
     		firstName + (firstName ? ' ' : '') + 
@@ -489,7 +515,7 @@
     	
     	if (isPersonScriptNode(person)) return Utils.asString(person.properties.userName);
     	// typeof person on ScriptNode throws an exception and has to be performed after the isPersonScriptNode test
-    	if ('string' == typeof person) return person || ''; 
+    	if (Utils.isString(person)) return Utils.asString(person) || ''; 
     	
     	throw new Error('IllegalArgumentException! The provided person is not a valid person');
     	
