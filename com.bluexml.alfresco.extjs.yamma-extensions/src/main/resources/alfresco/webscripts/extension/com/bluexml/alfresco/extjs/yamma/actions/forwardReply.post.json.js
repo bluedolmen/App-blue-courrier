@@ -7,7 +7,7 @@
 (function() {
 	
 	const 
-		VALIDATE_REPLY_EVENT_TYPE = 'validate-reply',
+		FORWARD_REPLY_EVENT_TYPE = 'forward-reply',
 		MSG_KEY_SUFFIX = 'Reply.comment'
 	;
 	
@@ -97,26 +97,16 @@
 		
 	}
 	
-	function acceptAndSend() {
-		
-		addHistoryComment(null, 'accept'); // add an accepting comment to history
+	function acceptAndSend() {		
 		SendUtils.sendDocument(documentNode);
-		
 	}
 	
 	function acceptAndForward() {
-		
-		addHistoryComment(null, 'accept'); // add an accepting comment to history
 		forward();
-		// State is kept in validation
-		
 	}
 
 	function acceptForSignature() {
-
-		addHistoryComment(null, 'accept'); // add an accepting comment to history
 		updateDocumentState(YammaModel.DOCUMENT_STATE_SIGNING);
-
 	}
 	
 	function forward() {
@@ -161,13 +151,16 @@
 	
 	function updateDocumentHistory(commentKey, args) {
 		
-		var message = msg.get(commentKey, args);
+		var 
+			message = msg.get(commentKey, args),
+			trimmedMessage = Utils.String.trim(message) 
+		;
 		
 		// set a new history event
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
-			VALIDATE_REPLY_EVENT_TYPE + '!' + operation, /* eventType */
-			message, /* comment */
+			FORWARD_REPLY_EVENT_TYPE + '!' + operation, /* eventType */
+			trimmedMessage, /* comment */
 			managerUserName, /* referrer */
 			fullyAuthenticatedUserName /* delegate */
 		);

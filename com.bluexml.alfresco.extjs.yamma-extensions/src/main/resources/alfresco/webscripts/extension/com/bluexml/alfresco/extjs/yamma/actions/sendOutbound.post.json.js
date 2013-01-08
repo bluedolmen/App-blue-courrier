@@ -59,7 +59,7 @@
 	
 	function main() {
 		
-		fillWritingDate();
+		fixWritingDate();
 		manageSendByMail();
 		
 		if (skipValidation === true) {
@@ -73,7 +73,7 @@
 		
 	}
 	
-	function fillWritingDate() {
+	function fixWritingDate() {
 		
 		// Also update writing-date if not yet filled
 		var writingDate = documentNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
@@ -84,6 +84,10 @@
 		
 	}
 	
+	/**
+	 * If the replies are meant to be sent by mail, then add the corresponding
+	 * aspect to the contained replies
+	 */
 	function manageSendByMail() {
 		
 		if (sendByMail !== true) return;
@@ -131,7 +135,7 @@
 		// set a new history event
 		HistoryUtils.addHistoryEvent(
 			documentNode, 
-			SEND_OUTBOUND_EVENT_TYPE, /* eventType */
+			SEND_OUTBOUND_EVENT_TYPE + '!' + (skipValidation ? 'sendOut' : 'sendToValidation'), /* eventType */
 			message, /* comment */
 			assignedAuthority, /* referrer */
 			isAssignedAuthority ? null : fullyAuthenticatedUserName /* delegate */

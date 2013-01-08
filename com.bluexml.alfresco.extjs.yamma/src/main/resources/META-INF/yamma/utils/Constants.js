@@ -28,6 +28,24 @@ Ext.define('Yamma.utils.Constants', {
 	YAMMA_NAMESPACE_PREFIX : 'yamma-ee',
 	YAMMA_NAMESPACE : 'http://www.bluexml.com/model/content/bluexml/yamma/1.0',
 
+	getHistoryEventDefinition : function(eventKey) {
+		
+		var 
+			definition = this.HISTORY_EVENT_DEFINITIONS[eventKey],
+			defaultDefinition = this.HISTORY_EVENT_DEFINITIONS['UNKNOWN'],
+			prefixMatch, prefixKey
+		;
+		
+		if (undefined !== definition) return definition;
+		
+		prefixMatch = eventKey.match(/(.*)!(.*)/);
+		if (null == prefixMatch) return defaultDefinition;
+		
+		prefixKey = prefixMatch[1];
+		return this.HISTORY_EVENT_DEFINITIONS[prefixKey] || defaultDefinition;
+		
+	},
+	
 	initResources : function() {
 		
 		var me = this;
@@ -175,6 +193,82 @@ Ext.define('Yamma.utils.Constants', {
 				}, 
 				this.getIconDefinition('exclamation')
 			)			
+			
+		},
+		
+		this.HISTORY_EVENT_DEFINITIONS = {
+			
+			'distribution' : Ext.apply(
+				{
+					title : 'Distribution du document',
+					shortTitle : 'distribution'
+				},
+				this.getIconDefinition('lorry_go')
+			), 
+			
+			'take-processing' : Ext.apply(
+				{
+					title : 'Prise en charge du document',
+					shortTitle : 'traitement'
+				},
+				this.getIconDefinition('pencil_go')
+			),
+			
+			'send-outbound' : Ext.apply(
+				{
+					title : 'Transmission de la réponse',
+					shortTitle : 'transmission'
+				},
+				this.getIconDefinition('email_go')
+			),
+			
+			'forward-reply' : Ext.apply(
+				{
+					title : 'Transmission de la réponse',
+					shortTitle : 'transmission'
+				},
+				this.getIconDefinition('email_go')			
+			),
+			
+			'refuse-reply' : Ext.apply(
+				{
+					title : 'Refus de la réponse',
+					shortTitle : 'refus'
+				},
+				this.getIconDefinition('emails_go')			
+			),
+			
+			'signed-outbound' : Ext.apply(
+				{
+					title : 'Signature de la réponse',
+					shortTitle : 'signature'
+				},
+				this.getIconDefinition('text_signature_tick')			
+			),
+			
+			'sent-outbound' : Ext.apply(
+				{
+					title : 'Envoi de la réponse',
+					shortTitle : 'envoi'
+				},
+				this.getIconDefinition('stamp')			
+			), 
+			
+			'archived' : Ext.apply(
+				{
+					title : 'Archivage du courrier',
+					shortTitle : 'archivage'
+				},
+				this.getIconDefinition('package')			
+			),
+			
+			'UNKNOWN' : Ext.apply(
+				{
+					title : 'Évènement inconnu',
+					shortTitle : 'inconnu'
+				},
+				this.getIconDefinition('exclamation')
+			)
 			
 		},
 		
