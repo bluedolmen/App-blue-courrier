@@ -32,18 +32,18 @@ Ext.define('Yamma.view.menus.MyMenu', {
 					iconCls : 'icon-page_white_user',
 					
 					children : getMyDocumentsActions()					
-				},
-				
-				
-				{
-					text : 'Mes actions',
-					expanded : true,
-					iconCls : 'icon-cog_user',
-					id : 'myActions!' + getAvailableActions().join(','),
-					
-					children : getMyActions()
-					
 				}
+				
+				
+//				{
+//					text : 'Mes actions',
+//					expanded : true,
+//					iconCls : 'icon-cog_user',
+//					id : 'myActions!' + getAvailableActions().join(','),
+//					
+//					children : getMyActions()
+//					
+//				}
 				
 			]
 		};
@@ -104,7 +104,8 @@ Ext.define('Yamma.view.menus.MyMenu', {
 				'Distribute',
 				'StartProcessing',
 				'SendOutbound',
-				'ValidateReply',
+				'ForwardReply',
+				'MarkAsSigned',
 				'MarkAsSent',
 				'Archive'
 			];

@@ -51,13 +51,13 @@ Ext.define('Yamma.view.menus.MainMenu', {
     
     items : [
 	    {
-	    	xtype : 'mymenu'
-	    },
-	    {
 	    	xtype : 'sitetraysmenu'
 	    },
 	    {
 	    	xtype : 'sitearchivesmenu'
+	    },
+	    {
+	    	xtype : 'mymenu'
 	    }
     ],
     
