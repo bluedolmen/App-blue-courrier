@@ -2,24 +2,26 @@
 
 	DatasourceDefinitions.register('History',
 		{
+			
+			baseSearchType : YammaModel.EVENT_TYPE_SHORTNAME,			
 		
-			searchAdditional : {
-				
-				listnodes : function(params) {
-					
-					var nodeRef = params.getFilterValue('nodeRef');
-					if (!nodeRef)
-						throw new Error("[DataSource.History] IllegalStateException! There should be one filter named 'nodeRef'");
-					
-					var document = search.findNode(nodeRef);
-					if (!document)
-						throw new Error('[Datasource.History] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
-						
-					return HistoryUtils.getHistoryEvents(document);
-					
-				}
-				
-			},
+//			searchAdditional : {
+//				
+//				listnodes : function(params) {
+//					
+//					var nodeRef = params.getFilterValue('nodeRef');
+//					if (!nodeRef)
+//						throw new Error("[DataSource.History] IllegalStateException! There should be one filter named 'nodeRef'");
+//					
+//					var document = search.findNode(nodeRef);
+//					if (!document)
+//						throw new Error('[Datasource.History] IllegateStateException! Cannot find a valid document for the given nodeRef: ' + nodeRef);
+//						
+//					return HistoryUtils.getHistoryEvents(document);
+//					
+//				}
+//				
+//			},
 			
 			fields : [
 				
@@ -50,7 +52,28 @@
 				}				
 				
 				
-			]			
+			],
+			
+			filters : {
+				
+				'nodeRef' : {
+					
+					applyQueryFilter : function(query, documentNodeRef) {
+						
+						if (null == documentNodeRef) {
+							throw new Error("[DataSource.History] IllegalStateException! There should be one filter named 'nodeRef'");
+						}
+						
+						query = '+PRIMARYPARENT:"' + documentNodeRef + '" ' + query;
+						
+						return query;
+						
+					}
+					
+				}
+				
+			}
+			
 			
 	
 		}

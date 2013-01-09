@@ -26,20 +26,40 @@
 			
 		},
 		
-		getHistoryEvents : function(document, filteredType) {
+		getHistoryEvents : function(document, filteredType, ascending) {
 			
-			if (!document || !DocumentUtils.isDocumentNode(document)) return [];
+			if (!DocumentUtils.isDocumentNode(document)) return [];
 			
 			var events = document.childAssocs[YammaModel.HISTORIZABLE_HISTORY_ASSOCNAME];
-			if (!events) return [];
+			if (null == events) return [];
 			
-			if ('string' == typeof filteredType) {
-				return Utils.filter(events, function(event) {
-					return filteredType == Utils.asString(event.properties[YammaModel.EVENT_EVENT_TYPE_PROPNAME]);
-				});
-			}
+			filteredType = Utils.wrapString(filteredType);
+			return Utils.filter(events, function(event) {
+				return filteredType == Utils.asString(event.properties[YammaModel.EVENT_EVENT_TYPE_PROPNAME]);
+			});
 			
 			return events;
+			
+//			var 
+//				luceneQuery = ( 
+//					'+PRIMARYPARENT:"' + document.nodeRef + '"' +
+//					' +TYPE:"' + YammaModel.EVENT_TYPE_SHORTNAME + '"'
+//				)
+//			;
+//			
+//			if (null != filteredType) {
+//				luceneQuery += ' +' + Utils.Alfresco.getLuceneAttributeFilter(YammaModel.EVENT_EVENT_TYPE_PROPNAME, filteredType);
+//			}
+//			
+//			var result = search.luceneSearch({
+//				query : luceneQuery,
+//				sort : [ {
+//					column : '@' + EVENT_DATE_PROPNAME,
+//					ascending : (true === ascending)
+//				}]
+//			}) || [];
+//			
+//			return result;
 			
 		}
 		

@@ -14,7 +14,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 	},
 	
 	title : 'Commentaires',
-	iconCls : 'icon-comments',
+	iconCls : Yamma.Constants.getIconDefinition('comments').iconCls,
 	
 	storeId : 'Comments',
 	hasPaging : false,
@@ -86,7 +86,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 	 		},
 	 		{
 	 			name : 'isModified',
-	 			mappting : 'cm:modifed',
+	 			mapping : 'cm:modifed',
 	 			convert : function(value, record) {
 	 				var
 	 					created = record.get('cm:created'),

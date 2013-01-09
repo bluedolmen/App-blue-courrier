@@ -334,21 +334,36 @@ Ext.define('Bluexml.utils.alfresco.Alfresco', {
 		
 	},
 	
+	NODEREF_REGEXP : /^(\w*):\/\/(\w*)\/([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12})$/,
+	
+	isNodeRef : function(nodeRef) {
+		
+		if (!Ext.isString(nodeRef)) return false;
+		return this.NODEREF_REGEXP.test(nodeRef);
+		
+	},
+	
 	getNodeId : function(nodeRef) {
 		
-		if (nodeRef && Ext.isString(nodeRef) && -1 != nodeRef.indexOf('://')) {
-			
-			var 
-				lastSlashIndex = nodeRef.lastIndexOf('/'),
-				nodeId = nodeRef.substr(lastSlashIndex + 1),
-				isValid = /[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}/.test(nodeId) 
-			;
-
-			if (isValid) return nodeId;
-		
+		if (this.isNodeRef(nodeRef)) {
+			var matching = nodeRef.match(this.NODEREF_REGEXP);
+			return matching[3];
 		}
 		
 		throw new Error('IllegalArgumentException! The provided nodeRef is not valid');
+		
+//		if (nodeRef && Ext.isString(nodeRef) && -1 != nodeRef.indexOf('://')) {
+//			
+//			var 
+//				lastSlashIndex = nodeRef.lastIndexOf('/'),
+//				nodeId = nodeRef.substr(lastSlashIndex + 1),
+//				isValid = /[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}/.test(nodeId) 
+//			;
+//
+//			if (isValid) return nodeId;
+//		
+//		}
+		
 	},
 	
 	

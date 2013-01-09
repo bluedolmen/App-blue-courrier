@@ -1,4 +1,4 @@
-Ext.define('Yamma.view.windows.DocumentHistoryList', {
+Ext.define('Yamma.view.history.DocumentHistoryList', {
 
 	extend : 'Yamma.utils.grid.YammaStoreList',
 	alias : 'widget.documenthistorylist',
@@ -8,7 +8,14 @@ Ext.define('Yamma.view.windows.DocumentHistoryList', {
 		'Yamma.utils.datasources.History'
 	],
 	
+	mixins : {
+		deferredloading : 'Yamma.view.edit.DeferredLoading'
+	},	
+	
 	title : 'Historique du courrier',
+	iconCls : Yamma.Constants.getIconDefinition('date').iconCls,
+	cls : 'history',
+	
 	storeId : 'History',
 	hasPaging : false,
 	
@@ -21,6 +28,46 @@ Ext.define('Yamma.view.windows.DocumentHistoryList', {
 	    
 	},
 	
+ 	getDerivedFields : function() {
+ 		
+ 		/*
+		 * Here we map to names that do not contains ':' since this character
+		 * has a special meaning in tpl processing
+		 */
+ 		return [
+ 		
+	 		{ name : 'created', mapping : Yamma.utils.datasources.History.EVENT_DATE_QNAME },
+	 		{ name : 'comment', mapping : Yamma.utils.datasources.History.EVENT_COMMENT_QNAME },
+	 		{ 
+	 			name : 'author', 
+	 			mapping : Yamma.utils.datasources.History.EVENT_REFERRER_QNAME,
+	 			convert : function(value, record) {
+	 				
+	 				var
+	 					referrer = value,
+	 					delegate = record.get(Yamma.utils.datasources.History.EVENT_DELEGATE_QNAME)
+	 				;
+	 				
+	 				return (
+	 					(referrer ? referrer : '(inconnu)') +
+	 					(delegate ? ' p.o. ' + delegate : '')
+	 				);
+	 				
+	 			}
+	 		},
+	 		{
+	 			name : 'hasDelegate',
+	 			mapping : Yamma.utils.datasources.History.EVENT_DELEGATE_QNAME,
+	 			convert : function(value, record) {
+	 				return !!value;
+	 			}
+	 		}
+ 		
+ 		];
+ 		
+ 	},	
+	
+	
 	initComponent : function() {
 		
 		this.storeConfigOptions.sorters = [{
@@ -30,6 +77,27 @@ Ext.define('Yamma.view.windows.DocumentHistoryList', {
 		this.callParent(arguments);
 		
 	},
+	
+    loadInternal : function() {
+    	this.loadHistory.apply(this, arguments);
+    },
+    
+	loadHistory : function(nodeRef) {
+		
+		if (!Bluexml.Alfresco.isNodeRef(nodeRef)) {
+			Ext.Error.raise('IllegalArgumentException! The provided document nodeRef is not valid');
+		}
+		
+		this.load({
+			filters : [
+				{
+					property : 'nodeRef',
+					value : nodeRef
+				}
+			]
+		});
+		
+	},    
 		
 	getColumns : function() {
 		return [
@@ -37,14 +105,16 @@ Ext.define('Yamma.view.windows.DocumentHistoryList', {
 			/* Event type */
 			this.getActionTypeColumnDefinition(),
 			
-			/* Event date */
-			this.getDateColumnDefinition(),
-		
-			/* Event comment */
-			this.getCommentColumnDefinition(),
-
-			/* Event actor */
-			this.getActorColumnDefinition()
+//			/* Event date */
+//			this.getDateColumnDefinition(),
+//		
+//			/* Event comment */
+//			this.getCommentColumnDefinition(),
+//
+//			/* Event actor */
+//			this.getActorColumnDefinition()
+			
+			this.getEventColumnDefinition()
 			
 		];
 	},	
@@ -166,7 +236,29 @@ Ext.define('Yamma.view.windows.DocumentHistoryList', {
 			
 		};		
 		
+	},
+	
+	EVENT_TEMPLATE : new Ext.XTemplate(
+		'<div class="header">',
+			'<span class="created">Le {created:date("d/m/Y")} à {created:date("G:i")}</span>',
+		'</div>',
+		'<div class="comment">{comment}</div>',
+		'<div class="author">{author}</div>'
+	), 
+	
+	getEventColumnDefinition : function() {
+		
+		return {	
+			xtype : 'templatecolumn',
+			flex : 1,
+			text : 'Description',
+			tpl : this.EVENT_TEMPLATE, 
+			dataIndex :  Yamma.utils.datasources.History.EVENT_DATE_QNAME,
+			sortable : true
+		};
+		
 	}
+	
 	
 	
 	

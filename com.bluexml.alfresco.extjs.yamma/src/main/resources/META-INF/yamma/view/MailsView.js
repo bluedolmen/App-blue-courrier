@@ -18,7 +18,6 @@ Ext.define('Yamma.view.MailsView', {
 	
 	requires : [
 		'Bluexml.utils.grid.column.Action',
-		'Yamma.view.windows.DocumentHistoryWindow',
 		'Yamma.view.windows.DocumentStatisticsWindow',
 		'Yamma.utils.grid.MailsViewGrouping',
 		'Ext.grid.column.Date',

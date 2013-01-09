@@ -1,10 +1,10 @@
-Ext.define('Yamma.view.windows.DocumentHistoryWindow', {
+Ext.define('Yamma.view.history.DocumentHistoryWindow', {
 	
 	extend : 'Ext.window.Window',
 	alias : 'widget.documenthistory',
 	
 	requires : [
-		'Yamma.view.windows.DocumentHistoryList'
+		'Yamma.view.history.DocumentHistoryList'
 	],
 	
 	title : 'Historique du courrier',

@@ -7,6 +7,7 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		'Yamma.view.edit.EditDocumentForm',
 		'Yamma.view.comments.CommentsView',
 		'Yamma.view.attachments.AttachmentsView',
+		'Yamma.view.history.DocumentHistoryList',
 		'Yamma.utils.datasources.Documents'
 	],
 	
@@ -25,6 +26,10 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		},
 		{
 			xtype : 'commentsview'
+		},
+		{
+			xtype : 'documenthistorylist',
+			hideHeaders : true
 		}
 	],
 	
@@ -36,12 +41,14 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 			
 			editDocumentForm = this.getEditDocumentForm(),
 			commentsView = this.getCommentsView(),
-			attachmentsView = this.getAttachmentsView()
+			attachmentsView = this.getAttachmentsView(),
+			documentHistoryList = this.getDocumentHistoryList()
 		;
 		
 		editDocumentForm.dload(nodeRef, formId);
 		commentsView.dload(nodeRef);
 		attachmentsView.dload(nodeRef);
+		documentHistoryList.dload(nodeRef);
 		
 	},
 	
@@ -80,17 +87,26 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 		return this.attachmentsView;
 	},
 	
+	getDocumentHistoryList : function() {
+		if (!this.documentHistoryList) {
+			this.documentHistoryList = this.child('documenthistorylist');
+		}
+		return this.documentHistoryList;
+	},
+	
 	clear : function() {
 		
 		var 
 			editDocumentForm = this.getEditDocumentForm(),
 			commentsView = this.getCommentsView(),
-			attachmentsView = this.getAttachmentsView()
+			attachmentsView = this.getAttachmentsView(),
+			documentHistoryList = this.getDocumentHistoryList()
 		;
 		
 		editDocumentForm.clear();
 		commentsView.clear();
 		attachmentsView.clear();
+		documentHistoryList.clear();
 		
 	}
 	

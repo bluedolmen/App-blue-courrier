@@ -4,7 +4,7 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 	
 	requires : [
 		'Bluexml.utils.alfresco.forms.ViewFormFrame',
-		'Yamma.view.windows.DocumentHistoryList',
+		'Yamma.view.history.DocumentHistoryList',
 		'Yamma.view.windows.RepliesList'
 	],
 	
@@ -52,7 +52,8 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 		});
 		viewForm.load();
 		
-		var documentHistoryList = Ext.create('Yamma.view.windows.DocumentHistoryList', {
+		var documentHistoryList = Ext.create('Yamma.view.history.DocumentHistoryList', {
+			maxHeight : '40%',
 			width : '100%'
 		});
 		documentHistoryList.load({

@@ -14,7 +14,15 @@ Ext.define('Bluexml.utils.alfresco.grid.JsonPostAction', {
 		
 		if (this.showBusy) {
 			this.setBusy(true);
-		}		
+		}
+		
+//		function onSuccess() {
+//			
+//		}
+//		
+//		function onFailure() {
+//			
+//		}
 
 		Bluexml.Alfresco.jsonPost(
 			{
