@@ -21,6 +21,12 @@ Ext.define('Yamma.utils.Context', {
 		this.callParent(arguments);
 	},
 	
+	isServiceBase : function() {
+		
+		return !!this.getService();
+		
+	},
+	
 	isTrayBased : function() {
 		
 		return !!(this.getService() || this.getTray());

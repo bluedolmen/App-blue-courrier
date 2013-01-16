@@ -46,7 +46,7 @@ Ext.define('Bluexml.utils.alfresco.grid.JsonPostAction', {
 	
 	onSuccess : function() {
 		
-		this.fireEvent('success', arguments);
+		this.fireEvent('actionComplete', 'success', arguments);
 		
 		if (this.showBusy) {
 			this.setBusy(false);
@@ -56,7 +56,7 @@ Ext.define('Bluexml.utils.alfresco.grid.JsonPostAction', {
 	
 	onFailure : function() {
 		
-		this.fireEvent('failure', arguments);
+		this.fireEvent('actionComplete', 'failure', arguments);
 		
 		if (this.showBusy) {
 			this.setBusy(false);

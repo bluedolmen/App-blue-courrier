@@ -1,19 +1,20 @@
 Ext.define('Yamma.view.gridactions.RefuseReply', {
 
-	extend : 'Yamma.view.gridactions.GridAction',
-	
-	uses : [
-		'Bluexml.windows.CommentInputDialog'
-	],
-	
-	statics : {
-		CONFIRM_MESSAGE : "Quelle est la raison de ce refus ?",
-		CONFIRM_TITLE : 'Refuser la réponse'
+	extend : 'Yamma.view.gridactions.SimpleNodeRefGridAction',
+		
+	mixins : {
+		commentedAction : 'Bluexml.utils.alfresco.grid.CommentedAction'
 	},
+	
+	commentTitle : 'Refuser la réponse',
+	commentMessage : "Quelle est la raison de ce refus ?",
 		
 	icon : Yamma.Constants.getIconDefinition('cross').icon,
 	tooltip : 'Refuser la réponse',
 	actionUrl : 'alfresco://bluexml/yamma/refuse-reply',
+	
+	supportBatchedNodes : true,
+	managerAction : true,
 	
 	isAvailable : function(record) {
 		
@@ -24,40 +25,22 @@ Ext.define('Yamma.view.gridactions.RefuseReply', {
 		
 		return (canValidate || canMarkAsSigned);
 	},
-		
-	performAction : function(record) {		
-		
-		var
-			me = this,
-			nodeRef = this.getDocumentNodeRefRecordValue(record)
-		;
-		
-		function askComment() {
-			
-			Bluexml.windows.CommentInputDialog.askForComment(
-				{
-					title : Yamma.view.gridactions.RefuseReply.CONFIRM_TITLE,
-					msg : Yamma.view.gridactions.RefuseReply.CONFIRM_MESSAGE,
-					modal : true
-				}, /* overrideConfig */
-				onCommentAvailable
-			);
-				
-
-			function onCommentAvailable(comment) {
-				
-				me.jsonPost({
-					nodeRef : nodeRef,
-					operation : 'refuse',
-					comment : comment
-				});
-				
-			}
-			
-		}
-		
-		askComment();
 	
+	prepareBatchAction : function(records) {
+		
+		this.mixins.commentedAction.askForComment.call(this, records);
+		
+	},
+	
+	performServerRequest : function(nodeRefs, comment) {
+		
+		this.jsonPost({
+			nodeRef : nodeRefs,
+			operation : 'refuse',
+			comment : comment,
+			manager : this.usurpedManager || undefined
+		});
+		
 	}
 	
 });

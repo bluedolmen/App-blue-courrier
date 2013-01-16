@@ -31,6 +31,9 @@
 .icon-lightning {
     background-image: url(../icons/lightning.png) !important;
 }
+.icon-checkbox_unchecked {
+    background-image: url(../icons/checkbox_unchecked.png) !important;
+}
 .icon-user_edit_grayed {
     background-image: url(../icons/user_edit_grayed.png) !important;
 }
@@ -78,6 +81,9 @@
 }
 .icon-comment_edit {
     background-image: url(../icons/comment_edit.png) !important;
+}
+.icon-text_signature_go {
+    background-image: url(../icons/text_signature_go.png) !important;
 }
 .icon-cross {
     background-image: url(../icons/cross.png) !important;
@@ -190,6 +196,9 @@
 .icon-page_white_edit {
     background-image: url(../icons/page_white_edit.png) !important;
 }
+.icon-group_go {
+    background-image: url(../icons/group_go.png) !important;
+}
 .icon-folder_table {
     background-image: url(../icons/folder_table.png) !important;
 }
@@ -246,6 +255,9 @@
 }
 .icon-page_white_put {
     background-image: url(../icons/page_white_put.png) !important;
+}
+.icon-tick_go {
+    background-image: url(../icons/tick_go.png) !important;
 }
 .icon-pencil {
     background-image: url(../icons/pencil.png) !important;
@@ -348,6 +360,9 @@
 }
 .icon-vcard {
     background-image: url(../icons/vcard.png) !important;
+}
+.icon-date {
+    background-image: url(../icons/date.png) !important;
 }
 .icon-page_white {
     background-image: url(../icons/page_white.png) !important;

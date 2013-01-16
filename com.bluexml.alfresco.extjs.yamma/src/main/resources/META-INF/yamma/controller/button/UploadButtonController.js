@@ -100,7 +100,8 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		
 		var 
 			me = this,
-			uploadButton = this.getUploadButton();
+			uploadButton = this.getUploadButton()
+		;
 		
 		Ext.create('Yamma.view.windows.UploadFormWindow', {
 			

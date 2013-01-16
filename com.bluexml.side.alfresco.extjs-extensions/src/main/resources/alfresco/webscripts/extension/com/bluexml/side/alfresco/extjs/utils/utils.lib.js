@@ -14,9 +14,11 @@
 	 	return object;
 	};
 	
+	
 	Utils.emptyFn = function() {/* do nothing */};
 	
 	Utils.asString = function(object) {
+		if (null == object) return '';
 		return '' + object;
 	};
 	
@@ -188,6 +190,20 @@
 		return exists;
 	};	
 	
+	Utils.every = function(array, acceptFunction) {
+		
+		if (!Utils.isFunction(acceptFunction)) return false;
+		
+		var every = true;
+		Utils.forEach(array, function(arrayElement) {
+			every |= acceptFunction(arrayElement);
+			if (false === every) return false; // stop iteration
+		});
+		
+		return every;
+		
+	};
+	
 	/**
 	 * Remove null values from the array
 	 */
@@ -338,7 +354,9 @@
 	Utils.String = {};
 	
 	Utils.String.trim = function(str) {
-		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		if (Utils.isFunction(str.trim)) return str.trim();
+		
+		return Utils.asString(str).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	}
 	
 	Utils.String.capitalize = function(str) {
@@ -386,6 +404,15 @@
 	
 	Utils.Alfresco.isScriptNode = function(node) {
 		return (undefined !== node.typeShort); // weak testing?
+	};
+	
+	Utils.Alfresco.NODEREF_REGEXP = /^(\w*):\/\/(\w*)\/([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12})$/;
+	
+	Utils.Alfresco.isNodeRef = function(nodeRef) {
+		
+		if (!Utils.isString(nodeRef)) return false;
+		return Utils.Alfresco.NODEREF_REGEXP.test(nodeRef);
+		
 	};
 	
 	Utils.Alfresco.getCompanyHome = function() {
@@ -683,17 +710,16 @@
 	Utils.Cache = {
 		
 		_cacheSize : 10,
-		_cache : {},
-		_timeLine : [],
 		
 		create : function(cacheSize, name) {
 			
-			var newCache = Utils.Object.create(Utils.Cache, {
+			var newCache = Utils.Object.create(this, {
 				_cacheSize : cacheSize,
-				_name : name || ''
+				_name : name || '',
+				_cache : {},
+				_timeLine : []
 			});
 			
-			delete newCache.create;
 			return newCache;
 			
 		},
@@ -729,6 +755,22 @@
 		}
 		
 	};
+
+	Utils.JSON = {};
 	
+	Utils.JSON.parse = function (string, failSilently) {
+		
+		if (string.indexOf('function') > 0 || string.indexOf('()') > 0) {
+			throw new Error('IllegalStateException! The provided string cannot contain any function definition or call.');
+		}
+		
+		try {
+			return eval(string);
+		} catch (e) {
+			if (failSilently) return '';
+			else throw e;
+		}
+		
+	};
     
 })();

@@ -2,33 +2,47 @@
 	
 	ParseArgs = function() {
 		
-		var me = this;
-		var argumentDefs = arguments;
+		var 
+			me = this,
+			argumentDefs = arguments
+		;
+		
+		// Handle the case where ParseArgs arguments is defined with an array
+		if (argumentDefs.length == 1 && Utils.isArray(argumentDefs[0])) {
+			argumentDefs = argumentDefs[0];
+		}
 		
 		parseargs();
 		
 		function parseargs() {
-			for (var j = 0, jlen = argumentDefs.length; j < jlen; j++) {
-				var argumentDef = argumentDefs[j];
+			
+			var j, jlen, argumentDef;
+			
+			for (j = 0, jlen = argumentDefs.length; j < jlen; j++) {
+				argumentDef = argumentDefs[j];
 				if (!argumentDef) continue;
 				
-				var argumentName = 'string' == typeof argumentDef
-					? argumentDef
-					: argumentDef.name;
+				var 
+					argumentName = 'string' == typeof argumentDef
+						? argumentDef
+						: argumentDef.name,
 					
-				var mandatory = 'string' == typeof argumentDef
-					? false
-					: argumentDef.mandatory;
+					mandatory = 'string' == typeof argumentDef
+						? false
+						: argumentDef.mandatory,
 					
-				var defaultValue = 'string' == typeof argumentDef
-					? null
-					: argumentDef.defaultValue;
+					defaultValue = 'string' == typeof argumentDef
+						? null
+						: argumentDef.defaultValue,
+					
 				
-				var checkValue = ('string' == typeof argumentDef) || (!argumentDef.checkValue)
-					? function(value) { return ''; }
-					: argumentDef.checkValue;
+					checkValue = ('string' == typeof argumentDef) || (!argumentDef.checkValue)
+						? function(value) { return ''; }
+						: argumentDef.checkValue,
 					
-				var argumentValue = getArgument(argumentName);
+					
+					argumentValue = getArgument(argumentName)
+				;
 				if (null == argumentValue) argumentValue = defaultValue;
 				
 				if (null == argumentValue && mandatory) {
@@ -55,16 +69,19 @@
 		}
 	
 		function getArgument(argumentName) {
+			
+			var jsonArgument, i, len, field;
+			
 			// Look for an HTTP POST JSON content argument
 			if ('undefined' != typeof json && json.has(argumentName)) {
-				var jsonArgument = json.get(argumentName);
+				jsonArgument = json.get(argumentName);
 				if (jsonArgument) return jsonArgument;
 			}
 			
 			// Look for an HTTP POST formdata argument 
 			if ('undefined' != typeof formdata && formdata.fields) {
-				for (var i = 0, len = formdata.fields.length; i < len; i++) {
-					var field = formdata.fields[i];
+				for (i = 0, len = formdata.fields.length; i < len; i++) {
+					field = formdata.fields[i];
 					
 					if (argumentName == field.name) {
 						if (field.isFile) return field;

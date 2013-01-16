@@ -53,6 +53,24 @@
 		
 	}
 	
+	var servicesCache = Utils.Cache.create(10);
+	function getServiceDescription(serviceNode) {
+		
+		var name = Utils.asString(serviceNode.name);
+		
+		return servicesCache.getOrSetValue(
+			name, 
+			function() {
+				return ({
+					displayName : serviceNode.properties['cm:title'] || name,
+					name : name,
+					isSigningService : ServicesUtils.isSigningService(serviceNode)		
+				});
+			} /* computeFun */
+		);
+		
+	}
+	
 	function getActionFunction(functionName) {
 		
 		var actualFunction = ActionUtils[functionName];
@@ -183,12 +201,8 @@
 					name : 'enclosingService',
 					type : 'object',
 					evaluate : function(document) {
-						var siteNode = YammaUtils.getSiteNode(document);
-						return {
-							displayName : siteNode.properties['cm:title'] || siteNode.name,
-							name : siteNode.name
-						};
-						//return titleAndName(siteNode);
+						var serviceNode = YammaUtils.getSiteNode(document);
+						return getServiceDescription(serviceNode);
 					}
 				},
 				

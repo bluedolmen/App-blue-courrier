@@ -5,6 +5,7 @@ Ext.define('Yamma.view.gridactions.StartProcessing', {
 	icon : Yamma.Constants.getIconDefinition('pencil_go').icon,
 	tootltip : 'Traiter le document',
 	actionUrl : 'alfresco://bluexml/yamma/take-processing',
-	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_PROCESS_DOCUMENT
+	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_PROCESS_DOCUMENT,
+	supportBatchedNodes : true
 		
 });

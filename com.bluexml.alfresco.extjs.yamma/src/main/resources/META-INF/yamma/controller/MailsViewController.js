@@ -26,8 +26,14 @@ Ext.define('Yamma.controller.MailsViewController', {
 				selectionchange : this.onSelectionChange,
 				stateClick : this.onStateClick
 			},
-			'mailsview #statistics' : {
-				click : this.onStatisticsClick
+			'mailsview #statistics-button' : {
+				click : this.onStatisticsButtonClick
+			},
+			'mailsview #actions-button' : {
+				click : this.onActionsButtonClick
+			},
+			'mailsview #actions-button menuitem' : {
+				click : this.onActionClick
 			}
 		});
 		
@@ -168,18 +174,33 @@ Ext.define('Yamma.controller.MailsViewController', {
 		mailsView.refresh(true);
 	},
 	
-	onStatisticsClick : function() {
-		var 
+	onStatisticsButtonClick : function() {
+		var
 			mailsView = this.getMailsView(),
 			statisticsView = mailsView.getStatisticsView()
 		;
+		statisticsView[statisticsView.isVisible() ? 'hide' : 'show']();		
+	},
+	
+	onActionsButtonClick : function() {
 		
-		if (statisticsView.isVisible()) {
-			statisticsView.hide();
-		} else {
-			statisticsView.show();
-		}
-	}	
+		var mailsView = this.getMailsView();
+		mailsView.updateAvailableActions(true /* showMenu */);
+		
+	},
+	
+	onActionClick : function(item, e) {
+		
+		var
+			action = item.action,
+			mailsView = this.getMailsView(),
+			selectedRecords = mailsView.getSelectedRecords()
+		;
+		
+		if (null == action) return;
+		action.launchAction(selectedRecords, item, e);
+		
+	}
 	
 
 });

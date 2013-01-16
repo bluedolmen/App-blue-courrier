@@ -2,13 +2,16 @@ Ext.require([
 	'Yamma.utils.datasources.Documents',
 	'Yamma.utils.grid.MailsViewGrouping',
 	'Yamma.view.gridactions.ForwardReply',
+	'Yamma.view.gridactions.ForwardToSignature',
+	'Yamma.view.gridactions.ForwardForValidation',
+	'Yamma.view.gridactions.AcceptForSending',
 	'Yamma.view.gridactions.RefuseReply',
 	'Yamma.view.gridactions.Distribute',
 	'Yamma.view.gridactions.StartProcessing',
 	'Yamma.view.gridactions.SendOutbound',
 	'Yamma.view.gridactions.MarkAsSent',
 	'Yamma.view.gridactions.MarkAsSigned',
-	'Yamma.view.gridactions.Archive'	
+	'Yamma.view.gridactions.Archive'
 ], function() {
 
 Ext.define('Yamma.view.MailsView', {
@@ -56,6 +59,7 @@ Ext.define('Yamma.view.MailsView', {
 		var me = this;
 		
 		this.viewConfig = {
+			markDirty : false, // do not show dirty cells (useful for checked-column)
 			getRowClass : function(record, rowIndex, rowParams, store) {
 				var 
 					priority = record.get(Yamma.utils.datasources.Documents.PRIORITY_QNAME),
@@ -71,6 +75,10 @@ Ext.define('Yamma.view.MailsView', {
 		this.getStatisticsView(); // instantiate the statistics view 
 		
 		this.callParent(arguments);
+		
+		this.on('viewready', function() {
+			this.resetToInitialView();
+		});
 	},
 	
 	getRowClass : function(priorityLevel) {
@@ -101,22 +109,50 @@ Ext.define('Yamma.view.MailsView', {
 				'font-size' : '1.2em',
 				'font-weight' : 'bold',
 				'color' : '#15498B'
-			}
-		},
-		'->',
-		{
-			xtype : 'uploadbutton',
-			scale : 'small',
-			text : ''
+			},
+			flex : 1
 		},
 		{
-			xtype : 'button',
-			scale : 'small',
-			text : '',
-			iconCls : 'icon-chart_curve',
-			id : 'statistics'
+			xtype : 'container',
+			width : 100,
+			layout : 'hbox',
+			
+			listeners : {
+				'beforeadd' : function(menu, component) {
+					component.ui = component.ui + '-toolbar'; // simulate toolbar elements
+				}
+			},
+			
+			items : [
+				{
+					xtype : 'uploadbutton',
+					scale : 'small',
+					text : '',
+					tooltip : 'Ajouter un nouveau courrier'
+				},
+				{
+					xtype : 'button',
+					scale : 'small',
+					iconCls : Yamma.Constants.getIconDefinition('lightning').iconCls,
+					itemId : 'actions-button',
+					tooltip : 'Actions disponibles sur les éléments sélectionnés',
+					menu : []
+				},
+				{
+					xtype : 'button',
+					scale : 'small',
+					text : '',
+					tooltip : 'Statistiques sur les éléments filtrés',
+					iconCls : Yamma.Constants.getIconDefinition('chart_curve').iconCls,
+					itemId : 'statistics-button'
+				}
+			]
 		}
 	],
+	
+	resetToInitialView : function() {
+		this.updateActionsButtonState();
+	},	
 	
 	/**
 	 * This method is overloaded in order to set the the label of the toolbar
@@ -192,6 +228,11 @@ Ext.define('Yamma.view.MailsView', {
     },	
     
     getTickColumnDefinition : function() {
+    	
+    	var 
+    		me = this
+    	;
+    	
     	return this.applyDefaultColumnDefinition(
 	    	{
 	    		xtype : 'checkcolumn',
@@ -201,10 +242,23 @@ Ext.define('Yamma.view.MailsView', {
 	    		resizable : false,
 				menuDisabled : true,
 				sortable : false,
-				dataIndex : 'selected'
+				dataIndex : 'selected',
+				listeners : {
+					checkchange : function(column, rowIndex, isChecked){
+						me.updateActionsButtonState(isChecked);
+			        }
+				}
 	    		
 	    	}	
     	);
+    	
+    },
+    
+    getActionsButton : function() {
+    	if (null == this.actionsButton) {
+    		this.actionsButton = this.queryById('actions-button');
+    	}
+    	return this.actionsButton;
     },
     
     getDerivedFields : function() {
@@ -300,11 +354,6 @@ Ext.define('Yamma.view.MailsView', {
 		
 		return coldef;		
 	},
-
-	
-	
-	
-	
 	
 	ASSIGNED_TEMPLATE : new Ext.XTemplate(
 		'<div class="document-assigned">',
@@ -621,16 +670,95 @@ Ext.define('Yamma.view.MailsView', {
 	
 	gridactions : [
 		Ext.create('Yamma.view.gridactions.ForwardReply'),
+		Ext.create('Yamma.view.gridactions.ForwardToSignature'),
+		Ext.create('Yamma.view.gridactions.AcceptForSending'),
 		Ext.create('Yamma.view.gridactions.Distribute'),
 		Ext.create('Yamma.view.gridactions.StartProcessing'),
+		Ext.create('Yamma.view.gridactions.ForwardForValidation'),
 		Ext.create('Yamma.view.gridactions.SendOutbound'),
 		Ext.create('Yamma.view.gridactions.MarkAsSigned'),
 		Ext.create('Yamma.view.gridactions.MarkAsSent'),
-		Ext.create('Yamma.view.gridactions.RefuseReply'), // RefuseReply should be defined after ForwardReply and MarkAsSigned for a better user-experience 
+		Ext.create('Yamma.view.gridactions.RefuseReply'), // RefuseReply is defined after ForwardReply and MarkAsSigned for a better user-experience 
 		Ext.create('Yamma.view.gridactions.Archive')
 	],
 	
-	maxAvailableActions : 3,	
+	maxAvailableActions : 3,
+	
+	getSelectedRecords : function() {
+		
+		var
+			store = this.getStore(),
+			data = store.data,
+			selectedFilter = new Ext.util.Filter({
+				filterFn: function(record) {
+					return true === record.get('selected');
+				}
+			}),
+			selectedRecords = data.filter(selectedFilter) 
+		;
+		
+		return selectedRecords.items;
+		
+	},
+	
+	hasSelectedRecords : function() {
+		var store = this.getStore();
+		return -1 != store.find('selected', true);
+	},
+	
+	getAvailableActionsFromSelectedRows : function() {
+		
+		var
+			selectedRecords = this.getSelectedRecords(),
+			context = {}
+		;
+		
+		if (Ext.isEmpty(selectedRecords)) return [];
+		
+		return Ext.Array.filter(this.gridactions,
+			function(action) {
+				return action.isBatchAvailable(selectedRecords, context);
+			}
+		);		
+		
+	},	
+	
+	/**
+	 * Update the available actions in the actions-menu.
+	 * @param {Boolean} [false] showMenu Whether to show the menu once updated
+	 */
+	updateAvailableActions : function(showMenu) {
+		
+		var 
+			availableActions = this.getAvailableActionsFromSelectedRows(),
+			actionsButton = this.getActionsButton(),
+			menuItems = Ext.Array.map(availableActions, function(action) {
+				
+				return ({
+					text : action.tooltip || '',
+					icon : action.icon,
+					action : action,
+					hideOnClick : (true !== action.managerAction)
+
+				});
+			})
+		;
+		
+		actionsButton.menu = Ext.create('Ext.menu.Menu', {
+			items : menuItems
+		});
+		if (true === showMenu) {
+			actionsButton.showMenu();
+		}
+		
+	},
+	
+	updateActionsButtonState : function(forceEnable) {
+		
+		var actionsButton = this.getActionsButton();
+		actionsButton[ true === forceEnable || this.hasSelectedRecords() ? 'enable' : 'disable' ]();
+		
+	},
 	
 	getDocumentNodeRefRecordValue : function(record) {
 		return record.get(Yamma.utils.datasources.Documents.DOCUMENT_NODEREF_QNAME);	
@@ -641,6 +769,7 @@ Ext.define('Yamma.view.MailsView', {
 	 * @returns
 	 */
 	getStatisticsView : function() {
+		
 		if (null == this.statisticsView) {
 			this.statisticsView = Ext.create('Yamma.view.windows.DocumentStatisticsWindow', {
 				closeAction : 'hide'
@@ -648,6 +777,7 @@ Ext.define('Yamma.view.MailsView', {
 		}
 		
 		return this.statisticsView;
+		
 	}	
 	
 });

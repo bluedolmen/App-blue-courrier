@@ -196,6 +196,7 @@ Ext.define('Yamma.utils.Constants', {
 			
 		},
 		
+		// TODO: these definitions should probably be homogeneized with action definitions
 		this.HISTORY_EVENT_DEFINITIONS = {
 			
 			'distribution' : Ext.apply(
@@ -214,47 +215,71 @@ Ext.define('Yamma.utils.Constants', {
 				this.getIconDefinition('pencil_go')
 			),
 			
-			'send-outbound' : Ext.apply(
+			'send-outbound!sendOut' : Ext.apply(
 				{
-					title : 'Transmission de la réponse',
-					shortTitle : 'transmission'
+					title : 'Transmission pour envoi postal',
+					shortTitle : 'Envoi postal'
 				},
 				this.getIconDefinition('email_go')
 			),
 			
+			'send-outbound!sendToValidation' : Ext.apply(
+				{
+					title : 'Transmission pour validation',
+					shortTitle : 'Envoi validation'
+				},
+				this.getIconDefinition('tick_go')
+			),
+			
 			'forward-reply' : Ext.apply(
 				{
-					title : 'Transmission de la réponse',
-					shortTitle : 'transmission'
+					title : 'Transmission au service',
+					shortTitle : 'Transmission service'
 				},
-				this.getIconDefinition('email_go')			
+				this.getIconDefinition('group_go')			
+			),
+			
+			'forward-for-sending' : Ext.apply(
+				{
+					title : 'Transmission pour envoi postal',
+					shortTitle : 'Envoi postal'
+				},
+				this.getIconDefinition('email_go')
+			),
+			
+			'forward-for-signing' : Ext.apply(
+				{
+					title : 'Transmission pour signature par l\'élu',
+					shortTitle : 'Transmission signature'
+				},
+				this.getIconDefinition('text_signature_tick')
 			),
 			
 			'refuse-reply' : Ext.apply(
 				{
 					title : 'Refus de la réponse',
-					shortTitle : 'refus'
+					shortTitle : 'Refus'
 				},
-				this.getIconDefinition('emails_go')			
+				this.getIconDefinition('cross')			
 			),
 			
 			'signed-outbound' : Ext.apply(
 				{
 					title : 'Signature de la réponse',
-					shortTitle : 'signature'
+					shortTitle : 'Signature'
 				},
 				this.getIconDefinition('text_signature_tick')			
 			),
 			
 			'sent-outbound' : Ext.apply(
 				{
-					title : 'Envoi de la réponse',
-					shortTitle : 'envoi'
+					title : 'Envoi postal effectué',
+					shortTitle : 'Envoi effectué'
 				},
-				this.getIconDefinition('stamp')			
+				this.getIconDefinition('stamp')
 			), 
 			
-			'archived' : Ext.apply(
+			'archive' : Ext.apply(
 				{
 					title : 'Archivage du courrier',
 					shortTitle : 'archivage'

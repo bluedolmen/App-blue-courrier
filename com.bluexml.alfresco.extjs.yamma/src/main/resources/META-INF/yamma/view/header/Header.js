@@ -14,8 +14,9 @@ Ext.define('Yamma.view.header.Header', {
 	items : [
  		{
 			xtype : 'image',
-			src : Alfresco.constants.URL_RESCONTEXT + 'yamma/resources/images/YaMma.png',
-			height : 50
+			src : Alfresco.constants.URL_RESCONTEXT + 'yamma/resources/images/logo-yamma.png',
+			height : 50,
+			padding : '0 0 7 0'
 		},
 	
 		

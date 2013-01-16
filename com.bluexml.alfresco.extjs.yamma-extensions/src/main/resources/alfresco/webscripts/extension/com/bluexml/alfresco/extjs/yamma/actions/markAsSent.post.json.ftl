@@ -1,6 +1,3 @@
-<#escape x as jsonUtils.encodeJSONString(x)>
-{	 
-	success : true,
-	documentNodeRef : "${documentNodeRef}"
-}
-</#escape>
+<#import "nodeaction.lib.ftl" as nodeactionLib />
+
+<@nodeactionLib.renderOutcome/>

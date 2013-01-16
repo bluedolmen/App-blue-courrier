@@ -1,178 +1,88 @@
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
-///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
-///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/send-utils.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/nodeaction.lib.js">
 
 
 (function() {
 	
-	const 
-		FORWARD_REPLY_EVENT_TYPE = 'forward-reply',
-		MSG_KEY_SUFFIX = 'Reply.comment'
-	;
-	
-	// PRIVATE
-	var 
-		fullyAuthenticatedUserName = Utils.Alfresco.getFullyAuthenticatedUserName(),
-		isServiceManager = ServicesUtils.isServiceManager(fullyAuthenticatedUserName),
-		managerUserName = null,
-		documentNode = null,
-		operation = null,
-		service = null,
-		comment = '', // comment may be used to the simple 'forward' operation, but is currently not used...
-		commentArgs = null,
+	Yamma.Actions.ForwardReplyAction = Utils.Object.create(Yamma.Actions.ManagerDocumentNodeAction, {
 		
-		operations = {
+		eventType : 'forward-reply',
+		
+		service : null,
+		comment : '', // comment may be used to the simple 'forward' operation, but is currently not used...
+		accept : true,
+		
+		wsArguments : [
+			'comment',
+			'service',
+			{ name : 'approbe', defaultValue : 'true' }
+		],
+				
+		prepare : function() {
 			
-			'forward' : forward,
-			'acceptAndForward' : acceptAndForward,
-			'acceptForSignature' : acceptForSignature,
-			'acceptAndSend' : acceptAndSend
+			Yamma.Actions.ManagerDocumentNodeAction.prepare.call(this);
 			
-		}
-	;
-	
-	// MAIN LOGIC
-	
-	Common.securedExec(function() {
-		
-		var 
-			parseArgs = new ParseArgs(
-				{ name : 'nodeRef', mandatory : true}, 
-				{ name : 'operation', mandatory : true, checkValue : checkOperationType }, 
-				'comment',
-				'service',
-				'manager'
-			),
-			documentNodeRef = parseArgs['nodeRef']
-		;
-		
-		managerUserName = Utils.asString(parseArgs['manager']);
-		if (!managerUserName) {
-			if (isServiceManager) {
-				managerUserName = fullyAuthenticatedUserName
-			} else {
+			this.accept = Utils.asString(this.parseArgs['approbe']) !== 'false';
+			
+			this.comment = Utils.asString(this.parseArgs['comment']) || this.comment;
+			
+			this.service = Utils.asString(this.parseArgs['service']);
+			if (!this.service) {
 				throw {
 					code : '512',
-					message : 'IllegalStateException! The action cannot be executed by a service-assistant without providing a manager'
-				}			
+					message : 'IllegalStateException! The service is mandatory when performing a delegation of validation'
+				};			
 			}
-		}
+			
+		},		
 		
-		documentNode = search.findNode(documentNodeRef);		
-		if (!documentNode) {
-			throw {
-				code : '512',
-				message : 'IllegalStateException! The provided nodeRef does not exist in the repository'
-			};
-		}
+		isExecutable : function(node) {
+			
+			return (
+				Yamma.Actions.ManagerDocumentNodeAction.isExecutable.apply(this, arguments) &&
+				ActionUtils.canValidate(this.node, this.fullyAuthenticatedUserName)
+			);
+			
+		},
 		
-		if (!ActionUtils.canValidate(documentNode, fullyAuthenticatedUserName)) {
-			throw {
-				code : '403',
-				message : 'Forbidden! The action cannot be executed by you in the current context'
+		doExecute : function(node) {
+			
+			this.forward();		
+			this.addHistoryComment();
+			
+		},
+			
+		forward : function() {
+	
+			var errorMessage = DocumentUtils.moveToServiceTray(this.node, this.service);
+			if (errorMessage) {
+				throw {
+					code : '512',
+					message : "IllegalStateException! While refusing, " + errorMessage
+				};						
 			}
-		}		
-		
-		operation = Utils.asString(parseArgs['operation']);
-		comment = Utils.asString(parseArgs['comment']) || comment;
-		service = Utils.asString(parseArgs['service']);
-		
-		main();
+			
+			
+		},		
+				
+		addHistoryComment : function() {
+			
+			var commentArgs = [
+				Utils.Alfresco.getSiteTitle(this.service), 
+				this.comment ? (' : ' + this.comment) : ''
+			];
+			
+			this.updateDocumentHistory(
+				this.approbe ? 'acceptAndForwardReply.comment' : 'forwardReply.comment', /* msgKey */ 
+				commentArgs
+			);
+			
+		}
 		
 	});
-	
-	function checkOperationType(operation) {
-		
-		if (undefined !== operations[operation]) return '';
-		return "The parameter 'operation' only accept values {accept, acceptAndForward, acceptForSignature, forward}";
-		
-	}
-	
-	function main() {
-		
-		operations[operation]();		
-		setModel();
-		addHistoryComment();
-		
-	}
-	
-	function acceptAndSend() {		
-		SendUtils.sendDocument(documentNode);
-	}
-	
-	function acceptAndForward() {
-		forward();
-	}
 
-	function acceptForSignature() {
-		updateDocumentState(YammaModel.DOCUMENT_STATE_SIGNING);
-	}
-	
-	function forward() {
-		
-		if (!service) {
-			throw {
-				code : '512',
-				message : 'IllegalStateException! The service is mandatory when performing a delegation of validation'
-			};			
-		}
+	Yamma.Actions.ForwardReplyAction.execute();
 
-		var errorMessage = DocumentUtils.moveToServiceTray(documentNode, service);
-		if (errorMessage) {
-			throw {
-				code : '512',
-				message : "IllegalStateException! While refusing, " + errorMessage
-			};						
-		}
-		
-		commentArgs = [
-			Utils.Alfresco.getSiteTitle(service), 
-			comment ? (' : ' + comment) : ''
-		];
-		
-	}	
-	
-	function updateDocumentState(newState) {
-		
-		documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME] = newState;
-		documentNode.save();
-		
-	}
-	
-	function addHistoryComment(customArgs, forcedOperation) {
-		
-		commentArgs = customArgs || commentArgs || [comment];
-		
-		var msgKey = (forcedOperation || operation) + MSG_KEY_SUFFIX;
-		updateDocumentHistory(msgKey, commentArgs);
-		
-	}
-	
-	function updateDocumentHistory(commentKey, args) {
-		
-		var 
-			message = msg.get(commentKey, args),
-			trimmedMessage = Utils.String.trim(message) 
-		;
-		
-		// set a new history event
-		HistoryUtils.addHistoryEvent(
-			documentNode, 
-			FORWARD_REPLY_EVENT_TYPE + '!' + operation, /* eventType */
-			trimmedMessage, /* comment */
-			managerUserName, /* referrer */
-			fullyAuthenticatedUserName /* delegate */
-		);
-		
-	}
-	
-	function setModel() {
-		
-		model.operation = operation;
-		model.newState = documentNode.properties[YammaModel.STATUSABLE_STATE_PROPNAME];
-		
-	}
-	
-	
 })();

@@ -210,7 +210,7 @@
 			}
 			
 			var serviceSite = siteService.getSite(serviceName);
-			if (!serviceSite) return false;
+			if (null == serviceSite) return false;
 			
 			var memberRole = Utils.asString(serviceSite.getMembersRole(userName));
 			if (memberRole == primaryRole) return true;

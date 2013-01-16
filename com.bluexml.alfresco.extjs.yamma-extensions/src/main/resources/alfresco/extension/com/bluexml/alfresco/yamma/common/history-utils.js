@@ -7,17 +7,25 @@
 		addHistoryEvent : function(document, eventType, comment, referrer, delegate) {
 			
 			// Create the history event in the history-container of the document-container
-			var properties = {};
+			var
+				referrerUserName = null != referrer
+					? Utils.Alfresco.getPersonUserName(referrer) 
+					: Utils.Alfresco.getFullyAuthenticatedUserName(),
+				delegateUserName = null != delegate 
+					? Utils.Alfresco.getPersonUserName(delegate) 
+					: null,  
+				properties = {}
+			;
 			properties[YammaModel.EVENT_DATE_PROPNAME] = new Date();
 			properties[YammaModel.EVENT_EVENT_TYPE_PROPNAME] = eventType || GENERIC_EVENT_TYPENAME;
 			properties[YammaModel.EVENT_COMMENT_PROPNAME] = comment || '';
-			properties[YammaModel.EVENT_REFERRER_PROPNAME] = referrer || Utils.Alfresco.getFullyAuthenticatedUserName();
-			if (delegate && delegate != referrer) {
-				properties[YammaModel.EVENT_DELEGATE_PROPNAME] = delegate;
+			properties[YammaModel.EVENT_REFERRER_PROPNAME] = referrerUserName;
+			if (delegateUserName != referrerUserName) {
+				properties[YammaModel.EVENT_DELEGATE_PROPNAME] = delegateUserName;
 			}
 			
 			var newEvent = document.createNode(null, YammaModel.EVENT_TYPE_SHORTNAME, properties, YammaModel.HISTORIZABLE_HISTORY_ASSOCNAME);
-			if (!newEvent) {
+			if (null == newEvent) {
 				logger.warn('[HistoryUtils.addHistoryEvent] Cannot create the history event.');
 				return null;
 			}

@@ -5,6 +5,8 @@ Ext.define('Yamma.view.gridactions.MarkAsSent', {
 	icon : Yamma.Constants.getIconDefinition('stamp').icon,
 	tooltip : 'Marquer comme envoyé',
 	actionUrl : 'alfresco://bluexml/yamma/mark-as-sent',
-	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT	
+	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT,
+	supportBatchedNodes : true,
+	managerAction : true
 	
 });

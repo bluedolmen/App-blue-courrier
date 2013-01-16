@@ -3,30 +3,32 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/nodeaction.lib.js">
 
+
 (function() {
 	
-	Yamma.Actions.TakeProcessingAction = Utils.Object.create(Yamma.Actions.DocumentNodeAction, {
+	Yamma.Actions.ForwardForSigningAction = Utils.Object.create(Yamma.Actions.ManagerDocumentNodeAction, {
 		
-		eventType : 'take-processing',
+		eventType : 'forward-for-signing',
 		
 		isExecutable : function(node) {
 			
-			return ActionUtils.canTakeProcessing(node, this.fullyAuthenticatedUserName)
+			return ( 
+				Yamma.Actions.ManagerDocumentNodeAction.isExecutable.apply(this, arguments) &&
+				ActionUtils.canValidate(this.node, this.fullyAuthenticatedUserName) &&
+				ReplyUtils.hasSignableReplies(node)
+			);
 			
 		},
 		
 		doExecute : function(node) {
 			
-			this.updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSING);
-			this.updateDocumentHistory(
-				'takeProcessing.comment', 
-				[Utils.Alfresco.getPersonDisplayName(this.fullyAuthenticatedUserName)] 
-			);
+			this.updateDocumentState(YammaModel.DOCUMENT_STATE_SIGNING);
+			this.updateDocumentHistory('forwardForSigning.comment' /* msgKey */);
 			
 		}		
 		
 	});
 
-	Yamma.Actions.TakeProcessingAction.execute();
-	
+	Yamma.Actions.ForwardForSigningAction.execute();	
+
 })();

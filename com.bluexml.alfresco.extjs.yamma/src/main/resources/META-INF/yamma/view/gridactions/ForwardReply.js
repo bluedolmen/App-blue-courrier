@@ -1,69 +1,57 @@
 Ext.define('Yamma.view.gridactions.ForwardReply', {
 
-	extend : 'Yamma.view.gridactions.GridAction',
+	extend : 'Yamma.view.gridactions.SimpleNodeRefGridAction',
 	
 	uses : [
-		'Yamma.view.dialogs.ForwardDialog'
+		'Yamma.view.dialogs.ForwardDialog',
+		'Bluexml.utils.alfresco.grid.GridUtils'
 	],
 		
-	icon : Yamma.Constants.getIconDefinition('arrow_double_right').icon,
-	tooltip : 'Transmettre',
+	icon : Yamma.Constants.getIconDefinition('group_go').icon,
+	tooltip : 'Transmettre au service',
 	actionUrl : 'alfresco://bluexml/yamma/forward-reply',
 	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_VALIDATE,	
 		
-	performAction : function(record) {		
+	supportBatchedNodes : true,
+	managerAction : true,
+	
+	isBatchAvailable : function(records, context) {
+		
+		var
+			enclosingServices = Bluexml.utils.alfresco.grid.GridUtils.getCommons(records, Yamma.utils.datasources.Documents.ENCLOSING_SERVICE),
+			enclosingServicesNb = enclosingServices.getCount()
+		;
+		
+		return (enclosingServicesNb > 1)
+			? false
+			: this.callParent(arguments)
+		;
+		
+	},
+	
+	prepareBatchAction : function(records) {
 		
 		var
 			me = this,
-			nodeRef = record.get('nodeRef'),
-			enclosingService = record.get(Yamma.utils.datasources.Documents.ENCLOSING_SERVICE),
-			enclosingServiceName = enclosingService.name,
-			canSkipValidation = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_SKIP_VALIDATION),
-			hasSignableReplies = record.get(Yamma.utils.datasources.Documents.MAIL_HAS_SIGNABLE_REPLIES_QNAME)
+			enclosingServices = Bluexml.utils.alfresco.grid.GridUtils.getCommons(records, Yamma.utils.datasources.Documents.ENCLOSING_SERVICE),
+			enclosingServiceName = enclosingServices.keys[0].name,
+			
+			canSkipValidation = 
+				Bluexml.utils.alfresco.grid.GridUtils.getCommons(
+					records, 
+					Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_SKIP_VALIDATION
+				).get(false) === undefined 
 		;
 		
-		me.forwardDialog = Ext.create('Yamma.view.dialogs.ForwardDialog', {
+		this.forwardDialog = Ext.create('Yamma.view.dialogs.ForwardDialog', {
 			
 			initialService : enclosingServiceName,
 			canSkipValidation : canSkipValidation,
-			hasSignableReplies : hasSignableReplies,
 			
 			forward : function() {
 				
-				var
-					service = this.getService(),
-					approbe = this.getApprobeStatus(),
-					operation = this.getOperation(),
-					managerUserName = this.getManagerUserName(),
-					wsOperation = null
-				;
-				
-				if (approbe) {					
-					if (Yamma.view.dialogs.ForwardDialog.Operation.SEND == operation) {
-						wsOperation = 'acceptAndSend';
-					} else if (Yamma.view.dialogs.ForwardDialog.Operation.SIGN == operation) {
-						wsOperation = 'acceptForSignature';
-					} else if (Yamma.view.dialogs.ForwardDialog.Operation.FORWARD == operation) {
-						wsOperation = 'acceptAndForward';
-					}
-				} else if (Yamma.view.dialogs.ForwardDialog.Operation.FORWARD == operation) {
-					wsOperation = 'forward';
-				}
-				
-				if (!wsOperation) {
-					Ext.Error.raise('IllegalStateException! The operation cannot be determined with the current dialog configuration.');
-				}
-				
 				me.forwardDialog.hide();
-				
-				me.jsonPost(
-					{
-						nodeRef : nodeRef,
-						operation : wsOperation,
-						service : service,
-						manager : managerUserName
-					}
-				);
+				me.fireEvent('preparationReady', records, {} /* preparationContext */);
 				
 			}
 			
@@ -71,10 +59,27 @@ Ext.define('Yamma.view.gridactions.ForwardReply', {
 		
 		this.forwardDialog.show();
 		
+	},	
+	
+	performServerRequest : function(nodeRefs) {
+		
+		var
+			approbe = this.forwardDialog.getApprobeStatus(),
+			service = this.forwardDialog.getService()
+		;
+		
+		this.jsonPost({
+			nodeRef : nodeRefs,
+			manager : this.usurpedManager || undefined,
+			approbe : approbe,
+			service : service
+		});
+		
 	},
 	
 	onSuccess : function() {
 		this.callParent();
+		
 		if (null != this.forwardDialog) {
 			this.forwardDialog.close();
 			this.forwardDialog = null;

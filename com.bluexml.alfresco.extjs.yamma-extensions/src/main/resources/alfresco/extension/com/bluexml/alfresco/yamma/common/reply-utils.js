@@ -240,7 +240,7 @@
 		canBeSigned : function(replyNode, username) {
 			
 			function replyNeedsSignature(replyNode) {
-				var needsSignature = replyNode.properties[YammaModel.SIGNABLE_NEEDS_SIGNATURE_SHORTNAME] || false;	
+				var needsSignature = replyNode.properties[YammaModel.SIGNABLE_NEEDS_SIGNATURE_PROPNAME] || false;	
 				return needsSignature;
 			}
 			
