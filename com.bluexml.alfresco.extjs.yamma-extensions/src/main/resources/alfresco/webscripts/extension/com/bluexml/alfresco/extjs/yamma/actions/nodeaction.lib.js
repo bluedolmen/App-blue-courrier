@@ -3,6 +3,30 @@
 
 	Actions = Utils.ns('Yamma.Actions');
 	
+	Actions.Utils = {
+		
+		getRepliesListDescription : function(node) {
+			
+			var 
+				replies = ReplyUtils.getReplies(node),
+				replyNames = Utils.map(replies, function(replyNode) {
+					return replyNode.properties.title || replyNode.name;
+				}),			
+				formattedRepliesTitle = Utils.String.join(replyNames, ',')				
+			;
+			
+			return ({
+				
+				repliesNames : replyNames,
+				titleList : formattedRepliesTitle,
+				hasMany : replies.length > 1
+				
+			});			
+			
+		}
+		
+	};
+	
 	Actions.NodeAction = Utils.Object.create({
 		
 		fullyAuthenticatedUserName : Utils.Alfresco.getFullyAuthenticatedUserName(),
@@ -255,6 +279,26 @@
 		
 	});
 
+	Actions.InstructorDocumentNodeAction = Utils.Object.create(Actions.DocumentNodeAction, {
+				
+		updateDocumentHistory : function(msgKey, commentArgs) {
+			
+			var
+				assignedAuthority = DocumentUtils.getAssignedAuthority(this.node),
+				isAssignedAuthority = DocumentUtils.isAssignedAuthority(this.node, this.fullyAuthenticatedUserName)				
+			;
+			
+			Actions.DocumentNodeAction.updateDocumentHistory.call(this, 
+				msgKey, 
+				commentArgs,
+				assignedAuthority, /* referrer */
+				isAssignedAuthority ? null : this.fullyAuthenticatedUserName /* delegate */
+			);
+			
+		}
+
+		
+	});
 	
 	
 })();

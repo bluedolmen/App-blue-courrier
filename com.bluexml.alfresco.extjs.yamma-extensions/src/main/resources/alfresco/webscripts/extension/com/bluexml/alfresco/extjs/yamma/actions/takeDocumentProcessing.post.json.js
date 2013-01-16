@@ -5,7 +5,7 @@
 
 (function() {
 	
-	Yamma.Actions.TakeProcessingAction = Utils.Object.create(Yamma.Actions.DocumentNodeAction, {
+	Yamma.Actions.TakeProcessingAction = Utils.Object.create(Yamma.Actions.InstructorDocumentNodeAction, {
 		
 		eventType : 'take-processing',
 		
@@ -18,6 +18,7 @@
 		doExecute : function(node) {
 			
 			this.updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSING);
+			
 			this.updateDocumentHistory(
 				'takeProcessing.comment', 
 				[Utils.Alfresco.getPersonDisplayName(this.fullyAuthenticatedUserName)] 

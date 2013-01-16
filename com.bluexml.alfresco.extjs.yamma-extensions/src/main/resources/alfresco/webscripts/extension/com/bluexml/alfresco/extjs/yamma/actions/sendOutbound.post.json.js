@@ -6,7 +6,7 @@
 
 (function() {
 	
-	Yamma.Actions.SendOutboundAction = Utils.Object.create(Yamma.Actions.DocumentNodeAction, {
+	Yamma.Actions.SendOutboundAction = Utils.Object.create(Yamma.Actions.InstructorDocumentNodeAction, {
 		
 		eventType : 'send-outbound',
 		sendByMail : false, /* boolean */ // whether the reply will be sent by mail on the sending step
@@ -76,25 +76,16 @@
 		
 		addHistoryComment : function() {
 			
-			var 
-				replies = ReplyUtils.getReplies(this.node),
-				replyNames = Utils.map(replies, function(replyNode) {
-					return replyNode.properties.title || replyNode.name;
-				}),			
-				formattedRepliesTitle = Utils.String.join(replyNames, ','),
-				
-				assignedAuthority = DocumentUtils.getAssignedAuthority(this.node),
-				isAssignedAuthority = DocumentUtils.isAssignedAuthority(this.node, this.fullyAuthenticatedUserName)				
+			var 			
+				repliesDescription = Yamma.Actions.Utils.getRepliesListDescription(this.node)
 			;
 			
 			this.updateDocumentHistory(
-				replies.length > 1 ? 'sendOutboundMails.comment' : 'sendOutboundMail.comment', 
+				repliesDescription.hasMany ? 'sendOutboundMails.comment' : 'sendOutboundMail.comment', 
 				[
-					formattedRepliesTitle,
+					repliesDescription.titleList,
 					this.skipValidation ? 'envoi' : 'validation'
-				],
-				assignedAuthority, /* referrer */
-				isAssignedAuthority ? null : this.fullyAuthenticatedUserName /* delegate */
+				]
 			);
 			
 		}

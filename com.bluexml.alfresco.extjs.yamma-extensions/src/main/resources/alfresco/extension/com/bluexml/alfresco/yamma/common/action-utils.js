@@ -8,9 +8,9 @@
 		
 		getAvailableActionNames : function() {
 			
-			var actionNames = [];
+			var methodName, actionNames = [];
 			
-			for (var methodName in ActionUtils) {
+			for (methodName in ActionUtils) {
 				if (methodName.indexOf('can') != 0) continue;
 				actionNames.push(methodName);
 			}
@@ -65,9 +65,14 @@
 				
 				/* Document is delivered */
 				DocumentUtils.isDocumentDelivered(documentNode) &&
+		
+				(
+					/* Document is assigned to the current user */
+					DocumentUtils.isAssignedAuthority(documentNode, username) ||
 				
-				/* Document is assigned to the current user */
-				DocumentUtils.isAssignedAuthority(documentNode, username)
+					/* The user is an assistant of the service */
+					DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+				)
 				
 			);
 			
