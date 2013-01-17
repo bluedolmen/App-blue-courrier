@@ -287,6 +287,12 @@
       <metainfo xmi:id="_9K-AUkqOEeKhHaXgY57Dkg" key="regular-expression.match" value="True"/>
       <metainfo xmi:id="_9K-AU0qOEeKhHaXgY57Dkg" key="propertySearched" value="False"/>
     </attributes>
+    <attributes xmi:id="_ZudBcF_kEeK-TdCf_eugzA" documentation="" description="The signed-date of the document of signable documents" name="signedDate" title="Signed Date" typ="DateTime">
+      <metainfo xmi:id="_kVaZEF_kEeK-TdCf_eugzA" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_kVaZEV_kEeK-TdCf_eugzA" key="hidden" value="True"/>
+      <metainfo xmi:id="_kVaZEl_kEeK-TdCf_eugzA" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_kVbAIF_kEeK-TdCf_eugzA" key="index.tokenised" value="false"/>
+    </attributes>
   </aspectSet>
   <enumerationSet xmi:id="_KXKmsMUKEeGVoP7HZaHFtA" name="EStates">
     <literals xmi:id="_0nlGMEnOEeKhHaXgY57Dkg" value="pending" name="PENDING"/>

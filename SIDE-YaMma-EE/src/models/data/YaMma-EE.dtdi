@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" activeDiagram="//@diagrams.0">
   <model href="YaMma-EE.dt#_B4EfELC0EeGFgddOkpVJwg"/>
-  <diagrams position="0,0" size="100,100" name="Main" zoom="0.75" viewport="330,605">
+  <diagrams position="0,0" size="100,100" name="Main" zoom="0.75" viewport="330,655">
     <property key="pageFormatName" value="A2"/>
     <property key="diagramWidth" value="1680"/>
     <property key="diagramHeight" value="2376"/>
@@ -1069,7 +1069,7 @@
       <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
       <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="1267,1148" size="187,73">
+    <contained xsi:type="di:GraphNode" position="1267,1148" size="187,91">
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_k-6Q4Fl0EeK-TdCf_eugzA"/>
       </semanticModel>
@@ -1081,6 +1081,14 @@
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
             <element href="YaMma-EE.dt#_mZfzoEqOEeKhHaXgY57Dkg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0">
+          <property key="backgroundColor" value=""/>
+          <property key="foregroundColor" value=""/>
+          <property key="font" value=""/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+            <element href="YaMma-EE.dt#_ZudBcF_kEeK-TdCf_eugzA"/>
           </semanticModel>
         </contained>
       </contained>
