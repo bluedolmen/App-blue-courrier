@@ -88,31 +88,37 @@
 			}
 			
 			var 
+				me = this,
 				nodeArg = this.nodeArg,
 				nodeRef = this.parseArgs[nodeArg]
 			;
 			nodeRef = Utils.String.trim(Utils.asString(nodeRef));
 			
 			if (Utils.Alfresco.isNodeRef(nodeRef)) {
-				this.node = extractNode(nodeRef);
+				this.node = this.extractNode(nodeRef);
 				this.nodes = [this.node];
 			} else if (nodeRef.indexOf('[') == 0) {
 				var nodeRefs = Utils.JSON.parse(nodeRef);
 				this.nodes = Utils.map(nodeRefs, function(nodeRef) {
-					return extractNode(nodeRef);
+					return me.extractNode(nodeRef);
 				});
 			}
 			
-			function extractNode(nodeRef) {
-				
+			
+		},
+		
+		extractNode : function(nodeRef) {
+			
+			if (Utils.Alfresco.isNodeRef(nodeRef)) {
+			
 				var node = search.findNode(nodeRef);
 				if (null != node) return node;
 				
-				throw {
-					code : '512',
-					message : "InvalidStateException! The provided nodeRef='" + Utils.asString(nodeRef) + "' does not exist in the repository"
-				}
-				
+			}
+			
+			throw {
+				code : '512',
+				message : "InvalidStateException! The provided nodeRef='" + Utils.asString(nodeRef) + "' is not a valid nodeRef or it does not exist in the repository"
 			}
 			
 		},
