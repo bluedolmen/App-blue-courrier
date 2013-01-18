@@ -244,6 +244,32 @@
 					<overlays></overlays>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includes>
+						<include>target/**/*.js</include>
+					</includes>
+					<replacements>
+						<replacement>
+							<token><![CDATA[///<import]]></token>
+							<value><![CDATA[<import]]></value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		<!-- Copies and filters resources in build folder so maven-amp-plugin can 
 			pick them up -->
