@@ -44,13 +44,33 @@
 	font-weight:bold;
 }
 
-.x-grid-cell div .name {
+.x-grid-cell .document-subject .name {
 	font-style : italic;
 	color: #a6a6a6;
 	background-repeat: no-repeat; 
 	background-position: left center;
 	padding-left: 18px;
 	padding-top: 5px;
+}
+
+.x-grid-cell .x-grid-checkheader {
+	line-height: 16px; 
+	background-image: url(../icons/checkbox_unchecked.png);
+}
+
+.x-grid-cell .x-grid-checkheader {
+	line-height: 16px; 
+	background-image: url(../icons/checkbox_unchecked.png);
+}
+
+/*
+.x-grid-cell .x-grid-dirty-cell {
+	background-image : none;
+}
+*/
+
+.x-grid-cell .x-grid-checkheader-checked {
+	background-image: url(../icons/checkbox.png) !important;
 }
 
 .row-mail-late .x-grid-cell {

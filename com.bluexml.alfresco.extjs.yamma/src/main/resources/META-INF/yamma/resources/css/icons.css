@@ -85,6 +85,9 @@
 .icon-text_signature_go {
     background-image: url(../icons/text_signature_go.png) !important;
 }
+.icon-page_add {
+    background-image: url(../icons/page_add.png) !important;
+}
 .icon-cross {
     background-image: url(../icons/cross.png) !important;
 }
@@ -345,6 +348,9 @@
 }
 .icon-email_go {
     background-image: url(../icons/email_go.png) !important;
+}
+.icon-database_add {
+    background-image: url(../icons/database_add.png) !important;
 }
 .icon-email_in {
     background-image: url(../icons/email_in.png) !important;
