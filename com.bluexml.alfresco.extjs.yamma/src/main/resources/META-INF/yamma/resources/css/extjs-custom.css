@@ -1,27 +1,37 @@
+/**************************************************************************
+ * LOADING PAGE
+ **************************************************************************/
 
-.column-header-img {
-	display : block;
-	background : no-repeat;
-	width : 16px; 
-	height : 16px;
-	margin-top : 2px;
-	margin-left : auto;
-	margin-right : auto;
+#loading #logo-application {
+	background: url(../images/logo-yamma.png) no-repeat;
+	background-position: center center;
+	height: 128px;
+	display:  block;
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
 }
 
-.x-action-col-icon {
-	padding-left : 2px;
-	padding-right : 2px;
-	padding-top: 0;
-	padding-bottom: 0;
+#loading #loading-indicator {
+	background: url(../images/loading-indicator-40.gif) no-repeat;
+	float : right;
+	height: 40px;
+	width : 40px;
+	margin-top: 5px;
 }
 
-.cell-align-middle {
-	vertical-align: middle;
+#loading .loading-text {
+	padding-left : 200px;
+	display : none;
+}
+
+#loading #logo-bluexml {
+	float : left;
 }
 
 
-/* MAILS VIEW */
+/**************************************************************************
+ * MAILS VIEW
+ **************************************************************************/
 
 .x-grid-cell div .document-assigned div {
 	background-repeat: no-repeat; 
@@ -139,53 +149,12 @@
 }
 */
 
-#loading-mask {
-	position: absolute;
-	left:     0;
-	top:      0;
-	width:    100%;
-	height:   100%;
-	z-index:  20000;
-	background-color: white;
-}
-
-#loading {
-	position: absolute;
-	left:     0px;
-	top:      20%;
-	padding:  2px;
-	z-index:  20001;
-	width:    100%;
-}
-
-#loading div {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 450px;
-}
-
-#loading .loading-indicator {
-	background: url(../images/loading.gif) no-repeat;
-	color:      #555;
-	font:       bold 13px tahoma,arial,helvetica;
-	padding:    15px 75px;
-	text-align: center;
-	height:     120px;
-	border-top: 2px solid gray;
-	border-bottom: 2px solid gray;
-}
-
-/**
- * Ext.ux.tab.Toolbar styles
- */
-.x-tab-toolbar-right { z-index: 6; float: right; }
-.x-tab-toolbar-right .x-tab-toolbar { padding: 0 2px; border-width: 0 0 0 1px; }
-.x-tab-toolbar-left { z-index: 6; float: left; }
-.x-tab-toolbar-left .x-tab-toolbar { padding: 0 2px; border-width: 0 1px 0 0; }
 
 
-/* COMMENTS VIEW */
+/**************************************************************************
+ * COMMENTS VIEW
+ **************************************************************************/
+
 .comments .author {
 	padding-bottom : 5px;
 	color : #15498B;
@@ -199,7 +168,10 @@
 }
 
 
-/* HISTORY VIEW */
+/**************************************************************************
+ * HISTORY VIEW
+ **************************************************************************/
+
 .history .history-actor div{
 	padding-left: 18px;
 	background-repeat: no-repeat; 
