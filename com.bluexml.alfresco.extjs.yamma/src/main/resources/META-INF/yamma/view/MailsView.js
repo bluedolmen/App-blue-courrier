@@ -54,7 +54,7 @@ Ext.define('Yamma.view.MailsView', {
 	
 	//title : 'Courrier',
 	title : '',
-	
+		
 	initComponent : function() {
 		var me = this;
 		
@@ -72,14 +72,18 @@ Ext.define('Yamma.view.MailsView', {
 		};
 		
 		this.addEvents('stateClick');
-		this.getStatisticsView(); // instantiate the statistics view 
+		this.getStatisticsView(); // instantiate the statistics view
 		
 		this.callParent(arguments);
 		
 		this.on('viewready', function() {
 			this.resetToInitialView();
 		});
+		
+		this._setTickMenuItems();
+		
 	},
+	
 	
 	getRowClass : function(priorityLevel) {
 		
@@ -240,8 +244,11 @@ Ext.define('Yamma.view.MailsView', {
 	    		tooltip : 'Sélectionner le document',
 	    		plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls}),
 	    		resizable : false,
-				menuDisabled : true,
+				//menuDisabled : true,
+	    		menuText : '(Dé)Selectionner',
 				sortable : false,
+				groupable : false,
+				hideable : true,
 				dataIndex : 'selected',
 				listeners : {
 					checkchange : function(column, rowIndex, isChecked){
@@ -251,6 +258,63 @@ Ext.define('Yamma.view.MailsView', {
 	    		
 	    	}	
     	);
+    	
+    },
+    
+    /**
+     * This method will be called in the initComponent to install the
+     * appropriate select/unselect menu
+     * @private
+     */
+    _setTickMenuItems : function() {
+    	
+    	var me = this;
+    	
+		// Manager the select/unselect menu-items on the corresponding column
+		// menu.
+		// TODO: Refactor all this to get a select grid feature
+		this.headerCt.on('menucreate', function(ct, menu) {
+			menu.on('beforeshow', showHeaderMenu);
+        	menu.add([
+	        	{
+	        		xtype : 'menuseparator',
+	        		itemId : 'select-submenu-separator'
+	        	},
+        		{
+        			text : 'Sélectionner tout',
+        			itemId : 'select-all',
+        			iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls,
+        			handler : function() {
+        				me.setAllCheckState(true /* checkState */);
+        				
+        			}
+        		},
+        		{
+        			text : 'Déselectionner tout',
+        			itemId : 'unselect-all',
+        			iconCls : Yamma.Constants.getIconDefinition('checkbox_unchecked').iconCls,
+        			handler : function() {
+        				me.setAllCheckState(false /* checkState */);
+        			}
+        		}
+        	]);
+		}, this);
+		
+		function showHeaderMenu(menu) {
+			
+			var 
+				columnDataIndex = menu.activeHeader.dataIndex,
+				isSelectedColumn = 'selected' != columnDataIndex,
+				selectAllItem = menu.queryById('select-all'),
+				unselectAllItem = menu.queryById('unselect-all'),
+				separator = menu.queryById('select-submenu-separator')
+			;
+
+			selectAllItem.setVisible(!isSelectedColumn);
+			unselectAllItem.setVisible(!isSelectedColumn);
+			separator.setVisible(!isSelectedColumn);
+			
+		}
     	
     },
     
@@ -700,6 +764,19 @@ Ext.define('Yamma.view.MailsView', {
 		return selectedRecords.items;
 		
 	},
+	
+	setAllCheckState : function(checkState) {
+		var
+			store = this.getStore(),
+			data = store.data
+		;
+		
+		data.each(function(record) {
+			record.set('selected', checkState); // Beware! Does not fire beforecheckchange/checkchange events
+		});
+		
+		this.updateActionsButtonState(checkState);
+	},	
 	
 	hasSelectedRecords : function() {
 		var store = this.getStore();
