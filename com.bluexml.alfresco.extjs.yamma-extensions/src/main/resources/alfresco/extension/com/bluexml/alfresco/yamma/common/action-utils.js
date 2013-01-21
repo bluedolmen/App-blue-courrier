@@ -94,8 +94,13 @@
 				/* Document is a kind of inbound document */
 				documentNode.hasAspect(YammaModel.INBOUND_DOCUMENT_ASPECT_SHORTNAME) &&						
 				
-				/* Document is in 'processing' state */
-				DocumentUtils.checkDocumentState(documentNode, YammaModel.DOCUMENT_STATE_PROCESSING) &&
+				/* Document is in 'processing' or 'revising' state */
+				DocumentUtils.checkDocumentState(documentNode, 
+					[ 
+						YammaModel.DOCUMENT_STATE_PROCESSING, 
+						YammaModel.DOCUMENT_STATE_REVISING
+					]
+				) &&
 				
 				(
 					/* The user is the currently assigned user */

@@ -12,7 +12,6 @@ Ext.define('Yamma.utils.button.UploadButton', {
 	text : '',
 	
 	menu : {
-		width : 100,
 		margin : '0 0 10 0',
 		renderTo : Ext.getBody(),
 		items : Ext.Array.map(
@@ -25,7 +24,22 @@ Ext.define('Yamma.utils.button.UploadButton', {
 					text : typeDefinition.title,
 					iconCls : typeDefinition.iconCls,
 					typeShort : typeDefinition.typeShort,
-					action : 'uploadForm'
+					menu : [
+						{
+							text : 'Fichier local',
+							iconCls : Yamma.Constants.getIconDefinition('page_add').iconCls,
+							typeShort : typeDefinition.typeShort,
+							action : 'uploadFile'
+						},
+						{
+							text : 'Fichier GED',
+							iconCls : Yamma.Constants.getIconDefinition('database_add').iconCls,
+							typeShort : typeDefinition.typeShort,
+							action : 'selectFile'
+						}
+
+					]
+					
 				};
 			}
 		).concat([

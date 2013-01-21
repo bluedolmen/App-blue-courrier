@@ -4,6 +4,7 @@ Ext.Loader.setConfig(
 		disableCaching : false,
 		paths : {
 			'Yamma' : '/share/res/yamma',
+			'Yaecma' : '/share/res/yaecma',
 			'Bluexml' : '/share/res/bluexml',
 			'Ext' : '/scripts/extjs/src'
 		}
@@ -12,16 +13,20 @@ Ext.Loader.setConfig(
 
 Ext.require([
 	'Ext.window.MessageBox',
+	
 	'Bluexml.store.AlfrescoStore',
 	'Bluexml.utils.alfresco.Alfresco',
 	'Bluexml.utils.DirtyManager',
 	'Bluexml.utils.tab.Tool',
 	'Bluexml.utils.grid.column.HeaderImage',
 	'Bluexml.utils.Constants',
+	
 	'Yamma.utils.Constants',
 	'Yamma.utils.Services',
 	'Yamma.utils.Preferences',
-	'Yamma.utils.grid.MailsViewGrouping'
+	'Yamma.utils.grid.MailsViewGrouping',
+	
+	'Yaecma.utils.Constants'
 ], function() {
 	initApplication();
 });

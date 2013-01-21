@@ -16,21 +16,21 @@ Ext.define('Yamma.view.services.ServicesView', {
 	initComponent : function() {
 		this.store = this.getTreeStore();
 		this.callParent();
-		this.setService(this.initialSelection);
+		this.selectService(this.initialSelection);
 	},
 	
 	getTreeStore : function() {
 		return Ext.create('Yamma.store.services.ServicesTreeStore');
 	},
-	
-	setService : function(serviceShortName) {
+
+	/**
+	 * 
+	 * @param {} serviceShortName
+	 * @public
+	 */
+	selectService : function(serviceShortName) {
 		
-		if (!serviceShortName) return;
-		
-		var store = this.getStore();
-		if (!store) return;
-		
-		var serviceNode = store.getNodeById(serviceShortName);
+		var serviceNode = this.getServiceNode(serviceShortName);
 		if (!serviceNode) return;
 		
 		Ext.defer(
@@ -43,15 +43,41 @@ Ext.define('Yamma.view.services.ServicesView', {
 		
 	},
 	
-	getService : function() {
+	getServiceNode : function(serviceShortName) {
+		
+		if (!serviceShortName) return;
+		
+		var store = this.getStore();
+		if (!store) return;
+		
+		var serviceNode = store.getNodeById(serviceShortName);
+		return serviceNode; // may be null
+		
+	},	
+	
+	/**
+	 * @return {}
+	 * @public
+	 */
+	getSelectedService : function() {
+
+		var firstSelectedRecord = this._getFirstSelectedRecord();
+
+		return firstSelectedRecord ? firstSelectedRecord.get('name') : null;
+		
+	},
+	
+	/**
+	 * @private
+	 */
+	_getFirstSelectedRecord : function() {
 		
 		var 
 			selectedRecords = this.getSelectionModel().getSelection(),
-			firstSelectedRecord = selectedRecords[0]
+			firstSelectedRecord = selectedRecords[0] || null
 		;
 		
-		if (!firstSelectedRecord) return null;
-		return firstSelectedRecord.get('name');
+		return firstSelectedRecord;
 		
 	}
 	

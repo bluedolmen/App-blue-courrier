@@ -9,7 +9,7 @@ const GENERIC_SENDMAIL_ERROR_MESSAGE = "Erreur durant l'envoi des notifications 
 			if (!nodeRef) return null;
 			
 			var documentNode = search.findNode(nodeRef);
-			if (!documentNode) {
+			if (null == documentNode) {
 				throw new Error("IllegalStateException! The document-node with nodeRef '" + nodeRef + "' does not exist");
 			}
 			

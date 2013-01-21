@@ -24,7 +24,7 @@
 		
 		getContainerChildByName : function(container, childName, createConfig) {
 			
-			if (!container) {
+			if (null == container) {
 				throw new Error('IllegalArgumentException! The provided container is not a valid container');
 			}
 			childName = ('undefined' == typeof childName ? null : childName);

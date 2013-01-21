@@ -55,9 +55,17 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 				margin : 10,
 				flex : 1,
 				listeners : {
-					'viewready' : function() {
-						var servicesView = me._getServicesView();
-						servicesView.setService(me.initialService); 
+					'load' : function selectParentService() {
+						var 
+							servicesView = me._getServicesView(),
+							serviceNode = servicesView.getServiceNode(me.initialService)
+						;
+						if (!serviceNode) return;
+						
+						var parentServiceNode = serviceNode.parentNode;
+						if (!parentServiceNode) return;
+						
+						servicesView.selectService(parentServiceNode.getId());						
 					},
 					'selectionchange' : function() {
 						me._validateOperation();
@@ -105,7 +113,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 		        }
 		    ]
 		}];
-		
+
 		this.callParent();
 		this._setNeedsApprobe(true);
 		
@@ -118,7 +126,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 	
 	getService : function() {
 		var servicesView  = this._getServicesView();
-		return servicesView.getService();
+		return servicesView.getSelectedService();
 	},	
 	
 	forward : Ext.emptyFn,

@@ -4,6 +4,9 @@
 	<@link rel="stylesheet" type="text/css" href="/scripts/extjs/resources/css/ext-all.css" />
 	<script type="text/javascript" src="/scripts/extjs/ext-dev.js"></script>
 
+	<@link rel="stylesheet" type="text/css" href="${url.context}/res/yaecma/resources/css/icons.css" />
+	<@link rel="stylesheet" type="text/css" href="${url.context}/res/yaecma/resources/css/extjs-custom.css" />
+
 	<@link rel="stylesheet" type="text/css" href="${url.context}/res/yamma/resources/css/icons.css" />
 	<@link rel="stylesheet" type="text/css" href="${url.context}/res/yamma/resources/css/extjs-custom.css" />
 	<script type="text/javascript" src="${url.context}/res/yamma/app.js"></script>

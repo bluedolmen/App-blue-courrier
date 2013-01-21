@@ -11,7 +11,19 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 	         {
 	        	 text : 'Ajouter une réponse',
 	        	 itemId : 'addReply',
-	        	 iconCls : 'icon-add'
+	        	 iconCls : 'icon-add',
+	        	 menu : [
+					{
+						text : 'Fichier local',
+						iconCls : Yamma.Constants.getIconDefinition('page_add').iconCls,
+						action : 'uploadFile'
+					},
+					{
+						text : 'Fichier GED',
+						iconCls : Yamma.Constants.getIconDefinition('database_add').iconCls,
+						action : 'selectFile'
+					}
+	        	 ]
 	         },
 	         {
 	        	 text : 'Supprimer la réponse',
@@ -63,11 +75,7 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 		;
 		
 		removeReplyMenuItem.disable();
-		if (canReply && !hasReplies) {
-			addReplyMenuItem.enable();
-		} else {
-			addReplyMenuItem.disable();
-		}
+		addReplyMenuItem.setDisabled(!canReply || hasReplies);
 		
 		this.postProcessReplyMenu();
 		
@@ -82,11 +90,7 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 		;
 		
 		addReplyMenuItem.disable();
-		if (canDelete) {
-			removeReplyMenuItem.enable();
-		} else {
-			removeReplyMenuItem.disable();
-		}
+		removeReplyMenuItem.setDisabled(!canDelete);
 		
 		this.postProcessReplyMenu();
 	},
@@ -97,12 +101,8 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 		Ext.Array.forEach(this.menu.query('menuitem'), function(item) {
 			inactive &= item.isDisabled();
 		});
-		
-		if (inactive) {
-			this.disable();
-		} else {
-			this.enable();
-		}
+				
+		this.setDisabled(inactive);
 		
 	}
 	

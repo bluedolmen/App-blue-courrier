@@ -227,11 +227,12 @@
 			if (null == document) return null;
 			
 			var documentName = document.name;
-			if (!documentName) return null;
+			if (null == documentName) return null;
+			
 			
 			var 
-				containerName = documentName + CONTAINER_DOT_EXTENSION,		
-				documentParent = document.parent
+				documentParent = document.parent,
+				containerName = this.getUniqueContainerName(document)
 			;
 			if (null == documentParent) return null;
 			
@@ -250,6 +251,40 @@
 			documentContainer.setOwner(documentOwner);
 			
 			return documentContainer;
+			
+		},
+		
+		getUniqueContainerName : function(document) {
+			
+			var 
+				documentParent = document.parent,
+				documentName = Utils.wrapString(document.name),
+				
+				dotIndex = documentName.lastIndexOf('.'),
+				rootName = dotIndex > -1 ? documentName.substr(0, dotIndex) : documentName,
+				extension = dotIndex > -1 ? documentName.substr(dotIndex, documentName.length) : '',
+
+				containerName = null,
+				index = 0,
+				exists = true
+				
+			;
+			
+			function buildContainerName() {
+				return rootName + (index > 0 ? '-'+ Utils.asString(index) : '') + (extension ? extension : '') + CONTAINER_DOT_EXTENSION;
+			}
+			
+			while (true) {
+				
+				containerName = buildContainerName();
+				exists = documentParent.childByNamePath(containerName) != null;
+				if (!exists) break;
+				
+				index++;
+				
+			}
+
+			return containerName;
 			
 		},
 		

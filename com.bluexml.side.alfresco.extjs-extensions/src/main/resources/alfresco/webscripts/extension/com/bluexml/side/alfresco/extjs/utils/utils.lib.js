@@ -27,6 +27,7 @@
 	 * Javascript string, or a Java wrapped String.
 	 */
 	Utils.isString = function(object) {
+		if (null == object) return false;
 		if ('string' == typeof object) return true;
 		if (Utils.isFunction(object.getClass)) {
 			return ('java.lang.String' == object.getClass().getName());
@@ -415,6 +416,34 @@
 		
 	};
 	
+	Utils.Alfresco.getExistingNode = function(nodeRef, failsSilently) {
+		
+		if (null == nodeRef) return null;
+		if (Utils.Alfresco.isScriptNode(nodeRef)) return nodeRef; 
+		
+		if (Utils.isString(nodeRef)) {
+			
+			if (Utils.Alfresco.isNodeRef(nodeRef)) {
+				var documentNode = search.findNode(nodeRef);
+				if (null != documentNode) return documentNode;
+			}
+			
+			// Try to solve by XPath w.r.t. CompanyHome
+			var 
+				companyHome = Utils.Alfresco.getCompanyHome(),
+				matchingChildren = companyHome.childrenByXPath(nodeRef)
+			;
+			if (1 == matchingChildren.length) return matchingChildren[0];
+			
+		}
+
+		if (failsSilently) return null;
+		
+		throw new Error("IllegalStateException! The document-node with nodeRef '" + nodeRef + "' does not exist");
+		
+	};
+
+	
 	Utils.Alfresco.getCompanyHome = function() {
 		
 		if ('undefined' == typeof companyhome) {
@@ -659,8 +688,7 @@
 		
 		return name
 		
-	}
-	
+	}	
 	
 	Utils.Object = {
 		

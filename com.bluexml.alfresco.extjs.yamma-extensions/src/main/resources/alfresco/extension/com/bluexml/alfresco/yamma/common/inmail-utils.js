@@ -23,6 +23,7 @@
 			setInitialState();
 			setOrigin();
 
+
 			function specializeDocumentType() {
 				if (document.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)) return; // Already specialized in a YaMma document object
 				document.specializeType(typeShort);

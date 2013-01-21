@@ -11,6 +11,10 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	
 	extend : 'Ext.app.Controller',
 	
+	requires : [
+		'Yamma.view.windows.SelectCMSFileWindow'
+	],	
+	
 	uses : [
 		'Yamma.view.windows.UploadFormWindow'
 	],
@@ -78,19 +82,96 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	 * @private
 	 */
 	onUploadClick : function(item) {
+		
 		var 
 			typeShort = item.typeShort,
 			action = item.action
 		;
 		
-		if ('uploadForm' == action) {
-			this.showUploadForm(typeShort);
-		} else if ('createForm' == action) {
-			this.showCreateForm(typeShort);
-		}
+		switch(action) {
+			
+			case 'selectFile':
+				this.showSelectFileWindow(typeShort);
+			break;
+			
+			case 'uploadFile':
+				this.showUploadForm(typeShort);
+			break;
+			
+			case 'createForm':
+				this.showCreateForm(typeShort);
+			break;
+			
+		}		
 		
 	},
+	
+	/**
+	 *
+	 * @param {} typeShort
+	 * @private
+	 */
+	showSelectFileWindow : function(typeShort) {
 		
+		var
+			me = this,
+			uploadButton = this.getUploadButton(),
+			destination = uploadButton.getDestination(),
+			selectFileWindow = Ext.create('Yamma.view.windows.SelectCMSFileWindow', {
+				width : 500,
+				height : 500
+			}),
+			url = Bluexml.Alfresco.resolveAlfrescoProtocol('alfresco://bluexml/yamma/copy-to')
+		;
+		
+		selectFileWindow.mon(selectFileWindow, 'fileselected', function(nodeRef, record) {
+			
+			var
+				operation = selectFileWindow.getOperation(),
+				fileName = selectFileWindow.getFileName()
+			;
+			
+			function onSuccess(jsonResponse) {
+				
+				var
+					outcome = jsonResponse.outcome,
+					nodes = outcome.nodes
+				;
+				
+				me.application.fireEvent('newDocumentAvailable', nodes);
+				
+				selectFileWindow.close();
+	
+			}
+			
+			function onFailure() {
+				selectFileWindow.close();
+			}
+			
+			selectFileWindow.setLoading(true);
+			
+			Bluexml.Alfresco.jsonPost(
+				{
+					url : url,
+					dataObj : {
+						nodeRef : nodeRef,
+						destination : destination,
+						typeShort : typeShort,
+						operation : operation,
+						filename : fileName
+					},
+					onSuccess : onSuccess,
+					onFailure : onFailure
+				}
+			);	
+
+			return false; // do not close the window yet
+		});
+
+		selectFileWindow.show();
+		
+	},
+	
 	/**
 	 * Displays an upload form to the current destination.
 	 * 
@@ -134,13 +215,18 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		
 	},
 	
+	/**
+	 *
+	 * @param {} typeShort
+	 * @private
+	 */
 	showCreateForm : function(typeShort) {
 		var
 			uploadButton = this.getUploadButton(),
 			destination = uploadButton.getDestination()
 		;
 		
-        Ext.define('Yamma.view.windows.CreateFormWindow.DocumentBritair', {
+        Ext.define('Yamma.view.windows.CreateFormWindow.Document', {
             extend : 'Bluexml.view.forms.window.CreateFormWindow',            
 
             onSuccess : function() {

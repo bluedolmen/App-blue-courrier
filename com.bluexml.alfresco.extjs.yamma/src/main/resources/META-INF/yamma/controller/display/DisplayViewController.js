@@ -72,7 +72,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.control({
 			
-			'replyfilesbutton #addReply' : {
+			'replyfilesbutton #addReply menuitem' : {
 				click : this.onAddReply
 			},
 			
@@ -445,10 +445,13 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	
 	onAddReply : function(menuItem) {
 		
-		var documentNodeRef = this.mainDocumentNodeRef;
+		var
+			action = menuItem.action,
+			documentNodeRef = this.mainDocumentNodeRef
+		;
 		if (!documentNodeRef) return;
 		
-		return this.replyDocument(documentNodeRef);
+		return this.replyDocument(documentNodeRef, action);
 		
 	},
 
@@ -456,7 +459,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	 * @private
 	 * @param documentNodeRef
 	 */
-	replyDocument : function(documentNodeRef) {
+	replyDocument : function(documentNodeRef, action) {
 		
 		var 
 			me = this,
@@ -468,9 +471,13 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			mailsView = this.getMailsView()
 		;
 		
-		chooseFile();
+		if ('uploadFile' == action) {
+			showUploadWindow();
+		} else if ('selectFile' == action) {
+			showSelectFileWindow();
+		}
 
-		function chooseFile() {
+		function showUploadWindow() {
 	
 			Ext.create('Yamma.view.windows.UploadFormWindow', {
 				
@@ -484,17 +491,66 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 					}]
 				},
 				
-				onSuccess : function() {
-					me.displayReplyFiles();
-					mailsView.refreshSingle(me.mainDocumentNodeRef, 'nodeRef');
-				}
+				onSuccess : onSuccess
 				
 			}).show();
 
 			
 		};
 		
+		
+		function showSelectFileWindow() {
+			
+			var
+				selectFileWindow = Ext.create('Yamma.view.windows.SelectCMSFileWindow')
+			;
+			
+
+			selectFileWindow.mon(selectFileWindow, 'fileselected', function(nodeRef, record) {
+								
+				var
+					operation = selectFileWindow.getOperation(),
+					fileName = selectFileWindow.getFileName()
+				;				
+				
+				selectFileWindow.setLoading(true);
+				
+				Bluexml.Alfresco.jsonPost(
+					{
+						url : uploadUrl,
+						dataObj : {
+							nodeRef : documentNodeRef,
+							modelRef : nodeRef,
+							operation : operation,
+							filename : fileName
+						},
+						
+						onSuccess : function() {
+							onSuccess();
+							selectFileWindow.close();
+						},
+						
+						onFailure : function() {
+							selectFileWindow.close();
+						}
+					}
+				);	
+	
+				return false; // do not close the window yet
+			});
+	
+			selectFileWindow.show();
+			
+		}
+		
+		function onSuccess() {
+			me.displayReplyFiles();
+			mailsView.refreshSingle(me.mainDocumentNodeRef, 'nodeRef');			
+		}
+		
 	},
+	
+	
 	
 	onRemoveReply : function(menuItem) {
 		
