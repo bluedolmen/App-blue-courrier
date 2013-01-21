@@ -1,29 +1,6 @@
-.column-header-img {
-	display : block;
-	background : no-repeat;
-	width : 16px; /* default icon-width should be 16px */
-	margin-top : 5px;
-	margin-left : auto;
-	margin-right : auto;
-}
-
-.submenu-title {
-	font-style : italic; 
-	display : block; 
-	float : right; 
-	padding-right : 2px;
-}
-
-.mainmenu-title {
-	font-weight : bold;
-	display : block; 
-	float : right; 
-	color : #15498B;
-}
-
-.x-body {
-	text-align : left; /* this property may be overridden by yui */
-}
+/**************************************************************************
+ * LOADING PAGE
+ **************************************************************************/
 
 #loading-mask {
 	position: absolute;
@@ -68,4 +45,47 @@
 	height: 50px;
 	width: 150px;
 }
+
+/**************************************************************************
+ * GENERAL EXTJS CUSTOMIZATIONS
+ **************************************************************************/
+.x-body {
+	text-align : left; /* this property may be overridden by yui */
+}
+
+/**************************************************************************
+ * GENERAL EXTJS GRID CUSTOMIZATIONS
+ **************************************************************************/
+
+.column-header-img {
+	display : block;
+	background : no-repeat;
+	width : 16px; 
+	height : 16px;
+	margin-top : 2px;
+	margin-left : auto;
+	margin-right : auto;
+}
+
+.x-action-col-icon {
+	padding-left : 2px;
+	padding-right : 2px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.cell-align-middle {
+	vertical-align: middle;
+}
+
+
+/**************************************************************************
+ * Ext.ux.tab.Toolbar styles
+ **************************************************************************/
+
+.x-tab-toolbar-right { z-index: 6; float: right; }
+.x-tab-toolbar-right .x-tab-toolbar { padding: 0 2px; border-width: 0 0 0 1px; }
+.x-tab-toolbar-left { z-index: 6; float: left; }
+.x-tab-toolbar-left .x-tab-toolbar { padding: 0 2px; border-width: 0 1px 0 0; }
+
 
