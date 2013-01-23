@@ -132,7 +132,12 @@
 			<version>2.4.1</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>1.6.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- SURF -->
 		<dependency>
@@ -248,7 +253,7 @@
 				<configuration>
 					<includes>
 						<include>**/*.properties</include>
-				</includes>
+					</includes>
 				</configuration>
 			</plugin>
 
@@ -306,7 +311,7 @@
 					<encoding>UTF-8</encoding>
 					<nonFilteredFileExtensions>
 						<nonFilteredFileExtension>acp</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>					
+					</nonFilteredFileExtensions>
 				</configuration>
 			</plugin>
 
@@ -321,10 +326,10 @@
 					<exclude>**README-*</exclude>
 				</excludes>
 			</resource>
-			
+
 			<!-- Copies and filters AMP config in the proper package so to enforce 
-						full module naming single sourcing from POM properties -->
-						
+				full module naming single sourcing from POM properties -->
+
 			<resource>
 				<filtering>true</filtering>
 				<directory>src/main/config</directory>
@@ -333,7 +338,7 @@
 					<exclude>**README-*</exclude>
 				</excludes>
 			</resource>
-									
+
 		</resources>
 	</build>
 </project>
