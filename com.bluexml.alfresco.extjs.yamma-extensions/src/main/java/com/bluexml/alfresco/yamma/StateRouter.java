@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import org.alfresco.model.ContentModel;
+import org.alfresco.repo.jscript.ScriptNode;
 import org.alfresco.repo.node.NodeServicePolicies.OnUpdatePropertiesPolicy;
 import org.alfresco.repo.policy.Behaviour.NotificationFrequency;
 import org.alfresco.repo.policy.JavaBehaviour;
@@ -21,7 +22,8 @@ import org.alfresco.service.namespace.NamespaceService;
 import org.alfresco.service.namespace.QName;
 import org.alfresco.util.EqualsHelper;
 import org.alfresco.util.PropertyCheck;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This behavior enables to route a document with a state in a sibling folder given
@@ -34,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class StateRouter implements OnUpdatePropertiesPolicy {
 	
-	private final Logger logger = Logger.getLogger(getClass());
+    private static Log logger = LogFactory.getLog(ScriptNode.class);
 
 	protected QName targetContainerType = ContentModel.TYPE_FOLDER;
 	protected QName stateTypeQName = ContentModel.TYPE_CMOBJECT;
