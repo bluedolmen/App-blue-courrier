@@ -1,7 +1,5 @@
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/nodeaction.lib.js">
+///<import resource="classpath:/alfresco/templates/webscripts/com/bluexml/yamma/actions/nodeaction.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/copy-utils.js">
 
 (function() {
@@ -12,8 +10,6 @@
 		destination : null,
 		typeShort : null,
 		operation : null,
-		
-		targetMap : {},
 		
 		wsArguments : [
 			{ name : 'destination', mandatory : true},
@@ -39,7 +35,7 @@
 		
 //		isExecutable : function(node) {
 //			
-//			// Should check read/write rights
+//			// TODO: Should check read/write rights
 //			
 //		},
 		
@@ -63,19 +59,9 @@
 				newDocumentNode.specializeType(this.typeShort);
 			}
 			
-		},		
-		
-		getNodeOutcome : function(node) {
-			
-			var
-				nodeRef = Utils.asString(node.nodeRef),
-				targetRef = Utils.asString(this.targetMap[node.nodeRef]) || nodeRef
-			;
-			
-			return {
-				nodeRef : nodeRef,
-				targetRef :  targetRef
-			};
+			return ({
+				targetRef : Utils.asString(newDocumentNode.nodeRef)
+			}); // outcome
 			
 		}		
 		

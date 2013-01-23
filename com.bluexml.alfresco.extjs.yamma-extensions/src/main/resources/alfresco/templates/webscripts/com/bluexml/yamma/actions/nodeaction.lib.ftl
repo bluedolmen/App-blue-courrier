@@ -3,7 +3,7 @@
 <#macro renderOutcome>
 <#escape x as jsonUtils.encodeJSONString(x)>
 {	 
-	success : true,
+	status : ${actionStatus},
 	outcome : <@itemLib.renderObject actionOutcome />
 }
 </#escape>

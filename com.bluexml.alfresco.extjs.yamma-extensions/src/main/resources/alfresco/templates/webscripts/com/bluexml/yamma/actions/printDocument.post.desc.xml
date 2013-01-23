@@ -1,0 +1,16 @@
+<webscript>
+	<shortname>Print documents</shortname>
+	<description><![CDATA[
+		This action retrieve a nodeRef (or a set) and produce
+		a (merged) pdf that is made available on the client side
+		for (batch) printing.
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/print</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

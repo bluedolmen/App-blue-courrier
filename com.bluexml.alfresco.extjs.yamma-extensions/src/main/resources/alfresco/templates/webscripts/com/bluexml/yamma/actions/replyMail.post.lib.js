@@ -1,7 +1,5 @@
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
-///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/nodeaction.lib.js">
+///<import resource="classpath:/alfresco/templates/webscripts/com/bluexml/yamma/actions/nodeaction.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/copy-utils.js">
 
 (function() {
@@ -62,7 +60,7 @@
 		
 		doExecute : function(node) {
 			
-			this.replyNode = this.attachReply();
+			this.attachReply();
 			
 		},
 		
@@ -78,10 +76,14 @@
 				replyNode = this.attachRepositoryFile();
 			}
 			
-			return ReplyUtils.addReply(
+			ReplyUtils.addReply(
 				this.node, /* document */ 
 				replyNode /* replyNode */
 			);
+			
+			return ({
+				reply : Utils.asString(replyNode.nodeRef)
+			}); // outcome
 			
 		},
 		
@@ -125,21 +127,6 @@
 			newDocumentNode.specializeType(YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME);
 			
 			return newDocumentNode;
-			
-		},
-		
-		
-		getNodeOutcome : function(node) {
-			
-			var
-				nodeRef = Utils.asString(node.nodeRef),
-				replyNodeRef = Utils.asString(this.replyNode.nodeRef)
-			;
-			
-			return {
-				nodeRef : nodeRef,
-				replyNodeRef :  replyNodeRef
-			};
 			
 		}		
 		

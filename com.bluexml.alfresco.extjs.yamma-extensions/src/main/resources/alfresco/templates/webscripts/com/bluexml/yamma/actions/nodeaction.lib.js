@@ -1,3 +1,5 @@
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
 
 (function() {
 
@@ -38,8 +40,28 @@
 		
 		wsArguments : null,
 		nodeArg : 'nodeRef',
+
+		/**
+		 * @cfg {Object} The map of outcomes based on node keys (nodeRef)
+		 */
+		mappedResult : {},
+
+		/**
+		 * @cfg {Object} The map of failures based on node keys (nodeRef)
+		 */
+		mappedFailures : {},
 		
-		failureReason : '', 
+		/**
+		 * @cfg {Boolean} Whether to fail if getting a problem while executing
+		 *      the action on a given node
+		 */
+		failOnError : true,
+		
+		/**
+		 * @cfg {String} The error message that will be raised when the action
+		 *      is not batch-executable
+		 */
+		failureReason : '',
 		
 		execute : function() {
 			
@@ -59,6 +81,9 @@
 						message : 'Forbidden! The action cannot be executed by you in the current context' + (me.failureReason ? ': ' + me.failureReason : '')
 					}			
 				}
+				
+				// All methods before this point may fail with an exception
+				// The execution may not fail if 'failOnError' is set to false
 				
 				me.doBatchExecute();
 				
@@ -108,18 +133,14 @@
 		},
 		
 		extractNode : function(nodeRef) {
-			
-			if (Utils.Alfresco.isNodeRef(nodeRef)) {
-			
-				var node = search.findNode(nodeRef);
-				if (null != node) return node;
-				
-			}
+
+			var node = Utils.Alfresco.getExistingNode(nodeRef, true /* failsSilently */);
+			if (null != node) return node;
 			
 			throw {
 				code : '512',
 				message : "InvalidStateException! The provided nodeRef='" + Utils.asString(nodeRef) + "' is not a valid nodeRef or it does not exist in the repository"
-			}
+			};
 			
 		},
 		
@@ -160,8 +181,30 @@
 			var me = this;
 			
 			Utils.forEach(this.nodes, function(node) {
+				
 				me.node = node;
-				me.doExecute(node);
+				var key = Utils.asString(node.nodeRef);
+				
+				try {
+					
+					var 
+						result = me.doExecute(node)
+					;
+					
+					if (undefined !== result) {
+						me.mappedResult[key] = result;
+					}
+					
+				} catch(e) {
+					
+					if (me.failOnError) {
+						throw e;
+					} else {
+						me.mappedFailures[key] = e.message || message;
+					}
+					
+				} 
+				
 			});
 			
 		},
@@ -172,6 +215,9 @@
 		
 		setModel : function() {
 			
+			var failedNodesNb = Utils.keys(this.mappedFailures).length;
+			
+			model.actionStatus = failedNodesNb == 0 ? 'success' : failure;
 			model.actionOutcome = this.getActionOutcome(); 
 			
 		},
@@ -189,7 +235,16 @@
 		},
 		
 		getNodeOutcome : function(node) {
-			return Utils.asString(node.nodeRef);
+			var 
+				nodeRef = Utils.asString(node.nodeRef),
+				result = this.mappedResult[nodeRef],
+				failure = this.mappedFailures[nodeRef]
+			;
+			
+			if (undefined !== result) return result;
+			if (undefined != failure) return ({
+				failureReason : failure
+			});
 		}
 		
 	});
@@ -225,7 +280,6 @@
 		
 		getNodeOutcome : function(node) {
 			return ({
-				nodeRef : Utils.asString(node.nodeRef),
 				state : node.properties[YammaModel.STATUSABLE_STATE_PROPNAME] || ''
 			});
 		}
