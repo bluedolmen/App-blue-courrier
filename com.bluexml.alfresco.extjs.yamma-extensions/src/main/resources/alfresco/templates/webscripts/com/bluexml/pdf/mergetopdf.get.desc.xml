@@ -1,0 +1,21 @@
+<webscript>
+	<shortname>Merge a set of provided nodeRef as a single PDF file</shortname>
+	<description>Merge a set of provided nodeRef as a single PDF file</description>
+	<family>YaMma</family>
+	
+	<args>
+		<arg>
+			<shortname>nodeRefs</shortname>
+			<description>A comma-separated list of nodeRefs of the source documents</description>
+		</arg>
+		<arg>
+			<shortname>doubleSided</shortname>
+			<description>Whether the document will be printed double-sided or not</description>
+		</arg>
+	</args>
+	
+	<url>/bluexml/yamma/merge-to-pdf</url>
+	<format default="">argument</format>
+	<authentication>user</authentication>
+	
+</webscript>
