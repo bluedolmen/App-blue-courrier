@@ -1,0 +1,16 @@
+<webscript>
+	<shortname>Send the reply to a given document/mail</shortname>
+	<description><![CDATA[
+		Send the reply to a Mail
+		<p>
+		The reply may be validated by a given autority to be effective.
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/send-outbound</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

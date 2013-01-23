@@ -1,0 +1,12 @@
+<webscript>
+	<shortname>Mark the document as signed</shortname>
+	<description>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluexml/yamma/mark-as-signed</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

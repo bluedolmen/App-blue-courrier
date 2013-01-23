@@ -1,0 +1,141 @@
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
+///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/send-utils.js">
+///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/nodeaction.lib.js">
+
+
+(function() {
+	
+	const 
+		MSG_KEY_SUFFIX = 'Reply.comment',
+		ACCEPTED_OPERATIONS = [
+			'forward', 
+			'acceptAndForward', 
+			'acceptForSignature',
+			'acceptAndSend'
+		]		
+	;
+	
+	function checkOperationType(operation) {
+		
+		if (Utils.contains(ACCEPTED_OPERATIONS, operation)) return ''; // ok 
+		return (
+			"The parameter 'operation' only accept values {" +
+			Utils.String.join(ACCEPTED_OPERATIONS, ',') +
+			"}"
+		);
+		
+	}
+
+	Yamma.Actions.ForwardReplyAction = Utils.Object.create(Yamma.Actions.DocumentNodeAction, {
+		
+		eventType : 'forward-reply',
+		
+		managerUserName : null,
+		operation : null,
+		service : null,
+		comment : '', // comment may be used to the simple 'forward' operation, but is currently not used...
+		commentArgs : null,
+		
+		wsArguments : [
+			{ name : 'operation', mandatory : true, checkValue : checkOperationType }, 
+			'comment',
+			'service',
+			'manager'
+		],
+				
+		prepare : function() {
+			
+			this.managerUserName = Utils.asString(this.parseArgs['manager']);
+			
+			/*
+			 * This complexity is not necessary yet but may be in the future.
+			 * The batched nodes actions can indeed only receive nodes from the
+			 * same service.
+			 */
+			Utils.forEach(this.nodes, function(node) {
+				var isServiceManager = DocumentUtils.isServiceManager(node, this.fullyAuthenticatedUserName);
+				if (!isServiceManager && this.managerUserName) {
+					isServiceManager = DocumentUtils.isServiceManager(node, this.managerUserName);
+				}
+				
+				if (!isServiceManager) {
+					throw {
+						code : '512',
+						message : 'IllegalStateException! The action cannot be executed by a service-assistant without providing a manager w.r.t. node=\'' + node.nodeRef + '\''
+					}								
+				}
+			});
+			
+			this.operation = Utils.asString(this.parseArgs['operation']);
+			this.comment = Utils.asString(this.parseArgs['comment']) || this.comment;
+			this.service = Utils.asString(this.parseArgs['service']);			
+			this.eventType = this.eventType + '!' + this.operation;
+		},		
+		
+		isExecutable : function(node) {
+			
+			return ActionUtils.canValidate(this.node, this.fullyAuthenticatedUserName);
+			
+		},
+		
+		doExecute : function(node) {
+			
+			this[this.operation]();		
+			this.addHistoryComment();
+			
+		},
+	
+		acceptAndSend : function() {		
+			SendUtils.sendDocument(this.node);
+		},
+		
+		acceptAndForward : function() {
+			this.forward();
+		},
+	
+		acceptForSignature : function() {
+			this.updateDocumentState(YammaModel.DOCUMENT_STATE_SIGNING);
+		},
+		
+		forward : function() {
+			
+			if (!this.service) {
+				throw {
+					code : '512',
+					message : 'IllegalStateException! The service is mandatory when performing a delegation of validation'
+				};			
+			}
+	
+			var errorMessage = DocumentUtils.moveToServiceTray(this.node, this.service);
+			if (errorMessage) {
+				throw {
+					code : '512',
+					message : "IllegalStateException! While refusing, " + errorMessage
+				};						
+			}
+			
+			this.commentArgs = [
+				Utils.Alfresco.getSiteTitle(this.service), 
+				this.comment ? (' : ' + this.comment) : ''
+			];
+			
+		},		
+				
+		addHistoryComment : function() {
+			
+			this.updateDocumentHistory(
+				this.operation + MSG_KEY_SUFFIX, /* msgKey */ 
+				this.commentArgs, 
+				this.managerUserName || this.fullyAuthenticatedUserName, /* referrer */
+				this.fullyAuthenticatedUserName /* delegate */
+			);
+			
+		}
+		
+	});
+
+	Yamma.Actions.ForwardReplyAction.execute();
+
+})();
