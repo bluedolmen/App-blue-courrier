@@ -11,13 +11,14 @@ Ext.define('Yamma.view.gridactions.GridAction', {
 	],
 	
 	mixins : {
-		jsonPostAction : 'Bluexml.utils.alfresco.grid.JsonPostAction'	
+		jsonRequestAction : 'Bluexml.utils.alfresco.grid.JsonRequestAction'	
 	},
 	
 	statics : {
 		MANAGER_ICON : Yamma.Constants.getIconDefinition('user_suit')
 	},
 	
+	method : 'POST', // Default method for actions is POST
 	showBusy : true,
 	managerAction : false,
 	usurpedManager : null,
@@ -27,7 +28,7 @@ Ext.define('Yamma.view.gridactions.GridAction', {
 	},
 	
 	onSuccess : function() {
-		this.mixins.jsonPostAction.onSuccess.call(this);
+		this.mixins.jsonRequestAction.onSuccess.call(this);
 		this.refreshGrid();
 	},
 	

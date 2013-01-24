@@ -107,7 +107,7 @@
 			
 			if (null == this.nodeArg) {
 				throw {
-					code : '500',
+					code : '512',
 					message : 'IllegalStateException! The node-argument is invalid'
 				}
 			}
@@ -122,11 +122,27 @@
 			if (Utils.Alfresco.isNodeRef(nodeRef)) {
 				this.node = this.extractNode(nodeRef);
 				this.nodes = [this.node];
-			} else if (nodeRef.indexOf('[') == 0) {
-				var nodeRefs = Utils.JSON.parse(nodeRef);
-				this.nodes = Utils.map(nodeRefs, function(nodeRef) {
+			} else if (nodeRef.indexOf(',') > 0) {
+				
+				// Accept with or without square-brackets
+				if (nodeRef.indexOf('[') == 0) {
+					// Trim first and last characters
+					nodeRef = nodeRef.substr(1, nodeRef.length - 2);
+				}
+				
+				var nodeRefList = nodeRef.split(',');
+				
+				this.nodes = Utils.map(nodeRefList, function(nodeRef) {
 					return me.extractNode(nodeRef);
 				});
+				
+			} else {
+				
+				throw {
+					code : '512',
+					message : 'IllegalStateException! The node-argument is invalid w.r.t. its format'
+				}
+				
 			}
 			
 			
@@ -224,12 +240,25 @@
 		
 		getActionOutcome : function() {
 			
-			var me = this;
+			var 
+				me = this,
+				nodes = {}
+			;
+			
+			Utils.forEach(this.nodes, function(node) {
+				
+				var
+					nodeRef = Utils.asString(node.nodeRef),
+					nodeOutcome = me.getNodeOutcome(node)
+				;
+				if (undefined === nodeOutcome) return;
+				
+				nodes[nodeRef] = nodeOutcome;
+				
+			})
 			
 			return ({
-				nodes : Utils.map(this.nodes, function(node) {
-					return me.getNodeOutcome(node);
-				})
+				nodes : nodes
 			});
 			
 		},

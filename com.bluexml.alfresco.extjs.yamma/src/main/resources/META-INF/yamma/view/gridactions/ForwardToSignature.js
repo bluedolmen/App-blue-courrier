@@ -26,13 +26,14 @@ Ext.define('Yamma.view.gridactions.ForwardToSignature', {
 				
 	},	
 	
-	performServerRequest : function(nodeRefs) {
+	getAdditionalRequestParameters : function() {
 		
-		this.jsonPost({
-			nodeRef : nodeRefs,
+		if (!this.usurpedManager) return null;
+		
+		return ({
 			manager : this.usurpedManager || undefined
 		});
-		
 	}	
+	
 	
 });

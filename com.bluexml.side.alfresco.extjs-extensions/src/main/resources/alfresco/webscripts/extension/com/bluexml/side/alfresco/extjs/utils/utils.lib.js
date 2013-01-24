@@ -14,6 +14,23 @@
 	 	return object;
 	};
 	
+	Utils.keys = function(obj) {
+	    var 
+		    hasOwnProperty = Object.prototype.hasOwnProperty,
+		    result = []
+		;
+
+		if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null)
+			throw new TypeError('Utils.keys called on non-object');
+
+		for (var prop in obj) {
+			if (hasOwnProperty.call(obj, prop)) result.push(prop);
+		}
+
+		return result;
+		
+	};
+	
 	
 	Utils.emptyFn = function() {/* do nothing */};
 	

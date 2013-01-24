@@ -49,9 +49,11 @@ public class MergeToPdf extends StreamContent
     	final List<NodeRef> nodeRefs = NodeRef.getNodeRefs(nodeRefsParam);
     	final String doubleSidedParam = req.getParameter(DOUBLE_SIDED);
     	
+    	if (nodeRefs.isEmpty()) throw new WebScriptException("At least one nodeRef has to be provided");
+    	
     	final OutputStream tempOutputStream = getOutputStream();
 
-    	final MergerConfig mergerConfig= MergerConfig.emptyConfig();
+    	final MergerConfig mergerConfig = MergerConfig.emptyConfig();
     	mergerConfig.put(MergerConfig.DOUBLE_SIDED, "true".equals(doubleSidedParam));
     	try {
 			pdfMerger.setConfig(mergerConfig);

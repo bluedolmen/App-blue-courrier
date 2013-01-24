@@ -9,13 +9,10 @@ Ext.define('Yamma.view.gridactions.ForwardForValidation', {
 
 	supportBatchedNodes : true,	
 	
-	performServerRequest : function(nodeRefs) {
-		
-		this.jsonPost({
-			nodeRef : nodeRefs,
+	getAdditionalRequestParameters : function() {
+		return ({
 			skipValidation : false
 		});
-		
 	}	
 	
 	

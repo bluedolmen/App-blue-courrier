@@ -35,15 +35,11 @@ function initApplication() {
 
 	Ext.application(
 		{
-			requires : [
-				
-			],
-			
 			name : 'Yamma',
 			appFolder : '/share/res/yamma',
 			
 			controllers : [
-				'header.OpenSearchController',
+				'Yamma.controller.header.OpenSearchController',
 				
 				'menus.SiteTraysMenuController',
 				'menus.SiteArchivesMenuController',

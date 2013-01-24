@@ -2,12 +2,14 @@ package com.bluexml.alfresco.pdf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.alfresco.model.ContentModel;
 import org.alfresco.repo.action.executer.TransformActionExecuter;
 import org.alfresco.repo.content.MimetypeMap;
-import org.alfresco.repo.jscript.ScriptNode.ScriptContentData;
+import org.alfresco.service.cmr.model.FileFolderService;
+import org.alfresco.service.cmr.repository.ContentData;
 import org.alfresco.service.cmr.repository.ContentIOException;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentService;
@@ -22,6 +24,7 @@ import org.alfresco.service.namespace.QName;
 public final class MergerUtils {
 	
 	private NodeService nodeService;
+	private FileFolderService fileFolderService;
 	private ContentService contentService;
 	private MimetypeService mimetypeService;
 	private CopyService copyService;
@@ -29,7 +32,7 @@ public final class MergerUtils {
 	
 	/**
 	 * Returns a list of nodes (as {@link NodeRef}) which content is PDF.
-	 * If one of the input file is not in pdf form, then a tranformation is
+	 * If one of the input file is not in pdf form, then a transformation is
 	 * applied, unless the parameter transform is set to false;
 	 * 
 	 * @param sources the list of input files
@@ -74,20 +77,45 @@ public final class MergerUtils {
 		}
 		
 		final NodeRef destination = nodeService.getPrimaryParent(source).getParentRef();
-		final NodeRef transformedNode = transformNode(source, MimetypeMap.MIMETYPE_PDF, destination);
+		final NodeRef transformedNode = getOrTransformToPdf(source, destination, false);
 		
 		return transformedNode;
 	}
 	
-    private NodeRef transformNode(NodeRef source, String mimetype, NodeRef destination) throws NoTransformerException, ContentIOException
+    private NodeRef getOrTransformToPdf(NodeRef source, NodeRef destination, boolean forceOverriding) 
+    		throws NoTransformerException, ContentIOException
     {
+    	
         // get the content reader
         final ContentReader reader = contentService.getReader(source, ContentModel.PROP_CONTENT);
         if (null == reader) return null; // no content
         
         // Copy the content node to a new node
         final String sourceName = (String) nodeService.getProperty(source, ContentModel.PROP_NAME);
-        final String copyName = TransformActionExecuter.transformName(mimetypeService, sourceName, mimetype, true);
+        final String copyName = TransformActionExecuter.transformName(mimetypeService, sourceName, MimetypeMap.MIMETYPE_PDF, true);
+        
+        final NodeRef existingFile = fileFolderService.searchSimple(destination, copyName); 
+        if ( existingFile != null) {
+        	
+        	if (!forceOverriding) {
+        		
+            	// compare creation/modification dates
+        		final Date sourceModificationDate = (Date) nodeService.getProperty(source, ContentModel.PROP_MODIFIED);
+        		final Date existingFileCreationDate = (Date) nodeService.getProperty(existingFile, ContentModel.PROP_CREATED);
+        		
+        		if (
+        			sourceModificationDate != null && 
+        			existingFileCreationDate != null &&
+        			sourceModificationDate.compareTo(existingFileCreationDate) <= 0
+        		) {
+        				return existingFile;
+        		}
+        		
+        	}
+        	
+    		nodeService.removeChild(destination, existingFile);
+        	
+        }
         
         final NodeRef copyNodeRef = copyService.copy(
     		source, 
@@ -102,10 +130,14 @@ public final class MergerUtils {
         
         // get the writer and set it up
         final ContentWriter writer = contentService.getWriter(copyNodeRef, ContentModel.PROP_CONTENT, true);
-        writer.setMimetype(mimetype); // new mimetype
+        writer.setMimetype(MimetypeMap.MIMETYPE_PDF); // new mimetype
         writer.setEncoding(reader.getEncoding()); // original encoding
         
-        if (!contentService.isTransformable(reader, writer)) return null;
+        if (!contentService.isTransformable(reader, writer)) {
+        	// Remove the already made copy
+        	nodeService.removeChild(destination, copyNodeRef);
+        	return null;
+        }
         		
         contentService.transform(reader, writer);
         return copyNodeRef;
@@ -113,7 +145,7 @@ public final class MergerUtils {
 	
 	
     private String getMimetype(NodeRef nodeRef) {
-        final ScriptContentData content = (ScriptContentData) nodeService.getProperty(nodeRef, ContentModel.PROP_CONTENT);
+        final ContentData content = (ContentData) nodeService.getProperty(nodeRef, ContentModel.PROP_CONTENT);
         if (content != null) return content.getMimetype();
         
         return null;
@@ -137,6 +169,10 @@ public final class MergerUtils {
 	
 	public void setCopyService(CopyService copyService) {
 		this.copyService = copyService;
+	}
+	
+	public void setFileFolderService(FileFolderService fileFolderService) {
+		this.fileFolderService = fileFolderService;
 	}
 
 }

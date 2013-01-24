@@ -20,6 +20,8 @@ public final class PdfBoxMerger extends AbstractMerger {
 
 	public void merge(Collection<NodeRef> inputFiles, OutputStream output, MergerConfig config) throws MergerException {
 		final List<NodeRef> checkedInputFiles = getMergerUtils().getPdfNodeList(inputFiles, true);
+
+		// TODO: Maybe optimized for a single file
 		final MergeOperation mergeOperation = new MergeOperation(checkedInputFiles, config);
 		mergeOperation.merge(output);
 	}
@@ -30,7 +32,7 @@ public final class PdfBoxMerger extends AbstractMerger {
 		private final PDFMergerUtility merger = new PDFMergerUtility();
 		private final MergerConfig config;
 		private final PDDocument destination;
-		private List<PDDocument> sources = new ArrayList<PDDocument>();
+		private final List<PDDocument> sources = new ArrayList<PDDocument>();
 		
 		public MergeOperation(Collection<NodeRef> inputFiles, MergerConfig config) throws MergerException {
 			this.inputFiles = inputFiles;

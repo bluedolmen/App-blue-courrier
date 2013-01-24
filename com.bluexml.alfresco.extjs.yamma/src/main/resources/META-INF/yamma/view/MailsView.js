@@ -10,6 +10,7 @@ Ext.require([
 	'Yamma.view.gridactions.StartProcessing',
 	'Yamma.view.gridactions.SendOutbound',
 	'Yamma.view.gridactions.MarkAsSent',
+	'Yamma.view.gridactions.PrintAsPdf',
 	'Yamma.view.gridactions.MarkAsSigned',
 	'Yamma.view.gridactions.Archive'
 ], function() {
@@ -741,6 +742,7 @@ Ext.define('Yamma.view.MailsView', {
 		Ext.create('Yamma.view.gridactions.ForwardForValidation'),
 		Ext.create('Yamma.view.gridactions.SendOutbound'),
 		Ext.create('Yamma.view.gridactions.MarkAsSigned'),
+		Ext.create('Yamma.view.gridactions.PrintAsPdf'),
 		Ext.create('Yamma.view.gridactions.MarkAsSent'),
 		Ext.create('Yamma.view.gridactions.RefuseReply'), // RefuseReply is defined after ForwardReply and MarkAsSigned for a better user-experience 
 		Ext.create('Yamma.view.gridactions.Archive')

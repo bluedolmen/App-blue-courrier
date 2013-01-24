@@ -61,21 +61,19 @@ Ext.define('Yamma.view.gridactions.ForwardReply', {
 		
 	},	
 	
-	performServerRequest : function(nodeRefs) {
-		
+	getAdditionalRequestParameters : function() {
 		var
 			approbe = this.forwardDialog.getApprobeStatus(),
 			service = this.forwardDialog.getService()
 		;
 		
-		this.jsonPost({
-			nodeRef : nodeRefs,
+		return ({
 			manager : this.usurpedManager || undefined,
 			approbe : approbe,
 			service : service
 		});
-		
-	},
+	},	
+	
 	
 	onSuccess : function() {
 		this.callParent();

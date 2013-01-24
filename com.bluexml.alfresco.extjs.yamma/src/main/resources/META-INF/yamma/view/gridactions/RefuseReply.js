@@ -32,15 +32,15 @@ Ext.define('Yamma.view.gridactions.RefuseReply', {
 		
 	},
 	
-	performServerRequest : function(nodeRefs, comment) {
+	
+	getAdditionalRequestParameters : function() {
 		
-		this.jsonPost({
-			nodeRef : nodeRefs,
+		return ({
 			operation : 'refuse',
 			comment : comment,
 			manager : this.usurpedManager || undefined
 		});
 		
-	}
+	}	
 	
 });

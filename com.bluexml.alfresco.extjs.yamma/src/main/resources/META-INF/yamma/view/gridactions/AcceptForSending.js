@@ -23,13 +23,12 @@ Ext.define('Yamma.view.gridactions.AcceptForSending', {
 				
 	},	
 	
-	performServerRequest : function(nodeRefs) {
+	getAdditionalRequestParameters : function() {
+		if (!this.usurpedManager) return null;
 		
-		this.jsonPost({
-			nodeRef : nodeRefs,
-			manager : this.usurpedManager || undefined
+		return ({
+			manager : this.usurpedManager
 		});
-		
 	}	
 	
 });

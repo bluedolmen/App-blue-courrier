@@ -14,7 +14,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 	},
 	
 	title : 'Commentaires',
-	iconCls : Yamma.Constants.getIconDefinition('comments').iconCls,
+	iconCls : Yamma.utils.Constants.getIconDefinition('comments').iconCls,
 	
 	storeId : 'Comments',
 	hasPaging : false,

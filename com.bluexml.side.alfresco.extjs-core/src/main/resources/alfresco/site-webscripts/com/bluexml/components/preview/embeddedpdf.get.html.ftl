@@ -10,7 +10,7 @@
 				url: "${page.url.context}/proxy/alfresco/${contentUrl}",
 				pdfOpenParams: { 
 					navpanes: 0,
-					toolbar: 0,
+					toolbar: 1,
 					statusbar: 0,
 					view: "FitH"					
 				}

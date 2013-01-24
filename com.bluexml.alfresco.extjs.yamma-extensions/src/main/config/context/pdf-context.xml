@@ -24,6 +24,7 @@
 		<property name="contentService" ref="ContentService" />
 		<property name="mimetypeService" ref="MimetypeService" />
 		<property name="copyService" ref="CopyService" />
+		<property name="fileFolderService" ref="FileFolderService" />
 	</bean>
 
 	<bean id="AbstractPdfMerger" class="com.bluexml.alfresco.pdf.AbstractMerger" abstract="true">
@@ -38,6 +39,7 @@
 		  class="com.bluexml.alfresco.pdf.ws.MergeToPdf" 
 		  parent="webscript"
 	>		
+		<property name="mimetypeService" ref="MimetypeService" />	
 		<property name="merger" ref="PdfBoxMerger" />
 	</bean> 
 	

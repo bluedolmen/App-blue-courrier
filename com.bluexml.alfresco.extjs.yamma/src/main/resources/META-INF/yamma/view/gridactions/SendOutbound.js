@@ -33,10 +33,9 @@ Ext.define('Yamma.view.gridactions.SendOutbound', {
 		this.mixins.confirmedAction.askConfirmation.call(this, records, {});
 	},	
 	
-	performServerRequest : function(nodeRefs) {
+	getAdditionalRequestParameters : function() {
 		
-		this.jsonPost({
-			nodeRef : nodeRefs,
+		return ({
 			skipValidation : true
 		});
 		

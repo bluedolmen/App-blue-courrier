@@ -3,8 +3,10 @@
 <#macro renderOutcome>
 <#escape x as jsonUtils.encodeJSONString(x)>
 {	 
-	status : ${actionStatus},
-	outcome : <@itemLib.renderObject actionOutcome />
+	"status" : "${actionStatus}",
+	<#list actionOutcome?keys as k>
+	"${k}" : <@itemLib.renderObject actionOutcome[k] />
+	</#list>
 }
 </#escape>
 </#macro>
