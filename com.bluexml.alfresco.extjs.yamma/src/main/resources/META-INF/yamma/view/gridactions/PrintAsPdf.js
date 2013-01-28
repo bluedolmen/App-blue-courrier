@@ -17,26 +17,34 @@ Ext.define('Yamma.view.gridactions.PrintAsPdf', {
 	prepareBatchAction : function(records) {
 		
 		var 
-			me = this,
-			args = arguments
+			me = this
 		;
 		
-		Bluexml.windows.ConfirmDialog.FR.show({
-			title: 'Imprimer en recto-verso?',
-            msg: "L'impression recto-verso ajoutera les pages blanches nécessaires pour séparer correctement les documents assemblés en un seul fichier.",
-			icon : Ext.Msg.QUESTION,
-			buttons: Ext.Msg.YESNO,
-			fn : onButtonClicked 
-		});
+		if (records && records.length > 1) {
+			askForDoubleSidedPrinting();
+		} else {
+			onButtonClicked("no");
+		}
+		
+		function askForDoubleSidedPrinting() {
+			
+			Bluexml.windows.ConfirmDialog.FR.show({
+				title: 'Imprimer en recto-verso?',
+	            msg: "L'impression recto-verso ajoutera les pages blanches nécessaires pour séparer correctement les documents assemblés en un seul fichier.",
+				icon : Ext.Msg.QUESTION,
+				buttons: Ext.Msg.YESNO,
+				fn : onButtonClicked 
+			});
+			
+		}
 		
 		function onButtonClicked(buttonId) {
 			
 			if ('yes' != buttonId && 'no' != buttonId) return;
 			me.doubleSided = ('yes' === buttonId);
 			
-			var params = ['preparationReady'].concat(Ext.Array.slice(args));
-			me.fireEvent.apply(me, params);
-			
+			me.fireEvent('preparationReady', records);
+						
 		}
 		
 	},	

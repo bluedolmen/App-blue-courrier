@@ -48,13 +48,14 @@ public class MergeToPdf extends StreamContent
     	final String nodeRefsParam = req.getParameter(NODEREFS);
     	final List<NodeRef> nodeRefs = NodeRef.getNodeRefs(nodeRefsParam);
     	final String doubleSidedParam = req.getParameter(DOUBLE_SIDED);
+    	final boolean doubleSided = "true" == doubleSidedParam && nodeRefs.size() > 1;
     	
     	if (nodeRefs.isEmpty()) throw new WebScriptException("At least one nodeRef has to be provided");
     	
     	final OutputStream tempOutputStream = getOutputStream();
 
     	final MergerConfig mergerConfig = MergerConfig.emptyConfig();
-    	mergerConfig.put(MergerConfig.DOUBLE_SIDED, "true".equals(doubleSidedParam));
+    	mergerConfig.put(MergerConfig.DOUBLE_SIDED, doubleSided);
     	try {
 			pdfMerger.setConfig(mergerConfig);
 	    	pdfMerger.merge(nodeRefs, tempOutputStream);
@@ -65,23 +66,6 @@ public class MergeToPdf extends StreamContent
 
     	streamContent(req, res, mergedFile, false);
     	
-//    	res.setContentType(MimetypeMap.MIMETYPE_PDF);
-//    	
-//    	long length = mergedFile.length();
-//        if (length != -1) {
-//            res.setHeader("Content-Length", Long.toString(length));
-//        }
-//        
-//        OutputStream webscriptOutput = null;
-//        InputStream mergedFileInput = null;
-//        try {
-//        	mergedFileInput = new FileInputStream(mergedFile);
-//        	webscriptOutput = res.getOutputStream();
-//        	FileCopyUtils.copy(mergedFileInput, webscriptOutput);
-//        } finally {
-//        	if (null != mergedFileInput) mergedFileInput.close();
-//        	if (null != webscriptOutput) webscriptOutput.close();
-//        }
     }   
     
 	private OutputStream getOutputStream() {
