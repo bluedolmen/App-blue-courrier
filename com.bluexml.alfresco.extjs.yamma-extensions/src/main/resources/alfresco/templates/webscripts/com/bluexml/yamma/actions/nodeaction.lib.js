@@ -119,32 +119,22 @@
 			;
 			nodeRef = Utils.String.trim(Utils.asString(nodeRef));
 			
-			if (Utils.Alfresco.isNodeRef(nodeRef)) {
-				this.node = this.extractNode(nodeRef);
-				this.nodes = [this.node];
-			} else if (nodeRef.indexOf(',') > 0) {
-				
-				// Accept with or without square-brackets
-				if (nodeRef.indexOf('[') == 0) {
-					// Trim first and last characters
-					nodeRef = nodeRef.substr(1, nodeRef.length - 2);
-				}
-				
-				var nodeRefList = nodeRef.split(',');
-				
-				this.nodes = Utils.map(nodeRefList, function(nodeRef) {
-					return me.extractNode(nodeRef);
-				});
-				
-			} else {
-				
-				throw {
-					code : '512',
-					message : 'IllegalStateException! The node-argument is invalid w.r.t. its format'
-				}
-				
+			// Accept with or without square-brackets
+			var match = nodeRef.match(/^\[(.*)\]$/);
+			if (null != match) {
+				nodeRef = Utils.String.trim(match[1]);
 			}
 			
+			var nodeRefList = nodeRef.split(',');
+			this.nodes = Utils.map(nodeRefList, function(nodeRef) {
+				nodeRef = extractJSONString(nodeRef);
+				return me.extractNode(nodeRef);
+			});
+							
+			function extractJSONString(str) {				
+				var match = nodeRef.match(/^"(.*)"$/);
+				return Utils.String.trim(null != match ? match[1] : str);
+			}
 			
 		},
 		
