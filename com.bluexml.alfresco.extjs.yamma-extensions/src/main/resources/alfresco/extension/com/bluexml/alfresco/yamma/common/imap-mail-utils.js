@@ -24,7 +24,7 @@
 				mapFromTo({
 					'cm:title' : 'cm:title',
 					'imap:messageSubject' : YammaModel.MAIL_OBJECT_PROPNAME,
-					'imap:messageId' : YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,
+					//'imap:messageId' : YammaModel.REFERENCEABLE_REFERENCE_PROPNAME,
 					'imap:dateReceived' : YammaModel.INBOUND_DOCUMENT_DELIVERY_DATE_PROPNAME,
 					'imap:dateSent' : [YammaModel.MAIL_SENT_DATE_PROPNAME, YammaModel.MAIL_WRITING_DATE_PROPNAME]
 				});

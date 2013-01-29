@@ -103,6 +103,8 @@
 						query = query.replace(/cm:\{tray\}/, '*');
 					}
 					
+					query = query + ' -ASPECT:"sys:temporary"';
+					
 					return query;
 					
 				},

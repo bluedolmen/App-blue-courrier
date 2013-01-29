@@ -22,6 +22,7 @@
 
 	<import resource="classpath:${config.target.path}/context/service-context.xml" />
 	<import resource="classpath:${config.target.path}/context/pdf-context.xml" />
+	<import resource="classpath:${config.target.path}/context/reference-context.xml" />
 	<import resource="classpath:${config.target.path}/context/yamma-policies-context.xml" />
 	<import resource="classpath:${config.target.path}/context/yamma-bootstrap-context.xml" />
     

@@ -125,6 +125,8 @@ public final class MergerUtils {
             false
         );
         
+        nodeService.addAspect(copyNodeRef, ContentModel.ASPECT_TEMPORARY, null);
+        
         // modify the name of the copy to reflect the new mimetype
         nodeService.setProperty(copyNodeRef, ContentModel.PROP_NAME, copyName);
         

@@ -52,7 +52,7 @@
 						switch (operation) {
 							case 'compute':
 								this.documentNumber++;
-								var documentState = values[YammaModel.YAMMA_NS_PREFIX + ':Prioritizable_lateState'] || YammaModel.LATE_STATE_UNDETERMINED;
+								var documentState = values[YammaModel.DUEABLE_ASPECT_SHORTNAME + '_lateState'] || YammaModel.LATE_STATE_UNDETERMINED;
 								this.documentStateNumber[documentState]++;
 							break;
 							

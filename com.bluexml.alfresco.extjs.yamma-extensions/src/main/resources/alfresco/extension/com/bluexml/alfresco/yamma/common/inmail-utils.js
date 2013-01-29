@@ -25,6 +25,7 @@
 			}
 			
 			initializeDates();
+			setInitialReference();
 			setInitialState();
 			setOrigin();
 
@@ -67,6 +68,14 @@
 					setPropertyIfEmpty(YammaModel.INBOUND_DOCUMENT_DELIVERY_DATE_PROPNAME, NOW);
 				}
 				
+				document.save();
+			}
+			
+			function setInitialReference() {
+				var reference = referenceProvider.getReference("yamma", document, null);
+				document.properties[YammaModel.REFERENCEABLE_INTERNAL_ID_PROPNAME] = reference; // set inconditionnaly internal id
+				
+				setPropertyIfEmpty(YammaModel.REFERENCEABLE_REFERENCE_PROPNAME, reference);
 				document.save();
 			}
 			
