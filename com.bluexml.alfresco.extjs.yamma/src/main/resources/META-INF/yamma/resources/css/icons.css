@@ -361,6 +361,9 @@
 .icon-page_white_text {
     background-image: url(../icons/page_white_text.png) !important;
 }
+.icon-printer {
+    background-image: url(../icons/printer.png) !important;
+}
 .icon-user_comment_lock {
     background-image: url(../icons/user_comment_lock.png) !important;
 }
