@@ -8,8 +8,13 @@
 					
 		createMail : function(document, typeShort) {
 
+			// INIT
+			
 			typeShort = typeShort || YammaModel.INBOUND_MAIL_TYPE_SHORTNAME; // default is Inbound Mail
 			var documentContainer = null;
+			
+			
+			// MAIN			
 			
 			specializeDocumentType();
 			createDocumentContainer();
@@ -24,6 +29,8 @@
 			setOrigin();
 
 
+			// FUNCTIONS
+			
 			function specializeDocumentType() {
 				if (document.isSubType(YammaModel.DOCUMENT_TYPE_SHORTNAME)) return; // Already specialized in a YaMma document object
 				document.specializeType(typeShort);
