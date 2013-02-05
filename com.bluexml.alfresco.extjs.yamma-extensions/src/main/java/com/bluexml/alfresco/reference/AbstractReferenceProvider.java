@@ -14,6 +14,12 @@ public abstract class AbstractReferenceProvider implements
 		
 	}
 	
+	public String getUnboundReference(Object context) {
+		
+		return getReference(null, context);
+		
+	}
+	
 	/*
 	 * Spring IoC/DI material
 	 */

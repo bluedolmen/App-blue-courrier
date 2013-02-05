@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.alfresco.service.cmr.repository.NodeRef;
+import org.alfresco.service.cmr.repository.NodeService;
+import org.alfresco.service.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,34 +17,61 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 	private static Log logger = LogFactory.getLog(ReferenceProviderServiceImpl.class);
 	private Map<String, ReferenceProvider> referenceProviders = new HashMap<String, ReferenceProvider>();
 	private ReferenceProvider defaultReferenceProvider = null;
+	private NodeService nodeService;
+	private QName encodedProperty;
 
-	public String getReference(NodeRef nodeRef) {
-		return getReference(nodeRef, null);
+	public void setReference(NodeRef nodeRef, String value) {
+		nodeService.setProperty(nodeRef, encodedProperty, value);
+	}
+
+	public boolean setReference(NodeRef nodeRef, boolean override) {
+		return setReference(nodeRef, override, null, null);
+	}
+
+	public boolean setReference(NodeRef nodeRef, boolean override, String providerId, Object config) {
+		final ReferenceProvider referenceProvider = getReferenceProvider(providerId);
+		
+		final String existingReference = getExistingReference(nodeRef, null);
+		if (null != existingReference && !override) return false;
+		
+		final String newReference = referenceProvider.getReference(nodeRef, config);
+		if (newReference.equals(existingReference)) return false;
+		
+		setReference(nodeRef, newReference);
+		return true;
+	}
+
+	public String getExistingReference(NodeRef nodeRef) {
+		return getExistingReference(nodeRef, null); 
+	}
+
+	public String getNewReference() {
+		return getNewReference(null, null);
+	}
+
+	public String getNewReference(String providerId, Object config) {
+		final ReferenceProvider referenceProvider = getReferenceProvider(providerId);		
+		return referenceProvider.getUnboundReference(config);
 	}
 	
-	public String getReference(String providerId, NodeRef nodeRef, Object config) {
+	private String getExistingReference(final NodeRef nodeRef, String defaultValue) {
 		
-		ReferenceProvider referenceProvider = null;
+		final String value = (String) nodeService.getProperty(nodeRef, encodedProperty);
+		if (null != value && !value.isEmpty()) return value;
 		
-		if ( null == providerId || providerId.isEmpty() ) {
-			referenceProvider = getDefaultReferenceProvider();
-		} 
-		else if (referenceProviders.containsKey(providerId) ) {
-			referenceProvider = referenceProviders.get(providerId);
-		} 
-		else {
-			throw new IllegalStateException(
-				String.format("There is no reference provider width id='%s'", providerId)
-			);			
-		}
+		if (null != defaultValue && !defaultValue.isEmpty()) return defaultValue;
 		
-		return referenceProvider.getReference(nodeRef, config);
+		return null;
 		
 	}
-
-	public String getReference(NodeRef nodeRef, Object config) {
+	
+	private ReferenceProvider getReferenceProvider(String providerId) {
 		
-		return getReference(null, nodeRef, config);
+		if ( null == providerId || providerId.isEmpty() ) return getDefaultReferenceProvider();
+		if (referenceProviders.containsKey(providerId) ) return referenceProviders.get(providerId);
+		throw new IllegalStateException(
+			String.format("There is no reference provider width id='%s'", providerId)
+		);			
 		
 	}
 
@@ -87,5 +116,14 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 	public void setReferenceProvider(ReferenceProvider referenceProvider) {
 		this.defaultReferenceProvider = referenceProvider;
 	}
+
+	public void setEncodedProperty(String propertyQName) {
+		this.encodedProperty = QName.createQName(propertyQName);
+	}
+
+	public void setNodeService(NodeService nodeService) {
+		this.nodeService = nodeService;
+	}
 	
+
 }

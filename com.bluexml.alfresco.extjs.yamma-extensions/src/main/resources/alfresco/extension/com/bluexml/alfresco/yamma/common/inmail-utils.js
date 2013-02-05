@@ -73,7 +73,7 @@
 			
 			function setInitialReference() {
 				var reference = referenceProvider.getReference("yamma", document, null);
-				document.properties[YammaModel.REFERENCEABLE_INTERNAL_ID_PROPNAME] = reference; // set inconditionnaly internal id
+				document.properties[YammaModel.REFERENCEABLE_INTERNAL_REFERENCE_PROPNAME] = reference; // set inconditionnaly internal id
 				
 				setPropertyIfEmpty(YammaModel.REFERENCEABLE_REFERENCE_PROPNAME, reference);
 				document.save();

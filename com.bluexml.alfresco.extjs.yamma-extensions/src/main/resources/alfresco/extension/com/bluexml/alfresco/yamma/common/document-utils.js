@@ -77,6 +77,68 @@
 			
 		},
 		
+		/**
+		 * Updates only if the service is a valid (changing) managed service
+		 */
+		setAssignedService : function(documentNode, serviceName) {
+			
+			DocumentUtils.checkDocument(documentNode);
+			
+			removeAssignedService();
+			if (null == serviceName) return true;
+			if (!ServicesUtils.isService(serviceName)) return false;
+			
+			var assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode);
+			if (serviceName == assignedServiceName) return true;
+			
+			// Retrieve the corresponding datalist-item
+			var assignableSiteNode = this._getAssignableSiteNode(serviceName);
+			documentNode.createAssociation(assignableSiteNode, YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME);
+			return true;
+			
+			function removeAssignedService() {
+				
+				var existingTargetNode = documentNode.assocs[YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME] || [];
+				if (Utils.isArrayEmpty(existingTargetNode)) return;
+				documentNode.removeAssociation(existingTargetNode[0], YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME);
+				
+			}
+			
+		},
+		
+		setDistributedServices : function(documentNode, serviceNameList) {
+			
+			DocumentUtils.checkDocument(documentNode);
+			
+			// Remove existing services
+			var existingTargetNodes = documentNode.assocs[YammaModel.DISTRIBUTABLE_SERVICES_ASSOCNAME] || [];
+			Utils.forEach(existingTargetNodes, function(node) {
+				documentNode.removeAssociation(node, YammaModel.DISTRIBUTABLE_SERVICES_ASSOCNAME);
+			});
+			
+			Utils.forEach(serviceNameList, function(serviceName) {
+				var assignableSiteNode = DocumentUtils._getAssignableSiteNode(serviceName);
+				documentNode.createAssociation(assignableSiteNode, YammaModel.DISTRIBUTABLE_SERVICES_ASSOCNAME);
+			});
+			
+		},
+		
+		_getAssignableSiteNode : function(serviceName) {
+			
+			var 
+				luceneQuery = 
+					'+TYPE:"yamma-ee:AssignableSite"' +  
+					' +' + Utils.Alfresco.getLuceneAttributeFilter("cm:name", serviceName),
+				result = search.luceneSearch(luceneQuery);
+			;
+			
+			if (!result || 0 == result.length) return null;
+			var firstMatchingService = result[0];
+			
+			return firstMatchingService;
+			
+		},
+		
 		hasAssignedService : function(documentNode) {
 			
 			var assignedServiceName = DocumentUtils.getAssignedServiceName(documentNode);
@@ -374,7 +436,18 @@
 			
 			return '';
 			
-		}		
+		},
+		
+		updateInternalReference : function(documentNode) {
+			
+			this.checkDocument(documentNode);
+			
+			var internalReference = referenceProvider.getReference(documentNode);
+			documentNode.properties[YammaModel.REFERENCEABLE_INTERNAL_REFERENCE_PROPNAME] = internalReference;
+			documentNode.save();
+			
+		}
+		
 		
 	};
 

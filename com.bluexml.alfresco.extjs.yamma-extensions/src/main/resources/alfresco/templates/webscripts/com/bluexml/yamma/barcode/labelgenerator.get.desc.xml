@@ -1,0 +1,21 @@
+<webscript>
+	<shortname>Label PDF page generator</shortname>
+	<description>Generate one or several pages of (barcode) labels</description>
+	<family>YaMma</family>
+	
+	<args>
+		<arg>
+			<shortname>pageNumber</shortname>
+			<description>The number of label pages to generate</description>
+		</arg>
+		<arg>
+			<shortname>nb</shortname>
+			<description>The maximum number of labels to generate</description>
+		</arg>
+	</args>
+	
+	<url>/bluexml/yamma/label-generator</url>
+	<format default="">argument</format>
+	<authentication>user</authentication>
+	
+</webscript>

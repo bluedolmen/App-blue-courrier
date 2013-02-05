@@ -33,12 +33,13 @@ import org.springframework.extensions.webscripts.WebScriptRequest;
 import org.springframework.extensions.webscripts.WebScriptResponse;
 
 import com.bluexml.alfresco.pdf.Merger;
-import com.bluexml.alfresco.pdf.MergerException;
-import com.bluexml.alfresco.pdf.Merger.MergerConfig;
+import com.bluexml.alfresco.pdf.PdfOperationConfig;
+import com.bluexml.alfresco.pdf.PdfOperationException;
 public class MergeToPdf extends StreamContent
 {
 	public static final String NODEREFS = "nodeRefs";
 	public static final String DOUBLE_SIDED = "doubleSided";
+	public static final String STAMPED = "stamped";
 	
 	private Merger pdfMerger;
 	private File mergedFile;
@@ -47,19 +48,25 @@ public class MergeToPdf extends StreamContent
     	
     	final String nodeRefsParam = req.getParameter(NODEREFS);
     	final List<NodeRef> nodeRefs = NodeRef.getNodeRefs(nodeRefsParam);
+    	
     	final String doubleSidedParam = req.getParameter(DOUBLE_SIDED);
-    	final boolean doubleSided = "true" == doubleSidedParam && nodeRefs.size() > 1;
+    	final boolean doubleSided = "true".equals(doubleSidedParam) && nodeRefs.size() > 1;
+    	
+    	final String stampedParam = req.getParameter(STAMPED);
+    	final boolean stamped = "true".equals(stampedParam); 
     	
     	if (nodeRefs.isEmpty()) throw new WebScriptException("At least one nodeRef has to be provided");
     	
     	final OutputStream tempOutputStream = getOutputStream();
 
-    	final MergerConfig mergerConfig = MergerConfig.emptyConfig();
-    	mergerConfig.put(MergerConfig.DOUBLE_SIDED, doubleSided);
+    	final PdfOperationConfig mergerConfig = PdfOperationConfig.emptyConfig();
+    	mergerConfig.put(Merger.DOUBLE_SIDED, doubleSided);
+    	mergerConfig.put(Merger.STAMPED, stamped);
+    	
     	try {
 			pdfMerger.setConfig(mergerConfig);
 	    	pdfMerger.merge(nodeRefs, tempOutputStream);
-		} catch (MergerException e) {
+		} catch (PdfOperationException e) {
 			throw new WebScriptException("Cannot merge the provided document references.", e);
 		}
     	

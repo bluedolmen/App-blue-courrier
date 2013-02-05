@@ -28,7 +28,7 @@ import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 
 import com.bluexml.alfresco.pdf.Merger;
-import com.bluexml.alfresco.pdf.MergerException;
+import com.bluexml.alfresco.pdf.PdfOperationException;
 
 public final class PdfMergerScript extends BaseScopableProcessorExtension {
 	
@@ -40,11 +40,11 @@ public final class PdfMergerScript extends BaseScopableProcessorExtension {
 	private Merger merger;
 	private final ValueConverter valueConverter = new ValueConverter();
 
-	public ScriptNode merge(NativeArray inputFiles_, ScriptNode destination) throws MergerException {
+	public ScriptNode merge(NativeArray inputFiles_, ScriptNode destination) throws PdfOperationException {
 		return merge(inputFiles_, destination, null);
 	}
 
-	public ScriptNode merge(NativeArray inputFiles_, ScriptNode destination, Scriptable config_) throws MergerException {
+	public ScriptNode merge(NativeArray inputFiles_, ScriptNode destination, Scriptable config_) throws PdfOperationException {
 		
 		final List<NodeRef> inputFiles = getInputFiles(inputFiles_);
 		final Map<String, Object> config = getConfig(config_);

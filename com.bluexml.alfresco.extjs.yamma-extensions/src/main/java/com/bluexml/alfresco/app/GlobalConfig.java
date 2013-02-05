@@ -15,7 +15,6 @@ import org.alfresco.service.cmr.repository.ChildAssociationRef;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.cmr.repository.StoreRef;
-import org.alfresco.service.cmr.search.SearchService;
 import org.alfresco.service.namespace.NamespacePrefixResolver;
 import org.alfresco.service.namespace.NamespaceService;
 import org.alfresco.service.namespace.QName;
@@ -25,8 +24,7 @@ import org.apache.commons.logging.LogFactory;
 public class GlobalConfig {
 	
 	private static final Log logger = LogFactory.getLog(GlobalConfig.class);
-	private static final String ROOT_PATH = "sys:system";
-	private static final String BLUEXML_CONTAINER_NAME = "config";
+	private static final String CONFIG_ROOT_PATH = "sys:system/sys:config";
 
 	private static final class ConfigProperty {
 		private NodeRef configObject;
@@ -40,24 +38,13 @@ public class GlobalConfig {
 	
 	private TransactionalCache<String, ConfigProperty> cache;
 	private NodeService nodeService;
-	private NamespacePrefixResolver namespacePrefixResolver;
-	private SearchService searchService;
-	
-	public NodeRef getConfigContainer() {
-			
-		final NodeRef configRoot = getConfigRoot();
-		final NodeRef bluexmlContainer = nodeService.getChildByName(configRoot, ContentModel.ASSOC_CHILDREN, BLUEXML_CONTAINER_NAME);					
-		if (null != bluexmlContainer) return bluexmlContainer;
-		
-		return createContainer(configRoot, BLUEXML_CONTAINER_NAME, ContentModel.TYPE_CONTAINER);
-		
-	}
+	private NamespacePrefixResolver namespacePrefixResolver;	
 	
 	private NodeRef getConfigRoot() {
 		
 		final NodeRef workspaceSpacesStore = nodeService.getRootNode(StoreRef.STORE_REF_WORKSPACE_SPACESSTORE);
 		
-		final Collection<String> pathToObject = Arrays.asList(ROOT_PATH.split("\\/"));
+		final Collection<String> pathToObject = Arrays.asList(CONFIG_ROOT_PATH.split("\\/"));
 		return createPath(pathToObject, workspaceSpacesStore);		
 		
 	}
@@ -70,7 +57,7 @@ public class GlobalConfig {
 
 	public NodeRef getOrCreateSubObject(NodeRef parentContainer, String objectName, QName objectType, boolean create) {
 		
-		final NodeRef configContainer = null == parentContainer ? getConfigContainer() : parentContainer;
+		final NodeRef configContainer = null == parentContainer ? getConfigRoot() : parentContainer;
 		
 		final QName assocQName = objectName.contains(":") ?
 				QName.createQName(objectName, namespacePrefixResolver) :
@@ -119,7 +106,7 @@ public class GlobalConfig {
 	
 	private NodeRef createPath(Collection<String> pathToObject, NodeRef root) {
 		
-		NodeRef containerIterator = null != root ? root : getConfigContainer();
+		NodeRef containerIterator = null != root ? root : getConfigRoot();
 		for (String containerName : pathToObject) {
 			containerIterator = getOrCreateSubContainer(containerIterator, containerName);
 		}

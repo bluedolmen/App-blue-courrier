@@ -53,7 +53,6 @@ public final class MergerUtils {
 	
 		return checkedList;
 		
-		
 	}
 	
 	public NodeRef getPdfNode(NodeRef source) throws NoTransformerException, ContentIOException {

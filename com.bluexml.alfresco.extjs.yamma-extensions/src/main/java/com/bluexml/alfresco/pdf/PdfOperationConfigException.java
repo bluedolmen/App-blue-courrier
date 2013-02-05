@@ -1,10 +1,10 @@
 package com.bluexml.alfresco.pdf;
 
-public class MergerConfigException extends MergerException {
+public class PdfOperationConfigException extends MergerException {
 
 	private static final long serialVersionUID = 4533164206399763339L;
 	
-	public MergerConfigException(String message) {
+	public PdfOperationConfigException(String message) {
 		super(message);
 	}
 

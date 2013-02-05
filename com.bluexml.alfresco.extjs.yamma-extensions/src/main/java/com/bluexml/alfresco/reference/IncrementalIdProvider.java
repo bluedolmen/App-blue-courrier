@@ -1,6 +1,6 @@
 package com.bluexml.alfresco.reference;
 
-import org.alfresco.service.cmr.repository.NodeRef;
+import org.alfresco.service.namespace.QName;
 
 public interface IncrementalIdProvider <T> {
 		
@@ -8,10 +8,9 @@ public interface IncrementalIdProvider <T> {
 	
 	public void reset();
 	
-	public T getTypeNext(NodeRef nodeRef);
+	public T getTypeNext(QName typeQName);
 	
-	public void resetType(NodeRef nodeRef);
+	public void resetType(QName typeQName);
 	
-	public void resetType(String typeLocalName);
 	
 }

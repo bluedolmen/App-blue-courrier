@@ -34,6 +34,38 @@
 		</property>
 		
 	</bean>
+	
+	<bean id="pageDefinition.AVERY.L7654" class="com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration">
+		<property name="pageMargin" value="21 5 15 10" />
+		<property name="labelSize" value="45.7x25.4" />
+		<property name="labelMargin" value="0 2.5 0 0" />
+		<property name="labelPadding" value="2" />
+	</bean>
+	
+	<bean id="yamma.abstractBarcodeLabelPdfDocument" 
+		  class="com.bluexml.alfresco.barcode.pdf.AbstractBarcodeLabelPdfDocument"
+		  abstract="true">
+		
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		<property name="referenceProvider" ref="yamma.scriptReferenceProvider" />
+		<property name="pageConfiguration" ref="pageDefinition.AVERY.L7654" />
+		
+	</bean>
+	
+	<bean id="yamma.barcodeLabelPdfDocument.IText" 
+		  class="com.bluexml.alfresco.barcode.pdf.ITextBarcodeLabelPdfDocument"
+		  parent="yamma.abstractBarcodeLabelPdfDocument">
+		
+	</bean>
+		
+	
+	<bean id="webscript.com.bluexml.yamma.barcode.labelgenerator.get" 
+		  class="com.bluexml.alfresco.barcode.ws.BarcodePageGenerator" 
+		  parent="webscript">
+				
+		<property name="barcodeLabelPdfDocument" ref="yamma.barcodeLabelPdfDocument.IText" />	
+	</bean> 
+	
 				
 	<!-- OBSOLETED OR NOT-(YET)-WORKING -->
 	

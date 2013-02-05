@@ -18,6 +18,10 @@
 
 -->
 <beans>	
+
+	<!-- 
+	  - PDF MERGING MATERIAL
+	  -->
 	
 	<bean id="MergerUtils" class="com.bluexml.alfresco.pdf.MergerUtils" >
 		<property name="nodeService" ref="NodeService" />
@@ -31,23 +35,37 @@
 		<property name="mergerUtils" ref="MergerUtils" />
 	</bean>
 	
-	<bean id="PdfBoxMerger" class="com.bluexml.alfresco.pdf.PdfBoxMerger" parent="AbstractPdfMerger">
-		<property name="fileFolderService" ref="FileFolderService" />
+	<bean id="PdfBoxMerger" class="com.bluexml.alfresco.pdf.pdfbox.PdfBoxMerger" parent="AbstractPdfMerger">
+		<property name="inputSourceFactory" ref="InputSourceFactory" />
+		<property name="referenceProviderService" ref="referenceProviderService" />
+	</bean>
+
+	<bean id="InputSourceFactory" class="com.bluexml.alfresco.pdf.pdfbox.InputSourceFactory">
+		<property name="fileFolderService" ref="FileFolderService" />		
 	</bean>
 		 
-	<bean id="webscript.com.bluexml.pdf.mergetopdf.get" 
-		  class="com.bluexml.alfresco.pdf.ws.MergeToPdf" 
-		  parent="webscript"
-	>		
-		<property name="mimetypeService" ref="MimetypeService" />	
-		<property name="merger" ref="PdfBoxMerger" />
-	</bean> 
-	
+	<!-- 
+	  - JAVASCRIPT HELPER
+	  -->
+	  
 	<bean id="pdfMergerScript" parent="baseJavaScriptExtension" class="com.bluexml.alfresco.pdf.jscript.PdfMergerScript" >
 		<property name="extensionName" value="pdfMerger" />
 		<property name="serviceRegistry" ref="ServiceRegistry"/>
 		<property name="merger" ref="PdfBoxMerger" />
 	</bean>
+	
+
+	<!-- 
+	  - WEBSCRIPTS
+	  -->
+	  
+	<bean id="webscript.com.bluexml.pdf.mergetopdf.get" 
+		  class="com.bluexml.alfresco.pdf.ws.MergeToPdf" 
+		  parent="webscript">
+				
+		<property name="mimetypeService" ref="MimetypeService" />	
+		<property name="merger" ref="PdfBoxMerger" />
+	</bean> 
 	
 	
 </beans>

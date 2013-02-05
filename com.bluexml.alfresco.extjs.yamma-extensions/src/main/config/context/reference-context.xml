@@ -12,6 +12,10 @@
 	language governing permissions and limitations under the License. -->
 <beans>
 
+	<!-- 
+	  - STORING CONFIG
+	  -->
+
 	<bean name="config.configSharedCache" class="org.alfresco.repo.cache.EhCacheAdapter">
 		<property name="cache">
 			<bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
@@ -43,41 +47,54 @@
 		<property name="cache" ref="config.configCache" />
 	</bean>
 	
+	<!-- 
+	  - REFERENCE MATERIAL
+	  -->
+	  
 	<bean id="referenceProviderService" class="com.bluexml.alfresco.reference.ReferenceProviderServiceImpl">
+		<property name="nodeService" ref="NodeService" />		
+		<property name="encodedProperty">
+			<value>{http://www.bluexml.com/model/content/yamma-ee/1.0}Referenceable_internalReference</value>
+		</property>		
 	</bean>
 	
+	<bean id="abstractReferenceProvider"
+		class="com.bluexml.alfresco.reference.AbstractReferenceProvider"
+		init-method="register" 
+		abstract="true">
+		
+		<property name="referenceProviderService" ref="referenceProviderService" />
+	</bean>
+
+	<!-- Incremental id-provider reference definition -->
+	<bean id="configBasedIncrementalIdProvider"
+		class="com.bluexml.alfresco.reference.ConfigIncrementalIdProvider"
+		parent="abstractReferenceProvider">
+		
+		<property name="globalConfig" ref="GlobalConfig" />
+		<property name="nodeService" ref="NodeService" />
+	</bean>
+
+	<!-- Script based reference definition -->
+	<bean id="baseScriptReferenceProvider" 
+	    class="com.bluexml.alfresco.reference.ScriptReferenceProvider"
+		parent="abstractReferenceProvider" 
+		abstract="true">
+		
+		<property name="scriptService" ref="ScriptService" />
+		<property name="incrementalIdProvider" ref="configBasedIncrementalIdProvider" />
+	</bean>
+
+	<!-- 
+	  - JAVASCRIPT INTEGRATION
+	  -->
+	  
 	<bean id="referenceProviderScript" 
 	    parent="baseJavaScriptExtension"
 		class="com.bluexml.alfresco.reference.ReferenceProviderScript">
 		
 		<property name="extensionName" value="referenceProvider" />
 		<property name="referenceProviderService" ref="referenceProviderService" />
-	</bean>
-
-	<bean id="abstractReferenceProvider"
-		class="com.bluexml.alfresco.reference.AbstractReferenceProvider"
-		init-method="register" 
-		abstract="true"
-	>
-		<property name="referenceProviderService" ref="referenceProviderService" />
-	</bean>
-
-	<bean id="configBasedIncrementalIdProvider"
-		class="com.bluexml.alfresco.reference.ConfigIncrementalIdProvider"
-		parent="abstractReferenceProvider"
-	>
-		
-		<property name="globalConfig" ref="GlobalConfig" />
-		<property name="nodeService" ref="NodeService" />
-	</bean>
-
-	<bean id="baseScriptReferenceProvider" 
-	    class="com.bluexml.alfresco.reference.ScriptReferenceProvider"
-		parent="abstractReferenceProvider" 
-		abstract="true"
-	>
-		<property name="scriptService" ref="ScriptService" />
-		<property name="incrementalIdProvider" ref="configBasedIncrementalIdProvider" />
 	</bean>
 
 </beans>

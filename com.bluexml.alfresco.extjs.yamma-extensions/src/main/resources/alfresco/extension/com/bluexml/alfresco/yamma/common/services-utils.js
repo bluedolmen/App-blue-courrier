@@ -12,6 +12,18 @@
 			
 		},
 		
+		getCheckedService : function(site) {
+			
+			if (!ServicesUtils.isService(site)) return null;			
+			var 
+				siteNode = Utils.Alfresco.getSiteNode(site),
+				siteName = siteNode.name
+			;
+			
+			return siteService.getSite(siteName);
+			
+		},
+		
 		/**
 		 * Beware.
 		 * This method will return the correct list of sites if the context user

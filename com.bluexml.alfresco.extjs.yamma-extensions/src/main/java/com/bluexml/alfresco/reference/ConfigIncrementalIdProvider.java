@@ -22,13 +22,10 @@ public final class ConfigIncrementalIdProvider extends AbstractReferenceProvider
 	
 	public String getReference(NodeRef nodeRef, Object context) {
 		
-		boolean getByType = false;
-		if (context instanceof String) {
-			getByType = ((String) context).equals("byType");
-		}
-
-		final Integer value = getByType ?
-			getTypeNext(nodeRef) :
+		final QName typeQName = getType(nodeRef, context);
+		
+		final Integer value = null != typeQName ?
+			getTypeNext(typeQName) :
 			getNext()
 		;
 		
@@ -36,21 +33,48 @@ public final class ConfigIncrementalIdProvider extends AbstractReferenceProvider
 		
 	}
 	
-	public Integer getTypeNext(NodeRef nodeRef) {
+	private QName getType(NodeRef nodeRef, Object context) {
 		
-		final String propertyPath = getTypePropertyPath(nodeRef);
+		final boolean byType = ((context instanceof String) && "byType".equals((String) context) ); 
+		QName typeQName = null;
+		
+		if (null == nodeRef) {
+			
+			if ((context instanceof QName)) {
+				typeQName = (QName) context;
+			} else if (byType) {
+				throw new IllegalArgumentException("The 'byType' option is only available when a valid NodeRef is provided (non-null)");
+			} else {
+				return null;
+			}
+			
+		}
+
+		if (byType) {
+			typeQName = nodeService.getType(nodeRef);
+		}
+		
+		return typeQName;
+		
+	}
+	
+	public Integer getTypeNext(QName typeQName) {
+		
+		final String propertyPath = getTypePropertyPath(typeQName);
 		return getNextId(propertyPath);
 		
 	}
 	
-	private String getTypePropertyPath(NodeRef nodeRef) {
+	private String getTypePropertyPath(QName typeQName) {
 		
-		final QName typeQName = nodeService.getType(nodeRef);
 		final String propertyPath = ID_PROPERTY_PATH + '-' + typeQName.getLocalName();
-		
 		return propertyPath;
 		
 	}
+	
+	/*
+	 * Methods used when exposed in Rhino
+	 */
 	
 	public Integer getNext() {
 		
@@ -58,22 +82,23 @@ public final class ConfigIncrementalIdProvider extends AbstractReferenceProvider
 		
 	}
 	
+	public Integer getTypeNext(String typeLocalName) {
+		
+		final String propertyPath = ID_PROPERTY_PATH + '-' + typeLocalName;
+		return getNextId(propertyPath);
+		
+	}
+	
+	
 	public void reset() {
 		
 		reset(ID_PROPERTY_PATH);
 		
 	}
 	
-	public void resetType(NodeRef nodeRef) {
+	public void resetType(QName typeQName) {
 		
-		final String propertyPath = getTypePropertyPath(nodeRef);
-		reset(propertyPath);
-		
-	}
-	
-	public void resetType(String typeLocalName) {
-		
-		final String propertyPath = ID_PROPERTY_PATH + '-' + typeLocalName;
+		final String propertyPath = getTypePropertyPath(typeQName);
 		reset(propertyPath);
 		
 	}
