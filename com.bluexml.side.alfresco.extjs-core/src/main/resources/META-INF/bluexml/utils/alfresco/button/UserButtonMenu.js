@@ -3,10 +3,6 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
 	extend : 'Ext.button.Button',
 	alias : 'widget.userbuttonmenu',
 	
-	statics : {
-		STATISTICS_URL : 'http://www.bluexml.com/bluecourrier/stats'
-	},
-	
 	requires : [
 		'Bluexml.model.PersonFactory',
 		'Ext.Img'
@@ -111,11 +107,6 @@ Ext.define('Bluexml.utils.alfresco.button.UserButtonMenu', {
     onProfileMenuItemClicked : function() {    	
 		var userProfileWindow = Ext.create('Bluexml.view.windows.UserProfileWindow');
 		userProfileWindow.show();
-    },
-    
-    onStatisticsMenuItemClicked : function() {
-    	window.open(Bluexml.utils.alfresco.button.UserButtonMenu.STATISTICS_URL);
     }
-	
 	
 });

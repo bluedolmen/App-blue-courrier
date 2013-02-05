@@ -2,6 +2,10 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 	
 	extend : 'Bluexml.utils.alfresco.button.UserButtonMenu',
 	alias : 'widget.yammauserbuttonmenu',
+
+	statics : {
+		STATISTICS_URL : 'http://www.bluexml.com/bluecourrier/stats'
+	},	
 	
 	getAdditionalMenuItems : function() {
 		return [
@@ -20,6 +24,10 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 			}			
 		};
 		
-	}	
+	},
+	
+    onStatisticsMenuItemClicked : function() {
+    	window.open(Yamma.view.header.YammaUserButtonMenu.STATISTICS_URL);
+    }
 		
 });
