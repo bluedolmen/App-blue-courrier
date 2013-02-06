@@ -31,17 +31,35 @@
 		<property name="fileFolderService" ref="FileFolderService" />
 	</bean>
 
-	<bean id="AbstractPdfMerger" class="com.bluexml.alfresco.pdf.AbstractMerger" abstract="true">
+	<alias name="itext.Merger" alias="PdfMerger" />
+
+	<bean id="abstractPdfMerger" class="com.bluexml.alfresco.pdf.AbstractMerger" abstract="true">
 		<property name="mergerUtils" ref="MergerUtils" />
 	</bean>
 	
-	<bean id="PdfBoxMerger" class="com.bluexml.alfresco.pdf.pdfbox.PdfBoxMerger" parent="AbstractPdfMerger">
-		<property name="inputSourceFactory" ref="InputSourceFactory" />
+	<!-- PDFBOX IMPLEMENTATION / NOT USED|WORKING YET -->
+	
+	<bean id="pdfbox.InputSourceFactory" class="com.bluexml.alfresco.pdf.pdfbox.InputSourceFactory">
+		<property name="fileFolderService" ref="FileFolderService" />		
+	</bean>
+	
+	<bean id="pdfbox.Merger" class="com.bluexml.alfresco.pdf.pdfbox.PdfBoxMerger" parent="abstractPdfMerger">
+		<property name="inputSourceFactory" ref="pdfbox.InputSourceFactory" />
 		<property name="referenceProviderService" ref="referenceProviderService" />
 	</bean>
 
-	<bean id="InputSourceFactory" class="com.bluexml.alfresco.pdf.pdfbox.InputSourceFactory">
+	<!-- ITEXT IMPLEMENTATION -->
+	
+	<bean id="itext.InputSourceFactory" class="com.bluexml.alfresco.pdf.itext.InputSourceFactory">
 		<property name="fileFolderService" ref="FileFolderService" />		
+	</bean>
+	
+	<bean id="itext.Merger" class="com.bluexml.alfresco.pdf.itext.ITextMerger" parent="abstractPdfMerger">
+		<property name="inputSourceFactory" ref="itext.InputSourceFactory" />
+	</bean>
+	
+	<bean id="itext.AbstractExtension" class="com.bluexml.alfresco.pdf.itext.AbstractITextExtension" init-method="register" abstract="true" >
+		<property name="merger" ref="itext.Merger" />
 	</bean>
 		 
 	<!-- 
@@ -51,7 +69,7 @@
 	<bean id="pdfMergerScript" parent="baseJavaScriptExtension" class="com.bluexml.alfresco.pdf.jscript.PdfMergerScript" >
 		<property name="extensionName" value="pdfMerger" />
 		<property name="serviceRegistry" ref="ServiceRegistry"/>
-		<property name="merger" ref="PdfBoxMerger" />
+		<property name="merger" ref="PdfMerger" />
 	</bean>
 	
 
@@ -64,7 +82,7 @@
 		  parent="webscript">
 				
 		<property name="mimetypeService" ref="MimetypeService" />	
-		<property name="merger" ref="PdfBoxMerger" />
+		<property name="merger" ref="PdfMerger" />
 	</bean> 
 	
 	

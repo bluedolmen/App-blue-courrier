@@ -39,7 +39,7 @@ public class MergeToPdf extends StreamContent
 {
 	public static final String NODEREFS = "nodeRefs";
 	public static final String DOUBLE_SIDED = "doubleSided";
-	public static final String STAMPED = "stamped";
+	public static final String STAMP = "stamp";
 	
 	private Merger pdfMerger;
 	private File mergedFile;
@@ -52,8 +52,7 @@ public class MergeToPdf extends StreamContent
     	final String doubleSidedParam = req.getParameter(DOUBLE_SIDED);
     	final boolean doubleSided = "true".equals(doubleSidedParam) && nodeRefs.size() > 1;
     	
-    	final String stampedParam = req.getParameter(STAMPED);
-    	final boolean stamped = "true".equals(stampedParam); 
+    	final String stampValue = req.getParameter(STAMP);
     	
     	if (nodeRefs.isEmpty()) throw new WebScriptException("At least one nodeRef has to be provided");
     	
@@ -61,7 +60,9 @@ public class MergeToPdf extends StreamContent
 
     	final PdfOperationConfig mergerConfig = PdfOperationConfig.emptyConfig();
     	mergerConfig.put(Merger.DOUBLE_SIDED, doubleSided);
-    	mergerConfig.put(Merger.STAMPED, stamped);
+    	if (null != stampValue) {
+    		mergerConfig.put(Merger.STAMPED, stampValue);
+    	}
     	
     	try {
 			pdfMerger.setConfig(mergerConfig);

@@ -15,7 +15,10 @@ public class PdfOperationConfig extends HashMap<String, Object> {
 	
 	public <T> T getValue(String key, Class<T> type) {
 		
-		if (!this.containsKey(key)) return null;			
+		if (!this.containsKey(key)) return null;
+		final Object value = this.get(key);
+		if (!type.isInstance(value)) return null;
+		
 		return type.cast(this.get(key));
 		
 	}

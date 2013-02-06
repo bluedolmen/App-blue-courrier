@@ -29,6 +29,10 @@
 	<!-- 
 	  - BARCODE MATERIAL
 	  -->
+	  
+	<alias name="zxing.BarcodeGenerator" alias="BarcodeGenerator" />
+	
+	<!-- BARCODE4J -->
 		 
 	<bean id="barcodeGenerator.code128" class="org.krysalis.barcode4j.impl.code128.Code128Bean">
 	    <property name="moduleWidth" value="0.3"/> <!-- mm -->
@@ -43,12 +47,28 @@
 	    <property name="msgPosition">
 	    	<util:constant static-field="org.krysalis.barcode4j.HumanReadablePlacement.HRP_BOTTOM"/>
 	    </property>
-	    <property name="barHeight" value="10"/> <!-- mm -->
+	    <property name="barHeight" value="7"/> <!-- mm -->
 	</bean>
 	
-	<bean id="BarcodeGenerator" class="com.bluexml.alfresco.barcode.BarcodeGeneratorImpl">
+	<bean id="barcode4j.BarcodeGenerator" class="com.bluexml.alfresco.barcode.Barcode4JBarcodeGenerator">
 		<property name="barcodeGenerator" ref="barcodeGenerator.code128WithLabel" />		
 	    <property name="resolution" value="150"/>
+	</bean>
+	
+	
+	<!-- ZXing -->
+	
+	<bean id="zxing.writer.QRCode" class="com.bluexml.alfresco.barcode.ZXingBarcodeGenerator$ZXingWriterConfig">
+		<property name="writer">
+			<bean class="com.google.zxing.qrcode.QRCodeWriter"/>
+		</property>
+		<property name="format" value="QR_CODE" />
+		<property name="width" value="50"/>
+		<property name="height" value="50"/>
+	</bean>
+	
+	<bean id="zxing.BarcodeGenerator" class="com.bluexml.alfresco.barcode.ZXingBarcodeGenerator">
+		<property name="writerConfig" ref="zxing.writer.QRCode" />
 	</bean>
 	
 	<!-- 

@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.alfresco.service.cmr.repository.NodeRef;
 
-import com.bluexml.alfresco.barcode.pdf.BarcodeStampOperation;
 import com.bluexml.alfresco.pdf.AbstractMerger;
 import com.bluexml.alfresco.pdf.Merger;
 import com.bluexml.alfresco.pdf.PdfOperationConfig;
@@ -43,7 +42,7 @@ public final class PdfBoxMerger extends AbstractMerger {
 					final String referenceValue = referenceProviderService.getExistingReference(nodeRef);
 					if (null == referenceValue) return true;
 					
-					final PdfBoxStampOperation pdfBoxStampOperation = new BarcodeStampOperation() {
+					final PdfBoxStampOperation pdfBoxStampOperation = new PdfBoxBarcodeStampOperation() {
 						@Override
 						protected BufferedImage getBarcode() throws Exception {
 							return barcodeGenerator.generate(referenceValue);

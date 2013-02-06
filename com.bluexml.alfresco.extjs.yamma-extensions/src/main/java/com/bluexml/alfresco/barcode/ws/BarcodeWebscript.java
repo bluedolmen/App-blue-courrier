@@ -20,6 +20,7 @@ package com.bluexml.alfresco.barcode.ws;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.SocketException;
 
 import org.alfresco.repo.web.scripts.content.StreamContent;
@@ -27,10 +28,12 @@ import org.alfresco.service.cmr.repository.ContentIOException;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.extensions.webscripts.WebScriptException;
 import org.springframework.extensions.webscripts.WebScriptRequest;
 import org.springframework.extensions.webscripts.WebScriptResponse;
 
 import com.bluexml.alfresco.barcode.BarcodeGenerator;
+import com.bluexml.alfresco.barcode.BarcodeGenerator.BarcodeGeneratorException;
 import com.bluexml.alfresco.reference.ReferenceProviderService;
 
 public class BarcodeWebscript extends StreamContent {
@@ -45,7 +48,7 @@ public class BarcodeWebscript extends StreamContent {
 	private ReferenceProviderService referenceProviderService;
 	
 
-    public void execute(WebScriptRequest req, WebScriptResponse res) throws IOException {
+    public void execute(WebScriptRequest req, WebScriptResponse res) throws IOException  {
     	    	
     	final String value = req.getParameter(P_VALUE);
     	NodeRef nodeRef = null;
@@ -62,8 +65,8 @@ public class BarcodeWebscript extends StreamContent {
     	
     	if (req.getServerPath().contains("/new")) {
     		
-    		String reference = referenceProviderService.getNewReference(engine, null);
-    		barcodeGenerator.generate(reference, output, mimetype);
+    		final String reference = referenceProviderService.getNewReference(engine, null);
+    		generateBarcode(reference, output, mimetype);
     		
     	}
     	else {
@@ -75,7 +78,7 @@ public class BarcodeWebscript extends StreamContent {
         	}
     		
         	if (null != value && !value.isEmpty()) {
-        		barcodeGenerator.generate(barcodeValue, output, mimetype);
+        		generateBarcode(barcodeValue, output, mimetype);
         	} else {
         		logger.debug(String.format("No barcode generated for value '%s'", value));
         	}
@@ -109,7 +112,16 @@ public class BarcodeWebscript extends StreamContent {
     	
     }   
 
-
+    private void generateBarcode(String barcodeValue, OutputStream output, String mimetype) {
+    	try {
+			barcodeGenerator.generate(barcodeValue, output, mimetype);
+		} catch (BarcodeGeneratorException e) {
+			throw new WebScriptException(
+				String.format("Cannot generate the barcode for value '%s'", barcodeValue)
+			);
+		}
+    }
+    
 	/*
 	 * Spring IoC/DI material
 	 */

@@ -1,4 +1,4 @@
-package com.bluexml.alfresco.barcode.pdf;
+package com.bluexml.alfresco.pdf.pdfbox;
 
 import java.awt.image.BufferedImage;
 
@@ -6,9 +6,8 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
 
 import com.bluexml.alfresco.barcode.BarcodeGenerator;
-import com.bluexml.alfresco.pdf.pdfbox.PdfBoxStampOperation;
 
-public abstract class BarcodeStampOperation extends PdfBoxStampOperation {
+public abstract class PdfBoxBarcodeStampOperation extends PdfBoxStampOperation {
 	
 	protected BarcodeGenerator barcodeGenerator;
 

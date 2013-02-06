@@ -18,6 +18,8 @@
 
 -->
 <beans>	
+
+	<!-- REFERENCE PROVIDER -->
 				
 	<bean id="yamma.scriptReferenceProvider"
 		class="com.bluexml.alfresco.reference.ScriptReferenceProvider"
@@ -35,6 +37,15 @@
 		
 	</bean>
 	
+	<!-- BARCODE PAGE GENERATION -->
+	
+	<bean id="pageDefinition.AVERY.L7651" class="com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration">
+		<property name="pageMargin" value="11 3.375 3 10" />
+		<property name="labelSize" value="38.1x21.2" />
+		<property name="labelMargin" value="0 1.125 0 1.125" />
+		<property name="labelPadding" value="2" />
+	</bean>
+	
 	<bean id="pageDefinition.AVERY.L7654" class="com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration">
 		<property name="pageMargin" value="21 5 15 10" />
 		<property name="labelSize" value="45.7x25.4" />
@@ -48,14 +59,13 @@
 		
 		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
 		<property name="referenceProvider" ref="yamma.scriptReferenceProvider" />
-		<property name="pageConfiguration" ref="pageDefinition.AVERY.L7654" />
+		<property name="pageConfiguration" ref="pageDefinition.AVERY.L7651" />
 		
 	</bean>
 	
 	<bean id="yamma.barcodeLabelPdfDocument.IText" 
-		  class="com.bluexml.alfresco.barcode.pdf.ITextBarcodeLabelPdfDocument"
-		  parent="yamma.abstractBarcodeLabelPdfDocument">
-		
+		  class="com.bluexml.alfresco.pdf.itext.ITextBarcodeLabelPdfDocument"
+		  parent="yamma.abstractBarcodeLabelPdfDocument">		
 	</bean>
 		
 	
@@ -66,6 +76,19 @@
 		<property name="barcodeLabelPdfDocument" ref="yamma.barcodeLabelPdfDocument.IText" />	
 	</bean> 
 	
+	
+	<!-- BARCODE EXTENSION FOR MERGING -->
+	
+	<bean id="yamma.itext.mergerExtension.barcodeStamper" 
+		  class="com.bluexml.alfresco.pdf.itext.ITextBarcodeStampOperationExtension"
+		  parent="itext.AbstractExtension" >
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		<property name="referenceProviderService" ref="referenceProviderService" />
+		<property name="barcodePosition" value="190,10" />
+		<property name="barcodeSize" value="10x10" />
+	</bean>
+		
+		
 				
 	<!-- OBSOLETED OR NOT-(YET)-WORKING -->
 	

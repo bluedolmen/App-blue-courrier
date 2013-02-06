@@ -1,6 +1,5 @@
 package com.bluexml.alfresco.barcode.pdf;
 
-import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -9,7 +8,7 @@ public final class LabelPageConfiguration {
 	public static final Rectangle PAGE_SIZE_A4 = new Rectangle(210, 297);
 	
     static final int DEFAULT_USER_SPACE_UNIT_DPI = 72;
-    static final float MM_TO_UNITS = 1/(10*2.54f) * DEFAULT_USER_SPACE_UNIT_DPI; // Copied from Apache pdfbox since not exposed	
+    public static final float MM_TO_UNITS = 1/(10*2.54f) * DEFAULT_USER_SPACE_UNIT_DPI; // Copied from Apache pdfbox since not exposed	
 	
 	private Rectangle pageSize = PAGE_SIZE_A4;
 	private MarginConfiguration pageMargin;
@@ -117,9 +116,24 @@ public final class LabelPageConfiguration {
 		public final float x;
 		public final float y;
 		
-		private Position(float x, float y) {
+		public Position(float x, float y) {
 			this.x = x;
 			this.y = y;
+		}
+		
+		public Position(String postionDescr) {
+			StringTokenizer tokenizer = new StringTokenizer(postionDescr, ",");
+			if (tokenizer.countTokens() == 2) {
+				try {
+					x = Float.parseFloat(tokenizer.nextToken().trim());
+					y = Float.parseFloat(tokenizer.nextToken().trim());
+					
+					return;
+				}
+				catch(Exception e){}
+			}
+			
+			throw new IllegalArgumentException("Incorrect position formatting! Should be 'X,Y' with X and Y as integers");
 		}
 	}
 	
@@ -157,11 +171,21 @@ public final class LabelPageConfiguration {
 	
 	public static final class MarginConfiguration {
 		
-		private static final String[] setOrder = new String[] {"up", "right", "down", "left"};
-		private float up = -1;
-		private float right = -1;
-		private float down = -1;
-		private float left = -1;
+		private final Float up;
+		private final Float right;
+		private final Float down;
+		private final Float left;
+		
+		public MarginConfiguration(String descr) {
+			this(MarginConfiguration.createFromString(descr));
+		}
+		
+		public MarginConfiguration(MarginConfiguration copy) {
+			this.up = copy.up;
+			this.right = copy.right;
+			this.down = copy.down;
+			this.left = copy.left;
+		}
 		
 		public MarginConfiguration(float up, float right, float down, float left) {
 			this.up = up;
@@ -170,7 +194,10 @@ public final class LabelPageConfiguration {
 			this.left = left;
 		}
 		
-		public MarginConfiguration(String config) {
+		public static MarginConfiguration createFromString(final String config) {
+			
+			final Float[] values = new Float[]{Float.NaN, Float.NaN, Float.NaN, Float.NaN};
+			
 			if (null == config) throw new NullPointerException("config is null");
 			final StringTokenizer tokenizer = new StringTokenizer(config);
 			int i = 0;
@@ -178,100 +205,98 @@ public final class LabelPageConfiguration {
 			try {
 				while (tokenizer.hasMoreElements()) {
 					final String tok = tokenizer.nextToken();
-					final String marginName = setOrder[i++];
-					
-					final Field marginField = MarginConfiguration.class.getDeclaredField(marginName);
-					marginField.set(this, Float.parseFloat(tok));
-					
+					values[i++] = Float.parseFloat(tok);
 				}
 			} catch (Exception e) {
 				throw new IllegalArgumentException(String.format("The format '%s' is not valid.", config), e);
 			}
+			
+			return new MarginConfiguration(values[0], values[1], values[2], values[3]); 
 		}
 					
 		public float getUp() {
-			return -1 == up ? 0 /* unset */ : up;
+			return Float.isNaN(up) ? 0 /* unset */ : up;
 		}
 		
 		public float getRight() {
-			if (-1 != right) return right;
+			if (!Float.isNaN(right)) return right;
 			return getUp();
 		}
 		
 		public float getDown() {
-			if (-1 != down) return down;
+			if (!Float.isNaN(down)) return down;
 			return getUp(); // either opposed size, or 0
 		}
 		
 		public float getLeft() {
-			if (-1 != left) return left;
-			if (-1 != right) return right;
+			if (!Float.isNaN(left)) return left;
+			if (!Float.isNaN(right)) return right;
 			return getUp(); // either first value set, or 0
 		}
 	}
 	
-	public void setPageSize(String pageSize) {
-		final Rectangle pageSize_ = new Rectangle(pageSize);
-		setPageSize(pageSize_);
-	}
+//	public void setPageSize(String pageSize) {
+//		final Rectangle pageSize_ = new Rectangle(pageSize);
+//		setPageSize(pageSize_);
+//	}
 	
 	public void setPageSize(Rectangle pageSize) {
 		this.pageSize = pageSize;
 		labelNumber = -1;
 	}
 	
-	Rectangle getPageSize() {
+	public Rectangle getPageSize() {
 		return pageSize;
 	}
 	
-	public void setPageMargin(String pageMargin) {
-		setPageMargin(new MarginConfiguration(pageMargin));
-	}
+//	public void setPageMargin(String pageMargin) {
+//		setPageMargin(MarginConfiguration.createFromString(pageMargin));
+//	}
 
 	public void setPageMargin(MarginConfiguration pageMargin) {
 		this.pageMargin = pageMargin;
 		labelNumber = -1;
 	}
 	
-	MarginConfiguration getPageMargin() {
+	public MarginConfiguration getPageMargin() {
 		return pageMargin;
 	}
 	
-	public void setLabelSize(String labelSize) {
-		setLabelSize(new Rectangle(labelSize));
-	}
+//	public void setLabelSize(String labelSize) {
+//		setLabelSize(new Rectangle(labelSize));
+//	}
 	
 	public void setLabelSize(Rectangle labelSize) {
 		this.labelSize = labelSize;
 		labelNumber = -1;
 	}
 	
-	Rectangle getLabelSize() {
+	public Rectangle getLabelSize() {
 		return labelSize;
 	}
 	
-	public void setLabelMargin(String labelMargin) {
-		setLabelMargin(new MarginConfiguration(labelMargin));
-	}
+//	public void setLabelMargin(String labelMargin) {
+//		setLabelMargin(MarginConfiguration.createFromString(labelMargin));
+//	}
 	
 	public void setLabelMargin(MarginConfiguration labelMargin) {
 		this.labelMargin = labelMargin;
 		labelNumber = -1;
 	}
 	
-	MarginConfiguration getLabelMargin() {
+	public MarginConfiguration getLabelMargin() {
 		return labelMargin;
 	}
 	
-	public void setLabelPadding(String labelPadding) {
-		setLabelPadding(new MarginConfiguration(labelPadding));
-	}
+//	public void setLabelPadding(String labelPadding) {
+//		setLabelPadding(MarginConfiguration.createFromString(labelPadding));
+//	}
 	
 	public void setLabelPadding(MarginConfiguration labelPadding) {
 		this.labelPadding = labelPadding;
 	}
 	
-	MarginConfiguration getLabelPadding() {
+	public MarginConfiguration getLabelPadding() {
 		return labelPadding;
 	}
 }

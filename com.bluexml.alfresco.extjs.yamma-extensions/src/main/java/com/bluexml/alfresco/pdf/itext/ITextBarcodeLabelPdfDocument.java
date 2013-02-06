@@ -1,10 +1,12 @@
-package com.bluexml.alfresco.barcode.pdf;
+package com.bluexml.alfresco.pdf.itext;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.bluexml.alfresco.barcode.BarcodeGenerator.BarcodeGeneratorException;
+import com.bluexml.alfresco.barcode.pdf.AbstractBarcodeLabelPdfDocument;
 import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration.LabelPageIterator;
 import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration.MarginConfiguration;
 import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration.Position;
@@ -71,62 +73,40 @@ public class ITextBarcodeLabelPdfDocument extends AbstractBarcodeLabelPdfDocumen
 		}
 		
 		private void createNewPage() throws IOException {
-			doc.newPage();
+			//doc.newPage();
+			writer.setPageEmpty(false);
 			over = writer.getDirectContent();
 		}
 				
-		private void drawPageLabels() throws IOException, DocumentException {
+		private void drawPageLabels() throws IOException, DocumentException, BarcodeGeneratorException {
 			
 			final LabelPageIterator iterator = pageConfiguration.getLabelIterator();
+			final ITextImageDrawerHelper helper = new ITextImageDrawerHelper(over);
 			
 			while (iterator.hasNext()) {
 				
 				if (labelNumber-- <= 0) break; // break early
 				
 				final Position position = iterator.next();
-				if (showLabelBorders) showLabelBorder(position);
+				if (showLabelBorders) helper.showLabelBorder(position, labelSize, 1f, new Color(220,220,220));
 				
-	            final float bottomLeftX = Utilities.millimetersToPoints(position.x + labelPadding.getLeft());
-	            final float bottomLeftY = Utilities.millimetersToPoints(position.y + labelPadding.getDown());
-	            
 	            final BufferedImage bufferedImage = getNextBarcode(null);
-	            final com.lowagie.text.Image image = com.lowagie.text.Image.getInstance(bufferedImage, null);
 	            
-	            final float availableWidth = Utilities.millimetersToPoints(labelSize.width - labelPadding.getLeft() - labelPadding.getRight());
-	            final float availableHeight = Utilities.millimetersToPoints(labelSize.height - labelPadding.getUp() - labelPadding.getDown());
-	            image.scaleToFit(availableWidth, availableHeight);
+	            final float bottomLeftX = position.x + labelPadding.getLeft();
+	            final float bottomLeftY = position.y + labelPadding.getDown();
 	            
-	            final float scaledWidth = image.getScaledWidth();
-	            final float deltaX = (availableWidth - scaledWidth) / 2;
-	            final float scaledHeight = image.getScaledHeight();
-	            final float deltaY = (availableHeight - scaledHeight) / 2;
+	            final float availableWidth = labelSize.width - labelPadding.getLeft() - labelPadding.getRight();
+	            final float availableHeight = labelSize.height - labelPadding.getUp() - labelPadding.getDown();
 	            
-	            image.setAbsolutePosition(bottomLeftX + deltaX, bottomLeftY + deltaY);
+	            helper.drawImage(bufferedImage, bottomLeftX, bottomLeftY, availableWidth, availableHeight);
 	            
-	            doc.add(image);
 			}
             
             
 		}
 		
-		private void showLabelBorder(Position position) {
-			over.saveState();
-			
-			over.setLineWidth(1.5f);
-			over.setColorStroke(new Color(200,200,200));
-			
-			over.rectangle(
-					Utilities.millimetersToPoints(position.x), 
-					Utilities.millimetersToPoints(position.y), 
-					Utilities.millimetersToPoints(labelSize.width), 
-					Utilities.millimetersToPoints(labelSize.height)
-			);
-			
-			over.stroke();
-			over.restoreState();
-		}
 		
-		private BufferedImage getNextBarcode(Object config) throws IOException {
+		private BufferedImage getNextBarcode(Object config) throws BarcodeGeneratorException  {
 			
 			final String newReference = referenceProvider.getUnboundReference(config);
 			return barcodeGenerator.generate(newReference);

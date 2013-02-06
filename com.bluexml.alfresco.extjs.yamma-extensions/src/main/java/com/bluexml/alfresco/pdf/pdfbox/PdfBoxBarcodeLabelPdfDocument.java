@@ -1,4 +1,4 @@
-package com.bluexml.alfresco.barcode.pdf;
+package com.bluexml.alfresco.pdf.pdfbox;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,6 +15,9 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 
+import com.bluexml.alfresco.barcode.BarcodeGenerator.BarcodeGeneratorException;
+import com.bluexml.alfresco.barcode.pdf.AbstractBarcodeLabelPdfDocument;
+import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration;
 import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration.LabelPageIterator;
 import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration.MarginConfiguration;
 import com.bluexml.alfresco.barcode.pdf.LabelPageConfiguration.Position;
@@ -38,7 +41,7 @@ public class PdfBoxBarcodeLabelPdfDocument extends AbstractBarcodeLabelPdfDocume
 		
 		private final MarginConfiguration labelPadding = pageConfiguration.getLabelPadding();
 				
-		public synchronized void execute(OutputStream output, int labelNumber) throws IOException, COSVisitorException {
+		public synchronized void execute(OutputStream output, int labelNumber) throws IOException, COSVisitorException, BarcodeGeneratorException {
 
 			this.labelNumber = labelNumber;
 			
@@ -84,7 +87,7 @@ public class PdfBoxBarcodeLabelPdfDocument extends AbstractBarcodeLabelPdfDocume
 			contentStream.close();
 		}
 		
-		private void drawPageLabels() throws IOException {
+		private void drawPageLabels() throws IOException, BarcodeGeneratorException {
 			
 			final LabelPageIterator iterator = pageConfiguration.getLabelIterator();
 			contentStream.setNonStrokingColor(180, 180, 180);
@@ -127,7 +130,7 @@ public class PdfBoxBarcodeLabelPdfDocument extends AbstractBarcodeLabelPdfDocume
             
 		}
 		
-		private InputStream getNextBarcode(Object config) throws IOException {
+		private InputStream getNextBarcode(Object config) throws BarcodeGeneratorException {
 			
 			final ByteArrayOutputStream output = new ByteArrayOutputStream();
 			final String newReference = referenceProvider.getUnboundReference(config);
