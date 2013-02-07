@@ -3,8 +3,12 @@ package com.bluexml.alfresco.reference;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.alfresco.repo.search.impl.lucene.LuceneQueryParser;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
+import org.alfresco.service.cmr.repository.StoreRef;
+import org.alfresco.service.cmr.search.ResultSet;
+import org.alfresco.service.cmr.search.SearchService;
 import org.alfresco.service.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,30 +19,60 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 	
 	private static final String ID_DEFAULT = "default";
 	private static Log logger = LogFactory.getLog(ReferenceProviderServiceImpl.class);
+	
 	private Map<String, ReferenceProvider> referenceProviders = new HashMap<String, ReferenceProvider>();
 	private ReferenceProvider defaultReferenceProvider = null;
+	
+	private SearchService searchService;
 	private NodeService nodeService;
 	private QName encodedProperty;
 
+	public NodeRef getMatchingReferenceNode(String reference) {
+		
+		final String query = "+\\@" + LuceneQueryParser.escape(encodedProperty.toString()) + ":\"" + reference + "\"";
+		
+		final ResultSet result = searchService.query(
+				StoreRef.STORE_REF_WORKSPACE_SPACESSTORE, 
+				SearchService.LANGUAGE_LUCENE, 
+				query
+		);
+		
+		if (result.length() == 0) return null;
+		if (result.length() > 1) {
+			logger.warn("The reference is inconistant since it refers to several nodes. Only the first will be returned!");
+		}
+		
+		return result.getNodeRef(0);
+		
+	}
+	
 	public void setReference(NodeRef nodeRef, String value) {
+		
+		final NodeRef existingNodeRef = getMatchingReferenceNode(value);
+		
+		if (existingNodeRef != null) {
+			if (existingNodeRef.equals(nodeRef)) return;
+			else throw new NotUniqueException(value, existingNodeRef);
+		}
+		
 		nodeService.setProperty(nodeRef, encodedProperty, value);
 	}
 
-	public boolean setReference(NodeRef nodeRef, boolean override) {
+	public String setReference(NodeRef nodeRef, boolean override) {
 		return setReference(nodeRef, override, null, null);
 	}
 
-	public boolean setReference(NodeRef nodeRef, boolean override, String providerId, Object config) {
+	public String setReference(NodeRef nodeRef, boolean override, String providerId, Object config) {
 		final ReferenceProvider referenceProvider = getReferenceProvider(providerId);
 		
 		final String existingReference = getExistingReference(nodeRef, null);
-		if (null != existingReference && !override) return false;
+		if (null != existingReference && !override) return existingReference;
 		
 		final String newReference = referenceProvider.getReference(nodeRef, config);
-		if (newReference.equals(existingReference)) return false;
+		if (newReference.equals(existingReference)) return existingReference;
 		
 		setReference(nodeRef, newReference);
-		return true;
+		return newReference;
 	}
 
 	public String getExistingReference(NodeRef nodeRef) {
@@ -70,7 +104,7 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 		if ( null == providerId || providerId.isEmpty() ) return getDefaultReferenceProvider();
 		if (referenceProviders.containsKey(providerId) ) return referenceProviders.get(providerId);
 		throw new IllegalStateException(
-			String.format("There is no reference provider width id='%s'", providerId)
+			String.format("There is no reference provider with id='%s'", providerId)
 		);			
 		
 	}
@@ -125,5 +159,8 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 		this.nodeService = nodeService;
 	}
 	
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 
 }

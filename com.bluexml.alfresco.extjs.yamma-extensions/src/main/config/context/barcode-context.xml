@@ -24,7 +24,6 @@
 	   		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	   		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 	   " >
-	
 
 	<!-- 
 	  - BARCODE MATERIAL
@@ -82,6 +81,38 @@
 		<property name="barcodeGenerator" ref="BarcodeGenerator" />	
 		<property name="referenceProviderService" ref="referenceProviderService" />
 	</bean> 
+	
+	<!-- 
+	  - EXTRACTER
+	  -->
+
+	<alias name="pdfbox.BarcodeExtracter" alias="BarcodeExtracter" />
+	
+	<bean id="ghost4j.BarcodeExtracter" class="com.bluexml.alfresco.barcode.extracter.Ghost4JBarcodeExtracter" />
+	
+	<bean id="pdfbox.BarcodeExtracter" class="com.bluexml.alfresco.barcode.extracter.PdfBoxBarcodeExtracter" />
+	
+	<bean id="extracter.BarcodeExtracter" 
+		class="com.bluexml.alfresco.barcode.extracter.BarcodeMetadataExtracter"
+		parent="baseMetadataExtracter" >
+		
+		<property name="barcodeExtracter" ref="BarcodeExtracter" />
+		<property name="inheritDefaultMapping" value="false" />
+		<property name="mappingProperties">
+			<props>
+				<prop key="namespace.prefix.yamma-ee">http://www.bluexml.com/model/content/yamma-ee/1.0</prop>
+				<prop key="reference">yamma-ee:Referenceable_internalReference</prop>
+			</props>
+		</property>		
+	</bean>	
+	
+	<!-- JAVASCRIPT -->
+	
+	<bean id="barcodeExtracterScript" parent="baseJavaScriptExtension" class="com.bluexml.alfresco.barcode.extracter.BarcodeExtracterScript" >
+		<property name="extensionName" value="barcodeExtracter" />
+		<property name="barcodeExtracter" ref="BarcodeExtracter"/>
+		<property name="fileFolderService" ref="FileFolderService" />		
+	</bean>
 	
 	
 </beans>

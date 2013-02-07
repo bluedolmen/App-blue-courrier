@@ -52,7 +52,8 @@
 	  -->
 	  
 	<bean id="referenceProviderService" class="com.bluexml.alfresco.reference.ReferenceProviderServiceImpl">
-		<property name="nodeService" ref="NodeService" />		
+		<property name="nodeService" ref="NodeService" />
+		<property name="searchService" ref="searchService" />		
 		<property name="encodedProperty">
 			<value>{http://www.bluexml.com/model/content/yamma-ee/1.0}Referenceable_internalReference</value>
 		</property>		
@@ -95,6 +96,8 @@
 		
 		<property name="extensionName" value="referenceProvider" />
 		<property name="referenceProviderService" ref="referenceProviderService" />
+		<property name="serviceRegistry" ref="ServiceRegistry" />
+		
 	</bean>
 
 </beans>

@@ -4,6 +4,41 @@ import org.alfresco.service.cmr.repository.NodeRef;
 
 public interface ReferenceProviderService {
 	
+	public static final class NotUniqueException extends RuntimeException {
+
+		private static final long serialVersionUID = -6863312808265432670L;
+		private String duplicateReference;
+		private NodeRef nodeRef;
+		
+		NotUniqueException(String duplicateReference, NodeRef nodeRef) {
+			super();
+			
+			if (null == duplicateReference || duplicateReference.isEmpty()) {
+				throw new IllegalArgumentException("The duplicate reference cannot be null nor empty");
+			}
+			
+			this.duplicateReference = duplicateReference;
+			this.nodeRef = nodeRef;
+		}
+		
+		@Override
+		public String getLocalizedMessage() {
+			return String.format("The reference '%s' already exists for node '%s'", 
+					duplicateReference,
+					nodeRef
+			); 
+		}
+		
+	}
+	
+	/**
+	 * Get the node corresponding to the provided reference
+	 * 
+	 * @param reference the reference value
+	 * @return the existing nodeRef, or null if it does not exists
+	 */
+	NodeRef getMatchingReferenceNode(String reference);	
+	
 	/**
 	 * Set (store) the reference on the provided node, if possible by using the
 	 * default {@link ReferenceProvider}
@@ -14,7 +49,7 @@ public interface ReferenceProviderService {
 	 *            the value of the reference
 	 * @return true if the reference was actually changed
 	 */
-	void setReference(NodeRef nodeRef, String value);
+	void setReference(NodeRef nodeRef, String value) throws NotUniqueException;
 	
 	/**
 	 * Set (store) the reference on the provided node, if possible by using the
@@ -25,9 +60,9 @@ public interface ReferenceProviderService {
 	 * @param override
 	 *            whether to override the reference by a new one, if it is
 	 *            already defined
-	 * @return true if the reference was actually changed
+	 * @return The (new) reference
 	 */
-	boolean setReference(NodeRef nodeRef, boolean override);
+	String setReference(NodeRef nodeRef, boolean override) throws NotUniqueException;
 	
 	/**
 	 * Set (store) the reference on the provided node, if possible by using a
@@ -42,9 +77,9 @@ public interface ReferenceProviderService {
 	 *            the provider used to generate the reference
 	 * @param config
 	 *            the configuration of the reference-provider
-	 * @return true if the reference was actually changed
+	 * @return The (new) reference 
 	 */
-	boolean setReference(NodeRef nodeRef, boolean override, String providerId, Object config);
+	String setReference(NodeRef nodeRef, boolean override, String providerId, Object config) throws NotUniqueException;
 	
 	/**
 	 * Get the reference of the previously set node, using the default

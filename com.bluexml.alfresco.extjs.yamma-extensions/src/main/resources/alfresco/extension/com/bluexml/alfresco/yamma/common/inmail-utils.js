@@ -72,8 +72,30 @@
 			}
 			
 			function setInitialReference() {
-				var reference = referenceProvider.getReference("yamma", document, null);
-				document.properties[YammaModel.REFERENCEABLE_INTERNAL_REFERENCE_PROPNAME] = reference; // set inconditionnaly internal id
+				
+				// Try to extract the reference using a barcode if the document is a pdf
+				var
+					reference = referenceProvider.getExistingReference(document),
+					mimetype = document.properties.content.mimetype
+				;
+				
+				if (null == reference) {
+
+//					This part should be handled by the metadata-extracter 
+//					if ("application/pdf" == mimetype) {
+//						reference = barcodeExtracter.extract(document);
+//					}
+//					
+//					if (null != reference) {
+//						referenceProvider.setReference(document, reference);
+//					}
+//					else {
+//						reference = referenceProvider.setReference(document, false /* override */, "yamma" /* providerId */, null /* providerConfig */);
+//					}
+					
+					reference = referenceProvider.setReference(document, false /* override */, "yamma" /* providerId */, null /* providerConfig */);
+					
+				}
 				
 				setPropertyIfEmpty(YammaModel.REFERENCEABLE_REFERENCE_PROPNAME, reference);
 				document.save();
