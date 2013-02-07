@@ -86,7 +86,7 @@
 	  - EXTRACTER
 	  -->
 
-	<alias name="pdfbox.BarcodeExtracter" alias="BarcodeExtracter" />
+	<alias name="ghost4j.BarcodeExtracter" alias="BarcodeExtracter" />
 	
 	<bean id="ghost4j.BarcodeExtracter" class="com.bluexml.alfresco.barcode.extracter.Ghost4JBarcodeExtracter" />
 	
