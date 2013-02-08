@@ -1,2 +1,2 @@
-///<import resource="classpath:alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/replyMail.post.lib.js">
+///<import resource="classpath:alfresco/templates/webscripts/com/bluexml/yamma/actions/replyMail.post.lib.js">
 Yamma.Actions.ReplyMailAction.execute();
