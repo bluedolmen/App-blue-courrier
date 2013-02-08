@@ -25,7 +25,7 @@
 			
 			if (null != siteDLItem) return;
 			// create site-name data-list item
-			logger.info("Site '" + siteName + "' does not exist in Site data-list. Creating it.");
+			logger.log("Site '" + siteName + "' does not exist in Site data-list. Creating it.");
 			
 	      	actualSite = siteService.getSite(siteName);
 			properties = {
@@ -92,6 +92,7 @@
 			}
 			
 			return output;
+			
 		},
 		
 		getSiteDetails : function(site) {
@@ -105,6 +106,7 @@
 
 			if (missing) return 'MISSING';
 			else return 'OK';
+			
 		},
 		
 		
@@ -115,7 +117,7 @@
 				siteDataListContainer = this.createSiteDataListContainer();
 				
 				if (null == siteDataListContainer)
-					throw new IllegalStateException('Cannot get or create the site data-list container');
+					throw new Error('IllegalStateException! Cannot get or create the site data-list container');
 			}				
 			
 			return siteDataListContainer;
@@ -125,10 +127,10 @@
 		createSiteDataListContainer : function() {
 			
 			var configSite = YammaUtils.getOrCreateConfigSite();
-			if (!configSite) return null;
+			if (null == configSite) return null;
 			
 			var dataListsContainer = configSite.childByNamePath('dataLists');
-			if (!dataListsContainer) return null;
+			if (null == dataListsContainer) return null;
 			
 			var dataListProperties = {
 				'cm:title' : this.ASSIGNABLE_SITE_CONTAINER_TITLE,
@@ -137,6 +139,7 @@
 			var dataListContainer = dataListsContainer.createNode(null, 'dl:dataList', dataListProperties);
 			
 			return dataListContainer;
+			
 		},
 		
 		getSiteDataListContainer : function() {
