@@ -129,7 +129,7 @@
 			var target = this.getTarget();
 			if (target) return target;
 			
-			return Utils.Alfresco.createPath(null, TARGET_XPATH);
+			return Utils.Alfresco.createPath(null, this.TARGET_XPATH);
 			
 		}	
 		
