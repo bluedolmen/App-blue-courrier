@@ -9,8 +9,12 @@
 			
 			if (!documentNode.hasAspect('cm:copiedfrom')) return false;
 						
-			var originalAssocs = documentNode.assocs['cm:original'];
-			return (null != originalAssocs) && (originalAssocs.length > 0);			
+			var 
+				originalAssocs = documentNode.assocs['cm:original'] || [],
+				target = originalAssocs[0]
+			;
+			
+			return DocumentUtils.isDocumentNode(target);
 		},
 		
 		getLateState : function(documentNode) {
