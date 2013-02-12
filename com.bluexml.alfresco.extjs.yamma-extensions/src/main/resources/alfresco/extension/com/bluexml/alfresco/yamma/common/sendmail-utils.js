@@ -92,7 +92,7 @@
 				}
 				
 				if ( ('string' == typeof exception.message) && exception.message) {
-					errorMessaage = exception;
+					errorMessage = exception;
 				}
 				
 				if (silent) {

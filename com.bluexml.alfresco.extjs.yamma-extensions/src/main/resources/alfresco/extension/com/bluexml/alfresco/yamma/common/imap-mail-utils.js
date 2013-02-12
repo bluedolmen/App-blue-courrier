@@ -193,7 +193,8 @@
 				templateDefinition : templateDefinition,
 				
 				sendMailSuccess : sendMailSuccess,
-				sendMailFailure : sendMailFailure
+				sendMailFailure : sendMailFailure,
+				silent : true
 			
 			});
 						
