@@ -10,12 +10,14 @@
 		fileData : null,
 		fileName : null,
 		modelNode : null,
+		updatedNode : null,
 		operation : 'copy',
 		
 		wsArguments : [
 			'modelRef',
 			'filedata', 
 			'filename',
+			'updatedReplyRef',
 			{ name : 'operation', defaultValue : 'copy' }
 		],
 						
@@ -24,10 +26,12 @@
 			Yamma.Actions.NodeAction.prepare.call(this);
 			
 			var 
-				modelRef = this.parseArgs['modelRef']
+				modelRef = this.parseArgs['modelRef'],
+				updatedReplyRef = this.parseArgs['updatedReplyRef']
 			;
 			
 			this.modelNode = modelRef ? this.extractNode(modelRef) : null;
+			this.updatedNode = updatedReplyRef ? this.extractNode(updatedReplyRef) : null;
 			
 			var fileData = this.parseArgs['filedata'];
 			if (null != fileData) {
@@ -54,7 +58,11 @@
 		
 		isExecutable : function(node) {
 			
-			return ActionUtils.canReply(this.node, this.fullyAuthenticatedUserName);
+			if (this.updatedNode) {
+				return ReplyUtils.canUpdate(this.updatedNode, this.fullyAuthenticatedUserName);
+			} else {
+				return ActionUtils.canReply(this.node, this.fullyAuthenticatedUserName);
+			}
 			
 		},
 		
@@ -76,10 +84,12 @@
 				replyNode = this.attachRepositoryFile();
 			}
 			
-			ReplyUtils.addReply(
-				this.node, /* document */ 
-				replyNode /* replyNode */
-			);
+			if (null == this.updatedNode) { // new reply created
+				ReplyUtils.addReply(
+					this.node, /* document */ 
+					replyNode /* replyNode */
+				);
+			}
 			
 			return ({
 				reply : Utils.asString(replyNode.nodeRef)
@@ -90,11 +100,12 @@
 		attachUploadedContent : function() {
 			
 			var 
-				replyNode = UploadUtils.getContainerChildByName(
-					this.repliesContainer, /* container */  
-					this.fileName, /* childName */ 
-					{type : YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME} /* createConfig */
-				)
+				replyNode = null != this.updatedNode ? this.updatedNode :
+					UploadUtils.getContainerChildByName(
+						this.repliesContainer, /* container */  
+						this.fileName, /* childName */ 
+						{type : YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME} /* createConfig */
+					)
 			;
 			
 			replyNode.properties.content.write(this.fileData);
@@ -128,7 +139,14 @@
 			
 			return newDocumentNode;
 			
-		}		
+		},
+		
+		getActionOutcome : function() {
+			
+			var actionOutcome = Actions.NodeAction.getActionOutcome.call(this);
+			return actionOutcome;
+			
+		}
 		
 		
 	});

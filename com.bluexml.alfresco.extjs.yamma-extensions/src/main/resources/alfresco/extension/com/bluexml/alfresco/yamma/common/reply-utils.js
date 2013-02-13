@@ -86,16 +86,16 @@
 						assignedAuthority.properties['cm:companyemail'] ||
 						assignedAuthority.properties['cm:email'],
 					address = Utils.String.trim( 
-							(assignedAuthority.properties['cm:companyaddress1'] || '') + ' ' +
-							(assignedAuthority.properties['cm:companyaddress2'] || '') + ' ' +
-							(assignedAuthority.properties['cm:companyaddress3'] || '')
-						)
+						(assignedAuthority.properties['cm:companyaddress1'] || '') + ' ' +
+						(assignedAuthority.properties['cm:companyaddress2'] || '') + ' ' +
+						(assignedAuthority.properties['cm:companyaddress3'] || '')
+					)
 				;
 				
 				replyNode.properties[YammaModel.CORRESPONDENT_NAME_PROPNAME] = Utils.String.trim(lastName + ' ' + firstName) || null;
 				replyNode.properties[YammaModel.CORRESPONDENT_ADDRESS_PROPNAME] = address || null;
-				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_EMAIL_PROPNAME] = email;
-				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_PHONE_PROPNAME] = telephone;				
+				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_EMAIL_PROPNAME] = email || null;
+				replyNode.properties[YammaModel.CORRESPONDENT_CONTACT_PHONE_PROPNAME] = telephone || null;				
 				
 			}
 			
@@ -122,14 +122,13 @@
 				// fill recipient information
 				for (i = 0, len = sourceProperties.length; i < len; i++) {
 					
-					sourcePropertyName = sourceProperties[i];
 					targetPropertyName = targetProperties[i];
-					sourcePropertyValue = document.properties[sourcePropertyName];
 					targetPropertyValue = replyNode.properties[targetPropertyName];
+					if (targetPropertyValue != null) continue; // skip if already set
 					
-					if (targetPropertyValue == null) { // if not already set
-						replyNode.properties[targetPropertyName] = sourcePropertyValue;
-					}
+					sourcePropertyName = sourceProperties[i];
+					sourcePropertyValue = document.properties[sourcePropertyName];
+					replyNode.properties[targetPropertyName] = sourcePropertyValue;
 					
 				}
 				
@@ -221,6 +220,35 @@
 			;
 				
 			return canAttach;
+			
+		},
+		
+		canUpdate : function(replyNode, username) {
+			
+			var
+				repliedDocument =  ReplyUtils.getRepliedDocument(replyNode),
+				canUpdate = (
+					replyNode.hasPermission('Write') && 
+					ActionUtils.canReply(repliedDocument, username) ||
+					
+					(
+						/* The user is an assistant of the service */
+						DocumentUtils.hasServiceRole(repliedDocument, username, 'ServiceAssistant') &&
+						
+						DocumentUtils.checkDocumentState(repliedDocument, 
+							[ 
+								YammaModel.DOCUMENT_STATE_VALIDATING,
+								YammaModel.DOCUMENT_STATE_SIGNING,
+								YammaModel.DOCUMENT_STATE_SENDING
+							]
+						)
+						
+					)
+					
+				)
+			;
+			
+			return canUpdate;
 			
 		},
 		

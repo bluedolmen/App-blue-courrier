@@ -176,7 +176,7 @@
 		},
 		
 		
-		sendAcknowledgment : function(mailDocument) {
+		sendAcknowledgment : function(mailDocument, sendMailSuccess, sendMailFailure) {
 						
 			var recipientEmail = getSenderEmail();
 			if (!recipientEmail) {
@@ -192,19 +192,11 @@
 				recipientEmail : recipientEmail,
 				templateDefinition : templateDefinition,
 				
-				sendMailSuccess : sendMailSuccess,
-				sendMailFailure : sendMailFailure,
+				sendMailSuccess : sendMailSuccess || undefined,
+				sendMailFailure : sendMailFailure || undefined,
 				silent : true
 			
-			});
-						
-			function sendMailSuccess() {
-				
-			}
-			
-			function sendMailFailure(exception) {
-				
-			}
+			});						
 
 			function getSenderEmail() {
 				

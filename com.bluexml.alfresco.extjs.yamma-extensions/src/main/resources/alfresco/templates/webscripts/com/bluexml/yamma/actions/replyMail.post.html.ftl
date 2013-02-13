@@ -1,3 +1,5 @@
-<#import "nodeaction.lib.ftl" as nodeactionLib />
-
-<@nodeactionLib.renderOutcome/>
+<#escape x as jsonUtils.encodeJSONString(x)>
+{
+	success : true
+}
+</#escape>

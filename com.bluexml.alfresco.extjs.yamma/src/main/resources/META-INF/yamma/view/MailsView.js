@@ -3,12 +3,14 @@ Ext.require([
 	'Yamma.utils.grid.MailsViewGrouping',
 	'Yamma.view.gridactions.ForwardReply',
 	'Yamma.view.gridactions.ForwardToSignature',
+	'Yamma.view.gridactions.AcceptForSending',
 	'Yamma.view.gridactions.ForwardForValidation',
 	'Yamma.view.gridactions.AcceptForSending',
 	'Yamma.view.gridactions.RefuseReply',
 	'Yamma.view.gridactions.Distribute',
 	'Yamma.view.gridactions.StartProcessing',
 	'Yamma.view.gridactions.SendOutbound',
+	'Yamma.view.gridactions.AddReply',
 	'Yamma.view.gridactions.MarkAsSent',
 	'Yamma.view.gridactions.PrintAsPdf',
 	'Yamma.view.gridactions.MarkAsSigned',
@@ -401,7 +403,7 @@ Ext.define('Yamma.view.MailsView', {
 			{
 				width : 150,
 				text : this.MAIL_NAME_LABEL,
-				dataIndex : Yamma.utils.datasources.Documents.MAIL_NAME_QNAME
+				dataIndex : Yamma.utils.datasources.Documents.DOCUMENT_NAME_QNAME
 			}		
 		);
 		
@@ -519,7 +521,7 @@ Ext.define('Yamma.view.MailsView', {
 						var 
 							object = value,
 							objectClass = object ? 'object' : Ext.baseCSSPrefix + 'hide-display',
-							name = record.get(Yamma.utils.datasources.Documents.MAIL_NAME_QNAME),
+							name = record.get(Yamma.utils.datasources.Documents.DOCUMENT_NAME_QNAME),
 							mimeTypeDefinition = me.getMimeTypeDefinition(record),
 							nameClass = name ? 'name' : Ext.baseCSSPrefix + 'hide-display',
 							subject = me.SUBJECT_TEMPLATE.applyTemplate({
@@ -739,6 +741,7 @@ Ext.define('Yamma.view.MailsView', {
 		Ext.create('Yamma.view.gridactions.AcceptForSending'),
 		Ext.create('Yamma.view.gridactions.Distribute'),
 		Ext.create('Yamma.view.gridactions.StartProcessing'),
+		Ext.create('Yamma.view.gridactions.AddReply'),
 		Ext.create('Yamma.view.gridactions.ForwardForValidation'),
 		Ext.create('Yamma.view.gridactions.SendOutbound'),
 		Ext.create('Yamma.view.gridactions.MarkAsSigned'),

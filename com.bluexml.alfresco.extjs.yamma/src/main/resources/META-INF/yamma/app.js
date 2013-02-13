@@ -28,6 +28,7 @@ Ext.require([
 	
 	'Yaecma.utils.Constants'
 ], function() {
+	Ext.useShims = true;//Ext.isIE;
 	initApplication();
 });
 

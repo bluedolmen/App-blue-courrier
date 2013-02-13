@@ -34,7 +34,11 @@
 				/* Document is original */					
 				DocumentUtils.isOriginalDocumentNode(documentNode) &&
 				
-				DocumentUtils.checkDocumentState(documentNode, [ YammaModel.DOCUMENT_STATE_PENDING, YammaModel.DOCUMENT_STATE_DELIVERING ] ) &&
+				DocumentUtils.checkDocumentState(documentNode, [ 
+					YammaModel.DOCUMENT_STATE_PENDING, 
+					YammaModel.DOCUMENT_STATE_DELIVERING,
+					YammaModel.DOCUMENT_STATE_PROCESSING 
+				] ) &&
 				
 				/* Document target service is assigned */
 				DocumentUtils.hasAssignedService(documentNode) &&
@@ -66,12 +70,19 @@
 				/* Document is delivered */
 				DocumentUtils.isDocumentDelivered(documentNode) &&
 		
-				(
+				(				
+				
 					/* Document is assigned to the current user */
 					DocumentUtils.isAssignedAuthority(documentNode, username) ||
 				
-					/* The user is an assistant of the service */
-					DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+					(
+						/* Document has an assigned user */
+						DocumentUtils.hasAssignedAuthority(documentNode) &&
+						
+						/* The user is an assistant of the service */
+						DocumentUtils.hasServiceRole(documentNode, username, 'ServiceAssistant')
+					)
+					
 				)
 				
 			);

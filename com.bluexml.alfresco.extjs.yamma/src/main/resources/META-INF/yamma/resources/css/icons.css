@@ -157,6 +157,9 @@
 .icon-cog_edit {
     background-image: url(../icons/cog_edit.png) !important;
 }
+.icon-stock_id {
+    background-image: url(../icons/stock_id.png) !important;
+}
 .icon-folder_page {
     background-image: url(../icons/folder_page.png) !important;
 }
@@ -261,6 +264,12 @@
 }
 .icon-tick_go {
     background-image: url(../icons/tick_go.png) !important;
+}
+.icon-page_white_get {
+    background-image: url(../icons/page_white_get.png) !important;
+}
+.icon-email_go_add {
+    background-image: url(../icons/email_go_add.png) !important;
 }
 .icon-pencil {
     background-image: url(../icons/pencil.png) !important;

@@ -2,9 +2,12 @@ Ext.define('Yamma.utils.datasources.Documents', {
 
 	singleton : true,
 	
-	MAIL_OBJECT_QNAME : 'yamma-ee:Mail_object',
-	MAIL_NAME_QNAME : 'cm:name',
+	DOCUMENT_NAME_QNAME : 'cm:name',
 	DOCUMENT_NODEREF_QNAME : 'nodeRef',
+	
+	INBOUND_MAIL_QNAME : 'yamma-ee:InboundMail',
+	
+	MAIL_OBJECT_QNAME : 'yamma-ee:Mail_object',
 	MAIL_ORIGIN_QNAME : 'yamma-ee:InboundDocument_origin',
 	ASSIGNED_SERVICE_QNAME : 'yamma-ee:Assignable_service',
 	ASSIGNED_AUTHORITY_QNAME : 'yamma-ee:Assignable_authority',

@@ -39,7 +39,7 @@ Ext.define('Yamma.view.gridactions.SimpleNodeRefGridAction', {
 			dataObj = {
 				nodeRef : nodeRefValue
 			},
-			additionalRequestParameters = this.getAdditionalRequestParameters()
+			additionalRequestParameters = this.getAdditionalRequestParameters(preparationContext)
 		;
 		
 		this.jsonRequest(Ext.applyIf(dataObj, additionalRequestParameters));

@@ -5,16 +5,25 @@
 	DocumentUtils = {
 		
 		isCopy : function(documentNode) {
+			
 			DocumentUtils.checkDocument(documentNode);
 			
 			if (!documentNode.hasAspect('cm:copiedfrom')) return false;
+			
 						
 			var 
 				originalAssocs = documentNode.assocs['cm:original'] || [],
 				target = originalAssocs[0]
 			;
+						
+			return (null != target && DocumentUtils.isDocumentNode(target));
 			
-			return DocumentUtils.isDocumentNode(target);
+//			if (null == target) return false;
+//			if (!node.hasPermission('Read')) return false;
+//			if ('workspace' != target.storeType) return false;
+//			
+//			return DocumentUtils.isDocumentNode(target);
+			
 		},
 		
 		getLateState : function(documentNode) {
@@ -157,6 +166,13 @@
 			if (null == assignedAuthorities || 0 == assignedAuthorities.length ) return null;
 			
 			return assignedAuthorities[0];
+		},
+		
+		hasAssignedAuthority : function(documentNode) {
+			
+			var assignedAuthority = DocumentUtils.getAssignedAuthority(documentNode);
+			return (null != assignedAuthority);
+			
 		},
 		
 		getAssignedAuthorityUserName : function(documentNode) {

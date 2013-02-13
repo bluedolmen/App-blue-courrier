@@ -10,7 +10,7 @@
 		
 		service : null,
 		comment : '', // comment may be used to the simple 'forward' operation, but is currently not used...
-		accept : true,
+		approbe : true,
 		
 		wsArguments : [
 			'comment',
@@ -22,7 +22,7 @@
 			
 			Yamma.Actions.ManagerDocumentNodeAction.prepare.call(this);
 			
-			this.accept = Utils.asString(this.parseArgs['approbe']) !== 'false';
+			this.approbe = Utils.asString(this.parseArgs['approbe']) !== 'false';
 			
 			this.comment = Utils.asString(this.parseArgs['comment']) || this.comment;
 			

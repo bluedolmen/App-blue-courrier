@@ -10,13 +10,15 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	extend : 'Yamma.controller.MailSelectionAwareController',
 	
 	uses : [
+		'Bluexml.windows.PreviewWindow',
+		'Bluexml.view.utils.DownloadFrame',
 		'Yamma.store.YammaStoreFactory',
-		'Bluexml.windows.PreviewWindow'
+		'Yamma.utils.ReplyUtils'
 	],
 	
 	views : [
 		'display.DisplayView',
-		'display.ReplyFilesButton',
+//		'display.ReplyFilesButton',
 		'edit.EditDocumentView',
 		'edit.EditDocumentForm',
 		'comments.CommentsView'
@@ -47,10 +49,10 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	    	selector : 'commentsview'
 	    },
 	    
-	    {
-	    	ref : 'replyFilesButton',
-	    	selector : 'replyfilesbutton'
-	    },
+//	    {
+//	    	ref : 'replyFilesButton',
+//	    	selector : 'replyfilesbutton'
+//	    },
 	    
 	    {
 	    	ref : 'attachedFilesButton',
@@ -72,17 +74,22 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.control({
 			
-			'replyfilesbutton #addReply menuitem' : {
-				click : this.onAddReply
-			},
-			
-			'replyfilesbutton #removeReply' : {
-				click : this.onRemoveReply
-			},
+//			'replyfilesbutton #addReply menuitem' : {
+//				click : this.onAddReply
+//			},
+//			
+//			'replyfilesbutton #removeReply' : {
+//				click : this.onRemoveReply
+//			},
 			
 			'displayview' : {
+				update : this.onUpdate,
 				tabchange : this.onTabChange,
-				tabdblclick : this.onTabDblClick
+				tabdblclick : this.onTabDblClick,
+				downloadfile : this.onDownloadFile,
+				addreply : this.onAddReply,
+				updatereply : this.onUpdateReply,
+				removereply : this.onRemoveReply
 			},
 			
 			'editdocumentform': {
@@ -116,7 +123,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.mainDocumentNodeRef = nodeRef;
 		this.displayMailPreview(newMailRecord);
-		this.displayReplyFiles(newMailRecord);
+		this.updateReplyFiles(newMailRecord);
 
 		this.callParent(arguments);
 		
@@ -231,7 +238,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		displayView.clear();
 		this.mainDocumentNodeRef = null;
 		editDocumentView.clear();
-		this.updateReplyFilesButton();
+//		this.updateReplyFilesButton();
 		
 		this.callParent(arguments);		
 	},	
@@ -255,7 +262,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			editDocumentView = this.getEditDocumentView()
 		;
 		
-		this.updateReplyFilesButton(context); // newCard.context may be undefined here...
+//		this.updateReplyFilesButton(context); // newCard.context may be undefined here...
 		
 		if (!context) return;		
 		editDocumentView.updateContext(context);
@@ -345,8 +352,18 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 //		});
 //		
 //	},
+	
+	onUpdate : function(updateTarget) {
+		
+		if ('replies' == updateTarget) {
+			this.updateReplyFiles();
+		}
+		
+	},
 
-	displayReplyFiles : function() {
+	updateReplyFiles : function() {
+		
+		if (!this.mainDocumentNodeRef) return; // there is no document displayed
 		
 		var 
 			me = this,			
@@ -372,6 +389,8 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			    callback: function(records, operation, success) {
 			    	if (!success) return;
 			    	
+			    	var replyTabRefs = getReplyTabRefs();
+			    	
 			    	Ext.Array.forEach(records, function(record) {
 			    		
 			    		var
@@ -380,7 +399,10 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			    		;
 			    		
 			    		var existingTab = displayView.getPreviewTab(nodeRef);
-			    		if (existingTab) return; // skip existing replies
+			    		if (existingTab) {
+			    			Ext.Array.remove(replyTabRefs, nodeRef);
+			    			return; // skip existing replies
+			    		}
 			    		
 			    		displayView.addPreviewTab({
 			    			
@@ -397,10 +419,35 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			    		
 			    	});
 			    	
+			    	// Remove obsolete tabs
+			    	
+			    	Ext.Array.forEach(replyTabRefs, function(tabRef) {
+			    		displayView.removePreviewTab(tabRef);
+			    	});
+			    	
 			    	updateMainContext(records);
 			    }
 			});
 			
+		}
+		
+		function getReplyTabRefs() {
+			
+			var 
+				tabs = displayView.query('*[context != ""]') || [],
+				
+				replyTabs = Ext.Array.filter(tabs, function(tab) {					
+					var typeShort = tab.context.get('typeShort');
+					return Yamma.utils.datasources.Replies.OUTBOUND_MAIL_QNAME == typeShort;
+				}),
+				
+				replyTabRefs = Ext.Array.map(replyTabs, function(tab) {
+					return tab.context.get('nodeRef');
+				})
+ 
+			;
+			
+			return replyTabRefs;
 		}
 		
 		function updateMainContext(records) {
@@ -413,204 +460,116 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			;
 			
 			mainContext.set(Yamma.utils.datasources.Documents.MAIL_HAS_REPLIES_QNAME, records.length > 0);
-			me.updateReplyFilesButton();
+//			me.updateReplyFilesButton();
 			
 		}
 		
 	},
 
 	
-	/**
-	 * Updates the reply-files button status given the current main-document
-	 * context
-	 * 
-	 * @private
-	 */
-	updateReplyFilesButton : function(context) {
-		
-		if (undefined === context) {
-			var 
-				displayView = this.getDisplayView(),
-				activeTab = displayView.getActiveTab()
-			;
-			if (activeTab) {
-				context = activeTab.context;
-			}
-		}
-		
-		var replyFilesButton = this.getReplyFilesButton();
-		replyFilesButton.updateStatus(context || null);
-		
-	},	
+//	/**
+//	 * Updates the reply-files button status given the current main-document
+//	 * context
+//	 * 
+//	 * @private
+//	 */
+//	updateReplyFilesButton : function(context) {
+//		
+//		if (undefined === context) {
+//			var 
+//				displayView = this.getDisplayView(),
+//				activeTab = displayView.getActiveTab()
+//			;
+//			if (activeTab) {
+//				context = activeTab.context;
+//			}
+//		}
+//		
+//		var replyFilesButton = this.getReplyFilesButton();
+//		replyFilesButton.updateStatus(context || null);
+//		
+//	},	
 	
-	onAddReply : function(menuItem) {
+	onAddReply : function(documentNodeRef, action) {
 		
-		var
-			action = menuItem.action,
-			documentNodeRef = this.mainDocumentNodeRef
-		;
 		if (!documentNodeRef) return;
 		
-		return this.replyDocument(documentNodeRef, action);
-		
-	},
-
-	/**
-	 * @private
-	 * @param documentNodeRef
-	 */
-	replyDocument : function(documentNodeRef, action) {
-		
-		var 
-			me = this,
-			
-			uploadUrl = Bluexml.Alfresco.resolveAlfrescoProtocol(
-				'alfresco://bluexml/yamma/reply-mail'
-			),
-			
-			mailsView = this.getMailsView()
-		;
-		
-		if ('uploadFile' == action) {
-			showUploadWindow();
-		} else if ('selectFile' == action) {
-			showSelectFileWindow();
-		}
-
-		function showUploadWindow() {
-	
-			Ext.create('Yamma.view.windows.UploadFormWindow', {
-				
-				title : 'Choisissez un fichier en <b>réponse</b>',
-				
-				formConfig : {
-					uploadUrl : uploadUrl + '?format=html', // force html response format due to ExtJS form submission restriction 
-					additionalFields : [{
-						name : 'nodeRef',
-						value : documentNodeRef
-					}]
-				},
-				
-				onSuccess : onSuccess
-				
-			}).show();
-
-			
-		};
-		
-		
-		function showSelectFileWindow() {
-			
-			var
-				selectFileWindow = Ext.create('Yamma.view.windows.SelectCMSFileWindow')
-			;
-			
-
-			selectFileWindow.mon(selectFileWindow, 'fileselected', function(nodeRef, record) {
-								
-				var
-					operation = selectFileWindow.getOperation(),
-					fileName = selectFileWindow.getFileName()
-				;				
-				
-				selectFileWindow.setLoading(true);
-				
-				Bluexml.Alfresco.jsonPost(
-					{
-						url : uploadUrl,
-						dataObj : {
-							nodeRef : documentNodeRef,
-							modelRef : nodeRef,
-							operation : operation,
-							filename : fileName
-						},
-						
-						onSuccess : function() {
-							onSuccess();
-							selectFileWindow.close();
-						},
-						
-						onFailure : function() {
-							selectFileWindow.close();
-						}
-					}
-				);	
-	
-				return false; // do not close the window yet
-			});
-	
-			selectFileWindow.show();
-			
-		}
-		
-		function onSuccess() {
-			me.displayReplyFiles();
-			mailsView.refreshSingle(me.mainDocumentNodeRef, 'nodeRef');			
-		}
-		
-	},
-	
-	
-	
-	onRemoveReply : function(menuItem) {
-		
-		var 
-			displayView = this.getDisplayView(),
-			currentTab =  displayView.getActiveTab(),
-			context = null,
-			replyNodeRef = null
-		;
-		
-		if (!currentTab) return;
-		
-		context = currentTab.context;
-		if (!context) return;
-		
-		replyNodeRef = context.get('nodeRef');
-		this.removeReply(replyNodeRef);
-		
-	},
-	
-	removeReply : function(replyNodeRef) {
-		
-		if (!replyNodeRef) return;
-		
-		var 
-			me = this,
-			displayView = this.getDisplayView(),
-			currentTab =  displayView.getActiveTab(),
-			mailsView = this.getMailsView()
-		;
-		
-		Bluexml.windows.ConfirmDialog.INSTANCE.askConfirmation(
-			'Supprimer la réponse ?', /* title */
-			'êtes-vous certain de vouloir supprimer la réponse ?', /* message */
-			deleteReply /* onConfirmation */
+		Yamma.utils.ReplyUtils.replyFromItemAction(
+			action, 
+			documentNodeRef, 
+			null, /* updatedReplyNodeRef */
+			Ext.bind(this.onReplyOperationSuccess, this) /* onSuccess */
 		);
 		
-		function deleteReply() {
-			
-			var
-				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-					'alfresco://bluexml/yamma/reply-mail/' + replyNodeRef.replace(/:\//,'')
-				)
-			;
-			
-			Bluexml.Alfresco.jsonRequest(
-				{
-					method : 'DELETE',
-					url : url,
-					onSuccess : function() {
-						displayView.remove(currentTab);
-						mailsView.refreshSingle(me.mainDocumentNodeRef, 'nodeRef');
-						me.displayReplyFiles(); // update main-document context as a side effect
-					}
-				}
-			);	
-			
-		}
+	},
+	
+	onUpdateReply : function(replyNodeRef, context, tab) {
+		
+		if (!this.mainDocumentNodeRef) return;
+		
+		var me = this;
+		
+		Yamma.utils.ReplyUtils.replyFromLocalFile(
+			this.mainDocumentNodeRef, /* documentNodeRef */
+			replyNodeRef, /* updatedReplyNodeRef */
+			function() { /* onSuccess */
+				var displayView = me.getDisplayView();
+				if (!displayView) return;
+				
+				displayView.refreshPreviewTab(replyNodeRef);
+				me.onReplyOperationSuccess();
+			}
+		);
 		
 	},	
+	
+	onReplyOperationSuccess : function() {
+		
+		var mailsView = this.getMailsView();
+		mailsView.refreshSingle(this.mainDocumentNodeRef, 'nodeRef');
+		
+		this.updateReplyFiles();
+		
+	},
+		
+//	onRemoveReply : function(menuItem) {
+//		
+//		var 
+//			displayView = this.getDisplayView(),
+//			currentTab =  displayView.getActiveTab(),
+//			context = null,
+//			replyNodeRef = null
+//		;
+//		
+//		if (!currentTab) return;
+//		
+//		context = currentTab.context;
+//		if (!context) return;
+//		
+//		replyNodeRef = context.get('nodeRef');
+//		this.removeReply(replyNodeRef);
+//		
+//	},
+	
+	onRemoveReply : function(replyNodeRef, context, tab) {
+		
+		var 
+			me = this,
+			displayView = this.getDisplayView(),
+			currentTab =  displayView.getActiveTab()
+		;
+		
+		Yamma.utils.ReplyUtils.removeReply(
+			replyNodeRef,
+			Ext.bind(this.onReplyOperationSuccess, this)
+		);
+		
+//		function onSuccess() {
+//			displayView.remove(currentTab);
+//			me.onReplyOperationSuccess();
+//		}
+		
+	},
 	
 	/**
 	 * Reply-file metadata-edited handler.
@@ -627,7 +586,16 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		var editDocumentForm = this.getEditDocumentForm();		
 		editDocumentForm.refresh();
 		
+	},
+	
+	onDownloadFile : function(nodeRef, context, tab) {
+		var
+			documentName = context.get(Yamma.utils.datasources.Documents.DOCUMENT_NAME_QNAME)
+		;
+		
+		Bluexml.view.utils.DownloadFrame.downloadDocument(nodeRef, documentName);	
 	}
+
 	
 		
 });

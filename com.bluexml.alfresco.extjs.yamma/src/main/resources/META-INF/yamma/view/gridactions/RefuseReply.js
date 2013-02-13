@@ -33,7 +33,7 @@ Ext.define('Yamma.view.gridactions.RefuseReply', {
 	},
 	
 	
-	getAdditionalRequestParameters : function() {
+	getAdditionalRequestParameters : function(comment) {
 		
 		return ({
 			operation : 'refuse',

@@ -1,4 +1,27 @@
 (function() {
+	
+	function getActionsFieldDefinitions() {
+		
+		var 
+			methodName, 
+			actions = []
+		;
+		
+		for (methodName in ReplyUtils) {
+			if (methodName.indexOf('can') != 0) continue;
+			
+			actions.push({
+				name : methodName,
+				type : 'boolean',
+				evaluate : function(replyNode) {
+					return ReplyUtils[methodName](replyNode);
+				}
+			});
+		}
+		
+		return actions;		
+		
+	}	
 
 	DatasourceDefinitions.register('Replies',
 		{
@@ -23,7 +46,7 @@
 			
 			fields : [
 				
-				'@nodeRef',
+				'@nodeRef*',
 				'@typeShort',
 				'@mimetype',
 				'cm:name',
@@ -47,30 +70,9 @@
 						return Utils.Alfresco.getPersonDisplayName(author);
 
 					}
-				},
-				
-				{
-					name : 'canAttach',
-					type : 'boolean',
-					evaluate : function(reply) {
-						
-						return ReplyUtils.canAttach(reply);
-						
-					}
-				},
-				
-				{
-					name : 'canDelete',
-					type : 'boolean',
-					evaluate : function(reply) {
-						
-						return ReplyUtils.canDelete(reply);
-						
-					}
-					
 				}
 				
-			]			
+			].concat(getActionsFieldDefinitions())		
 			
 	
 		}

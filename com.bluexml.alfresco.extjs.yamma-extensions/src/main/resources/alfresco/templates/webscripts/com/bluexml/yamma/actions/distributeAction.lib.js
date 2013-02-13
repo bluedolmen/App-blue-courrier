@@ -73,8 +73,8 @@
 				copiedFiles = Utils.map(distributedServiceNodes, function(serviceNode) {
 					
 					var 
-						serviceName = serviceNode.name,
-						tray = getServiceTray(serviceName, TraysUtils.CCBOX_TRAY_NAME)
+						serviceName = Utils.asString(serviceNode.name),
+						tray = TraysUtils.getSiteTray(serviceName, TraysUtils.CCBOX_TRAY_NAME)
 					;
 					if (null == tray) return;
 					

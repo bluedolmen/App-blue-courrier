@@ -6,6 +6,8 @@ Ext.define('Yamma.view.display.DisplayView',
 
 	requires: [
         'Bluexml.utils.tab.Tool',
+        'Yamma.view.display.DblClickTabHandler',
+        'Yamma.view.display.TabActionMenu',
         'Yamma.view.display.ReplyFilesButton'
     ],
     
@@ -14,57 +16,24 @@ Ext.define('Yamma.view.display.DisplayView',
     ],
 	
 	title : 'Prévisualisation des fichiers',
-	//layout : 'fit',
 	plain : false,
 	
     plugins: [
     
-        Ext.create('Bluexml.utils.tab.Tool', {
-            ptype : 'itstabtool',
-            position : 'before',
-            items: [
-            	{
-	            	xtype : 'replyfilesbutton',
-	            	disabled : true
-	            }
-			]
-        })
+//        Ext.create('Bluexml.utils.tab.Tool', {
+//            position : 'before',
+//            items: [
+//            	{
+//	            	xtype : 'replyfilesbutton',
+//	            	disabled : true
+//	            }
+//			]
+//        }),
+        
+    	Ext.create('Yamma.view.display.YammaTabActionMenu'),
+        Ext.create('Yamma.view.display.DblClickTabHandler')        
         
     ],
-    
-    initComponent : function() {
-    	
-    	var me = this;    	    	
-    	installTabDblClickEvent();
-    	this.callParent();
-    	// end
-    	
-    	/**
-		 * The following function installs a tab double-click listener which
-		 * enable to provide a specific behaviour like maximizing the window.
-		 */
-    	function installTabDblClickEvent() {
-    		
-	    	me.addEvents('tabdblclick');
-	    	me.on('add', 
-	    		function(container, component, position) {
-	    			
-	    			component.on('afterrender',
-	    				function(comp) {    					
-	    					Ext.get(comp.getEl()).on('dblclick',
-	    						function(event, el) {
-	    							me.fireEvent('tabdblclick', me, comp);
-	    						}
-	    					);
-	    				}
-	    			);
-	    			
-	    		}
-	    	);
-    		
-    	}
-    	
-    },
     
     /**
      * 
@@ -158,6 +127,20 @@ Ext.define('Yamma.view.display.DisplayView',
 		previewFrame.load();
 		
 		return previewTab;
+		
+	},
+	
+	refreshPreviewTab : function(nodeRef) {
+		
+		if (!nodeRef) return;
+		
+		var previewTab = this.getPreviewTab(nodeRef);
+		if (!previewTab) return;
+		
+		var previewFrame = previewTab.down('previewframe');
+		if (!previewFrame) return;
+		
+		previewFrame.refresh();
 		
 	},
 	

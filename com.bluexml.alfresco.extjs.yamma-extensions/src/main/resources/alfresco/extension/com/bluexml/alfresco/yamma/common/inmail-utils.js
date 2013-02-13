@@ -53,7 +53,33 @@
 			
 			function processImapMail() {
 				ImapMailUtils.mapImapMail(document, document); // the target mail is also the document
-				ImapMailUtils.sendAcknowledgment(document);
+				ImapMailUtils.sendAcknowledgment(document, onSendMailSuccess, onSendMailFailure);
+				
+				function onSendMailSuccess() {
+					
+					HistoryUtils.addHistoryEvent(
+						document, 
+						'email.sendAcknowledgment.success', /* eventType */ 
+						'', /* message */
+						'system' /* referrer */
+					);
+										
+				}
+				
+				function onSendMailFailure(exception) {
+					
+					HistoryUtils.addHistoryEvent(
+						document, 
+						'email.sendAcknowledgment.failure', /* eventType */ 
+						'string' == typeof exception ? exception : exception.message, /* message */
+						'system' /* referrer */
+					);
+					
+					return true; // silent
+					
+				}
+				
+
 			}
 
 			function initializeDates() {
@@ -80,21 +106,7 @@
 				;
 				
 				if (null == reference) {
-
-//					This part should be handled by the metadata-extracter 
-//					if ("application/pdf" == mimetype) {
-//						reference = barcodeExtracter.extract(document);
-//					}
-//					
-//					if (null != reference) {
-//						referenceProvider.setReference(document, reference);
-//					}
-//					else {
-//						reference = referenceProvider.setReference(document, false /* override */, "yamma" /* providerId */, null /* providerConfig */);
-//					}
-					
 					reference = referenceProvider.setReference(document, false /* override */, "yamma" /* providerId */, null /* providerConfig */);
-					
 				}
 				
 				setPropertyIfEmpty(YammaModel.REFERENCEABLE_REFERENCE_PROPNAME, reference);

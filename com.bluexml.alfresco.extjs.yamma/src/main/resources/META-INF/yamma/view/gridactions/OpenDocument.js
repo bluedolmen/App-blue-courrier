@@ -7,7 +7,7 @@ Ext.define('Yamma.view.gridactions.DownloadDocument', {
 	],
 	
 	statics : {
-		DOWNLOAD_DOCUMENT_ACTION_ICON : Yamma.Constants.getIconDefinition('page_white_put')
+		DOWNLOAD_DOCUMENT_ACTION_ICON : Yamma.Constants.getIconDefinition('page_white_get')
 	},
 	
 	DOWNLOAD_DOCUMENT_WS_URL : 'alfresco://api/node/content/',

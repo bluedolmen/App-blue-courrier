@@ -134,11 +134,12 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 			function onSuccess(jsonResponse) {
 				
 				var
-					outcome = jsonResponse.outcome,
-					nodes = outcome.nodes
+					nodes = jsonResponse.nodes
 				;
 				
-				me.application.fireEvent('newDocumentAvailable', nodes);
+				if (null != nodes) {
+					me.application.fireEvent('newDocumentAvailable', nodes);
+				}
 				
 				selectFileWindow.close();
 	

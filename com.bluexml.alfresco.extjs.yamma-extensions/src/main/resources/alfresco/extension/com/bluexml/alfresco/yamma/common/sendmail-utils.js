@@ -84,7 +84,12 @@
 				var errorMessage = GENERIC_FAILURE_MESSAGE;
 				
 				if (sendMailFailure && Utils.isFunction(sendMailFailure)) {
-					errorMessage = sendMailFailure(exception) || errorMessage;
+					var result = sendMailFailure(exception);
+					if ('string' == typeof result) { // means error message
+						errorMessage = result;
+					} else if (true === typeof result) { // means silent
+						silent = true;
+					}
 				}				
 				
 				if ( ('string' == typeof exception) && exception) {
