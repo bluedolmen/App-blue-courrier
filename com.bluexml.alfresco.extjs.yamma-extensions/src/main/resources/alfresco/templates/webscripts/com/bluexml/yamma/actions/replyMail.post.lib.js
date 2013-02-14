@@ -84,11 +84,23 @@
 				replyNode = this.attachRepositoryFile();
 			}
 			
-			if (null == this.updatedNode) { // new reply created
+			if (null != this.updatedNode) { // new reply created
+				
+				// TODO: Active this part (or remove it)
+				// We need to decide if we update the replied-document history or
+				// the reply history. If the document-history is updated then the
+				// client is responsible to refresh the document-history when a reply
+				// is modified.
+				
+				// log change in history
+				// this.addHistoryEvent();
+				
+			}
+			else {
 				ReplyUtils.addReply(
 					this.node, /* document */ 
 					replyNode /* replyNode */
-				);
+				);				
 			}
 			
 			return ({
@@ -145,6 +157,17 @@
 			
 			var actionOutcome = Actions.NodeAction.getActionOutcome.call(this);
 			return actionOutcome;
+			
+		},
+		
+		addHistoryEvent : function() {
+			
+			this.updateDocumentHistory(
+				'updatedReply.history', /* commentKey */ 
+				null, /* commentArgs */
+				this.fullyAuthenticatedUserName, /* referrer */
+				this.fullyAuthenticatedUserName /* delegate */
+			);
 			
 		}
 		
