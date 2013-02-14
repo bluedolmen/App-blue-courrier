@@ -54,19 +54,20 @@
 			fillRecipient();
 			replyNode.save();
 			
+			setSignatureNeeded(); // add aspect => need to perform after save()
 			associateToDocument();
 			
 			function fillWritingDate() {
 				var writingDate = replyNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
 				// fill writing-date if not yet filled
-				if (!writingDate) {
+				if (null == writingDate) {
 					replyNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME] = new Date();
 				}				
 			}
 			
 			function fillObject() {
 				var object = replyNode.properties[YammaModel.MAIL_OBJECT_PROPNAME];
-				if (!object) {
+				if (null == object) {
 					replyNode.properties[YammaModel.MAIL_OBJECT_PROPNAME] = 'Re: ' + document.properties[YammaModel.MAIL_OBJECT_PROPNAME];
 				}
 			}
@@ -131,6 +132,18 @@
 					replyNode.properties[targetPropertyName] = sourcePropertyValue;
 					
 				}
+				
+			}
+			
+			function setSignatureNeeded(signatureNeeded) {
+				
+				if (false === signatureNeeded) return;
+				
+				if (!replyNode.hasAspect(YammaModel.SIGNABLE_ASPECT_SHORTNAME)) {
+					replyNode.addAspect(YammaModel.SIGNABLE_ASPECT_SHORTNAME);
+				}
+				replyNode.properties[YammaModel.SIGNABLE_NEEDS_SIGNATURE_PROPNAME] = true;
+				replyNode.save();
 				
 			}
 			
