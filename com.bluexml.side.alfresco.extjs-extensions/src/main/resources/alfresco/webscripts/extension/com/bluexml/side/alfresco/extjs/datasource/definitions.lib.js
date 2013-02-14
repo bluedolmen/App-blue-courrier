@@ -590,7 +590,7 @@
 			localConfig = {
 				label : null,
 				description : null,
-				type : 'string',
+				type : null,
 				isId : false
 			}
 		;
@@ -615,7 +615,7 @@
 		}
 		
 		this.getType = function() {
-			return localConfig.type;
+			return localConfig.type || 'string';
 		}
 		
 		this.isId = function() {
@@ -775,9 +775,10 @@
 		// Deduce the type of the field if none is provided, default to DEFAULT_FIELD_TYPE
 		function setDataTypeName() {
 			var type = localConfig.type;
-			if (null != type && 'string' == typeof(type)) return;
+			if (null != type) return;
 			
-			localConfig.type = getDataTypeName(localConfig.propertyName, DEFAULT_FIELD_TYPE);
+			var dataTypeName = getDataTypeName(localConfig.propertyName, DEFAULT_FIELD_TYPE);
+			localConfig.type = me.typeMap[dataTypeName] || 'string';
 				
 			function getDataTypeName(propertyName, defaultTypeName) {
 				var propertyDefinition = sideDictionary.getPropertyDefinition(propertyName);
@@ -787,7 +788,7 @@
 				if (null == dataTypeDefinition) return defaultTypeName;
 				
 				var dataTypeQName = dataTypeDefinition.getName();
-				return dataTypeQName.getLocalName();
+				return Utils.asString(dataTypeQName.toPrefixString());
 			}
 			
 		}
