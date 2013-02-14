@@ -80,6 +80,18 @@
 		
 	};
 	
+	Utils.toArray = function(object) {
+		
+		if (undefined === object.length) return null;
+		
+		var result = [];
+		for (var i = 0, len = object.length; i < len; i++) {
+			result.push(object[i]);
+		}
+		return result;
+		
+	};
+	
 	
 	Utils.isFunction = function(object) {
 		return 'function' === typeof object;
@@ -417,6 +429,12 @@
 			true === trim ? Utils.String.trim(value) : value 
 		);
 	}
+	
+	var FORMAT_REGEXP = /\{(\d+)\}/g;
+	Utils.String.format = function(format) {
+	    var args = Utils.toArray(arguments).slice(1);
+	    return format.replace(FORMAT_REGEXP, function(m, i) { return args[i];});
+	},
 	
 	Utils.Alfresco = {};
 	
