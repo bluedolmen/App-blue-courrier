@@ -6,6 +6,8 @@ Ext.define('Yamma.utils.ReplyUtils', {
 	
 	constructor : function() {
 		this.REPLY_MAIL_URL = Bluexml.Alfresco.resolveAlfrescoProtocol(this.REPLY_MAIL_URL);
+		// force html response format due to ExtJS form submission restriction;
+		this.REPLY_MAIL_HTML_URL = this.REPLY_MAIL_URL + '?format=html'; 
 	},
 	
 	getFileSelectionReplyMenu : function(onItemClick) {
@@ -49,7 +51,7 @@ Ext.define('Yamma.utils.ReplyUtils', {
 			this.replyFromRepository(
 				documentNodeRef,
 				updatedReplyNodeRef,
-				this.onReplyOperationSuccess
+				onSuccess
 			);
 		}
 		
@@ -74,7 +76,7 @@ Ext.define('Yamma.utils.ReplyUtils', {
 			title : 'Choisissez un fichier en <b>réponse</b>',
 			
 			formConfig : {
-				uploadUrl : this.REPLY_MAIL_URL + '?format=html', // force html response format due to ExtJS form submission restriction 
+				uploadUrl : this.REPLY_MAIL_HTML_URL, 
 				additionalFields : additionalFields
 			},
 			
@@ -87,6 +89,7 @@ Ext.define('Yamma.utils.ReplyUtils', {
 	replyFromRepository : function(documentNodeRef, updatedReplyNodeRef, onSuccess) {
 				
 		var
+			me = this,
 			selectFileWindow = Ext.create('Yamma.view.windows.SelectCMSFileWindow')
 		;
 
@@ -101,7 +104,7 @@ Ext.define('Yamma.utils.ReplyUtils', {
 			
 			Bluexml.Alfresco.jsonPost(
 				{
-					url : uploadUrl,
+					url : me.REPLY_MAIL_HTML_URL,
 					dataObj : {
 						nodeRef : documentNodeRef,
 						modelRef : nodeRef,

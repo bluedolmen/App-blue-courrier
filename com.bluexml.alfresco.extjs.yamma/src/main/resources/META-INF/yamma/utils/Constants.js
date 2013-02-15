@@ -108,16 +108,20 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'pending' : Ext.apply(
 				{
-					title : 'En attente de routage',
-					shortTitle : 'Attente'
+//					title : 'En attente de routage',
+//					shortTitle : 'Attente'
+					title : 'Courrier entrant en attente',
+					shortTitle : 'Courrier entrant'
 				}, 
 				this.getIconDefinition('hourglass')
 			),
 			
 			'delivering' : Ext.apply(
 				{
-					title : 'En cours de routage',
-					shortTitle : 'Routage'
+//					title : 'En cours de routage',
+//					shortTitle : 'Routage'
+					title : 'En cours de distribution',
+					shortTitle : 'Distribution'
 				}, 
 				this.getIconDefinition('lorry')
 			),
@@ -156,16 +160,18 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'signing' : Ext.apply(
 				{
-					title : 'En signature',
-					shortTitle : 'Signature'					
+//					title : 'En signature',
+//					shortTitle : 'Signature'					
+					title : 'En cours de paraphage',
+					shortTitle : 'Paraphage'					
 				},
 				this.getIconDefinition('text_signature')
 			),
 			
 			'sending' : Ext.apply(
 				{
-					title : "En cours d'envoi",
-					shortTitle : 'Envoi'
+					title : "En cours d'envoi postal",
+					shortTitle : 'Envoi postal'
 				},
 				this.getIconDefinition('mail_send')
 			),
