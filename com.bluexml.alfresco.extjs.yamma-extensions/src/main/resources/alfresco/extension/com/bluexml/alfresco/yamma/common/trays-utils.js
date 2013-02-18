@@ -14,36 +14,28 @@
 		OUTBOX_TRAY_NAME : 'outbox',
 		CCBOX_TRAY_NAME :  'ccbox',
 		TRAYS : {} // defined hereafter
-	},
+		
+	}
 	
-	setTrayDefinition(
-		TraysUtils.INBOX_TRAY_NAME, 
-		'Arriv\u00E9e', 
-		[
-			YammaModel.DOCUMENT_STATE_PENDING,
-			YammaModel.DOCUMENT_STATE_DELIVERING,
-			YammaModel.DOCUMENT_STATE_PROCESSING,
-			YammaModel.DOCUMENT_STATE_REVISING,
-			YammaModel.DOCUMENT_STATE_VALIDATING_PROCESSED,
-			YammaModel.DOCUMENT_STATE_SIGNING
-		]
-	);
-	setTrayDefinition(
-		TraysUtils.OUTBOX_TRAY_NAME, 
-		'D\u00E9part',
-		[
-			YammaModel.DOCUMENT_STATE_SENDING,
-			YammaModel.DOCUMENT_STATE_PROCESSED
-		]
-	);
-	setTrayDefinition(TraysUtils.CCBOX_TRAY_NAME, 'Copie');
+	TraysUtils.TRAYS[TraysUtils.INBOX_TRAY_NAME] = {
+		name : TraysUtils.INBOX_TRAY_NAME,
+		type : 'system-tray'
+	}
 	
-	function setTrayDefinition(trayName, trayTitle, filters) {
-		trayTitle = trayTitle || msg.get('tray.' + trayName + '.title') || trayName;
-		TraysUtils.TRAYS[trayName] = {
-			title : trayTitle,
-			filters : filters || []
-		};
+	TraysUtils.TRAYS[TraysUtils.CCBOX_TRAY_NAME] = {
+		name : TraysUtils.CCBOX_TRAY_NAME,
+		type : 'system-tray'
+	}
+	
+	Utils.forEach(YammaModel.DOCUMENT_STATES, function(stateName) {
+		TraysUtils.TRAYS[stateName] = {
+			name : stateName,
+			type : 'state-tray'
+		}
+	});
+	
+	TraysUtils.getSystemTrayDefinitions = function() {
+		// TODO: Implement this
 	}
 	
 	TraysUtils.isInboxTray = function(tray) {
@@ -158,7 +150,7 @@
 		
 		function createTrays(traysNode) {
 			if (null == traysNode) return;	
-			for (trayName in me.TRAYS) {
+			for (var trayName in me.TRAYS) {
 				var trayTitle = me.TRAYS[trayName].title || trayName;
 				createNonExistingChildNode(traysNode, trayName, trayTitle);
 			}

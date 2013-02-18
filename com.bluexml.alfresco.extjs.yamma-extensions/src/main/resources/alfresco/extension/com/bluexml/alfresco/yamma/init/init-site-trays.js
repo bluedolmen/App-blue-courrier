@@ -44,9 +44,11 @@
 		
 		getSiteDetails : function(site) {
 			
-			localOutput = '';
+			var 
+				localOutput = '',
+				traysDetails = this.getTraysDetails(site)
+			;
 			
-			var traysDetails = this.getTraysDetails(site);
 			Utils.forEach(traysDetails.missingTrays, function(missingTrayName) {
 				localOutput += missingTrayName + ' missing; '
 			});
@@ -68,9 +70,9 @@
 				unknownTrays = [],
 				testedTrays = [
 					TraysUtils.INBOX_TRAY_NAME,
-					TraysUtils.OUTBOX_TRAY_NAME,
+					//TraysUtils.OUTBOX_TRAY_NAME,
 					TraysUtils.CCBOX_TRAY_NAME
-				] 
+				].concat(YammaModel.DOCUMENT_STATES)
 			;
 			
 			Utils.forEach(testedTrays, function(trayName) {

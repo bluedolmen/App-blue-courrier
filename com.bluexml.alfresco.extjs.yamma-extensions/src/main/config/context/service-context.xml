@@ -91,6 +91,16 @@
 		
 				
 	<!-- OBSOLETED OR NOT-(YET)-WORKING -->
+
+	<bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
+
+		<property name="nodeService" ref="NodeService" />
+		<property name="prefixResolver" ref="namespaceService" />
+		<property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
+		<property name="policyComponent" ref="policyComponent" />
+
+	</bean>   
+
 	
 	<!-- bean id="yammaSpacesBootstrap" parent="spacesStoreImporter" singleton="true" >
 			<property name="useExistingStore" value="true" />
@@ -131,14 +141,6 @@
 		</bean -->
 
 	
-	<!--bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
-
-			<property name="nodeService" ref="NodeService" />
-			<property name="prefixResolver" ref="namespaceService" />
-			<property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
-			<property name="policyComponent" ref="policyComponent" />
-
-		</bean-->   
 	 
 	
 	<!-- bean id="onAddImapContent" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">

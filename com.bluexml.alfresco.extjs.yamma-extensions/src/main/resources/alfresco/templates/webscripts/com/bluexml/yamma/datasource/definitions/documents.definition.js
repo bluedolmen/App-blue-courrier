@@ -279,10 +279,10 @@
 							throw new Error('IllegalArgumentException! DatasourceDefinition.documents: The tray nodeRef is mandatory');
 						}
 						
-						var trayNode = search.findNode(trayNodeRef);
-						if (null == trayNode) return query;
-						var trayId = trayNode.name;
-						query = query.replace(/\{tray\}/, trayId);
+//						var trayNode = search.findNode(trayNodeRef);
+//						if (null == trayNode) return query;
+//						var trayId = trayNode.name;
+//						query = query.replace(/\{tray\}/, trayId);
 						
 						var enclosingSite = YammaUtils.getSiteNode(trayNode);
 						if (null == enclosingSite) return query;
