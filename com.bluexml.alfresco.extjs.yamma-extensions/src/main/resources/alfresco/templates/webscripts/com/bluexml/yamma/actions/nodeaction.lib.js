@@ -132,7 +132,7 @@
 			});
 							
 			function extractJSONString(str) {				
-				var match = nodeRef.match(/^"(.*)"$/);
+				var match = str.match(/^"(.*)"$/);
 				return Utils.String.trim(null != match ? match[1] : str);
 			}
 			
