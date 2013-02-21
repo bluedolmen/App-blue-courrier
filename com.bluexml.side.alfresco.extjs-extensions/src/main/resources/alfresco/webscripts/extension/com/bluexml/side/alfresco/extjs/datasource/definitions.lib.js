@@ -255,7 +255,7 @@
 		function definePublicBaseAccessors() {
 
 			function setNewPublicAccessor(propertyName, propertyValue) {
-				var accessorName = 'get' + propertyName.charAt(0).toUpperCase() + propertyName.substr(1);
+				var accessorName = 'get' + Utils.String.capitalize(propertyName);
 				
 				me[accessorName] = function() {
 					var _propertyValue = propertyValue;
