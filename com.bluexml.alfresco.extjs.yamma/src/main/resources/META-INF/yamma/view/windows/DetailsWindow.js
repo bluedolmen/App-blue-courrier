@@ -15,13 +15,12 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 		documentNodeRef : null
 	},
 
-	height : Ext.getBody().getViewSize().height,
+	height : Ext.getBody().getViewSize().height * 0.9,
     width : Ext.getBody().getViewSize().width * 0.8,
 	
 	defaults : {
-		
+		width : '100%',
 		padding : 5
-		
 	},
 
 	initComponent : function() {
@@ -31,55 +30,56 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 			Ext.Error.raise('IllegalStateException! The window has to be initialized with a valid documentNodeRef');
 		}
 		
-		this.items = this.getItems();
+		this.items = this._getItems();
 		
 		this.callParent();
 	},
 	
-	getItems : function() {
+	_getItems : function() {
 		
-		var documentNodeRef = this.getDocumentNodeRef();
+		var 
+			documentNodeRef = this.getDocumentNodeRef(),
 		
-		var viewForm = Ext.create('Bluexml.utils.alfresco.forms.ViewFormFrame', {
-			width : '100%',
-			flex : 4,
-			plain : true,
-			autoScroll : false,
-			
-			formConfig : {
-				itemId : documentNodeRef
-			}
-		});
-		viewForm.load();
-		
-		var documentHistoryList = Ext.create('Yamma.view.history.DocumentHistoryList', {
-			maxHeight : '40%',
-			width : '100%'
-		});
-		documentHistoryList.load({
-			filters : [
-				{
-					property : 'nodeRef',
-					value : documentNodeRef
+			viewForm = Ext.create('Bluexml.utils.alfresco.forms.ViewFormFrame', {
+				flex : 4,
+				plain : true,
+				autoScroll : false,
+				
+				formConfig : {
+					itemId : documentNodeRef
 				}
-			]
-		});
+			}),
+		
+			documentHistoryList = Ext.create('Yamma.view.history.DocumentHistoryList', {
+				flex : 2
+			}),
 
-		var repliesList = Ext.create('Yamma.view.windows.RepliesList', {
-			width : '100%'		
-		});
-		repliesList.load({
-			filters : [
-				{
-					property : 'nodeRef',
-					value : documentNodeRef
-				}
-			]
-		});
+			repliesList = Ext.create('Yamma.view.windows.RepliesList', {
+				flex : 1
+			}),
+			
+			loadConfig = {
+				filters : [
+					{
+						property : 'nodeRef',
+						value : documentNodeRef
+					}
+				]
+			}
+			
+		;
+		
+		viewForm.load();
+		documentHistoryList.load(loadConfig);
+		repliesList.load(loadConfig);
 		
 		return [
 
 			viewForm,
+//			{
+//				xtype : 'splitter',
+//				height : 5
+//			},
 			documentHistoryList,
 			repliesList
 		
