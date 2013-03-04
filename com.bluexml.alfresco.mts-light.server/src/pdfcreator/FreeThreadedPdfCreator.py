@@ -7,10 +7,13 @@ Processor that uses free-threading COM model to pilot PDFCreator
 '''
 import sys, os, threading, queue
 sys.coinit_flags=0 # HAS TO BE MADE BEFORE pythoncom initialization 
+import logging
 
 from pythoncom import CoInitializeEx, CoUninitialize, COINIT_MULTITHREADED # @UnresolvedImport
 from win32com.client import DispatchWithEvents
 from win32print import GetDefaultPrinter, SetDefaultPrinter 
+
+LOGGER = logging.getLogger("PdfCreator")
 
 _DEFAULT_OUTPUT_DIRNAME = "C:\temp"
 _JOB_TIMEOUT_SEC = 10
@@ -98,9 +101,13 @@ class _PdfTransformerProcessor(threading.Thread):
                     errorDescription = self._PDFCreator.cErrorDetail("Description")
                     errorMessage = "[%s] %s" % (errorNumber, errorDescription)
             
-        if None != errorMessage and None != onFailure:
-            onFailure(errorMessage)
+        if None != errorMessage:
+            LOGGER.error(errorMessage)
+            if None != onFailure:
+                onFailure(errorMessage)
+            
         elif None != onSuccess:
+            LOGGER.info("File successfully processed to '%s'" % outputFileLocation)
             onSuccess(outputFileLocation)
                 
         self._transformationJobQueue.task_done()
@@ -149,6 +156,9 @@ class _Worker(threading.Thread):
         self.outputDirname = dirname
         
     def run(self):
+        
+        LOGGER.debug("Processing file '%s'" % self._ifname);
+        
         # First step - initialize COM
         CoInitializeEx(COINIT_MULTITHREADED)
         

@@ -9,7 +9,10 @@ VERSION=1.0
 
 from pdfcreator.FreeThreadedPdfCreator import PdfTransformerProcessor
 from ws.bottle import request, route, run, HTTPError, HTTPResponse
-import os, tempfile,  threading, mimetypes
+import os, tempfile,  threading, mimetypes, logging
+from ws.TempfileCleaner import TempFileCleaner
+
+LOGGER = logging.getLogger("WS-Server")
 
 class WorkerOutput(object):
     
@@ -17,19 +20,26 @@ class WorkerOutput(object):
     errorMessage = None
     
     def getHttpResponse(self):
+        
         if (None != self.outputFileLocation):
             return self._httpResponse(self.outputFileLocation)
+        
         elif (None != self.errorMessage):
+            LOGGER.error(self.errorMessage)
             return HTTPError(500, self.errorMessage)
         
     def _httpResponse(self, fileLocation):
         headers = dict()
     
         if not os.path.exists(fileLocation) or not os.path.isfile(fileLocation):
-            return HTTPError(404, "File does not exist.")
+            message = "File does not exist: '%s'" % fileLocation
+            LOGGER.error(message)
+            return HTTPError(404, message)
         
         if not os.access(fileLocation, os.R_OK):
-            return HTTPError(403, "You do not have permission to access this file.")
+            message = "You do not have permission to access this file: '%s'" % fileLocation
+            LOGGER.error(message)
+            return HTTPError(403, message)
     
         mimetype, encoding = mimetypes.guess_type(fileLocation)
         if mimetype: headers['Content-Type'] = mimetype
@@ -54,16 +64,18 @@ def transform():
     tempFile_ = tempfile.NamedTemporaryFile(suffix = ext, delete = False)
     tempFile_.write(upload.file.read());
     tempFile_.close()
+    LOGGER.debug("%s' -> '%s" % (upload.filename, tempFile_.name) )
     
     lock = threading.Semaphore(0)
     workerOutput = WorkerOutput() # Mutable object for callback modifications
         
     def endOfProcess():
         lock.release()
-        os.remove(tempFile_.name)
+        TempFileCleaner.add(tempFile_.name)
     
     def onSuccess(outputFileLocation_):
         workerOutput.outputFileLocation = outputFileLocation_
+        TempFileCleaner.add(outputFileLocation_, ttl = 300) # removed after 5 minutes
         endOfProcess()
     
     def onFailure(message):

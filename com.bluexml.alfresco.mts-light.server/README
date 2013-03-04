@@ -24,8 +24,8 @@ http://fr.pdfforge.org/download
 --------------------------------------------------------------------------------
 
 a) Once all the prerequisites are installed
-b) Launch "main.py" located in the 'src/' folder with help of the python 
-interpreter
+b) Launch "mtslight.py" located in the 'src/' folder with help of the python 
+interpreter (use "-h" to get customization options)
 c) That's it! You should be able to see the connections by watching the console
 logs
 
