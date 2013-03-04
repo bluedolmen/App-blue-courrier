@@ -1,0 +1,44 @@
+This is MTS-Light version 1.0
+@author: Brice Pajot
+@mail: bpajot@bluexml.com
+(c) BlueXML 2013
+
+--------------------------------------------------------------------------------
+1) PREREQUISITES
+--------------------------------------------------------------------------------
+
+* Python 2.x (> 2.7.3) or 3.x (> 3.3.0)
+http://www.python.org/download/
+
+* Python Win32 extensions
+http://sourceforge.net/projects/pywin32/files/pywin32/Build%20218/
+and choose the version corresponding to the previously installed Python version
+
+* PdfCreator (> 1.6.2)
+http://fr.pdfforge.org/download
+
+* Microsoft Office (see compatibility matrix)
+
+--------------------------------------------------------------------------------
+1) INSTALLATION
+--------------------------------------------------------------------------------
+
+a) Once all the prerequisites are installed
+b) Launch "main.py" located in the 'src/' folder with help of the python 
+interpreter
+c) That's it! You should be able to see the connections by watching the console
+logs
+
+--------------------------------------------------------------------------------
+X) COMPATIBILITY MATRIX
+--------------------------------------------------------------------------------
+
+
+					|	Office 2007	|	Office 2010	|
+--------------------------------------------------------------------------------
+Windows XP SP3 		|		OK		|		N/A		|
+--------------------------------------------------------------------------------
+Window Vista		|		N/A		|		N/A		|
+--------------------------------------------------------------------------------
+Window Server 2003	|		N/A		|		N/A		|
+--------------------------------------------------------------------------------
