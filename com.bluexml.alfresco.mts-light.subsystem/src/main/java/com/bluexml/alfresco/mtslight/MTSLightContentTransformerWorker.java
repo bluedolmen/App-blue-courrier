@@ -3,6 +3,7 @@ package com.bluexml.alfresco.mtslight;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 import org.alfresco.error.AlfrescoRuntimeException;
 import org.alfresco.model.ContentModel;
@@ -33,13 +34,17 @@ import org.springframework.beans.factory.InitializingBean;
 
 public class MTSLightContentTransformerWorker extends ContentTransformerHelper implements ContentTransformerWorker, InitializingBean {
 
+	private static final String TRANSFORM_URI_PATH = "transform";
+	private static final String INFO_URI_PATH = "info";
+	
 	private NodeService nodeService = null;
 	private String server = "localhost";
 	private String port = null;
 	private boolean disabled = false;
 	
-	private static final String TRANSFORM_URI_PATH = "transform";
-	private static final String INFO_URI_PATH = "info";
+	private static final long AVAILABILITY_TTL_MS = 2000;
+	private long lastCheckDate = 0;
+	private boolean isAvailable = false;
 	
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -52,16 +57,17 @@ public class MTSLightContentTransformerWorker extends ContentTransformerHelper i
 	public boolean isTransformable(String sourceMimetype, String targetMimetype, TransformationOptions options) {
 		
 		if (disabled) return false;
-		if (!isAvailable()) return false;
 		
 		if (!MimetypeMap.MIMETYPE_PDF.equals(targetMimetype)) return false;
 		
         return ( 
-			MimetypeMap.MIMETYPE_WORD.equals(sourceMimetype) ||
-			MimetypeMap.MIMETYPE_OPENXML_WORDPROCESSING.equals(sourceMimetype) ||
-			MimetypeMap.MIMETYPE_EXCEL.equals(sourceMimetype) ||
-			MimetypeMap.MIMETYPE_OPENXML_SPREADSHEET.equals(sourceMimetype)
-        );
+				MimetypeMap.MIMETYPE_WORD.equals(sourceMimetype) ||
+				MimetypeMap.MIMETYPE_OPENXML_WORDPROCESSING.equals(sourceMimetype) ||
+				MimetypeMap.MIMETYPE_EXCEL.equals(sourceMimetype) ||
+				MimetypeMap.MIMETYPE_OPENXML_SPREADSHEET.equals(sourceMimetype)
+	        ) 
+	        && isAvailable() // postpone network checking
+	    ;
 		
 	}
 
@@ -103,10 +109,12 @@ public class MTSLightContentTransformerWorker extends ContentTransformerHelper i
 			// Execute the method.
 			final int statusCode = client.executeMethod(postMethod);
 			if (statusCode != HttpStatus.SC_OK) {
+				
 				final String message = "Failure while calling the HTTP mts-light server: " + postMethod.getStatusLine();
 				try {
 					postMethod.getResponseBody(); // reading the body is required by the Apache API
 				} catch (IOException e) {}
+				
 				throw new AlfrescoRuntimeException(message);
 			}
 
@@ -137,7 +145,15 @@ public class MTSLightContentTransformerWorker extends ContentTransformerHelper i
 	}
 	
 	public boolean isAvailable() {
-		return getVersion() != null;
+		
+		final long currentDate = new Date().getTime();
+		if (currentDate - lastCheckDate > AVAILABILITY_TTL_MS) {
+			isAvailable = getVersion() != null;	
+			lastCheckDate = currentDate;
+		}
+		
+		return isAvailable; 
+		
 	}
 	
 	public String getVersion() {
