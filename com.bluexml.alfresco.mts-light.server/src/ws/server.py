@@ -96,3 +96,4 @@ def info():
 
 def launch(host = "0.0.0.0", port = "80"):
     run(host=host, port=port)
+    PdfTransformerProcessor.stop()
