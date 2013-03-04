@@ -85,7 +85,7 @@ class _PdfTransformerProcessor(threading.Thread):
         self.outputFileLocation = outputFileLocation
         
         if worker.isAlive():
-            # TODO: Process timeout here
+            # TODO: Process timeout here (should kill process)
             errorMessage = "Time is Out!"
         else:
             
