@@ -20,15 +20,42 @@
 <beans>	
 
 	<!-- 
+	  - PDF RENDERING MATERIAL
+	  -->
+	  
+   <!--bean id="pdfRenderingEngine"
+      class="com.bluexml.alfresco.pdf.rendering.PdfRenderingEngine"
+      parent="baseRenderingAction">
+   </bean -->
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="thumbnailRegistry" />
+		<property name="targetMethod" value="addThumbnailDefinition" />
+		<property name="arguments">
+			<list>
+				<bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
+					<property name="name" value="pdfpreview" />
+					<property name="mimetype" value="application/pdf" />
+					<property name="transformationOptions">
+						<!-- The thumbnail definition have transformationOptions mandatory -->
+						<bean class="org.alfresco.repo.content.transform.RuntimeExecutableContentTransformerOptions"/>
+					</property>
+					<property name="runAs" value="System"/>
+					<property name="failureHandlingOptions" ref="standardFailureOptions"/>
+				</bean>
+			</list>
+		</property>
+		
+	</bean>
+
+
+	<!-- 
 	  - PDF MERGING MATERIAL
 	  -->
 	
 	<bean id="MergerUtils" class="com.bluexml.alfresco.pdf.MergerUtils" >
+		<property name="thumbnailService" ref="ThumbnailService" />		
 		<property name="nodeService" ref="NodeService" />
-		<property name="contentService" ref="ContentService" />
-		<property name="mimetypeService" ref="MimetypeService" />
-		<property name="copyService" ref="CopyService" />
-		<property name="fileFolderService" ref="FileFolderService" />
 	</bean>
 
 	<alias name="itext.Merger" alias="PdfMerger" />
@@ -61,6 +88,16 @@
 	<bean id="itext.AbstractExtension" class="com.bluexml.alfresco.pdf.itext.AbstractITextExtension" init-method="register" abstract="true" >
 		<property name="merger" ref="itext.Merger" />
 	</bean>
+	
+	<!-- bean id="yamma.itext.mergerExtension.barcodeStamper" 
+		  class="com.bluexml.alfresco.pdf.itext.ITextBarcodeStampOperationExtension"
+		  parent="itext.AbstractExtension" >
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		<property name="referenceProviderService" ref="referenceProviderService" />
+		<property name="barcodePosition" value="190,10" />
+		<property name="barcodeSize" value="10x10" />
+	</bean -->
+			
 		 
 	<!-- 
 	  - JAVASCRIPT HELPER

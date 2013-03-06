@@ -43,38 +43,48 @@ public class MergeToPdf extends StreamContent
 	
 	private Merger pdfMerger;
 	private File mergedFile;
+	private PdfOperationConfig mergerConfig;
 
     public void execute(WebScriptRequest req, WebScriptResponse res) throws IOException {
     	
     	final String nodeRefsParam = req.getParameter(NODEREFS);
     	final List<NodeRef> nodeRefs = NodeRef.getNodeRefs(nodeRefsParam);
+    	if (nodeRefs.isEmpty()) throw new WebScriptException("At least one nodeRef has to be provided");
+    	
+    	mergerConfig = getMergerConfig(req, nodeRefs); 
+    	final OutputStream tempOutputStream = getOutputStream();
+    	merge(nodeRefs, tempOutputStream);
+
+    	streamContent(req, res, mergedFile, false);
+    	
+    }   
+    
+    protected PdfOperationConfig getMergerConfig(WebScriptRequest req, List<NodeRef> nodeRefs) {
     	
     	final String doubleSidedParam = req.getParameter(DOUBLE_SIDED);
     	final boolean doubleSided = "true".equals(doubleSidedParam) && nodeRefs.size() > 1;
     	
     	final String stampValue = req.getParameter(STAMP);
     	
-    	if (nodeRefs.isEmpty()) throw new WebScriptException("At least one nodeRef has to be provided");
-    	
-    	final OutputStream tempOutputStream = getOutputStream();
-
     	final PdfOperationConfig mergerConfig = PdfOperationConfig.emptyConfig();
     	mergerConfig.put(Merger.DOUBLE_SIDED, doubleSided);
     	if (null != stampValue) {
     		mergerConfig.put(Merger.STAMPED, stampValue);
     	}
     	
+    	return mergerConfig;
+    	
+    }
+    
+    protected void merge(List<NodeRef> nodeRefs, final OutputStream output) {
+    	
     	try {
-			pdfMerger.setConfig(mergerConfig);
-	    	pdfMerger.merge(nodeRefs, tempOutputStream);
+	    	pdfMerger.merge(nodeRefs, output, mergerConfig);
 		} catch (PdfOperationException e) {
 			throw new WebScriptException("Cannot merge the provided document references.", e);
 		}
     	
-
-    	streamContent(req, res, mergedFile, false);
-    	
-    }   
+    }
     
 	private OutputStream getOutputStream() {
 		

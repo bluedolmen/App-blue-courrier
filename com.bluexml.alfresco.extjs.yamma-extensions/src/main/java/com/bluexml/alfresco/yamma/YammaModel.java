@@ -24,4 +24,6 @@ public interface YammaModel {
     static final QName PROP_STATUSABLE_STATE = QName.createQName(YAMMA_MODEL_1_0_URI, "Statusable_state");
 
 	static final QName TYPE_TRAY = QName.createQName(YAMMA_MODEL_1_0_URI, "Tray");
+	
+	static final QName TYPE_REPLY = QName.createQName(YAMMA_MODEL_1_0_URI, "Reply");
 }

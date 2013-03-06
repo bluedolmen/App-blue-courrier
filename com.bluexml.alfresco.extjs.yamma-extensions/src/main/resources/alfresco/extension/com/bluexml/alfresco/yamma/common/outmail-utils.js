@@ -25,8 +25,9 @@
 				recipientEmail : recipientEmail,
 				templateDefinition : templateDefinition,
 				
-				sendMailSuccess : sendMailSuccess,
-				sendMailFailure : sendMailFailure
+				sendMailSuccess : sendMailSuccess || undefined,
+				sendMailFailure : sendMailFailure || undefined,
+				silent : true
 			
 			});
 						
@@ -53,7 +54,7 @@
 		
 		getOutcomingMail : function(document) {
 			
-			if (!document) return null;
+			if (null == document) return null;
 			if (document.isSubType(YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME)) return document;
 			
 			// Here we only return the first reply
@@ -64,7 +65,7 @@
 		isSentByMail : function(document) {
 			
 			if (
-				!document ||
+				null == document ||
 				!document.isSubType(YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME) ||
 				!document.hasAspect(YammaModel.SENT_BY_EMAIL_ASPECT_SHORTNAME)
 			) {
@@ -76,7 +77,9 @@
 		
 		getRecipientEmail : function(document) {
 			var recipientEmail = document.properties[YammaModel.RECIPIENT_CONTACT_EMAIL_PROPNAME];
-			return recipientEmail;
+			if (null == recipientEmail) return null;
+			
+			return Utils.asString(recipientEmail);
 		},
 		
 		getTemplateDefinition : function(document) {

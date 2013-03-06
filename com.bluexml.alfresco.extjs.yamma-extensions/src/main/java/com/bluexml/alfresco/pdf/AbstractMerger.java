@@ -30,7 +30,7 @@ public abstract class AbstractMerger implements Merger {
 	
 	public void merge(Collection<NodeRef> inputFiles, OutputStream output, PdfOperationConfig config) throws PdfOperationException {
 		
-		final List<NodeRef> checkedInputFiles = mergerUtils.getPdfNodeList(inputFiles, true /* transform */);
+		final List<NodeRef> checkedInputFiles = mergerUtils.getPdfNodeList(inputFiles);
 		doMerge(checkedInputFiles, output, config);
 		
 	}	

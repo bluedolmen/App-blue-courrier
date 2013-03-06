@@ -7,7 +7,7 @@ import org.alfresco.service.cmr.model.FileFolderService;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.NodeRef;
 
-class InputSourceFactory {
+public class InputSourceFactory {
 	
 	public InputSource createNew(NodeRef nodeRef) {
 		return new InputSource(nodeRef);

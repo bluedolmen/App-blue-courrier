@@ -106,6 +106,9 @@
 			
 			// Retrieve the corresponding datalist-item
 			var assignableSiteNode = this._getAssignableSiteNode(serviceName);
+			if (null == assignableSiteNode) {
+				Utils.Error.raise('IllegalStateException! Cannot find any datalist-element for service \'' + serviceName + '\'')
+			}
 			documentNode.createAssociation(assignableSiteNode, YammaModel.ASSIGNABLE_SERVICE_ASSOCNAME);
 			return true;
 			
@@ -136,19 +139,41 @@
 			
 		},
 		
+			/**
+			 * Retrieves the AssignableSite-type node from the given
+			 * serviceName. A simple lucene-query should be sufficient however,
+			 * there seems to be an (obscure) bug using the salesman Alfresco
+			 * instance which prevent from returning a valid node using this
+			 * query.
+			 * <p>
+			 * To circumvent the bug we made here a simple loop on all the
+			 * AssignableSite nodes which can be retrieved. Also this is of
+			 * small impact, this patch may not be sufficient in every other
+			 * cases. We shuould try to enlighten the reasons that lead to this
+			 * unobvious behavior.
+			 * <p>
+			 * TODO: FIX/INVESTIGATE
+			 * 
+			 */
 		_getAssignableSiteNode : function(serviceName) {
-			
+
 			var 
-				luceneQuery = 
-					'+TYPE:"yamma-ee:AssignableSite"' +  
-					' +' + Utils.Alfresco.getLuceneAttributeFilter("cm:name", serviceName),
-				result = search.luceneSearch(luceneQuery);
+				luceneQuery = '+TYPE:"yamma-ee:AssignableSite"',
+//				luceneQuery = '+TYPE:"yamma-ee:AssignableSite"' +  
+//					' +' + Utils.Alfresco.getLuceneAttributeFilter("cm:name", serviceName),
+				result = search.luceneSearch(luceneQuery) || []
 			;
 			
-			if (!result || 0 == result.length) return null;
-			var firstMatchingService = result[0];
+//			return result[0];
 			
-			return firstMatchingService;
+			for (var i = 0, len = result.length; i < len; i++) {
+				var node = result[i];
+				if (serviceName == node.name) {
+					return node;
+				}
+			}
+			return null;
+			
 			
 		},
 		

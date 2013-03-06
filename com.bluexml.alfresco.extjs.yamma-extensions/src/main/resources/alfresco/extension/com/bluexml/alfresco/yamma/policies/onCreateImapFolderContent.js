@@ -2,6 +2,8 @@
 
 (function() {
 	
+	if (!Utils.Alfresco.isAuthenticated()) return; // not authenticated
+	
 	var isNew = true;
 
 	// This script may be used either by a behaviour or by a rule

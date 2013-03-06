@@ -79,28 +79,36 @@
 	
 	<!-- BARCODE EXTENSION FOR MERGING -->
 	
+	<!-- Define a new merger for replies processing -->
+	
+	<bean id="yamma.replies.itext.Merger" class="com.bluexml.alfresco.pdf.itext.ITextMerger" parent="abstractPdfMerger">
+		<property name="inputSourceFactory" ref="itext.InputSourceFactory" />
+	</bean>
+
 	<bean id="yamma.itext.mergerExtension.barcodeStamper" 
-		  class="com.bluexml.alfresco.pdf.itext.ITextBarcodeStampOperationExtension"
-		  parent="itext.AbstractExtension" >
-		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		  class="com.bluexml.alfresco.yamma.pdf.ITextYammaBarcodeStampOperation" 
+		  init-method="register" >
+		
+		<property name="merger" ref="yamma.replies.itext.Merger"/>
+		<property name="nodeService" ref="NodeService" />
+		
 		<property name="referenceProviderService" ref="referenceProviderService" />
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
 		<property name="barcodePosition" value="190,10" />
 		<property name="barcodeSize" value="10x10" />
 	</bean>
-		
+
+	<bean id="webscript.com.bluexml.yamma.pdf.mergerepliestopdf.get" 
+		  class="com.bluexml.alfresco.pdf.ws.MergeToPdf" 
+		  parent="webscript">
+				
+		<property name="mimetypeService" ref="MimetypeService" />	
+		<property name="merger" ref="yamma.replies.itext.Merger"/>
+	</bean> 
+	
 		
 				
 	<!-- OBSOLETED OR NOT-(YET)-WORKING -->
-
-	<bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
-
-		<property name="nodeService" ref="NodeService" />
-		<property name="prefixResolver" ref="namespaceService" />
-		<property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
-		<property name="policyComponent" ref="policyComponent" />
-
-	</bean>   
-
 	
 	<!-- bean id="yammaSpacesBootstrap" parent="spacesStoreImporter" singleton="true" >
 			<property name="useExistingStore" value="true" />
@@ -141,6 +149,14 @@
 		</bean -->
 
 	
+	<!--bean id="stateRouter" class="com.bluexml.alfresco.yamma.YammaStateRouter" init-method="init" >
+
+			<property name="nodeService" ref="NodeService" />
+			<property name="prefixResolver" ref="namespaceService" />
+			<property name="retryingTransactionHelper" ref="retryingTransactionHelper" />
+			<property name="policyComponent" ref="policyComponent" />
+
+		</bean-->   
 	 
 	
 	<!-- bean id="onAddImapContent" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">

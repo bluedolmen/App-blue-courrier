@@ -11,12 +11,19 @@
 			var replies = ReplyUtils.getReplies(node);
 			if (Utils.isArrayEmpty(replies)) return;
 			
-			var repliesRefs = Utils.map(replies, function(replyNode) {
-				return Utils.asString(replyNode.nodeRef);
+			var repliesDescriptions = Utils.map(replies, function(replyNode) {
+				
+				return ({
+					nodeRef : Utils.asString(replyNode.nodeRef),
+					attachments : Utils.map(AttachmentUtils.getAttachments(replyNode), function(attachmentNode) {
+						return Utils.asString(attachmentNode.nodeRef)
+					})
+				});
+				
 			});
 			
 			return ({
-				replies : repliesRefs
+				replies : repliesDescriptions
 			}); // outcome
 			
 		}		

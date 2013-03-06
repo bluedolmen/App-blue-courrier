@@ -14,7 +14,7 @@
 		</arg>
 	</args>
 	
-	<url>/bluexml/pdf/merge-to-pdf</url>
+	<url>/bluexml/yamma/merge-replies-to-pdf</url>
 	<format default="">argument</format>
 	<authentication>user</authentication>
 	
