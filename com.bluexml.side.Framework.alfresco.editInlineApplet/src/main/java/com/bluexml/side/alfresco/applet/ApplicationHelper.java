@@ -16,7 +16,7 @@ public final class ApplicationHelper {
 		EXCEL("excel"),
 		POWERPOINT("powerpnt");
 
-		private final String executable;
+		public final String executable;
 		
 		private ApplicationExe(String executable) {
 			if (!executable.endsWith(".exe")) {

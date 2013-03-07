@@ -3,7 +3,7 @@ package com.bluexml.side.alfresco.applet;
 import java.io.File;
 
 
-public abstract class EditProcess extends Thread {
+public abstract class EditProcess implements Runnable {
 	
 	public static class EditProcessException extends RuntimeException {
 
@@ -28,12 +28,22 @@ public abstract class EditProcess extends Thread {
 	public EditProcess(File file) {
 		this.editedFile = file;
 	}
+	
+	public Thread launch() {
+		
+		Thread thread = new Thread(this);
+		thread.start();
+		
+		return thread;
+		
+	}
 
+	@Override
 	public void run() {
 		
 		try {
 			
-			launch();
+			runInternal();
 	        
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
@@ -45,7 +55,7 @@ public abstract class EditProcess extends Thread {
 		
 	}
 	
-	protected abstract void launch() throws Exception;
+	protected abstract void runInternal() throws Exception;
 	
 
 }

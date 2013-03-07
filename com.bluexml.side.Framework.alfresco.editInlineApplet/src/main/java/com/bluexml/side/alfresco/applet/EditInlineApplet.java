@@ -8,6 +8,8 @@ import java.net.URL;
 
 import netscape.javascript.JSObject;
 
+import com.bluexml.side.alfresco.applet.OfficeEditProcess.EndOfProcess;
+import com.bluexml.side.alfresco.applet.OfficeEditProcess.OfficeEvent;
 import com.bluexml.side.alfresco.applet.WorkingDocument.OpeningMode;
 
 
@@ -68,17 +70,19 @@ public class EditInlineApplet extends Applet {
 				ticket, 
 				"write".equals(editingMode) ? OpeningMode.READ_WRITE : OpeningMode.READ_ONLY
 			);
+			
 			final File workingFile = workingDocument.downloadDocument();
-			final EditProcess editProcess = OfficeEditProcess.createFromMimetype(workingFile, mimetype);
-			
-			editProcess.start();
-			try {
-				editProcess.join();
-			} catch (InterruptedException e) {
-				// ok
-			}
-			
-			workingDocument.interrupt();					
+			final OfficeEditProcess editProcess = OfficeEditProcess.createFromMimetype(workingFile, mimetype);
+			editProcess.register(new Listener<OfficeEditProcess.OfficeEvent>() {
+				@Override
+				public void notify(OfficeEvent event, Object... objects) {
+					if (event instanceof EndOfProcess) {
+						workingDocument.close();
+					}
+				}
+			});
+			editProcess.launch();
+						
 			jso.eval("endOfEditing(" + webdavUrl + ")");
 			
 		}

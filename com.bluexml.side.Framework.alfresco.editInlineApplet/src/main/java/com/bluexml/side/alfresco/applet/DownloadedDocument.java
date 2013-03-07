@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-public final class DownloadedDocument extends Thread implements WorkingDocument {
+public final class DownloadedDocument implements Runnable, WorkingDocument {
 	
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 	private static final long WATCH_FREQUENCY_MS = 5000;
@@ -35,8 +35,6 @@ public final class DownloadedDocument extends Thread implements WorkingDocument 
 	@Override
 	public void run() {
 		
-		super.run();
-		
 		final Watcher<Void> watcher = new Watcher<Void>(WATCH_FREQUENCY_MS) {
 
 			@Override
@@ -52,10 +50,9 @@ public final class DownloadedDocument extends Thread implements WorkingDocument 
 		};
 		watcher.blockSafeUntilTrue(); // terminate on interrupt
 		
-		terminate();
 	}
 	
-	private void terminate() {
+	public void close() {
 		
 		uploadDocumentIfNecessary();
 		
@@ -64,6 +61,10 @@ public final class DownloadedDocument extends Thread implements WorkingDocument 
 				workingFile.setWritable(true);
 			}
 			workingFile.delete();
+		}
+		
+		if (!Thread.currentThread().isInterrupted()) {
+			Thread.currentThread().interrupt();
 		}
 		
 	}
@@ -103,7 +104,9 @@ public final class DownloadedDocument extends Thread implements WorkingDocument 
 			
 		}
 		
-		this.start();
+		Thread t = new Thread(this);
+		t.start();
+		
 		return workingFile;
 		
 	}

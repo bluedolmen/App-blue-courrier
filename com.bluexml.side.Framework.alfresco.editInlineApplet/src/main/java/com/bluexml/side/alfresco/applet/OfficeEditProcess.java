@@ -4,16 +4,44 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.bluexml.side.alfresco.applet.ApplicationHelper.ApplicationExe;
+import com.bluexml.side.alfresco.applet.PIDWatcher.PIDWatcherEvent;
+import com.bluexml.side.alfresco.applet.PIDWatcher.ProcessEnded;
 
 
-public class OfficeEditProcess extends EditProcess {
+public class OfficeEditProcess extends EditProcess implements Notifier<OfficeEditProcess.OfficeEvent> {
+	
+	// NOTIFIER MATERIAL
+	
+	public static interface OfficeEvent {}
+	
+	public static final class EndOfProcess implements OfficeEvent {}
+	
+	private final NotifierHelper<OfficeEvent> notifierHelper = new NotifierHelper<OfficeEvent>();
+	
+	@Override
+	public void register(Listener<OfficeEvent> listener) {
+		notifierHelper.register(listener);
+	}
+
+	@Override
+	public void notifyAll(OfficeEvent event, Object... args) {
+		notifierHelper.notifyAll(event, args);
+	}	
+	
+
+	// MAIN MATERIAL
 	
 	static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 	private static final long WATCH_FREQUENCY_MS = 1000;
 	
+	private final ApplicationExe applicationExe;
 	private final String fullExecutablePath;
+	
+	private Boolean officeProcessRunning = true;
 	
 	public static OfficeEditProcess createFromMimetype(File file, String mimetype) {
 		
@@ -34,6 +62,7 @@ public class OfficeEditProcess extends EditProcess {
 		
 		super(file);
 		
+		this.applicationExe = applicationExe;
 		fullExecutablePath = ApplicationHelper.getApplicationFullPath(applicationExe);
 		if (null == fullExecutablePath) {
 			throw new IllegalStateException(String.format("Cannot find a valid executable for '%s'", applicationExe));
@@ -41,48 +70,74 @@ public class OfficeEditProcess extends EditProcess {
 		
 	}
 	
-	protected void launch() throws IOException {
+	public Thread launch() {
 		
-		final boolean alreadyLaunched = isExecutableRunning();
+		String filePath;
+		try {
+			filePath = editedFile.getCanonicalPath();
+		} catch (IOException e) {
+			System.err.println(String.format("Cannot get the path from the file '%s'", editedFile));
+			e.printStackTrace(System.err);
+			return null;
+		}
 		
-	    final String[] command = { fullExecutablePath, editedFile.getCanonicalPath() };
-		final ProcessBuilder p = new ProcessBuilder(command);
-	    p.redirectErrorStream(true);
-	    final Process process = p.start();
+	    final String[] command = { fullExecutablePath, filePath };
+		final ProcessBuilder pb = new ProcessBuilder(command);
+	    pb.redirectErrorStream(true);
+	    
+	    try {
+	    	final Process p = pb.start();	
+			final int launchResult = p.waitFor();
+			if (0 != launchResult) {
+				throw new RuntimeException(String.format("Problem while launching '%s'", fullExecutablePath));
+			}
+			
+		} catch (Exception e) { // IOException or InterruptedException
+			// should not happen since office processes give the hand back immediately
+			e.printStackTrace(System.err); 
+			return null;
+		}	    
 	
-	    if (!alreadyLaunched) {
-	    	try {
-	    		process.waitFor();
-	    	} catch (InterruptedException e) {
-	    		// ignore
-	    	}
-	    } else {
-	    	watchInstance();
-	    }
-		
+	    int officePID = getOfficePID();
+	    final PIDWatcher pidWatcher = PIDWatcher.createWatcher(officePID);
+	    pidWatcher.register(new Listener<PIDWatcher.PIDWatcherEvent>() {
+			@Override
+			public void notify(PIDWatcherEvent event, Object... objects) {
+				synchronized (officeProcessRunning) {
+					officeProcessRunning =  !(event instanceof ProcessEnded);
+				}
+			}
+		});
+	    pidWatcher.launch();
+	    
+	    return super.launch();
+	    
 	}	
 	
-	/**
-	 * Check the Windows task-list to verify whether there is still an instance
-	 * of Word running
-	 * 
-	 * @return true if an instance can be found
-	 * @throws IOException
-	 */
-	private boolean isExecutableRunning() throws IOException {
+	@Override
+	protected void runInternal() {
+	    watchInstance();		
+	}
+	
+	
+	private int getOfficePID() {
 		
-        final String[] command = { "tasklist.exe", "/fi", "\"imagename eq " + fullExecutablePath + "\"" };
+        //final String[] command = { "tasklist.exe", "/fi", "\"imagename eq " + applicationExe.executable + "\"" };
+		final String[] command = { "wmic",  "process", "get", "Caption,Processid"};
 		final ProcessBuilder tasklist = new ProcessBuilder(command);
-        final Process test = tasklist.start();
-        
+
         BufferedReader input = null;
         try {
+            final Process test = tasklist.start();
         	input = new BufferedReader(new InputStreamReader(test.getInputStream()));
         	
         	String line;
             if ((line = input.readLine()) != null) {
-                if (line.isEmpty()) return true;
+                if (line.contains(applicationExe.executable)) return getPIDFromTaskListLine(line);
             }
+        }
+        catch(IOException e) {
+        	e.printStackTrace(System.err);
         }
         finally {
         	try {
@@ -96,8 +151,25 @@ public class OfficeEditProcess extends EditProcess {
         	}
         }        
 	
-        return false;
+        return -1;
+		
+	}	
+	
+	private static final Pattern PID_PATTERN = Pattern.compile("[^0-9]*([0-9]+).*");
+	
+	private static int getPIDFromTaskListLine(String line) {
+		
+		final Matcher m = PID_PATTERN.matcher(line);
+		if (!m.matches()) return -1;
+		
+		final String pidString = m.group(1);
+		if (null == pidString) return -1;
+		
+		return Integer.parseInt(pidString);
+		
 	}
+	
+
 
 	/**
 	 * Check the instance is still running by watching the "locked" file
@@ -113,10 +185,14 @@ public class OfficeEditProcess extends EditProcess {
 		final Watcher<Void> watcher = new Watcher<Void>(WATCH_FREQUENCY_MS) {
 			@Override
 			protected boolean checkCondition() {
-				return !lockedFile.exists();
+				synchronized (officeProcessRunning) {
+					return (!lockedFile.exists()) || !officeProcessRunning ;
+				}
 			}
 		};
 		watcher.blockSafeUntilTrue();
+		
+		notifyAll(new EndOfProcess());
 		
 	}
 	
@@ -162,4 +238,5 @@ public class OfficeEditProcess extends EditProcess {
 		return watcher.blockSafeUntilTrue();		
 		
 	}
+
 }
