@@ -69,7 +69,8 @@ class _PdfTransformerProcessor(threading.Thread):
             self.__process()
     
     def _signalReady(self):
-        self.fileAvailable.release()
+        if None != self.fileAvailable:
+            self.fileAvailable.release()
     
     def __process(self):
         
