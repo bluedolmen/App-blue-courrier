@@ -33,8 +33,8 @@
 				document = config.document || null,
 				recipientEmail = config.recipientEmail,
 				templateDefinition = config.templateDefinition,
-				sendMailSuccess = Utils.emptyFn,
-				sendMailFailure = Utils.emptyFn,
+				sendMailSuccess = Utils.isFunction(config.sendMailSuccess) ? config.sendMailSuccess : Utils.emptyFn,
+				sendMailFailure = Utils.isFunction(config.sendMailFailure) ? config.sendMailFailure : Utils.emptyFn,
 				silent = ( true === config.silent )
 			;
 				
@@ -83,15 +83,6 @@
 				
 				var errorMessage = GENERIC_FAILURE_MESSAGE;
 				
-				if (sendMailFailure && Utils.isFunction(sendMailFailure)) {
-					var result = sendMailFailure(exception);
-					if ('string' == typeof result) { // means error message
-						errorMessage = result;
-					} else if (true === typeof result) { // means silent
-						silent = true;
-					}
-				}				
-				
 				if ( ('string' == typeof exception) && exception) {
 					errorMessage = exception;
 				}
@@ -99,6 +90,15 @@
 				if ( ('string' == typeof exception.message) && exception.message) {
 					errorMessage = exception;
 				}
+				
+				if (sendMailFailure && Utils.isFunction(sendMailFailure)) {
+					var result = sendMailFailure(exception, errorMessage);
+					if ('string' == typeof result) { // means error message
+						errorMessage = result;
+					} else if (true === typeof result) { // means silent
+						silent = true;
+					}
+				}				
 				
 				if (silent) {
 					return errorMessage;
@@ -128,10 +128,10 @@
 			ParameterCheck.mandatoryParameter(templateName, 'templateName');
 			
 			var templateDir = Utils.Alfresco.getCompanyHome().childrenByXPath(DICTIONARY_MAIL_TEMPLATES_PATH)[0];
-			if (!templateDir) throw { message : "The mail templates directory '" + DICTIONARY_MAIL_TEMPLATES_PATH + "' cannot be found in the repository" };
+			if (null == templateDir) throw { message : "The mail templates directory '" + DICTIONARY_MAIL_TEMPLATES_PATH + "' cannot be found in the repository" };
 			
 			var template = templateDir.childByNamePath(templateName);
-			if (!template) throw { message : "The mail template '" + templateName + "' cannot be found in folder '" + templateDir.displayPath + "'" };
+			if (null == template) throw { message : "The mail template '" + templateName + "' cannot be found in folder '" + templateDir.displayPath + "'" };
 			
 			return template;
 		}

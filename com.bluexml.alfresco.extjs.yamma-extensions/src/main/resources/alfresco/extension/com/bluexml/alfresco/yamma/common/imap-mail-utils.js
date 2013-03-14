@@ -222,7 +222,6 @@
 	};
 	
 	
-	
 	TemplateDefinition.SendAcknowledgment = function(document) {
 		TemplateDefinition.Default.call(this, document, ACKNOWLEDGMENT_TEMPLATE_NAME /* templateName */);
 		return this;

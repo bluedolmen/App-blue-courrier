@@ -52,14 +52,14 @@
                                              </tr>
                                           </table>
                                           <div style="font-size: 14px; margin: 12px 0px 24px 0px; padding-top: 10px; border-top: 1px solid #aaaaaa;">
-                                             <p>Bonjour ${senderName!""},</p>
+                                             <p>Bonjour ${recipientName!""},</p>
                                              
                                              <p>Nous avons bien pris en compte votre courrier en date du ${sentDate?date?string}.</p>
                                              
                                              <p>Une réponse vient de vous être apportée, vous la recevrez très prochainement par courrier postal.</p>
                                                                                           
                                              <p>Cordialement,<br />
-                                             ${recipientName!"Votre serviteur."}</p>
+                                             ${senderName!"Votre serviteur."}</p>
                                           </div>
                                        </td>
                                     </tr>
