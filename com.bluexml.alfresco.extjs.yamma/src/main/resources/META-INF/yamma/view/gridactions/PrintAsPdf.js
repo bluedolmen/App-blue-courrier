@@ -11,7 +11,7 @@ Ext.define('Yamma.view.gridactions.PrintAsPdf', {
 	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT,
 	supportBatchedNodes : true,
 	
-	WS_URL : 'alfresco://bluexml/yamma/merge-to-pdf?nodeRefs={nodeRefs}&doubleSided={doubleSided}',
+	WS_URL : 'alfresco://bluexml/yamma/merge-replies-to-pdf?nodeRefs={nodeRefs}&doubleSided={doubleSided}',
 	doubleSided : true,
 		
 	prepareBatchAction : function(records) {
@@ -55,11 +55,30 @@ Ext.define('Yamma.view.gridactions.PrintAsPdf', {
 			
 			var 
 				nodeOutcomes = Ext.Object.getValues(jsonResponse.nodes),
-				nodeReplies = Ext.Array.map(nodeOutcomes, function(outcome) {return outcome.replies;}),
-				flatReplyNodeRefs = Ext.Array.flatten(nodeReplies)
+				printedNodes = Ext.Array.map(nodeOutcomes, function(outcome) {
+					
+					var 
+						nodeRepliesDescriptions = outcome.replies,
+						nodeRepliesWithAttachments = Ext.Array.map(nodeRepliesDescriptions, function(nodeReplyDescr){
+							
+							var
+								nodeRef = nodeReplyDescr.nodeRef,
+								attachments = nodeReplyDescr.attachments
+							;
+							return [nodeRef].concat(attachments);
+							
+						})
+					;
+					
+					return nodeRepliesWithAttachments;
+					
+				}),
+				
+				flatPrintedNodeRefs = Ext.Array.flatten(printedNodes)
 			;
 		
-			this.openPdfResultWindow(flatReplyNodeRefs);
+			this.openPdfResultWindow(flatPrintedNodeRefs);
+			
 		}
 		
 		this.callParent(arguments);
