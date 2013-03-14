@@ -8,7 +8,7 @@
 		var result = {
 			eventType : 'form-result',
 			state : '<#if success>success<#else>failure</#if>',
-			message : '<#if page.url.args.mesg??>${page.url.args.mesg}<#elseif page.url.args.error??>${page.url.args.error}</#if>'
+			message : '<#if page.url.args.mesg??>${page.url.args.mesg?js_string}<#elseif page.url.args.error??>${page.url.args.error?js_string}</#if>'
 		};
 	
 		Bluexml.Socket.Default.postMessage(result);
