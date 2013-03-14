@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/alfresco/templates/webscripts/com/bluexml/yamma/actions/markAsSent.post.properties=UTF-8
 encoding//src/main/resources/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/distributeDocument.post.properties=UTF-8
 encoding//src/main/resources/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/sendReply.post.properties=UTF-8
 encoding//src/main/resources/alfresco/webscripts/extension/com/bluexml/alfresco/extjs/yamma/actions/takeDocumentProcessing.post.properties=UTF-8
