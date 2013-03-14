@@ -125,7 +125,7 @@
 		}
 		
 	};
-	
+
 	Utils.isArrayEmpty = function(array) {
 		
 		if (! Utils.isArray(array)) {
@@ -206,6 +206,24 @@
 		
 		return contains;
 	};
+	
+	Utils.first = function(array, equalsFunction) {
+		
+		if (!Utils.isFunction(equalsFunction)) {
+			Utils.Error.raise("IllegalArgumentException! The provided equals-function is not a valid function");
+		}
+		
+		var firstMatching = null;
+		Utils.forEach(array, function(arrayElement) {
+			if (equalsFunction(arrayElement, value)) {
+				firstMatching = arrayElement 
+			}
+			if (null != firstMatching) return false; // stop iteration
+		});
+		
+		return firstMatching;
+		
+	};	
 
 	Utils.exists = function(array, acceptFunction) {
 		
@@ -633,7 +651,12 @@
     	
     }
     
+    Utils.Alfresco.isAuthenticated = function() {
+    	return "undefined" != typeof person;
+    }
+    
     Utils.Alfresco.getCurrentUserName = function() {
+    	if (!Utils.Alfresco.isAuthenticated()) return null;
     	return Utils.Alfresco.getPersonUserName(person); // Use person global Object defined as the currently authenticated user
     }
     
