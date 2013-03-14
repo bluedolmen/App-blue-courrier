@@ -21,7 +21,8 @@
 			this.updateDocumentState(YammaModel.DOCUMENT_STATE_PROCESSED);
 			this.updateOutboundMailSentDate();
 			
-			this.sendByMailIfNecessary();			
+			//this.sendByMailIfNecessary(); // TODO: Reactivate when this feature will be necessary
+			this.sendAcknowledgment();
 			this.addHistoryComment();
 			
 		},
@@ -29,6 +30,28 @@
 		updateOutboundMailSentDate : function() {
 			this.outboundDocumentNode.properties[YammaModel.MAIL_SENT_DATE_PROPNAME] = new Date();
 			this.outboundDocumentNode.save();
+		},
+		
+		sendAcknowledgment : function() {
+			
+			var message = OutcomingMailUtils.sendAcknowledgment(this.node, onSendMailSuccess, onSendMailFailure);
+
+			function onSendMailSuccess() {
+				Actions.DocumentNodeAction.updateDocumentHistory.call(this, 
+					'sentEmail.success.comment', /* msgKey */
+					null, /* commentArgs */
+					'system' /* referrer */
+				);
+			}
+			
+			function onSendMailFailure(exception, errorMessage) {				
+				Actions.DocumentNodeAction.updateDocumentHistory.call(this, 
+					'sentEmail.failure.comment', /* msgKey */
+					[errorMessage || ''], /* commentArgs */
+					'system' /* referrer */
+				);
+			}
+
 		},
 		
 		sendByMailIfNecessary : function() {
