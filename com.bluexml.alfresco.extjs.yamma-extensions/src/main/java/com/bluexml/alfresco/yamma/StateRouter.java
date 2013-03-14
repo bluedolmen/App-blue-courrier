@@ -78,95 +78,56 @@ public class StateRouter implements OnUpdatePropertiesPolicy {
 	}
 	
 	public void routeDocument(NodeRef documentNodeRef, String newState) {
-		routeDocumentAsAdmin(documentNodeRef, newState);
+		
+		final NodeRef targetContainer = getOrCreateTargetTray(documentNodeRef, newState);
+		final NodeRef actualDocumentNodeRef = getActualDocument(documentNodeRef);
+		
+		nodeService.moveNode(actualDocumentNodeRef, targetContainer, null, null);
+		
+		if (logger.isDebugEnabled()) {
+			final String containerName = (String) nodeService.getProperty(targetContainer, ContentModel.PROP_NAME);
+			final String nodeName = (String) nodeService.getProperty(actualDocumentNodeRef, ContentModel.PROP_NAME);
+			
+			logger.debug(String.format("Routed document '%s' to container '%s'", nodeName, containerName));
+		}
 	}
 	
-	private void routeDocumentAsAdmin(final NodeRef documentNodeRef, final String newState) {
+	private NodeRef getOrCreateTargetTray(NodeRef documentNodeRef, String state) {
+		final ChildAssociationRef childAssociationRef = nodeService.getPrimaryParent(documentNodeRef);
+		final NodeRef parentNodeRef = childAssociationRef.getParentRef();
 		
-        final RunAsWork<Void> createTrayRunAsWork = new RunAsWork<Void>() {
-            
-        	public Void doWork() throws Exception{
-        		
-            	return retryingTransactionHelper.doInTransaction(new RetryingTransactionCallback<Void>() {
+		NodeRef siblingTrayNodeRef = nodeService.getChildByName(parentNodeRef, ContentModel.ASSOC_CHILDREN, state);
+		if (null == siblingTrayNodeRef) {
+			siblingTrayNodeRef = createTargetTray(parentNodeRef, state);
+		}
+		
+		return siblingTrayNodeRef;
+	}
+	
+	private NodeRef createTargetTray(final NodeRef parentNodeRef, final String trayName) {
+		
+        final RunAsWork<NodeRef> createTrayRunAsWork = new RunAsWork<NodeRef>()
+        {
+            public NodeRef doWork() throws Exception
+            {
+            	return retryingTransactionHelper.doInTransaction(new RetryingTransactionCallback<NodeRef>() {
 
-					public Void execute() throws Throwable {
-						
-						final NodeRef actualDocumentNodeRef = getActualDocument(documentNodeRef);
-						final NodeRef targetContainer = getOrCreateTargetTray(actualDocumentNodeRef, newState);
-						
-						nodeService.moveNode(
-							actualDocumentNodeRef, 
-							targetContainer, 
-							ContentModel.ASSOC_CONTAINS, 
-							null
-						);
-						
-						if (logger.isDebugEnabled()) {
-							final String containerName = (String) nodeService.getProperty(targetContainer, ContentModel.PROP_NAME);
-							final String nodeName = (String) nodeService.getProperty(actualDocumentNodeRef, ContentModel.PROP_NAME);
-							
-							logger.debug(String.format("Routed document '%s' to container '%s'", nodeName, containerName));
-						}
-						
-						return null;
-						
+					public NodeRef execute() throws Throwable {
+						return createContainer(parentNodeRef, trayName);
 					}
 				});
             	
             }
         };
         		
-		AuthenticationUtil.runAs(createTrayRunAsWork, AuthenticationUtil.getAdminUserName());
-	}
-	
-	private NodeRef getOrCreateTargetTray(NodeRef documentNodeRef, String state) {
-		
-		final NodeRef currentTrayNodeRef = getCurrentTray(documentNodeRef);
-		
-		final ChildAssociationRef traysContainerAssociationRef = nodeService.getPrimaryParent(currentTrayNodeRef);
-		final NodeRef traysContainerNodeRef = traysContainerAssociationRef.getParentRef();
-		if (null == traysContainerNodeRef) {
-			throw new IllegalStateException("Cannot get the trays container from the actual document");
-		}
-		
-		final NodeRef siblingTrayNodeRef = nodeService.getChildByName(traysContainerNodeRef, ContentModel.ASSOC_CONTAINS, state);
-		if (null != siblingTrayNodeRef) return siblingTrayNodeRef;
-		
-		return createTargetTray(traysContainerNodeRef, state);
-		
-	}
-	
-	private NodeRef getCurrentTray(NodeRef documentNodeRef) {
-		
-		final ChildAssociationRef childAssociationRef = nodeService.getPrimaryParent(documentNodeRef);
-		final NodeRef trayNodeRef = childAssociationRef.getParentRef();
-		if (null == trayNodeRef) {
-			throw new IllegalStateException(
-				String.format("Cannot get the tray containing the document '%s'", documentNodeRef)
-			);
-		}
-		
-		return trayNodeRef;
-		
-	}
-	
-	private NodeRef createTargetTray(final NodeRef parentNodeRef, final String trayName) {
-		
-    	return retryingTransactionHelper.doInTransaction(new RetryingTransactionCallback<NodeRef>() {
-
-			public NodeRef execute() throws Throwable {
-				return createContainer(parentNodeRef, trayName);
-			}
-			
-		});
-        		
+		return AuthenticationUtil.runAs(createTrayRunAsWork, AuthenticationUtil.getAdminUserName());
 	}
 	
 	private NodeRef createContainer(NodeRef parentRef, String containerName) {
 		
 		final ChildAssociationRef newChildRef = nodeService.createNode(
 				parentRef, 
-				ContentModel.ASSOC_CONTAINS, 
+				ContentModel.ASSOC_CHILDREN, 
 				QName.createQNameWithValidLocalName(NamespaceService.CONTENT_MODEL_1_0_URI, containerName), 
 				targetContainerType
 		);
@@ -177,11 +138,7 @@ public class StateRouter implements OnUpdatePropertiesPolicy {
 			);
 		}
 		
-		final NodeRef trayNodeRef = newChildRef.getChildRef();
-		// Change the name of the folder to reflect the correct container-name
-		nodeService.setProperty(trayNodeRef, ContentModel.PROP_NAME, containerName);
-		
-		return trayNodeRef;
+		return newChildRef.getChildRef();
 		
 	}
 	

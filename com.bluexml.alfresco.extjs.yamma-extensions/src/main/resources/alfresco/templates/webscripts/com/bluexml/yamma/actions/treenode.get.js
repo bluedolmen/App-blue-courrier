@@ -45,8 +45,7 @@
 		
 		if ('trays' == rootType) {
 			return getTraysTreeChildren();
-		} 
-		else if ('archives' == rootType) {
+		} else if ('archives' == rootType) {
 			return getArchivesTreeChildren();
 		}
 			
@@ -56,7 +55,20 @@
 	function getTraysTreeChildren() {
 		
 		if ('root' == treeNodeRef) { // root-node => get sites
-			var children = getServicesNodes();
+			var children = getServicesNodes(
+			
+				/* hasChildren */
+				function(node) {
+					return (node.childrenByXPath(".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]") || []).length > 0;
+				},
+				
+				/* countFunction */
+				getSelectNodeDescendantNumberFunction(
+					".//*[subtypeOf('" + YammaModel.TRAY_TYPE_SHORTNAME + "')]//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
+				)
+				
+			)
+			
 			return sortByTitle(children);
 		}
 
@@ -64,11 +76,12 @@
 		if ('st:site' == treeNodeType) {
 			var 
 				siteTrays = getSiteTraysChildren()
+//				,siteVirtualTrays = getSiteVirtualTraysChildren()
 			;
 			return sortByTitle(siteTrays);//.concat(siteVirtualTrays);				
 		}
 		
-	}	
+	}
 	
 	function getArchivesTreeChildren() {
 		
@@ -95,24 +108,32 @@
 	 * 
 	 * Services are structured by sites.
 	 */
-	function getServicesNodes() {
+	function getServicesNodes(hasChildren, countFunction, acceptSiteFunction) {
+		
+		acceptSiteFunction = acceptSiteFunction || function() { return true; };
 		
 		var 
 			sitesNode = ParameterCheck.mandatory(
 				companyhome.childByNamePath('Sites'), 
 				'IllegalStateException! The Sites folder cannot be found'
 			),
-			sites = ServicesUtils.getManagedServices()			
+			sites = ServicesUtils.getManagedServices(),
+			
+			filteredSiteNodes = Utils.map(sites, function(site) {
+				if (!acceptSiteFunction(site)) return; // ignore filtered sites
+				return site.node;
+			})
 		;		
 		
-		return Utils.map(sites, function(siteNode) {
+		return Utils.map(filteredSiteNodes, function(siteNode) {
 			
 			return {
 				type : siteNode.typeShort,
 				name : siteNode.name,
 				title : siteNode.properties.title,
 				ref : Utils.asString(siteNode.nodeRef),
-				hasChildren : true
+				hasChildren : hasChildren ? hasChildren(siteNode) : false,
+				count : countFunction ? countFunction(siteNode) : 0
 			};
 			
 		});
@@ -123,7 +144,11 @@
 	function getSiteTraysChildren() {
 		var 
 			trayNodes = TraysUtils.getSiteTraysChildren(treeNode),
-			serviceName = treeNode.name // aka site-name
+			serviceName = treeNode.name, // aka site-name
+				
+			countFunction = getSelectNodeDescendantNumberFunction(
+					".//*[subtypeOf('" + YammaModel.DOCUMENT_TYPE_SHORTNAME + "')]"
+			)
 		;
 			
 		return Utils.map(trayNodes, function(trayNode) {
@@ -137,7 +162,8 @@
 					name : trayName,
 					title : trayTitle,
 					ref : Utils.asString(trayNode.nodeRef),
-					hasChildren : false
+					hasChildren : false,
+					count : countFunction(trayNode)
 				}
 			;
 			
