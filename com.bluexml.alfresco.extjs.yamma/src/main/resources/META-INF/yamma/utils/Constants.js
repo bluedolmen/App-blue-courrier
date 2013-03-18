@@ -163,7 +163,7 @@ Ext.define('Yamma.utils.Constants', {
 //					title : 'En signature',
 //					shortTitle : 'Signature'					
 					title : 'En cours de paraphage',
-					shortTitle : 'Paraphage'					
+					shortTitle : 'Parapheur'				
 				},
 				this.getIconDefinition('text_signature')
 			),
@@ -332,7 +332,7 @@ Ext.define('Yamma.utils.Constants', {
 				},
 				this.getIconDefinition('page_white')				
 			)
-		}
+		};
 		
 	}
 	
