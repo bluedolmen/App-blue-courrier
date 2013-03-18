@@ -652,7 +652,7 @@
     }
     
     Utils.Alfresco.isAuthenticated = function() {
-    	return "undefined" != typeof person;
+    	return null != session.ticket;
     }
     
     Utils.Alfresco.getCurrentUserName = function() {
