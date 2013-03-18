@@ -64,13 +64,15 @@ Ext.define('Yamma.view.gridactions.ForwardReply', {
 	getAdditionalRequestParameters : function() {
 		var
 			approbe = this.forwardDialog.getApprobeStatus(),
+			keepSending = this.forwardDialog.getKeepSendingStatus(),
 			service = this.forwardDialog.getService()
 		;
 		
 		return ({
 			manager : this.usurpedManager || undefined,
 			approbe : approbe,
-			service : service
+			service : service,
+			keepSending : keepSending
 		});
 	},	
 	

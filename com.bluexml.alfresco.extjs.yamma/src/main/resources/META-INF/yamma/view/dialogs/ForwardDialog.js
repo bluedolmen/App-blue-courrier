@@ -81,6 +81,17 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 				boxLabelAlign : 'after',
 				checked : true,
 				disabled : true,
+				margin : '0 10 5 10'
+			},
+			{
+				xtype : 'checkbox',
+				region : 'bottom',
+				height : '30px',
+				itemId : 'keep-sending-checkbox',
+				boxLabel : "Affecter l'envoi à mon service",
+				boxLabelAlign : 'after',
+				checked : false,
+				disabled : false,
 				margin : '0 10 10 10'
 			}
 		];
@@ -122,6 +133,11 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 	getApprobeStatus : function() {
 		var approbeCheckBox = this.queryById('approbe-checkbox');
 		return approbeCheckBox.getValue();
+	},
+	
+	getKeepSendingStatus : function() {
+		var keepSendingCheckBox = this.queryById('keep-sending-checkbox');
+		return keepSendingCheckBox.getValue();
 	},
 	
 	getService : function() {
