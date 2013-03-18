@@ -146,12 +146,22 @@
     <firstEnd xmi:id="_2XpBcUqFEeKhHaXgY57Dkg" name="" title="" cardMax="-1" linkedClass="_RLk8cPwCEeGHHe2qtmDVXA"/>
     <secondEnd xmi:id="_2XpBckqFEeKhHaXgY57Dkg" name="" title="" navigable="true" linkedClass="_RLk8cPwCEeGHHe2qtmDVXA"/>
   </associationSet>
+  <associationSet xmi:id="_a2K2wHIUEeKiR517CYWKIg" documentation="" description="" name="copy" title="Copy From">
+    <firstEnd xmi:id="_a2K2wXIUEeKiR517CYWKIg" name="" title="" cardMax="-1" linkedClass="_YvWUMHIUEeKiR517CYWKIg"/>
+    <secondEnd xmi:id="_a2K2wnIUEeKiR517CYWKIg" name="" title="" navigable="true" linkedClass="_RUS8gLC0EeGFgddOkpVJwg"/>
+  </associationSet>
   <aspectSet xmi:id="_CuQDsLC1EeGFgddOkpVJwg" name="Referenceable">
     <attributes xmi:id="_EXD0kLC1EeGFgddOkpVJwg" documentation="" description="The reference of a document" name="reference" title="Reference">
       <metainfo xmi:id="_OLm30LC1EeGFgddOkpVJwg" key="regular-expression.match" value="True"/>
       <metainfo xmi:id="_OLqiMLC1EeGFgddOkpVJwg" key="index.tokenised" value="true"/>
       <metainfo xmi:id="_OLuzoLC1EeGFgddOkpVJwg" key="index.atomic" value="True"/>
       <metainfo xmi:id="_OLwo0LC1EeGFgddOkpVJwg" key="propertySearched" value="True"/>
+    </attributes>
+    <attributes xmi:id="_Z1APwGo0EeKXjvI2uhigrg" documentation="" description="(Unique) reference used internally by the system" name="internalReference" title="Internal Reference">
+      <metainfo xmi:id="_KDyqQGq3EeKXjvI2uhigrg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_KDyqQWq3EeKXjvI2uhigrg" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_KDyqQmq3EeKXjvI2uhigrg" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_KDyqQ2q3EeKXjvI2uhigrg" key="index.tokenised" value="true"/>
     </attributes>
   </aspectSet>
   <aspectSet xmi:id="_-qvgELC2EeGFgddOkpVJwg" name="Correspondent" generalizations="__FwXIPg-EeGu9uCwQAeMqw">
@@ -162,11 +172,11 @@
       <metainfo xmi:id="_qW-zwkoIEeKhHaXgY57Dkg" key="index.atomic" value="True"/>
     </attributes>
     <attributes xmi:id="_sKP7tfjIEeGu9uCwQAeMqw" documentation="" description="The email of the correspondent" name="contactEmail" title="Correspondent Email">
-      <metainfo xmi:id="_rkiMAEoIEeKhHaXgY57Dkg" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_rkiMAUoIEeKhHaXgY57Dkg" key="index.atomic" value="True"/>
-      <metainfo xmi:id="_rkiMAkoIEeKhHaXgY57Dkg" key="email" value="True"/>
-      <metainfo xmi:id="_rkiMA0oIEeKhHaXgY57Dkg" key="index.tokenised" value="false"/>
-      <metainfo xmi:id="_rkiMBEoIEeKhHaXgY57Dkg" key="regular-expression.match" value="True"/>
+      <metainfo xmi:id="_LFWqAIyaEeK7yr7ijhaV0A" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_LFWqAYyaEeK7yr7ijhaV0A" key="regular-expression.match" value="False"/>
+      <metainfo xmi:id="_LFWqAoyaEeK7yr7ijhaV0A" key="index.atomic" value="True"/>
+      <metainfo xmi:id="_LFWqA4yaEeK7yr7ijhaV0A" key="index.tokenised" value="false"/>
+      <metainfo xmi:id="_LFWqBIyaEeK7yr7ijhaV0A" key="email" value="True"/>
     </attributes>
     <attributes xmi:id="_sKP7uvjIEeGu9uCwQAeMqw" documentation="" description="The phone-number of the correspondent" name="contactPhone" title="Correspondent Phone-Number">
       <metainfo xmi:id="_tCxroEoIEeKhHaXgY57Dkg" key="index.atomic" value="True"/>
@@ -216,11 +226,11 @@
       <metainfo xmi:id="_ond980oIEeKhHaXgY57Dkg" key="index.atomic" value="True"/>
     </attributes>
     <attributes xmi:id="_u9NLhfjIEeGu9uCwQAeMqw" documentation="" description="The email of the recipient" name="contactEmail" title="Recipient Email">
-      <metainfo xmi:id="_lwS8gEoIEeKhHaXgY57Dkg" key="regular-expression.match" value="True"/>
-      <metainfo xmi:id="_lwS8gUoIEeKhHaXgY57Dkg" key="index.atomic" value="True"/>
-      <metainfo xmi:id="_lwS8gkoIEeKhHaXgY57Dkg" key="propertySearched" value="True"/>
-      <metainfo xmi:id="_lwTjkEoIEeKhHaXgY57Dkg" key="index.tokenised" value="false"/>
-      <metainfo xmi:id="_lwTjkUoIEeKhHaXgY57Dkg" key="email" value="True"/>
+      <metainfo xmi:id="_J-Xz0YyaEeK7yr7ijhaV0A" key="index.tokenised" value="false"/>
+      <metainfo xmi:id="_J-Xz0oyaEeK7yr7ijhaV0A" key="propertySearched" value="True"/>
+      <metainfo xmi:id="_J-ZB8IyaEeK7yr7ijhaV0A" key="regular-expression.match" value="False"/>
+      <metainfo xmi:id="_J-ZB8YyaEeK7yr7ijhaV0A" key="email" value="True"/>
+      <metainfo xmi:id="_J-ZpAIyaEeK7yr7ijhaV0A" key="index.atomic" value="True"/>
     </attributes>
     <attributes xmi:id="_u9NLivjIEeGu9uCwQAeMqw" documentation="" description="The phone-number of the recipient" name="contactPhone" title="Recipient Phone-Number">
       <metainfo xmi:id="_nHbHgEoIEeKhHaXgY57Dkg" key="propertySearched" value="True"/>
@@ -294,6 +304,7 @@
       <metainfo xmi:id="_kVbAIF_kEeK-TdCf_eugzA" key="index.tokenised" value="false"/>
     </attributes>
   </aspectSet>
+  <aspectSet xmi:id="_YvWUMHIUEeKiR517CYWKIg" name="Copy"/>
   <enumerationSet xmi:id="_KXKmsMUKEeGVoP7HZaHFtA" name="EStates">
     <literals xmi:id="_0nlGMEnOEeKhHaXgY57Dkg" value="pending" name="PENDING"/>
     <literals xmi:id="_0nlGMUnOEeKhHaXgY57Dkg" value="delivering" name="DELIVERING"/>

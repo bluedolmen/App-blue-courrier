@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" activeDiagram="//@diagrams.0">
   <model href="YaMma-EE.dt#_B4EfELC0EeGFgddOkpVJwg"/>
-  <diagrams position="0,0" size="100,100" name="Main" zoom="0.75" viewport="330,655">
+  <diagrams position="0,0" size="100,100" name="Main" zoom="0.75" viewport="0,315">
     <property key="pageFormatName" value="A2"/>
     <property key="diagramWidth" value="1680"/>
     <property key="diagramHeight" value="2376"/>
@@ -15,7 +15,7 @@
       <element href="YaMma-EE.dt#_B4EfELC0EeGFgddOkpVJwg"/>
     </semanticModel>
     <contained xsi:type="di:GraphNode" position="934,404" size="88,81">
-      <anchorage graphEdge="//@diagrams.0/@contained.13 //@diagrams.0/@contained.14 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.26 //@diagrams.0/@contained.29 //@diagrams.0/@contained.39 //@diagrams.0/@contained.40 //@diagrams.0/@contained.62"/>
+      <anchorage graphEdge="//@diagrams.0/@contained.13 //@diagrams.0/@contained.14 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.26 //@diagrams.0/@contained.29 //@diagrams.0/@contained.39 //@diagrams.0/@contained.40 //@diagrams.0/@contained.62 //@diagrams.0/@contained.83"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_RUS8gLC0EeGFgddOkpVJwg"/>
       </semanticModel>
@@ -139,7 +139,7 @@
         </semanticModel>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphNode" position="1117,65" size="135,73">
+    <contained xsi:type="di:GraphNode" position="1111,61" size="189,91">
       <anchorage graphEdge="//@diagrams.0/@contained.13"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_CuQDsLC1EeGFgddOkpVJwg"/>
@@ -152,6 +152,11 @@
         <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
             <element href="YaMma-EE.dt#_EXD0kLC1EeGFgddOkpVJwg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+            <element href="YaMma-EE.dt#_Z1APwGo0EeKXjvI2uhigrg"/>
           </semanticModel>
         </contained>
       </contained>
@@ -246,7 +251,7 @@
         </semanticModel>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphNode" position="1275,65" size="155,73">
+    <contained xsi:type="di:GraphNode" position="1327,61" size="155,73">
       <anchorage graphEdge="//@diagrams.0/@contained.15"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="YaMma-EE.dt#_PhfBcLC8EeGFgddOkpVJwg"/>
@@ -657,7 +662,7 @@
     <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.27/@anchorage.0 //@diagrams.0/@contained.34/@anchorage.0">
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="Generalization"/>
     </contained>
-    <contained xsi:type="di:GraphNode" position="768,65" size="111,62">
+    <contained xsi:type="di:GraphNode" position="768,61" size="111,62">
       <anchorage graphEdge="//@diagrams.0/@contained.39"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z380RsnWEeGjKJcImRsXbg"/>
@@ -669,7 +674,7 @@
         </semanticModel>
       </contained>
     </contained>
-    <contained xsi:type="di:GraphNode" position="922,65" size="166,81">
+    <contained xsi:type="di:GraphNode" position="922,61" size="166,81">
       <anchorage graphEdge="//@diagrams.0/@contained.40"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
         <element href="../../../../Model-library-Alfresco-4.0.d-CE/data/cmContentmodel.dt#_z38NfsnWEeGjKJcImRsXbg"/>
@@ -1083,10 +1088,7 @@
             <element href="YaMma-EE.dt#_mZfzoEqOEeKhHaXgY57Dkg"/>
           </semanticModel>
         </contained>
-        <contained xsi:type="di:GraphNode" position="0,0">
-          <property key="backgroundColor" value=""/>
-          <property key="foregroundColor" value=""/>
-          <property key="font" value=""/>
+        <contained xsi:type="di:GraphNode">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
             <element href="YaMma-EE.dt#_ZudBcF_kEeK-TdCf_eugzA"/>
           </semanticModel>
@@ -1096,6 +1098,28 @@
     <contained xsi:type="di:GraphNode" position="1449,1113" size="236,101">
       <property key="noteValue" value="The 'Signable' aspect may be applied on OutboundMail-s&#xA;to identifiy the mails that should be signed by a given authority&#xA;(or councillor)"/>
       <semanticModel xsi:type="di:SimpleSemanticModelElement" presentation="default" typeInfo="Note"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="1077,611" size="111,61">
+      <anchorage graphEdge="//@diagrams.0/@contained.83"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+        <element href="YaMma-EE.dt#_YvWUMHIUEeKiR517CYWKIg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="11"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+          <element href="YaMma-EE.dt#_YvWUMHIUEeKiR517CYWKIg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.82/@anchorage.0 //@diagrams.0/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="default">
+        <element href="YaMma-EE.dt#_a2K2wHIUEeKiR517CYWKIg"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject" uDistance="10" vDistance="10"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="10" vDistance="-10"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject" uDistance="10" vDistance="10"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
     </contained>
   </diagrams>
   <diagrams position="0,0" size="100,100" name="Utils" zoom="0.75" viewport="0,0">
