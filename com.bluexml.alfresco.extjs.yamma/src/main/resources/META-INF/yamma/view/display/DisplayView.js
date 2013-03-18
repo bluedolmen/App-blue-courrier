@@ -59,6 +59,7 @@ Ext.define('Yamma.view.display.DisplayView',
 			tabConfig = config.tabConfig,
 			setActive = !!config.setActive,
 			parentRef = config.parentRef,
+			position = config.position,
 			
 			nodeId = Bluexml.Alfresco.getNodeId(nodeRef),
 			
@@ -113,7 +114,9 @@ Ext.define('Yamma.view.display.DisplayView',
 			}
 		}
 		
-		var previewTab = parent.add(previewTabConfig);
+		var previewTab = Ext.isNumber(position) 
+			? parent.insert(position, previewTabConfig)  
+			: parent.add(previewTabConfig);
 		
 		if (setActive) {
 			var ancestorTabPanel = parent.up('tabpanel');

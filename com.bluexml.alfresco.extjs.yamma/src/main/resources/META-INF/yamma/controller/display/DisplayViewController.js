@@ -122,11 +122,20 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		if (!nodeRef) return;
 		
 		this.mainDocumentNodeRef = nodeRef;
-		this.displayMailPreview(newMailRecord);
+
+		this.clearDisplay();
 		this.updateReplyFiles(newMailRecord);
+		this.displayMailPreview(newMailRecord);
 
 		this.callParent(arguments);
 		
+	},
+	
+	clearDisplay : function() {
+		var 
+			displayView = this.getDisplayView()
+		;
+		displayView.clear();
 	},
 	
 	/**
@@ -148,7 +157,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		if (!typeShort) return;
 		
 		// New document includes clearing of the tabs
-		displayView.clear();
 		displayView.addPreviewTab({
 			nodeRef : this.mainDocumentNodeRef, 
 			mimetype : mimetype,
@@ -158,7 +166,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 				iconCls : Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort].iconCls,
 				editMetaDataHandler : this.onMainDocumentMetaDataEdited
 			}, 
-			setActive : true
+			setActive : false
 		});
 		
 		
@@ -413,7 +421,9 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			    				title : record.get('cm:title') || record.get('cm:name'),
 			    				iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
 			    				editMetaDataHandler : me.onReplyFileMetaDataEdited
-			    			}
+			    			},
+			    			position : 0, // in reverse order => replies are displayed first,
+			    			setActive : true // also make the reply visible to the user
 			    			
 			    		});
 			    		
