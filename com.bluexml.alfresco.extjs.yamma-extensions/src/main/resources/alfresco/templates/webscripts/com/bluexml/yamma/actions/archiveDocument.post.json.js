@@ -16,17 +16,9 @@
 		doExecute : function(node) {
 			
 			this.updateDocumentState(YammaModel.DOCUMENT_STATE_ARCHIVED);
-			this.udpateSentByEmailDate();
 			this.updateDocumentHistory('archiveDocument.comment');
 			
 			ArchivesUtils.moveToArchives(node);
-			
-		},
-		
-		udpateSentByEmailDate : function() {
-			
-			this.node.properties[YammaModel.SENT_BY_EMAIL_SENT_DATE_PROPNAME] = new Date();
-			this.node.save();
 			
 		}
 		
