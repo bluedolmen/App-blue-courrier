@@ -25,20 +25,19 @@
 		
 		updateOutboundMailSignedDate : function() {
 			
-			var 
-				replies = ReplyUtils.getReplies(this.node),
-				firstReplyNode = replies[0] 
+			var
+				lastReplyNode = ReplyUtils.getLastReply(this.node)
 			;
 			
-			if (null == firstReplyNode) {
+			if (null == lastReplyNode) {
 				throw {
 					code : '500',
 					message : 'IllegalStateException! Cannot find any reply for the provided document. This should not happen at this stage.'
 				}
 			}
 
-			firstReplyNode.properties[YammaModel.SIGNABLE_SIGNED_DATE_PROPNAME] = new Date();
-			firstReplyNode.save();
+			lastReplyNode.properties[YammaModel.SIGNABLE_SIGNED_DATE_PROPNAME] = new Date();
+			lastReplyNode.save();
 		},		
 		
 		addHistoryComment : function() {

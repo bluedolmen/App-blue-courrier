@@ -21,14 +21,34 @@
 			}
 						
 			function moveDocumentToOutbox() {
-				// Moves the document to the outbox tray of the service
-				var message = DocumentUtils.moveToSiblingTray(documentNode, TraysUtils.OUTBOX_TRAY_NAME);
+				
+				var
+					assignedSendingServiceName = getAssignedSendingServiceName(),
+					message = null
+				;
+				
+				if (null != assignedSendingServiceName) {
+					message = DocumentUtils.moveToServiceTray(documentNode, assignedSendingServiceName, TraysUtils.OUTBOX_TRAY_NAME);
+				} else {
+					// Moves the document to the outbox tray of the service
+					message = DocumentUtils.moveToSiblingTray(documentNode, TraysUtils.OUTBOX_TRAY_NAME);
+				}
+				
 				if (message) {
 					throw {
 						code : '512',
 						message : 'IllegalStateException! ' + message
 					};			
 				}				
+			}
+			
+			function getAssignedSendingServiceName() {
+				
+				var lastReply = ReplyUtils.getLastReply(documentNode);
+				if (null == lastReply) return null;
+				
+				return lastReply.properties[YammaModel.SENT_BY_POSTAL_SERVICES_ASSIGNED_SERVICE_PROPNAME];
+				
 			}
 						
 		}			

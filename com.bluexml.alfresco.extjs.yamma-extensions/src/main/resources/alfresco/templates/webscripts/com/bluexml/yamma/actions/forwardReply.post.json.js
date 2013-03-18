@@ -11,11 +11,13 @@
 		service : null,
 		comment : '', // comment may be used to the simple 'forward' operation, but is currently not used...
 		approbe : true,
+		keepSending : false,
 		
 		wsArguments : [
 			'comment',
 			'service',
-			{ name : 'approbe', defaultValue : 'true' }
+			{ name : 'approbe', defaultValue : 'true' },
+			{ name : 'keepSending', defaultValue : 'false' }
 		],
 				
 		prepare : function() {
@@ -23,6 +25,8 @@
 			Yamma.Actions.ManagerDocumentNodeAction.prepare.call(this);
 			
 			this.approbe = Utils.asString(this.parseArgs['approbe']) !== 'false';
+			
+			this.keepSending = Utils.asString(this.parseArgs['keepSending']) === 'true';
 			
 			this.comment = Utils.asString(this.parseArgs['comment']) || this.comment;
 			
@@ -47,11 +51,28 @@
 		
 		doExecute : function(node) {
 			
+			this.setAssignedSendingService();
 			this.forward();		
 			this.addHistoryComment();
 			
 		},
 			
+		setAssignedSendingService : function() {
+			
+			if (!this.keepSending) return;
+			
+			var 
+				currentService = DocumentUtils.getCurrentServiceSite(this.node),
+				currentServiceName = null != currentService ? Utils.asString(currentService.shortName) : '',
+				reply = ReplyUtils.getLastReply(this.node)
+			;
+			
+			if (null == reply || !currentServiceName) return;
+			reply.properties[YammaModel.SENT_BY_POSTAL_SERVICES_ASSIGNED_SERVICE_PROPNAME] = currentServiceName;			
+			reply.save();
+			
+		},
+		
 		forward : function() {
 	
 			var errorMessage = DocumentUtils.moveToServiceTray(this.node, this.service);

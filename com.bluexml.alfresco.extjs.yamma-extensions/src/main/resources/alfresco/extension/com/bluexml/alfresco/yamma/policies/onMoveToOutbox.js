@@ -26,7 +26,7 @@
 
 	var document = ( documentContainer.assocs[YammaModel.DOCUMENT_CONTAINER_REFERENCE_ASSOCNAME] || [])[0];
 	if (
-		!document ||
+		null == document ||
 		!OutcomingMailUtils.isSentByMail(document)
 	) {
 		return;

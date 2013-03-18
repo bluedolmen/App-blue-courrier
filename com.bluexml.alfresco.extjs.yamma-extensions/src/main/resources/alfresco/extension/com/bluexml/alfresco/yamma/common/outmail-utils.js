@@ -113,7 +113,7 @@
 				throw new Error('IllegalArgumentException! The provided document is not valid (null or undefined)');
 			}
 			
-			if (document.hasAspect(YammaModel.REPLY_ASPECT_SHORTNAME)) {
+			if (ReplyUtils.isReplyNode(document)) {
 				return new TemplateDefinition.SendReply(document);
 			}
 			

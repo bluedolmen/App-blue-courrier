@@ -161,13 +161,15 @@
 				luceneQuery = '+TYPE:"yamma-ee:AssignableSite"',
 //				luceneQuery = '+TYPE:"yamma-ee:AssignableSite"' +  
 //					' +' + Utils.Alfresco.getLuceneAttributeFilter("cm:name", serviceName),
-				result = search.luceneSearch(luceneQuery) || []
+				result = search.luceneSearch(luceneQuery) || [],
+				len = result.length,
+				node, i, len
 			;
 			
 //			return result[0];
 			
-			for (var i = 0, len = result.length; i < len; i++) {
-				var node = result[i];
+			for (i = 0; i < len; i++) {
+				node = result[i];
 				if (serviceName == node.name) {
 					return node;
 				}
@@ -473,7 +475,7 @@
 			}
 			
 			var siteTargetTray = TraysUtils.getSiteTray(serviceName, trayName);		
-			if (!siteTargetTray) return "Cannot get the site inbox tray of service '" + serviceName + "'";
+			if (null == siteTargetTray) return "Cannot get the site tray '" + trayName + "' of service '" + serviceName + "'";
 			
 			if (!documentContainer.move(siteTargetTray)) {
 				return "Cannot move the provided document to the site tray '" + trayName + "' of service '" + serviceName + "'";

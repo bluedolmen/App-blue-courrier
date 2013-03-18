@@ -186,6 +186,15 @@
 			
 		},
 		
+		getLastReply : function(documentNode) {
+			
+			var
+				replies = ReplyUtils.getReplies(documentNode)
+			;
+			return replies[replies.length - 1]; // may be undefined
+			
+		},
+		
 		/**
 		 * Check whether the document is attached with replies that can be
 		 * signed.
