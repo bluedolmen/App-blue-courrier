@@ -166,7 +166,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 				iconCls : Yamma.Constants.DOCUMENT_TYPE_DEFINITIONS[typeShort].iconCls,
 				editMetaDataHandler : this.onMainDocumentMetaDataEdited
 			}, 
-			setActive : false
+			setActive : true
 		});
 		
 		
