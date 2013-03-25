@@ -2,11 +2,13 @@ Ext.define('Yamma.store.services.ServicesTreeStore', {
 
 	extend : 'Ext.data.TreeStore',
 	
-	WS_URL : 'alfresco://bluexml/yamma/services' + 
-		'?rformat=tree' + 
-		'&depth=-1',	
+	WS_URL : 'alfresco://bluexml/yamma/services' 
+		+ '?rformat=tree' 
+		+ '&depth=-1'
+		+ '&membership={membership}',	
 	
 	nodeParam : 'parentService',
+	showMembership : false,
 	
 	constructor : function() {
 		
@@ -54,7 +56,9 @@ Ext.define('Yamma.store.services.ServicesTreeStore', {
 	
 	getProxyDefinition : function() {
 		
-		var url = Bluexml.Alfresco.resolveAlfrescoProtocol(this.WS_URL);
+		var url = Bluexml.Alfresco.resolveAlfrescoProtocol(
+			this.WS_URL.replace(/\{membership\}/, '' + this.showMembership)
+		);
 
 	    return {
 	    	

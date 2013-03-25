@@ -13,20 +13,34 @@ Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 		this.callParent();
 	},
 	
+	onItemClick : function(view, node, item, index, event, eOpts) {
+
+		var disabled = node.get('disabled');
+		if (disabled) return;
+		
+		this.callParent(arguments);		
+		
+	},	
+	
 	extractContext : function(record) {
 		
 		if (!record) return {};
 		
 		var 
 			context = Ext.create('Yamma.utils.Context'),
-			stateId = null
+			stateId = null,
+			kind = null
 		;
 		
 		// Iterates through ancestors to get the hierarchical context
 		for (var iterator = record; null != iterator ; iterator = iterator.parentNode) {
 			
-			type = iterator.get('type');
-			if ('st:site' === type) {
+			kind = iterator.get('kind');
+			
+			switch (kind) {
+			
+			case 'st:site':
+				
 				var serviceLabel = iterator.get('text');
 				
 				context.setService({
@@ -47,18 +61,24 @@ Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 						)
 					);
 				}
-
-			} else if ('tray' === type) {
 				
+				return context; // end on the first site (if hierarchical)
+				
+			break;
+
+			case 'tray':
+				
+				var trayName = iterator.get('name').split('|')[1];
 				context.setTray({
 					label : iterator.get('text'),
-					trayName : iterator.get('name'),
-					nodeRef : iterator.get('id')
+					trayName : trayName
 				});
 				
-			} else if ('state-tray' === type) {
+			break;
 				
-				stateId = iterator.get('name');
+			case 'state-tray':
+				
+				stateId = iterator.get('id').split('|')[1];
 				context.setFilters([
 					{
 						property : 'state',
@@ -66,7 +86,10 @@ Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 					}				                    
 				]);
 				
+			break;
+				
 			}
+			
 		}
 		
 		return context;

@@ -113,7 +113,8 @@ Ext.define('Yamma.utils.Constants', {
 					title : 'Courrier entrant en attente',
 					shortTitle : 'Courrier entrant'
 				}, 
-				this.getIconDefinition('hourglass')
+				this.getIconDefinition('mailbox')
+//				this.getIconDefinition('hourglass')
 			),
 			
 			'delivering' : Ext.apply(
