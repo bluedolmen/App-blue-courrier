@@ -89,10 +89,11 @@
 					this.comment +
 					'</p>'
 				),
-				isServiceManager = DocumentUtils.isServiceManager(this.node, this.fullyAuthenticatedUserName);
+				isServiceManager = DocumentUtils.isServiceManager(this.node, this.fullyAuthenticatedUserName),
+				reply = ReplyUtils.getLastReply(this.node)
 			;
 			
-			CommentUtils.addComment(this.node, {
+			CommentUtils.addComment(reply, {
 				title : title,
 				content : htmlComment,
 				author : isServiceManager ? null : this.managerUserName
