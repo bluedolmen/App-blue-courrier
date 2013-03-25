@@ -243,6 +243,7 @@ Ext.define('Yamma.view.MailsView', {
     	return this.applyDefaultColumnDefinition(
 	    	{
 	    		xtype : 'checkcolumn',
+	    		itemId : 'select-column',
 	    		width : 30,
 	    		tooltip : 'Sélectionner le document',
 	    		plugins : Ext.create('Bluexml.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls}),
@@ -256,6 +257,18 @@ Ext.define('Yamma.view.MailsView', {
 				listeners : {
 					checkchange : function(column, rowIndex, isChecked){
 						me.updateActionsButtonState(isChecked);
+			        },
+			        headerclick : function(ct, column, e, t, eOpts) {
+			        	
+			        	me.setAllCheckState(!column.checkState);
+
+//			        	// TODO: Changing the icon does not work yet => Remove?
+//			        	column.setIconCls(column.allChecked 
+//			        		? Yamma.Constants.getIconDefinition('checkbox').iconCls
+//			        		: Yamma.Constants.getIconDefinition('checkbox_unchecked').iconCls
+//			        	);
+			        	
+			        	return false;
 			        }
 				}
 	    		
@@ -771,10 +784,13 @@ Ext.define('Yamma.view.MailsView', {
 	},
 	
 	setAllCheckState : function(checkState) {
+		
 		var
 			store = this.getStore(),
-			data = store.data
+			data = store.data,
+			selectColumn = this.queryById('select-column')
 		;
+		selectColumn.checkState = checkState; 
 		
 		data.each(function(record) {
 			record.set('selected', checkState); // Beware! Does not fire beforecheckchange/checkchange events
