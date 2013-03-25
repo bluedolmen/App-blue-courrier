@@ -1,6 +1,7 @@
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/common.lib.js">
 ///<import resource="classpath:/alfresco/webscripts/extension/com/bluexml/side/alfresco/extjs/actions/parseargs.lib.js">
 ///<import resource="classpath:/alfresco/extension/com/bluexml/alfresco/yamma/common/yamma-env.js">
+///<import resource="classpath:alfresco/templates/webscripts/com/bluexml/yamma/actions/services.lib.js">
 
 (function() {
 
@@ -8,25 +9,26 @@
 		depth = 1,
 		rformat = 'tree',
 		parentService = 'root',
+		showMembership = false,
 		treeNodes = []
 	;
 	
 	// MAIN LOGIC
 	
 	Common.securedExec(function() {
-		var parseArgs = new ParseArgs('parentService', 'depth', 'rformat');
+		var parseArgs = new ParseArgs('parentService', 'depth', 'rformat', 'membership');
 		parentService = parseArgs['parentService'] || 'root';
 		depth = Number(parseArgs['depth']) || 1;
 		depth = (-1 == depth) ? Number.MAX_VALUE : depth;
 		rformat = parseArgs['rformat'] || 'tree';
+		showMembership = 'true' === Utils.asString(parseArgs['membership']);
 		
 		main();
 	});
 	
 	function main() {
 		
-		treeNodes = getTreeNodes();
-		treeNodes = processNodesAsTree(treeNodes, depth - 1);
+		treeNodes = Yamma.ServicesTreeHelper.getTreeNodes(parentService, depth, nodeDecorator);
 		if ('list' == rformat) {
 			flattenTree();
 		}
@@ -34,61 +36,16 @@
 		
 	}
 	
-	function getTreeNodes() {
+	function nodeDecorator(wrappedNode) {
 		
-		if ('root' == parentService) {
-			return getRootServicesNodes();
-		} else {
-			return ServicesUtils.getChildrenServicesNodes(parentService); 
-		}		
-			
-	}
-	
-	function getRootServicesNodes() {
+		if (!showMembership) return;
 		
-		var
-			rootServices = ServicesUtils.getRootServices(),
-			rootServicesNodes = Utils.map(rootServices, function(service) {
-				return service.node;
-			})
+		var 
+			userName = Utils.Alfresco.getFullyAuthenticatedUserName(),
+			membership = ServicesUtils.getServiceRoles(wrappedNode.name, userName)
 		;
-			
-		return rootServicesNodes;
 		
-	}
-		
-	function wrapTreeNode(treeNode, hasChildren) {
-		
-		return {
-			name : treeNode.name,
-			title : treeNode.properties['cm:title'],
-			nodeRef : Utils.asString(treeNode.nodeRef),
-			hasChildren : hasChildren ? hasChildren(treeNode) : false
-		};
-		
-	}
-	
-	/**
-	 * Recursive mehod that build a tree and wrap nodes
-	 */
-	function processNodesAsTree(treeNodes, depth) {
-		
-		return Utils.map(treeNodes, function(treeNode) {
-			
-			var 
-				wrappedNode = wrapTreeNode(treeNode),
-				childrenSiteNodes = ('tree' == rformat) ? ServicesUtils.getChildrenServicesNodes(treeNode) : [],
-				hasChildren = childrenSiteNodes.length > 0
-			;
-			wrappedNode.hasChildren = hasChildren;
-			
-			if ( hasChildren && depth > 0 ) {
-				wrappedNode.children = processNodesAsTree(childrenSiteNodes, depth - 1 );
-			}
-			
-			return wrappedNode;
-			
-		});		
+		wrappedNode.membership = membership; 
 		
 	}
 	

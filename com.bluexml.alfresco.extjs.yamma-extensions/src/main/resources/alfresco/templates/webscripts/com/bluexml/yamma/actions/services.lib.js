@@ -46,7 +46,7 @@
 					
 					var 
 						wrappedNode = wrapTreeNode(treeNode),
-						childrenSiteNodes = ('tree' == rformat) ? ServicesUtils.getChildrenServicesNodes(treeNode) : [],
+						childrenSiteNodes = ServicesUtils.getChildrenServicesNodes(treeNode),
 						hasChildren = childrenSiteNodes.length > 0
 					;
 					wrappedNode.hasChildren = hasChildren;

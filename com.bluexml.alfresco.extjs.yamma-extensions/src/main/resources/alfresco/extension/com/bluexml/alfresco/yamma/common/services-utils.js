@@ -194,26 +194,42 @@
 		
 		isServiceManager : function(serviceName, userName) {
 			
-			return ServicesUtils._checkRole(serviceName, userName, 'ServiceManager', 'ServiceManager');
+			return ServicesUtils._checkRole(serviceName, userName, 'ServiceManager');
 			
 		},
 		
 		isServiceInstructor : function(serviceName, userName) {
 			
-			return ServicesUtils._checkRole(serviceName, userName, 'ServiceInstructor', 'ServiceInstructor');
+			return ServicesUtils._checkRole(serviceName, userName, 'ServiceInstructor');
 			
 		},
 		
 		isServiceAssistant : function(serviceName, userName) {
 			
-			return ServicesUtils._checkRole(serviceName, userName, 'ServiceAssistant', 'ServiceAssistant');
+			return ServicesUtils._checkRole(serviceName, userName, 'ServiceAssistant');
+			
+		},
+		
+		getServiceRoles : function(serviceName, userName) {
+			
+			var
+				checkedRoles = ['ServiceManager', 'ServiceInstructor', 'ServiceAssistant'], 
+				result = ServicesUtils._checkRole(serviceName, userName, checkedRoles)
+			;
+						
+			var resultMap = {}, role, i, len;
+			for (i = 0, len = checkedRoles.length; i < len; i++) {
+				role = checkedRoles[i]; 
+				resultMap[role] = result[i];
+			}
+			return resultMap;
 			
 		},
 		
 		/**
 		 * @private
 		 */
-		_checkRole : function(serviceName, userName, primaryRole, additionalRole) {
+		_checkRole : function(serviceName, userName, roles) {
 			
 			userName = Utils.asString(userName);
 			
@@ -223,22 +239,30 @@
 			
 			var serviceSite = siteService.getSite(serviceName);
 			if (null == serviceSite) return false;
+
+			roles = Utils.wrapAsList(roles);
 			
-			var memberRole = Utils.asString(serviceSite.getMembersRole(userName));
-			if (memberRole == primaryRole) return true;
+			var result = Utils.map(roles, function(role) {
+				
+				var memberRole = Utils.asString(serviceSite.getMembersRole(userName));
+				if (memberRole == role) return true;
+				
+				var 
+					siteRoleGroupName = 'GROUP_site_' + serviceName + '_' + role,
+					siteRoleGroup = people.getGroup(siteRoleGroupName)
+				;
+				if (null == siteRoleGroup) return false;
+				
+				var members = people.getMembers(siteRoleGroup);
+				return Utils.contains(members, userName,
+					function equals(it, refValue) {
+						return refValue == Utils.asString(it.properties.userName); 
+					}
+				);
+				
+			});
 			
-			var 
-				siteRoleGroupName = 'GROUP_site_' + serviceName + '_' + additionalRole,
-				siteRoleGroup = people.getGroup(siteRoleGroupName)
-			;
-			if (null == siteRoleGroup) return false;
-			
-			var members = people.getMembers(siteRoleGroup);
-			return Utils.contains(members, userName,
-				function equals(it, refValue) {
-					return refValue == Utils.asString(it.properties.userName); 
-				}
-			);
+			return Utils.unwrapList(result);
 			
 		}
 			
