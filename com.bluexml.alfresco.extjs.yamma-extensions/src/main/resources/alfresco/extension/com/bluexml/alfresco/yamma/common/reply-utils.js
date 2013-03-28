@@ -30,6 +30,13 @@
 			return repliesContainer;
 		},
 		
+		getRepliedDocument : function(replyNode) {
+			
+			if (null == replyNode) return null;
+			return (replyNode.assocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [])[0];
+			
+		},
+		
 		addReply : function(document, replyNode) {			
 			
 			if (null == document || null == replyNode) {
@@ -53,9 +60,10 @@
 			fillCorrespondent();
 			fillRecipient();
 			replyNode.save();
-			
+
 			setSignatureNeeded(); // add aspect => need to perform after save()
 			associateToDocument();
+			ReplyUtils.setReference(replyNode, document);
 			
 			function fillWritingDate() {
 				var writingDate = replyNode.properties[YammaModel.MAIL_WRITING_DATE_PROPNAME];
@@ -133,7 +141,7 @@
 					
 				}
 				
-			}
+			}			
 			
 			function setSignatureNeeded(signatureNeeded) {
 				
@@ -156,6 +164,48 @@
 						
 			return replyNode;
 						
+		},		
+
+		/**
+		 * Set the (internal) reference on the reply-node
+		 * @param {ScriptNode} replyNode The reply-node
+		 * @param {ScriptNode} documentNode The document-node if not yet associated to the reply
+		 */
+		setReference : function(replyNode, documentNode) {
+			
+			var replyReference = ReplyUtils.getReplyReference(replyNode, documentNode);
+			
+			if (!replyNode.hasAspect(YammaModel.REFERENCEABLE_ASPECT_SHORTNAME)) {
+				replyNode.addAspect(YammaModel.REFERENCEABLE_ASPECT_SHORTNAME);
+			}
+			replyNode.properties[YammaModel.REFERENCEABLE_INTERNAL_REFERENCE_PROPNAME] = replyReference;
+			replyNode.properties[YammaModel.REFERENCEABLE_REFERENCE_PROPNAME] = replyReference;
+			replyNode.save();
+			
+		},
+		
+		getReplyReference : function(replyNode, documentNode) {
+			
+			if (null == documentNode) {
+				documentNode = ReplyUtils.getRepliedDocument(replyNode);
+			}
+			
+			var documentReference = referenceProvider.getExistingReference(documentNode);
+			if (null == documentReference) return null;
+			
+			var 
+				existingReplies = ReplyUtils.getReplies(documentNode),
+				replyIndex = Utils.indexOf(existingReplies, replyNode, Utils.javaEqualsFunction ), // manage update of an existing reply reference
+				nextReplyId = -1 != replyIndex ? replyIndex : existingReplies.length + 1,
+				replyReference = documentReference + '/R' + nextReplyId
+			;
+			
+			return replyReference;
+			
+		},
+		
+		isReplyReference : function(reference) {
+			return /.*\/R[0-9]*$/.test(reference);
 		},
 		
 		removeReply : function(replyNode) {
@@ -208,10 +258,7 @@
 			
 			if (!DocumentUtils.isDocumentNode(documentNode)) return false;
 			
-			var 
-				replies = ReplyUtils.getReplies(documentNode)
-			;
-			
+			var replies = ReplyUtils.getReplies(documentNode);
 			return Utils.exists(replies,
 				function(replyNode) {
 					return ReplyUtils.canBeSigned(replyNode);
@@ -219,13 +266,6 @@
 			);
 			
 		},		
-		
-		getRepliedDocument : function(replyNode) {
-			
-			if (null == replyNode) return null;
-			return (replyNode.assocs[YammaModel.REPLY_REPLY_TO_DOCUMENT_ASSOCNAME] || [])[0];
-			
-		},
 		
 
 		/**

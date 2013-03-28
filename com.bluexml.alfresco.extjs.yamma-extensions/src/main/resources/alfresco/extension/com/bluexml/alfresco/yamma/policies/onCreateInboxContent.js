@@ -7,7 +7,9 @@
 		childAssoc = behaviour.args[0],
 		isNew = behaviour.args[1],
 		tray = childAssoc.getParent(),
-		document = childAssoc.getChild()
+		trayName = tray.name,
+		document = childAssoc.getChild(),
+		documentName = document.name
 	;	
 	
 	if (
@@ -26,15 +28,31 @@
 		return;
 	}	
 	
-	logNewDocument();
-	IncomingMailUtils.createMail(document);
+	main();
+	
+	
+	
+	
+	
+	
+	function main() {
+		
+		logNewDocument();
+				
+		UploadUtils.extractMetadata(document);
+		
+		var doManagedReply = IncomingMailUtils.manageReplyDocument(document);
+		if (true === doManagedReply) return; 
+		
+		IncomingMailUtils.createMail(document);
+		
+	}
+	
 	
 	function logNewDocument() {
 		if (!logger.isLoggingEnabled()) return;
 
 		var 
-			documentName = document.name,
-			trayName = tray.name,
 			message = 
 				"A new document '" + documentName + "' " +
 				"arrived in the tray '" + trayName + "'. "

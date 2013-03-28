@@ -25,7 +25,7 @@
 			;
 			
 			// Move the attachment in the document fitted container
-			if (!attachmentParent || !attachmentParent.hasPermission('Read') || attachmentParent != attachmentsContainer) {
+			if (null == attachmentParent || !attachmentParent.hasPermission('Read') || attachmentParent != attachmentsContainer) {
 				attachment.move(attachmentsContainer);
 			}
 			
@@ -37,12 +37,12 @@
 		},
 		
 		deleteAttachment : function(attachment) {
-			if (!attachment) {
+			if (null == attachment) {
 				throw new Error('IllegalArgumentException! The provided attachment is not valid');
 			}
 			
 			var attachingDocument = (attachment.sourceAssocs[ATTACHMENT_ASSOCNAME] || [])[0];
-			if (!attachingDocument) {
+			if (null == attachingDocument) {
 				throw new Error('IllegalStateException! The provided attachment document is not attached to any document');
 			}
 			
@@ -67,7 +67,7 @@
 		
 		canDelete : function(attachmentNode, username) {
 			
-			if (!attachmentNode) return false;			
+			if (null == attachmentNode) return false;			
 			
 			var 
 				attachingDocument = (attachmentNode.sourceAssocs[ATTACHMENT_ASSOCNAME] || [])[0],
@@ -80,7 +80,7 @@
 		
 		canAttach : function(documentNode, username) {
 			
-			if (!documentNode) return false;
+			if (null == documentNode) return false;
 			return documentNode.hasPermission('Write');
 			
 		}

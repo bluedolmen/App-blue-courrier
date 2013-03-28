@@ -40,7 +40,7 @@
 			function createDocumentContainer() {
 				
 				documentContainer = DocumentUtils.createDocumentContainer(document, true /* moveInside */);
-				if (!documentContainer) {
+				if (null == documentContainer) {
 					throw new Error("IllegalStateException! Cannot create the container for document '" + document.name + "'.");
 				}
 				
@@ -99,18 +99,27 @@
 			
 			function setInitialReference() {
 				
-				// Try to extract the reference using a barcode if the document is a pdf
+				// The reference is already set if a barcode is extracted from
+				// the document (see the corresponding metadata extractor)
+				
 				var
 					reference = referenceProvider.getExistingReference(document),
 					mimetype = document.properties.content.mimetype
 				;
 				
 				if (null == reference) {
-					reference = referenceProvider.setReference(document, false /* override */, "yamma" /* providerId */, null /* providerConfig */);
+					reference = referenceProvider.setReference(
+						document, 
+						false /* override */, 
+						"yamma" /* providerId */, 
+						null /* providerConfig */
+					);
 				}
 				
+				setPropertyIfEmpty(YammaModel.REFERENCEABLE_INTERNAL_REFERENCE_PROPNAME, reference);
 				setPropertyIfEmpty(YammaModel.REFERENCEABLE_REFERENCE_PROPNAME, reference);
 				document.save();
+				
 			}
 			
 			function setInitialState() {
@@ -156,7 +165,67 @@
 				document.properties[propertyName] = value;				
 			}
 			
+		},
+		
+		/**
+		 * @return {Boolean} false if the document was managed correctly
+		 */
+		manageReplyDocument : function(document) {
+			
+			if (null == document) return false;
+			
+			var 
+				documentName = document.name,
+				enclosingSiteName = document.getSiteShortName(),
+				reference = referenceProvider.getExistingReference(document)
+			;
+			
+			if (!ReplyUtils.isReplyReference(reference)) return false;
+				
+			var existingReplyNode = referenceProvider.getNode(reference);
+			if ( null == existingReplyNode || !ReplyUtils.isReplyNode(existingReplyNode) ) {
+				var message = "A new reply-document '" + documentName + "'"
+					+ " has entered service '" + enclosingSiteName + "'"
+					+ " but has no existing reply. As such it is ignored.";
+				logger.warn(message);
+				return false;
+			}
+			
+			var repliedDocumentNode = ReplyUtils.getRepliedDocument(existingReplyNode);
+			if (!DocumentUtils.checkDocumentState(repliedDocumentNode, YammaModel.DOCUMENT_STATE_SIGNING) ) {
+				var message = "A new reply-document '" + documentName + "'"
+					+ " has entered service '" + enclosingSiteName + "'"
+					+ " but the related replied document is not in signing-state. As such it is ignored.";
+				logger.warn(message);
+				return false;
+			}
+			
+			main();			
+			return true;
+			
+			
+			
+			function main() {
+				updateReplyContent();
+				// Remove the node which is unnecessary by now
+				document.remove();
+			}
+			
+			function updateReplyContent() {
+				
+				var
+					newReplyContent = document.properties.content,
+					replyFileName = document.name
+				;
+				UploadUtils.updateContent(existingReplyNode, newReplyContent, {
+					filename : replyFileName,
+					versionLabel : 'beforeSigning' // create a version
+				});
+				
+			}
+			
 		}
+		
 	
 	};
 	

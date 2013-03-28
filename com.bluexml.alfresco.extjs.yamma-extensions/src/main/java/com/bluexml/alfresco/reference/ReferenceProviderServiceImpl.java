@@ -27,9 +27,12 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 	private NodeService nodeService;
 	private QName encodedProperty;
 
-	public NodeRef getMatchingReferenceNode(String reference) {
+	public NodeRef getMatchingReferenceNode(String reference, String typeShort) {
 		
-		final String query = "+\\@" + LuceneQueryParser.escape(encodedProperty.toString()) + ":\"" + reference + "\"";
+		final String query = (
+			"+\\@" + LuceneQueryParser.escape(encodedProperty.toString()) + ":\"" + reference + "\""
+			+ (typeShort != null ? "+TYPE:\"" + typeShort + "\"": "")
+		);
 		
 		final ResultSet result = searchService.query(
 				StoreRef.STORE_REF_WORKSPACE_SPACESSTORE, 
@@ -48,7 +51,7 @@ public class ReferenceProviderServiceImpl implements ReferenceProviderService, R
 	
 	public void setReference(NodeRef nodeRef, String value) {
 		
-		final NodeRef existingNodeRef = getMatchingReferenceNode(value);
+		final NodeRef existingNodeRef = getMatchingReferenceNode(value, null);
 		
 		if (existingNodeRef != null) {
 			if (existingNodeRef.equals(nodeRef)) return;

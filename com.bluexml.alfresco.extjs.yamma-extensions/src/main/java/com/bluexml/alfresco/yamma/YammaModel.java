@@ -26,4 +26,5 @@ public interface YammaModel {
 	static final QName TYPE_TRAY = QName.createQName(YAMMA_MODEL_1_0_URI, "Tray");
 	
 	static final QName TYPE_REPLY = QName.createQName(YAMMA_MODEL_1_0_URI, "Reply");
+	static final QName TYPE_OUTBOUND_MAIL = QName.createQName(YAMMA_MODEL_1_0_URI, "OutboundMail");
 }

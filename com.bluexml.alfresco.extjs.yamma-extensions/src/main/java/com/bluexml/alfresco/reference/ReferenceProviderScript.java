@@ -12,10 +12,12 @@ public class ReferenceProviderScript extends BaseScopableProcessorExtension  {
 	
 
 	public ScriptNode getNode(String reference) {
-		
-		final NodeRef existingReference = referenceProviderService.getMatchingReferenceNode(reference);
+		return getNode(reference, null);		
+	}
+	
+	public ScriptNode getNode(String reference, String typeShort) {
+		final NodeRef existingReference = referenceProviderService.getMatchingReferenceNode(reference, typeShort);
 		return new ScriptNode(existingReference, serviceRegistry, this.getScope());
-		
 	}
 	
 	public void setReference(ScriptNode node, String value) {

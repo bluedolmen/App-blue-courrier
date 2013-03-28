@@ -34,7 +34,7 @@ public final class MergerUtils {
 		final List<NodeRef> checkedList = new ArrayList<NodeRef>();
 		for (final NodeRef source : sources) {
 			
-			NodeRef pdfNode = getPdfNode(source);
+			final NodeRef pdfNode = getPdfNode(source);
 			checkedList.add(pdfNode);
 			
 		}

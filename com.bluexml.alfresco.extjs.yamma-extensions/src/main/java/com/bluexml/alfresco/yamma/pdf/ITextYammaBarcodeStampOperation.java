@@ -18,7 +18,7 @@ public class ITextYammaBarcodeStampOperation extends ITextBarcodeStampOperationE
 		// Only stamp with a barcode the replies and not the attached files
 		final NodeRef nodeRef = inputSource.getNodeRef();
 		final QName typeQName = nodeService.getType(nodeRef);
-		if (!YammaModel.TYPE_REPLY.equals(typeQName)) return true; 
+		if (!YammaModel.  TYPE_OUTBOUND_MAIL.equals(typeQName)) return true; 
 		
 		return super.notifyPageAppended(inputSource, stamper, eventType);
 		

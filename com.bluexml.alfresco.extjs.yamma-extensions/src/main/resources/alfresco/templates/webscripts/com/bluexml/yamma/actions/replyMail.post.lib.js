@@ -12,12 +12,14 @@
 		modelNode : null,
 		updatedNode : null,
 		operation : 'copy',
+		signed : false,
 		
 		wsArguments : [
 			'modelRef',
 			'filedata', 
 			'filename',
 			'updatedReplyRef',
+			'signed',
 			{ name : 'operation', defaultValue : 'copy' }
 		],
 						
@@ -46,6 +48,7 @@
 				
 			this.fileName = this.parseArgs['filename'] || ( this.fileData ? this.fileData.filename : null ); // overriding file-name
 			this.operation = this.parseArgs['operation'];
+			this.signed = 'true' === Utils.asString(this.parseArgs['signed']);
 			
 			if (null == fileData && null == modelRef) {
 				throw {
@@ -120,10 +123,11 @@
 					)
 			;
 			
-			replyNode.properties.content.write(this.fileData);
-			UploadUtils.updateMimetype(replyNode, this.fileName);
-			UploadUtils.extractMetadata(replyNode);
-
+			UploadUtils.updateContent(replyNode, this.fileData, {
+				filename : this.fileName,
+				versionLabel : this.signed ? 'beforeSigning' : null
+			});
+			
 			return replyNode;
 			
 		},

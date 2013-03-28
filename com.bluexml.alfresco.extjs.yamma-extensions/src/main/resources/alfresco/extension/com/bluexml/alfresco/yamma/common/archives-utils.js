@@ -13,7 +13,7 @@
 	
 	ArchivesUtils.getArchivesContainer = function(siteNode, createIfNotExists /* default = false */) {
 		
-		if (!siteNode) return;
+		if (null == siteNode) return;
 		
 		createIfNotExists = (createIfNotExists === true);
 		
@@ -22,7 +22,7 @@
 			archivesContainer = siteNode.childrenByXPath(archivesPath)[0]
 		;
 		
-		if (!archivesContainer && createIfNotExists) {
+		if (null == archivesContainer && createIfNotExists) {
 			archivesContainer = this.createArchivesFolder(siteNode);
 		}
 		
@@ -32,24 +32,24 @@
 	
 	ArchivesUtils.getArchivedDocuments = function(siteNode) {
 		
-		if (!siteNode) return [];
+		if (null == siteNode) return [];
 		
 		var archivesContainer = this.getArchivesContainer(siteNode);
-		if (!archivesContainer) return [];
+		if (null == archivesContainer) return [];
 		
 		return archivesContainer.children;
 	}
 		
 	ArchivesUtils.createArchivesFolder = function(siteNode) {
 		
-		if (!siteNode) return;
+		if (null == siteNode) return;
 		
 		var
 			siteName = siteNode.name,
 			archivesFolder = this.getArchivesContainer(siteNode, false /* createIfNotExists */)
 		;
 		
-		if (!archivesFolder) {
+		if (null == archivesFolder) {
 			var parentFolder = Utils.Alfresco.createPath(siteNode, this.ARCHIVES_SITE_ROOT_PATH);
 			archivesFolder = parentFolder.createNode(
 				this.ARCHIVES_FOLDER_TITLE, /* name */
@@ -67,7 +67,7 @@
 			archivesFolder.setInheritsPermissions(false);
 		}
 		
-		if (!archivesFolder) {
+		if (null == archivesFolder) {
 			throw { message : "Cannot create the archives folder in the site '" + siteNode.name + "'" };
 		}
 		
@@ -76,7 +76,7 @@
 	
 	ArchivesUtils.moveToArchives = function(document) {
 		
-		if (!document) {
+		if (null == document) {
 			throw "IllegalArgumentException! The provided document is not valid (null or undefined)";
 		}
 		
@@ -84,10 +84,10 @@
 			documentContainer = DocumentUtils.getDocumentContainer(document), 
 			enclosingSite = DocumentUtils.getCurrentServiceSite(document)
 		;
-		if (!documentContainer || !enclosingSite) return false;
+		if (null == documentContainer || null == enclosingSite) return false;
 		
 		var archivesFolder = this.getArchivesContainer(enclosingSite.node, true);
-		if (!archivesFolder) return false;
+		if (null == archivesFolder) return false;
 		
 		return documentContainer.move(archivesFolder);
 	}	

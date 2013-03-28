@@ -35,9 +35,10 @@ public interface ReferenceProviderService {
 	 * Get the node corresponding to the provided reference
 	 * 
 	 * @param reference the reference value
+	 * @param typeShort (optional) the type on which research should be restricted (null for any)
 	 * @return the existing nodeRef, or null if it does not exists
 	 */
-	NodeRef getMatchingReferenceNode(String reference);	
+	NodeRef getMatchingReferenceNode(String reference, String typeShort);	
 	
 	/**
 	 * Set (store) the reference on the provided node, if possible by using the

@@ -446,10 +446,10 @@
 			if (null == documentContainer) return 'Cannot get the document container';
 				
 			var enclosingTray = TraysUtils.getEnclosingTray(documentNode);
-			if (!enclosingTray) return 'Cannot get the enclosing tray';
+			if (null == enclosingTray) return 'Cannot get the enclosing tray';
 			
 			var tray = TraysUtils.getSiblingTray(enclosingTray, trayName);
-			if (!tray) return "Cannot get the tray of name '" + trayName + "'";
+			if (null == tray) return "Cannot get the tray of name '" + trayName + "'";
 	
 			if (!documentContainer.move(tray)) {
 				return 'Cannot move the document to the tray container';
@@ -470,7 +470,7 @@
 			
 			if (null == trayName) {
 				var enclosingTray = TraysUtils.getEnclosingTray(documentNode);
-				if (!enclosingTray) return 'Cannot get the enclosing tray';
+				if (null == enclosingTray) return 'Cannot get the enclosing tray';
 				trayName = enclosingTray.name;
 			}
 			
