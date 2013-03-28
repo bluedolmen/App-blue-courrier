@@ -23,11 +23,6 @@
 	  - PDF RENDERING MATERIAL
 	  -->
 	  
-   <!--bean id="pdfRenderingEngine"
-      class="com.bluexml.alfresco.pdf.rendering.PdfRenderingEngine"
-      parent="baseRenderingAction">
-   </bean -->
-
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetObject" ref="thumbnailRegistry" />
 		<property name="targetMethod" value="addThumbnailDefinition" />
