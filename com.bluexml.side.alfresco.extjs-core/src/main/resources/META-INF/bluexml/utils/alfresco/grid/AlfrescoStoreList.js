@@ -472,8 +472,7 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		var 
 			me = this,
 			gridactions = me.gridactions,
-			maxAvailableActions = me.maxAvailableActions || gridactions.length,
-			i, len
+			maxAvailableActions = me.maxAvailableActions || gridactions.length
 		;
 		
 		if (null == gridactions) return null;
@@ -482,12 +481,12 @@ Ext.define('Bluexml.utils.alfresco.grid.AlfrescoStoreList', {
 		}
 		
 		Ext.Array.forEach(gridactions, function(gridaction) {
-			if (gridaction.init) {
+			if (Ext.isFunction(gridaction.init)) {
 				gridaction.init(me);
 			}
 		});
 		
-		var items = [], gridaction;
+		var items = [], gridaction, i, len;
 		for (i = 0, len = gridactions.length; i < len; i++) {
 			gridaction = gridactions[i];
 			items.push(gridaction.getActionDefinition(i /* index */));
