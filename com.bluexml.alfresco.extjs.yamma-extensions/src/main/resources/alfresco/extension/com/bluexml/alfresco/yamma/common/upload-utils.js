@@ -49,55 +49,57 @@
 		updateContent : function(updatedNode, newContent, config) {
 			
 			config = config || {};
+
+			var
+				filename = config.filename || undefined,
+				mimetype = config.mimetype || undefined,
+				versionLabel = config.versionLabel || undefined,
+				doExtractMetadata = false !== config.doExtractMetadata, /* default = true */
+				doGuessEncoding = false !== config.doGuessEncoding, /* default = true */
+				fullRename = true === config.fullRename /* default = false */
+			;
 			
-			config = {
-				
-				filename : config.filename || undefined,
-				mimetype : config.mimetype || undefined,
-				versionLabel : config.doVersion || undefined,
-				doExtractMetadata : false !== config.doExtractMetadata, /* default = true */
-				doGuessEncoding : false !== config.doGuessEncoding, /* default = true */
-				fullRename : true === config.fullRename /* default = false */
-				
-			};
 			
-			if (config.versionLabel) {
+			if (versionLabel) {
 				updatedNode.ensureVersioningEnabled(false /* autoVersion */, false /* autoVersionProps */);
 				updatedNode.createVersion(versionLabel /* history */, true /* majorVersion */);
 			}
 
 			// update content
-			updatedNode.properties.content.write(newContent, true /* applyMimetype */, config.doGuessEncoding /* guessEncoding */);
+			updatedNode.properties.content.write(newContent, true /* applyMimetype */, doGuessEncoding /* guessEncoding */);
 			
-			var filename = config.filename;
 			if (null != filename) {
 				renameFile(filename);
-				updatedNode.properties.content.guessMimetype(filename);
+				if (null == mimetype) updatedNode.properties.content.guessMimetype(filename);
 			}
 			
-			if (config.doExtractMetadata) {
+			if (null != mimetype) {
+				updatedNode.properties.content.setMimetype(mimetype);
+			}
+			
+			if (doExtractMetadata) {
 				UploadUtils.extractMetadata(updatedNode);
 			}
 			
 			// end
 			
 			
-			function renameFile(fileName) {
+			function renameFile(filename) {
 				
-				fileName = Utils.asString(fileName);
+				filename = Utils.asString(filename);
 				var 
 					replyFileName = Utils.asString(updatedNode.properties['cm:name']),
-					newReplyFileName = fileName
+					newReplyFileName = filename
 				;
 				
-				if (replyFileName == fileName) return;
+				if (replyFileName == filename) return;
 				
-				if (!config.fullRename) {
+				if (!fullRename) {
 					
 					// try to update extension if necessary regarding the provided filename
 					var 
 						replyExtension = getFileExtension(replyFileName),
-						newReplyExtension = getFileExtension(fileName)
+						newReplyExtension = getFileExtension(filename)
 					;
 					
 					if (replyExtension == newReplyExtension) return;
