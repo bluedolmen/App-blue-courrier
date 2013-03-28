@@ -1,3 +1,8 @@
+Ext.require([
+    'Yamma.view.display.DblClickTabHandler',
+    'Yamma.view.display.YammaTabActionMenu'
+], function() {
+
 Ext.define('Yamma.view.display.DisplayView', 
 {
 
@@ -5,10 +10,7 @@ Ext.define('Yamma.view.display.DisplayView',
 	alias : 'widget.displayview',
 
 	requires: [
-        'Bluexml.utils.tab.Tool',
-        'Yamma.view.display.DblClickTabHandler',
-        'Yamma.view.display.TabActionMenu',
-        'Yamma.view.display.ReplyFilesButton'
+        'Bluexml.utils.tab.Tool'
     ],
     
     uses : [
@@ -20,20 +22,10 @@ Ext.define('Yamma.view.display.DisplayView',
 	
     plugins: [
     
-//        Ext.create('Bluexml.utils.tab.Tool', {
-//            position : 'before',
-//            items: [
-//            	{
-//	            	xtype : 'replyfilesbutton',
-//	            	disabled : true
-//	            }
-//			]
-//        }),
-        
     	Ext.create('Yamma.view.display.YammaTabActionMenu'),
         Ext.create('Yamma.view.display.DblClickTabHandler')        
         
-    ],
+    ],    
     
     /**
      * 
@@ -156,14 +148,45 @@ Ext.define('Yamma.view.display.DisplayView',
 		this.remove(previewTab);
 	},
 	
-	getPreviewTab : function(nodeRef) {
+	getPreviewTab : function(config) {
+
+		var me = this;
 		
-		if (!nodeRef) return null;
-		var 
-			nodeId = Bluexml.Alfresco.getNodeId(nodeRef),
-			previewTab = this.down('#' + nodeId);
+		if (!config) return;
+		
+		if (Ext.isString(config)) {
+			return getPreviewTabByNodeRef(config);
+		} else if (Ext.isFunction(config)) {
+			return getPreviewTabByContext(config);
+		}
+		
+		function getPreviewTabByNodeRef(nodeRef) {
+			var 
+				nodeId = Bluexml.Alfresco.getNodeId(nodeRef),
+				previewTab = me.down('#' + nodeId);
+				
+			return previewTab;
+		}
+		
+		function getPreviewTabByContext(acceptFunction) {
 			
-		return previewTab;
+			var 
+				tabs = me.query('.tab') || []
+			;
+			
+			return Ext.Array.filter(tabs, function(tab) {
+				
+				var card = tab.card;
+				if (!card) return false;
+				
+				var context = card.context;
+				if (!context) return false;
+				
+				return true === acceptFunction(context);
+				
+			});
+			
+		}
 		
 	},
 
@@ -214,7 +237,7 @@ Ext.define('Yamma.view.display.DisplayView',
 		
 		return previewTab.child('previewframe');
 		
-	},	
+	},
 	
 	clear : function() {
 		
@@ -222,4 +245,6 @@ Ext.define('Yamma.view.display.DisplayView',
 		
 	}
 	
+});
+
 });

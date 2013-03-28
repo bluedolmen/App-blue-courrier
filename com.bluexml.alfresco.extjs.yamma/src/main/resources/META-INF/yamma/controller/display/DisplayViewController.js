@@ -18,7 +18,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	
 	views : [
 		'display.DisplayView',
-//		'display.ReplyFilesButton',
 		'edit.EditDocumentView',
 		'edit.EditDocumentForm',
 		'comments.CommentsView'
@@ -49,11 +48,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 	    	selector : 'commentsview'
 	    },
 	    
-//	    {
-//	    	ref : 'replyFilesButton',
-//	    	selector : 'replyfilesbutton'
-//	    },
-	    
 	    {
 	    	ref : 'attachedFilesButton',
 	    	selector : '#attachedFilesButton'
@@ -74,14 +68,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 		this.control({
 			
-//			'replyfilesbutton #addReply menuitem' : {
-//				click : this.onAddReply
-//			},
-//			
-//			'replyfilesbutton #removeReply' : {
-//				click : this.onRemoveReply
-//			},
-			
 			'displayview' : {
 				update : this.onUpdate,
 				tabchange : this.onTabChange,
@@ -89,6 +75,7 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 				downloadfile : this.onDownloadFile,
 				addreply : this.onAddReply,
 				updatereply : this.onUpdateReply,
+				updatetosignedreply : this.onUpdateToSignedReply,
 				removereply : this.onRemoveReply
 			},
 			
@@ -246,7 +233,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		displayView.clear();
 		this.mainDocumentNodeRef = null;
 		editDocumentView.clear();
-//		this.updateReplyFilesButton();
 		
 		this.callParent(arguments);		
 	},	
@@ -269,8 +255,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			context = newCard.context,
 			editDocumentView = this.getEditDocumentView()
 		;
-		
-//		this.updateReplyFilesButton(context); // newCard.context may be undefined here...
 		
 		if (!context) return;		
 		editDocumentView.updateContext(context);
@@ -312,54 +296,6 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 	
-	
-/*
- * The following part of code may be used to build a reply menu in
- * order to choose the reply to display if we need to attach
- * several replies to a same inbound document...
- */	
-//	/*
-//	 * REPLY MENU (ITEMS)
-//	 */
-//	
-//	/**
-//	 * Reply-file menu-item clicked handler.
-//	 * 
-//	 * This handler displays a new tab with a preview of the clicked reply
-//	 * document.
-//	 * 
-//	 * @private
-//	 * @param {Ext.menu.Item}
-//	 *            item The selected menu-item
-//	 */
-//	onReplyFileClick : function(item) {
-//		
-//		var 
-//			displayView = this.getDisplayView(),
-//			nodeRef = item.itemId,
-//			previewTab = displayView.getPreviewTab(nodeRef)
-//		;
-//		
-//		if (!nodeRef) return;		
-//		if (previewTab) {
-//			displayView.setActiveTab(previewTab);
-//			return;
-//		}
-//		
-//		displayView.addPreviewTab({
-//			nodeRef : nodeRef, 
-//			mimetype : item.mimetype,
-//			tabConfig : {
-//				title : item.text,
-//				context : item.context,
-//				iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
-//				editMetaDataHandler : this.onReplyFileMetaDataEdited,
-//				closable : true
-//			},
-//			setActive : true
-//		});
-//		
-//	},
 	
 	onUpdate : function(updateTarget) {
 		
@@ -470,35 +406,11 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 			;
 			
 			mainContext.set(Yamma.utils.datasources.Documents.MAIL_HAS_REPLIES_QNAME, records.length > 0);
-//			me.updateReplyFilesButton();
 			
 		}
 		
 	},
 
-	
-//	/**
-//	 * Updates the reply-files button status given the current main-document
-//	 * context
-//	 * 
-//	 * @private
-//	 */
-//	updateReplyFilesButton : function(context) {
-//		
-//		if (undefined === context) {
-//			var 
-//				displayView = this.getDisplayView(),
-//				activeTab = displayView.getActiveTab()
-//			;
-//			if (activeTab) {
-//				context = activeTab.context;
-//			}
-//		}
-//		
-//		var replyFilesButton = this.getReplyFilesButton();
-//		replyFilesButton.updateStatus(context || null);
-//		
-//	},	
 	
 	onAddReply : function(documentNodeRef, action) {
 		
@@ -532,6 +444,30 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		);
 		
 	},	
+
+	onUpdateToSignedReply : function(replyNodeRef, context, tab) {
+		
+		if (!this.mainDocumentNodeRef) return;
+		
+		var me = this;
+		
+		Yamma.utils.ReplyUtils.replyFromLocalFile(
+			this.mainDocumentNodeRef, /* documentNodeRef */
+			replyNodeRef, /* updatedReplyNodeRef */
+			function() { /* onSuccess */
+				var displayView = me.getDisplayView();
+				if (!displayView) return;
+				
+				displayView.refreshPreviewTab(replyNodeRef);
+				me.onReplyOperationSuccess();
+			},
+			[{
+				name : 'signed',
+				value : 'true'
+			}] /* additionalFields */
+		);
+		
+	},		
 	
 	onReplyOperationSuccess : function() {
 		
@@ -542,42 +478,12 @@ Ext.define('Yamma.controller.display.DisplayViewController',{
 		
 	},
 		
-//	onRemoveReply : function(menuItem) {
-//		
-//		var 
-//			displayView = this.getDisplayView(),
-//			currentTab =  displayView.getActiveTab(),
-//			context = null,
-//			replyNodeRef = null
-//		;
-//		
-//		if (!currentTab) return;
-//		
-//		context = currentTab.context;
-//		if (!context) return;
-//		
-//		replyNodeRef = context.get('nodeRef');
-//		this.removeReply(replyNodeRef);
-//		
-//	},
-	
 	onRemoveReply : function(replyNodeRef, context, tab) {
-		
-		var 
-			me = this,
-			displayView = this.getDisplayView(),
-			currentTab =  displayView.getActiveTab()
-		;
 		
 		Yamma.utils.ReplyUtils.removeReply(
 			replyNodeRef,
 			Ext.bind(this.onReplyOperationSuccess, this)
 		);
-		
-//		function onSuccess() {
-//			displayView.remove(currentTab);
-//			me.onReplyOperationSuccess();
-//		}
 		
 	},
 	

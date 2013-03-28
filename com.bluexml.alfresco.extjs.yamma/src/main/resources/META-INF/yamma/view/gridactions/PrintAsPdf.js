@@ -8,11 +8,25 @@ Ext.define('Yamma.view.gridactions.PrintAsPdf', {
 	actionUrl : 'alfresco://bluexml/yamma/retrieve-reply-nodes',
 	method : 'GET',
 	
-	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT,
 	supportBatchedNodes : true,
 	
-	WS_URL : 'alfresco://bluexml/yamma/merge-replies-to-pdf?nodeRefs={nodeRefs}&doubleSided={doubleSided}',
+	WS_URL : 'alfresco://bluexml/yamma/merge-replies-to-pdf'
+				+ '?nodeRefs={nodeRefs}'
+				+ '&doubleSided={doubleSided}'
+				+ '&stamp={stamp}',
+				
 	doubleSided : true,
+	
+	isAvailable : function(record) {
+		
+		var
+			canMarkAsSent = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SENT),
+			canMarkAsSigned = record.get(Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_MARK_AS_SIGNED)
+		;
+		
+		return (canMarkAsSent || canMarkAsSigned);
+		
+	},	
 		
 	prepareBatchAction : function(records) {
 		
@@ -91,7 +105,7 @@ Ext.define('Yamma.view.gridactions.PrintAsPdf', {
 			url = Bluexml.Alfresco.resolveAlfrescoProtocol(this.WS_URL)
 				.replace(/\{nodeRefs\}/, nodeRefCommaSeparatedList)
 				.replace(/\{doubleSided\}/, this.doubleSided)
-			
+				.replace(/\{stamp\}/, "barcode")
 		;
 		
 		window.open(url, '_blank');

@@ -14,6 +14,7 @@ Ext.define('Yamma.utils.datasources.Replies', {
 	
 	REPLY_CAN_UPDATE : 'canUpdate',
 	REPLY_CAN_DELETE : 'canDelete',
-	REPLY_CAN_ATTACH : 'canAttach'
+	REPLY_CAN_ATTACH : 'canAttach',
+	REPLY_CAN_BE_SIGNED : 'canBeSigned'
 
 });

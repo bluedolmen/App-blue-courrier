@@ -57,12 +57,12 @@ Ext.define('Yamma.utils.ReplyUtils', {
 		
 	},
 
-	replyFromLocalFile : function(documentNodeRef, updatedReplyNodeRef, onSuccess) {
+	replyFromLocalFile : function(documentNodeRef, updatedReplyNodeRef, onSuccess, additionalFields) {
 			
-		var additionalFields = [{
+		additionalFields = (additionalFields || []).concat({
 			name : 'nodeRef',
 			value : documentNodeRef
-		}];
+		});
 
 		if (updatedReplyNodeRef) {				
 			additionalFields.push({

@@ -1,6 +1,7 @@
 Ext.define('Yamma.view.display.YammaTabActionMenu', {
 	
 	extend : 'Yamma.view.display.TabActionMenu',
+	alias : 'plugin.yammatabactionmenu',
 	
 	requires : [
 		'Yamma.utils.datasources.Documents',
@@ -61,6 +62,13 @@ Ext.define('Yamma.view.display.YammaTabActionMenu', {
 				isAvailable : this.isUpdateReplyAvailable,
 				typeFilter : Yamma.utils.datasources.Replies.OUTBOUND_MAIL_QNAME,
 				handler : getHandler('updatereply')
+			},
+			{
+				text : 'Charger version signée',
+				iconCls : Yamma.Constants.getIconDefinition('text_signature_up').iconCls,
+				isAvailable : this.isUpdateToSignedReplyAvailable,
+				typeFilter : Yamma.utils.datasources.Replies.OUTBOUND_MAIL_QNAME,
+				handler : getHandler('updatetosignedreply')
 			},
 			{
 				text : 'Supprimer',
@@ -124,6 +132,19 @@ Ext.define('Yamma.view.display.YammaTabActionMenu', {
 		;
 		
 		return canUpdateReply;
+		
+    },
+    
+    isUpdateToSignedReplyAvailable : function(item) {
+    	
+		var
+			context = item.context,
+			canUpdateReply = !!context.get(Yamma.utils.datasources.Replies.REPLY_CAN_UPDATE),
+			canReplyBeSigned = !!context.get(Yamma.utils.datasources.Replies.REPLY_CAN_BE_SIGNED),
+			state = context.get(Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME)
+		;
+		
+		return (canUpdateReply && canReplyBeSigned && 'signing' == state);
 		
     },
     
