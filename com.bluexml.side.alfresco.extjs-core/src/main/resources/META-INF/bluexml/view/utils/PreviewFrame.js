@@ -56,23 +56,13 @@ Ext.define('Bluexml.view.utils.PreviewFrame', {
 			break;
 			
 			case 'message/rfc822':
-				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
-				);
-			break;
-			
 			case 'text/plain':
-				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
-					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
-				);
-			break;
-			
 			case 'text/html':
 				url = Bluexml.Alfresco.resolveAlfrescoProtocol(
 					'alfresco://api/node/' + nodeRef.replace(':/','') + '/content/thumbnails/html?c=force'
 				);
 			break;
-				
+			
 		}		
 		
 		return url;
