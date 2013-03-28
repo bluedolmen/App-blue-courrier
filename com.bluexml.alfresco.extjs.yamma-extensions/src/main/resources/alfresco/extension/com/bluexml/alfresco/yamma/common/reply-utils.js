@@ -223,6 +223,28 @@
 			
 		},
 		
+		/**
+		 * Returns whether a reply-node get a signed-reply as content
+		 */
+		isSignedContent : function(replyNode) {
+			
+			// Currently based on versioning description
+			if (!ReplyUtils.isReplyNode(replyNode)) return false;
+			
+			if (!replyNode.isVersioned) {
+				return false;
+			}
+			
+			// The last version should be a 'beforeSigning' version
+			var 
+				versions = replyNode.versionHistory || [],
+				lastVersion = versions[0] 
+			;
+			if (null == lastVersion) return false;
+			return 'beforeSigning' == lastVersion.description;
+			
+		},
+		
 		getReplies : function(documentNode) {
 			
 			if (null == documentNode) return [];			
@@ -249,7 +271,7 @@
 		 * Check whether the document is attached with replies that can be
 		 * signed.
 		 * 
-		 * This use-case should be transitional supporting only the case where
+		 * This use-case should be transitional, supporting only the case where
 		 * only one reply is attached to a document.
 		 * 
 		 * This may be invalidated in the future
@@ -257,15 +279,37 @@
 		hasSignableReplies : function(documentNode) {
 			
 			if (!DocumentUtils.isDocumentNode(documentNode)) return false;
+			var lastReply = ReplyUtils.getLastReply(documentNode);
+			if (null == lastReply) return false;
 			
-			var replies = ReplyUtils.getReplies(documentNode);
-			return Utils.exists(replies,
-				function(replyNode) {
-					return ReplyUtils.canBeSigned(replyNode);
-				} // acceptFunction
-			);
+			return ReplyUtils.canBeSigned(lastReply);
 			
-		},		
+//			var replies = ReplyUtils.getReplies(documentNode);
+//			return Utils.exists(replies,
+//				function(replyNode) {
+//					return ReplyUtils.canBeSigned(replyNode);
+//				} // acceptFunction
+//			);
+			
+		},
+		
+		hasSignedReplies : function(documentNode) {
+			
+			if (!DocumentUtils.isDocumentNode(documentNode)) return false;
+			var lastReply = ReplyUtils.getLastReply(documentNode);
+			if (null == lastReply) return false;
+			
+			return ReplyUtils.isSignedContent(lastReply);
+			
+//			var replies = ReplyUtils.getReplies(documentNode);
+//			return Utils.exists(replies,
+//				function(replyNode) {
+//					return ReplyUtils.isSignedContent(replyNode);
+//				} // acceptFunction
+//			);
+			
+			
+		},
 		
 
 		/**

@@ -103,6 +103,14 @@
 						
 						return repliedDocument.properties[YammaModel.STATUSABLE_STATE_PROPNAME] || '';
 					}
+				},
+				
+				{
+					name : YammaModel.OUTBOUND_MAIL_TYPE_SHORTNAME + '_signedContent',
+					type : 'boolean',
+					evaluate : function(reply) {
+						return ReplyUtils.isSignedContent(reply);
+					}
 				}
 				
 			].concat(getActionsFieldDefinitions())		
