@@ -14,15 +14,24 @@ Ext.define('Bluexml.utils.grid.column.HeaderImage', {
 	init : function(column) {
 		
 		var iconCls = column.iconCls || this.getIconCls();
-		if (!iconCls) return;
 		
-		column.text = 
-			'<span' + 
-			' class="' + iconCls + ' column-header-img"' +
-			'>' +
-			(column.text || '&#160;') + 
-			'</span>';
+		column.setIconCls = function(iconCls) {
+			
+			if (!iconCls) return;
+			
+			this.setText( 
+				'<span' + 
+				' class="' + iconCls + ' column-header-img"' +
+				'>' +
+				(this.text || '&#160;') + 
+				'</span>'
+			);
+			
+		};
+		
+		column.setIconCls(iconCls);
 		
 	}
+	
 	
 });
