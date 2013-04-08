@@ -193,19 +193,35 @@
 	
 	Utils.contains = function(array, value, equalsFunction) {
 		
-		var contains = false;
-		equalsFunction = Utils.isFunction(equalsFunction) ? equalsFunction :
-			function(a,b) {
-				return a == b;
-			}
+		return -1 != Utils.indexOf(array, value, equalsFunction);
 		
-		Utils.forEach(array, function(arrayElement) {
-			contains = contains || equalsFunction(arrayElement, value);
-			if (true === contains) return false; // stop iteration
-		});
-		
-		return contains;
 	};
+
+	Utils.indexOf = function(array, value, equalsFunction) {
+		
+		if (!Utils.isArray(array)) return false;
+		
+		equalsFunction = Utils.isFunction(equalsFunction) 
+			? equalsFunction 
+			: function(a,b) { return a == b; }
+		
+		for (var index = 0, len = array.length; index < len; index++) {
+			var arrayElement = array[index];
+			if ( true == equalsFunction(arrayElement, value) ) return index;
+		}
+		
+		return -1;
+		
+	};
+	
+	Utils.javaEqualsFunction = function(a, b) {
+
+		if (null == a) return null == b;
+		if (undefined === a.equals) return false;
+		return a.equals(b);
+
+	};
+	
 	
 	Utils.first = function(array, equalsFunction) {
 		
