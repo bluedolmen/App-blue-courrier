@@ -38,7 +38,8 @@ Ext.define('Yamma.store.services.ServicesTreeStore.ServiceTrays', {
 	    			if (undefined !== hasChildren) return !hasChildren;
 	    			
 	    			return value;
-	    		}
+	    		},
+	    		defaultValue : false
 	    	},
 	    	{
 	    		name : 'iconCls',
@@ -48,11 +49,7 @@ Ext.define('Yamma.store.services.ServicesTreeStore.ServiceTrays', {
 	    	{
 	    		name : 'expanded',
 	    		type : 'boolean',
-	    		convert : function(value, record) {
-	    			//var kind = record.get('kind');
-	    			
-	    			return true;
-	    		}
+	    		defaultValue : true
 	    	},
 	    	{
 	    		name : 'disabled',
