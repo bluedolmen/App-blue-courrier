@@ -6,7 +6,8 @@ Ext.define('Yamma.utils.Context', {
 		
 		// Service-based (tray) context
 		service : null,
-		tray : null, 
+		tray : null,
+		state : null,
 		
 		// Filter-based context
 		filters : [],
@@ -21,10 +22,14 @@ Ext.define('Yamma.utils.Context', {
 		this.callParent(arguments);
 	},
 	
-	isServiceBase : function() {
+	isServiceBased : function() {
 		
 		return !!this.getService();
 		
+	},
+	
+	isStateBased : function() {
+		return !!this.getState();
 	},
 	
 	isTrayBased : function() {
@@ -55,6 +60,9 @@ Ext.define('Yamma.utils.Context', {
 	getDocumentDatasourceFilters : function() {
 		
 		var filters = [].concat(this.getFilters());
+		
+		var stateFilter = this.getStateFilter();
+		if (stateFilter) filters.push(stateFilter);
 		
 		var trayFilter = this.getTrayFilter();
 		if (trayFilter) filters.push(trayFilter);
@@ -88,6 +96,18 @@ Ext.define('Yamma.utils.Context', {
 			property : 'site',
 			value : serviceName
 		};
+		
+	},
+	
+	getStateFilter : function() {
+		
+		var state = this.getState();
+		if (!state) return null;
+		
+		return ({
+			property : 'state',
+			value : state
+		});
 		
 	},
 	

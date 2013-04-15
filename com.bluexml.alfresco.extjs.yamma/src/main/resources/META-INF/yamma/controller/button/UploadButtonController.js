@@ -26,7 +26,9 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	    	selector : 'uploadbutton'
 	    }	    
 	    
-	],	
+	],
+	
+	service : null,
 	
 	init: function() {
 		
@@ -49,7 +51,7 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 	 * @param {Yamma.utils.Context}
 	 *            context the new global context
 	 */
-	onContextChanged : function(context) {		
+	onContextChanged : function(context) {
 		this.updateButtonState(context);
 	},
 	
@@ -64,10 +66,17 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 
 		var 
 			uploadButton = this.getUploadButton(),
-			tray = context.getTray();
+			state = context.getState(),
+			tray = context.getTray(),
+			service = context.getService()
+		;
+		
+		this.service = service ? service.serviceName : null;
 			
 		if (tray) {
 			if (!uploadButton.updateTrayContext(tray)) return;
+			uploadButton.enable();
+		} else if ('pending' == state) {
 			uploadButton.enable();
 		} else {
 			uploadButton.resetTrayContext();
@@ -133,10 +142,7 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 			
 			function onSuccess(jsonResponse) {
 				
-				var
-					nodes = jsonResponse.nodes
-				;
-				
+				var nodes = jsonResponse.nodes;
 				if (null != nodes) {
 					me.application.fireEvent('newDocumentAvailable', nodes);
 				}
@@ -156,7 +162,7 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 					url : url,
 					dataObj : {
 						nodeRef : nodeRef,
-						destination : destination,
+						destination : destination ? destination : 'service://' + me.service + '/documentLibrary/trays/inbox',			
 						typeShort : typeShort,
 						operation : operation,
 						filename : fileName
@@ -193,7 +199,23 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 				additionalFields : [
 					{
 						name : 'destination',
-						value : uploadButton.getDestination()
+						value : uploadButton.getDestination(),
+						allowBlank : true
+					},
+					{
+						name : 'siteid',
+						value : me.service,
+						allowBlank : true
+					},
+					{
+						name : 'containerid',
+						value : 'documentLibrary',
+						allowBlank : true
+					},
+					{
+						name : 'uploaddirectory',
+						value : 'trays/inbox',
+						allowBlank : true
 					},
 					{
 						name : 'contentType',

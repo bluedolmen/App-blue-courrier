@@ -79,12 +79,7 @@ Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 			case 'state-tray':
 				
 				stateId = iterator.get('id').split('|')[1];
-				context.setFilters([
-					{
-						property : 'state',
-						value : stateId
-					}				                    
-				]);
+				context.setState(stateId);
 				
 			break;
 				
