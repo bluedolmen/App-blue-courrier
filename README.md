@@ -1,3 +1,15 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Note](#note)
+- [App Blue Courrier Deployment](#app-blue-courrier-deployment)
+- [App Blue Courrier Configuration](#app-blue-courrier-configuration)
+        - [Trays initialization](#trays-initialization)
+	- [Initializing the services](#initializing-the-services)
+		- [Declaring a site as a service](#declaring-a-site-as-a-service)
+		- [Declaring a site as a signing service](#declaring-a-site-as-a-signing-service)
+		- [Declaring a pole/service structure](#declaring-a-poleservice-structure)
+- [License](#license)
+
 # Note
 
 Please note Blue Courrier has been developed for Alfresco 4.0.d for the moment. Install it on other Alfresco version for testing only. Please come on http://www.bluedolmen.org/forums for help.
