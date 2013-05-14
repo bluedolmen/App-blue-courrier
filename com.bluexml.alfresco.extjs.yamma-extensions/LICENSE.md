@@ -1,7 +1,3 @@
-App-blue-courrier
-=================
-
-    Blue Courrier is a software to manage ingoing and outgoing mails
 
     Copyright (C) 2013 BlueDolmen www.bluedolmen.org
 
