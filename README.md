@@ -1,3 +1,26 @@
+# Note
+
+Please note Blue Courrier has been developed for Alfresco 4.0.d for the moment. Install it on other Alfresco version for testing only. Please come on http://www.bluedolmen.org/forums for help.
+
+You may prefer to use the [VM version](http://www.bluedolmen.org/www/download.html#VM), which will be installed in a matter minutes (hours to download, minutes to run :-)
+
+# App Blue Courrier Deployment
+
+Blue Courrier is composed of 4 projects:
+
+2 are domain specific and contains business logic (front and server):
+* com.bluexml.alfresco.extjs.yamma (front - domain specific)
+* com.bluexml.alfresco.extjs.yamma-extensions (server - domain-specific)
+
+2 are generic and contains code related to UI (front and server):
+* com.bluexml.side.extjs-core (front - generic)
+* com.bluexml.side.extjs-extensions (server - generic)
+
+You can deploy them through Ant, by executing the following target in each project:
+* hotcopy-tomcat-zip: deploys the application in development mode
+
+Stop and Reload Alfresco.
+
 # App Blue Courrier Configuration
 
 ## Trays initialization
