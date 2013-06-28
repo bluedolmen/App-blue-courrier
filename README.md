@@ -37,6 +37,10 @@ Stop and Reload Alfresco.
 
 # App Blue Courrier Configuration
 
+## General initialization script
+
+* https://localhost:8080/alfresco/service/bluexml/init/list?format=html
+
 ## Trays initialization
 
 Trays are normally initialized through a policy but you can initialize them at any time through this code snippet:
