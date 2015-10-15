@@ -1,9 +1,0 @@
-<webscript>
-  <shortname>Initialization</shortname>
-  <description><![CDATA[
-  	Get the list of available initialization services  
-  ]]>
-  </description>
-  <url>/bluexml/init/{initId}/action</url>
-  <authentication>admin</authentication>
-</webscript>
