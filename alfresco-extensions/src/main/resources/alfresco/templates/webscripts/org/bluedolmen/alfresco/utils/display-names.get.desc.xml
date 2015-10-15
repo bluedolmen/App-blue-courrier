@@ -1,0 +1,18 @@
+<webscript>
+	<shortname>Get the display-names of the provided ids</shortname>
+	<description><![CDATA[
+		  Get the display-names of the provided ids<br/> 
+		  arguments<br/>
+		  <ul>
+		  <li>userNames: a comma-separated list of usernames</li>
+		  </ul>
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/utils/display-names</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+</webscript>

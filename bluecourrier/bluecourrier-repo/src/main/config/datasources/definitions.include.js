@@ -1,0 +1,15 @@
+///<import resource="classpath:/${config.target.path}/datasources/filters.include.js">
+///<import resource="classpath:/${config.target.path}/datasources/mails.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/documents.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/mailthread.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/mailtasks.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/subrogates-mailtasks.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/my-tasks.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/signed.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/history.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/comments.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/replies.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/attachments.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/opensearch.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/statistics.definition.js">
+///<import resource="classpath:/${config.target.path}/datasources/service-people.definition.js">

@@ -34,8 +34,17 @@ cp extjs-integration-share/target/extjs-integration-share-*.jar ${TARGET_DIR}/ar
 
 echo "Building extjs zip file"
 cd extjs-lib-4.2
-sh build.sh
-cp target/extjs.zip ${TARGET_DIR}/artifacts
+if [ -d "target" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  rm -rf target
+fi
+mkdir target
+cd target
+cp ../src/main/resources/extjs-4.2.1.zip extjs.zip
+mkdir extjs/src/
+cp -r ../src/main/resources/ux extjs/src/
+zip -r extjs.zip extjs
+cp extjs.zip ${TARGET_DIR}/artifacts
 
 
 echo "Retrieve alfresco-mmt from maven (version ${ALFRESCO_VERSION}"

@@ -1,0 +1,19 @@
+<webscript>
+	<shortname>Perform an action/step on the validation of an outgoing document</shortname>
+	<description><![CDATA[
+		Perform an action/step on the validation of an outgoing document
+		<p>
+		<ul>
+		<li><b>action</b>: the action performed on the workflow
+		<li><b>validation-chain</b>: the actors validating the next steps as a comma separated string
+		</ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/review-outgoing</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

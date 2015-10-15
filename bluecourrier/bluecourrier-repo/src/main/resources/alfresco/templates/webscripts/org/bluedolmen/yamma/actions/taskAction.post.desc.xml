@@ -1,0 +1,13 @@
+<webscript>
+	<shortname>Perform a generic action transition on a given taskk</shortname>
+	<description><![CDATA[
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/task-action</url>
+	<format default="json" />
+	<authentication>user</authentication>	
+</webscript>

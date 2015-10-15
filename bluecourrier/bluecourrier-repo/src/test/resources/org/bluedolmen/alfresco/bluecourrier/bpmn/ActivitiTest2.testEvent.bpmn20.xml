@@ -1,0 +1,48 @@
+<definitions id="definitions"
+  targetNamespace="http://activiti.org/bpmn20"
+  xmlns:activiti="http://activiti.org/bpmn"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+	<signal id="newSignal" name="New" />
+	<signal id="endSignal" name="Stop" />
+	
+	<process id="receive" name="Test of a receive-task process">
+
+		<startEvent id="Incoming_Start" >
+		</startEvent>
+		
+		<sequenceFlow id="toWait" targetRef="Wait" sourceRef="Incoming_Start" />
+		
+		<eventBasedGateway id="Wait" />
+
+		<sequenceFlow sourceRef="Wait" targetRef="signalEndEvent" />
+		<sequenceFlow sourceRef="Wait" targetRef="signalNewEvent" />
+
+		<intermediateCatchEvent id="signalEndEvent" name="Signal End">
+			<signalEventDefinition signalRef="endSignal" />
+		</intermediateCatchEvent>
+
+		<intermediateCatchEvent id="signalNewEvent" name="Signal New">
+			<signalEventDefinition signalRef="newSignal" />
+		</intermediateCatchEvent>
+		
+		<sequenceFlow sourceRef="signalEndEvent" targetRef="Processed" />
+		<sequenceFlow sourceRef="signalNewEvent" targetRef="Fork" />
+				
+		<inclusiveGateway id="Fork">
+		</inclusiveGateway>
+		
+		<sequenceFlow id="backToWait" targetRef="Wait" sourceRef="Fork" />
+		
+		<sequenceFlow id="toDelivering" targetRef="Delivering" sourceRef="Fork" />
+		
+		<userTask id="Delivering" name="Delivering"></userTask>
+		
+		<sequenceFlow id="toTheEnd" targetRef="Processed" sourceRef="Delivering"></sequenceFlow>
+		
+		<endEvent id="Processed"></endEvent>
+		
+	</process>
+
+</definitions>

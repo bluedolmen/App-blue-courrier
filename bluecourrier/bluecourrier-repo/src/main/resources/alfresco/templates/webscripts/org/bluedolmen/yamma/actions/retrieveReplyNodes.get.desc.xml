@@ -1,0 +1,15 @@
+<webscript>
+	<shortname>Simple retrieval of reply-nodes from the given (set of) node(s)</shortname>
+	<description>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	<ul>
+		<li>nodeRef: the nodeRef of the source document</li>
+	</ul>
+	</arguments>
+	<url>/bluedolmen/yamma/retrieve-reply-nodes</url>
+	<format default="json" />
+	<authentication>user</authentication>
+	
+</webscript>

@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+        <artifactId>bluecourrier</artifactId>
+        <version>2.1-alf5.0</version>
+
+        <packaging>pom</packaging>
+        <name>BlueCourrier-5.0</name>
+
+        <parent>
+                <groupId>org.bluedolmen.alfresco</groupId>
+                <artifactId>alfresco-sdk-parent-5.0</artifactId>
+                <version>1.0</version>
+        </parent>
+
+        <modules>
+                <module>bluecourrier-share</module>
+                <module>bluecourrier-repo</module>
+        </modules>
+
+        <properties>
+                <alfresco.version>5.0.d</alfresco.version>
+                <alfresco.classifier>community</alfresco.classifier>
+
+		<product.name>BlueCourrier</product.name>
+		<product.description>Application de gestion de courrier sur Alfresco.</product.description>
+		<bluecourrier.version>2.1</bluecourrier.version>
+                
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+		<config.target.path>alfresco/module/bluedolmen_${project.artifactId}</config.target.path>
+        </properties>
+
+        <dependencyManagement>
+
+        </dependencyManagement>
+
+        <description>Main project gathering the different modules necessary to build the BlueCourrier extension on an the Alfresco 5.0 branch.</description>
+
+</project>
+

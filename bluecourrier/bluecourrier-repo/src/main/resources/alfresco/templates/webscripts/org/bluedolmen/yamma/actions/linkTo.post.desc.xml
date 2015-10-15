@@ -1,0 +1,18 @@
+<webscript>
+	<shortname>Add a link to a document</shortname>
+	<description><![CDATA[
+		Add a link between two documents
+		<p>
+		Mainly used to get a relation reply-to between two documents.
+		However, this service has a more general purpose and can be
+		used to set any kind of semantic links between two documents.
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/link-to</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

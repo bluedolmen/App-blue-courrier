@@ -1,0 +1,13 @@
+<webscript>
+	<shortname>Restart the incoming workflow</shortname>
+	<description><![CDATA[
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/restart-incoming</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

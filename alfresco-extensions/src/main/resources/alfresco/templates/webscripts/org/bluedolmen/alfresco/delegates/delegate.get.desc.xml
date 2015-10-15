@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Delegate</shortname>
+	<description><![CDATA[
+		  Get the delegates for the provided user<br/> 
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/delegate/{user}</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+</webscript>

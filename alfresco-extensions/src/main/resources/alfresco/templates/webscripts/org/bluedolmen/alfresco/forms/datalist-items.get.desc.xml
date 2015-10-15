@@ -1,0 +1,15 @@
+<webscript>
+	<shortname>Get data-list items</shortname>
+	<description><![CDATA[
+		  Get data-list items as a list of value/label 
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/forms/datalist/{site}/{datalist}/items</url>
+	<url>/bluedolmen/forms/datalist/{datalist}/items</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+</webscript>

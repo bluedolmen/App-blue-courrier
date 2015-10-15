@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+	<template-type>org/bluedolmen/extjs/extjsform</template-type>
+	<properties>
+		<pageFamily>ExtJS</pageFamily>
+	</properties>
+	
+	<components>
+		<component>
+			<region-id>formPortlet</region-id>
+			<url>/components/bluedolmen/search/advsearch</url>
+			
+			<properties>
+				<itemKind>type</itemKind>
+				<itemId>{itemId}</itemId>
+				<mode>edit</mode>
+				<formId>search</formId>
+				<showKeywords>true</showKeywords>
+			</properties>
+			
+		</component>
+	</components>
+	   
+</template-instance>

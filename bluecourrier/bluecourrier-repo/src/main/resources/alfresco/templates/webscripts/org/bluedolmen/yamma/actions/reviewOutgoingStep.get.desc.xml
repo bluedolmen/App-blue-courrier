@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Get information on the validation step of an outgoing document</shortname>
+	<description><![CDATA[
+		Get information on the validation step of an outgoing document
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/review-outgoing</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+</webscript>

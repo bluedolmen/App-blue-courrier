@@ -1,0 +1,134 @@
+/**************************************************************************
+ * LOADING PAGE
+ **************************************************************************/
+
+#loading-mask {
+	position: absolute;
+	left:     0;
+	top:      0;
+	width:    100%;
+	height:   100%;
+	z-index:  20000;
+	background-color: white;
+}
+
+#loading {
+	position: absolute;
+	left:     50%;
+	top:      20%;
+	padding:  2px;
+	z-index:  20001;
+	width:    450px;
+	margin-left: -225px;
+}
+
+#loading div {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#loading .loading-indicator {
+	background: url(../images/loading.gif) no-repeat;
+	color:      #555;
+	font:       bold 13px tahoma,arial,helvetica;
+	padding:    15px 75px;
+	text-align: center;
+	height:     128px;
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
+}
+
+#loading #logo-bluexml {
+	background: url(../images/bluexml-simple.png) no-repeat;
+	background-position: left center;
+	height: 50px;
+	width: 150px;
+}
+
+/**************************************************************************
+ * GENERAL EXTJS CUSTOMIZATIONS
+ **************************************************************************/
+.x-body {
+	text-align : left; /* this property may be overridden by yui */
+}
+
+/**************************************************************************
+ * GENERAL EXTJS GRID CUSTOMIZATIONS
+ **************************************************************************/
+
+.column-header-img {
+	display : block;	
+	background : no-repeat;
+	width : 16px; 
+	height : 16px;
+	margin-top : 2px;
+	margin-left : auto;
+	margin-right : auto;
+}
+
+.x-action-col-icon {
+/*
+	padding-left : 2px;
+	padding-right : 2px;
+*/
+	margin-left : 1px;
+	margin-right : 1px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.cell-align-middle {
+	vertical-align: middle;
+}
+
+.grouping-header-icon {
+	background : no-repeat;
+	background-position: left center;
+	padding-left: 22px;
+	padding-top: 2px;
+}
+
+
+/**************************************************************************
+ * Ext.ux.tab.Toolbar styles
+ **************************************************************************/
+
+.x-tab-toolbar-right { z-index: 6; float: right; }
+.x-tab-toolbar-right .x-tab-toolbar { padding: 0 2px; border-width: 0 0 0 1px; }
+.x-tab-toolbar-left { z-index: 6; float: left; }
+.x-tab-toolbar-left .x-tab-toolbar { padding: 0 2px; border-width: 0 1px 0 0; }
+
+
+/**************************************************************************
+ * Bluedolmen.utils.SlidingPopup
+ **************************************************************************/
+
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:300px;
+    z-index:20000;
+}
+
+#msg-div .msg {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    background: #F6F6F6;
+    border: 2px solid #ccc;
+    margin-top: 2px;
+    padding: 10px 15px;
+    color: #555;
+}
+
+#msg-div .msg h3 {
+    margin: 0 0 8px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#msg-div .msg p {
+    margin: 0;
+}
+

@@ -1,0 +1,18 @@
+<webscript>
+	<shortname>Service</shortname>
+	<description><![CDATA[
+		  Get the service information<br/> 
+		  arguments<br/>
+		  <ul>
+		  <li>service: string</li>
+		  </ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/service</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+</webscript>

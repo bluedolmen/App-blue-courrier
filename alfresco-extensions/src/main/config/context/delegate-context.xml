@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<beans>    
+    
+    <bean id="delegate.dictionaryBootstrap" parent="dictionaryModelBootstrap">
+        <property name="models">
+            <list>
+                <value>${config.target.path}/model/delegateModel.xml</value>
+            </list>
+        </property>
+		<property name="labels">
+            <list>
+                <value>${config.target.path}/model/delegate-model</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="delegateService" class="org.bluedolmen.alfresco.delegates.DelegateServiceImpl" >
+    	<property name="nodeService" ref="nodeService"></property>
+    	<property name="authorityService" ref="authorityService"></property>
+    	<property name="authenticationService" ref="authenticationService"></property>
+    </bean>
+    
+	<bean id="delegateJavascriptExtension" parent="baseJavaScriptExtension" class="org.bluedolmen.alfresco.delegates.DelegateScript" >
+		<property name="extensionName" value="delegates"></property>
+		<property name="delegateService" ref="delegateService"></property>
+	</bean>
+    
+	         
+</beans>

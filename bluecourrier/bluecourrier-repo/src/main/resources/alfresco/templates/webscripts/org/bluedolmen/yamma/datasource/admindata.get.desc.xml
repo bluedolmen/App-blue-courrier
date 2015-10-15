@@ -1,0 +1,15 @@
+<webscript>
+  <shortname>Mail-Manager Datasources - Admin access</shortname>
+  <description><![CDATA[
+  	Get a datasource as a json-dataflow.
+  	<ul>
+  		<li><b>datasourceId</b> : defines the idenitifer of the requested view</li>
+  	</ul>
+  ]]>
+  </description>
+  <url>/bluedolmen/yamma/admindatasource/{datasourceId}/data</url>
+  <format default="json">argument</format>
+  <authentication runas="admin">user</authentication>
+  <transaction>required</transaction>
+  <family>YaMma</family>
+</webscript>

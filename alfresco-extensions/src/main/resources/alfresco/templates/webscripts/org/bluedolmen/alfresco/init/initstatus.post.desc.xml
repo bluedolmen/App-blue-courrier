@@ -1,0 +1,10 @@
+<webscript>
+  <shortname>Initialization</shortname>
+  <description><![CDATA[
+  	Performs an initialization action  
+  ]]>
+  </description>
+  <url>/bluedolmen/init/{initId}/action</url>
+  <format default="json">argument</format>  
+  <authentication runas="admin">user</authentication>
+</webscript>

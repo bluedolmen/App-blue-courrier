@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+	<template-type>org/bluedolmen/extjs/extjsform</template-type>
+	<properties>
+		<pageFamily>ExtJS</pageFamily>
+	</properties>
+	
+    <components>
+    	
+        <component>
+            <region-id>formPortlet</region-id>
+            <url>/components/form</url>
+            
+            <properties>
+                <itemKind>task</itemKind>
+                <itemId>{itemId}</itemId>
+                <mode>edit</mode>
+                <formUI>true</formUI>
+                <submitType>json</submitType>
+                <showCaption>true</showCaption>
+                <showSubmitButton>false</showSubmitButton>
+                <showCancelButton>false</showCancelButton>
+            </properties>
+        </component>
+
+    </components>
+	
+</template-instance>

@@ -1,0 +1,522 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<beans>
+	
+	<bean 
+		id="onCreateInboxContent" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration"
+		depends-on="bluecourrier-model">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateChildAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}tray</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.alfresco.org/model/content/1.0}contains</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.bluedolmen.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onCreateInboxContent.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+				<property name="runAs" value="admin" />
+			</bean>
+		</property>
+		
+	</bean>
+
+<!-- 	<bean  -->
+<!-- 		id="onCreateImapFolderContent"  -->
+<!-- 		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration"  -->
+<!-- 		parent="policyRegistration"> -->
+		
+<!-- 		<property name="policyName"> -->
+<!-- 			<value>{http://www.alfresco.org}onCreateChildAssociation</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="className"> -->
+<!-- 			<value>{http://www.alfresco.org/model/imap/1.0}imapFolder</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="associationType"> -->
+<!-- 			<value>{http://www.alfresco.org/model/content/1.0}contains</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="behaviour"> -->
+<!-- 			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour"> -->
+<!-- 				<property name="location"> -->
+<!-- 					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation"> -->
+<!-- 						<constructor-arg> -->
+<!-- 							<value>${config.target.path}/scripts/policies/onCreateImapFolderContent.js</value> -->
+<!-- 						</constructor-arg> -->
+<!-- 					</bean> -->
+<!-- 				</property> -->
+<!-- 				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+		
+<!-- 	</bean> -->
+
+
+	
+	
+<!-- 	<bean  -->
+<!-- 		id="OnCreateDelay"  -->
+<!-- 		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration"  -->
+<!-- 		parent="policyRegistration"  -->
+<!-- 		depends-on="bluecourrier-model"> -->
+		
+<!-- 		<property name="policyName"> -->
+<!-- 			<value>{http://www.alfresco.org}onCreateAssociation</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="className"> -->
+<!-- 			<value>{http://www.bluedolmen.org/bluecourrier/1.0}document</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="associationType"> -->
+<!-- 			<value>{http://www.bluedolmen.org/bluecourrier/1.0}delay</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="behaviour"> -->
+<!-- 			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour"> -->
+<!-- 				<property name="location"> -->
+<!-- 					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation"> -->
+<!-- 						<constructor-arg> -->
+<!-- 							<value>${config.target.path}/scripts/policies/onUpdateDelay.js</value> -->
+<!-- 						</constructor-arg> -->
+<!-- 					</bean> -->
+<!-- 				</property> -->
+<!-- 				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+		
+<!-- 	</bean> -->
+
+<!-- 	<bean  -->
+<!-- 		id="OnUpdateDelay"  -->
+<!-- 		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration"  -->
+<!-- 		parent="policyRegistration"  -->
+<!-- 		depends-on="bluecourrier-model"> -->
+		
+<!-- 		<property name="policyName"> -->
+<!-- 			<value>{http://www.alfresco.org}onDeleteAssociation</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="className"> -->
+<!-- 			<value>{http://www.bluedolmen.org/bluecourrier/1.0}document</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="associationType"> -->
+<!-- 			<value>{http://www.bluedolmen.org/bluecourrier/1.0}delay</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="behaviour"> -->
+<!-- 			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour"> -->
+<!-- 				<property name="location"> -->
+<!-- 					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation"> -->
+<!-- 						<constructor-arg> -->
+<!-- 							<value>${config.target.path}/scripts/policies/onUpdateDelay.js</value> -->
+<!-- 						</constructor-arg> -->
+<!-- 					</bean> -->
+<!-- 				</property> -->
+<!-- 				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+		
+<!-- 	</bean> -->
+	
+
+	<bean 
+		id="onUpdatePrivacyLevel" 
+		class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onUpdateProperties</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}privacy</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.bluedolmen.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onUpdatePrivacy.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="runAs" value="admin" />
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+
+
+	<bean 
+		id="OnCreateAssignable" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration"
+		depends-on="bluecourrier-model">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}assignable</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}assignedAuthority</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onCreateAssignable.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		
+	</bean>
+
+	<bean 
+		id="OnDeleteAssignable" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration"
+		depends-on="bluecourrier-model">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onDeleteAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}assignable</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}assignedAuthority</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onDeleteAssignable.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		
+	</bean>
+	
+    <!-- CONTROL OF DOCUMENT MOVING -->
+	
+	<bean 
+		id="OnMoveDocument" 
+		class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onMoveNode</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}document</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.bluedolmen.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onMoveDocument.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	<!-- 
+	  -
+	  - DIRECTORY
+	  - 
+	  -->
+	
+	<bean 
+		id="onAssociateOrganization" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}sender</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}senderOrganizationEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onAssociateOrganization.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+					
+	<bean 
+		id="onAssociateInstructor" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}sender</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}senderInstructorPersonEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onAssociateInstructor.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+
+	<bean 
+		id="onAssociateSignator" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}sender</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}senderSignatorPersonEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onAssociateSignator.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	<bean 
+		id="onAssociateRecipient" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}recipient</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}recipientPersonEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onAssociateRecipient.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	<bean 
+		id="onAssociateRecipientOrganization" 
+		class="org.alfresco.repo.policy.registration.AssociationPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateAssociation</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}recipient</value>
+		</property>
+		
+		<property name="associationType">
+			<value>{http://www.bluedolmen.org/bluecourrier/1.0}recipientOrganizationEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onAssociateRecipientOrganization.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+
+	<bean 
+		id="onUpdateOrganizationEntry" 
+		class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onUpdateProperties</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/directory/1.0}organizationEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.bluedolmen.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onUpdateOrganizationEntry.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+
+	<bean 
+		id="onUpdatePersonEntry" 
+		class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" 
+		parent="policyRegistration">
+		
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onUpdateProperties</value>
+		</property>
+		
+		<property name="className">
+			<value>{http://www.bluedolmen.org/directory/1.0}personEntry</value>
+		</property>
+		
+		<property name="behaviour">
+			<bean class="org.bluedolmen.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>${config.target.path}/scripts/policies/onUpdatePersonEntry.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+				<property name="notificationFrequency" value="TRANSACTION_COMMIT"/>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	
+	<!-- COPIED_FROM -->
+	
+    <bean id="copiedFromPolicy" class="org.bluedolmen.alfresco.yamma.CopiedFromPolicy" init-method="init">
+    
+        <property name="policyComponent">
+            <ref bean="policyComponent"/>
+        </property>
+        
+    </bean>
+	
+	<!-- GLOBAL BEHAVIOUR FOR A DOCUMENT NODE -->
+
+    <bean id="documentNodePolicy" class="org.bluedolmen.alfresco.yamma.DocumentBehaviour" init-method="init">
+        <property name="policyComponent" ref="policyComponent" />
+        <property name="serviceRegistry" ref="ServiceRegistry" />
+    </bean>
+	
+</beans>

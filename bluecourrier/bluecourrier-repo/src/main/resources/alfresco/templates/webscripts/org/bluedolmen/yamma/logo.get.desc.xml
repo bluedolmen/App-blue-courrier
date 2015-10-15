@@ -1,0 +1,12 @@
+<webscript>
+	<shortname>Get the BlueCourrier (customized) logo</shortname>
+	<description>Get the BlueCourrier (customized) logo</description>
+	<family>YaMma</family>
+	
+	<url>/bluedolmen/yamma/logo</url>
+	<url>/bluedolmen/yamma/logo.png</url>
+	<format default="">argument</format>
+	<authentication>none</authentication>
+	<transaction>required</transaction>
+	
+</webscript>

@@ -1,0 +1,29 @@
+<webscript>
+	<shortname>Merge a set of provided nodeRef as a single PDF file</shortname>
+	<description>Merge a set of provided nodeRef as a single PDF file, including potential cover and attachments</description>
+	<family>YaMma</family>
+	
+	<args>
+		<arg>
+			<shortname>nodeRefs</shortname>
+			<description>A comma-separated list of nodeRefs of the source documents</description>
+		</arg>
+		<arg>
+			<shortname>doubleSided</shortname>
+			<description>Whether the document will be printed double-sided or not</description>
+		</arg>
+		<arg>
+			<shortname>cover</shortname>
+			<description>Whether the document will include a cover or not</description>
+		</arg>
+		<arg>
+			<shortname>attachments</shortname>
+			<description>Whether the document will include the attachments or not</description>
+		</arg>
+	</args>
+	
+	<url>/bluedolmen/yamma/print-to-pdf</url>
+	<format default="html">argument</format>
+	<authentication>user</authentication>
+	
+</webscript>

@@ -1,0 +1,18 @@
+<webscript>
+	<shortname>Get the (java)script content</shortname>
+	<description><![CDATA[
+		  Get the (java)script content<br/> 
+		  arguments<br/>
+		  <ul>
+		  <li>script: the script location</li>
+		  </ul>
+	]]>
+	</description>
+	<family>bluedolmen</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/utils/script-content</url>
+	<format default="json">argument</format>
+	<authentication>admin</authentication>
+</webscript>

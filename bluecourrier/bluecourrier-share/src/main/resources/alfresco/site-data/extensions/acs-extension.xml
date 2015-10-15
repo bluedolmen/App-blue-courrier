@@ -1,0 +1,21 @@
+<extension>
+	<modules>
+		<module>
+			<id>BlueDolmen ACS Extension</id>
+			<auto-deploy>false</auto-deploy>
+
+			<customizations>
+				<customization>
+					<targetPackageRoot>org.alfresco</targetPackageRoot>
+					<sourcePackageRoot>org.bluedolmen.acs</sourcePackageRoot>
+				</customization>
+				<customization>
+					<targetPackageRoot>org.bluedolmen.alfresco.extjs.yamma</targetPackageRoot>
+					<sourcePackageRoot>org.bluedolmen.acs</sourcePackageRoot>
+				</customization>
+			</customizations>
+
+		</module>
+
+	</modules>
+</extension>

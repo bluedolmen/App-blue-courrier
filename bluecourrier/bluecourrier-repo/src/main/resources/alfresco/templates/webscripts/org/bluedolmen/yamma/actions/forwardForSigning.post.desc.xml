@@ -1,0 +1,10 @@
+<webscript>
+	<shortname>Forward a reply of a given document/mail for signing</shortname>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/forward-for-signing</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

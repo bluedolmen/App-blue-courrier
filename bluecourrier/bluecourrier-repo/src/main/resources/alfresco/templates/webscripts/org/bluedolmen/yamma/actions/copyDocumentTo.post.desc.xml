@@ -1,0 +1,17 @@
+<webscript>
+	<shortname>Copy (or move) the document to the destination by specializing its type</shortname>
+	<description>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	<ul>
+		<li>nodeRef: the nodeRef of the source document</li>
+		<li>destination: the nodeRef of the destination document (primary parent)</li>
+		<li>move: true/false, whether to copy or move the document</li>
+		<li>typeShort: the new type of the copied document</li>
+	</ul>
+	</arguments>
+	<url>/bluedolmen/yamma/copy-to</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

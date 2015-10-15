@@ -1,0 +1,7 @@
+<webscript>
+  <shortname>Digital Signing Component</shortname>
+  <description>Get the Digital Signing Component definition</description>
+  <url>/components/bluedolmen/ds</url>
+  <format default="html">argument</format>
+  <family>BlueDolmen</family>
+</webscript>

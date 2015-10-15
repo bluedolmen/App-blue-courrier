@@ -1,0 +1,14 @@
+<webscript>
+
+	<shortname>Get the Application Configuration</shortname>
+	<description><![CDATA[
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	</arguments>
+	<url>/bluedolmen/app-config/{appName}/{pathToResource}</url>
+	<format default="json">argument</format>
+	<authentication>user</authentication>
+	
+</webscript>

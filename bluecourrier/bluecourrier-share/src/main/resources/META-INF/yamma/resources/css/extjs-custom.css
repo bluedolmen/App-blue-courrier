@@ -1,0 +1,455 @@
+/**************************************************************************
+ * LOADING PAGE
+ **************************************************************************/
+
+#loading div.applogo {
+	width: 500px;
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
+}
+
+#loading img.applogo {
+	height: 128px;
+	display:  block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#loading #loading-indicator {
+	background: url(../images/loading-indicator-40.gif) no-repeat;
+	float : right;
+	height: 40px;
+	width : 40px;
+	margin-top: 5px;
+}
+
+#loading .loading-text {
+	padding-left : 200px;
+	display : none;
+}
+
+#loading #logo-bluexml {
+	float : left;
+}
+
+/**************************************************************************
+ * ABOUT PAGE
+ **************************************************************************/
+
+.about-dialog .image {
+	float : left;
+}
+
+.about-dialog .version {
+	float : right;
+	text-align : right;
+	color : #04468c;
+}
+
+.about-dialog .version .main {
+	font-weight : bold;
+	font-size : 150%;
+}
+
+.about-dialog .version .revision {
+	font-style : italic;
+	font-size : 120%;
+}
+
+.about-dialog .application-name {
+	clear : both;
+	font-weight : bold;
+	color : #04468c;
+	font-size : 150%;
+	margin : 5px 5px 10px 0px;
+}
+
+.about-dialog .description {
+	font-style : italic;
+}
+
+
+/**************************************************************************
+ * MAILS VIEW
+ **************************************************************************/
+
+.x-grid-cell div .document-assigned div {
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-left: 18px;
+	padding-top: 5px;
+}
+
+.x-grid-cell div .service div {
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-left: 18px;
+	padding-top: 5px;
+}
+
+.x-grid-cell div .service {
+	position : relative;
+}
+
+.x-grid-cell div .assigned-service {
+	background-image: url(../icons/group_go.png) !important;
+}
+
+.x-grid-cell div .assigned-service.with-validation {
+	background-image: url(../icons/group_go_accept.png) !important;
+	color: gray;
+}
+
+.x-grid-cell div .enclosing-service {
+	background-image: url(../icons/group_location.png) !important;
+}
+
+.x-grid-cell div .enclosing-service.with-validation {
+	background-image: url(../icons/group_accept.png) !important;
+}
+
+.x-grid-cell div .copy-services {
+	background-image: url(../icons/group_add.png) !important;
+}
+
+.x-grid-cell div .assigned-authority {
+	font-style : italic;
+	background-image: url(../icons/user.png) !important;
+}
+
+.x-grid-cell div .object {
+	padding-top: 5px;
+	font-weight:bold;
+}
+
+.x-grid-cell .document-subject .name {
+	font-style : italic;
+	color: #a6a6a6;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-left: 18px;
+	padding-top: 5px;
+}
+
+.x-grid-cell .document-subject .privacy-extra-cls {
+	background-repeat: no-repeat; 
+	background-position: left center;
+	float : left;
+	position : relative;
+	left : -10px;
+	top : -10px;
+	height : 16px;
+	width : 16px;
+}
+
+.x-grid-cell .x-grid-checkheader {
+	line-height: 16px; 
+	background-image: url(../icons/checkbox_unchecked.png);
+}
+
+.x-grid-cell .x-grid-checkheader {
+	line-height: 16px; 
+	background-image: url(../icons/checkbox_unchecked.png);
+}
+
+/*
+.x-grid-cell .x-grid-dirty-cell {
+	background-image : none;
+}
+*/
+
+.x-grid-cell .x-grid-checkheader-checked {
+	background-image: url(../icons/checkbox.png) !important;
+}
+
+.row-mail-late .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+.row-mail-vip .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+.x-grid-cell .mail-priority {
+	background-repeat: no-repeat; 
+	height : 16px;
+}
+
+.x-grid-cell .mail-priority-important {
+	background-image: url(../icons/flag_orange.png) !important;
+}
+
+.x-grid-cell .mail-priority-normal {
+	background-image: url(../icons/flag_green.png) !important;
+}
+
+.x-grid-cell div .document-dates div{
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-top: 5px;
+}
+
+.x-grid-cell div .late {
+	font-weight: bold;
+	color: #900;
+	background-image: url(../icons/clock_red.png) !important;
+}
+
+.x-grid-cell div .hurry {
+	font-style : italic;
+	background-image: url(../icons/clock_error.png) !important;
+}
+
+.x-grid-cell div .onTime {
+	background-image: url(../icons/clock.png) !important;
+}
+
+.x-grid-cell div .deliveryDate {
+	background-image: url(../icons/date_in.png) !important;
+}
+
+.x-grid-cell div .writingDate {
+	background-image: url(../icons/date_edit.png) !important;
+}
+
+.icon-mail-error-large {
+    background-repeat: no-repeat; 
+    background-position: center center;
+    background-image: url(../icons/mail-error-large.png) !important;
+}
+
+/**************************************************************************
+ * DROP ZONE
+ *************************************************************************
+ 
+.drop-zone {
+	border: 2px dashed #BBB;
+	border-radius: 6px;
+	text-align: center;
+	font: 18pt bold;
+	font-family: Tahoma, Geneva, sans-serif;
+	color: #BBB;
+	margin: 1px;
+}
+
+.drop-zone-active {
+	background-repeat: no-repeat; 
+	background-image: url(../icons/email_upload.png) !important;
+	background-position: center center;
+}
+
+.drop-zone-inactive {
+	background-repeat: no-repeat; 
+	background-image: url(../icons/email_upload_nb.png) !important;
+	background-position: center center;
+}
+*/
+
+
+
+/**************************************************************************
+ * COMMENTS VIEW
+ **************************************************************************/
+
+.comments .author {
+	padding-bottom : 5px;
+	color : #15498B;
+}
+
+.comments .published {
+	font-style : italic; 
+	display : block; 
+	float : right; 
+	padding-top : 5px;
+}
+
+.comments .restricted {
+	color : #15498B;
+	font-style : italic; 
+	display : block; 
+	float : right; 
+	padding-top : 5px;
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	background-image: url(../icons/lock.png) !important;
+}
+
+
+/**************************************************************************
+ * HISTORY VIEW
+ **************************************************************************/
+
+.history .history-actor div{
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-top: 5px;
+}
+
+.history .history-actor .referrer {
+	background-image: url(../icons/user_suit.png) !important;
+}
+
+.history .history-actor .delegate {
+	background-image: url(../icons/user_go.png) !important;
+}
+
+.history .header {
+	font-style : italic; 
+	padding-bottom : 5px;
+}
+
+.history .author {
+	padding-top : 5px;
+	color : #15498B;
+	display : block; 
+	float : right;
+
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	background-image: url(../icons/user_suit.png) !important;
+}
+
+
+/**************************************************************************
+ * DISABLED NODES
+ **************************************************************************/
+.dvp-tree-node-disabled .x-grid-cell {
+    -moz-opacity: 0.5;
+   opacity:.5;
+   filter: alpha(opacity=50);
+}
+
+/**************************************************************************
+ * ASSIGN VIEW
+ **************************************************************************/
+
+.row-assigned .x-grid-cell {
+	background-color: #ffe2e2;
+}
+
+/**************************************************************************
+ * VALIDATION VIEW
+ **************************************************************************/
+
+.current-validator {
+	color : #04468c;
+	font-weight : bold!important;
+}
+
+
+/**************************************************************************
+ * DISTRIBUTION DIALOG
+ **************************************************************************/
+
+.target-service .x-grid-cell {
+	background-color: #ffe2e2;
+	font-weight:bold;
+}
+
+.current-service .x-grid-cell {
+	background-color: #d4ffd4;
+	font-weight:bold;
+}
+
+.shares-grid .role-cell {
+	padding-left: 16px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+}
+
+.ongoing-delivery .x-grid-cell {
+	background-color: #fffdc4!important;
+}
+ 
+.status-ongoing .x-grid-cell {
+	background-color: #d4ffd4!important;
+}
+
+.status-done .x-grid-cell {
+	background-color: #eeeeee!important;
+}
+
+.status-assigned .x-grid-cell {
+	background-color: #fffdc4!important;
+}
+
+.status-unmodifiable {
+	color: #eeeeee!important;
+	cursor: not-allowed!important;
+}
+
+/**************************************************************************
+ * SIGNATURE DIALOG
+ **************************************************************************/
+
+.signature .image {
+	float : right;
+}
+
+.signature .image img {
+	height : 100px;
+	border : 1px dotted gray;
+}
+
+.signature .subject {
+	font-weight : bold;
+	padding-bottom : 5px;
+	padding-top : 10px;
+	padding-left : 5px;
+	border-left : 3px solid #04468c; 
+}
+
+.signature .subject .field {
+	color : #04468c;
+	padding-right : 2px;
+}
+
+.signature .alias {
+	font-weight : bold;
+	text-align : right;
+	color : #04468c;
+	font-size : 150%;
+}
+
+.signature .validity {
+	font-style : italic;
+	margin-top : 5px;
+	color : #04468c;
+	padding-top: 5px;
+}
+
+.signature .validity .first {
+	background-image: url(../icons/date_next.png) !important;
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+	padding-right : 10px;
+}
+
+.signature .validity .last {
+	background-image: url(../icons/date_previous.png) !important;
+	padding-left: 18px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+}
+
+.signature .type {
+	font-style : italic;
+	padding : 5px;
+}
+
+/**************************************************************************
+ * GENERIC
+ **************************************************************************/
+
+.icon-and-label {
+	padding-left: 16px !important;
+	min-height: 16px;
+	background-repeat: no-repeat; 
+	background-position: left center;
+}
+

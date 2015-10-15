@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- ACS -->
+<component>
+   <scope>page</scope>
+   <source-id>yamma</source-id>
+   <region-id>acs</region-id>
+   <uri>/components/bluedolmen/yamma/acs</uri>
+</component>

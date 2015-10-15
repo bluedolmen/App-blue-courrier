@@ -1,0 +1,1 @@
+///<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/comments/comments.get.js">

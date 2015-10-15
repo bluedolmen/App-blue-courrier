@@ -1,0 +1,12 @@
+<webscript>
+	<shortname>Mark the document as sent (using any system external method)</shortname>
+	<description>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/mark-as-sent</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

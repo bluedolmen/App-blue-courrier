@@ -1,0 +1,14 @@
+<webscript>
+  <shortname>YaECMA Datasources Definitions</shortname>
+  <description><![CDATA[
+  	Get a datasource definition as a json-dataflow. 
+  	<ul>
+  		<li><b>datasourceId</b> : defines the idenitifer of the requested view</li>
+  	</ul>
+  ]]>
+  </description>
+  <url>/bluedolmen/yaecma/datasource/{datasourceId}/definition</url>
+  <format default="json">argument</format>
+  <authentication>none</authentication>
+  <family>YaECMA</family>
+</webscript>

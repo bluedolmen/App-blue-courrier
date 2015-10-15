@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://activiti.org/bpmn20" id="incoming-document">
+
+  <process id="incomingDocument" name="BlueCourrier Incoming Document Process" isExecutable="true">
+  
+    <extensionElements>
+      <activiti:executionListener event="end" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string><![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-end.js">]]></activiti:string>
+          </activiti:field>
+      </activiti:executionListener>
+    </extensionElements>
+    
+    
+    
+    
+    <startEvent id="startIncoming" name="Start Incoming Document Process" activiti:formKey="bcinwf:startIncoming">
+    </startEvent>
+    
+    <sequenceFlow id="toStartIncomingDecision" sourceRef="startIncoming" targetRef="startIncomingDecision" >
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-start-incoming.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements> 
+    </sequenceFlow>
+    
+    <exclusiveGateway id="startIncomingDecision" name="Start Incoming Decision">
+    </exclusiveGateway>
+    
+    <sequenceFlow id="startModeWaiting" sourceRef="startIncomingDecision" targetRef="waitingForNewServices" >
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_startingMode == 'waiting'}]]>
+      </conditionExpression>    
+    </sequenceFlow>
+
+    <sequenceFlow id="startModeDelivering" sourceRef="startIncomingDecision" targetRef="startJoin" >
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_startingMode == 'delivering'}]]>
+      </conditionExpression>    
+    </sequenceFlow>
+    
+    <sequenceFlow id="toPending" sourceRef="startIncomingDecision" targetRef="pendingTask">
+    </sequenceFlow>
+    
+    
+
+
+    <userTask id="pendingTask" name="Pending" activiti:formKey="bcinwf:pendingTask">
+    
+      <documentation id="pendingDoc">This step is a preliminary step which allows some actors to preset the future delivered services</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-pending-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/assign-to-service-assistants.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-pending-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+      </extensionElements>
+      
+    </userTask>
+    
+    <sequenceFlow id="toPendingDecision" sourceRef="pendingTask" targetRef="pendingDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="pendingDecision" name="Pending Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="cancel" name="Cancel" sourceRef="pendingDecision" targetRef="cancelled">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_pendingOutcome == 'Cancel'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="toStart" name="Start" sourceRef="pendingDecision" targetRef="startJoin">
+    </sequenceFlow>
+    
+    <endEvent id="cancelled" name="Cancelled"></endEvent>
+    
+    
+    
+    <exclusiveGateway id="startJoin" name="Prepare Step Exclusive Join"></exclusiveGateway>
+    
+    <sequenceFlow sourceRef="startJoin" targetRef="forkInput"></sequenceFlow>
+    
+    <inclusiveGateway id="forkInput" name="Fork Input"></inclusiveGateway>
+    
+    <sequenceFlow id="toWaiting" sourceRef="forkInput" targetRef="waitingForNewServices">
+    </sequenceFlow>
+    
+    <sequenceFlow id="toPrepareDelivering" sourceRef="forkInput" targetRef="prepareDelivering">
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-new-incoming-process.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements> 
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${!empty serviceAndRole}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+
+
+
+
+	<!--(bpa 20150814) 
+		This is actually a no-way-out state, since there is no way to go out 
+		from this state without coming back (see inclusive gate hereafter). We may 
+		include a boundary event to this task or an output to the inclusive gateway 
+		(also tried with en intermediate catching event), but it seems like Activiti 
+		(as part of the version in Alfresco 4.2.x) does not behave properly while 
+		ending the concurrent branch normally (does not trigger a signal to continue 
+		on the parent level). The hack made here is to cancel the workflow when no 
+		user-task is still ongoing.
+		
+		Regarding the Activiti patterns, a way to achieve a correct behaviour would
+		use subproccesses with intermediate catching events. Unfortunately, we ended
+		here with this (waiting-state) pattern because of the limitations in the
+		integration of Activiti subprocesses in the Alfresco API (and internals). 
+	-->    
+	<receiveTask id="waitingForNewServices" name="Wait for new Services">
+	</receiveTask>
+
+    <sequenceFlow id="toNewServicesGW" sourceRef="waitingForNewServices" targetRef="waitingForNewServicesGW"></sequenceFlow>
+    
+    <inclusiveGateway id="waitingForNewServicesGW" name="Wait for new Services GW"></inclusiveGateway>
+        
+    <sequenceFlow id="backTowaitingForNewServices" sourceRef="waitingForNewServicesGW" targetRef="waitingForNewServices">
+    </sequenceFlow>
+    
+    <sequenceFlow id="toDelivering" sourceRef="waitingForNewServicesGW" targetRef="prepareDelivering">
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-new-delivering.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements> 
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${!empty serviceAndRole}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    
+
+    
+	<exclusiveGateway id="prepareDelivering" name="Prepare Delivering"></exclusiveGateway>
+	
+	<sequenceFlow sourceRef="prepareDelivering" targetRef="deliveringTask" >
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-prepare-delivering.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements> 
+	</sequenceFlow>    
+    
+    <userTask id="deliveringTask" name="Delivering" activiti:formKey="bcinwf:deliveringTask">
+    
+      <documentation id="deliveringDoc">This step is the core of the delivery process, enabling the user to provide additional services/roles or assign a person to the core treatment</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-delivering-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+        	<activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+			<activiti:field name="script">
+				<activiti:string>
+				<![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/perform-delivery.js">]]>
+				</activiti:string>
+			</activiti:field>
+        </activiti:taskListener>
+			
+        <!-- Assignment has to be made after on-delivering to provide additional context-variables (slightly more efficient) -->
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/assign-to-service-assistants.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-delivering-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+      </extensionElements>
+    </userTask>
+    
+    <sequenceFlow id="toDeliveringDecision" sourceRef="deliveringTask" targetRef="deliveringDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="deliveringDecision" name="Delivering Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="toValidate" name="Validate" sourceRef="deliveringDecision" targetRef="validatingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_deliveringOutcome == 'Deliver' && bcinwf_validateDelivering == true}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="toDeliveringTask" name="Deliver" sourceRef="deliveringDecision" targetRef="preparePerformDelivery">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_deliveringOutcome == 'Deliver' && bcinwf_validateDelivering == false}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="toProcessingTask" name="Process" sourceRef="deliveringDecision" targetRef="processingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_deliveringOutcome == 'Assign' && ( serviceRole == 'procg' || serviceRole == 'col' ) }]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="toProcessedFromDelivering" name="Done" sourceRef="deliveringDecision" targetRef="checkEnd">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_deliveringOutcome == 'Done'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+
+
+
+
+    <userTask id="validatingTask" name="Validating" activiti:formKey="bcinwf:validatingTask">
+    
+      <documentation id="validatingDoc">This step enables a supervisor to validate choices made by an assistant on a delivering step</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-validating-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/assign-to-service-managers.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-validating-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+      </extensionElements>
+    </userTask>
+    
+    <sequenceFlow id="toValidatingDecision" sourceRef="validatingTask" targetRef="validatingDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="validatingDecision" name="Validating Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="acceptDelivering" name="Accept Delivering" sourceRef="validatingDecision" targetRef="preparePerformDelivery">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bcinwf_validatingOutcome == 'Accept'}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="refuseDelivering" name="Refuse Delivering" sourceRef="validatingDecision" targetRef="deliveringTask">
+    </sequenceFlow>
+    
+    
+    
+    <exclusiveGateway id="preparePerformDelivery" name="Prepare Delivery Performing"></exclusiveGateway>
+    
+    <sequenceFlow sourceRef="preparePerformDelivery" targetRef="performDelivery" >
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-prepare-actual-delivery.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements> 
+    </sequenceFlow>
+
+	<serviceTask id="performDelivery" name="Perform Actual Delivery" activiti:class="org.alfresco.repo.workflow.activiti.script.AlfrescoScriptDelegate">
+		
+		<extensionElements>
+
+			<activiti:field name="script">
+				<activiti:string>
+					<![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-perform-delivery-start.js">]]>
+				</activiti:string>
+			</activiti:field>
+		
+		</extensionElements>
+		
+	</serviceTask>
+
+	<sequenceFlow id="toForEach" sourceRef="performDelivery" targetRef="forEachService" ></sequenceFlow>
+
+	<serviceTask id="forEachService" name="Perform Actual Delivery" activiti:class="org.bluedolmen.alfresco.yamma.wf.PerformDeliveryDelegate">
+	
+		<multiInstanceLoopCharacteristics
+			id="performDeliveryMLC"
+			isSequential="false" activiti:collection="${serviceAndRoles}"
+			activiti:elementVariable="serviceAndRole">
+		</multiInstanceLoopCharacteristics>
+		
+	</serviceTask>
+
+    <sequenceFlow id="deliveryPerformed" name="Delivery Performed" sourceRef="forEachService" targetRef="delivered">
+    </sequenceFlow>
+    
+    <endEvent id="delivered" name="Delivered"></endEvent>
+
+    
+    
+    
+    <userTask id="processingTask" name="Processing incoming document" activiti:formKey="bcinwf:processingTask">
+    
+      <documentation id="processingDocumentation">This step enables an actor to process the incoming document and potentially provide a reply</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-processing-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/assign-to-service-instructor.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+
+        <activiti:taskListener event="assignment" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+		  <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-instructor-assignment.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-processing-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+	  </extensionElements>      
+      
+    </userTask>
+    
+    <sequenceFlow id="toProcessingDecision" sourceRef="processingTask" targetRef="processingDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="processingDecision" name="Processing Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="refuseProcessing" name="Refuse Processing" sourceRef="processingDecision" targetRef="deliveringTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_processingOutcome == 'Refuse'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="processingDone" name="Processing Done" sourceRef="processingDecision" targetRef="checkEnd">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_processingOutcome == 'Done'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="addReply" name="Add Reply" sourceRef="processingDecision" targetRef="processingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcinwf_processingOutcome == 'Add Reply'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+        
+    
+    
+    
+	<exclusiveGateway id="checkEnd" name="Check End">
+	</exclusiveGateway>
+	
+    <sequenceFlow id="toEndProcessedForProcessingRole" sourceRef="checkEnd" targetRef="doneProcessing" >
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${serviceRole == 'procg'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow sourceRef="checkEnd" targetRef="prepareEnd" ></sequenceFlow>
+    
+	<serviceTask id="doneProcessing" name="Finalize the processing" activiti:class="org.alfresco.repo.workflow.activiti.script.AlfrescoScriptDelegate">
+		<extensionElements>
+			<activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+			<activiti:field name="script">
+				<activiti:string>
+					<![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-processing-done.js">]]>
+				</activiti:string>
+			</activiti:field>
+		</extensionElements>
+	</serviceTask>
+	
+	<sequenceFlow sourceRef="doneProcessing" targetRef="prepareEnd" ></sequenceFlow>
+	
+	<exclusiveGateway id="prepareEnd"></exclusiveGateway>
+    
+	<sequenceFlow id="toEndProcessed" sourceRef="prepareEnd" targetRef="endProcessed" >
+		<extensionElements>
+			<activiti:executionListener event="take" class="org.bluedolmen.alfresco.yamma.wf.IncomingWorkflowScriptExecutionListener">
+				<activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+				<activiti:field name="script">
+				<activiti:string>
+	            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/on-end-processed.js">]]>
+	            </activiti:string>
+				</activiti:field>
+			</activiti:executionListener>
+			<activiti:executionListener event="take" class="org.bluedolmen.alfresco.yamma.wf.IncomingWorkflowScriptExecutionListener">
+				<activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+				<activiti:field name="script">
+				<activiti:string>
+	            <![CDATA[<import resource="classpath:${config.target.path}/scripts/incoming/stop-workflow-if-end.js">]]>
+	            </activiti:string>
+				</activiti:field>
+			</activiti:executionListener>
+		</extensionElements>
+	</sequenceFlow>
+	
+	
+
+
+    
+    <endEvent id="endProcessed" name="Processed">
+    </endEvent>
+
+  </process>
+</definitions>

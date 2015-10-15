@@ -1,0 +1,11 @@
+<webscript>
+  <shortname>BlueCourrier User Tasks</shortname>
+  <description><![CDATA[
+  	List the authenticated user tasks
+  ]]>
+  </description>
+  <url>/bluedolmen/yamma/tasks/count</url>
+  <format default="json">argument</format>
+  <authentication>user</authentication>
+  <family>YaMma</family>
+</webscript>

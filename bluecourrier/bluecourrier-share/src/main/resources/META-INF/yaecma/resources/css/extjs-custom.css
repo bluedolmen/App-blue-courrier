@@ -1,0 +1,62 @@
+
+/**************************************************************************
+ * LOADING PAGE
+ **************************************************************************/
+
+#loading #logo-application {
+	background: url(../images/logo-yaecma.png) no-repeat;
+	background-position: center center;
+	height: 128px;
+	display:  block;
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
+}
+
+#loading #loading-indicator {
+	background: url(../images/loading-indicator-40.gif) no-repeat;
+	float : right;
+	height: 40px;
+	width : 40px;
+	margin-top: 5px;
+}
+
+#loading .loading-text {
+	padding-left : 200px;
+	display : none;
+}
+
+#loading #logo-bluexml {
+	float : left;
+}
+
+/**************************************************************************
+ * DOCUMENTS VIEW
+ **************************************************************************/
+
+.x-grid-cell .document-description div {
+	padding-top : 2px;
+	padding-bottom : 2px;
+}
+
+.x-grid-cell .document-description .header .name {
+	color : #4f94c9;
+	font-size : 140%;
+	font-weight: normal;
+}
+
+.x-grid-cell .document-description .header .title {
+	font-size : 120%;
+	font-weight: normal;
+}
+
+.x-grid-cell .document-description .header .version {
+	color : #b00;
+	font-style : italic;
+	padding-left : 10px;
+}
+
+.x-grid-cell .document-description .no-description {
+	color : #aaaaaa;
+}
+
+

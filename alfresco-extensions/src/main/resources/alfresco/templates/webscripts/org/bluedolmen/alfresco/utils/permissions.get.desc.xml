@@ -1,0 +1,18 @@
+<webscript>
+	<shortname>Get the permissions of the provided node</shortname>
+	<description><![CDATA[
+		  Get the permissions of the provided node
+		  arguments<br/>
+		  <ul>
+		  <li>nodeRef: the node from which to retrieve the permissions</li>
+		  </ul>		  
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/utils/permissions</url>
+	<format default="json">argument</format>
+	<authentication>user</authentication>
+</webscript>

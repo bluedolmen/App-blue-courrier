@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<alfresco-config>
+
+	<config>
+		
+		<actions>
+			
+			<action id="distribute">
+				<label-id>distribute</label-id>
+				<image>/images/icons/distribute.png</image>
+				<evaluator>org.alfresco.web.action.evaluator.StartWorkflowEvaluator</evaluator>
+				<action>wizard:startWorkflow</action>
+				<action-listener>#{WizardManager.setupParameters}</action-listener>
+				<params>
+					<param name="item-to-workflow">#{actionContext.id}</param>
+				</params>
+			</action>
+         
+			<action-group id="read_yamma_package_item_actions">
+				<action idref="edit_file"/>
+				<action idref="update_file" />
+				<action idref="workflow_preview_file" />
+				<action idref="workflow_file_details" />
+				<action idref="workflow_edit_content_properties" />
+				<action idref="remove_package_item" />
+				<action idref="delete_file" />
+				<action idref="workflow_revert" />
+			</action-group>
+         
+		</actions>
+		
+	</config>
+
+</alfresco-config>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model name="dgt:delegatemodel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<description>Delegate Model</description>
+	<author>BlueDolmen</author>
+	<version>1.0</version>
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<!-- Import Alfresco System Definitions -->
+		<import uri="http://www.alfresco.org/model/system/1.0" prefix="sys" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<namespaces>
+		<namespace uri="http://www.bluedolmen.org/model/delegate/1.0" prefix="dgt" />
+	</namespaces>
+
+	<constraints>
+
+        
+	</constraints>
+
+	<types>
+
+		<type name="dgt:delegate">
+			<title>Delegate Definition</title>
+			<parent>sys:base</parent>
+			<archive>false</archive>
+			
+			<properties>
+				<property name="dgt:fromDate">
+					<type>d:date</type>
+				</property>
+				<property name="dgt:defaultAssignee">
+					<type>d:boolean</type>
+				</property>
+			</properties>
+			
+			<associations>
+				<association name="dgt:authority">
+					<source>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</source>
+					<target>
+						<class>cm:authority</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</target>
+				</association>
+			</associations>
+		</type>      
+
+	</types>
+
+	<aspects>
+            
+		<aspect name="dgt:delegating">
+			<associations>
+
+				<child-association name="dgt:delegates">
+					<source>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</source>
+					<target>
+						<class>dgt:delegate</class>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</target>
+					<duplicate>false</duplicate>
+					<propagateTimestamps>false</propagateTimestamps>
+				</child-association>
+
+			</associations>
+		</aspect>
+    
+
+	</aspects>
+</model>

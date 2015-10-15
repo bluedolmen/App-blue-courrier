@@ -1,0 +1,16 @@
+<webscript>
+	<shortname>Reassign a given task to another user</shortname>
+	<description>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	<ul>
+		<li>taskId : the id of the task</li>
+		<li>userName : the user-name of the new assigned user</li>
+	</ul>
+	</arguments>
+	<url>/bluedolmen/workflows/assign/{taskId}</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+	
+</webscript>

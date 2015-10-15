@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>yaecma</id>
+   <title>YaECMA</title>
+   <title-id>page.yaecma.title</title-id>
+   <description>BlueECM (aka YaECMA - Yet Another ECM Application)</description>
+   <description-id>page.yaecma.description</description-id>
+   <template-instance>yaecma</template-instance>
+   <authentication>user</authentication>
+</page>

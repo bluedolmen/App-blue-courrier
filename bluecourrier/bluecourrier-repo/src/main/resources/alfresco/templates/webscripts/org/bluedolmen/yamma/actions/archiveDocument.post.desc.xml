@@ -1,0 +1,12 @@
+<webscript>
+	<shortname>Archive the document</shortname>
+	<description>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/archive</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>explorer</id>
+   <title>Document Explorer and Searcher</title>
+   <title-id>page.explorer.title</title-id>
+   <description>Document Explorer and Searcher</description>
+   <description-id>page.explorer.description</description-id>
+   <template-instance>explorer</template-instance>
+   <authentication>user</authentication>
+</page>

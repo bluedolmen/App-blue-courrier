@@ -1,0 +1,24 @@
+<webscript>
+	<shortname>Upload and update the assigned/copy services of an incoming mail</shortname>
+	<description><![CDATA[
+	    <ul>
+	      	<li>filedata : the content to upload</li>
+  			<li>siteid : the short-name of the site the document will be uploaded to</li>
+  			<li>containerid : the id of the site-container the document will be uploaded to</li>
+  			<li>uploaddirectory : the relative path to the container the document will be uploaded to</li>
+	    	<li>targetService: the target service</li>
+	    	<li>copyServices: the copy services as a comma-separated list of short-names</li>
+	    	<li>copyUsers: the copy users as a comma-separated list of user-names</li>
+	    	<li>validateDelivery: true/false to set the validation on delivery</li>
+	    	<li>startDelivery: true/false to start delivery (skip pre-assignation)</li>
+	    </ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/upload-incoming</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

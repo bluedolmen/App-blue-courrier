@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+    <title>extjsedittask</title>
+    <title-id>page.extjsedittask.title</title-id>
+    <description>Gérer une tâche</description>
+    <description-id>page.extjsedittask.description</description-id>
+    <template-instance>extjsedittask</template-instance>
+    <authentication>user</authentication>        
+</page>
+

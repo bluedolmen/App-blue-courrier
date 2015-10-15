@@ -1,0 +1,16 @@
+<webscript>
+
+	<shortname>Check whether the given task is reassignable, and if so get the users who can be reassigned</shortname>
+	<description>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	<ul>
+		<li>taskId : the id of the task</li>
+	</ul>
+	</arguments>
+	<url>/bluedolmen/workflows/assign/{taskId}</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+	
+</webscript>

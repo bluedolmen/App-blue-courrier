@@ -1,0 +1,21 @@
+<webscript>
+	<shortname>Set the provided site as a service</shortname>
+	<description><![CDATA[
+	    Set the provided site as a service
+	    <p>
+	    
+	    <ul>
+	    	<li>siteName: the site shortName</li>
+	    	<li>parentName: the parent service/site shortName</li>
+	    	<li>canSign: [true|false] whether the new service is a signing service</li>
+	    </ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/services/{siteName}</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication> <!-- This is group extra-authenticated -->
+</webscript>

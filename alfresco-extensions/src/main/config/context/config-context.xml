@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+
+<beans>
+
+	<!-- 
+	  - STORING CONFIG
+	  -->
+
+   <bean name="bluedolmen.configSharedCache" factory-bean="cacheFactory" factory-method="createCache">
+      <constructor-arg value="cache.configSharedCache"/>
+   </bean>	
+
+	<bean name="bluedolmen.configCache" class="org.alfresco.repo.cache.TransactionalCache">
+		<property name="sharedCache">
+			<ref bean="bluedolmen.configSharedCache" />
+		</property>
+		<property name="name">
+			<value>org.bluedolmen.alfresco.app.configObjectTransactionCache</value>
+		</property>
+		<property name="maxCacheSize" value="100" />
+		<property name="mutable" value="false" />
+		<property name="disableSharedCache" value="${system.cache.disableImmutableSharedCaches}" />
+	</bean>
+
+	<bean id="bluedolmen.GlobalConfig" class="org.bluedolmen.alfresco.app.GlobalConfig">
+		<property name="dictionaryService" ref="dictionaryService" />
+		<property name="nodeService" ref="nodeService" />
+		<property name="permissionService" ref="permissionService" />
+		<property name="namespacePrefixResolver" ref="namespaceService" />
+		<property name="cache" ref="bluedolmen.configCache" />
+	</bean>
+	
+    <bean id="bluedolmen.ConfigService" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>org.bluedolmen.alfresco.app.ConfigService</value>
+        </property>
+        <property name="target">
+            <ref bean="bluedolmen.configService"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref local="bluedolmen.ConfigService_transaction"/>
+                <idref bean="AuditMethodInterceptor"/>
+                <idref bean="exceptionTranslator"/>
+                <idref local="bluedolmen.ConfigService_security"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="bluedolmen.ConfigService_transaction" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">${server.transaction.mode.default}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="bluedolmen.ConfigService_security" class="org.alfresco.repo.security.permissions.impl.AlwaysProceedMethodInterceptor" />
+    
+    <bean id="bluedolmen.configService" class="org.bluedolmen.alfresco.app.ConfigServiceImpl">
+    </bean>
+		
+	<bean id="bluedolmen.appConfigScript" 
+		class="org.bluedolmen.alfresco.app.AppConfigScript"
+		parent="baseJavaScriptExtension" 
+		abstract="true">
+		<property name="serviceRegistry" ref="ServiceRegistry" />
+		<property name="configService" ref="bluedolmen.ConfigService" />
+	</bean>
+	
+	<bean id="bluedolmen.configProvider" class="org.bluedolmen.alfresco.app.AbstractConfigProvider" abstract="true">
+		<property name="configService" ref="bluedolmen.ConfigService" />
+	</bean>
+	
+	<bean id="bluedolmen.systemConfigProvider" 
+		class="org.bluedolmen.alfresco.app.SystemConfigProvider"
+		parent="bluedolmen.configProvider" 
+		abstract="true">
+		<property name="globalConfig" ref="bluedolmen.GlobalConfig" />
+	</bean>
+	
+	<bean id="bluedolmen.genericSystemConfigProvider" parent="bluedolmen.systemConfigProvider" >
+		<property name="context" value="bluedolmen" />
+	</bean>
+	
+	<bean id="bluedolmen.propertiesConfigProvider" 
+		class="org.bluedolmen.alfresco.app.PropertiesConfigProvider"
+		parent="bluedolmen.configProvider" 
+		abstract="true">
+		<property name="alfrescoResourceFactory" ref="bluedolmen.resources.alfrescoReadableResourceFactory" />
+<!-- 		<property name="alfrescoResourceResolver" ref="XXX" /> -->
+	</bean>
+
+	<bean id="webscript.org.bluedolmen.alfresco.config.app-config.get"
+          class="org.bluedolmen.alfresco.app.ConfigGet"
+	      parent="webscript" >
+		<property name="configService" ref="bluedolmen.ConfigService" />
+	</bean>
+
+	<bean id="webscript.org.bluedolmen.alfresco.config.app-config.post"
+          class="org.bluedolmen.alfresco.app.ConfigPost"
+	      parent="webscript" >
+		<property name="configService" ref="bluedolmen.ConfigService" />
+	</bean>
+
+	<bean id="webscript.org.bluedolmen.alfresco.config.clear-cache.post"
+          class="org.bluedolmen.alfresco.app.ConfigCacheClear"
+	      parent="webscript" >
+		<property name="configService" ref="bluedolmen.ConfigService" />
+	</bean>
+
+	<!-- BEWARE! This webscript provides json based configuration and is not related to the previous material -->
+
+<!-- 	<bean id="webscript.org.bluedolmen.alfresco.config.app-config.get" -->
+<!--           class="org.bluedolmen.alfresco.webscripts.ConfigGet" -->
+<!-- 	      parent="bluedolmen.webscripts.basePathDynResourceGet" > -->
+	      
+<!-- 	    <property name="resourceRepositoryLocations"> -->
+<!-- 	    	<list> -->
+<!-- 	    		<value>app:dictionary/cm:bluedolmen/cm:app_configs</value> -->
+<!-- 	    	</list>  		 -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="delegate"> -->
+<!-- 			<bean parent="bluedolmen.contentStreamer.checked"> -->
+<!-- 				<property name="forcedMimetype" value="application/javascript" /> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="emptyIfMissing" value="true" /> -->
+<!-- 		<property name="cacheMissingResources" value="false" /> -->
+	      
+<!-- 	</bean> -->
+         
+</beans>

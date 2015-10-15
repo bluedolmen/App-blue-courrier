@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>yamma</id>
+   <title>YaMma</title>
+   <title-id>page.yamma.title</title-id>
+   <description>BlueCourrier (aka YaMma)</description>
+   <description-id>page.yamma.description</description-id>
+   <template-instance>yamma</template-instance>
+   <authentication>user</authentication>
+   <components>
+      <component>
+         <region-id>config</region-id>
+         <uri>/components/bluedolmen/config</uri>
+         <properties>
+            <app-name>bluecourrier</app-name>
+            <config-name>client</config-name>
+            <varname>bluecourrierClientConfig</varname>
+         </properties>
+      </component>
+   </components>   
+</page>

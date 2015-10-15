@@ -1,0 +1,4 @@
+{	 
+	"status" : "${actionStatus}",
+	"state" : "${state}"
+}

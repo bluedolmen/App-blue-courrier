@@ -1,0 +1,10 @@
+<webscript>
+  <shortname>Reload Initialization</shortname>
+  <description><![CDATA[
+  	Reload (reset) initialization declarations  
+  ]]>
+  </description>
+  <url>/bluedolmen/init/reload</url>
+  <format default="json">argument</format>  
+  <authentication>admin</authentication>
+</webscript>

@@ -1,0 +1,13 @@
+<webscript>
+
+	<shortname>Clear the cache for the config-service</shortname>
+	<description><![CDATA[
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	</arguments>
+	<url>/bluedolmen/app-config/clear-cache</url>
+	<authentication>admin</authentication>
+	
+</webscript>

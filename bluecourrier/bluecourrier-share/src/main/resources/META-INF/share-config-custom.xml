@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<alfresco-config>
+    <config replace="false" evaluator="string-compare" condition="AdvancedSearch">
+		<advanced-search>
+			<forms>
+
+				<form id="bluecourrier-mail-search" labelId="aspect.bluecourrier_mail"
+					descriptionId="search.form.desc.bluecourrier_mail">cm:content</form>
+			</forms>
+		</advanced-search>
+	</config>
+	
+	<config>
+		<forms>
+			<dependencies>
+				<js src="/js/bluedolmen/forms/controls/dynamic-dropdown-enhanced.js" />
+			</dependencies>
+		</forms>
+	</config>
+
+	<config evaluator="aspect" condition="bluecourrier:mail">
+
+		<forms>
+
+			<form>
+
+				<field-visibility>
+					<show id="bluecourrier:reference" force="true" />
+					<show id="bluecourrier:object" force="true" />
+					<show id="bluecourrier:internalReference" force="true" />
+					<show id="bluecourrier:deliveryDate" force="true" />
+					<show id="bluecourrier:writingDate" force="true" />
+					<show id="bluecourrier:sentDate" force="true" />
+					<show id="bluecourrier:priority" force="true" />
+					<show id="bluecourrier:privacyLevel" force="true" />
+					<show id="bluecourrier:delay" force="true" />
+					<show id="cm:categories" force="true" />
+					<show id="bluecourrier:senderOrganizationEntry" force="true" />
+					<show id="bluecourrier:senderOrganizationName" force="true" />
+					<show id="bluecourrier:senderInstructor_PersonEntry" force="true" />
+					<show id="bluecourrier:senderInstructorName" force="true" />
+					<show id="bluecourrier:senderInstructorJobTitle" force="true" />
+					<show id="bluecourrier:senderInstructorEmail" force="true" />
+					<show id="bluecourrier:senderInstructorTelephone" force="true" />
+					<show id="bluecourrier:senderInstructorMobile" force="true" />
+					<show id="bluecourrier:senderSignator_PersonEntry" force="true" />
+					<show id="bluecourrier:senderSignatorName" force="true" />
+					<show id="bluecourrier:senderSignatorJobTitle" force="true" />
+					<show id="bluecourrier:senderSignatorEmail" force="true" />
+					<show id="bluecourrier:senderSignatorTelephone" force="true" />
+					<show id="bluecourrier:senderSignatorMobile" force="true" />
+					<show id="bluecourrier:senderAddress" force="true" />
+					<show id="bluecourrier:senderPostcode" force="true" />
+					<show id="bluecourrier:senderCity" force="true" />
+					<show id="bluecourrier:senderCountry" force="true" />
+					<show id="bluecourrier:senderEmail" force="true" />
+					<show id="bluecourrier:senderTelephone" force="true" />
+					<show id="bluecourrier:recipientOrganization_OrganizationEntry" force="true" />
+					<show id="bluecourrier:recipientOrganizationName" force="true" />
+					<show id="bluecourrier:recipientRecipient_PersonEntry" force="true" />
+					<show id="bluecourrier:recipientRecipientName" force="true" />
+					<show id="bluecourrier:recipientJobTitle" force="true" />
+					<show id="bluecourrier:recipientAddress" force="true" />
+					<show id="bluecourrier:recipientPostcode" force="true" />
+					<show id="bluecourrier:recipientCity" force="true" />
+					<show id="bluecourrier:recipientCountry" force="true" />
+					<show id="bluecourrier:recipientEmail" force="true" />
+					<show id="bluecourrier:recipientTelephone" force="true" />
+				</field-visibility>
+
+			</form>
+
+		</forms>
+
+	</config>
+
+	<config evaluator="model-type" condition="cm:content">
+	
+		<forms>
+		
+			<form id="mail">
+			
+				<create-form template="/fdk/templates/tab-edit-form.ftl" />
+				
+				<field-visibility>
+				
+					<show id="bluecourrier:reference" force="true" />
+					<show id="bluecourrier:object" force="true" />
+					<show id="bluecourrier:internalReference" force="true" />
+					<show id="bluecourrier:deliveryDate" force="true" />
+					<show id="bluecourrier:writingDate" force="true" />
+					<show id="bluecourrier:sentDate" force="true" />
+					<show id="bluecourrier:priority" force="true" />
+					<show id="bluecourrier:privacyLevel" force="true" />
+					<show id="bluecourrier:delay" force="true" />
+					<show id="cm:categories" force="true" />
+					<show id="bluecourrier:senderOrganizationEntry" force="true" />
+					<show id="bluecourrier:senderOrganizationName" force="true" />
+					<show id="bluecourrier:senderInstructor_PersonEntry" force="true" />
+					<show id="bluecourrier:senderInstructorName" force="true" />
+					<show id="bluecourrier:senderInstructorJobTitle" force="true" />
+					<show id="bluecourrier:senderInstructorEmail" force="true" />
+					<show id="bluecourrier:senderInstructorTelephone" force="true" />
+					<show id="bluecourrier:senderInstructorMobile" force="true" />
+					<show id="bluecourrier:senderSignator_PersonEntry" force="true" />
+					<show id="bluecourrier:senderSignatorName" force="true" />
+					<show id="bluecourrier:senderSignatorJobTitle" force="true" />
+					<show id="bluecourrier:senderSignatorEmail" force="true" />
+					<show id="bluecourrier:senderSignatorTelephone" force="true" />
+					<show id="bluecourrier:senderSignatorMobile" force="true" />
+					<show id="bluecourrier:senderAddress" force="true" />
+					<show id="bluecourrier:senderPostcode" force="true" />
+					<show id="bluecourrier:senderCity" force="true" />
+					<show id="bluecourrier:senderCountry" force="true" />
+					<show id="bluecourrier:senderEmail" force="true" />
+					<show id="bluecourrier:senderTelephone" force="true" />
+					<show id="bluecourrier:recipientOrganization_OrganizationEntry" force="true" />
+					<show id="bluecourrier:recipientOrganizationName" force="true" />
+					<show id="bluecourrier:recipientRecipient_PersonEntry" force="true" />
+					<show id="bluecourrier:recipientRecipientName" force="true" />
+					<show id="bluecourrier:recipientJobTitle" force="true" />
+					<show id="bluecourrier:recipientAddress" force="true" />
+					<show id="bluecourrier:recipientPostcode" force="true" />
+					<show id="bluecourrier:recipientCity" force="true" />
+					<show id="bluecourrier:recipientCountry" force="true" />
+					<show id="bluecourrier:recipientEmail" force="true" />
+					<show id="bluecourrier:recipientTelephone" force="true" />
+
+				</field-visibility>
+			
+			</form>
+			
+			<form id="bluecourrier-mail-search">
+				
+				<edit-form template="/fdk/templates/tab-edit-form.ftl" />
+				<create-form template="/fdk/templates/tab-edit-form.ftl" />
+				<view-form template="/fdk/templates/tab-edit-form.ftl" />
+
+				<field-visibility>
+					<show id="bluecourrier:reference" force="true" />
+					<show id="bluecourrier:object" force="true" />
+					<show id="bluecourrier:deliveryDate" force="true" />
+					<show id="bluecourrier:writingDate" force="true" />
+					<show id="bluecourrier:sentDate" force="true" />
+					<show id="bluecourrier:Statusable_state" force="true" />
+					<show id="cm:categories" force="true" />
+					<show id="bluecourrier:senderOrganizationName" force="true" />
+					<show id="bluecourrier:senderInstructorName" force="true" />
+					<show id="bluecourrier:senderInstructorJobTitle" force="true" />
+					<show id="bluecourrier:senderInstructorEmail" force="true" />
+					<show id="bluecourrier:senderInstructorTelephone" force="true" />
+					<show id="bluecourrier:senderInstructorMobile" force="true" />
+					<show id="bluecourrier:senderSignatorName" force="true" />
+					<show id="bluecourrier:senderSignatorJobTitle" force="true" />
+					<show id="bluecourrier:senderSignatorEmail" force="true" />
+					<show id="bluecourrier:senderSignatorTelephone" force="true" />
+					<show id="bluecourrier:senderSignatorMobile" force="true" />
+					<show id="bluecourrier:senderAddress" force="true" />
+					<show id="bluecourrier:senderPostcode" force="true" />
+					<show id="bluecourrier:senderCity" force="true" />
+					<show id="bluecourrier:senderCountry" force="true" />
+					<show id="bluecourrier:senderEmail" force="true" />
+					<show id="bluecourrier:senderTelephone" force="true" />
+					<show id="bluecourrier:recipientOrganizationName" force="true" />
+					<show id="bluecourrier:recipientName" force="true" />
+					<show id="bluecourrier:recipientJobTitle" force="true" />
+					<show id="bluecourrier:recipientAddress" force="true" />
+					<show id="bluecourrier:recipientPostcode" force="true" />
+					<show id="bluecourrier:recipientCity" force="true" />
+					<show id="bluecourrier:recipientCountry" force="true" />
+					<show id="bluecourrier:recipientEmail" force="true" />
+					<show id="bluecourrier:recipientTelephone" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="search.Mail_Search.Mail" label-id="form.set.label.mail.mail" />
+
+					<set id="search.Mail_Search.Sender" label-id="form.set.label.mail.Sender" />
+
+					<set id="search.Mail_Search.Recipient" 
+						appearance="title"
+						label-id="form.set.label.mail.Recipient" />
+
+					<set id="search.Mail_Search.Mail.Identification" 
+						appearance="title"
+						label-id="form.set.label.mail.default.Identification"
+						parent="search.Mail_Search.Mail" />
+
+					<field id="bluecourrier:reference" set="search.Mail_Search.Mail.Identification">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:object" set="search.Mail_Search.Mail.Identification">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Mail.Dates" 
+						appearance="title"
+						template="/org/alfresco/components/form/2-column-set.ftl"
+						label-id="form.set.label.mail.default.Dates" 
+						parent="search.Mail_Search.Mail" />
+
+					<field id="bluecourrier:deliveryDate" set="search.Mail_Search.Mail.Dates">
+						<control template="/org/alfresco/components/form/controls/daterange.ftl">
+							<control-param name="forceEditable">true</control-param>
+							<control-param name="search">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:writingDate" set="search.Mail_Search.Mail.Dates">
+						<control template="/org/alfresco/components/form/controls/daterange.ftl">
+							<control-param name="forceEditable">true</control-param>
+							<control-param name="search">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:sentDate" set="search.Mail_Search.Mail.Dates">
+						<control template="/org/alfresco/components/form/controls/daterange.ftl">
+							<control-param name="forceEditable">true</control-param>
+							<control-param name="search">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Mail.System" 
+						appearance="title"
+						label-id="form.set.label.mail.default.System" 
+						parent="search.Mail_Search.Mail" />
+
+					<field id="bluecourrier:Statusable_state" set="search.Mail_Search.Mail.System">
+						<control template="/org/alfresco/components/form/controls/selectmany.ftl">
+							<control-param name="forceEditable">true</control-param>
+							<control-param name="search">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Mail.Classification" 
+						appearance="title"
+						label-id="form.set.label.mail.default.Classification"
+						parent="search.Mail_Search.Mail" />
+
+					<field id="cm:categories" set="search.Mail_Search.Mail.Classification">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Sender.organization" 
+						appearance="title"
+						label-id="form.set.label.mail.Sender.organization"
+						parent="search.Mail_Search.Sender" />
+
+					<field id="bluecourrier:senderOrganizationName" set="search.Mail_Search.Sender.organization">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Sender.instructor" 
+						appearance="title"
+						label-id="form.set.label.mail.Sender.instructor"
+						parent="search.Mail_Search.Sender" />
+
+					<field id="bluecourrier:senderInstructorName" set="search.Mail_Search.Sender.instructor">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorJobTitle" set="search.Mail_Search.Sender.instructor">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorEmail" set="search.Mail_Search.Sender.instructor">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorTelephone" set="search.Mail_Search.Sender.instructor">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorMobile" set="search.Mail_Search.Sender.instructor">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Sender.signator" 
+						appearance="title"
+						label-id="form.set.label.mail.Sender.signator"
+						parent="search.Mail_Search.Sender" />
+
+					<field id="bluecourrier:senderSignatorName" set="search.Mail_Search.Sender.signator">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorJobTitle" set="search.Mail_Search.Sender.signator">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorEmail" set="search.Mail_Search.Sender.signator">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorTelephone" set="search.Mail_Search.Sender.signator">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorMobile" set="search.Mail_Search.Sender.signator">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Sender.contactDetails" 
+						appearance="title"
+						label-id="form.set.label.mail.Sender.contactDetails"
+						parent="search.Mail_Search.Sender" />
+
+					<field id="bluecourrier:senderAddress" set="search.Mail_Search.Sender.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderPostcode" set="search.Mail_Search.Sender.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderCity" set="search.Mail_Search.Sender.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderCountry" set="search.Mail_Search.Sender.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderEmail" set="search.Mail_Search.Sender.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderTelephone" set="search.Mail_Search.Sender.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Recipient.organization" 
+						appearance="title"
+						label-id="form.set.label.mail.Recipient.organization"
+						parent="search.Mail_Search.Recipient" />
+
+					<field id="bluecourrier:recipientOrganizationName" set="search.Mail_Search.Recipient.organization">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Recipient.person" 
+						appearance="title"
+						label-id="form.set.label.mail.Recipient.person"
+						parent="search.Mail_Search.Recipient" />
+
+					<field id="bluecourrier:recipientName" set="search.Mail_Search.Recipient.person">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientJobTitle" set="search.Mail_Search.Recipient.person">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<set id="search.Mail_Search.Recipient.contactDetails"
+						appearance="title"
+						label-id="form.set.label.mail.Recipient.contactDetails"
+						parent="search.Mail_Search.Recipient" />
+
+					<field id="bluecourrier:recipientAddress" set="search.Mail_Search.Recipient.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientPostcode" set="search.Mail_Search.Recipient.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientCity" set="search.Mail_Search.Recipient.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientCountry" set="search.Mail_Search.Recipient.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientEmail" set="search.Mail_Search.Recipient.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientTelephone" set="search.Mail_Search.Recipient.contactDetails">
+						<control>
+							<control-param name="forceEditable">true</control-param>
+						</control>
+					</field>
+
+				</appearance>
+			</form>
+		</forms>
+		
+	</config>
+
+
+	<!-- cm:content EDIT -->
+	<config evaluator="node-type" condition="cm:content">
+	
+		<forms>
+		
+			<form id="mail">
+			
+				<edit-form template="/fdk/templates/tab-edit-form.ftl" />
+				<view-form template="/fdk/templates/tab-edit-form.ftl" />
+				
+				<field-visibility>
+				
+					<show id="bluecourrier:object" force="true" />
+					<show id="bluecourrier:reference" force="true" />
+					<show id="bluecourrier:internalReference" force="true" />
+					
+					<show id="bluecourrier:deliveryDate" force="true" />
+					<show id="bluecourrier:writingDate" force="true" />
+					<show id="bluecourrier:sentDate" force="true" />
+					<show id="bluecourrier:dueDate" force="true" />
+					
+					<show id="bluecourrier:priority" force="true" />
+					<show id="bluecourrier:privacyLevel" force="true" />
+					<show id="bluecourrier:delay" force="true" />
+					<show id="cm:categories" force="true" />
+					
+					
+					<show id="bluecourrier:senderOrganizationEntry" force="true" />
+					<show id="bluecourrier:senderOrganizationName" force="true" />
+					
+					<show id="bluecourrier:senderInstructorPersonEntry" force="true" />
+					<show id="bluecourrier:senderInstructorName" force="true" />
+					<show id="bluecourrier:senderInstructorJobTitle" force="true" />
+					<show id="bluecourrier:senderInstructorEmail" force="true" />
+					<show id="bluecourrier:senderInstructorTelephone" force="true" />
+					<show id="bluecourrier:senderInstructorMobile" force="true" />
+					
+					<show id="bluecourrier:senderSignatorPersonEntry" force="true" />
+					<show id="bluecourrier:senderSignatorName" force="true" />
+					<show id="bluecourrier:senderSignatorJobTitle" force="true" />
+					<show id="bluecourrier:senderSignatorEmail" force="true" />
+					<show id="bluecourrier:senderSignatorTelephone" force="true" />
+					<show id="bluecourrier:senderSignatorMobile" force="true" />
+					
+					<show id="bluecourrier:senderAddress" force="true" />
+					<show id="bluecourrier:senderPostcode" force="true" />
+					<show id="bluecourrier:senderCity" force="true" />
+					<show id="bluecourrier:senderCountry" force="true" />
+					<show id="bluecourrier:senderEmail" force="true" />
+					<show id="bluecourrier:senderTelephone" force="true" />
+					
+					
+					<show id="bluecourrier:recipientOrganizationEntry" force="true" />
+					<show id="bluecourrier:recipientOrganizationName" force="true" />
+					
+					<show id="bluecourrier:recipientPersonEntry" force="true" />
+					<show id="bluecourrier:recipientName" force="true" />
+					<show id="bluecourrier:recipientJobTitle" force="true" />
+					<show id="bluecourrier:recipientAddress" force="true" />
+					<show id="bluecourrier:recipientPostcode" force="true" />
+					<show id="bluecourrier:recipientCity" force="true" />
+					<show id="bluecourrier:recipientCountry" force="true" />
+					<show id="bluecourrier:recipientEmail" force="true" />
+					<show id="bluecourrier:recipientTelephone" force="true" />
+					
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="mail.default" label-id="form.set.label.mail.default" />
+					
+					
+					
+					<set id="mail.default.Identification" appearance="title"
+						label-id="form.set.label.mail.default.Identification" 
+						parent="mail.default" />
+						
+					<field id="bluecourrier:object" set="mail.default.Identification" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+							<control-param name="style"><![CDATA[width:50em;]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:reference" set="mail.default.Identification" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:internalReference" set="mail.default.Identification" mandatory="false" read-only="true">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					
+					
+					<set id="mail.default.Dates" appearance="title"
+						template="/org/alfresco/components/form/2-column-set.ftl"
+						label-id="form.set.label.mail.default.Dates" parent="mail.default" />
+						
+					<field id="bluecourrier:deliveryDate" set="mail.default.Dates" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/date.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:writingDate" set="mail.default.Dates" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/date.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:sentDate" set="mail.default.Dates" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/date.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:dueDate" set="mail.default.Dates" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/date.ftl"></control>
+					</field>
+					
+					
+					
+					<set id="mail.default.Instruction" appearance="title"
+						template="/org/alfresco/components/form/2-column-set.ftl"
+						label-id="form.set.label.mail.default.Instruction" parent="mail.default" />
+						
+					<field id="bluecourrier:priority" set="mail.default.Instruction" mandatory="false" read-only="false">
+						<control template="/org/bluedolmen/components/form/controls/dynamic-dropdown.ftl">
+							<control-param name="datasourceUrl"><![CDATA[bluedolmen/forms/datalist/bluecourrier/bluecourrier:priorityItem/items?valueProperty=cm:name]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:privacyLevel" set="mail.default.Instruction" mandatory="false" read-only="false">
+						<control template="/org/bluedolmen/components/form/controls/dynamic-dropdown.ftl">
+							<control-param name="datasourceUrl"><![CDATA[bluedolmen/forms/datalist/bluecourrier/bluecourrier:privacyLevelItem/items?valueProperty=cm:name]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:delay" set="mail.default.Instruction" mandatory="false" read-only="false">
+						<control template="/org/bluedolmen/components/form/controls/dynamic-dropdown.ftl">
+							<control-param name="datasourceUrl"><![CDATA[bluedolmen/forms/datalist/bluecourrier/bluecourrier:delayItem/items?valueProperty=cm:name]]></control-param>
+						</control>
+					</field>
+					
+					<set id="mail.default.Classification" appearance="title"
+						label-id="form.set.label.mail.default.Classification" 
+						parent="mail.default" />
+						
+					<field id="cm:categories" set="mail.default.Classification" mandatory="false" read-only="false">
+						<control template="controls/category.ftl">
+							<control-param name="startLocation">/cm:categoryRoot/cm:generalclassifiable/cm:BlueCourrier</control-param>
+							<control-param name="compactMode"><![CDATA[true]]></control-param>
+							<control-param name="multipleSelectMode"><![CDATA[true]]></control-param>
+						</control>
+					</field>
+					
+					
+					
+					<set id="mail.Sender" label-id="form.set.label.mail.Sender" />
+					
+					<set id="mail.Sender.organization" appearance="title"
+						label-id="form.set.label.mail.Sender.organization" 
+						parent="mail.Sender" />
+						
+					<field id="bluecourrier:senderOrganizationEntry" set="mail.Sender.organization" mandatory="false" read-only="false">
+<!-- 						<control template="/org/alfresco/components/form/controls/association.ftl"> -->
+						<control template="/org/bluedolmen/components/form/controls/autocomplete.ftl">
+							<control-param name="ds"><![CDATA[/api/forms/picker/category/children?selectableType=cm:organizationItem&size=10&xpath=/app:company_home/st:sites/cm:bluecourrier/cm:dataLists/cm:organizations&searchTerm={query}]]></control-param>
+							<control-param name="queryParam">searchTerm</control-param>
+							<control-param name="formInputMode">single</control-param>
+							<control-param name="itemPath">data.items</control-param>
+<!-- 							<control-param name="startLocation">/app:company_home/st:sites/cm:bluecourrier/cm:dataLists/cm:organizations</control-param> -->
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderOrganizationName" set="mail.Sender.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<set id="mail.Sender.instructor" appearance="title"
+						label-id="form.set.label.mail.Sender.instructor" 
+						parent="mail.Sender" />
+						
+					<field id="bluecourrier:senderInstructorPersonEntry" set="mail.Sender.instructor" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/association.ftl">
+							<control-param name="startLocation">/app:company_home/st:sites/cm:bluecourrier/cm:dataLists/cm:persons</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorName" set="mail.Sender.instructor" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorJobTitle" set="mail.Sender.instructor" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorEmail" set="mail.Sender.instructor" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorTelephone" set="mail.Sender.instructor" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderInstructorMobile" set="mail.Sender.instructor" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<set id="mail.Sender.signator" appearance="title"
+						label-id="form.set.label.mail.Sender.signator" 
+						parent="mail.Sender" />
+						
+					<field id="bluecourrier:senderSignatorPersonEntry" set="mail.Sender.signator" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/association.ftl">
+							<control-param name="startLocation">/app:company_home/st:sites/cm:bluecourrier/cm:dataLists/cm:persons</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorName" set="mail.Sender.signator" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorJobTitle" set="mail.Sender.signator" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorEmail" set="mail.Sender.signator" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorTelephone" set="mail.Sender.signator" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderSignatorMobile" set="mail.Sender.signator" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<set id="mail.Sender.contactDetails" appearance="title"
+						label-id="form.set.label.mail.Sender.contactDetails" 
+						parent="mail.Sender" />
+						
+					<field id="bluecourrier:senderAddress" set="mail.Sender.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl">
+							<control-param name="rows"><![CDATA[5]]></control-param>
+							<control-param name="columns"><![CDATA[80]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderPostcode" set="mail.Sender.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+							<control-param name="style"><![CDATA[width:10em;]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:senderCity" set="mail.Sender.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderCountry" set="mail.Sender.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderEmail" set="mail.Sender.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:senderTelephone" set="mail.Sender.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+
+
+
+					<set id="mail.Recipient" label-id="form.set.label.mail.Recipient" />
+					
+					<set id="mail.Recipient.organization" appearance="title"
+						label-id="form.set.label.mail.Recipient.organization" 
+						parent="mail.Recipient" />
+						
+					<field id="bluecourrier:recipientOrganizationEntry" set="mail.Recipient.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/association.ftl">
+							<control-param name="startLocation">/app:company_home/st:sites/cm:bluecourrier/cm:dataLists/cm:organizations</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientOrganizationName" set="mail.Recipient.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<set id="mail.Recipient.person" appearance="title"
+						label-id="form.set.label.mail.Recipient.person" 
+						parent="mail.Recipient" />
+						
+					<field id="bluecourrier:recipientPersonEntry" set="mail.Recipient.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/association.ftl">
+							<control-param name="startLocation">/app:company_home/st:sites/cm:bluecourrier/cm:dataLists/cm:persons</control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientName" set="mail.Recipient.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:recipientJobTitle" set="mail.Recipient.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<set id="mail.Recipient.contactDetails" appearance="title"
+						label-id="form.set.label.mail.Recipient.contactDetails"
+						parent="mail.Recipient" />
+						
+					<field id="bluecourrier:recipientAddress" set="mail.Recipient.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl">
+							<control-param name="rows"><![CDATA[5]]></control-param>
+							<control-param name="columns"><![CDATA[80]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientPostcode" set="mail.Recipient.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+							<control-param name="style"><![CDATA[width:10em;]]></control-param>
+						</control>
+					</field>
+					
+					<field id="bluecourrier:recipientCity" set="mail.Recipient.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:recipientCountry" set="mail.Recipient.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:recipientEmail" set="mail.Recipient.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+					<field id="bluecourrier:recipientTelephone" set="mail.Recipient.contactDetails" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+					
+				</appearance>
+			</form>
+			
+		</forms>
+	</config>
+	
+	<config evaluator="model-type" condition="bluecourrier:privacyLevelItem">
+		<forms>
+			<form>
+
+				<field-visibility>
+
+					<show id="cm:name" force="true" />
+					<show id="bluecourrier:restricted" force="true" />
+					<show id="bluecourrier:discardExisting" force="true" />
+					<show id="bluecourrier:assistantRole" force="true" />
+					<show id="bluecourrier:managerRole" force="true" />
+					<show id="bluecourrier:instructorRole" force="true" />
+					<show id="bluecourrier:supervisorRole" force="true" />
+
+				</field-visibility>
+
+				<appearance>
+
+					<set id="default.privacyLevelItem.cmobject" label-id="form.set.label.default.privacyLevelItem.cmobject" />
+
+					<field id="cm:name" set="default.privacyLevelItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+
+					<set id="default.privacyLevelItem.privacyLevelItem" label-id="form.set.label.default.privacyLevelItem.privacyLevelItem" />
+
+					<field id="bluecourrier:restricted" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+						</control>
+					</field>
+
+					<field id="bluecourrier:discardExisting" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+						</control>
+					</field>
+
+					<field id="bluecourrier:assistantRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+					<field id="bluecourrier:managerRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+					<field id="bluecourrier:instructorRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+					<field id="bluecourrier:supervisorRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+					
+				</appearance>
+
+			</form>
+		</forms>
+	</config>
+
+	<config evaluator="node-type" condition="bluecourrier:privacyLevelItem">
+		<forms>
+			<form>
+
+				<field-visibility>
+
+					<show id="cm:name" force="true" />
+					<show id="bluecourrier:restricted" force="true" />
+					<show id="bluecourrier:discardExisting" force="true" />
+					<show id="bluecourrier:assistantRole" force="true" />
+					<show id="bluecourrier:managerRole" force="true" />
+					<show id="bluecourrier:instructorRole" force="true" />
+					<show id="bluecourrier:supervisorRole" force="true" />
+
+				</field-visibility>
+
+				<appearance>
+
+					<set id="default.privacyLevelItem.cmobject" label-id="form.set.label.default.privacyLevelItem.cmobject" />
+
+					<field id="cm:name" set="default.privacyLevelItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<set id="default.privacyLevelItem.privacyLevelItem" label-id="form.set.label.default.privacyLevelItem.privacyLevelItem" />
+
+					<field id="bluecourrier:restricted" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:discardExisting" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+						</control>
+					</field>
+
+					<field id="bluecourrier:assistantRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+					<field id="bluecourrier:managerRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+					<field id="bluecourrier:instructorRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+					<field id="bluecourrier:supervisorRole" set="default.privacyLevelItem.privacyLevelItem" mandatory="false" read-only="false">
+					</field>
+
+				</appearance>
+
+			</form>
+		</forms>
+	</config>
+
+	
+	<config evaluator="model-type" condition="bluecourrier:delayItem">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="bluecourrier:delay" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.delayItem.cmobject" label-id="form.set.label.default.delayItem.cmobject" />
+
+					<field id="cm:name" set="default.delayItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.delayItem.delayItem" label-id="form.set.label.default.delayItem.delayItem" />
+
+					<field id="bluecourrier:delay" set="default.delayItem.delayItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/number.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+	
+	<config evaluator="node-type" condition="bluecourrier:delayItem">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="bluecourrier:delay" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.delayItem.cmobject" label-id="form.set.label.default.delayItem.cmobject" />
+
+					<field id="cm:name" set="default.delayItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.delayItem.delayItem" label-id="form.set.label.default.delayItem.delayItem" />
+
+					<field id="bluecourrier:delay" set="default.delayItem.delayItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/number.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+
+	<config evaluator="model-type" condition="bluecourrier:priorityItem">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="bluecourrier:level" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.priorityItem.cmobject" label-id="form.set.label.default.priorityItem.cmobject" />
+
+					<field id="cm:name" set="default.priorityItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.priorityItem.priorityItem" label-id="form.set.label.default.priorityItem.priorityItem" />
+
+					<field id="bluecourrier:level" set="default.priorityItem.priorityItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/number.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+	
+	<config evaluator="node-type" condition="bluecourrier:priorityItem">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="bluecourrier:level" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.priorityItem.cmobject" label-id="form.set.label.default.priorityItem.cmobject" />
+
+					<field id="cm:name" set="default.priorityItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.priorityItem.priorityItem" label-id="form.set.label.default.priorityItem.priorityItem" />
+
+					<field id="bluecourrier:level" set="default.priorityItem.priorityItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/number.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+
+
+	<config evaluator="model-type" condition="directory:organizationEntry">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="directory:organizationName" force="true" />
+					<show id="directory:organizationEmail" force="true" />
+					<show id="directory:organizationTelephone" force="true" />
+					<show id="directory:organizationFax" force="true" />
+					<show id="directory:addressBody" force="true" />
+					<show id="directory:postcode" force="true" />
+					<show id="directory:city" force="true" />
+					<show id="directory:country" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.organizationEntry.cmobject" label-id="form.set.label.default.organizationEntry.cmobject" />
+
+					<field id="cm:name" set="default.organizationEntry.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.organizationEntry.organization" label-id="form.set.label.default.organizationEntry.organization" />
+
+					<field id="directory:organizationName" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:organizationEmail" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:organizationTelephone" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:organizationFax" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.organizationEntry.address" label-id="form.set.label.default.organizationEntry.address" />
+
+					<field id="directory:addressBody" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl">
+							<control-param name="rows"><![CDATA[5]]></control-param>
+							<control-param name="columns"><![CDATA[80]]></control-param>
+						</control>
+					</field>
+					
+					<field id="directory:postcode" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:city" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:country" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+	
+	<config evaluator="node-type" condition="directory:organizationEntry">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="directory:organizationName" force="true" />
+					<show id="directory:organizationEmail" force="true" />
+					<show id="directory:organizationTelephone" force="true" />
+					<show id="directory:organizationFax" force="true" />
+					<show id="directory:addressBody" force="true" />
+					<show id="directory:postcode" force="true" />
+					<show id="directory:city" force="true" />
+					<show id="directory:country" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.organizationEntry.cmobject" label-id="form.set.label.default.organizationEntry.cmobject" />
+
+					<field id="cm:name" set="default.organizationEntry.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.organizationEntry.organization" label-id="form.set.label.default.organizationEntry.organization" />
+
+					<field id="directory:organizationName" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:organizationEmail" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:organizationTelephone" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:organizationFax" set="default.organizationEntry.organization" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.organizationEntry.address" label-id="form.set.label.default.organizationEntry.address" />
+
+					<field id="directory:addressBody" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl">
+							<control-param name="rows"><![CDATA[5]]></control-param>
+							<control-param name="columns"><![CDATA[80]]></control-param>
+						</control>
+					</field>
+					
+					<field id="directory:postcode" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:city" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:country" set="default.organizationEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+	
+	
+	<config evaluator="model-type" condition="directory:personEntry">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="directory:personFirstName" force="true" />
+					<show id="directory:personLastName" force="true" />
+					<show id="directory:personJobtitle" force="true" />
+					<show id="directory:personEmail" force="true" />
+					<show id="directory:personTelephone" force="true" />
+					<show id="directory:personMobile" force="true" />
+					<show id="directory:personOrganizationId" force="true" />
+					<show id="directory:addressBody" force="true" />
+					<show id="directory:postcode" force="true" />
+					<show id="directory:city" force="true" />
+					<show id="directory:country" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.personEntry.person" label-id="form.set.label.default.personEntry.person" />
+
+					<field id="directory:personFirstName" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personLastName" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personJobtitle" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personEmail" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personTelephone" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personMobile" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personOrganizationId" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.personEntry.address" label-id="form.set.label.default.personEntry.address" />
+
+					<field id="directory:addressBody" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl">
+							<control-param name="rows"><![CDATA[5]]></control-param>
+							<control-param name="columns"><![CDATA[80]]></control-param>
+						</control>
+					</field>
+					
+					<field id="directory:postcode" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:city" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:country" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+	
+	<config evaluator="node-type" condition="directory:personEntry">
+		<forms>
+			<form>
+				
+				<field-visibility>
+					<show id="directory:personFirstName" force="true" />
+					<show id="directory:personLastName" force="true" />
+					<show id="directory:personJobtitle" force="true" />
+					<show id="directory:personEmail" force="true" />
+					<show id="directory:personTelephone" force="true" />
+					<show id="directory:personMobile" force="true" />
+					<show id="directory:personOrganizationId" force="true" />
+					<show id="directory:addressBody" force="true" />
+					<show id="directory:postcode" force="true" />
+					<show id="directory:city" force="true" />
+					<show id="directory:country" force="true" />
+				</field-visibility>
+				
+				<appearance>
+				
+					<set id="default.personEntry.person" label-id="form.set.label.default.personEntry.person" />
+
+					<field id="directory:personFirstName" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personLastName" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personJobtitle" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personEmail" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personTelephone" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personMobile" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:personOrganizationId" set="default.personEntry.person" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<set id="default.personEntry.address" label-id="form.set.label.default.personEntry.address" />
+
+					<field id="directory:addressBody" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl">
+							<control-param name="rows"><![CDATA[5]]></control-param>
+							<control-param name="columns"><![CDATA[80]]></control-param>
+						</control>
+					</field>
+					
+					<field id="directory:postcode" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:city" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+					
+					<field id="directory:country" set="default.personEntry.address" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl">
+						</control>
+					</field>
+
+				</appearance>
+				
+			</form>
+		</forms>
+	</config>
+	
+	<config evaluator="model-type" condition="bluecourrier:deliveryModelItem">
+
+		<forms>
+			<form>
+
+				<field-visibility>
+
+					<show id="cm:name" force="true" />
+					<show id="cm:categories" force="true" />
+
+					<show id="bluecourrier:shares" force="true" />
+					<show id="bluecourrier:processKind" force="true" />
+					<show id="bluecourrier:startDelivery" force="true" />
+					<show id="bluecourrier:validateDelivery" force="true" />
+
+				</field-visibility>
+				
+				<appearance>
+
+					<set id="default.deliveryModelItem.cmobject" label-id="form.set.label.default.deliveryModelItem.cmobject" />
+
+					<field id="cm:name" set="default.deliveryModelItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<field id="cm:categories" set="default.deliveryModelItem.cmobject" mandatory="false" read-only="false">
+						<control template="controls/category.ftl">
+							<control-param name="startLocation">/cm:categoryRoot/cm:generalclassifiable/cm:BlueCourrier
+							</control-param>
+							<control-param name="compactMode"><![CDATA[true]]></control-param>
+							<control-param name="multipleSelectMode"><![CDATA[true]]></control-param>
+						</control>
+					</field>
+
+					<set id="default.deliveryModelItem.deliveryModelItem" label-id="form.set.label.default.deliveryModelItem.deliveryModelItem" />
+
+					<field id="bluecourrier:shares" set="default.deliveryModelItem.deliveryModelItem" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:processKind" set="default.deliveryModelItem.deliveryModelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:startDelivery" set="default.deliveryModelItem.deliveryModelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:validateDelivery" set="default.deliveryModelItem.deliveryModelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl"></control>
+					</field>
+
+				</appearance>
+
+			</form>
+		</forms>
+
+	</config>
+
+	<config evaluator="node-type" condition="bluecourrier:deliveryModelItem">
+
+		<forms>
+			<form>
+
+				<field-visibility>
+
+					<show id="cm:name" force="true" />
+					<show id="cm:categories" force="true" />
+
+					<show id="bluecourrier:shares" force="true" />
+					<show id="bluecourrier:processKind" force="true" />
+					<show id="bluecourrier:startDelivery" force="true" />
+					<show id="bluecourrier:validateDelivery" force="true" />
+
+				</field-visibility>
+
+				<appearance>
+
+					<set id="default.deliveryModelItem.cmobject" label-id="form.set.label.default.deliveryModelItem.cmobject" />
+
+					<field id="cm:name" set="default.deliveryModelItem.cmobject" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<field id="cm:categories" set="default.deliveryModelItem.cmobject" mandatory="false" read-only="false">
+						<control template="controls/category.ftl">
+							<control-param name="startLocation">/cm:categoryRoot/cm:generalclassifiable/cm:BlueCourrier
+							</control-param>
+							<control-param name="compactMode"><![CDATA[true]]></control-param>
+							<control-param name="multipleSelectMode"><![CDATA[true]]></control-param>
+						</control>
+					</field>
+
+					<set id="default.deliveryModelItem.deliveryModelItem" label-id="form.set.label.default.deliveryModelItem.deliveryModelItem" />
+
+					<field id="bluecourrier:shares" set="default.deliveryModelItem.deliveryModelItem" mandatory="true" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:processKind" set="default.deliveryModelItem.deliveryModelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:startDelivery" set="default.deliveryModelItem.deliveryModelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl"></control>
+					</field>
+
+					<field id="bluecourrier:validateDelivery" set="default.deliveryModelItem.deliveryModelItem" mandatory="false" read-only="false">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl"></control>
+					</field>
+
+				</appearance>
+
+			</form>
+
+		</forms>
+	</config>
+	
+</alfresco-config>

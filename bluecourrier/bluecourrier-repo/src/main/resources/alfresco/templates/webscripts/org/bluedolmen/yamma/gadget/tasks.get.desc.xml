@@ -1,0 +1,11 @@
+<webscript>
+  <shortname>Tasks for gadget</shortname>
+  <description><![CDATA[
+  	List the tasks of a user
+  ]]>
+  </description>
+  <url>/bluedolmen/yamma/tasks/{username}</url>
+  <format default="json">argument</format>
+  <authentication runas="admin">guest</authentication>
+  <family>YaMma</family>
+</webscript>

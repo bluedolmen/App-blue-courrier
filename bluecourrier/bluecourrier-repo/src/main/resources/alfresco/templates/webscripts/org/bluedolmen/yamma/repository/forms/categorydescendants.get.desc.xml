@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>CategoryDescendantsPicker</shortname>
+  <description>Service to return metadata of descendant categories of a given category name (or path).</description>
+  <url>/yamma/forms/picker/category/{rootPath}/descendants</url>
+  <format default="json"/>
+  <authentication>user</authentication>
+  <transaction allow="readonly">required</transaction>
+</webscript>

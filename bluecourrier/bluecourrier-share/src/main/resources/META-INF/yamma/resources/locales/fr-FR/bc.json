@@ -1,0 +1,28 @@
+{
+	"app": {
+		"name": "BlueCourrier"
+	},
+	
+	"view" : {
+	
+		"mails" : {
+		
+			"actions" : {
+			
+				"StartProcessing" : {
+					"tooltip" : "Traiter le document"
+				},
+			
+				"CloseProcessing" : {
+					"tooltip" : "Terminer le traitement"
+				},
+				
+				"CloseDelivering" : {				
+					"tooltip" : "Terminer la distribution"
+				}
+			
+			} 
+		}
+		
+	}
+}

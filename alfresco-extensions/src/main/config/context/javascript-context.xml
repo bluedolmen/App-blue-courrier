@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<beans>    
+    
+	<bean id="sideDictionaryScript" parent="baseJavaScriptExtension" class="org.bluedolmen.repo.jscript.DictionaryScript" >
+		<property name="extensionName" value="sideDictionary" />
+		<property name="dictionaryService" ref="dictionaryService"/>
+		<property name="namespaceService" ref="namespaceService"/>
+	</bean>
+
+	<bean id="sideAuthenticationUtil" parent="baseJavaScriptExtension" class="org.bluedolmen.repo.jscript.AuthenticationUtilScript" >
+		<property name="extensionName" value="sideAuthenticationUtil" />
+	</bean>
+
+	<bean id="messageScript" parent="baseJavaScriptExtension" class="org.bluedolmen.repo.jscript.MessageScript" >
+		<property name="extensionName" value="messages" />
+		<property name="messageService" ref="messageService"/>
+	</bean>
+
+    <bean id="bluedolmen.scriptBehaviour" abstract="true">
+        <property name="serviceRegistry" ref="ServiceRegistry" />
+    </bean>	
+	
+	<bean id="bluedolmen.nodeUtils" parent="baseJavaScriptExtension" class="org.bluedolmen.repo.jscript.NodeUtilsScript" >
+		<property name="extensionName" value="bdNodeUtils" />
+        <property name="serviceRegistry" ref="ServiceRegistry" />
+		<property name="nodeService" ref="nodeService" /> <!-- override by unsecure version -->
+		<property name="forumUtils" ref="bluedolmen.repo.forumUtils" />
+	</bean>
+
+	<bean id="bluedolmen.sideNodeUtils" parent="bluedolmen.nodeUtils" >
+		<property name="extensionName" value="sideNodeUtils" /> <!-- backward compatibility -->
+	</bean>
+	
+    <bean id="webscript.org.bluedolmen.alfresco.utils.script-content.get"
+          class="org.bluedolmen.repo.jscript.ScriptContentGet"
+          parent="webscript">          
+		<property name="helper">
+			<bean class="org.bluedolmen.repo.jscript.ScriptContentGetHelper" parent="javaScriptProcessor" />
+		</property>
+    </bean>
+         
+	<!-- This is used as a clean bean-definition replacement -->
+    <bean id="bd.javaScriptProcessor" 
+	    class="org.bluedolmen.repo.jscript.RhinoScriptProcessor" > 
+    </bean>
+    
+    <bean id="bd.javaScriptProcessor.extender" class="org.bluedolmen.alfresco.util.BeanExtender" >
+ 		<property name="beanName" value="javaScriptProcessor" />
+ 		<property name="extendingBeanName" value="bd.javaScriptProcessor" />   
+    </bean>
+
+</beans>

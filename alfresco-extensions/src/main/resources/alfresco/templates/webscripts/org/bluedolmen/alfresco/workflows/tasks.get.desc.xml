@@ -1,0 +1,16 @@
+<webscript>
+
+	<shortname>Retrieve the list of tasks for a given node</shortname>
+	<description>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	<ul>
+		<li>nodeRef: the nodeRef to check with</li>
+	</ul>
+	</arguments>
+	<url>/bluedolmen/workflows/tasks</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+	
+</webscript>

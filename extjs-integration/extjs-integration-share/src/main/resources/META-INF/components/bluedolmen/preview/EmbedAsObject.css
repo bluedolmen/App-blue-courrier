@@ -1,0 +1,8 @@
+.web-preview .EmbedAsObject {
+	height : 625px;
+}
+
+div.embed-as-object {
+	height : 100%;
+	overflow-y : hidden;
+}

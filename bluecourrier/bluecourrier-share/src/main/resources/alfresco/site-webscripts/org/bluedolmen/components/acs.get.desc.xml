@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>ACS</shortname>
+  <description>Get the Advanced Communication Space definition</description>
+  <url>/components/bluedolmen/acs</url>
+  <url>/components/bluedolmen/acs/{pageId}</url>
+  <format default="html">argument</format>
+  <family>BlueDolmen</family>
+</webscript>

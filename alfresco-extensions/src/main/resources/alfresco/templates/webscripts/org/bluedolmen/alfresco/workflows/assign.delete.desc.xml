@@ -1,0 +1,15 @@
+<webscript>
+	<shortname>Remove the assignment from a task</shortname>
+	<description>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	<ul>
+		<li>taskId : the id of the task</li>
+	</ul>
+	</arguments>
+	<url>/bluedolmen/workflows/assign/{taskId}</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+	
+</webscript>

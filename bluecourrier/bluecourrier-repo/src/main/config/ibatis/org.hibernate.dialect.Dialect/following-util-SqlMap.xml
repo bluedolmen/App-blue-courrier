@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="yamma.query.following">
+
+    <!--                -->
+    <!-- Result Maps    -->
+    <!--                -->
+
+    <resultMap id="result_NodeBackedEntity" type="org.alfresco.repo.query.NodeBackedEntity">
+        <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+        <association property="node" resultMap="alfresco.node.result_Node"/>
+    </resultMap>
+        
+    <select id="select_GetFolowingCannedQuery" parameterType="org.alfresco.repo.query.NodeBackedEntity" resultMap="result_NodeBackedEntity">
+       select
+       		nodeProps.id        as id,
+       		node.uuid           as uuid,
+            store.protocol      as protocol,
+            store.identifier    as identifier,
+            node.uuid           as uuid
+        from
+        	alf_node_properties nodeProps
+        	join alf_node node on (nodeProps.id = node.id)
+            join alf_store store on (store.id = node.store_id)
+        where
+        	nodeProps.string_value = #{userName}
+        	and nodeProps.qname_id = #{propQNameId}
+    </select>
+    
+</mapper>
