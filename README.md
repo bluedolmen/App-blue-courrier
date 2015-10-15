@@ -7,15 +7,15 @@ BlueCourrier builds upon years of experience at BlueXML developping on top of Al
 
 # Build
 
-see (BUILD.md)
+see our [BUILD.md]
 
 # Install
 
-see (INSTALL.md)
+see our [INSTALL.md]
 
 # Configuration
 
-see (CONFIGURE.md)
+see our [CONFIGURE.md]
 
 # License
 

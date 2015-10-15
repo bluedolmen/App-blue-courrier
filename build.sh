@@ -41,7 +41,7 @@ fi
 mkdir target
 cd target
 cp ../src/main/resources/extjs-4.2.1.zip extjs.zip
-mkdir extjs/src/
+mkdir -p extjs/src/
 cp -r ../src/main/resources/ux extjs/src/
 zip -r extjs.zip extjs
 cp extjs.zip ${TARGET_DIR}/artifacts
