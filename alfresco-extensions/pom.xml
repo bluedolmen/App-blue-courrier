@@ -19,5 +19,10 @@
 	</properties>
 	
 	<description>This project provides Alfresco extensions (notably for Javascript programming) on an 5.0 branch.</description>
-	
+	<repositories>
+	    <repository>
+	      <id>bluexml-public-repo</id>
+	      <url>http://pipin.bluexml.com/nexus/content/groups/public/</url>
+	    </repository>
+  	</repositories>
 </project>

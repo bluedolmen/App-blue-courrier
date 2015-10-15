@@ -37,6 +37,11 @@
         </dependencyManagement>
 
         <description>Main project gathering the different modules necessary to build the BlueCourrier extension on an the Alfresco 5.0 branch.</description>
-
+        <repositories>
+            <repository>
+              <id>bluexml-public-repo</id>
+              <url>http://pipin.bluexml.com/nexus/content/groups/public/</url>
+            </repository>
+        </repositories>
 </project>
 
