@@ -13,7 +13,11 @@ When it's done you can get back here and follow the installation instruction.
 
 # Installation from the war file
 
-To get BlueCourrier running quickly you just have to deploy the 2 war file into an alfresco-5.0.d installation and follow the [App Blue Courrier Configuration](INSTALL.md)
+To get BlueCourrier running quickly you just have to :
+
+* deploy the 2 war file into an alfresco-5.0.d installation 
+* unzip extjs.zip (located in target/artifacts) into tomcat/webapps directory
+* and follow the [App Blue Courrier Configuration](INSTALL.md)
 
 # Installation from the artifacts
 
