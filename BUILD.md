@@ -7,14 +7,6 @@ This document explain how to build BlueCourrier extension for alfresco from the 
 
 <h2>PLEASE NOTE: This document applies to the HEAD of the source tree</h2>
 
-# Prerequisites
-
-After you grab the sources from github and before you can build BlueCourrier you will need to add our maven repo to your settings.xml
-
-http://pipin.bluexml.com/nexus/content/groups/public
-
-This repositories is required because we use a custom parent pom.
-
 # Build instructions
 
 ## Using the build.sh file
