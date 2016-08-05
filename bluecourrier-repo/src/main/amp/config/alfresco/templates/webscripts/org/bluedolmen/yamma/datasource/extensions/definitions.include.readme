@@ -1,0 +1,4 @@
+You may define in this folder all the datasources that need to be
+included in BlueCourrier.
+You may also define inclusion by the way of third party projects
+following the same directory structure.

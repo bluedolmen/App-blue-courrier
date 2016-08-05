@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context>
+
+<!--     <Environment name="solr/home"        type="java.lang.String" value="${alfresco.solr.home.dir}/" override="true"/> -->
+<!--     <Environment name="solr/model/dir"   type="java.lang.String" value="${alfresco.solr.home.dir}/alfrescoModels/" override="true"/> -->
+<!--     <Environment name="solr/content/dir" type="java.lang.String" value="${alfresco.solr.data.dir}/content/" override="true"/> -->
+
+    <Resources className="org.apache.naming.resources.VirtualDirContext"
+               extraResourcePaths="/=${project.parent.basedir}/runner/target/tomcat/webapps/extjs-webapp" />
+
+    <!-- Load from all directories, not just when the META-INF directory is found in exploded JAR -->
+    <JarScanner scanAllDirectories="true" />
+
+</Context>

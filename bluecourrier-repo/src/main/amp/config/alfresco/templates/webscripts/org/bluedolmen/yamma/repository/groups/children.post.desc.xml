@@ -1,0 +1,15 @@
+<webscript>
+   <shortname>Add group or user to a group</shortname>
+   <description><![CDATA[
+      Adds a group or user to a group. The webscript will create a sub group if one does not already exist, with the fullAuthorityName.
+      
+      <br />If the authority is for a group and doe not exist then it is created.
+      <br />The webscript returns Status_Created if a new group is created, otherwise it returns Status_OK.
+      If Status_Created returns the new sub group, otherwise returns the group.  
+   ]]>
+   </description>
+   <url>/yamma/groups/{shortName}/children/{fullAuthorityName}</url>
+   <format default="json">argument</format>
+   <authentication runas="admin">user</authentication>
+   <transaction>required</transaction>
+</webscript>

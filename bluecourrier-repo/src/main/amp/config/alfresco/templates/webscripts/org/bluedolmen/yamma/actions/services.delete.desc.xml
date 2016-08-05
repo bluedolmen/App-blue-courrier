@@ -1,0 +1,19 @@
+<webscript>
+	<shortname>Unset the service</shortname>
+	<description><![CDATA[
+	    Unset the provided site as a service.
+	    The site is however kept.
+	    <p>
+	    <ul>
+	    	<li>serviceName: the service shortName</li>
+	    </ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/services/{serviceName}</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication> <!-- This is group extra-authenticated -->
+</webscript>

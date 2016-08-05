@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Digital Signature -->
+<component>
+   <scope>page</scope>
+   <source-id>yamma</source-id>
+   <region-id>ds</region-id>
+   <uri>/components/bluedolmen/ds</uri>
+</component>

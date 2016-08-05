@@ -1,0 +1,57 @@
+<definitions id="definitions"
+  targetNamespace="http://activiti.org/bpmn20"
+  xmlns:activiti="http://activiti.org/bpmn"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+	<process id="multiInstance" name="Test of a multi-instance user-task process">
+
+		<startEvent id="Incoming_Start" >
+		</startEvent>
+		
+		<sequenceFlow id="toDelivery" targetRef="Delivering" sourceRef="Incoming_Start" />
+		
+		<userTask id="Delivering" name="Delivering document">
+			<multiInstanceLoopCharacteristics
+				isSequential="false" activiti:collection="${serviceAndRoles}"
+				activiti:elementVariable="serviceAndRole">
+			</multiInstanceLoopCharacteristics>
+		</userTask>
+		
+		<sequenceFlow id="toCheckNewServices" targetRef="CheckNewServices" sourceRef="Delivering" />
+		
+		<exclusiveGateway id="CheckNewServices" name="Check new Services" />
+		
+		<sequenceFlow id="hasNewServices" sourceRef="CheckNewServices" targetRef="Delivering"  >
+			<conditionExpression xsi:type="tFormalExpression">
+		    	<![CDATA[${!serviceAndRoles.isEmpty()}]]>
+			</conditionExpression>
+		</sequenceFlow>
+
+		<sequenceFlow id="noNewService" sourceRef="CheckNewServices" targetRef="Delivered" >
+		</sequenceFlow>
+		
+		<endEvent id="Delivered" name="Document delivered" ></endEvent>
+		
+		
+		
+		<userTask id="Validating" name="Validating delivery"></userTask>
+		
+		<sequenceFlow id="toCheckValidationResult" targetRef="CheckValidationResult" sourceRef="Validating" />
+		
+		<exclusiveGateway id="CheckValidationResult" name="Check validation result" />
+		
+		<sequenceFlow targetRef="Delivering" sourceRef="CheckValidationResult">
+			<conditionExpression xsi:type="tFormalExpression">
+		    	<![CDATA[${outcome == "accept"}]]>
+			</conditionExpression>
+		</sequenceFlow>
+		
+		<sequenceFlow targetRef="Refused" sourceRef="CheckValidationResult"></sequenceFlow>
+		
+		<endEvent id="Refused" name="Delivery refused" ></endEvent>
+		
+		
+	</process>
+
+</definitions>

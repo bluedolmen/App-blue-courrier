@@ -1,0 +1,15 @@
+<webscript>
+	<shortname>Get the current state w.r.t. distribute action</shortname>
+	<description><![CDATA[
+		Get the current state:
+			- current shares
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/distribute</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

@@ -1,0 +1,59 @@
+<definitions id="definitions"
+  targetNamespace="http://activiti.org/bpmn20"
+  xmlns:activiti="http://activiti.org/bpmn"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+	<process id="simpleSubprocess" name="Simple Subprocess">
+
+		<startEvent id="Incoming_Start" >
+		</startEvent>
+		
+		<sequenceFlow id="toDelivery" targetRef="Delivery" sourceRef="Incoming_Start" />
+		
+		<subProcess id="Delivery" name="Delivery">
+
+			<multiInstanceLoopCharacteristics
+				isSequential="true" activiti:collection="${serviceAndRoles}"
+				activiti:elementVariable="serviceAndRole">
+			</multiInstanceLoopCharacteristics>
+			
+			<startEvent id="Delivery_Start" />
+			
+			<sequenceFlow id="toDelivering" targetRef="Delivering" sourceRef="Delivery_Start" />
+
+			<userTask id="Delivering" name="Delivering document">
+			</userTask>
+
+<!-- 			<sequenceFlow id=<"toCheckNewServices" targetRef="CheckNewServices" sourceRef="Delivering" /> -->
+			
+<!-- 			<exclusiveGateway id="CheckNewServices" name="Check new Services" /> -->
+			
+<!-- 			<sequenceFlow id="Delivery_toDelivery" targetRef="callDelivery" sourceRef="CheckNewServices" > -->
+<!-- 				<conditionExpression xsi:type="tFormalExpression"> -->
+<!-- 			    	<![CDATA[${services} != ""]]> -->
+<!-- 				</conditionExpression> -->
+<!-- 			</sequenceFlow> -->
+			
+			
+			<sequenceFlow id="toCallDelivery" sourceRef="Delivering" targetRef="callDelivery" />
+			<callActivity id="callDelivery" name="SubDelivery" calledElement="Delivery" >
+				<extensionElements>
+				<activiti:in sourceExpression="${serviceAndRoles.split(',')}" target="serviceAndRoles" />
+				</extensionElements>
+			</callActivity>
+			<sequenceFlow id="endCallDelivery" sourceRef="callDelivery" targetRef="Delivery_Delivered" />
+			
+<!-- 			<sequenceFlow id="toDelivered" targetRef="Delivery_Delivered" sourceRef="CheckNewServices" /> -->
+			
+			<endEvent id="Delivery_Delivered" name="Document delivered" ></endEvent>
+
+		</subProcess>
+		
+		<sequenceFlow id="toProcessed" targetRef="Processed" sourceRef="Delivery" />
+
+		<endEvent id="Processed" name="Document processed" ></endEvent>
+
+	</process>
+
+</definitions>

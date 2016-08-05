@@ -1,0 +1,17 @@
+<extension>
+	<modules>
+		<module>
+			<id>BlueDolmen Digital Signing Extension</id>
+			<auto-deploy>false</auto-deploy>
+
+			<customizations>
+				<customization>
+					<targetPackageRoot>org.bluedolmen.alfresco.extjs.yamma</targetPackageRoot>
+					<sourcePackageRoot>org.bluedolmen.ds</sourcePackageRoot>
+				</customization>
+			</customizations>
+
+		</module>
+
+	</modules>
+</extension>

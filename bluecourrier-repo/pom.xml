@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.bluedolmen.alfresco</groupId>
+		<artifactId>bluecourrier</artifactId>
+		<version>2.1-alf5.1</version>
+	</parent>
+
+	<packaging>amp</packaging>
+
+	<artifactId>bluecourrier-repo</artifactId>
+	<name>BlueCourrier Repo Extensions 5.0</name>
+	<description>This project gathers all the Alfresco (webapp) extensions specific to the Yamma (aka BlueCourrier) application</description>
+
+	<properties>
+		<bluecourrier.config-sitename>bluecourrier</bluecourrier.config-sitename>
+		<bluecourrier.administrators-group>BLUECOURRIER_ADMINISTRATORS</bluecourrier.administrators-group>
+		<bluecourrier.wf.incoming.version>1.0.4</bluecourrier.wf.incoming.version>
+		<bluecourrier.wf.outgoing.version>1.0.2</bluecourrier.wf.outgoing.version>
+	</properties>
+
+	<dependencyManagement>
+	
+		<dependencies>
+		
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>xmlgraphics-commons</artifactId>
+				<version>1.2</version>
+				<scope>provided</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant</artifactId>
+				<version>1.7.1</version>
+				<scope>provided</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>avalon-framework</groupId>
+				<artifactId>avalon-framework</artifactId>
+				<version>4.2.0</version>
+				<scope>provided</scope>
+			</dependency>
+			
+		</dependencies>
+		
+	</dependencyManagement>
+	
+	<dependencies>
+	
+        <dependency>
+                <groupId>${alfresco.groupId}</groupId>
+                <artifactId>alfresco-repository</artifactId>
+        </dependency>
+
+        <dependency>
+                <groupId>${alfresco.groupId}</groupId>
+                <artifactId>alfresco-remote-api</artifactId>
+        </dependency>
+	
+		<dependency>
+			<groupId>org.bluedolmen.alfresco</groupId>
+			<artifactId>alfresco-extensions</artifactId>
+		</dependency>
+
+		<!-- Licensing Core -->
+		<dependency>
+			<groupId>org.bluedolmen</groupId>
+			<artifactId>licensing-core</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- XDoc Report -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>xdocreport</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+
+		<!-- PDF -->
+		<dependency>
+			<groupId>org.bluedolmen.alfresco</groupId>
+			<artifactId>alfresco-extensions-pdf</artifactId>
+			<version>${alfresco-extensions.version}</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>	
+	
+		<plugins>
+			<!-- This module is used as a library by extensions -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<packaging>jar</packaging>
+							<artifactId>${project.artifactId}</artifactId>
+							<groupId>${project.groupId}</groupId>
+							<version>${project.version}</version>
+							<file>
+								${project.build.directory}/amp/lib/${project.build.finalName}.jar
+							</file>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		
+	</build>
+	
+	<profiles>
+		<profile>
+            <id>run</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </profile>
+	</profiles>
+
+</project>

@@ -1,0 +1,19 @@
+<webscript>
+	<shortname>YaECMA Tree Node</shortname>
+	<description><![CDATA[
+		  Get the children of a given node for navigation
+		  
+		  Arguments:
+		  node : the nodeRef of the parent node (or root for company-home)
+		  showFolders : true/false to show children folders [default = true]
+		  showFiles : true/false to show children files [default = false]  
+	]]>
+	</description>
+	<family>ExtJS</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yaecma/treenode</url>
+	<format default="json">argument</format>
+	<authentication>user</authentication>
+</webscript>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model name="bcinwf:workflowModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/bpm/1.0" prefix="bpm" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<namespaces>
+		<namespace uri="http://www.bluedolmen.org/model/bcincomingworkflow/1.0" prefix="bcinwf" />
+	</namespaces>
+	
+	<types>
+
+		<type name="bcinwf:startIncoming">
+			<!-- 
+				DO NOT set bpm:activitiStartTask as parent since with Alfresco 4.2.f
+				this lead to the strange behavior of ending the first task (would be expected
+				to terminate the start task only).
+				This may be a bug of the underlying Activiti engine.
+			 -->
+			<parent>bpm:startTask</parent>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+			</overrides>
+		</type>
+		
+		<type name="bcinwf:pendingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcinwf:pendingOutcome">
+					<type>d:text</type>
+					<default>Start</default>
+					<constraints>
+						<constraint name="bcinwf:pendingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Start</value>
+									<value>Cancel</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcincomingworkflow/1.0}pendingOutcome</default>
+				</property>
+			</overrides>
+			<mandatory-aspects>
+				<aspect>bcinwf:process</aspect>
+				<aspect>bcinwf:shareable</aspect>
+            </mandatory-aspects>
+		</type>
+
+		<type name="bcinwf:waitForNewServices">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<mandatory-aspects>
+				<aspect>bcinwf:process</aspect>
+				<aspect>bcinwf:shareable</aspect>
+            </mandatory-aspects>
+		</type>
+
+		<type name="bcinwf:deliveringTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcinwf:deliveringOutcome">
+					<type>d:text</type>
+					<default>Done</default>
+					<constraints>
+						<constraint name="bcinwf:deliveringOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Deliver</value>
+									<value>Assign</value>
+									<value>Done</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcincomingworkflow/1.0}deliveringOutcome</default>
+				</property>
+			</overrides>
+			<mandatory-aspects>
+				<aspect>bcinwf:process</aspect>
+				<aspect>bcinwf:shareable</aspect>
+				<aspect>bcinwf:assignable</aspect>
+            </mandatory-aspects>
+		</type>
+
+		<type name="bcinwf:validatingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcinwf:validatingOutcome">
+					<type>d:text</type>
+					<default>Accept</default>
+					<constraints>
+						<constraint name="bcinwf:validatingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Accept</value>
+									<value>Refuse</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcincomingworkflow/1.0}validatingOutcome</default>
+				</property>
+			</overrides>
+			<mandatory-aspects>
+				<aspect>bcinwf:process</aspect>
+				<aspect>bcinwf:shareable</aspect>
+            </mandatory-aspects>
+		</type>
+
+
+		<type name="bcinwf:processingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcinwf:reply">
+					<title>Reply Node</title>
+					<type>d:noderef</type>
+				</property>
+				<property name="bcinwf:processingOutcome">
+					<type>d:text</type>
+					<default>Done</default>
+					<constraints>
+						<constraint name="bcinwf:processingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Refuse</value>
+									<value>Done</value>
+									<value>Add Reply</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcincomingworkflow/1.0}processingOutcome</default>
+				</property>
+			</overrides>
+			<mandatory-aspects>
+				<aspect>bcinwf:process</aspect>
+            </mandatory-aspects>
+		</type>
+		
+	</types>
+
+	<aspects>
+	
+		<aspect name="bcinwf:process">
+			<properties>
+				<property name="bcinwf:processKind">
+					<title>Process Kind</title>
+					<description>The kind of process that will be used during distribution</description>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+				</property>
+				<property name="bcinwf:validateDelivering">
+					<title>Validate delivering</title>
+					<description>Whether the delivery has to be validated by a supervisor</description>
+					<type>d:boolean</type>
+					<mandatory>false</mandatory>
+				</property>
+				<property name="bcinwf:serviceRole">
+					<title>Service Role</title>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+				</property>
+				<property name="bcinwf:serviceName">
+					<title>Service Name</title>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+				</property>
+			</properties>
+		</aspect>	
+	
+		<aspect name="bcinwf:shareable">
+			<properties>
+				<property name="bcinwf:shares">
+                    <type>d:text</type>
+                </property>
+			</properties>
+		</aspect>
+
+		<aspect name="bcinwf:assignable">
+			<associations>
+				<association name="bcinwf:instructor">
+				    <source>
+				        <mandatory>false</mandatory>
+				        <many>false</many>
+				    </source>
+				    <target>
+				        <class>cm:person</class>
+				        <mandatory>false</mandatory>
+				        <many>false</many>
+				    </target>
+				</association>	
+			</associations>
+		</aspect>
+		
+	</aspects>
+
+
+</model>
+
+

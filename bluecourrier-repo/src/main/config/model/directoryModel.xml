@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+
+<model name="directory:model" xmlns="http://www.alfresco.org/model/dictionary/1.0"
+	xmlns:xi="http://www.w3.org/2001/XInclude">
+	<!-- Definition of the model -->
+
+	<description>Directory Model</description>
+	<author>Brice Pajot (bpajot@bluexml.com)</author>
+	<version>1.0</version>
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+		<import uri="http://www.alfresco.org/model/datalist/1.0" prefix="dl" />
+	</imports>
+
+	<namespaces>
+		<namespace uri="http://www.bluedolmen.org/directory/1.0" prefix="directory" />
+	</namespaces>
+
+	<constraints>
+		<constraint name="directory:nomenclature:comparison" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>&lt;</value>
+					<value>&gt;</value>
+					<value>=</value>
+				</list>
+			</parameter>
+		</constraint>
+
+		<constraint name="directory:nomenclature:booleanoperator" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>AND</value>
+					<value>OR</value>
+					<value>NOT</value>
+				</list>
+			</parameter>
+		</constraint>
+
+		<constraint name="directory:constraint:mail" type="REGEX">
+			<parameter name="expression">
+				<value>^(|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+)$</value>
+			</parameter>
+			<parameter name="requiresMatch">
+				<value>true</value>
+			</parameter>
+		</constraint>
+
+	</constraints>
+
+	<types>
+	
+		<type name="directory:organizationEntry">
+			<parent>dl:dataListItem</parent>
+			<archive>false</archive>
+			<mandatory-aspects>
+				<aspect>directory:organization</aspect>
+			</mandatory-aspects>
+		</type>
+		
+		<type name="directory:personEntry">
+			<parent>dl:dataListItem</parent>
+			<archive>false</archive>
+			<properties>
+				<property name="directory:userName">
+					<title>UserName</title>
+					<description>The user-name of the person when synchronized with the Alfresco users</description>
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+			</properties>
+			<mandatory-aspects>
+				<aspect>directory:person</aspect>
+			</mandatory-aspects>
+		</type>
+	</types>
+	
+	<aspects>
+	
+		<aspect name="directory:address">
+			<properties>
+				<property name="directory:addressBody">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>both</tokenised>
+					</index>
+				</property>
+				<property name="directory:city">
+					<type>d:text</type>
+					<index enabled="false" />
+				</property>
+				<property name="directory:country">
+					<type>d:text</type>
+					<index enabled="false" />
+				</property>
+				<property name="directory:postcode">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+			</properties>
+		</aspect>
+
+		<aspect name="directory:organization">
+			<properties>
+				<property name="directory:organizationEmail">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+				<property name="directory:organizationFax">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+				<property name="directory:organizationName">
+					<type>d:text</type>
+					<index enabled="false" />
+				</property>
+				<property name="directory:organizationTelephone">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+
+				</property>
+			</properties>
+			<mandatory-aspects>
+				<aspect>directory:address</aspect>
+			</mandatory-aspects>
+		</aspect>
+
+		<aspect name="directory:person">
+			<properties>
+				<property name="directory:personEmail">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+				<property name="directory:personFirstName">
+					<type>d:text</type>
+					<index enabled="false" />
+				</property>
+				<property name="directory:personJobtitle">
+					<type>d:text</type>
+					<index enabled="false" />
+				</property>
+				<property name="directory:personLastName">
+					<type>d:text</type>
+					<index enabled="false" />
+				</property>
+				<property name="directory:personMobile">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+				<property name="directory:personOrganizationId">
+					<title>Organization Identity</title>
+					<description>The Organization Identity</description>
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+				<property name="directory:personTelephone">
+					<type>d:text</type>
+					<index enabled="true">
+						<atomic>true</atomic>
+						<stored>false</stored>
+						<tokenised>false</tokenised>
+					</index>
+				</property>
+			</properties>
+			<mandatory-aspects>
+				<aspect>directory:address</aspect>
+			</mandatory-aspects>
+		</aspect>
+
+	</aspects>
+
+</model>

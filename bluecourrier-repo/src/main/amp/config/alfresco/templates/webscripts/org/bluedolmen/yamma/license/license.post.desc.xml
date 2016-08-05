@@ -1,0 +1,18 @@
+<webscript>
+
+<!-- Here we provide an equivalent of the license webscript targeting the BlueCourrier application -->
+<!-- We need to use a redundant urll (yamma + {appName} where {appName} will be instanciated to bluecourrier) -->
+<!-- in order not to change the Java implementation of the default webscript -->
+
+	<shortname>Load the Application License</shortname>
+	<description><![CDATA[
+	]]>
+	</description>
+	<family>BlueDolmen</family>
+	<arguments>
+	</arguments>
+	<url>/bluedolmen/yamma/license/{appName}</url>
+	<format default="json">argument</format>
+	<authentication runas="admin">user</authentication>
+	
+</webscript>

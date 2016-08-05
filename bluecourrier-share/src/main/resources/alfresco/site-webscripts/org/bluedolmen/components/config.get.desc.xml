@@ -1,0 +1,7 @@
+<webscript>
+  <shortname>BlueCourrier Client Config</shortname>
+  <description>Get the client config</description>
+  <url>/components/bluedolmen/config</url>
+  <format default="html">argument</format>
+  <family>yamma</family>
+</webscript>

@@ -1,0 +1,24 @@
+///<import resource="classpath:/alfresco/extension/bluedolmen/utils/parametercheck.lib.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/utils/utils.lib.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/utils/bpm.lib.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/config-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/yamma-model.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/yamma-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/datalist-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/priority-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/sendmail-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/dueable-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/services-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/trays-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/document-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/mail-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/archives-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/history-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/action-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/upload-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/reply-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/attachment-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/comment-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/classification-utils.js">
+///<import resource="classpath:/alfresco/extension/bluedolmen/yamma/common/following-utils.js">
+

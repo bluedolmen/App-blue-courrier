@@ -1,0 +1,14 @@
+#acs {
+	display: block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#acs iframe {
+	border: none;
+	width: 100%;
+	height: 100%;
+}
+

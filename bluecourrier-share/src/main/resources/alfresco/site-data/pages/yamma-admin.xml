@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <id>yamma-admin</id>
+   <title>YaMma Administration</title>
+   <title-id>page.yamma-admin.title</title-id>
+   <description>Page d'administration de BlueCourrier</description>
+   <description-id>page.yamma-admin.description</description-id>
+   <template-instance>yamma-admin</template-instance>
+   <authentication>user</authentication>
+</page>

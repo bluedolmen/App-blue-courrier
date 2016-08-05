@@ -1,0 +1,15 @@
+<webscript>
+	<shortname>Add one or several shares to a document</shortname>
+	<description><![CDATA[
+		The user should be at least reader of the document.
+		He cannot open rights greater than those he got on the document.
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/circulate</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

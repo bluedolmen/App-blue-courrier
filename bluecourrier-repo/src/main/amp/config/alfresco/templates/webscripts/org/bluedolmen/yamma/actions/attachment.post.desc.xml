@@ -1,0 +1,21 @@
+<webscript>
+	<shortname>Add an attachment to a document</shortname>
+	<description><![CDATA[
+		Add an attachment to a document
+		<p>
+		The attachment has to be provided by a formData field of "file" type.
+<p>Arguments:
+<ul>
+<li>nodeRef</li>
+<li>attachmentRef</li>
+<li>copyAttachmentRepository</li>
+<li>filedata</li>
+<li>filename</li>
+</ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<url>/bluedolmen/yamma/attachment</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

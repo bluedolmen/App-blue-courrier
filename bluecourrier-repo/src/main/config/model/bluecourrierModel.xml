@@ -1,0 +1,1095 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+
+<model name="bluecourrier:model" xmlns="http://www.alfresco.org/model/dictionary/1.0" >
+	<!-- Definition of the model -->
+
+	<description>BlueCourrier</description>
+	<author>Brice Pajot (bpajot@bluexml.com)</author>
+	<version>1.0</version>
+	
+		<imports>
+			<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+	      	<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	      	<import uri="http://www.alfresco.org/model/datalist/1.0" prefix="dl" />
+	  
+	      	<!-- Import BlueXML Definitions -->
+	      	<import uri="http://www.bluedolmen.org/directory/1.0" prefix="directory" />
+		</imports>
+	
+		<!-- Introduction of new namespaces defined by this model -->
+		<namespaces>
+			 <namespace uri="http://www.bluedolmen.org/bluecourrier/1.0" prefix="bluecourrier" />
+		</namespaces>
+	
+	<data-types>
+	</data-types>
+	
+		 <constraints>
+			<constraint name="bluecourrier:nomenclature:comparison" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+	                    <value>&lt;</value>
+	                    <value>&gt;</value>
+	                    <value>=</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+	        
+	        <constraint name="bluecourrier:nomenclature:booleanoperator" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+	                    <value>AND</value>
+	                    <value>OR</value>
+	                    <value>NOT</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+	        
+			<constraint name="bluecourrier:constraint:mail" type="REGEX">
+		        <parameter name="expression"><value>^(|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+)$</value></parameter>
+		        <parameter name="requiresMatch"><value>true</value></parameter>
+		    </constraint>
+		    
+		    
+		    <constraint name="bluecourrier:nomenclature:EOrigin" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+						<value>digitized</value>
+						<value>imap</value>
+						<value>manual</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+		    <constraint name="bluecourrier:nomenclature:ERoles" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+						<value>SiteCollaborator</value>
+						<value>SiteConsumer</value>
+						<value>SiteContributor</value>
+						<value>SiteManager</value>
+						<value>No</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+		    <constraint name="bluecourrier:nomenclature:EStatus" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+						<value>archived</value>
+						<value>delivering</value>
+						<value>pending</value>
+						<value>processed</value>
+						<value>processing</value>
+						<value>revising</value>
+						<value>sending</value>
+						<value>certifying</value>
+						<value>validating!delivery</value>
+						<value>validating!processed</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+		    <constraint name="bluecourrier:nomenclature:ETrayKind" type="LIST">
+	            <parameter name="allowedValues">
+	                <list>
+						<value>CCBOX</value>
+						<value>INBOX</value>
+						<value>OUTBOX</value>
+	                </list>
+	            </parameter>
+	        </constraint>
+	        
+		 </constraints>
+	
+	<types>
+	
+				<type name="bluecourrier:documentContainer">
+					<title>Document Container</title>
+					<description>A container for storing document-related material</description>
+					<parent>cm:folder</parent>			    
+					<associations>
+						<association name="bluecourrier:referenceDocument">
+							<title>reference</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</source>
+							<target>
+								<class>bluecourrier:document</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+				</type>
+				
+				<type name="bluecourrier:history">
+					<title>History</title>
+					<description>History is meant to contains a list of events</description>
+					<parent>cm:folder</parent>
+					<archive>false</archive>
+					<associations>
+						<child-association name="bluecourrier:events">
+							<title>Event</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</source>
+							<target>
+								<class>bluecourrier:event</class>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</target>
+							<duplicate>false</duplicate>
+							<propagateTimestamps>false</propagateTimestamps>
+						</child-association>							
+					</associations>
+				</type>
+
+				<type name="bluecourrier:event">
+					<title>History Event</title>
+					<description>Any event, part of the history</description>
+					<parent>cm:content</parent>			    
+					<archive>false</archive>
+					<includedInSuperTypeQuery>false</includedInSuperTypeQuery>
+					<properties>
+						<property name="bluecourrier:eventDescription">
+							<title>Comment</title>
+							<description>Comment on the event</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:eventDate">
+							<title>Date</title>
+							<description>Date (and time) of the event</description>
+							<type>d:datetime</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:delegate">
+							<title>Delegate</title>
+							<description>The delegate of the event (if any)</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:eventType">
+							<title>Event Type</title>
+							<description>The type of the event</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:referrer">
+							<title>Referrer</title>
+							<description>The referrer of the event (if any)</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</type>
+				
+				<type name="bluecourrier:delayItem">
+					<parent>dl:dataListItem</parent>			    
+					<archive>false</archive>
+					<properties>
+						<property name="bluecourrier:delayInDays">
+							<title>Delay (d)</title>
+							<description>The acceptable delay to process the document in days</description>
+							<type>d:int</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</type>
+				
+				<type name="bluecourrier:priorityItem">
+					<parent>dl:dataListItem</parent>			    
+					<archive>false</archive>
+					<properties>
+						<property name="bluecourrier:level">
+							<title>Level</title>
+							<description>Level of the value</description>
+							<type>d:int</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							
+						</property>
+					</properties>
+				</type>
+				
+				<type name="bluecourrier:privacyLevelItem">
+					<parent>dl:dataListItem</parent>			    
+					<archive>false</archive>
+					<properties>
+						<property name="bluecourrier:assistantRole">
+							<title>Role assigned to the Assistant</title>
+							<type>d:text</type>
+							<index enabled="false"/>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:ERoles"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:discardExisting">
+							<title>Discard existing service roles permissions</title>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+						<property name="bluecourrier:forceApplying">
+							<title>Force applying permissions</title>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+						<property name="bluecourrier:instructorRole">
+							<title>Role assigned to the instructor</title>
+							<type>d:text</type>
+							<index enabled="false"/>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:ERoles"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:managerRole">
+							<title>Role assigned to the Manager</title>
+							<type>d:text</type>
+							<index enabled="false"/>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:ERoles"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:supervisorRole">
+							<title>Role assigned to the Supervisor</title>
+							<type>d:text</type>
+							<index enabled="false"/>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:ERoles"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:restricted">
+							<title>Restricted view</title>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+					</properties>
+				</type>
+				
+				<type name="bluecourrier:deliveryModelItem">
+					<parent>dl:dataListItem</parent>			    
+					<archive>false</archive>
+					<mandatory-aspects>
+						<aspect>bluecourrier:distributable</aspect>
+						<aspect>cm:generalclassifiable</aspect> <!-- Currently used for matching -->
+					</mandatory-aspects>
+				</type>
+				
+	</types>
+	
+	<aspects>
+			
+				<aspect name="bluecourrier:assignable">		
+					<properties>
+						<property name="bluecourrier:searchableAuthority">
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+					<associations>
+						<association name="bluecourrier:assignedAuthority">
+							<title>Authority</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>cm:authority</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+				</aspect>
+			
+				<aspect name="bluecourrier:digitizable">		
+					<properties>
+						<property name="bluecourrier:digitizedDate">
+							<title>Digitized Date</title>
+							<description>The date on which the mail was digitized</description>
+							<type>d:date</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:distributable">		
+					<properties>
+						<property name="bluecourrier:shares">
+							<title>Shares</title>
+							<type>d:text</type>
+							<multiple>true</multiple>
+							<index enabled="false"/>
+						</property>
+						<property name="bluecourrier:processKind">
+							<title>Process Kind</title>
+							<description>The kind of process that is used during delivering</description>
+							<type>d:text</type>
+							<index enabled="true">
+								<atomic>true</atomic>
+								<stored>false</stored>
+								<tokenised>false</tokenised>
+							</index>
+						</property>
+						<property name="bluecourrier:startDelivery">
+							<title>Start Delivery?</title>
+							<description>Wether delivery should be started or not</description>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+						<property name="bluecourrier:validateDelivery">
+							<title>Validate Delivery?</title>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:document">		
+					<mandatory-aspects>
+						<aspect>bluecourrier:privacy</aspect>
+						<aspect>bluecourrier:referenceable</aspect>
+						<aspect>bluecourrier:statusable</aspect>
+						<aspect>cm:attachable</aspect>
+						<aspect>cm:generalclassifiable</aspect>
+					</mandatory-aspects>
+				</aspect>
+			
+				<aspect name="bluecourrier:dueable">		
+					<properties>
+						<property name="bluecourrier:dueDate">
+							<title>Due Date</title>
+							<description>The due-date of the document, when available</description>
+							<type>d:date</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:delay">
+							<title>Delay</title>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+<!-- 					<associations> -->
+<!-- 						<association name="bluecourrier:delay"> -->
+<!-- 							<title>delay</title> -->
+<!-- 							<source> -->
+<!-- 								<mandatory>false</mandatory> -->
+<!-- 								<many>true</many>						 -->
+<!-- 							</source> -->
+<!-- 							<target> -->
+<!-- 								<class>bluecourrier:delayItem</class> -->
+<!-- 								<mandatory>false</mandatory> -->
+<!-- 								<many>false</many>						 -->
+<!-- 							</target> -->
+<!-- 						</association>							 -->
+<!-- 					</associations> -->
+				</aspect>
+			
+				<aspect name="bluecourrier:following">		
+					<properties>
+						<property name="bluecourrier:followedBy">
+							<type>d:text</type>
+							<multiple>true</multiple>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+				
+				<aspect name="bluecourrier:historizable">		
+					<associations>
+						<child-association name="bluecourrier:historyContainer">
+							<title>History</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</source>
+							<target>
+								<class>bluecourrier:history</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+							<duplicate>false</duplicate>
+							<propagateTimestamps>false</propagateTimestamps>
+						</child-association>							
+					</associations>
+				</aspect>
+				
+			
+				<aspect name="bluecourrier:inboundDocument">		
+					<properties>
+						<property name="bluecourrier:deliveryDate">
+							<title>Delivery Date</title>
+							<description>The date on which the mail was delivered to the receiver</description>
+							<type>d:date</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:origin">
+							<title>Origin</title>
+							<description>Origin of the Inbound Document (when available)</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:EOrigin"/>
+							</constraints>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:mail">		
+					<properties>
+						<property name="bluecourrier:object">
+							<title>Object</title>
+							<description>The object of the mail</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:sentDate">
+							<title>Sent Date</title>
+							<description>The date on which the reply was sent</description>
+							<type>d:date</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:writingDate">
+							<title>Writing Date</title>
+							<type>d:date</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+					</properties>
+					<mandatory-aspects>
+						<aspect>bluecourrier:document</aspect>
+						<aspect>bluecourrier:recipient</aspect>
+						<aspect>bluecourrier:sender</aspect>
+					</mandatory-aspects>
+				</aspect>
+			
+				<aspect name="bluecourrier:outboundDocument">		
+					<title>Outbound Document</title>
+					<archive>false</archive>
+				</aspect>
+			
+				<aspect name="bluecourrier:prioritizable">		
+					<properties>
+						<property name="bluecourrier:priority">
+							<title>Priority</title>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:privacy">		
+					<properties>
+						<property name="bluecourrier:privacyLevel">
+							<title>Privacy Level</title>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>					
+				</aspect>
+			
+				<aspect name="bluecourrier:processed">		
+					<description>Internal aspect used to store the last-processing user and date. Used to restart the incoming workflow</description>
+					<properties>
+						<property name="bluecourrier:processedBy">
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:recipient">		
+					<properties>
+						<property name="bluecourrier:recipientAddress">
+							<title>Recipient Address</title>
+							<description>The address of the recipient</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientCity">
+							<title>Recipient Address City</title>
+							<description>The recipient address city</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientCountry">
+							<title>Recipient Address Country</title>
+							<description>The recipient address country</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientEmail">
+							<title>Recipient Email</title>
+							<description>The email of the recipient</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							<constraints>
+								<constraint ref="bluecourrier:constraint:mail"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:recipientJobTitle">
+							<title>Recipient Job Title</title>
+							<description>The recipient job-title</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientOrganizationName">
+							<title>Recipient Organization Name</title>
+							<description>The name of the recipient organization</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientPostcode">
+							<title>Recipient Address Postcode</title>
+							<description>The recipient address postcode</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientName">
+							<title>Recipient Name</title>
+							<description>The recipient (person) name</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:recipientTelephone">
+							<title>Recipient Phone-Number</title>
+							<description>The phone-number of the recipient</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+					<associations>
+						<association name="bluecourrier:recipientPersonEntry">
+							<title>recipient</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>directory:personEntry</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+						<association name="bluecourrier:recipientOrganizationEntry">
+							<title>organization</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>directory:organizationEntry</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+				</aspect>
+			
+				<aspect name="bluecourrier:referenceable">		
+					<properties>
+						<property name="bluecourrier:internalReference">
+							<title>Internal Reference</title>
+							<description>(Unique) reference used internally by the system</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:reference">
+							<title>Reference</title>
+							<description>The reference of a document</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:reply">		
+					<associations>
+						<association name="bluecourrier:replyTo">
+							<title>Reply To</title>
+							<source>
+								<role>bluecourrier:replies</role>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>bluecourrier:mail</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+					<mandatory-aspects>
+						<aspect>bluecourrier:outboundDocument</aspect>
+					</mandatory-aspects>
+				</aspect>
+			
+				<aspect name="bluecourrier:sender">		
+					<properties>
+						<property name="bluecourrier:senderAddress">
+							<title>Correspondent Address</title>
+							<description>The address of the correspondent</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderCity">
+							<title>Sender Address City</title>
+							<description>The city of the sender-address</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderCountry">
+							<title>Sender Address Country</title>
+							<description>The country of the sender-address</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderEmail">
+							<title>Sender Email</title>
+							<description>The email of the sender</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							<constraints>
+								<constraint ref="bluecourrier:constraint:mail"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:senderInstructorEmail">
+							<title>Instructor Email</title>
+							<description>The instructor contact-email</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							<constraints>
+								<constraint ref="bluecourrier:constraint:mail"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:senderInstructorJobTitle">
+							<title>Instructor Job Title</title>
+							<description>The instructor job-title in the organization</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderInstructorMobile">
+							<title>Instructor Mobile Phone Number</title>
+							<description>The instructor mobile-phone number</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderInstructorName">
+							<title>Instructor Name</title>
+							<description>the instructor-name (title, firstname, lastname)</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderInstructorTelephone">
+							<title>Instructor Phone-Number</title>
+							<description>The instructor telephone number</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderOrganizationName">
+							<title>Organization Name</title>
+							<description>The name of the organization</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderPostcode">
+							<title>Sender Address PostCode</title>
+							<description>The postcode of the sender-address</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderSignatorEmail">
+							<title>Signator Email</title>
+							<description>The signator email</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							<constraints>
+								<constraint ref="bluecourrier:constraint:mail"/>
+							</constraints>
+						</property>
+						<property name="bluecourrier:senderSignatorJobTitle">
+							<title>Signator Job Title</title>
+							<description>The signator job-title</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderSignatorMobile">
+							<title>Signator Mobile Phone Number</title>
+							<description>The signatore mobile-phone number</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderSignatorName">
+							<title>Signator Name</title>
+							<description>The signator name (title, firstname, and lastname)</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderSignatorTelephone">
+							<title>Signator Telephone</title>
+							<description>The signator telephone phone number</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:senderTelephone">
+							<title>Sender Phone-Number</title>
+							<description>The phone-number of the sender</description>
+							<type>d:text</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+						</property>
+					</properties>
+					<associations>
+						<association name="bluecourrier:senderOrganizationEntry">
+							<title>organization</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>directory:organizationEntry</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+						<association name="bluecourrier:senderSignatorPersonEntry">
+							<title>signator</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>directory:personEntry</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+						<association name="bluecourrier:senderInstructorPersonEntry">
+							<title>instructor</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>directory:personEntry</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+				</aspect>
+			
+				<aspect name="bluecourrier:sentByEmail">		
+					<properties>
+						<property name="bluecourrier:lastSentByEmailFailureDate">
+							<title>Email last Failure Date</title>
+							<description>The date on which the outbound-mail cannot be sent by email</description>
+							<type>d:datetime</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+						<property name="bluecourrier:sentByEmailDate">
+							<title>Email Sent Date</title>
+							<description>The date on which the outbound-mail was (successfully) sent by email</description>
+							<type>d:datetime</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:service">		
+					<title>Service</title>
+					<properties>
+						<property name="bluecourrier:canSign">
+							<title>Can Sign</title>
+							<description>Whether the service is in contact with a person accredited to sign a document.</description>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+					</properties>
+					<associations>
+						<association name="bluecourrier:parentService">
+							<title>parent</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>bluecourrier:service</class>
+								<mandatory>false</mandatory>
+								<many>false</many>						
+							</target>
+						</association>							
+					</associations>
+				</aspect>
+			
+				<aspect name="bluecourrier:signable">		
+					<properties>
+						<property name="bluecourrier:needsSignature">
+							<title>Needs Signature</title>
+							<description>Whether or not the reply has to be signed by an accredited person</description>
+							<type>d:boolean</type>
+							<index enabled="false"/>
+						</property>
+						<property name="bluecourrier:signedDate">
+							<title>Signed Date</title>
+							<description>The signed-date of the document of signable documents</description>
+							<type>d:datetime</type>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>both</tokenised>
+					          </index>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:statusable">		
+					<properties>
+						<property name="bluecourrier:status">
+							<title>State</title>
+							<description>Status of the document</description>
+							<type>d:text</type>
+							<default>pending</default>
+					          <index enabled="true">
+					          	 <atomic>true</atomic>
+					          	 <stored>false</stored>
+					          	 <tokenised>false</tokenised>
+					          </index>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:EStatus"/>
+							</constraints>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:tray">		
+					<properties>
+						<property name="bluecourrier:trayKind">
+							<type>d:text</type>
+							  <index enabled="false"/>
+							<constraints>
+								<constraint ref="bluecourrier:nomenclature:ETrayKind"/>
+							</constraints>
+						</property>
+					</properties>
+				</aspect>
+			
+				<aspect name="bluecourrier:copiedfrom">		
+					<properties>
+					</properties>
+					<associations>
+						<association name="bluecourrier:originalDocument">
+							<title>original</title>
+							<source>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</source>
+							<target>
+								<class>bluecourrier:document</class>
+								<mandatory>false</mandatory>
+								<many>true</many>						
+							</target>
+						</association>							
+					</associations>
+				</aspect>
+
+	</aspects> 
+	
+</model>

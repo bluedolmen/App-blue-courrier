@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+	   		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	   " >
+
+	<!-- 
+	  - BARCODE MATERIAL
+	  -->
+	  
+	<alias name="zxing.BarcodeGenerator" alias="BarcodeGenerator" />
+	
+	<!-- BARCODE4J -->
+		 
+	<bean id="barcodeGenerator.code128" class="org.krysalis.barcode4j.impl.code128.Code128Bean">
+	    <property name="moduleWidth" value="0.3"/> <!-- mm -->
+	    <property name="msgPosition">
+	    	<util:constant static-field="org.krysalis.barcode4j.HumanReadablePlacement.HRP_NONE"/> <!-- no message -->
+	    </property>
+	    <property name="barHeight" value="10"/> <!-- mm -->
+	</bean>
+	
+	<bean id="barcodeGenerator.code128WithLabel" class="org.krysalis.barcode4j.impl.code128.Code128Bean">
+	    <property name="moduleWidth" value="0.3"/> <!-- mm -->
+	    <property name="msgPosition">
+	    	<util:constant static-field="org.krysalis.barcode4j.HumanReadablePlacement.HRP_BOTTOM"/>
+	    </property>
+	    <property name="barHeight" value="7"/> <!-- mm -->
+	</bean>
+	
+	<bean id="barcode4j.BarcodeGenerator" class="org.bluedolmen.alfresco.barcode.Barcode4JBarcodeGenerator">
+		<property name="barcodeGenerator" ref="barcodeGenerator.code128WithLabel" />		
+	    <property name="resolution" value="150"/>
+	</bean>
+	
+	
+	<!-- ZXing -->
+	
+	<bean id="zxing.writer.QRCode" class="org.bluedolmen.alfresco.barcode.ZXingBarcodeGenerator$ZXingWriterConfig">
+		<property name="writer">
+			<bean class="com.google.zxing.qrcode.QRCodeWriter"/>
+		</property>
+		<property name="format" value="QR_CODE" />
+		<property name="width" value="50"/>
+		<property name="height" value="50"/>
+	</bean>
+	
+	<bean id="zxing.BarcodeGenerator" class="org.bluedolmen.alfresco.barcode.ZXingBarcodeGenerator">
+		<property name="writerConfig" ref="zxing.writer.QRCode" />
+	</bean>
+	
+	<!-- 
+	  - WEBSCRIPTS
+	  -->
+	  
+	<bean id="webscript.org.bluedolmen.barcode.barcode.get" 
+		  class="org.bluedolmen.alfresco.barcode.ws.BarcodeWebscript" 
+		  parent="webscript">
+				
+		<property name="barcodeGenerator" ref="BarcodeGenerator" />	
+		<property name="referenceProviderService" ref="referenceProviderService" />
+	</bean> 
+	
+	<!-- 
+	  - EXTRACTER
+	  -->
+
+<!-- 
+	<alias name="ghost4j.BarcodeExtracter" alias="BarcodeExtracter" />
+	
+	<bean id="ghost4j.BarcodeExtracter" class="org.bluedolmen.alfresco.barcode.extracter.Ghost4JBarcodeExtracter" />
+	
+	<bean id="pdfbox.BarcodeExtracter" class="org.bluedolmen.alfresco.barcode.extracter.PdfBoxBarcodeExtracter" />
+	
+	<bean id="extracter.BarcodeExtracter" 
+		class="org.bluedolmen.alfresco.barcode.extracter.BarcodeMetadataExtracter"
+		parent="baseMetadataExtracter" >
+		
+		<property name="barcodeExtracter" ref="BarcodeExtracter" />
+		<property name="inheritDefaultMapping" value="false" />
+		<property name="mappingProperties">
+			<props>
+				<prop key="namespace.prefix.bluecourrier">http://www.bluedolmen.org/bluecourrier/1.0</prop>
+				<prop key="reference">bluecourrier:internalReference</prop>
+			</props>
+		</property>		
+	</bean>
+ -->	
+	
+	<!-- JAVASCRIPT -->
+<!-- 	
+	<bean id="barcodeExtracterScript" parent="baseJavaScriptExtension" class="org.bluedolmen.alfresco.barcode.extracter.BarcodeExtracterScript" >
+		<property name="extensionName" value="barcodeExtracter" />
+		<property name="barcodeExtracter" ref="BarcodeExtracter"/>
+		<property name="fileFolderService" ref="FileFolderService" />		
+	</bean>
+ -->	
+	
+	<bean id="pdfbox.Merger" class="org.bluedolmen.alfresco.pdf.pdfbox.PdfBoxMerger" parent="abstractPdfMerger">
+		<property name="inputSourceFactory" ref="pdfbox.InputSourceFactory" />
+		<property name="referenceProviderService" ref="referenceProviderService" />
+	</bean>
+	
+	<!-- bean id="yamma.itext.mergerExtension.barcodeStamper" 
+		  class="org.bluedolmen.alfresco.pdf.itext.ITextBarcodeStampOperationExtension"
+		  parent="itext.AbstractExtension" >
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		<property name="referenceProviderService" ref="referenceProviderService" />
+		<property name="barcodePosition" value="190,10" />
+		<property name="barcodeSize" value="10x10" />
+	</bean -->
+			
+</beans>

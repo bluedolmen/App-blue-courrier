@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model name="bcogwf:workflowModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/bpm/1.0" prefix="bpm" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<namespaces>
+		<namespace uri="http://www.bluedolmen.org/model/bcoutgoingworkflow/1.0" prefix="bcogwf" />
+	</namespaces>
+	
+	<types>
+
+		<type name="bcogwf:startOutgoing">
+			<!-- 
+				DO NOT set bpm:activitiStartTask as parent since with Alfresco 4.2.f
+				this lead to the strange behavior of ending the first task (would be expected
+				to terminate the start task only).
+				This may be a bug of the underlying Activiti engine.
+			 -->
+			<parent>bpm:startTask</parent>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+			</overrides>
+		</type>
+
+
+		<type name="bcogwf:processingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcogwf:processingOutcome">
+					<type>d:text</type>
+					<default>Update</default>
+					<constraints>
+						<constraint name="bcogwf:processingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Validate</value>
+									<value>Send Without Validation</value>
+									<value>Update</value>
+									<value>Remove</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcoutgoingworkflow/1.0}processingOutcome</default>
+				</property>
+			</overrides>
+		</type>
+
+		
+		<type name="bcogwf:validatingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcogwf:validatingOutcome">
+					<type>d:text</type>
+					<default>Next</default>
+					<constraints>
+						<constraint name="bcogwf:validatingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Next</value>
+									<value>Reject</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcoutgoingworkflow/1.0}validatingOutcome</default>
+				</property>
+			</overrides>
+			<mandatory-aspects>
+				<aspect>bcogwf:validating</aspect>
+            </mandatory-aspects>
+		</type>
+
+
+
+		<type name="bcogwf:certifyingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcogwf:certifyingOutcome">
+					<type>d:text</type>
+					<default>Cancel</default>
+					<constraints>
+						<constraint name="bcogwf:certifyingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Certify</value>
+									<value>Reject</value>
+									<value>Cancel</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcoutgoingworkflow/1.0}certifyingOutcome</default>
+				</property>
+			</overrides>
+		</type>
+
+
+		<type name="bcogwf:sendingTask">
+			<parent>bpm:activitiOutcomeTask</parent>
+			<properties>
+				<property name="bcogwf:closeIncoming">
+					<title>Close Incoming Document Processing</title>
+					<type>d:boolean</type>
+				</property>
+				<property name="bcogwf:sendingOutcome">
+					<type>d:text</type>
+					<default>Sent</default>
+					<constraints>
+						<constraint name="bcogwf:sendingOutcomeOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Sent</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<overrides>
+				<property name="bpm:packageActionGroup">
+					<default>add_package_item_actions</default>
+				</property>
+				<property name="bpm:outcomePropertyName">
+					<default>{http://www.bluedolmen.org/model/bcoutgoingworkflow/1.0}sendingOutcome</default>
+				</property>
+			</overrides>
+		</type>
+		
+	</types>
+
+	<aspects>
+	
+		<aspect name="bcogwf:validating">
+			<properties>
+				<property name="bcogwf:validationChain">
+					<title>Validation Chain</title>
+					<description>The actors who are still pending to validate the document</description>
+					<type>d:text</type>
+					<multiple>true</multiple>
+				</property>
+				<property name="bcogwf:validationHistory">
+					<title>History Chain</title>
+					<description>The history of the past events on this validation chain</description>
+					<type>d:text</type>
+					<multiple>true</multiple>
+				</property>
+			</properties>
+		</aspect>	
+
+		<aspect name="bcogwf:certifying">
+			<properties>
+				<property name="bcogwf:signingActor">
+					<title>The Signing Actor</title>
+					<description>The (current) actor who is in charge of signing the document</description>
+					<type>d:text</type>
+				</property>
+				<property name="bcogwf:signingRole">
+					<title>The Signing Role</title>
+					<description>The role of the signing actor - certification or approbation</description>
+					<type>d:text</type>
+					<constraints>
+						<constraint name="bcogwf:signingRoleOptions" type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Certification</value>
+									<value>Approbation</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+				<property name="bcogwf:signingChain">
+					<title>Signing Chain</title>
+					<description>The actors who are still pending to sign the document (approbation)</description>
+					<type>d:text</type>
+					<multiple>true</multiple>
+				</property>
+				<property name="bcogwf:signingHistory">
+					<title>History Signing Chain</title>
+					<description>The history of the past events on this signing chain</description>
+					<type>d:text</type>
+					<multiple>true</multiple>
+				</property>
+			</properties>
+		</aspect>	
+	</aspects>
+
+
+</model>
+
+

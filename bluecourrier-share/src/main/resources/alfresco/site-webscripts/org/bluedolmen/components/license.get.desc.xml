@@ -1,0 +1,7 @@
+<webscript>
+  <shortname>BlueCourrier Licensing</shortname>
+  <description>Get the client licensing</description>
+  <url>/components/bluedolmen/license</url>
+  <format default="html">argument</format>
+  <family>yamma</family>
+</webscript>

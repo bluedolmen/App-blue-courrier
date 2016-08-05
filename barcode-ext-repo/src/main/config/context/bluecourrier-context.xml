@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<beans>	
+
+	<!-- BARCODE PAGE GENERATION -->
+	
+	<bean id="pageDefinition.AVERY.L7651" class="org.bluedolmen.alfresco.barcode.pdf.LabelPageConfiguration">
+		<property name="pageMargin" value="11 3.375 3 10" />
+		<property name="labelSize" value="38.1x21.2" />
+		<property name="labelMargin" value="0 1.125 0 1.125" />
+		<property name="labelPadding" value="2" />
+	</bean>
+	
+	<bean id="pageDefinition.AVERY.L7654" class="org.bluedolmen.alfresco.barcode.pdf.LabelPageConfiguration">
+		<property name="pageMargin" value="21 5 15 10" />
+		<property name="labelSize" value="45.7x25.4" />
+		<property name="labelMargin" value="0 2.5 0 0" />
+		<property name="labelPadding" value="2" />
+	</bean>
+	
+	<bean id="yamma.abstractBarcodeLabelPdfDocument" 
+		class="org.bluedolmen.alfresco.barcode.pdf.AbstractBarcodeLabelPdfDocument"
+		abstract="true">
+		
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		<property name="referenceProvider" ref="yamma.scriptReferenceProvider" />
+		<property name="pageConfiguration" ref="pageDefinition.AVERY.L7651" />
+		
+	</bean>
+	
+	<bean id="yamma.barcodeLabelPdfDocument.IText" 
+		class="org.bluedolmen.alfresco.pdf.itext.ITextBarcodeLabelPdfDocument"
+		parent="yamma.abstractBarcodeLabelPdfDocument">		
+	</bean>
+		
+	
+	<bean id="webscript.org.bluedolmen.yamma.barcode.labelgenerator.get" 
+		class="org.bluedolmen.alfresco.barcode.ws.BarcodePageGenerator" 
+		parent="webscript">
+				
+		<property name="barcodeLabelPdfDocument" ref="yamma.barcodeLabelPdfDocument.IText" />	
+	</bean> 
+	
+	<!-- BARCODE EXTENSION FOR MERGING -->
+	
+	<bean id="yamma.itext.mergerExtension.barcodeStamper" 
+		class="org.bluedolmen.alfresco.yamma.pdf.ITextYammaBarcodeStampOperation" 
+		init-method="register" >
+		
+		<property name="merger" ref="yamma.replies.itext.Merger"/>
+		<property name="nodeService" ref="NodeService" />
+		
+		<property name="referenceProviderService" ref="referenceProviderService" />
+		<property name="barcodeGenerator" ref="BarcodeGenerator"/>
+		<property name="barcodePosition" value="190,10" />
+		<property name="barcodeSize" value="10x10" />
+	</bean>
+
+
+</beans>

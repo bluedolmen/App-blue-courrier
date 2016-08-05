@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+   <template-type>org/bluedolmen/alfresco/extjs/yaecma/application</template-type>
+   <properties>
+      <pageFamily>yaecma</pageFamily>
+   </properties>
+</template-instance>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+ 
+<beans>
+
+    <bean id="yamma.workflowBootstrap" parent="bluedolmen.versionAwareWorkflowDeployer" depends-on="repositoryHelper">
+    
+		<property name="workflowDefinitions">
+			<list>
+				<props>
+					<prop key="engineId">activiti</prop>
+					<prop key="location">${config.target.path}/bpm/incoming.bpmn</prop>
+					<prop key="version">${bluecourrier.wf.incoming.version}</prop>
+				</props>
+				<props>
+					<prop key="engineId">activiti</prop>
+					<prop key="location">${config.target.path}/bpm/outgoing.bpmn</prop>
+					<prop key="version">${bluecourrier.wf.outgoing.version}</prop>
+				</props>
+			</list>
+		</property>
+		<property name="models">
+			<list>
+                <value>${config.target.path}/bpm/incomingWorkflowModel.xml</value>
+                <value>${config.target.path}/bpm/outgoingWorkflowModel.xml</value>                
+			</list>
+		</property>
+		<property name="labels">
+			<list>
+<!--                 <value>${config.target.path}/bpm/incomingDocument</value> -->
+<!--                 <value>${config.target.path}/bpm/outgoingDocument</value> -->
+			</list>
+		</property>
+	</bean>
+
+   <bean id="yamma.reassign.CredentialTester" class="org.bluedolmen.alfresco.workflows.jbpm.ReassignCredentialJavascriptTester" parent="reassign.CredentialTester">
+   		<property name="location">
+			<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+				<constructor-arg>
+					<value>alfresco/extension/bluedolmen/yamma/workflows/reassign-credential-tester.js</value>
+				</constructor-arg>
+			</bean>   		
+   		</property>
+   </bean>
+   
+	<bean id="yamma.incomingWorklfowHelper" class="org.bluedolmen.alfresco.yamma.wf.IncomingWorkflowHelper">
+		<property name="workflowUtils" ref="workflowUtils" />
+		<property name="runtimeService" ref="activitiRuntimeService" />
+		<property name="workflowService" ref="WorkflowService" />
+		<property name="incomingWorkflowName" value="activiti$incomingDocument" />
+	</bean>
+
+	<bean id="yamma.workflow.incoming.webscript" 
+		class="org.bluedolmen.alfresco.yamma.ws.IncomingWorkflowDeclarativeWebscript" 
+		parent="webscript"
+		abstract="true" >
+		<property name="incomingWorkflowHelper" ref="yamma.incomingWorklfowHelper" />	
+	</bean>
+
+	<!-- Defining a specific webscript that exposes a particular object used to 
+		manipulate the "special" waiting task embedded in activiti -->
+	<bean id="webscript.org.bluedolmen.yamma.actions.circulate.post" 
+		parent="yamma.workflow.incoming.webscript">
+	</bean>
+
+	<!-- Defining a specific webscript that exposes a particular object used to 
+		manipulate the "special" waiting task embedded in activiti -->
+	<bean id="webscript.org.bluedolmen.yamma.actions.restartIncomingWorkflow.post" 
+		parent="yamma.workflow.incoming.webscript">
+	</bean>
+   
+</beans>

@@ -1,0 +1,10 @@
+<webscript>
+	<shortname>Assign Processing of the Incoming Document</shortname>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/assign-processing</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>

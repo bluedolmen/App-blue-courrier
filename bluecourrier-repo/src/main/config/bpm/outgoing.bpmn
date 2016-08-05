@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://activiti.org/bpmn20" id="outgoing-document">
+
+  <process id="outgoingDocument" name="BlueCourrier Outgoing Document Process" isExecutable="true">
+  
+    <extensionElements>
+      <activiti:executionListener event="end" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string><![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-end.js">]]></activiti:string>
+          </activiti:field>
+      </activiti:executionListener>
+    </extensionElements>
+    
+    
+    
+    
+    <startEvent id="startOutgoing" name="Start Outgoing Document Process" activiti:formKey="bcogwf:startOutgoing">
+    </startEvent>
+    
+    <sequenceFlow id="toProcessing" sourceRef="startOutgoing" targetRef="processingTask" >
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-start-outgoing.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements> 
+    </sequenceFlow>
+    
+    
+    
+    
+    
+    <userTask id="processingTask" name="Processing Outgoing Document" activiti:formKey="bcogwf:processingTask">
+    
+      <documentation id="processingDoc">This step is a preliminary step which allows some actors to preset some data</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-processing-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/assign-to-service-instructor.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="assignment" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+		  <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-instructor-assignment.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-processing-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+      </extensionElements>
+      
+    </userTask>
+    
+    <sequenceFlow id="toProcessingDecision" sourceRef="processingTask" targetRef="processingDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="processingDecision" name="Processing Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="validate" name="Validate document" sourceRef="processingDecision" targetRef="validatingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_processingOutcome == 'Validate'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="sendWithoutValidation" name="Send without Validation" sourceRef="processingDecision" targetRef="checkForCertification">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_processingOutcome == 'Send Without Validation'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="update" name="Update" sourceRef="processingDecision" targetRef="processingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_processingOutcome == 'Update'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="remove" name="Remove" sourceRef="processingDecision" targetRef="removed">
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-remove.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements>     
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_processingOutcome == 'Remove'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+	<endEvent id="removed" name="Removed"></endEvent>
+
+    
+
+    <userTask id="validatingTask" name="Validating Outgoing Document" activiti:formKey="bcogwf:validatingTask">
+    
+      <documentation id="validatingDoc">The document is being validated by a set of actors (usually supervisors)</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/assign-wrt-validation-chain.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+
+		<!-- The order is voluntary reversed with assignment here -->        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-validating-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="assignment" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+		  <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-validating-assignment.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-validating-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+      </extensionElements>
+      
+    </userTask>
+    
+    <sequenceFlow id="toValidatingDecision" sourceRef="validatingTask" targetRef="validatingDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="validatingDecision" name="Validating Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="next" name="Next Validationg Step" sourceRef="validatingDecision" targetRef="validatingTask">
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-next-validation-actor.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements>     
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_validatingOutcome == 'Next' && !empty bcogwf_validationChain}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="validated" name="Validated globally" sourceRef="validatingDecision" targetRef="checkForCertification">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_validatingOutcome == 'Next' && empty bcogwf_validationChain}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="strongReject" name="Strong Reject" sourceRef="validatingDecision" targetRef="processingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_validatingOutcome == 'Reject'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+
+
+    
+    <exclusiveGateway id="checkForCertification" name="Check For Certification"></exclusiveGateway>
+    
+    <sequenceFlow id="certify" sourceRef="checkForCertification" targetRef="certifyingTask" >
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_needsCertification == 'always' || (bcogwf_needsCertification != 'never' && !empty bcogwf_signingActor)}]]>
+      </conditionExpression>    
+    </sequenceFlow>
+    
+    <sequenceFlow id="nocertification" sourceRef="checkForCertification" targetRef="sendingTask" />
+    
+    
+    
+    
+    <userTask id="certifyingTask" name="Certifying Outgoing Document" activiti:formKey="bcogwf:certifyingTask">
+    
+      <documentation id="certifyingDoc">The document is being certifing electronically</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-certifying-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/assign-to-certifying-actor.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+                
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-certifying-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+      </extensionElements>
+      
+    </userTask>
+    
+    <sequenceFlow id="toCertifyingDecision" sourceRef="certifyingTask" targetRef="certifyingDecision">
+    </sequenceFlow>
+
+    <exclusiveGateway id="certifyingDecision" name="Certifying Decision"></exclusiveGateway>
+    
+    <sequenceFlow id="certified" name="Certified" sourceRef="certifyingDecision" targetRef="sendingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_certifyingOutcome == 'Certify' and empty bcogwf_signingActor}]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="nextSigningStep" name="Next Signing Step" sourceRef="certifyingDecision" targetRef="certifyingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_certifyingOutcome == 'Certify' and !(empty bcogwf_signingActor)}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="reject" name="Reject" sourceRef="certifyingDecision" targetRef="processingTask">
+      <extensionElements>
+        <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-reject-certification.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements>     
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_certifyingOutcome == 'Reject'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="cancel" name="Cancel" sourceRef="certifyingDecision" targetRef="sendingTask">
+      <conditionExpression xsi:type="tFormalExpression">
+      <![CDATA[${bcogwf_certifyingOutcome == 'Cancel'}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    
+    
+    
+    
+    
+    <userTask id="sendingTask" name="Sending Document" activiti:formKey="bcogwf:sendingTask">
+    
+      <documentation id="sendingDoc">The document is being sent; this step enables an actor to signal actual manual sending</documentation>
+      
+      <extensionElements>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-sending-start.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/assign-to-service-assistants.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="runAs"><activiti:string>admin</activiti:string></activiti:field>
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/set-document-state.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/outgoing/on-sending-complete.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>
+            <![CDATA[<import resource="classpath:${config.target.path}/scripts/workflows/set-execution-outcome.js">]]>
+            </activiti:string>
+          </activiti:field>
+        </activiti:taskListener>        
+        
+      </extensionElements>
+      
+    </userTask>
+    
+    <sequenceFlow id="toEndProcessed" sourceRef="sendingTask" targetRef="endProcessed" ></sequenceFlow>
+    
+    
+    
+    <endEvent id="endProcessed" name="Processed">
+    </endEvent>
+
+  </process>
+  
+</definitions>

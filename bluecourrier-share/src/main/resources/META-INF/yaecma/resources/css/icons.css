@@ -1,0 +1,57 @@
+.icon-group {
+    background-image: url(../icons/group.png) !important;
+}
+.icon-sort_descending {
+    background-image: url(../icons/sort_descending.png) !important;
+}
+.icon-cancel {
+    background-image: url(../icons/cancel.png) !important;
+}
+.icon-accept {
+    background-image: url(../icons/accept.png) !important;
+}
+.icon-collection_empty {
+    background-image: url(../icons/32px/collection_empty.png) !important;
+}
+.icon-collection_full {
+    background-image: url(../icons/32px/collection_full.png) !important;
+}
+.icon-magnifier_zoom_in {
+    background-image: url(../icons/magnifier_zoom_in.png) !important;
+}
+.icon-magnifier {
+    background-image: url(../icons/magnifier.png) !important;
+}
+.icon-sort_ascending {
+    background-image: url(../icons/sort_ascending.png) !important;
+}
+.icon-page {
+    background-image: url(../icons/page.png) !important;
+}
+.icon-folder_up {
+    background-image: url(../icons/folder_up.png) !important;
+}
+.icon-folder {
+    background-image: url(../icons/folder.png) !important;
+}
+.icon-folder_document_open {
+    background-image: url(../icons/48px/folder_document_open.png) !important;
+}
+.icon-mimetype-file {
+    background-image: url(../icons/48px/mimetype-file.png) !important;
+}
+.icon-collection_empty {
+    background-image: url(../icons/48px/collection_empty.png) !important;
+}
+.icon-collection_full {
+    background-image: url(../icons/48px/collection_full.png) !important;
+}
+.icon-folder_open {
+    background-image: url(../icons/48px/folder_open.png) !important;
+}
+.icon-mimetype-folder {
+    background-image: url(../icons/48px/mimetype-folder.png) !important;
+}
+.icon-chart_curve {
+    background-image: url(../icons/chart_curve.png) !important;
+}

@@ -1,0 +1,27 @@
+<webscript>
+	<shortname>Add a signature for certification to a document</shortname>
+	<description><![CDATA[
+		Add a signature for certification to a document
+		<p>
+		Parameters:
+		<ul>
+		<li>page: the page-number on which the digital signature will be printed (Any strictly positive number)
+		<li>position: the position as a "[posX];[posY]" string
+		<li>size: the size as a "[width]x[height]" string
+		<li>field-name: the signature-field to sign in (that should exist)
+		<li>password: the password protecting the certificate (private-key)
+		<li>reason: optionnaly, the reason of the signature
+		<li>location: optionally, the location of the signature (the place)
+		<li>alias: optionnally, the alias of the certificate (w.r.t. key-store)
+		<li>nodeRef/nodeRefs
+		</ul>
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/certify</url>
+	<format default="json" />
+	<authentication>user</authentication>
+</webscript>

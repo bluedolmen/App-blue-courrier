@@ -1,0 +1,18 @@
+<webscript>
+	<shortname>Get the permissions of the provided node w.r.t. services and users</shortname>
+	<description><![CDATA[
+		  Get the permissions of the provided node
+		  arguments<br/>
+		  <ul>
+		  <li>nodeRef: the node from which to retrieve the permissions</li>
+		  </ul>		  
+	]]>
+	</description>
+	<family>Yamma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/permissions</url>
+	<format default="json">argument</format>
+	<authentication>user</authentication>
+</webscript>

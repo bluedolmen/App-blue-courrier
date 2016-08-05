@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>ACS</shortname>
+	<description>Remove a value from the Advanced Communication Space definition</description>
+	<family>Yamma</family>
+	<url>/bluedolmen/acs/{page}/{property}</url>
+	<url>/bluedolmen/acs/{page}</url>
+	<authentication>admin</authentication>
+	<format default="json">argument</format>
+</webscript>

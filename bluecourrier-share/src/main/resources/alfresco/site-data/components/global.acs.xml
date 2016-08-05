@@ -1,0 +1,10 @@
+<component>        
+   <region-id>acs</region-id>        
+   <source-id>global</source-id>        
+   <scope>global</scope>        
+   <uri>/components/bluedolmen/acs</uri>
+   <properties>
+      <width>160px</width>
+      <height>600px</height>
+   </properties>
+</component>

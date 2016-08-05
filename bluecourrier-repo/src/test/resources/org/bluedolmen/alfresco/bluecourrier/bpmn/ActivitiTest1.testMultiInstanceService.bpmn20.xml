@@ -1,0 +1,48 @@
+<definitions id="definitions"
+  targetNamespace="http://activiti.org/bpmn20"
+  xmlns:activiti="http://activiti.org/bpmn"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+	<process id="multiInstanceService" name="Test of a multi-instance user-task process">
+
+		<startEvent id="Incoming_Start" >
+		</startEvent>
+		
+		<sequenceFlow id="toDelivery" targetRef="Delivering" sourceRef="Incoming_Start" />
+		
+		<userTask id="Delivering" name="Delivering document">
+		</userTask>
+		
+		<sequenceFlow id="toCheckNewServices" sourceRef="Delivering" targetRef="CheckNewServices"  />
+		
+		<exclusiveGateway id="CheckNewServices" name="Check new Services" />
+		
+		<sequenceFlow id="hasNewServices" sourceRef="CheckNewServices" targetRef="deliverySubProcess"  >
+			<conditionExpression xsi:type="tFormalExpression">
+		    	<![CDATA[${!serviceAndRoles.isEmpty()}]]>
+			</conditionExpression>
+		</sequenceFlow>
+		
+		<sequenceFlow id="noNewService" sourceRef="CheckNewServices" targetRef="Delivered" >
+		</sequenceFlow>
+
+		<callActivity id="deliverySubProcess" calledElement="multiInstanceService">
+			<extensionElements>
+				<activiti:in target="serviceAndRole" source="serviceAndRole"/>
+			</extensionElements>
+			<multiInstanceLoopCharacteristics
+				id="mlc"
+				isSequential="false" activiti:collection="${serviceAndRoles}"
+				activiti:elementVariable="serviceAndRole">
+			</multiInstanceLoopCharacteristics>
+		</callActivity>
+		
+		<sequenceFlow id="nextDeliveryStep" sourceRef="deliverySubProcess" targetRef="Delivered" >
+		</sequenceFlow>
+		
+		<endEvent id="Delivered" name="Document delivered" ></endEvent>
+		
+	</process>
+
+</definitions>

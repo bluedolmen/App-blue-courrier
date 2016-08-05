@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<beans>	
+
+	<!-- APP CONFIG -->
+
+<!-- 	<bean id="yamma.systemConfigProvider" parent="bluedolmen.systemConfigProvider" > -->
+<!-- 		<property name="context" value="bluecourrier" /> -->
+<!-- 	</bean> -->
+				
+	<!-- Expose this bean for convenient overriding -->
+	<bean id="yamma.propertiesConfigProvider.resourceResolver" class="org.bluedolmen.alfresco.resources.AlfrescoResourceResolver" parent="bluedolmen.resources.alfrescoResourceResolver">
+   	
+		<property name="resourceClasspathLocation">
+			<value>${config.target.path}/config</value>
+		</property>
+     
+		<!-- These XPath paths are relative to the root company_home -->  
+		<property name="resourceRepositoryLocations">
+			<list>
+				<value>app:dictionary/cm:config/cm:bluecourrier</value>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="yamma.propertiesConfigProvider" parent="bluedolmen.propertiesConfigProvider" >
+        <property name="alfrescoResourceResolver" ref="yamma.propertiesConfigProvider.resourceResolver" />
+		<property name="context" value="bluecourrier" />
+   	</bean>
+
+	<bean id="yamma.configScript" parent="bluedolmen.appConfigScript">
+		<property name="context" value="bluecourrier" />
+	</bean>
+	
+	<!-- WEBSCRIPTS -->
+	
+  	<bean id="yamma.adminsAuthenticatedDelegate" parent="bluedolmen.webscripts.groupAuthenticatedDelegate" >
+  		<property name="groups">
+  			<list>
+  				<value>GROUP_${bluecourrier.administrators-group}</value>
+  				<value>GROUP_ALFRESCO_ADMINISTRATORS</value>
+  			</list>
+  		</property>
+  	</bean>
+  	
+	<bean id="yamma.webscripts.yammaAdminWebscript" 
+		  abstract="true"
+		  parent="bluedolmen.webscripts.extraAuthenticatedWebscript" >
+		  
+		  <property name="extraAuthenticatedDelegate" ref="yamma.adminsAuthenticatedDelegate" />
+		  
+	</bean>
+	
+	
+	<!-- REFERENCE PROVIDER -->
+				
+	<bean id="yamma.scriptReferenceProvider"
+		class="org.bluedolmen.alfresco.reference.ScriptReferenceProvider"
+		parent="baseScriptReferenceProvider">
+		
+		<property name="providerId" value="yamma"/>
+		
+		<property name="location">
+			<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+				<constructor-arg>
+					<value>alfresco/extension/bluedolmen/yamma/reference/referenceProvider.js</value>
+				</constructor-arg>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	<!-- JAVASCRIPT -->
+
+	<bean id="yamma.helperScript"
+		class="org.bluedolmen.alfresco.yamma.YammaHelperScript"
+		parent="baseJavaScriptExtension" >
+		
+		<property name="extensionName" value="yammaHelper"/>
+		<property name="serviceRegistry" ref="ServiceRegistry" />
+		<property name="followingUtils" ref="yamma.followingUtils" />
+		<property name="cleanedUpWorkflows">
+			<list>
+				<value>activiti$incomingDocument</value>
+				<value>activiti$outgoingDocument</value>
+			</list>
+		</property>
+		<property name="administratorsGroupName">
+			<value>GROUP_${bluecourrier.administrators-group}</value>
+		</property>
+	</bean>
+	
+	<!-- HELPERS / UTILS -->
+	
+	<bean id="yamma.followingUtils"
+		class="org.bluedolmen.alfresco.yamma.FollowingUtils">
+		<property name="serviceRegistry" ref="ServiceRegistry" />
+		<property name="storeUrl" value="${spaces.store}" />
+	</bean>
+
+	
+	<!-- Define a new merger for replies processing -->
+	
+	<bean id="yamma.replies.itext.Merger" class="org.bluedolmen.alfresco.pdf.itext.ITextMerger" parent="abstractPdfMerger">
+		<property name="inputSourceFactory" ref="itext.InputSourceFactory" />
+	</bean>
+
+	<bean id="webscript.org.bluedolmen.yamma.pdf.mergerepliestopdf.get" 
+		class="org.bluedolmen.alfresco.pdf.ws.MergeToPdf" 
+		parent="webscript">
+				
+		<property name="mimetypeService" ref="MimetypeService" />	
+		<property name="merger" ref="yamma.replies.itext.Merger"/>
+	</bean> 
+
+	
+	<!-- MAIL COVER -->
+
+	<bean id="yamma.cover.mailCoverService" class="org.bluedolmen.alfresco.yamma.cover.MailCoverServiceImpl">
+	</bean>
+	
+	
+	<bean id="yamma.cover.abstractMailCoverGenerator" class="org.bluedolmen.alfresco.yamma.cover.AbstractMailCoverGenerator" init-method="register" abstract="true">
+		<property name="mailCoverService" ref="yamma.cover.mailCoverService" />
+		<property name="serviceRegistry" ref="ServiceRegistry" />
+	</bean>
+	
+	
+	<bean id="webscript.org.bluedolmen.yamma.pdf.printtopdf.get" 
+		  class="org.bluedolmen.alfresco.pdf.ws.PrintToPdf" 
+		  parent="webscript">
+				
+		<property name="mimetypeService" ref="MimetypeService" />	
+		<property name="merger" ref="PdfMerger" />
+		<property name="nodeService" ref="NodeService" />
+		<property name="coverProvider" ref="yamma.cover.mailCoverService" />
+		<property name="mergerUtils" ref="MergerUtils" />
+		
+	</bean> 
+	
+	<bean id="bluedolmen.yamma.contentStreamer.checked" parent="bluedolmen.contentStreamer.checked">
+		<property name="filteredMimetypes">
+        	<list>
+        		<value>image/png</value>
+        	</list>
+        </property>                
+	</bean>
+	
+	<!-- RESOURCES GET -->
+	
+	<bean id="webscript.org.bluedolmen.yamma.logo.get" 
+		  parent="bluedolmen.webscripts.dynResourceGet" >
+				
+        <property name="resourceClasspathLocation">
+           <value>${config.target.path}/images/logo/bluecourrier.png</value>
+        </property>
+        
+        <!-- These XPath paths are relative to the root company_home -->  
+        <property name="resourceRepositoryLocations">
+	        <list>
+	 	       <value>st:sites/cm:${bluecourrier.config-sitename}/cm:documentLibrary/cm:images/cm:logo/cm:bluecourrier.png</value>
+	 	       <value>app:dictionary/app:models/cm:${bluecourrier.config-sitename}/cm:logo/cm:bluecourrier.png</value>
+	        </list>
+        </property>
+        
+		<property name="delegate" ref="bluedolmen.yamma.contentStreamer.checked" />
+		
+		
+	</bean> 
+				
+	<bean id="webscript.org.bluedolmen.yamma.resources.get" 
+		  parent="bluedolmen.webscripts.basePathDynResourceGet" >
+				
+        <property name="alfrescoResourceResolver">
+        	<bean class="org.bluedolmen.alfresco.resources.AlfrescoResourceResolver" parent="bluedolmen.resources.alfrescoResourceResolver">
+        	
+		        <property name="resourceClasspathLocation">
+		           <value>${config.target.path}/resources</value>
+		        </property>
+		        
+		        <!-- These XPath paths are relative to the root company_home -->  
+		        <property name="resourceRepositoryLocations">
+			        <list>
+			 	       <value>st:sites/cm:${bluecourrier.config-sitename}/cm:documentLibrary/cm:resources</value>
+			        </list>
+		        </property>
+		        
+        	</bean>
+        </property>
+        
+	</bean>
+	
+	
+	<!-- BLUECOURRIER ADMIN SCRIPTS CONFIGURATION -->
+	
+	<bean id="webscript.org.bluedolmen.yamma.actions.services.delete" parent="yamma.webscripts.yammaAdminWebscript" />
+	<bean id="webscript.org.bluedolmen.yamma.actions.services.post" parent="yamma.webscripts.yammaAdminWebscript" />
+
+	<bean id="webscript.org.bluedolmen.yamma.repository.groups.children.delete" parent="yamma.webscripts.yammaAdminWebscript" />
+	<bean id="webscript.org.bluedolmen.yamma.repository.groups.children.post" parent="yamma.webscripts.yammaAdminWebscript" />
+
+	<bean id="webscript.org.bluedolmen.yamma.license.license.post" parent="webscript.org.bluedolmen.license.license.post" >
+		<property name="extraAuthenticatedDelegate" ref="yamma.adminsAuthenticatedDelegate" />
+	</bean>
+
+</beans>

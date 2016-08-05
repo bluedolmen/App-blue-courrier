@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- ACS -->
+<component>
+   <scope>template</scope>
+   <source-id>document-details</source-id>
+   <region-id>acs</region-id>
+   <uri>/components/bluedolmen/acs</uri>
+   <properties>
+      <width>300px</width>
+      <height>250px</height>
+   </properties>
+</component>
+

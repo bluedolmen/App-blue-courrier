@@ -1,0 +1,14 @@
+<webscript>
+	<shortname>Circulate</shortname>
+	<description><![CDATA[
+		  Get the matching authorities (either people or groups)<br/> 
+	]]>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/authorities</url>
+	<format default="json">argument</format>
+	<authentication>user</authentication>
+</webscript>

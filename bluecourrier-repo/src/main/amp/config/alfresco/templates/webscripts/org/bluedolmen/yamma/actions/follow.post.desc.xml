@@ -1,0 +1,13 @@
+<webscript>
+	<shortname>Follow/unfollow a document</shortname>
+	<description>
+	</description>
+	<family>YaMma</family>
+	<arguments>
+	
+	</arguments>
+	<url>/bluedolmen/yamma/follow</url>
+	<url>/bluedolmen/yamma/unfollow</url>
+	<format default="json" />
+	<authentication runas="admin">user</authentication>
+</webscript>
