@@ -3,7 +3,7 @@ Ext.Loader.setConfig(
 		enabled : true,
 		disableCaching : false,
 		paths : {
-			'Ext' : '/scripts/extjs/src',
+			'Ext' : '${extjs.root.path}',
 			'Bluedolmen' : '/share/res/bluedolmen',
 			'Yaecma' : '/share/res/yaecma'
 		}

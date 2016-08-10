@@ -6,7 +6,8 @@ Ext.Loader.setConfig(
 			'Yamma' : '/share/res/yamma',
 			'Yaecma' : '/share/res/yaecma',
 			'Bluedolmen' : '/share/res/bluedolmen',
-			'Ext' : '/extjs/src'
+			'Ext.ux' : '${extjs.ux.path}',
+			'Ext' : '${extjs.root.path}'
 		}
 	}
 );

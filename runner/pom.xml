@@ -159,6 +159,7 @@
                                     <type>war</type>
                                     <asWebapp>true</asWebapp>
                                 </webapp>
+<!--
                                 <webapp>
                                     <groupId>org.bluedolmen.extjs</groupId>
                                     <artifactId>extjs-webapp</artifactId>
@@ -168,6 +169,7 @@
                                     <contextPath>/extjs</contextPath>
                                     <contextFile>${project.build.directory}/contexts/context-extjs.xml</contextFile>
                                 </webapp>                                
+-->
                             </webapps>
                         </configuration>
                     </plugin>

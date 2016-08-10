@@ -10,11 +10,16 @@
 		<version>2.1-alf5.1</version>
 	</parent>
 
+	<packaging>amp</packaging>
+	
 	<artifactId>bluecourrier-share</artifactId>
 	<name>Alfresco ExtJS extension for YaMma (aka BlueCourrier)</name>
 
-	<packaging>amp</packaging>
-
+	<properties>
+		<extjs.root.path>/extjs/src</extjs.root.path>
+		<extjs.ux.path>/share/res/extjs/ux</extjs.ux.path>
+	</properties>
+	
 	<build>
 
 		<plugins>
