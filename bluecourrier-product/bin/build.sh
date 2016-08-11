@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CURRENT_DIR=${CURRENT_DIR:-"$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"}
-SVNREV="$(svn_rev "${WORKSPACE_DIR}")"
+SVNREV="$(echo ${GIT_COMMIT} | cut -c 1-8)" #"$(svn_rev "${WORKSPACE_DIR}")"
 MVN_OPTS="${MVN_OPTS} -Dbuild.svnrev=${SVNREV}"
 MVN_OPTS_="${MVN_OPTS}"
 TAR="tar"
