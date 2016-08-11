@@ -13,46 +13,12 @@ WEBAPPS_PACKAGING=1
 # PROJECT BUILDS
 #########################################################
 
-# The root-dir contains the parent-pom which needs to be installed 
-# -N means non-recursive
-if [ -e "${ROOT_DIR}/pom.xml" ]; then
-	cd ${ROOT_DIR}
-	${MAVEN} -N clean install
-fi
-
 # Dependency project are installed without recursion too
-for project in "${DEPENDENCY_PROJECTS[@]}"; do
+for project in "${PROJECTS[@]}"; do
 
 	test ! -d ${project} && continue
 	cd "${project}"
-	${MAVEN} -N ${MVN_OPTS} clean install || exit_with_failure "Error while building dependency-project $(basename "${project}")"
-
-done
-
-PROJECTS=("${REPO_PROJECTS[@]}" "${SHARE_PROJECTS[@]}" "${EXTRA_WEBAPPS_PROJECTS[@]}")
-
-for project in "${REPO_PROJECTS[@]}"; do
-
-	test ! -d ${project} && continue
-	cd "${project}"
-	${MAVEN} ${MVN_OPTS} -Prepo-extension,dependency-jar clean install || exit_with_failure "Error while building $(basename "${project}")"
-#	${MAVEN} ${MVN_OPTS}  install || exit_with_failure "Error while installing $(basename "${project}")"
-
-done
-
-for project in "${SHARE_PROJECTS[@]}"; do
-
-	test ! -d ${project} && continue
-	cd "${project}"
-	${MAVEN} ${MVN_OPTS} -Pshare-extension clean package || exit_with_failure "Error while building $(basename "${project}")"
-
-done
-
-for project in "${EXTRA_WEBAPPS_PROJECTS[@]}"; do
-
-	test ! -d ${project} && continue
-	cd "${project}"
-	${MAVEN} ${MVN_OPTS} clean package || exit_with_failure "Error while building $(basename "${project}")"
+	${MAVEN} -N ${MVN_OPTS} clean install || exit_with_failure "Error while building project $(basename "${project}")"
 
 done
 

@@ -16,7 +16,7 @@
 	<name>Alfresco ExtJS extension for YaMma (aka BlueCourrier)</name>
 
 	<properties>
-		<extjs.root.path>/extjs/src</extjs.root.path>
+		<extjs.root.path>/share/res/resources/webjars/extjs/4.2.1.883</extjs.root.path>
 		<extjs.ux.path>/share/res/extjs/ux</extjs.ux.path>
 	</properties>
 	

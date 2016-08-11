@@ -68,6 +68,10 @@
 					<artifactId>commons-lang</artifactId>
 					<groupId>commons-lang</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>avalon-framework</groupId>
+					<artifactId>avalon-framework-impl</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
