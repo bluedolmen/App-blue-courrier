@@ -4,33 +4,110 @@
 	},
 	"view" : {
 		"mails" : {
-			"filters" : {
-				"clear" : {
-					"label" : "Supprimer les filtres"
+			"filters": {
+				"clear": {
+					"label": "Supprimer les filtres"
 				}
 			},
-			"actions" : {
-				"StartProcessing" : {
-					"tooltip" : "Traiter le document"
+			"actions": {
+				"StartProcessing": {
+					"tooltip": "Traiter le document"
 				},
-				"CloseProcessing" : {
-					"tooltip" : "Terminer le traitement"
+				"CloseProcessing": {
+					"tooltip": "Terminer le traitement"
 				},
-				"CloseDelivering" : {				
-					"tooltip" : "Terminer la distribution"
+				"CloseDelivering": {
+					"tooltip": "Terminer la distribution"
 				}
-			} 
-		},
-        "search" : {
-            "title" : "Rechercher",
-            "items" : {
-               "filter": {
-                 "label" : "Services (filtre)"
-               },
-               "mail" : {
-                 "label" : "Courriers"
-               }
+			},
+          "batchactionnable": {
+            "button": {
+              "actions-button": {
+                "tooltip": "Actions disponibles sur les éléments sélectionnés"
+              }
+            },
+            "columns": {
+              "check": {
+                "tooltip": "Sélectionner le document",
+                "menuText": "(Dé)Selectionner"
+              }
+            },
+            "menu": {
+              "item": {
+                "select-all": "Sélectionner tout",
+                "unselect-all": "Déselectionner tout"
+              }
             }
+          }
+		},
+        "services": {
+          "title": "Services",
+          "storeconfig": {
+              "rootLabel": "Tous les services"
+          },
+          "actions": {
+            "close": {
+              "text": "Sélectionner tous les sous-services"
+            }
+          }
+        }
+	},
+	"widget": {
+		"searchpanel" : {
+			"title" : "Rechercher",
+			"items" : {
+				"filter": {
+					"label" : "Services (filtre)"
+				},
+				"mail" : {
+					"label" : "Courriers"
+				}
+			}
+		},
+        "mailsview" : {
+        "button" : {
+          "filter-button": "Filtrer"
+        },
+        "toolbar": {
+          "button": {
+            "reload": {
+              "tooltip" : "Recharger"
+            }
+          }
+        },
+        "filters": {
+          "modified-recently-filter": "Modifiés récemment (7j)",
+          "duedate-filter": "Echéance",
+          "duedate-lessthan7days": "Moins de 7 jours",
+          "duedate-lessthan3days": "Moins de 3 jours"
+        }
+      },
+        "mailfiltersview": {
+
+        },
+        "attachmentsview": {
+            "title": "Attachements",
+            "toolbar": {
+                "buttons": {
+                  "addAttachment-button" : "Ajouter un attachement"
+                }
+            },
+          "column" :{
+            "actioncolumn" : "Type de document",
+            "namecolumn": "Nom du fichier",
+            "sizecolumn": "Taille"
+          },
+          "actions": {
+            "delete-action": {
+              "tooltip": "Supprimer l'attachement",
+              "dialog": {
+                "confirmation": {
+                  "title": "Supprimer l'attachement ?",
+                  "content": "Êtes-vous certain de vouloir supprimer l'attachement<br/><b>{0}</b>"
+                }
+              }
+            }
+          }
         }
 	}
 }

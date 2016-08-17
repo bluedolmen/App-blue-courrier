@@ -13,7 +13,7 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 		countingtitle : 'Yamma.utils.grid.CountingTitle'
 	},
 	
-	title : 'Attachements',
+	title : i18n.t('widget.attachmentsview.title'),
 	iconCls : 'icon-attach',
 	
 	storeId : 'Attachments',
@@ -31,7 +31,7 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 	    			xtype : 'button',
 	    			itemId : 'addAttachment-button',
 	    			iconCls : 'icon-attach_add',
-	    			tooltip : 'Ajouter un attachement',
+	    			tooltip : i18n.t('widget.attachmentsview.toolbar.buttons.addAttachment-button'),
 	    			disabled : true
 	    		}
 		    ]
@@ -126,7 +126,7 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 30,
-				tooltip : 'Type de document', // if the plugin is applied on the containing table
+				tooltip : i18n.t('widget.attachmentsview.column.actioncolumn'), // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
 				
 				items : [
@@ -167,7 +167,7 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				flex : 1,
-				text : 'Nom du fichier',
+				text : i18n.t('widget.attachmentsview.column.namecolumn'),
 				dataIndex : 'name'
 			}		
 		);
@@ -179,7 +179,7 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				width : 50,
-				text : 'Taille',
+				text : i18n.t('widget.attachmentsview.column.sizecolumn'),
 				dataIndex : 'humanReadableSize'
 			}		
 		);

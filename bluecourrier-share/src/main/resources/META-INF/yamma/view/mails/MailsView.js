@@ -143,7 +143,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 		    {
 		    	xtype : 'button',
 		    	iconCls : Ext.baseCSSPrefix + 'tbar-loading',
-		    	tooltip : 'Recharger',
+		    	tooltip : i18n.t('widget.mailsview.toolbar.button.reload.tooltip'),
 		    	handler : function() {
 		    		
 		    		var pagingToolbar = me.getPagingToolbar();
@@ -256,7 +256,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 			buttonDefinition = {
 		    	xtype : 'button',
 		    	iconCls : Yamma.Constants.getIconDefinition('funnel').iconCls,
-		    	tooltip : 'Filtrer',
+		    	tooltip : i18n.t('widget.mailsview.button.filter-button'),
 		    	itemId : 'filter-button',
 		    	menu : {
 		    		defaults : {
@@ -286,7 +286,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 		return [
 			{
 				xtype: 'menucheckitem',
-				text : 'Modifiés récemment (7j)',
+				text : i18n.t('widget.mailsview.filters.modified-recently-filter'),
 				itemId : 'modified-recently-filter',
 				iconCls : Yamma.Constants.getIconDefinition('pencil').iconCls,
 				filter : {
@@ -295,7 +295,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 				}
 			},
 			{
-				text : 'Echéance',
+				text : i18n.t('widget.mailsview.filters.duedate-filter'),
 				itemId : 'duedate-filter',
 				iconCls : Yamma.Constants.getIconDefinition('clock').iconCls,
 				menu : {
@@ -305,7 +305,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 					items : [
 						{
 							xtype: 'menucheckitem',
-							text : 'Moins de 7 jours',
+							text : i18n.t('widget.mailsview.filters.duedate-lessthan7days'),
 							itemId : 'duedate-lessthan7days',
 							iconCls : Yamma.Constants.getIconDefinition('clock').iconCls,
 							filter : {
@@ -316,7 +316,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 						},
 						{
 							xtype: 'menucheckitem',
-							text : 'Moins de 3 jours',
+							text : i18n.t('widget.mailsview.filters.duedate-lessthan3days'),
 							itemId : 'duedate-lessthan3days',
 							iconCls : Yamma.Constants.getIconDefinition('clock').iconCls,
 							filter : {
@@ -349,7 +349,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 		if (Ext.isEmpty(checkedItems)) {
 			this._extraFilters = [];
 			iconCls = Yamma.Constants.getIconDefinition('funnel').iconCls;
-			tooltip = 'Filtrer';
+			tooltip = i18n.t('widget.mailsview.button.filter-button');
 			this.filter();
 		}
 		else {
