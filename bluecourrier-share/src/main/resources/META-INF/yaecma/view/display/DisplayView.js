@@ -9,7 +9,7 @@ Ext.define('Yaecma.view.display.DisplayView',
 		'Bluedolmen.utils.alfresco.forms.ViewFormFrame'
     ],
 	
-	title : 'Prévisualisation des fichiers',
+	title : i18n.t('widget.displayview.title'),
 	plain : false,
 
 	layout : 'fit',

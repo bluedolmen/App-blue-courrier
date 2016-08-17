@@ -2,7 +2,7 @@ Ext.define('Yamma.admin.modules.init.actions.Test', {
 	
 	extend : 'Yamma.admin.modules.init.InitAction',
 	
-	title : "Test d'initialisation",
+	title : i18n.t('admin.modules.init.actions.test.title'),//"Test d'initialisation",
 	
     id : 'init-test',
     iconCls : Yamma.utils.Constants.getIconDefinition('gear').iconCls, 

@@ -6,12 +6,12 @@ Ext.define('Yamma.admin.modules.init.actions.ConfigSite', {
 	    'Yamma.utils.Constants'
 	],
 	
-	title : "Initialisation du site de configuration de BlueCourrier",
+	title : i18n.t('admin.modules.init.actions.site.title'), //"Initialisation du site de configuration de BlueCourrier",
 	
 	statics : {
 		CONFIG_SITE_SHORTNAME : Yamma.utils.Constants.CONFIG_SITE_SHORTNAME,
-		CONFIG_SITE_TITLE : 'Configuration BlueCourrier',
-		CONFIG_SITE_DESCRIPTION : 'Site de configuration de BlueCourrier',
+		CONFIG_SITE_TITLE : i18n.t('admin.modules.init.actions.site.config.site-title'),
+		CONFIG_SITE_DESCRIPTION : i18n.t('admin.modules.init.actions.site.config.site-description'),
 		GET_SITES_URL : 'alfresco://api/sites'
 	},
 	

@@ -17,7 +17,7 @@ Ext.define('Yaecma.view.navigator.Navigator', {
 	 */
 	showFiles : false,
 	
-	title : 'Navigateur',
+	title : i18n.t('widget.navigator.title'),
 
 	rootVisible : false,
 	expanded : true,

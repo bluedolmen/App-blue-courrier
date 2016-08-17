@@ -50,6 +50,12 @@
               "text": "Sélectionner tous les sous-services"
             }
           }
+        },
+        "display" : {
+          "displayview": {
+            "pin": "Garder sous le coude",
+            "restore": "Ouvrir dans une autre fenêtre"
+          }
         }
 	},
 	"widget": {
@@ -108,6 +114,179 @@
               }
             }
           }
+        },
+        "displayview": {
+            "title": "Prévisualisation des fichiers"
+        },
+        "documentsview": {
+          "title" : "Liste des contenus",
+          "template" :{
+            "description": {
+              "created" : {
+                "text": "Créé le ",
+                "by" : "par "
+              },
+              "modified" : {
+                "text" : "Modifié le ",
+                "by" : "par "
+              }
+            }
+          },
+          "column": {
+            "description": {
+              "text": "Description"
+            },
+            "thumbnail": {
+              "text": "Miniature"
+            },
+            "mimetype": {
+              "tooltip" : "Type de document"
+            }
+          },
+          "action": {
+            "type": {
+              "title": "répertoire"
+            }
+          }
+        },
+        "explorer": {
+          "items": {
+            "documentsview":{
+              "title": "Liste des contenus"
+            }
+          }
+        },
+        "collectionmanager" : {
+          "state" : {
+            "update" : {
+              "none" : "Aucun"
+            }
+          }
+        },
+        "quicksearch": {
+          "config": {
+            "loading": "Recherche...",
+            "empty": "Aucun document trouvé."
+          }
+        },
+        "navigator": {
+          "title": "Navigateur"
+        },
+        "selectfilewindow": {
+          "title" : "Sélectionner un fichier",
+          "buttons": {
+            "okButton": "Ok",
+            "cancelButton": "Annuler"
+          },
+          "view": {
+            "documentsview": "Liste des contenus"
+          }
+        },
+        "directoryadminwindow" : {
+            "title" : "Administration des Contacts",
+            "columns": {
+              "namecolumn": {
+                  "text": "Nom"
+              },
+              "actioncolumn": {
+                "tooltip" : "Ajouter comme service"
+              }
+            }
         }
-	}
+	},
+    "controller": {
+      "header": {
+        "quicksearch": {
+          "context": {
+            "description": "Termes "
+          }
+        }
+      }
+    },
+    "admin" :{
+      "modules" : {
+        "categories": {
+          "launcher": {
+            "text" : "Gestion des catégories"
+          },
+          "window" : {
+            "title": "Gestion des catégories"
+          }
+        },
+        "directory": {
+          "launcher" : {
+            "text" : "Administration des contacts"
+          },
+          "window" : {
+            "text" : "Administration des services"
+          }
+        },
+        "init": {
+          "actions": {
+            "launcher" : {
+              "text": "Initialisation de l'application"
+            },
+            "window" : {
+              "title" : "Initialisation de l'application"
+            }
+            "authorities": {
+              "title" : "Initialisation des autorités BlueCourrier"
+            },
+            "categories": {
+              "title": "Initialisation des catégories BlueCourrier"
+            },
+            "site": {
+              "title": "Initialisation du site de configuration de BlueCourrier",
+              "config" : {
+                "site-title": "Configuration BlueCourrier",
+                "site-description": "Site de configuration de BlueCourrier",
+                "datalist": {
+                  "title": "Initialisation des listes de données de BlueCourrier"
+                }
+              }
+            },
+            "email": {
+              "title": "Initialisation des modèles d'email"
+            },
+            "imap": {
+              "title" : "Initialisation du répertoire de transfert IMAP"
+            },
+            "remote-test": {
+              "title" : "Test (remote)"
+            },
+            "synchronize": {
+              "title" : "Synchronisation de la liste de données de contacts"
+            },
+            "test": {
+              "title" : "Test d'initialisation"
+            },
+
+          },
+          "panel" : {
+            "admin": {
+              "error" : {
+                "create-action": "Illegal action declaration"
+              },
+              "columns" :{
+                "title" : "Nom",
+                "state": "Etat",
+                "action": {
+                  "text": "Action",
+                  "items": {
+                    "install": "Installer",
+                    "uninstall": "Désinstaller"
+                  }
+                },
+                "state-busy": "En cours",
+                "state-undetermined": "Indéterminé",
+                "state-full": "Complet",
+                "state-partial" : "Partiel",
+                "state-modified": "Modifié",
+                "state-no": "Non installé"
+              }
+            }
+          }
+        }
+      }
+    }
 }
