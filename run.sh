@@ -11,4 +11,5 @@ MAVEN_DEBUG_OPTS=${MAVEN_OPTS}
 
 echo "MAVEN_OPTS is set to '$MAVEN_OPTS'";
 
-mvnDebug ${MAVEN_OPTS} clean install -Prun
+mvn ${MAVEN_OPTS} clean install -Prun
+#mvnDebug ${MAVEN_OPTS} clean install -Prun
