@@ -100,14 +100,14 @@ ${TAR} ${TAR_ARCHIVE_OPTS} "${amps_archive_file}" "${AMPS_DIRNAME}" "${AMPS_SHAR
 # PUBLISHING
 #########################################################
 
-if [ -d ${DELIVERY_DIR} ]; then
+if [ -d "${DELIVERY_DIR}" ]; then
 
 	if [ ${WEBAPPS_PACKAGING} -eq 1 ]; then
-		cp ${webapps_archive_file} ${DELIVERY_DIR}
+		cp "${webapps_archive_file}" "${DELIVERY_DIR}"
 		keep_last_n_files "${DELIVERY_DIR}" 5 "webapps-${PRODUCT_NAME}" # Only keep 5 versions
 	fi
 
-	cp ${amps_archive_file} ${DELIVERY_DIR}
+	cp "${amps_archive_file}" "${DELIVERY_DIR}"
 	keep_last_n_files "${DELIVERY_DIR}" 5 "amps-${PRODUCT_NAME}" # Only keep 5 versions
 
 fi
