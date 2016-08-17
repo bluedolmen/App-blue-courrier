@@ -228,7 +228,7 @@
             },
             "window" : {
               "title" : "Initialisation de l'application"
-            }
+            },
             "authorities": {
               "title" : "Initialisation des autorités BlueCourrier"
             },
@@ -259,8 +259,7 @@
             },
             "test": {
               "title" : "Test d'initialisation"
-            },
-
+            }
           },
           "panel" : {
             "admin": {
