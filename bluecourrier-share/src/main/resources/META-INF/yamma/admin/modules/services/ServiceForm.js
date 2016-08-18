@@ -13,32 +13,32 @@ Ext.define('Yamma.admin.modules.services.ServiceForm', {
     defaultType: 'textfield',
     items: [
     	{
-			fieldLabel: 'Nom',
+			fieldLabel: i18n.t('admin.modules.services.serviceform.items.shortName'),
 			name: 'shortName',
 			allowBlank: false,
 			vtype : 'alphanum'
 	    },
 	    {
-			fieldLabel: 'Titre',
+			fieldLabel: i18n.t('admin.modules.services.serviceform.items.title'),
 			name: 'title',
 			allowBlank: true
 	    },
 	    {
 	    	xtype : 'textareafield',
 	    	grow : true,
-			fieldLabel: 'Description',
+			fieldLabel: i18n.t('admin.modules.services.serviceform.items.description'),
 			name: 'description',
 			allowBlank: true
 	    },
 	    {
-			fieldLabel: 'Preset',
+			fieldLabel: i18n.t('admin.modules.services.serviceform.items.sitePreset'),
 			name: 'sitePreset',
 			allowBlank: false,
 			value : 'site-dashboard',
 			hidden : true
 	    },
 	    {
-			fieldLabel: 'Visibilité',
+			fieldLabel: i18n.t('admin.modules.services.serviceform.items.visibility'),
 			name: 'visibility',
 			allowBlank: false,
 			value : 'PRIVATE',

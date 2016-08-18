@@ -223,6 +223,11 @@
         },
         "init": {
           "actions": {
+            "remote": {
+              "errors" : {
+                "unique-id":  "The id property has to be defined to a unique string"
+              }
+            },
             "launcher" : {
               "text": "Initialisation de l'application"
             },
@@ -282,6 +287,102 @@
                 "state-partial" : "Partiel",
                 "state-modified": "Modifié",
                 "state-no": "Non installé"
+              }
+            }
+          }
+        },
+        "services": {
+          "createserviceform": {
+            "title": "Créer un nouveau service",
+            "message": {
+              "creating": "Création du site en cours...",
+              "adding" : "Ajout d'un service en cours..."
+            },
+            "buttons": {
+              "create": "Créer le service"
+            }
+          },
+          "membersadminpanel" : {
+            "title": "Administration des membres de services",
+            "roles": {
+              "ServiceAssistant": "Assistant",
+              "ServiceInstructor": "Assistant",
+              "ServiceManager": "Assistant",
+              "ServiceSupervisor": "Assistant",
+            },
+            "field": {
+              "member": {
+                "label": "Membres"
+              }
+            },
+            "text": {
+              "searching": "Recherche...",
+              "noauthorities": "Aucune autorité trouvée."
+            }
+          },
+          "membersadmingrid": {
+            "columns": {
+              "displayName": {
+                "text": "Name"
+              },
+              "action": {
+                "text": "Action"
+              }
+            },
+            "dialog" : {
+              "removeauthorities": {
+                "title": "Supprimer le membre ?",
+                "message" :"Etes-vous certain de vouloir supprimer le membre du groupe ?"
+              }
+            }
+          },
+          "serviceform": {
+            "items": {
+              "shortName": {
+                "text": "Nom"
+              },
+              "title" :{
+                "text": "Titre"
+              },
+              "description": {
+                "text": "Description"
+              },
+              "sitePreset" : {
+                "text" : "Preset"
+              },
+              "visibility" : {
+                "text": "Visibilité"
+              }
+            }
+          },
+          "services-admin": {
+            "launcher": {
+              "text": "Administration services"
+            },
+            "createwindow": {
+              "title": "Administration des services"
+            }
+          },
+          "servicesadminpanel": {
+            "title": "Administration des Services",
+            "message": {
+              "searching": "Recherche...",
+              "nosite": "Aucun site trouvé"
+            },
+            "dialog": {
+              "addservice": {
+                "confirm": {
+                  "title": "Ajouter le service",
+                  "message" :{
+                    "1" : "Voulez-vous ajouter le site '",
+                    "2" : "' en tant que service"
+                  }
+                }
+              },
+              "createservice": {
+                "window" :{
+                  "title": "Créer un nouveau service"
+                }
               }
             }
           }
