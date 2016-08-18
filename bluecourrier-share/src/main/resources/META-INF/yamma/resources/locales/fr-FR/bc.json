@@ -359,7 +359,7 @@
               "ServiceAssistant": "Assistant",
               "ServiceInstructor": "Assistant",
               "ServiceManager": "Assistant",
-              "ServiceSupervisor": "Assistant",
+              "ServiceSupervisor": "Assistant"
             },
             "field": {
               "member": {
@@ -505,7 +505,7 @@
       },
       "adminmodule" : {
         "button": {
-          "start" : "Menu",
+          "start" : "Menu"
         },
         "context": {
           "onsettings": "Changer les paramètres"
@@ -545,6 +545,227 @@
           "expected-processing": "Traitement",
           "collaboration" : "Collaboration",
           "information": "Information"
+        }
+      }
+    },
+    "utils": {
+      "grid": {
+        "mailview" :{
+          "groupByText" : "Grouper par",
+          "showGroupsText": "Montrer en groupe"
+        }
+      },
+      "constants": {
+        "resources": {
+          "definition": {
+            "document": "Document",
+            "unknown" : "Unknown",
+            "mail": "Courrier",
+            "incomming-mail": "Courrier entrant",
+            "incomming-mail-filtered": "Message manuel entrant",
+            "outgoing-mail" : "Courrier sortant"
+          },
+          "state": {
+            "pending": {
+              "title": "Courrier entrant en attente",
+              "shortTitle": "En attente"
+            },
+            "delivering": {
+              "title": "En cours de distribution",
+              "shortTitle": "Distribution"
+            },
+            "validating-delivery": {
+              "title": "En attente de validation de routage",
+              "shortTitle": "Validation routage"
+            },
+            "processing": {
+              "title": "En cours de traitement",
+              "shortTitle": "Traitement"
+            },
+            "revising": {
+              "title": "En correction",
+              "shortTitle": "Correction"
+            },
+            "validating-processed": {
+              "title": "En validation du courrier sortant",
+              "shortTitle": "Validation"
+            },
+            "certifying": {
+              "title": "En cours de signature",
+              "shortTitle": "Signature"
+            },
+            "sending": {
+              "title": "En cours d'envoi postal",
+              "shortTitle": "Envoi postal"
+            },
+            "processed": {
+              "title": "Traité et validé",
+              "shortTitle": "Traité"
+            },
+            "archived": {
+              "title": "Archivé",
+              "shortTitle": "Archivé"
+            },
+            "UNKNOWN": {
+              "title": "Etat inconnu",
+              "shortTitle": "Inconnu"
+            }
+          },
+          "history-event": {
+            "addReply" : {
+                "title": "Ajout d'une réponse",
+                "shortTitle": "Ajout réponse"
+            },
+            "archive" : {
+              "title": "Archivage du courrier",
+              "shortTitle": "archivage"
+            },
+            "attachment-add" : {
+              "title": "Ajout d'un attachement",
+              "shortTitle": "Ajout attachement"
+            },
+            "attachment-delete" : {
+              "title": "Suppression d'un attachement",
+              "shortTitle": "Suppression attachement"
+            },
+            "certify" : {
+              "title": "Certification",
+              "shortTitle": "Certification"
+            },
+            "circulate" : {
+              "title": "Diffusion",
+              "shortTitle": "Diffusion"
+            },
+            "completeDelivering" : {
+              "title": "Fin de la distribution",
+              "shortTitle": "Fin distribution"
+            },
+            "completeOutgoingProcessing" : {
+              "title": "Fin du traitement",
+              "shortTitle": "Fin traitement"
+            },
+            "completeProcessing" : {
+              "title": "Fin du traitement",
+              "shortTitle": "Fin traitement"
+            },
+            "completeValidating" : {
+              "title": "Fin de la validation",
+              "shortTitle": "Fin validation"
+            },
+            "forward-for-sending" : {
+              "title": "Transmission pour envoi postal",
+              "shortTitle": "Envoi postal"
+            },
+            "forward-for-signing" : {
+              "title": "Transmission pour signature par l'élu",
+              "shortTitle": "Transmission signature"
+            },
+            "linkTo" : {
+              "title": "Lien entre documents",
+              "shortTitle": "Lien"
+            },
+            "reassign" : {
+              "title": "Réassignation du traitement d'une tâche",
+              "shortTitle": "Réassignation"
+            },
+            "removeReply" : {
+              "title": "Suppression d'une réponse",
+              "shortTitle": "Suppression réponse"
+            },
+            "send-outbound-sendOut" : {
+              "title": "Envoi courrier sortant",
+              "shortTitle": "Envoi"
+            },
+            "send-outbound-sendToValidation" : {
+              "title": "Envoi courrier sortant en validation",
+              "shortTitle": "Envoi"
+            },
+            "sent-outbound" : {
+              "title": "Envoi postal effectué",
+              "shortTitle": "Envoi effectué"
+            },
+            "sharedWith" : {
+              "title": "Partagé avec",
+              "shortTitle": "Partagé"
+            },
+            "signing-approve" : {
+              "title": "Approbation",
+              "shortTitle": "Approbation par signature électronique"
+            },
+            "signing-certify" : {
+              "title": "Certification",
+              "shortTitle": "Certification par signature électronique"
+            },
+            "signing-reject" : {
+              "title": "Rejet",
+              "shortTitle": "Rejet du document"
+            },
+            "signed-outbound" : {
+              "title": "Signature de la réponse",
+              "shortTitle": "Signature"
+            },
+            "startDelivery" : {
+              "title": "Démarrage de la distribution",
+              "shortTitle": "Démarrage distribution"
+            },
+            "startProcessing" : {
+              "title": "Démarrage du traitement",
+              "shortTitle": "Démarrage traitement"
+            },
+            "validation-accept" : {
+              "title": "Validé",
+              "shortTitle": "Validé"
+            },
+            "validation-reject" : {
+              "title": "Document rejeté",
+              "shortTitle": "Document rejeté"
+            },
+            "UNKNOWN" : {
+              "title": "Évènement inconnu",
+              "shortTitle": "inconnu"
+            }
+          },
+          "mimetype": {
+            "application-pdf": "DocumentPDF",
+            "application-pdf-signed": "Document PDF certifié",
+            "text-html": "Documnet HTML",
+            "text-plain": "Document texte",
+            "default": ""
+          },
+          "workflowtask": {
+            "bcinwf-pendingTask" : {
+              "title" : "Préparation du document",
+              "shortTitle" : "Préparation"
+            },
+            "bcinwf-deliveringTask": {
+              "title": "Distribution du document",
+              "shortTitle": "Distribution"
+            },
+            "bcinwf-processingTask": {
+              "title": "Traitement du document",
+              "shortTitle": "Traitement"
+            },
+            "bcinwf-validatingTask": {
+              "title" : "Validation de la distribution",
+              "shortTitle" : "Validation distribution"
+            },
+            "bcogwf-processingTask": {
+              "title": "Traitement document sortant",
+              "shortTitle": "Traitement sortant"
+            },
+            "bcogwf-validatingTask": {
+              "title": "Validation document sortant",
+              "shortTitle": "Validation"
+            },
+            "bcogwf-sendingTask": {
+              "title": "Envoi du document",
+              "shortTitle": "Envoi"
+            },
+            "default": {
+              "title": "Tâche à traiter",
+              "shortTitle": "Tâche"
+            }
+          }
         }
       }
     }
