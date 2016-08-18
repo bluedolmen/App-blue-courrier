@@ -201,6 +201,29 @@
             "description": "Termes "
           }
         }
+      },
+      "attachments": {
+        "viewcontroller": {
+          "addattachments": {
+            "fileselectionmenu":{
+              "title": "Source",
+              "items": {
+                "uploadfile": "Fichier local",
+                "selectrepositoryfile": "Fichier GED"
+              }
+            },
+            "uploadlocalfilewindow": {
+              "title": "Choisissez un fichier à ajouter en <b>attachement</b>"
+            }
+          }
+        }
+      },
+      "upload": {
+        "buttoncontroller": {
+          "form": {
+            "title": "Choisissez un fichier"
+          }
+        }
       }
     },
     "admin" :{
