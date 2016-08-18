@@ -385,6 +385,50 @@
                 }
               }
             }
+          },
+          "servicesadminview": {
+            "columns": {
+              "alfrescoactioncolumn": {
+                "text" : "Action",
+                "items": {
+                  "text_signature": {
+                    "add": "Ajouter",
+                    "remove" : "Retirer",
+                    "capacity" : " la capacité de signature au service"
+                  },
+                  "unsetservice": {
+                    "tooltip": "Supprimer en tant que service (le site reste présent)"
+                  }
+                },
+                "init" :{
+                  "loading": "Application des changements en cours..."
+                }
+              }
+            }
+          },
+          "siteadminutils" : {
+            "error": {
+              "sitename": "The service definition has to be defined with at least the site-name"
+            },
+            "message": {
+              "add": {
+                "inprogress": "Ajout d'un service en cours..."
+              }
+            }
+          },
+          "siteadminwindow": {
+            "title": "Administration des Sites",
+            "site" : {
+              "grid": {
+                "columns": {
+                  "actionscolumn": "Ajouter comme service",
+                  "title": "Nom"
+                }
+              }
+            },
+            "error": {
+              "servicestore": "IllegalStateException! The servicesStore is not defined as expected"
+            }
           }
         }
       }

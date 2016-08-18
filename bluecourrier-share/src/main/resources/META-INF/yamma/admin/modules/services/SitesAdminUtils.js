@@ -17,7 +17,7 @@ Ext.define('Yamma.admin.modules.services.SitesAdminUtils', {
 	setAsService : function(siteName, serviceDefinition, config) {
 		
 		if (null == siteName) {
-			Ext.Error.raise('The service definition has to be defined with at least the site-name');
+			Ext.Error.raise(i18n.t('admin.modules.services.siteadminutils.error.sitename'));
 		}
 		
 		serviceDefinition = serviceDefinition || {};
@@ -28,7 +28,7 @@ Ext.define('Yamma.admin.modules.services.SitesAdminUtils', {
 			url = Bluedolmen.Alfresco.resolveAlfrescoProtocol(this.SET_AS_SERVICE_URL)
 				.replace(/\{serviceName\}/,siteName),
 			loadMaskTarget = config.loadMaskTarget,
-			loadingMask = config.loadingMask || (loadMaskTarget ? new Ext.LoadMask(loadMaskTarget, {msg:"Ajout d'un service en cours..."}) : null)
+			loadingMask = config.loadingMask || (loadMaskTarget ? new Ext.LoadMask(loadMaskTarget, {msg:i18n.t('admin.modules.services.siteadminutils.message.add.inprogress')}) : null)
 		;
 		
 		if (loadingMask) loadingMask.show();
@@ -60,7 +60,7 @@ Ext.define('Yamma.admin.modules.services.SitesAdminUtils', {
 	unsetAsService : function(siteName, config) {
 		
 		if (null == siteName) {
-			Ext.Error.raise('The service definition has to be defined with at least the site-name');
+			Ext.Error.raise(i18n.t('admin.modules.services.siteadminutils.error.sitename'));
 		}
 		
 		config = config || {};
