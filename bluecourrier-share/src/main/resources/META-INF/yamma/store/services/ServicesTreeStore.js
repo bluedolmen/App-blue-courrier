@@ -12,7 +12,7 @@ Ext.define('Yamma.store.services.ServicesTreeStore', {
 	groupExpanded : true,
 	expandable : true,
 	
-	rootLabel : 'Tous',
+	rootLabel : i18n.t('store.services.treestore.rootlabel'),
 	
 	remoteSort : false,
 	sorters : [

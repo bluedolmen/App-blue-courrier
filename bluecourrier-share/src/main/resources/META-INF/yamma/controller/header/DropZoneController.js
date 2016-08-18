@@ -63,7 +63,7 @@ Ext.define('Yamma.controller.header.DropZoneController', {
 		if (!dropZone) return;		
 		
 		Ext.create('Yamma.view.windows.UploadFormWindow', {
-			title : 'Choisissez un fichier',
+			title : i18n.t('controller.dropzone.uploadform.title'),
 			formConfig : {
 				additionalFields : [{
 					name : 'destination',

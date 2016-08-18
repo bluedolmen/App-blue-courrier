@@ -224,6 +224,34 @@
             "title": "Choisissez un fichier"
           }
         }
+      },
+      "dropzone": {
+        "uploadform": {
+          "title": "Choisissez un fichier"
+        }
+      },
+      "opensearch": {
+        "quicksearch": {
+          "title": "Recherche rapide"
+        }
+      },
+      "advancedsearch":{
+        "title": "Recherche avancée",
+        "error": {
+          "mainAspect": "At least one main aspect has to be defined!"
+        }
+      },
+      "menus": {
+        "sitearchives": {
+          "context" : {
+            "title": "Documents archivés du service {0}"
+          }
+        },
+        "sitetrays": {
+          "context" :{
+            "title" : "Documents du service '{0}' ayant l'état '{1}'"
+          }
+        }
       }
     },
     "admin" :{
@@ -499,6 +527,24 @@
               "message" : "Etes-vous certain de vouloir quitter ?"
             }
           }
+        }
+      }
+    },
+    "store" : {
+      "services" : {
+        "treestore": {
+          "rootlabel": "Tous"
+        }
+      },
+      "deliveryrole": {
+        "personrole" : {
+          "opinion": "Avis",
+          "information": "Information"
+        },
+        "servicerole": {
+          "expected-processing": "Traitement",
+          "collaboration" : "Collaboration",
+          "information": "Information"
         }
       }
     }
