@@ -66,7 +66,7 @@ Ext.define('Yamma.view.categories.CategoriesView', {
 			me = this,
 			columns = [{
 				xtype: 'treecolumn', //this is so we know which column will show the tree
-				text: 'Catégorie',
+				text: i18n.t('view.categories.columns.categorie'),
 				flex: 2,
 				sortable: true,
 				dataIndex: 'text'
@@ -98,7 +98,7 @@ Ext.define('Yamma.view.categories.CategoriesView', {
 		
 		columns.push({
 			
-			text: 'Action',
+			text: i18n.t('view.categories.columns.alfrescoactioncolumn'),
 			width : 30,
 			xtype: 'alfrescoactioncolumn',
 			
@@ -178,7 +178,7 @@ Ext.define('Yamma.view.categories.CategoriesView', {
 			
 			createCategoryWindow = Ext.create('Ext.window.Window', {
 			
-				title : 'Créer une nouvelle catégorie',
+				title : i18n.t('view.categories.window.create.title'),
 				renderTo : Ext.getBody(),
 				layout : 'fit',
 				
@@ -216,7 +216,7 @@ Ext.define('Yamma.view.categories.CategoriesView', {
 			
 			updateCategoryWindow = Ext.create('Ext.window.Window', {
 			
-				title : 'Mettre à jour une catégorie',
+				title : i18n.t('view.categories.window.update.title'),
 				renderTo : Ext.getBody(),
 				layout : 'fit',
 				
@@ -251,8 +251,8 @@ Ext.define('Yamma.view.categories.CategoriesView', {
 		}
 		
 		Bluedolmen.windows.ConfirmDialog.INSTANCE.askConfirmation(
-			'Supprimer la catégorie ?', /* title */
-			'Etes-vous certain de vouloir supprimer la catégorie et ses descendants ?', /* message */
+			i18n.t('view.categories.dialog.delete.title'), /* title */
+			i18n.t('view.categories.dialog.delete.message'), /* message */
 			deleteCategory /* onConfirmation */
 		);
 		

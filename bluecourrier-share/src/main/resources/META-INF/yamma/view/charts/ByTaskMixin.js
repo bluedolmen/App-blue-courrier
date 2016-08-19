@@ -3,7 +3,7 @@
  */
 Ext.define('Yamma.view.charts.ByTaskMixin', {
 	
-	title : 'Tâches',
+	title : i18n.t('view.charts.bytaskmixin.title'),
 	
 	getTaskTitle : function(value) {
 		

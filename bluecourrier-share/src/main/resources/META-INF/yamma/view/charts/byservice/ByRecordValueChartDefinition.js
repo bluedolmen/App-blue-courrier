@@ -9,12 +9,12 @@ Ext.define('Yamma.view.charts.byservice.ByRecordValueChartDefinition', {
 	 * Set it to *null* to discard undefined values
 	 */
 	undeterminedValue : 'undetermined',	
-	undeterminedValueTitle : 'Indéterminé',
+	undeterminedValueTitle : i18n.t('view.charts.byservice.byrecordvalue.undeterminedValueTitle'),
 	
 	constructor : function() {
 		
 		if (!this.recordFieldName) {
-			Ext.Error.raise('The recordFieldName has to be provided');
+			Ext.Error.raise(i18n.t('view.charts.byservice.byrecordvalue.errors.errors'));
 		}
 		
 		if (null != this.undeterminedValue && !Ext.Array.contains(this.aggregatedFields, this.undeterminedValue) ) {

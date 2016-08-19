@@ -8,7 +8,7 @@ Ext.define('Yamma.view.categories.CategoryForm', {
     
     categoryRef : null,
     buttonText : '',
-    waitingMessage : 'Opération en cours...',
+    waitingMessage : i18n.t('view.category.waitingmessage'),
     httpMethod : 'POST',
     
     layout: 'anchor',

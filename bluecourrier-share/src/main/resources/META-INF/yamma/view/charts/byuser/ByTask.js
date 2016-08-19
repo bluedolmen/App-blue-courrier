@@ -2,7 +2,7 @@ Ext.define('Yamma.view.charts.byuser.ByTask', {
 	
 	extend : 'Yamma.view.charts.byuser.ChartDefinition',
 
-	title : 'Tâches par utilisateur',
+	title : i18n.t('view.charts.byuser.bytask.title'),
 	
 	manager : true,
 	

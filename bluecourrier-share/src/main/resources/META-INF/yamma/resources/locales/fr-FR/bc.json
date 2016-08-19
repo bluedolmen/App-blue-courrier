@@ -56,6 +56,114 @@
             "pin": "Garder sous le coude",
             "restore": "Ouvrir dans une autre fenêtre"
           }
+        },
+        "categories" : {
+          "columns": {
+            "categorie": "Catégorie",
+            "alfrescoactioncolumn": "Action"
+          },
+          "window" : {
+            "create": {
+              "title": "Créer une nouvelle catégorie"
+            },
+            "update" : {
+              "title" : "Mettre à jour une catégorie"
+            }
+          },
+          "dialog": {
+            "delete": {
+              "title" : "Supprimer la catégorie ?",
+              "message" : "Etes-vous certain de vouloir supprimer la catégorie et ses descendants ?"
+            }
+          }
+        },
+        "category" : {
+          "waitingmessage" : "Opération en cours..."
+        },
+        "createcategory" : {
+          "title" : "Créer une nouvelle catégorie",
+          "buttonText" : "Créer"
+        },
+        "updatecategory" : {
+          "title" : "Mise à jour d'une catégorie",
+          "buttonText": "Mise à jour"
+        },
+        "charts" : {
+          "byservice": {
+            "latestate" : {
+              "title" : "Retard par service",
+              "field" : {
+                "ontime" : "OK",
+                "hurry" : "Urgent",
+                "late" : "En retard",
+                "undetermined" : "Indéterminé"
+              }
+            },
+            "bypriority": {
+              "title" : "Priorité par service"
+            },
+            "byprivacy" : {
+              "title" : "Confidentialité par service"
+            },
+            "byrecordvalue": {
+              "undeterminedValueTitle": "Indéterminé",
+              "errors": {
+                "recordfiledname": "The recordFieldName has to be provided"
+              }
+            },
+            "bystate": {
+              "title" : "Etat par service"
+            },
+            "bytask" : {
+              "title" : "Tâches par service"
+            },
+            "definition" : {
+              "title" : "Par service",
+              "tips" : {
+                "part0": " courrier",
+                "part1" : "s"
+              }
+            }
+          },
+          "byuser": {
+            "bydocumentnumber": {
+              "title" : "Documents par utilisateur",
+              "fields": {
+                "documentsCount": "Courriers",
+                "lateDocumentsCount" : "Courriers en retard"
+              }
+            },
+            "bytask": {
+              "title" : "Tâches par utilisateur"
+            },
+            "definition": {
+              "title": "Par utilisateur"
+            }
+          },
+          "bystatebar" : {
+            "axes" : {
+              "left": "Category",
+              "bottom": "Numeric"
+            },
+            "barchartdefinition" : {
+              "ontime": "Ok",
+              "hurry": "Urgent",
+              "late" : "En retard",
+              "undetermined": "Indéterminé"
+            }
+          },
+          "bytask": {
+            "title": "Tâches"
+          },
+          "bytaskmixin": {
+            "title" : "Tâche"
+          },
+          "definition" : {
+            "errors" : {
+              "factoryreuse" : "UnsupportedOperationException! Does not yet support reusing of the factory",
+              "buildtime": "The store has to be provided at object build-time"
+            }
+          }
         }
 	},
 	"widget": {
