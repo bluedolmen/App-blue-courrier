@@ -767,6 +767,40 @@
             }
           }
         }
+      },
+      "context" : {
+        "label": {
+          "advancedsearch": "Recherche avancée",
+          "mytask" : "Mes tâches",
+          "tray": "Bannette {0} du service {1}",
+          "default": "Recherche filtrée"
+        }
+      },
+      "deliveryutil": {
+        "roletile": {
+          "procg": "Traitement",
+          "col" : "Collaboration",
+          "inf": "Information"
+        }
+      },
+      "replyutil": {
+        "fileselectionmenu": {
+          "title": "Source",
+          "items" :{
+            "uploadfile":"Fichier local",
+            "selectfile": "Fichier GED"
+          }
+        },
+        "uploadwindow": {
+          "title": "Choisissez un fichier en <b>réponse</b>"
+        },
+        "dialog": {
+          "removereply": {
+              "title": "Supprimer la réponse ?",
+              "message": "Etes-vous certain de vouloir supprimer la réponse ?"
+          }
+        }
       }
     }
 }
+
