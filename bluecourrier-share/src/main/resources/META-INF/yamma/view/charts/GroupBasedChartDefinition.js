@@ -23,7 +23,7 @@ Ext.define('Yamma.view.charts.GroupBasedChartDefinition', {
 		
 		// Check whether there is a service field
 		if (!Ext.Array.contains(fieldNames, me.groupFieldName)) {
-			return "There is no field named '" + me.groupFieldName + "' (required for grouping)";
+			return i18n.t('view.charts.groupbased.errors.nofield.0') + me.groupFieldName + i18n.t('view.charts.groupbased.errors.nofield.1');
 		}
 		
 	},

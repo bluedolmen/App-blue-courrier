@@ -8,7 +8,7 @@ Ext.define('Yamma.view.comments.DeleteCommentAction', {
 		
 		return	{
 			icon : this.DELETE_COMMENT_ACTION_ICON.icon,
-			tooltip : 'Supprimer le commentaire',
+			tooltip :  i18n.t('view.comments.deletecommentaction.definition.tooltip'),
 			handler : this.onDeleteCommentAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -50,8 +50,8 @@ Ext.define('Yamma.view.comments.DeleteCommentAction', {
 		var me = this;
 		
 		Bluedolmen.windows.ConfirmDialog.INSTANCE.askConfirmation(
-			'Supprimer le commentaire ?', /* title */
-			'êtes-vous certain de vouloir supprimer le commentaire ?', /* message */
+			i18n.t('view.comments.deletecommentaction.dialog.confirm.title'), /* title */
+			i18n.t('view.comments.deletecommentaction.dialog.confirm.message'), /* message */
 			deleteComment /* onConfirmation */
 		);
 		

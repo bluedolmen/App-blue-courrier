@@ -163,6 +163,172 @@
               "factoryreuse" : "UnsupportedOperationException! Does not yet support reusing of the factory",
               "buildtime": "The store has to be provided at object build-time"
             }
+          },
+          "chartsstatsview": {
+            "title" : "Rapports statistiques des tâches en cours",
+            "errors": {
+              "nostore": "IllegalStateException! The store has to be provided"
+            },
+            "items": {
+              "reports": {
+                "title": "Rapports"
+              },
+              "filter": {
+                "title" : "Filtres"
+              }
+            },
+            "toolbar": {
+              "buttons": {
+                "manage": {
+                  "text": "Manager",
+                  "tooltip": "Basculer en mode Manager"
+                },
+                "export": {
+                  "text": "Exporter",
+                  "tooltip" : "Exporter le diagramme",
+                  "confirm" : "Confirmer l\'export', 'Voulez-vous télécharger le diagramme comme une image ?"
+                }
+              }
+            },
+            "filter": {
+              "mailtype-filter" : {
+                "text": "Entrant/Sortant",
+                "menu": {
+                  "items": {
+                    "all": "Entrant/Sortant",
+                    "incomming": "Entrant",
+                    "outgoing": "Sortant"
+                  }
+                }
+              },
+              "latestate-filter": {
+                "text" : "Tous",
+                "items" :{
+                  "all": "Tous",
+                  "hurry": "Urgent",
+                  "late" : "En retard"
+                }
+              }
+            }
+          },
+          "groupbased": {
+            "errors": {
+              "nofield" : {
+                "0" : "There is no field named '",
+                "1" : "' (required for grouping)"
+              }
+            }
+          },
+          "groupbasedmixin": {
+            "errors": {
+              "groupfieldname": {
+                "undefined": "IllegalStateException! The 'groupFieldName' property has to be defined to use this definition"
+              }
+            }
+          },
+          "statesstat": {
+            "title" : "Statistiques états",
+            "tools": {
+              "nextview": {
+                "tooltip": "Vue suivante"
+              }
+            }
+          }
+        },
+        "comments" : {
+          "commentsview": {
+            "title": "Commentaires",
+            "button": {
+              "addcomment" : "Ajouter un commentaires"
+            },
+            "columns": {
+              "author": {
+                "text": "Autheur"
+              },
+              "comment": {
+                "text" : "Commentaire"
+              }
+            },
+            "template" :{
+              "comment": {
+                "published": "Publié le {created:date(\"d/m/Y\")}",
+                "modified": " (modifié le {modified:date(\"d/m/Y\")})"
+              }
+            },
+            "dialog": {
+              "addcomment": {
+                "title": "Ajouter un commentaire"
+              }
+            }
+          },
+          "commentswindow": {
+            "title" : "Commentaires"
+          },
+          "deletecommentaction" : {
+            "definition" :{
+              "tooltip" : "Supprimer le commentaire"
+            },
+            "dialog": {
+              "confirm" :{
+                "title": "Supprimer le commentaire ?",
+                "message" : "êtes-vous certain de vouloir supprimer le commentaire ?"
+              }
+            }
+          },
+          "editcommentaction": {
+            "definition" :{
+              "tooltip":  "Éditer le commentaire"
+            },
+            "dialog": {
+              "add":  {
+                "title": "Ajouter un commentaire"
+              }
+            }
+          },
+          "promptdialog": {
+            "title" : "Ajouter un commentaire",
+            "errors" : {
+              "invalidnoderef": "This windows has to be initialized with a valid nodeRef"
+            },
+            "personCombo": {
+              "listconfig" : {
+                "loadingtext": "Recherche...",
+                "emptyText": "Aucun utilisateur trouvé."
+              }
+            },
+
+            "actorsgrid" :{
+              "title" :"Acteurs",
+              "columns" : {
+                "title": {
+                  "text" : "Nom"
+                },
+                "actioncolumn": {
+                  "text" : "Actions",
+                  "items": {
+                    "remove" : {
+                      "tooltip" : "Elever"
+                    }
+                  }
+                }
+              }
+            },
+
+            "items": {
+              "htmlEditor": {
+                "title" : "Rendre privé"
+              }
+            },
+            "dockedItems" :{
+              "items" : {
+                "comment-button": {
+                  "text": "Commenter"
+                },
+                "cancel-button": {
+                  "text":  "Annuler"
+                }
+              }
+            }
           }
         }
 	},

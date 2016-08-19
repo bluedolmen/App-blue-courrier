@@ -16,7 +16,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		OPERATION_EDIT : 'EDIT'
 	},
 	
-	title : 'Ajouter un commentaire',
+	title : i18n.t('view.comments.promptdialog.title'),
 	width : 500,
 	height : 300,
 	modal : true,
@@ -77,7 +77,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		;
 		
 		if (!this.nodeRef) {
-			Ext.Error.raise('This windows has to be initialized with a valid nodeRef');
+			Ext.Error.raise(i18n.t('view.comments.promptdialog.errors.invalidnoderef'));
 		}
 		
 		function isSetAsActor(id) {
@@ -136,8 +136,8 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		    labelStyle : 'background-repeat:no-repeat ; background-position:center',
 		    
 		    listConfig: {
-				loadingText: 'Recherche...',
-				emptyText: 'Aucun utilisateur trouvé.'		
+				loadingText: i18n.t('view.comments.promptdialog.personCombo.listconfig.loadingtext'),
+				emptyText: i18n.t('view.comments.promptdialog.personCombo.listconfig.emptyText')
 			},
 			
 			store : Ext.create('Bluedolmen.store.PersonStore'),
@@ -167,7 +167,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		
 		this.actorsGrid = Ext.create('Ext.grid.Panel', {
 			
-		    title: 'Acteurs',
+		    title: i18n.t('view.comments.promptdialog.actorsgrid.title'),
 		    header : false,
 		    hideHeaders : true,
 		    store: actorsStore,
@@ -176,18 +176,18 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		    
 		    columns: [
 		        { 
-		        	text: 'Nom', 
+		        	text: i18n.t('view.comments.promptdialog.actorsgrid.columns.title.text'),
 		        	dataIndex: 'title', 
 		        	flex: 1 
 		        },
 		        {
-		        	text : 'Actions',
+		        	text : i18n.t('view.comments.promptdialog.actorsgrid.columns.actioncolumn.text'),
 		        	xtype : 'actioncolumn',
 		        	width : 30,
 		        	items: [
 						{
 			                iconCls: Yamma.Constants.getIconDefinition('cross').iconCls,
-			                tooltip: 'Enlever',
+			                tooltip: i18n.t('view.comments.promptdialog.actorsgrid.columns.actioncolumn.items.remove.tooltip'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                	
 			                    var record = grid.getStore().getAt(rowIndex);
@@ -211,7 +211,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 				collapsed : true,
 				region : 'east',
 				width : 180,
-				title : 'Rendre privé',
+				title : i18n.t('view.comments.promptdialog.actorsgrid.items.htmlEditor.title'),
 				layout : 'vbox',
 				align : 'stretch',
 				pack : 'center',
@@ -239,7 +239,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'comment-button',
-		        	text: 'Commenter',
+		        	text: i18n.t('view.comments.promptdialog.actorsgrid.dockedItems.items.comment-button.text'),
 		        	icon : Yamma.view.comments.PromptDialog.ICON,
 		        	handler : function() {
 		        		
@@ -263,7 +263,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: 'Annuler',
+		        	text: i18n.t('view.comments.promptdialog.actorsgrid.dockedItems.items.cancel-button.text'),
 		        	icon : Yamma.view.comments.PromptDialog.ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

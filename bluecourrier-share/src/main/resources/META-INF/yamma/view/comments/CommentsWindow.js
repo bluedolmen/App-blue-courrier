@@ -3,7 +3,7 @@ Ext.define('Yamma.view.comments.CommentsWindow', {
 	extend : 'Ext.window.Window',
 	alias : 'widget.commentswindow',
 	
-	title : 'Commentaires',
+	title : i18n.t('view.comments.commentswindow.title'),
 	layout : 'fit',
 	resizable : true,
 	
