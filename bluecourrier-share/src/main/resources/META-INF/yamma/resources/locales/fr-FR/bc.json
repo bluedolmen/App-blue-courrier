@@ -244,6 +244,15 @@
         "stopfollowing" : {
           "text" : "Arrêter de suivre"
         }
+      },
+      "sorter": {
+        "processkind": {
+          "text" : "Processus",
+          "default": "Non fixé"
+        },
+        "status" :{
+          "text" : "Statut"
+        }
       }
     },
     "services": {
