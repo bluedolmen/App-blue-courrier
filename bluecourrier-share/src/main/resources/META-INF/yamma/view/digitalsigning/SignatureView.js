@@ -13,7 +13,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 		countingtitle : 'Yamma.utils.grid.CountingTitle'
 	},
 	
-	title : 'Signatures',
+	title : i18n.t('view.dialog.digitalsigning.signatureview.title'),
 	iconCls : Yamma.Constants.getIconDefinition('').iconCls,
 	
 	storeId : 'Attachments',
@@ -31,7 +31,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 	    			xtype : 'button',
 	    			itemId : 'addAttachment',
 	    			iconCls : 'icon-attach_add',
-	    			tooltip : 'Ajouter un attachement'
+	    			tooltip : i18n.t('view.dialog.digitalsignin.signatureview.dockedItems.items.addAttachment')
 	    		}
 		    ]
 		}];    	
@@ -92,7 +92,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 30,
-				tooltip : 'Type de document', // if the plugin is applied on the containing table
+				tooltip : i18n.t('view.dialog.digitalsigning.signatureview.columns.actioncolumn'), // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
 				
 				items : [
@@ -133,7 +133,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				flex : 1,
-				text : 'Nom du fichier',
+				text :  i18n.t('view.dialog.digitalsigning.signatureview.columns.name'),
 				dataIndex : 'name'
 			}		
 		);
@@ -145,7 +145,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				width : 50,
-				text : 'Taille',
+				text :  i18n.t('view.dialog.digitalsigning.signatureview.columns.humanReadableSize'),
 				dataIndex : 'humanReadableSize'
 			}		
 		);

@@ -527,6 +527,152 @@
                 "cancel-button": "Annuler"
               }
             }
+          },
+          "digitalsigning" : {
+            "generateform": {
+              "title": "Génération d'un certificat auto-signé",
+              "waitingMessage": "Génération en cours...",
+              "errorMessage":  "<strong>Echec de la génération du certificat auto-signé.</strong><br/><bt/>",
+              "submit" : "Générer",
+              "fields" : {
+                "password" : "Mot de passe",
+                "duration": "Durée (jours)",
+                "alias": "Alias"
+              }
+            },
+            "selectsignaturezonewindow": {
+              "title" : "Sélectionner une zone de signature",
+              "errors": {
+                "node-init": "The nodeRef is not correctly initialized"
+              },
+              "buttons": {
+                "select-button" : {
+                  "text": "Sélectionner",
+                  "tooltip" :"Sélectionner la zone actuelle comme zone de signature"
+                },
+                "cancel-button" : {
+                  "title" : "Annuler"
+                }
+              }
+            }
+            "signaturedisplaybox": {
+              "missingMessage": "<strong>Pas encore de signature</strong>",
+
+            },
+            "signaturemanagementwindow" : {
+              "title" : "Gestion de la signature électronique",
+              "items":{
+                "signature-box": {
+                  "missingmessage": "<strong>Pas encore de signature.</strong><br/> Vous pouvez ajouter, ou générer une signature électronique. L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition.<br/><br/> <em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
+                }
+              },
+              "dockedItems": {
+                "items": {
+                  "menu": {
+                    "text" :"Menu",
+                    "items" :{
+                      "generate-button" : {
+                        "text": "Générer",
+                        "tooltip": "Générer un certificat auto-signé"
+                      },
+                      "add-button" : {
+                        "text": "Ajouter",
+                        "tooltip": "Ajouter un certificat pour la signature électronique",
+                      },
+                      "remove-button": {
+                        "text": "Supprimer",
+                        "tooltip" : "Supprimer la signature actuelle"
+                      },
+                      "editImage-button" :{
+                        "text" : "Modifier l'image",
+                        "tooltip" : "Editer l'image de signature"
+                      }
+                    }
+                  }
+                }
+              },
+              "uploadformwindow" :{
+                "title" : "Ajout/Modification d'une image",
+                "errorTitle": "Echec",
+                "errorMessage": "<strong>Echec de la sauvegardede l'image",
+                "fields" :{
+                  "image": "Image"
+                }
+              }
+            },
+            "signatureview": {
+              "title": "Signatures",
+              "dockedItems": {
+                "items": {
+                  "addAttachment": "Ajouter un attachement"
+                }
+              },
+              "column": {
+                "actioncolumn": "Type de document",
+                "name": "Nom",
+                "humanReadableSize": "Taille"
+              }
+            },
+            "signdocumentpanel" : {
+              "title" : "Certification du document",
+              "items" :{
+                "information": "Informations",
+                "informationmissing": "<strong>Pas encore de signature.</strong><br/> Merci d'en ajouter une en utilisant le panneau de gestion de la signature électronique",
+                "password" : "Mot de passe",
+                "location" : "Localisation",
+                "reason": "Raison",
+                "position" : "Positionnement",
+                "location_not-visible" : "Non visible",
+                "location_field": "Champ",
+                "field-name": "Nom du champ",
+                "location_page" : "Page",
+                "pageNumber": "Num.",
+                "positionmm" : "Position (mm)",
+                "size" : "Taille (mm)",
+                "select" : "Sélectionner"
+              },
+              "buttons": {
+                "sign": {
+                  "text": "Signer",
+                  "tooltip" :"Apposer sa signature pour certifier le document"
+                }
+              }
+            },
+            "signdocumentwindow" : {
+              "title": "Certification du document"
+            },
+            "uploadformwindow": {
+              "title" : "&nbsp;",
+              "emptyTextLabel" :"Choissisez un fichier",
+              "waiting" :"Téléversement en cours...",
+              "errorTitle": "Echec",
+              "errorMessage": "<strong>Echec de la sauvegarde</strong><br/><br/>",
+              "submit": "Sauver",
+              "cancel": "Annuler",
+              "errors" : {
+                "undefined-url": "IllegalStateException! The uploadUrl has not been defined"
+              }
+            },
+            "uploadsignature" : {
+              "title" : "Ajout/Modification d'une signature",
+              "error" : "Echec",
+              "errormessage": {
+                "1" : "Echec de la sauvegarde la signature.",
+                "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
+                "3" : "Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.",
+                "4" : "Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps."
+              },
+              "keyLabel": "Certificat",
+              "imageLabel" :"image",
+              "passwordLabel" : "Mot de passe",
+              "keyTypeLabel": "Type"
+            },
+            "uploadsigningimagewindow" : {
+              "title": "Ajout/Modification d'une image",
+              "errorTitle": "Echec",
+              "errorMessage" : "Echec de la sauvegarde de l'image.",
+              "imageLabel" : "Image"
+            }
           }
         }
 	},

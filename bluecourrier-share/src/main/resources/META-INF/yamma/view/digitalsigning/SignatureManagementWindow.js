@@ -7,7 +7,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 		'Yamma.view.digitalsigning.UploadSignatureWindow'
 	],
 	
-	title : 'Gestion de la signature électronique',
+	title : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.title'),
 	
 	width : 500,
 	height : 320,
@@ -35,13 +35,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 			{
 				xtype : 'signaturedisplaybox',
 				itemId : 'signature-box',
-				signatureMissingMessage : 
-					"<strong>Pas encore de signature.</strong><br/> " +
-					"Vous pouvez ajouter, ou générer une signature électronique. " +
-					"L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition." +
-					"<br/><br/>" +
-					"<em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
-				,
+				signatureMissingMessage : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.items.signature-box.missingmessage'),,
 				listeners : {
 					'load' : function() {
 						me._updateButtons();
@@ -58,15 +52,15 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 			    items: [
 		    		{
 		    			xtype : 'button',
-		    			text : 'Menu',
+		    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.text'),
 		    			itemId : 'menu',
 		    			menu : {
 		    				plain : true,
 			    			items : [
 	    			    		{
 	    			    			itemId : 'generate-button',
-	    			    			text : 'Générer',
-	    			    			tooltip : 'Générer un certificat auto-signé',
+	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.generate-button.text'),
+	    			    			tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.generate-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('cog_rosette').iconCls,
 	    			    			operation : 'generate',
 	    			    			disabled : true,
@@ -75,8 +69,8 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 	    			    		},
 	    			    		{
 	    			    			itemId : 'add-button',
-	    			    			text : 'Ajouter',
-	    			    			tooltip : 'Ajouter un certificat pour la signature électronique',
+	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.add-button.text'),
+                                    tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.add-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('add').iconCls,
 	    			    			operation : 'add',
 	    			    			disabled : true,
@@ -85,8 +79,8 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 	    			    		},
 	    			    		{
 	    			    			itemId : 'remove-button',
-	    			    			text : 'Supprimer',
-	    			    			tooltip : 'Supprimer la signature actuelle',
+	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.remove-button.text'),
+                                    tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.remove-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('delete').iconCls,
 	    			    			operation : 'remove',
 	    			    			disabled : true,
@@ -95,8 +89,8 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 	    			    		},
 	    			    		{
 	    			    			itemId : 'editImage-button',
-	    			    			text : 'Modifier l\'image',
-	    			    			tooltip : 'Editer l\'image de signature',
+	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.editImage-button.text'),
+                                    tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.editImage-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('camera_edit').iconCls,
 	    			    			operation : 'edit_image',
 	    			    			disabled : true,
@@ -205,10 +199,10 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 				modal : true,
 				uploadUrl : 'alfresco://bluedolmen/digital-signing/signature/image',
 				
-				title : "Ajout/Modification d'une image",
+				title : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.title'),
 				
-				errorTitle : 'Echec',
-				errorMessage : '<strong>Echec de la sauvegarde de l\'image.</strong><br/><br/>',
+				errorTitle : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.errorTitle'),
+				errorMessage : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.errorMessage'),
 				
 				height : 150,
 				
@@ -218,7 +212,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 						{
 							xtype : 'filefield',
 							emptyText : this.emptyTextLabel,
-							fieldLabel : 'Image',
+							fieldLabel : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.fields.image'),
 							name : 'image',
 							buttonText : '',
 							

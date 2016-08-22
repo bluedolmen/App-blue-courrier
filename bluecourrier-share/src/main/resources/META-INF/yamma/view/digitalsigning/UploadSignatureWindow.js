@@ -5,36 +5,36 @@ Ext.define('Yamma.view.digitalsigning.UploadSignatureWindow', {
 	
 	uploadUrl : 'alfresco://bluedolmen/digital-signing/signature',
 	
-	title : "Ajout/Modification d'une signature",
+	title : i18n.t('view.dialog.digitalsigning.uploadsignature.title'),
 	
 	height : 230,
 	
-	errorTitle : 'Echec',
-	errorMessage : '<strong>Echec de la sauvegarde la signature.</strong><br/><br/>' +
+	errorTitle : i18n.t('view.dialog.digitalsigning.uploadsignature.error'),
+	errorMessage : '<strong>'+i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.1') +'</strong><br/><br/>' +
 		'<ul>' +
-		'<li>Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).' +
-		'<li>Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.' +
-		"<li>Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps." +
+		'<li>' + i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.2') +
+		'<li>'  + i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.3') +
+		'<li>' + i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.4') +
 		'</ul>'
 	,
 	
 	// Key field
 	keyFieldName : 'key',
-	keyFieldLabel : 'Certificat',
+	keyFieldLabel : i18n.t('view.dialog.digitalsigning.uploadsignature.keyLabel'),
 	KeyFieldIconCls : Yamma.Constants.getIconDefinition('page_white_key').iconCls,
 	
 	// Image field
 	imageFieldName : 'image',
-	imageFieldLabel : 'Image',
+	imageFieldLabel : i18n.t('view.dialog.digitalsigning.uploadsignature.imageLabel'),
 	imageFieldIconCls : Yamma.Constants.getIconDefinition('page_white_camera').iconCls,
 	
 	// password field
 	passwordFieldName : 'password',
-	passwordFieldLabel : 'Mot de passe',
+	passwordFieldLabel :  i18n.t('view.dialog.digitalsigning.uploadsignature.passwordLabel'),
 	
 	// Key type
 	keyTypeFieldName : 'keyType',
-	keyTypeFieldLabel : 'Type',
+	keyTypeFieldLabel :  i18n.t('view.dialog.digitalsigning.uploadsignature.keyTypeLabel'),
 	defaultKeyTypeValue : 'PKCS12',
 	
 	getFormFields : function() {
