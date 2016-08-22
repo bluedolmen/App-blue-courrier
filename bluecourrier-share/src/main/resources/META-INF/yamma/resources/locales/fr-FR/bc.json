@@ -297,6 +297,88 @@
             "digitized": "Numérisation"
           }
         }
+      },
+      "servicefilters" : {
+        "fieldLabel": "Filtre",
+        "treestore": {
+          "root": {
+            "text": "Statut"
+          },
+          "incoming" : {
+            "text" : "Entrant",
+          },
+          "incoming-delivering" : {
+            "text" : "Distribution",
+            "title" : "Entrant en distribution"
+          },
+          "incoming-processing": {
+            "text" : "Traitement",
+            "title": "Entrant en traitement"
+          },
+          "incoming-processed": {
+            "text": "Traité",
+            "title" : "Entrant traité"
+          },
+          "outgoing" : {
+            "text" : "Sortant"
+          },
+          "outgoing-processing": {
+            "text": "Elaboration",
+            "title": "Sortant en élaboration"
+          },
+          "outgoing-validating" :{
+            "text": "Validation",
+            "title" : "Sortant en validation"
+          },
+          "outgoing-sending": {
+            "text" : "Envoi",
+            "title": "Sortant en envoi"
+          },
+          "outgoing-processed": {
+            "text" : "Traité",
+            "title" : "Sortant traité"
+          }
+        }
+      },
+      "servicecombo": {
+        "fieldLabel": "Servicce"
+      },
+      "sortersmenu": {
+        "defaultLabel": "Trier par",
+        "none" : "Aucun"
+      },
+      "taskview": {
+        "buttons": {
+          "show-charts": "Visualiser les rapports graphiques",
+          "include-followed": "Inclure les courriers suivis",
+          "reload": "Recharger"
+        },
+        "filter": {
+          "followed": "Courriers suivis"
+        },
+        "sorter": {
+          "cancel" :"Aucun",
+          "reference" : "Référence",
+          "name" : "Nom",
+          "object": "Objet",
+          "sender": "Expéditeur (organisation)",
+          "enclosingservice": "Service (traitement)",
+          "writing": "Rédaction",
+          "sent" : "Envoi",
+          "delivery": "Réception",
+          "digitized" : "Numérisation",
+          "due": "Echéance",
+          "modified" : "Modification"
+        },
+        "window": {
+          "title": "Rapports graphiques"
+        }
+      },
+      "threadedview" :{
+        "title" :"Fil de discussion",
+        "errors" :{
+          "noderef": "IllegalArgumentException! The provided document nodeRef is not valid"
+        }
       }
     },
     "services": {
@@ -1059,10 +1141,27 @@
         }
       },
       "filters": {
+        "selected": "Filtres sélectionnés",
         "modified-recently-filter": "Modifiés récemment (7j)",
         "duedate-filter": "Echéance",
         "duedate-lessthan7days": "Moins de 7 jours",
         "duedate-lessthan3days": "Moins de 3 jours"
+      },
+      "sorter": {
+        "cancel" :"Aucun",
+        "reference" : "Référence",
+        "name" : "Nom",
+        "sender": "Expéditeur (organisation)",
+        "writing": "Rédaction",
+        "sent" : "Envoi",
+        "delivery": "Réception",
+        "digitized" : "Numérisation",
+        "due": "Echéance",
+        "modified" : "Modification",
+        "size": "Taille",
+        "mimetype": "Type MIME",
+        "processkind" :"Processus",
+        "status": "Statut"
       }
     },
     "mailfiltersview": {},

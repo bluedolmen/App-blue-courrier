@@ -34,7 +34,7 @@ Ext.define('Yamma.view.mails.ServiceCombo', {
     displayField : 'text',
     
     grow : true,
-    fieldLabel: 'Service',
+    fieldLabel: i18n.t('view.mails.servicecombo.fieldLabel'),//'Service',
     labelAlign : 'right',
     labelSeparator : '',
     labelStyle : 'font-size : 1em ; font-weight : bold ; color : #15498B',     

@@ -12,7 +12,7 @@ Ext.define('Yamma.view.mails.ThreadedView', {
 		mailcolumndefinitions : 'Yamma.view.mails.MailColumnDefinitions'		
 	},
 	
-	title : 'Fil discussion',
+	title : i18n.t('view.mails.threadedview.title'),//'Fil discussion',
 	iconCls : 'icon-chart_organisation',
 	cls : 'threaded-view',
 	
@@ -83,7 +83,7 @@ Ext.define('Yamma.view.mails.ThreadedView', {
 	loadThread : function(nodeRef) {
 		
 		if (!nodeRef || !Ext.isString(nodeRef)) {
-			Ext.Error.raise('IllegalArgumentException! The provided document nodeRef is not valid');
+			Ext.Error.raise(i18n.t('view.mails.threadedview.errors.noderef'));
 		}
 		
 		this.setDocumentNodeRef(nodeRef);		

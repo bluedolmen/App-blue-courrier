@@ -165,10 +165,10 @@ Ext.define('Yamma.view.mails.MailsView', {
 	    var sortersMenu = Ext.create('Yamma.view.mails.SortersMenu', {
 	    	itemId : 'sorters-menu',
 	        sorters : [
-        	   {"property":"", "text": "Aucun", "iconCls" : Yamma.Constants.getIconDefinition('cancel').iconCls},
-        	   {"property":"@bluecourrier:reference", "text":"Référence", "iconCls" : Yamma.view.mails.SortersMenu.KEY_TYPE_ICON.iconCls},
-        	   {"property":"@cm:name", "text":"Nom", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:senderOrganizationName", "text":"Expéditeur (organisation)", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},       	   
+        	   {"property":"", "text":  i18n.t('widget.mailsview.sorter.cancel'), "iconCls" : Yamma.Constants.getIconDefinition('cancel').iconCls},
+        	   {"property":"@bluecourrier:reference", "text": i18n.t('widget.mailsview.sorter.reference'), "iconCls" : Yamma.view.mails.SortersMenu.KEY_TYPE_ICON.iconCls},
+        	   {"property":"@cm:name", "text":i18n.t('widget.mailsview.sorter.name'), "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
+        	   {"property":"@bluecourrier:senderOrganizationName", "text":i18n.t('widget.mailsview.sorter.sender'), "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
 /*
  * Deactivate the sorting on the "object"; SolR DOES NOT support sorting on this field
  * 
@@ -177,16 +177,16 @@ Ext.define('Yamma.view.mails.MailsView', {
  */
 //        	   {"property":"@bluecourrier:object", "text":"Objet", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
 //        	   {"property":"@cm:created", "text":"Création", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:writingDate", "text":"Rédaction", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:sentDate", "text":"Envoi", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:deliveryDate", "text":"Réception", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:digitizedDate", "text":"Numérisation", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:dueDate", "text":"Echéance", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@cm:modified", "text":"Modification", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@cm:content.size", "text":"Taille", "iconCls" : Yamma.Constants.getIconDefinition('database').iconCls},
-        	   {"property":"@cm:content.mimetype", "text":"Type MIME", "iconCls" : Yamma.Constants.getIconDefinition('package').iconCls},
-        	   {"property":"@bluecourrier:processKind", "text":"Processus", "iconCls" : Yamma.Constants.getIconDefinition('cog_email').iconCls},
-        	   {"property":"@bluecourrier:status", "text":"Statut", "iconCls" : Yamma.Constants.getIconDefinition('cog_email').iconCls}
+        	   {"property":"@bluecourrier:writingDate", "text":i18n.t('widget.mailsview.sorter.writing'),, "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@bluecourrier:sentDate", "text":i18n.t('widget.mailsview.sorter.sent'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@bluecourrier:deliveryDate", "text":i18n.t('widget.mailsview.sorter.delivery'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@bluecourrier:digitizedDate", "text":i18n.t('widget.mailsview.sorter.digitized'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@bluecourrier:dueDate", "text":i18n.t('widget.mailsview.sorter.due'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@cm:modified", "text":i18n.t('widget.mailsview.sorter.modified'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@cm:content.size", "text":i18n.t('widget.mailsview.sorter.size'), "iconCls" : Yamma.Constants.getIconDefinition('database').iconCls},
+        	   {"property":"@cm:content.mimetype", "text":i18n.t('widget.mailsview.sorter.mimetype'), "iconCls" : Yamma.Constants.getIconDefinition('package').iconCls},
+        	   {"property":"@bluecourrier:processKind", "text":i18n.t('widget.mailsview.sorter.processkind'), "iconCls" : Yamma.Constants.getIconDefinition('cog_email').iconCls},
+        	   {"property":"@bluecourrier:status", "text":i18n.t('widget.mailsview.sorter.status'), "iconCls" : Yamma.Constants.getIconDefinition('cog_email').iconCls}
            	],
 	    	listeners : {
 	    		
@@ -355,7 +355,7 @@ Ext.define('Yamma.view.mails.MailsView', {
 		else {
 			this.filter();
 			iconCls = Yamma.Constants.getIconDefinition('funnel_active').iconCls;
-			tooltip = '<i>Filtres sélectionnés :</i><br/>' + 
+			tooltip = '<i>'+i18n.t('widget.mailsview.filters.selected')+' :</i><br/>' +
 				checkedItems.reduce(function(previousValue, item, index, array) {
 					return previousValue + '- ' + '<b>' + item.text + '</b><br/>';
 				}, '' /* initialValue */)
