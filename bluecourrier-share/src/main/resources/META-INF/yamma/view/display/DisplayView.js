@@ -17,7 +17,7 @@ Ext.define('Yamma.view.display.DisplayView',
 		'Bluedolmen.view.utils.PreviewFrame'    
     ],
 	
-	title : 'Prévisualisation des fichiers',
+	title : i18n.t('view.dialog.display.displayview.title'),//'Prévisualisation des fichiers',
 	plain : false,
 	
     plugins: [
@@ -29,7 +29,7 @@ Ext.define('Yamma.view.display.DisplayView',
 				{
 					xtype : 'button',
 					itemId : 'synchronize',
-					tooltip : 'Synchroniser la prévisualisation',
+					tooltip : i18n.t('view.dialog.display.displayview.tab.items.synchronize.tooltip'),
 					iconCls : Yamma.Constants.getIconDefinition('synchronize').iconCls,
 					enableToggle : true
 				}

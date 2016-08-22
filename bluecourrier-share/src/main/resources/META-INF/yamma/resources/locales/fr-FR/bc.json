@@ -673,6 +673,36 @@
               "errorMessage" : "Echec de la sauvegarde de l'image.",
               "imageLabel" : "Image"
             }
+          },
+          "display" : {
+            "displayview" : {
+              "title" : "Prévisualisation des fichiers",
+              "tab" : {
+                "items" :{
+                  "synchronize" : {
+                    "tooltip" : "Synchroniser la prévisualisation"
+                  }
+                }
+              }
+            },
+            "replyfilesbutton" : {
+              "items": {
+                "addReply": "Ajouter une réponse",
+                "uploadFile": "Fichier local",
+                "selectFile": "Fichier GED",
+                "removeReply": "Supprimer la réponse"
+              }
+            },
+            "yammatabactionmenu": {
+              "items": {
+                "download" : "Télécharger",
+                "update" : "Modifier",
+                "delete" : "Supprimer"
+              },
+              "errors" : {
+                "menuitem" : "menuitem argument is mandatory"
+              }
+            }
           }
         }
 	},
