@@ -69,10 +69,8 @@ Ext.define('Yamma.view.mails.gridactions.GridAction', {
 		if (!commonServiceName) {
 			
 			Ext.Msg.show({
-			     title : 'Services multiples!',
-			     msg: "Vous essayer d'effectuer une opération mettant en oeuvre des services multiples. " +
-			     	"Ce type d'opération n'est pas supporté pour l'instant. " +
-			     	"Veuillez svp sélectionner les éléments correspondants à un unique service.",
+			     title : i18n.t('view.mails.gridactions.gridaction.commonservicename.msg.title'),
+			     msg: i18n.t('view.mails.gridactions.gridaction.commonservicename.msg.content'),
 			     buttons: Ext.Msg.OK,
 			     icon: Ext.Msg.WARNING
 			});
@@ -92,7 +90,7 @@ Ext.define('Yamma.view.mails.gridactions.GridAction', {
 			}
 			
 			var managerMenu = Ext.create('Ext.menu.Menu', {
-				title : "En tant que",
+				title : i18n.t('view.mails.gridactions.gridaction.menu.manager.title'),
 			    plain: true,
 			    renderTo: Ext.getBody(),
 			    items : Ext.Array.map(serviceDescription.serviceManagers, function(serviceManager) {

@@ -10,7 +10,7 @@ Ext.define('Yamma.view.mails.gridactions.ApproveDocument', {
 	WS_PDF_INFORMATION_URL : 'alfresco://bluedolmen/digital-signing/pdf-information?nodeRef={nodeRef}',
 	
 	icon : Yamma.Constants.getIconDefinition('text_signature').icon,
-	tooltip : 'Approuver électroniquement le document',
+	tooltip : i18n.t('view.mails.gridactions.approvedocument.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/certify',
 	
 	taskName : ['bcogwf:certifyingTask'],

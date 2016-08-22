@@ -7,15 +7,14 @@ Ext.define('Yamma.view.mails.gridactions.EndOutgoingProcessing', {
 	},		
 	
 	icon : Yamma.Constants.getIconDefinition('tick_go').icon,
-	tooltip : 'Terminer le traitement',
+	tooltip : i18n.t('view.mails.gridactions.endoutgoingprocessing.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/send-outbound',
 
 	taskName : 'bcogwf:processingTask',
 //	actionName : 'Validate',
 	
-	confirmTitle : "Envoyer sans validation ?",
-	confirmMessage : "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br>" +
-		"Confirmez-vous l'envoi ?",
+	confirmTitle : i18n.t('view.mails.gridactions.endoutgoingprocessing.confirmTitle'),
+	confirmMessage : i18n.t('view.mails.gridactions.endoutgoingprocessing.confirmMessage'),
 	
 	supportBatchedNodes : true,	
 	
@@ -36,7 +35,7 @@ Ext.define('Yamma.view.mails.gridactions.EndOutgoingProcessing', {
 			
 			extend : 'Yamma.view.dialogs.InitOutgoingValidationDialog',
 			
-			title : 'Terminer le traitement',
+			title : i18n.t('view.mails.gridactions.endoutgoingprocessing.initoutgoingvalidationdialog.title'),
 			
 			nodeRef : nodeRef,
 			certifiable : Yamma.utils.SignatureUtils.isFeatureAvailable(),

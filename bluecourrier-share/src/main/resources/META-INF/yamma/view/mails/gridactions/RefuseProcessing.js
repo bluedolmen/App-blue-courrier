@@ -7,15 +7,13 @@ Ext.define('Yamma.view.mails.gridactions.RefuseProcessing', {
 	},	
 	
 	icon : Yamma.Constants.getIconDefinition('pencil_cross').icon,
-	tooltip : 'Refuser le traitement',
+	tooltip : i18n.t('view.mails.gridactions.refuseprocessing.tooltip'),//'Refuser le traitement',
 	
-	confirmMessage : "Confirmez-vous le retour en distribution du courrier ?\n"
-		+ "Cette opération est généralement réalisée lorsqu'une erreur de distribution a été effectuée."
-	,
-	confirmTitle : 'Refuser le tratement ?',
+	confirmMessage : i18n.t('view.mails.gridactions.refuseprocessing.confirmMessage'),
+	confirmTitle : i18n.t('view.mails.gridactions.refuseprocessing.confirmTitle'),
 	
 	taskName : 'bcinwf:processingTask',
-	actionName : 'Refuse',
+	actionName : i18n.t('view.mails.gridactions.refuseprocessing.actionName'),
 	
 //	discardIfOwner : true,
 //	status : 'Not Yet Started',

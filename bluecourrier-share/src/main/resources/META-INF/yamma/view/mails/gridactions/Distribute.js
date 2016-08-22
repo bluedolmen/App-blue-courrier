@@ -2,9 +2,9 @@ Ext.define('Yamma.view.mails.gridactions.Distribute', {
 	
 	extend : 'Yamma.view.mails.gridactions.DeliveringAction',
 	
-	taskTitle : 'Distribution aux services',
+	taskTitle : i18n.t('view.mails.gridactions.distribute.taskTitle'),
 	
-	actionName : 'Deliver',
+	actionName : i18n.t('view.mails.gridactions.distribute.actionName'),
 	
 	dialogConfig : {
 		enableMainRoleSelection : false
@@ -205,11 +205,8 @@ Ext.define('Yamma.view.mails.gridactions.Distribute.Operationdialog', {
 	
 	extend : 'Ext.window.Window',
 	
-	title: 'Traitement par lots',
-	msg: "Cette opération vous permet d'<b>éditer</b> les valeurs <b>par lots</b> ou de <b>distribuer</b> selon les valeurs fixées précédemment.<br>"
-			+ "<i>Attention!</i> Les valeurs actuelles (supposées combinées) ne sont pas présentées à l'utilisateur)"
-			+ "<br><br>"
-			+ "<i>Quelle opération voulez-vous effectuer ?</i>",
+	title:  i18n.t('view.mails.gridactions.distribute.operationdialog.title'),
+	msg: i18n.t('view.mails.gridactions.distribute.operationdialog.msg'),
 	width: 320,
 //	height : 160,
 	modal : true,
@@ -248,7 +245,7 @@ Ext.define('Yamma.view.mails.gridactions.Distribute.Operationdialog', {
 		    items: ['->'].concat(me.getButtons() || []).concat([
 	    		{
 	    			xtype : 'button',
-	    			text : 'Annuler',
+	    			text : i18n.t('view.mails.gridactions.distribute.operationdialog.buttons.cancel'),
 	    			itemId : 'cancelButton',
 	    			iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls,
 	    			handler : function() {
@@ -267,8 +264,8 @@ Ext.define('Yamma.view.mails.gridactions.Distribute.Operationdialog', {
 		        
     		{
     			xtype : 'button',
-    			text : 'Éditer',
-    			tooltip : 'Éditer toutes les valeurs des courriers sélectionnés',
+    			text : i18n.t('view.mails.gridactions.distribute.operationdialog.buttons.edit'),
+    			tooltip : i18n.t('view.mails.gridactions.distribute.operationdialog.buttons.edit-tooltip'),
     			iconCls : Yamma.Constants.getIconDefinition('group_edit').iconCls,
     			operation : 'edit',
     			handler : this._onClick,
@@ -276,8 +273,8 @@ Ext.define('Yamma.view.mails.gridactions.Distribute.Operationdialog', {
     		},
     		{
     			xtype : 'button',
-    			text : 'Distribuer',
-    			tooltip : 'Distribuer tous les courriers sélectionnés',
+    			text : i18n.t('view.mails.gridactions.distribute.operationdialog.buttons.distribute'),
+    			tooltip : i18n.t('view.mails.gridactions.distribute.operationdialog.buttons.distribute-tooltip'),
     			iconCls : Yamma.Constants.getIconDefinition('group_go').iconCls,
     			operation : 'distribute',
     			handler : this._onClick,
@@ -312,7 +309,7 @@ Ext.define('Yamma.view.mails.gridactions.Distribute.DeliveryDialog', {
 	        { 
 	        	xtype: 'button',
 	        	itemId : 'distribute-button',
-	        	text: 'Distribuer',
+	        	text: i18n.t('view.mails.gridactions.distribute.operationdialog.buttons.distribute'),
 	        	icon : Yamma.Constants.getIconDefinition('group_go').icon,
 	        	hidden : !this.enableDistribution,
 	        	disabled : true,

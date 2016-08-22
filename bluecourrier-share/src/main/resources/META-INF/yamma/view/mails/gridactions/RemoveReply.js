@@ -11,17 +11,17 @@ Ext.define('Yamma.view.mails.gridactions.RemoveReply', {
 	},	
 	
 	icon : Yamma.Constants.getIconDefinition('email_cross').icon,
-	tooltip : 'Supprimer un courrier sortant',
+	tooltip : i18n.t('view.mails.gridactions.removereply.confirmMessage'),
 	
 	supportBatchedNodes : false,
 	
 	discardRefreshOnSuccess : true, // signal an operation instead
 	
 	taskName : 'bcogwf:processingTask',
-	actionName : 'Remove',
+	actionName : i18n.t('view.mails.gridactions.removereply.actionName'),
 	
-	confirmMessage : "Confirmez-vous la suppression de la réponse ?",
-	confirmTitle : 'Supprimer ?',
+	confirmMessage : i18n.t('view.mails.gridactions.removereply.confirmMessage'),
+	confirmTitle : i18n.t('view.mails.gridactions.removereply.confirmTitle'),
 	
 	isAvailable : function(record, context) {
 		
