@@ -7,7 +7,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 		'Yamma.view.digitalsigning.UploadSignatureWindow'
 	],
 	
-	title : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.title'),
+	title : i18n.t('view.digitalsigning.signaturemanagementwindow.title'),
 	
 	width : 500,
 	height : 320,
@@ -35,7 +35,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 			{
 				xtype : 'signaturedisplaybox',
 				itemId : 'signature-box',
-				signatureMissingMessage : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.items.signature-box.missingmessage'),,
+				signatureMissingMessage : i18n.t('view.digitalsigning.signaturemanagementwindow.items.signature-box.missingmessage'),,
 				listeners : {
 					'load' : function() {
 						me._updateButtons();
@@ -52,15 +52,15 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 			    items: [
 		    		{
 		    			xtype : 'button',
-		    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.text'),
+		    			text : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.text'),
 		    			itemId : 'menu',
 		    			menu : {
 		    				plain : true,
 			    			items : [
 	    			    		{
 	    			    			itemId : 'generate-button',
-	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.generate-button.text'),
-	    			    			tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.generate-button.tooltip'),
+	    			    			text : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.generate-button.text'),
+	    			    			tooltip : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.generate-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('cog_rosette').iconCls,
 	    			    			operation : 'generate',
 	    			    			disabled : true,
@@ -69,8 +69,8 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 	    			    		},
 	    			    		{
 	    			    			itemId : 'add-button',
-	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.add-button.text'),
-                                    tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.add-button.tooltip'),
+	    			    			text : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.add-button.text'),
+                                    tooltip : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.add-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('add').iconCls,
 	    			    			operation : 'add',
 	    			    			disabled : true,
@@ -79,8 +79,8 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 	    			    		},
 	    			    		{
 	    			    			itemId : 'remove-button',
-	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.remove-button.text'),
-                                    tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.remove-button.tooltip'),
+	    			    			text : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.remove-button.text'),
+                                    tooltip : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.remove-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('delete').iconCls,
 	    			    			operation : 'remove',
 	    			    			disabled : true,
@@ -89,8 +89,8 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 	    			    		},
 	    			    		{
 	    			    			itemId : 'editImage-button',
-	    			    			text : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.editImage-button.text'),
-                                    tooltip : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.editImage-button.tooltip'),
+	    			    			text : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.editImage-button.text'),
+                                    tooltip : i18n.t('view.digitalsigning.signaturemanagementwindow.dockedItems.items.menu.items.editImage-button.tooltip'),
 	    			    			iconCls : Yamma.Constants.getIconDefinition('camera_edit').iconCls,
 	    			    			operation : 'edit_image',
 	    			    			disabled : true,
@@ -199,10 +199,10 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 				modal : true,
 				uploadUrl : 'alfresco://bluedolmen/digital-signing/signature/image',
 				
-				title : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.title'),
+				title : i18n.t('view.digitalsigning.signaturemanagementwindow.uploadformwindow.title'),
 				
-				errorTitle : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.errorTitle'),
-				errorMessage : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.errorMessage'),
+				errorTitle : i18n.t('view.digitalsigning.signaturemanagementwindow.uploadformwindow.errorTitle'),
+				errorMessage : i18n.t('view.digitalsigning.signaturemanagementwindow.uploadformwindow.errorMessage'),
 				
 				height : 150,
 				
@@ -212,7 +212,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 						{
 							xtype : 'filefield',
 							emptyText : this.emptyTextLabel,
-							fieldLabel : i18n.t('view.dialog.digitalsigning.signaturemanagementwindow.uploadformwindow.fields.image'),
+							fieldLabel : i18n.t('view.digitalsigning.signaturemanagementwindow.uploadformwindow.fields.image'),
 							name : 'image',
 							buttonText : '',
 							

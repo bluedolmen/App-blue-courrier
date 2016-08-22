@@ -11,7 +11,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 	WS_DS_IMAGE_URL : 'alfresco://bluedolmen/digital-signing/signature/image',
 	WD_DS_SIGNATURE_URL : 'alfresco://bluedolmen/digital-signing/signature',
 	
-	title: i18n.t('view.dialog.digitalsigning.signdocumentpanel.title'),
+	title: i18n.t('view.digitalsigning.signdocumentpanel.title'),
 
 	/**
 	 * @config
@@ -46,7 +46,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 			items = [
 			    {
 			    	xtype : 'fieldset',
-			    	title : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.information'),
+			    	title : i18n.t('view.digitalsigning.signdocumentpanel.items.information'),
 			    	flex : 1,
 					margin : 5,
 					padding : 5,
@@ -54,7 +54,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 	    				{
 	    					xtype : 'signaturedisplaybox',
 	    					itemId : 'signature-information',
-	    					signatureMissingMessage : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.informationmissing'),
+	    					signatureMissingMessage : i18n.t('view.digitalsigning.signdocumentpanel.items.informationmissing'),
 	    					listeners : {
 	    						'signatureavailable' : function(keyDescr) {
 	    							me.queryById('signature-available').setValue(keyDescr['keyAlias']);
@@ -74,27 +74,27 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 					xtype : 'textfield',
 					name : 'password',
 					inputType : 'password',
-					fieldLabel : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.password'),
+					fieldLabel : i18n.t('view.digitalsigning.signdocumentpanel.items.password'),
 					allowBlank : false
 				},
 				
 				{
 					xtype : 'textfield',
 					name : 'location',
-					fieldLabel : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.location'),
+					fieldLabel : i18n.t('view.digitalsigning.signdocumentpanel.items.location'),
 					allowBlank : true
 				},
 
 				{
 					xtype : 'textfield',
 					name : 'reason',
-					fieldLabel : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.reason'),
+					fieldLabel : i18n.t('view.digitalsigning.signdocumentpanel.items.reason'),
 					allowBlank : true
 				},			    
 			    
 				{
 					xtype : 'fieldset',
-					title : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.position'),
+					title : i18n.t('view.digitalsigning.signdocumentpanel.items.position'),
 					hidden : false === me.showPositioning,
 					layout : 'anchor',
 					height : 250,
@@ -110,7 +110,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 							xtype : 'radio',
 							checked : true,
 							fieldLabel : 'Type',
-							boxLabel : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.location_not-visible'),
+							boxLabel : i18n.t('view.digitalsigning.signdocumentpanel.items.location_not-visible'),
 							inputValue : 'NONE',
 							name : 'signature-location',
 							itemId : 'location_not-visible'
@@ -123,7 +123,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 			                items: [
 		    					{
 		    						xtype : 'radio',
-		    						boxLabel : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.location_field'),
+		    						boxLabel : i18n.t('view.digitalsigning.signdocumentpanel.items.location_field'),
 		    						inputValue : 'FIELD',
 		    						name : 'signature-location',
 									hideLabel : true,
@@ -143,7 +143,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 								{
 									xtype : 'textfield',
 									itemId : 'field-name',
-									fieldLabel :  i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.field-name'),
+									fieldLabel :  i18n.t('view.digitalsigning.signdocumentpanel.items.field-name'),
 									name : 'field-name',
 									margin : '0 0 6 20',
 					                disabled : true,
@@ -159,7 +159,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 			                items: [
 		    					{
 		    						xtype : 'radio',
-		    						boxLabel :  i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.location_page'),
+		    						boxLabel :  i18n.t('view.digitalsigning.signdocumentpanel.items.location_page'),
 		    						inputValue : 'PAGE_NB',
 		    						name : 'signature-location',
 									hideLabel : true,
@@ -195,7 +195,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 			                items: [
 								{
 									xtype : 'numberfield',
-									fieldLabel :  i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.pageNumber'),
+									fieldLabel :  i18n.t('view.digitalsigning.signdocumentpanel.items.pageNumber'),
 									name : 'page-number',
 									itemId : 'pageNumber',
 								    value: 1,
@@ -206,7 +206,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 								},
 		    		            {
 		    		                xtype: 'fieldcontainer',
-		    		                fieldLabel: i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.positionmm'),
+		    		                fieldLabel: i18n.t('view.digitalsigning.signdocumentpanel.items.positionmm'),
 		    		                combineErrors: true,
 		    		                msgTarget: 'under',
 		    		                anchor: '100%',
@@ -240,7 +240,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 		    		            },
 		    		            {
 		    		                xtype: 'fieldcontainer',
-		    		                fieldLabel: i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.size'),
+		    		                fieldLabel: i18n.t('view.digitalsigning.signdocumentpanel.items.size'),
 		    		                combineErrors: true,
 		    		                msgTarget: 'under',
 		    		                anchor: '100%',
@@ -275,7 +275,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 		    		            },
 		    					{
 		    						xtype : 'button',
-		    						text : i18n.t('view.dialog.digitalsigning.signdocumentpanel.items.select'),
+		    						text : i18n.t('view.digitalsigning.signdocumentpanel.items.select'),
 		    						iconCls : Yamma.Constants.getIconDefinition('shape_handles').iconCls,
 		    						handler : function() {
 		    							
@@ -359,8 +359,8 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentPanel', {
 		        
     		{
     			xtype : 'button',
-    			text : i18n.t('view.dialog.digitalsigning.signdocumentpanel.buttons.sign.text'),
-    			tooltip : i18n.t('view.dialog.digitalsigning.signdocumentpanel.buttons.sign.tooltip'),
+    			text : i18n.t('view.digitalsigning.signdocumentpanel.buttons.sign.text'),
+    			tooltip : i18n.t('view.digitalsigning.signdocumentpanel.buttons.sign.tooltip'),
     			iconCls : Yamma.Constants.getIconDefinition('rosette').iconCls,
     			operation : 'sign',
     			handler : this._onClick,

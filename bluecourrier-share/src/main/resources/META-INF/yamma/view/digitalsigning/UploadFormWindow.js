@@ -13,15 +13,15 @@ Ext.define('Yamma.view.digitalsigning.UploadFormWindow', {
 	width : 400,
 	height : 400,
 
-	title : i18n.t('view.dialog.digitalsigning.uploadformwindow.title'),
-	emptyTextLabel :  i18n.t('view.dialog.digitalsigning.uploadformwindow.emptyTextLabel'),
-	waitingMessage :  i18n.t('view.dialog.digitalsigning.uploadformwindow.waiting'),
+	title : i18n.t('view.digitalsigning.uploadformwindow.title'),
+	emptyTextLabel :  i18n.t('view.digitalsigning.uploadformwindow.emptyTextLabel'),
+	waitingMessage :  i18n.t('view.digitalsigning.uploadformwindow.waiting'),
 	
-	errorTitle :  i18n.t('view.dialog.digitalsigning.uploadformwindow.errorTitle'),
-	errorMessage :  i18n.t('view.dialog.digitalsigning.uploadformwindow.errorMessage'),
+	errorTitle :  i18n.t('view.digitalsigning.uploadformwindow.errorTitle'),
+	errorMessage :  i18n.t('view.digitalsigning.uploadformwindow.errorMessage'),
 	
-	submitButtonLabel :  i18n.t('view.dialog.digitalsigning.uploadformwindow.submit'),
-	cancelButtonLabel :  i18n.t('view.dialog.digitalsigning.uploadformwindow.cancel'),
+	submitButtonLabel :  i18n.t('view.digitalsigning.uploadformwindow.submit'),
+	cancelButtonLabel :  i18n.t('view.digitalsigning.uploadformwindow.cancel'),
 	
 	layout: {
 	    type: 'vbox',

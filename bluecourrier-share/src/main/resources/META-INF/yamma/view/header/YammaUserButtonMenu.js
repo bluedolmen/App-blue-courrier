@@ -44,7 +44,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'datalists-management',
-			text : 'Listes de données',
+			text : i18n.t('view.header.userbutton.items.datalist-management'),
 			iconCls : Yamma.Constants.getIconDefinition('text_list_bullets').iconCls,
 			listeners : {
 				click : this.onDataListsMenuItemClicked
@@ -69,7 +69,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'global-statistics',
-			text : 'Statistiques',
+			text : i18n.t('view.header.userbutton.items.global-statistics'),
 			iconCls : Yamma.Constants.getIconDefinition('chart_curve').iconCls,
 			listeners : {
 				click : this.onStatisticsMenuItemClicked
@@ -89,7 +89,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'label-generator',
-			text : 'Code barres',
+			text : i18n.t('view.header.userbutton.items.label-generator'),
 			iconCls : Yamma.Constants.getIconDefinition('stock_id').iconCls,
 			listeners : {
 				click : this.onCodeBarGeneratorMenuItemClicked
@@ -101,8 +101,8 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 	onCodeBarGeneratorMenuItemClicked : function() {
 		
 		Ext.Msg.prompt(
-			'Générateur de code-barres',
-			'Combien de pages voulez-vous générer ?',
+			i18n.t('view.header.userbutton.codebarprompt.title'),
+			i18n.t('view.header.userbutton.codebarprompt.message'),
 			function(button, text) {
 				if ('ok' != button) return;
 				if (isNaN(parseInt(text))) return; // ignore for the moment
@@ -127,7 +127,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'signature-management',
-			text : 'Signature électronique',
+			text : i18n.t('view.header.userbutton.items.signature-management'),
 			iconCls : Yamma.Constants.getIconDefinition('text_signature').iconCls,
 			listeners : {
 				click : this.onSignatureManagementMenuItemClicked
@@ -147,7 +147,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 				itemId : 'bluecourrier-administration',
-				text : 'Administration',
+				text : i18n.t('view.header.userbutton.items.bluecourrier-administration'),
 				iconCls : Yamma.Constants.getIconDefinition('tools').iconCls,
 				listeners : {
 					
@@ -164,7 +164,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 				itemId : 'about-application',
-				text : 'A propos',
+				text : i18n.t('view.header.userbutton.items.about-application'),
 				iconCls : Yamma.Constants.getIconDefinition('information').iconCls,
 				listeners : {
 					

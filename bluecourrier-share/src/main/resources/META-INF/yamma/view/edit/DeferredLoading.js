@@ -21,7 +21,7 @@ Ext.define('Yamma.view.edit.DeferredLoading', {
 	},
 	
 	loadInternal : function() {
-		Ext.Error.raise(i18n.t('view.dialog.display.deferredlogin.errors.notoverloaded'));
+		Ext.Error.raise(i18n.t('view.edit.deferredlogin.errors.notoverloaded'));
 	},
 	
 	dclear : function() {

@@ -9,24 +9,24 @@ Ext.define('Yamma.view.display.ReplyFilesButton', {
 		
 		items : [
 	         {
-	        	 text : i18n.t('view.dialog.display.replyfilesbutton.items.addReply'), //'Ajouter une réponse',
+	        	 text : i18n.t('view.display.replyfilesbutton.items.addReply'), //'Ajouter une réponse',
 	        	 itemId : 'addReply',
 	        	 iconCls : 'icon-add',
 	        	 menu : [
 					{
-						text :  i18n.t('view.dialog.display.replyfilesbutton.items.uploadFile'),
+						text :  i18n.t('view.display.replyfilesbutton.items.uploadFile'),
 						iconCls : Yamma.Constants.getIconDefinition('page_add').iconCls,
 						action : 'uploadFile'
 					},
 					{
-						text :  i18n.t('view.dialog.display.replyfilesbutton.items.selectFile'),
+						text :  i18n.t('view.display.replyfilesbutton.items.selectFile'),
 						iconCls : Yamma.Constants.getIconDefinition('database_add').iconCls,
 						action : 'selectFile'
 					}
 	        	 ]
 	         },
 	         {
-	        	 text :  i18n.t('view.dialog.display.replyfilesbutton.items.removeReply'),
+	        	 text :  i18n.t('view.display.replyfilesbutton.items.removeReply'),
 	        	 itemId : 'removeReply',
 	        	 iconCls : 'icon-delete'
 	         }

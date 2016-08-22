@@ -18,7 +18,7 @@ Ext.define('Yamma.view.edit.NodeRefDeferredLoading', {
 	loadByNodeRef : function(nodeRef, permissions, forceReload) {
 		
 		if (!nodeRef || !Ext.isString(nodeRef)) {
-			Ext.Error.raise(i18n.t('view.dialog.display.noderefdeferredloading.errors.not-valid'));
+			Ext.Error.raise(i18n.t('view.edit.noderefdeferredloading.errors.not-valid'));
 		}
 		
 		var currentNodeRef = this.getDocumentNodeRef();

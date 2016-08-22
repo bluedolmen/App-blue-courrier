@@ -6,7 +6,7 @@ Ext.define('Yamma.view.digitalsigning.SignDocumentWindow', {
 	    'Yamma.view.digitalsigning.SignDocumentPanel'
 	],
 	
-	title: i18n.t('view.dialog.digitalsigning.signdocumentwindow.title'),
+	title: i18n.t('view.digitalsigning.signdocumentwindow.title'),
 	width: 400,
 	height : 600,
 	modal : true,

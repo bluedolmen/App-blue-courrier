@@ -13,7 +13,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 		countingtitle : 'Yamma.utils.grid.CountingTitle'
 	},
 	
-	title : i18n.t('view.dialog.digitalsigning.signatureview.title'),
+	title : i18n.t('view.display.signatureview.title'),
 	iconCls : Yamma.Constants.getIconDefinition('').iconCls,
 	
 	storeId : 'Attachments',
@@ -92,7 +92,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 30,
-				tooltip : i18n.t('view.dialog.digitalsigning.signatureview.columns.actioncolumn'), // if the plugin is applied on the containing table
+				tooltip : i18n.t('view.display.signatureview.columns.actioncolumn'), // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
 				
 				items : [
@@ -133,7 +133,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				flex : 1,
-				text :  i18n.t('view.dialog.digitalsigning.signatureview.columns.name'),
+				text :  i18n.t('view.display.signatureview.columns.name'),
 				dataIndex : 'name'
 			}		
 		);
@@ -145,7 +145,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureView', {
 		var coldef = this.applyDefaultColumnDefinition (
 			{
 				width : 50,
-				text :  i18n.t('view.dialog.digitalsigning.signatureview.columns.humanReadableSize'),
+				text :  i18n.t('view.display.signatureview.columns.humanReadableSize'),
 				dataIndex : 'humanReadableSize'
 			}		
 		);

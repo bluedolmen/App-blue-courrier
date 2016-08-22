@@ -528,205 +528,233 @@
               }
             }
           },
-          "digitalsigning" : {
-            "generateform": {
-              "title": "Génération d'un certificat auto-signé",
-              "waitingMessage": "Génération en cours...",
-              "errorMessage":  "<strong>Echec de la génération du certificat auto-signé.</strong><br/><bt/>",
-              "submit" : "Générer",
-              "fields" : {
-                "password" : "Mot de passe",
-                "duration": "Durée (jours)",
-                "alias": "Alias"
-              }
+        },
+        "digitalsigning" : {
+          "generateform": {
+            "title": "Génération d'un certificat auto-signé",
+            "waitingMessage": "Génération en cours...",
+            "errorMessage":  "<strong>Echec de la génération du certificat auto-signé.</strong><br/><bt/>",
+            "submit" : "Générer",
+            "fields" : {
+              "password" : "Mot de passe",
+              "duration": "Durée (jours)",
+              "alias": "Alias"
+            }
+          },
+          "selectsignaturezonewindow": {
+            "title" : "Sélectionner une zone de signature",
+            "errors": {
+              "node-init": "The nodeRef is not correctly initialized"
             },
-            "selectsignaturezonewindow": {
-              "title" : "Sélectionner une zone de signature",
-              "errors": {
-                "node-init": "The nodeRef is not correctly initialized"
+            "buttons": {
+              "select-button" : {
+                "text": "Sélectionner",
+                "tooltip" :"Sélectionner la zone actuelle comme zone de signature"
               },
-              "buttons": {
-                "select-button" : {
-                  "text": "Sélectionner",
-                  "tooltip" :"Sélectionner la zone actuelle comme zone de signature"
-                },
-                "cancel-button" : {
-                  "title" : "Annuler"
-                }
+              "cancel-button" : {
+                "title" : "Annuler"
               }
             }
-            "signaturedisplaybox": {
-              "missingMessage": "<strong>Pas encore de signature</strong>",
+          }
+          "signaturedisplaybox": {
+            "missingMessage": "<strong>Pas encore de signature</strong>",
 
+          },
+          "signaturemanagementwindow" : {
+            "title" : "Gestion de la signature électronique",
+            "items":{
+              "signature-box": {
+                "missingmessage": "<strong>Pas encore de signature.</strong><br/> Vous pouvez ajouter, ou générer une signature électronique. L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition.<br/><br/> <em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
+              }
             },
-            "signaturemanagementwindow" : {
-              "title" : "Gestion de la signature électronique",
-              "items":{
-                "signature-box": {
-                  "missingmessage": "<strong>Pas encore de signature.</strong><br/> Vous pouvez ajouter, ou générer une signature électronique. L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition.<br/><br/> <em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
-                }
-              },
-              "dockedItems": {
-                "items": {
-                  "menu": {
-                    "text" :"Menu",
-                    "items" :{
-                      "generate-button" : {
-                        "text": "Générer",
-                        "tooltip": "Générer un certificat auto-signé"
-                      },
-                      "add-button" : {
-                        "text": "Ajouter",
-                        "tooltip": "Ajouter un certificat pour la signature électronique",
-                      },
-                      "remove-button": {
-                        "text": "Supprimer",
-                        "tooltip" : "Supprimer la signature actuelle"
-                      },
-                      "editImage-button" :{
-                        "text" : "Modifier l'image",
-                        "tooltip" : "Editer l'image de signature"
-                      }
+            "dockedItems": {
+              "items": {
+                "menu": {
+                  "text" :"Menu",
+                  "items" :{
+                    "generate-button" : {
+                      "text": "Générer",
+                      "tooltip": "Générer un certificat auto-signé"
+                    },
+                    "add-button" : {
+                      "text": "Ajouter",
+                      "tooltip": "Ajouter un certificat pour la signature électronique",
+                    },
+                    "remove-button": {
+                      "text": "Supprimer",
+                      "tooltip" : "Supprimer la signature actuelle"
+                    },
+                    "editImage-button" :{
+                      "text" : "Modifier l'image",
+                      "tooltip" : "Editer l'image de signature"
                     }
                   }
                 }
-              },
-              "uploadformwindow" :{
-                "title" : "Ajout/Modification d'une image",
-                "errorTitle": "Echec",
-                "errorMessage": "<strong>Echec de la sauvegardede l'image",
-                "fields" :{
-                  "image": "Image"
-                }
               }
             },
-            "signatureview": {
-              "title": "Signatures",
-              "dockedItems": {
-                "items": {
-                  "addAttachment": "Ajouter un attachement"
-                }
-              },
-              "column": {
-                "actioncolumn": "Type de document",
-                "name": "Nom",
-                "humanReadableSize": "Taille"
+            "uploadformwindow" :{
+              "title" : "Ajout/Modification d'une image",
+              "errorTitle": "Echec",
+              "errorMessage": "<strong>Echec de la sauvegardede l'image",
+              "fields" :{
+                "image": "Image"
+              }
+            }
+          },
+          "signatureview": {
+            "title": "Signatures",
+            "dockedItems": {
+              "items": {
+                "addAttachment": "Ajouter un attachement"
               }
             },
-            "signdocumentpanel" : {
-              "title" : "Certification du document",
+            "column": {
+              "actioncolumn": "Type de document",
+              "name": "Nom",
+              "humanReadableSize": "Taille"
+            }
+          },
+          "signdocumentpanel" : {
+            "title" : "Certification du document",
+            "items" :{
+              "information": "Informations",
+              "informationmissing": "<strong>Pas encore de signature.</strong><br/> Merci d'en ajouter une en utilisant le panneau de gestion de la signature électronique",
+              "password" : "Mot de passe",
+              "location" : "Localisation",
+              "reason": "Raison",
+              "position" : "Positionnement",
+              "location_not-visible" : "Non visible",
+              "location_field": "Champ",
+              "field-name": "Nom du champ",
+              "location_page" : "Page",
+              "pageNumber": "Num.",
+              "positionmm" : "Position (mm)",
+              "size" : "Taille (mm)",
+              "select" : "Sélectionner"
+            },
+            "buttons": {
+              "sign": {
+                "text": "Signer",
+                "tooltip" :"Apposer sa signature pour certifier le document"
+              }
+            }
+          },
+          "signdocumentwindow" : {
+            "title": "Certification du document"
+          },
+          "uploadformwindow": {
+            "title" : "&nbsp;",
+            "emptyTextLabel" :"Choissisez un fichier",
+            "waiting" :"Téléversement en cours...",
+            "errorTitle": "Echec",
+            "errorMessage": "<strong>Echec de la sauvegarde</strong><br/><br/>",
+            "submit": "Sauver",
+            "cancel": "Annuler",
+            "errors" : {
+              "undefined-url": "IllegalStateException! The uploadUrl has not been defined"
+            }
+          },
+          "uploadsignature" : {
+            "title" : "Ajout/Modification d'une signature",
+            "error" : "Echec",
+            "errormessage": {
+              "1" : "Echec de la sauvegarde la signature.",
+              "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
+              "3" : "Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.",
+              "4" : "Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps."
+            },
+            "keyLabel": "Certificat",
+            "imageLabel" :"image",
+            "passwordLabel" : "Mot de passe",
+            "keyTypeLabel": "Type"
+          },
+          "uploadsigningimagewindow" : {
+            "title": "Ajout/Modification d'une image",
+            "errorTitle": "Echec",
+            "errorMessage" : "Echec de la sauvegarde de l'image.",
+            "imageLabel" : "Image"
+          }
+        },
+        "display" : {
+          "displayview" : {
+            "title" : "Prévisualisation des fichiers",
+            "tab" : {
               "items" :{
-                "information": "Informations",
-                "informationmissing": "<strong>Pas encore de signature.</strong><br/> Merci d'en ajouter une en utilisant le panneau de gestion de la signature électronique",
-                "password" : "Mot de passe",
-                "location" : "Localisation",
-                "reason": "Raison",
-                "position" : "Positionnement",
-                "location_not-visible" : "Non visible",
-                "location_field": "Champ",
-                "field-name": "Nom du champ",
-                "location_page" : "Page",
-                "pageNumber": "Num.",
-                "positionmm" : "Position (mm)",
-                "size" : "Taille (mm)",
-                "select" : "Sélectionner"
-              },
-              "buttons": {
-                "sign": {
-                  "text": "Signer",
-                  "tooltip" :"Apposer sa signature pour certifier le document"
+                "synchronize" : {
+                  "tooltip" : "Synchroniser la prévisualisation"
                 }
-              }
-            },
-            "signdocumentwindow" : {
-              "title": "Certification du document"
-            },
-            "uploadformwindow": {
-              "title" : "&nbsp;",
-              "emptyTextLabel" :"Choissisez un fichier",
-              "waiting" :"Téléversement en cours...",
-              "errorTitle": "Echec",
-              "errorMessage": "<strong>Echec de la sauvegarde</strong><br/><br/>",
-              "submit": "Sauver",
-              "cancel": "Annuler",
-              "errors" : {
-                "undefined-url": "IllegalStateException! The uploadUrl has not been defined"
-              }
-            },
-            "uploadsignature" : {
-              "title" : "Ajout/Modification d'une signature",
-              "error" : "Echec",
-              "errormessage": {
-                "1" : "Echec de la sauvegarde la signature.",
-                "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
-                "3" : "Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.",
-                "4" : "Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps."
-              },
-              "keyLabel": "Certificat",
-              "imageLabel" :"image",
-              "passwordLabel" : "Mot de passe",
-              "keyTypeLabel": "Type"
-            },
-            "uploadsigningimagewindow" : {
-              "title": "Ajout/Modification d'une image",
-              "errorTitle": "Echec",
-              "errorMessage" : "Echec de la sauvegarde de l'image.",
-              "imageLabel" : "Image"
-            }
-          },
-          "display" : {
-            "displayview" : {
-              "title" : "Prévisualisation des fichiers",
-              "tab" : {
-                "items" :{
-                  "synchronize" : {
-                    "tooltip" : "Synchroniser la prévisualisation"
-                  }
-                }
-              }
-            },
-            "replyfilesbutton" : {
-              "items": {
-                "addReply": "Ajouter une réponse",
-                "uploadFile": "Fichier local",
-                "selectFile": "Fichier GED",
-                "removeReply": "Supprimer la réponse"
-              }
-            },
-            "yammatabactionmenu": {
-              "items": {
-                "download" : "Télécharger",
-                "update" : "Modifier",
-                "delete" : "Supprimer"
-              },
-              "errors" : {
-                "menuitem" : "menuitem argument is mandatory"
               }
             }
           },
-          "edit": {
-            "deferredlogin" : {
-              "errors": {
-                "notoverloaded": "IllegalStateException! This method has to be overloaded by the including class."
-              }
+          "replyfilesbutton" : {
+            "items": {
+              "addReply": "Ajouter une réponse",
+              "uploadFile": "Fichier local",
+              "selectFile": "Fichier GED",
+              "removeReply": "Supprimer la réponse"
+            }
+          },
+          "yammatabactionmenu": {
+            "items": {
+              "download" : "Télécharger",
+              "update" : "Modifier",
+              "delete" : "Supprimer"
             },
-            "editdocumentform": {
-              "title" : "Métadonnées",
-              "edit" : "Éditer",
-              "visualize":  "Visualiser"
+            "errors" : {
+              "menuitem" : "menuitem argument is mandatory"
+            }
+          }
+        },
+        "edit": {
+          "deferredlogin" : {
+            "errors": {
+              "notoverloaded": "IllegalStateException! This method has to be overloaded by the including class."
+            }
+          },
+          "editdocumentform": {
+            "title" : "Métadonnées",
+            "edit" : "Éditer",
+            "visualize":  "Visualiser"
+          },
+          "editdocumentview": {
+            "items": {
+              "documenthistorylist": "Historique"
             },
-            "editdocumentview": {
-              "items": {
-                "documenthistorylist": "Historique"
+            "errors" : {
+              "noderef":  "IllegalArgumentException! The provided nodeRef is not valid"
+            }
+          },
+          "noderefdeferredloading" :{
+            "errors" : {
+              "not-valid": "IllegalArgumentException! The provided document nodeRef is not valid"
+            }
+          }
+        },
+        "header" : {
+          "userbutton" : {
+            "items": {
+              "datalists-management": {
+                "title" : "Liste de données"
               },
-              "errors" : {
-                "noderef":  "IllegalArgumentException! The provided nodeRef is not valid"
+              "global-statistics": {
+                "title": "Statistiques"
+              },
+              "label-generator": {
+                "title": "Code barres"
+              },
+              "signature-management" : {
+                "title" :"Signature électroniques"
+              },
+              "bluecourrier-administration": {
+                "title" : "Administration"
+              },
+              "about-application" : {
+                "title":  "A propos"
               }
             },
-            "noderefdeferredloading" :{
-              "errors" : {
-                "not-valid": "IllegalArgumentException! The provided document nodeRef is not valid"
-              }
+            "codebarprompt": {
+              "title" : "Générateur de code-barres",
+              "message" : "Combien de pages voulez-vous générer ?"
             }
           }
         }

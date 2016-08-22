@@ -11,7 +11,7 @@ Ext.define('Yamma.view.digitalsigning.SelectSignatureZoneWindow', {
 	statics : {
 	},
 	
-	title : i18n.t('view.dialog.digitalsigning.selectsignaturezonewindow.title'),
+	title : i18n.t('view.digitalsigning.selectsignaturezonewindow.title'),
 	iconCls : Yamma.Constants.getIconDefinition('shape_handles').iconCls,
 	layout : 'fit',
 	
@@ -42,7 +42,7 @@ Ext.define('Yamma.view.digitalsigning.SelectSignatureZoneWindow', {
 		this.width = this.height * 0.75; // ratio for A paper series is 0.707 (1/2^(0.5))
 		
 		if (null == this.nodeRef) {
-			throw new Error(i18n.t('view.dialog.digitalsigning.selectsignaturezonewindow.errors.node-init'),);
+			throw new Error(i18n.t('view.digitalsigning.selectsignaturezonewindow.errors.node-init'),);
 		}
 		
 		var
@@ -145,15 +145,15 @@ Ext.define('Yamma.view.digitalsigning.SelectSignatureZoneWindow', {
 		
 		this.buttons = [
 			{
-				text : i18n.t('view.dialog.digitalsigning.selectsignaturezonewindow.buttons.select-button.title'),
+				text : i18n.t('view.digitalsigning.selectsignaturezonewindow.buttons.select-button.title'),
 				itemId : 'select-button',
-				tooltip : i18n.t('view.dialog.digitalsigning.selectsignaturezonewindow.buttons.select-button.tooltip'),
+				tooltip : i18n.t('view.digitalsigning.selectsignaturezonewindow.buttons.select-button.tooltip'),
 				iconCls : me.iconCls,
 				handler : me.onSelectClick,
 				scope : this
 			},
 			{
-				text : i18n.t('view.dialog.digitalsigning.selectsignaturezonewindow.buttons.cancel-button.title'),
+				text : i18n.t('view.digitalsigning.selectsignaturezonewindow.buttons.cancel-button.title'),
 				itemId : 'cancel-button',
 				iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls,
 	        	handler : function() {

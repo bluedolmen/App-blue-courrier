@@ -5,36 +5,36 @@ Ext.define('Yamma.view.digitalsigning.UploadSignatureWindow', {
 	
 	uploadUrl : 'alfresco://bluedolmen/digital-signing/signature',
 	
-	title : i18n.t('view.dialog.digitalsigning.uploadsignature.title'),
+	title : i18n.t('view.digitalsigning.uploadsignature.title'),
 	
 	height : 230,
 	
-	errorTitle : i18n.t('view.dialog.digitalsigning.uploadsignature.error'),
-	errorMessage : '<strong>'+i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.1') +'</strong><br/><br/>' +
+	errorTitle : i18n.t('view.digitalsigning.uploadsignature.error'),
+	errorMessage : '<strong>'+i18n.t('view.digitalsigning.uploadsignature.errormessage.1') +'</strong><br/><br/>' +
 		'<ul>' +
-		'<li>' + i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.2') +
-		'<li>'  + i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.3') +
-		'<li>' + i18n.t('view.dialog.digitalsigning.uploadsignature.errormessage.4') +
+		'<li>' + i18n.t('view.digitalsigning.uploadsignature.errormessage.2') +
+		'<li>'  + i18n.t('view.digitalsigning.uploadsignature.errormessage.3') +
+		'<li>' + i18n.t('view.digitalsigning.uploadsignature.errormessage.4') +
 		'</ul>'
 	,
 	
 	// Key field
 	keyFieldName : 'key',
-	keyFieldLabel : i18n.t('view.dialog.digitalsigning.uploadsignature.keyLabel'),
+	keyFieldLabel : i18n.t('view.digitalsigning.uploadsignature.keyLabel'),
 	KeyFieldIconCls : Yamma.Constants.getIconDefinition('page_white_key').iconCls,
 	
 	// Image field
 	imageFieldName : 'image',
-	imageFieldLabel : i18n.t('view.dialog.digitalsigning.uploadsignature.imageLabel'),
+	imageFieldLabel : i18n.t('view.digitalsigning.uploadsignature.imageLabel'),
 	imageFieldIconCls : Yamma.Constants.getIconDefinition('page_white_camera').iconCls,
 	
 	// password field
 	passwordFieldName : 'password',
-	passwordFieldLabel :  i18n.t('view.dialog.digitalsigning.uploadsignature.passwordLabel'),
+	passwordFieldLabel :  i18n.t('view.digitalsigning.uploadsignature.passwordLabel'),
 	
 	// Key type
 	keyTypeFieldName : 'keyType',
-	keyTypeFieldLabel :  i18n.t('view.dialog.digitalsigning.uploadsignature.keyTypeLabel'),
+	keyTypeFieldLabel :  i18n.t('view.digitalsigning.uploadsignature.keyTypeLabel'),
 	defaultKeyTypeValue : 'PKCS12',
 	
 	getFormFields : function() {
