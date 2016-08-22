@@ -253,6 +253,50 @@
         "status" :{
           "text" : "Statut"
         }
+      },
+      "exportbutton": {
+        "tooltip" :"Exporter en CSV"
+      },
+      "groupersmenu": {
+        "defaultlabel": "Grouper par"
+      },
+      "mailcolumndefinition": {
+        "constants" :{
+          "subject": "Sujet",
+          "object" : "Objet",
+          "name": "Identifiant",
+          "service" :"Service",
+          "assigned": "Distribution",
+          "delivery_date": "Date dépôt",
+          "due_date": "Date échéance",
+          "dates" : "Dates",
+          "priority": "Priorité"
+        },
+        "columns": {
+          "documenttype": {
+            "tooltip": "Type de document"
+          },
+          "state": {
+            "tooltip" : "État"
+          }
+        },
+        "template": {
+          "service": {
+            "destination": "Service destination : ",
+            "current": "Service actuel : ",
+            "process" :"Circuit ",
+            "with": "avec",
+            "without": "sans",
+            "validation": "Validation"
+          },
+          "dates_tip": {
+            "writed": "Rédaction",
+            "send":"Envoi",
+            "delivered": "Réception",
+            "updated": "Modification",
+            "digitized": "Numérisation"
+          }
+        }
       }
     },
     "services": {

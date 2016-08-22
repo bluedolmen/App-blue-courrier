@@ -11,15 +11,15 @@ Ext.define('Yamma.view.mails.MailColumnDefinitions', {
 	],
 	
 	MAIL_SUBJECT_FIELD_ID : 'subject',
-	MAIL_SUBJECT_LABEL : 'Sujet',
-	MAIL_OBJECT_LABEL : 'Objet',
-	MAIL_NAME_LABEL : 'Identifiant',
-	ASSIGNED_SERVICE_LABEL : 'Service',
-	ASSIGNED_LABEL : 'Distribution',
-	DELIVERY_DATE_LABEL : 'Date dépôt',
-	DUE_DATE_LABEL : 'Date échéance',
-	DATES_LABEL : 'Dates',
-	PRIORITY_LABEL : 'Priorité',
+	MAIL_SUBJECT_LABEL :  i18n.t('view.mails.mailcolumndefinition.constants.subject'),
+	MAIL_OBJECT_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.object'),
+	MAIL_NAME_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.name'),
+	ASSIGNED_SERVICE_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.service'),
+	ASSIGNED_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.assigned'),
+	DELIVERY_DATE_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.delivery_date'),
+	DUE_DATE_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.due_date'),
+	DATES_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.dates'),
+	PRIORITY_LABEL : i18n.t('view.mails.mailcolumndefinition.constants.priority'),
 	
 	
 	getDocumentTypeColumnDefinition : function() {
@@ -29,7 +29,7 @@ Ext.define('Yamma.view.mails.MailColumnDefinitions', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 30,
-				tooltip : 'Type de document', // if the plugin is applied on the containing table
+				tooltip : i18n.t('view.mails.mailcolumndefinition.columns.documenttype.tooltip'), // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
 				groupable : false,
 				items : [
@@ -196,17 +196,17 @@ Ext.define('Yamma.view.mails.MailColumnDefinitions', {
 					if (targetProcessingServiceName && targetProcessingServiceName != assignedServiceName) {
 						serviceClass = 'assigned-service';
 						displayedService = Yamma.utils.ServicesManager.getDisplayName(targetProcessingServiceName);
-						qtip = '<i>Service destination : </i><b>' + displayedService + '</b>';
+						qtip = '<i>'+ i18n.t('view.mails.mailcolumndefinition.template.service.destination') +' </i><b>' + displayedService + '</b>';
 					} 
 					else {
 						serviceClass = 'enclosing-service';
 						displayedService = Yamma.utils.ServicesManager.getDisplayName(assignedServiceName);
-						qtip = '<i>Service actuel : </i><b>' + displayedService + '</b>';
+						qtip = '<i>'+ i18n.t('view.mails.mailcolumndefinition.template.service.current')+' </i><b>' + displayedService + '</b>';
 					}
 					
-					qtip += '<br/><i>Circuit <b>' + 
-						('with-validation' == processType ? 'avec' : 'sans') +
-						'</b> validation</i>'
+					qtip += '<br/><i>'+ i18n.t('view.mails.mailcolumndefinition.template.service.process')+'<b>' +
+						('with-validation' == processType ?  i18n.t('view.mails.mailcolumndefinition.template.service.with') :  i18n.t('view.mails.mailcolumndefinition.template.service.without')) +
+						'</b> '+ i18n.t('view.mails.mailcolumndefinition.template.service.validation')+'</i>'
 					;
 
 					serviceClass += ' ' + processType;
@@ -414,7 +414,7 @@ Ext.define('Yamma.view.mails.MailColumnDefinitions', {
 			{
 				xtype : 'actioncolumn',
 				width : 30,
-				tooltip : 'État', // if the plugin is applied on the containing table
+				tooltip : i18n.t('view.mails.mailcolumndefinition.columns.state.tooltip'), //'État', // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.getIconDefinition('cog_email').iconCls }),
 				resizable : false,
 				menuDisabled : true,
@@ -468,11 +468,11 @@ Ext.define('Yamma.view.mails.MailColumnDefinitions', {
 	),
 	
 	DATES_TIP_TEMPLATE : new Ext.XTemplate(
-		'<div>Rédaction : <b>{writing}</b></div>',
-		'<div>Envoi : <b>{sent}</b></div>',
-		'<div>Réception : <b>{delivered}</b></div>',
-		'<div>Modification : <b>{modified}</b></div>',
-		'<div class=\'{digitizedDateClass}\'>Numérisation : <b>{digitized}</b></div>'
+		'<div>'+i18n.t('view.mails.mailcolumndefinition.template.dates_tips.written')+' : <b>{writing}</b></div>',
+		'<div>'+i18n.t('view.mails.mailcolumndefinition.template.dates_tips.send')+' : <b>{sent}</b></div>',
+		'<div>'+i18n.t('view.mails.mailcolumndefinition.template.dates_tips.delivered')+' : <b>{delivered}</b></div>',
+		'<div>'+i18n.t('view.mails.mailcolumndefinition.template.dates_tips.updated')+' : <b>{modified}</b></div>',
+		'<div class=\'{digitizedDateClass}\'>'+i18n.t('view.mails.mailcolumndefinition.template.dates_tips.digitized')+' : <b>{digitized}</b></div>'
 	),
 	
 	getDatesColumnDefinition : function() {

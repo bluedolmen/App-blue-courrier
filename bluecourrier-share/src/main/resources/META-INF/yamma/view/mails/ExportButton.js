@@ -3,7 +3,7 @@ Ext.define('Yamma.view.mails.ExportButton', {
 	extend : 'Ext.button.Button',
 	
 	iconCls : Yamma.Constants.getIconDefinition('table_go').iconCls,
-	tooltip : 'Exporter en CSV',
+	tooltip : i18n.t('view.mails.exportbutton.tooltip'),
 	
 	config : {
 		store : null,
