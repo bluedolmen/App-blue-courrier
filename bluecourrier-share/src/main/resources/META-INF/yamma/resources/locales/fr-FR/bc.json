@@ -329,6 +329,204 @@
                 }
               }
             }
+          },
+          "promptmessage" : {
+            "title" : "Ajouter un commentaire"
+          }
+        },
+        "dialog": {
+          "aboutdialog" : {
+            "title": "A propos",
+            "dockedItem": {
+              "button": {
+                  "license": "Licence",
+                  "menu" : {
+                    "update" : "Mettre à jour"
+                  }
+              }
+            },
+            "uploadwindow" : {
+              "title" : "Choisissez un fichier de <b>licence</b>",
+              "updated" : {
+                "title" : "Mise à jour réussie",
+                "msg" : "La mise à jour de la licence nécessite le redémarrage de l'application"
+              },
+              "failed": {
+                "title" : "Échec de la mise à jour",
+                "msg" : "La licence fournie n'est peut-etre pas valide. Veuillez contacter votre administrateur et au besoin votre revendeur."
+              },
+              "expired": {
+                "title" : "Licence expirée",
+                "msg" : "La licence est expirée. Il est nécessaire de la mettre à jour afin de bénéficier du support. La version <b>community</b> permet de bénéficier de la version complète du produit sans le support."
+              }
+            }
+          },
+          "assignmentdialog" : {
+              "title" : "Assigner",
+              "columns": {
+                "displayName": "Nom",
+              },
+              "dockedItems" :{
+                "buttons": {
+                  "assign-button" : "Assigner",
+                  "cancel-button" : "Annuler"
+                }
+              }
+          },
+          "circulatedialog": {
+            "title" : "Diffuser à",
+            "kindcolumn": {
+              "user": "Utilisateur",
+              "group": "Groupe",
+              "service": "Service"
+            },
+            "sharesGrid" : {
+              "title": "Diffuser",
+              "no-type": "Pas de type",
+              "columns": {
+                "kind" : "Kind",
+                "name" : "Nom",
+                "actions": {
+                  "text": "Actions",
+                  "items": {
+                    "remove": "Enlever"
+                  }
+                }
+              }
+            }
+          },
+          "forwarddialog": {
+            "title": "Transmettre",
+            "items" : {
+              "approbe-check" : "Apposer un visa d'approbation",
+              "keep-sending-checkbox": "Affecter l'envoi à mon service"
+            },
+            "dockedItems" : {
+              "forward-button": "Transmettre",
+              "cancel-button": "Annuler"
+            }
+          },
+          "initoutgoingvalidation": {
+            "title" : "Lancer la validation",
+            "buttons" :{
+              "launch-button" : "Lancer",
+              "cancel-button" : "Annuler"
+            }
+          },
+          "maindeliverydialog" : {
+            "roles": {
+              "procg" : "Service de traitement destination",
+              "procg-from":  "Service de traitement actuel",
+              "procg-to": "Service de traitement destination",
+              "col": "Service en collaboration",
+              "col-from" : "Service en collaboration actuel",
+              "col-to" : "Service en collaboration destination",
+              "inf": "Service en information",
+              "inf-from" : "Service en information actuel",
+              "inf-to" :"Service en information destination",
+              "none": "Service non affecté"
+            },
+            "status":  {
+              "pending":  "Enregistrer mais non appliqué",
+              "edited": "Edité mais non enregistré",
+              "ongoing": "En cours",
+              "done": "Terminé",
+              "procg-done": "Service de traitement destination traité",
+              "col-done": "Service en collaboration traité",
+              "inf-done": "Service en information traité",
+              "none"
+            },
+            "title": "Distribuer",
+            "servicesview": {
+              "title": "Services",
+              "columns": {
+                "alfrescoactionscolumns": "Action"
+              }
+            },
+            "validationCombo": {
+              "fieldLabel": "Circuit"
+            },
+            "processKindCombo": {
+              "fieldLabel": "Type de traitement"
+            },
+            "buttons": {
+              "save-button": "Enregistrer",
+              "cancel-button": "Annuler"
+            },
+            "errors": {
+              "role-order": "Cannot find a valid role-order for the provided role "
+            }
+          },
+          "outgoingsigningdialog" :{
+            "title": "Validation électronique",
+            "actorsgrid": {
+              "columns": {
+                "title": {
+                  "text": "Nom"
+                },
+                "action": {
+                  "text": "Actions",
+                  "items": {
+                    "up": "Monter",
+                    "down": "Descendre",
+                    "remove": "Enlever"
+                  }
+                }
+              },
+              "personCombo" : {
+                "loadingText": "Recherche...",
+                "empty": "Aucun utilisateur trouvé"
+              },
+              "forms": {
+                "validation-actors" : "Acteurs de la validation",
+                "signature-form": "Signature électronique"
+              }
+            },
+            "dockedItems": {
+              "buttons": {
+                "accept-button" : "Accepter",
+                "reject-button" : "Refuser",
+                "cancel-button": "Annuler"
+              }
+            }
+          },
+          "outgoingvalidationdialog": {
+            "title": "Validation",
+            "actorsgrid": {
+              "columns": {
+                "title": {
+                  "text": "Nom"
+                },
+                "action": {
+                  "text": "Actions",
+                  "items": {
+                    "up": "Monter",
+                    "down": "Descendre",
+                    "remove": "Enlever"
+                  }
+                }
+              }
+          },
+            "personCombo" : {
+              "loading": "Recherche...",
+              "empty": "Aucun utilisateur trouvé"
+            },
+            "propertiesForm" : {
+              "certify-checkbox": "Certifier",
+              "signer-combo": {
+                "loading" :"Recherche...",
+                "empty": "Aucun utilisateur trouvé."
+              },
+              "tome": "A moi"
+            },
+            "validation-actors": "Acteur de la validation",
+            "dockedItem": {
+              "buttons": {
+                "accept-button": "Accepter",
+                "reject-button": "Refuser",
+                "cancel-button": "Annuler"
+              }
+            }
           }
         }
 	},

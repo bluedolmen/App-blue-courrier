@@ -17,7 +17,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 		ICON_CANCEL : Yamma.Constants.getIconDefinition('cancel').icon
 	},
 	
-	title : 'Transmettre',
+	title : i18n.t('view.comments.dialog.forwarddialog.title'),
 	height : 500,
 	width : 400,
 	modal : true,
@@ -75,7 +75,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 				region : 'bottom',
 				height : '30px',
 				itemId : 'approbe-checkbox',
-				boxLabel : "Apposer un visa d'approbation",
+				boxLabel : i18n.t('view.comments.dialog.forwarddialog.items.approbe-check'),
 				boxLabelAlign : 'after',
 				checked : true,
 				disabled : true,
@@ -86,7 +86,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 				region : 'bottom',
 				height : '30px',
 				itemId : 'keep-sending-checkbox',
-				boxLabel : "Affecter l'envoi à mon service",
+				boxLabel : i18n.t('view.comments.dialog.forwarddialog.items.keep-sending-checkbox'),
 				boxLabelAlign : 'after',
 				checked : false,
 				disabled : false,
@@ -105,7 +105,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'forward-button',
-		        	text: 'Transmettre',
+		        	text: i18n.t('view.comments.dialog.forwarddialog.items.forward-button'),
 		        	icon : Yamma.view.dialogs.ForwardDialog.ICON,
 		        	handler : function() {
 						me.forward();
@@ -114,7 +114,7 @@ Ext.define('Yamma.view.dialogs.ForwardDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: 'Annuler',
+		        	text: i18n.t('view.comments.dialog.forwarddialog.items.cancel-button'),
 		        	icon : Yamma.view.dialogs.ForwardDialog.ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

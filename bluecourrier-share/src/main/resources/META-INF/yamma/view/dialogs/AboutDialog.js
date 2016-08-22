@@ -21,7 +21,7 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 		
 	},
 	
-	title : 'A propos',
+	title : i18n.t('view.comments.dialog.aboutdialog.title'),
 	minHeight : 300,
 	width : 450,
 	modal : true,
@@ -60,14 +60,14 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 	            '->',
 	            {
 	            	xtype : 'button',
-	            	text : 'Licence',
+	            	text : i18n.t('view.comments.dialog.aboutdialog.dockedItem.button.license'),
 	            	iconCls : Yamma.Constants.getIconDefinition('rosette').iconCls,
 	            	menu : {
 //	            		floating : false,
 	            		plain : true,
 	            		items : [
 	            		    {
-	            		    	text : 'Mettre à jour',
+	            		    	text : i18n.t('view.comments.dialog.aboutdialog.dockedItem.button.menu.update'),
 	            		    	iconCls : Yamma.Constants.getIconDefinition('page_white_go').iconCls,
 	            		    	handler : uploadLicenseFile
 	            		    }
@@ -88,7 +88,7 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 			
 			Ext.create('Yamma.view.windows.UploadFormWindow', {
 				
-				title : 'Choisissez un fichier de <b>licence</b>',
+				title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.title'),
 				
 				formConfig : {
 					uploadUrl : url + '?format=html', // force html response format due to ExtJS form submission restriction
@@ -103,9 +103,9 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 					
 					Ext.MessageBox.show({
 						
-						title : "Mise à jour réussie",
+						title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.updated.title'),
 						icon : Ext.MessageBox.INFO,
-						msg: "La mise à jour de la licence nécessite le redémarrage de l'application",
+						msg: i18n.t('view.comments.dialog.aboutdialog.uploadwindow.updated.msg'),
 						width:300,
 						buttons: Ext.MessageBox.OKCANCEL,
 						fn : function(button) {
@@ -121,13 +121,9 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 				
 				onFailure : function(form, action) {
 					
-					var msg = "La licence fournie n'est peut-etre pas valide. "
-						+ "Veuillez contacter votre administrateur et au besoin votre revendeur."
-					;
-					
 					Ext.MessageBox.show({
-						title : "Échec de la mise à jour",
-						msg : msg,
+						title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.failed.title'),
+						msg : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.failed.msg'),
 						icon : Ext.MessageBox.ERROR,
 						buttons: Ext.MessageBox.OK
 					});
@@ -252,11 +248,9 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 			
 //			Yamma.view.dialogs.AboutDialog.getInstance().close();
 			Ext.MessageBox.show({
-				title : 'Licence expirée',
+				title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.expired.title'),
 				icon : Ext.MessageBox.INFO,
-				msg : 'La licence est expirée. ' 
-					+ 'Il est nécessaire de la mettre à jour afin de bénéficier du support.'
-					+ "La version <b>community</b> permet de bénéficier de la version complète du produit sans le support.",
+				msg : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.expired.msg'),
 				modal : true,
 				toFrontOnShow : true
 			}, function() {

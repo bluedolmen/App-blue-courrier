@@ -3,7 +3,7 @@ Ext.define('Yamma.view.dialogs.InitOutgoingValidationDialog', {
 	extend : 'Yamma.view.dialogs.OutgoingValidationDialog',
 	alias : 'widget.initoutgoingvalidationdialog',
 	
-	title : 'Lancer la validation',
+	title : i18n.t('view.comments.dialog.initoutgoingvalidation.title'),
 	iconCls : Yamma.Constants.getIconDefinition('tick_go').iconCls,
 
 	commentable : false,
@@ -64,7 +64,7 @@ Ext.define('Yamma.view.dialogs.InitOutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'launch-button',
-		        	text: 'Lancer',
+		        	text: i18n.t('view.comments.dialog.initoutgoingvalidation.buttons.launch-button'),
 		        	icon : Yamma.Constants.getIconDefinition('tick_go').icon,
 		        	handler : function() {
 						me.launch();
@@ -73,7 +73,7 @@ Ext.define('Yamma.view.dialogs.InitOutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: 'Annuler',
+		        	text: i18n.t('view.comments.dialog.initoutgoingvalidation.buttons.cancel-button'),
 		        	icon : Yamma.Constants.getIconDefinition('cross').icon,
 		        	handler : function() {
 		        		me.close();
