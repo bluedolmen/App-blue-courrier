@@ -703,6 +703,31 @@
                 "menuitem" : "menuitem argument is mandatory"
               }
             }
+          },
+          "edit": {
+            "deferredlogin" : {
+              "errors": {
+                "notoverloaded": "IllegalStateException! This method has to be overloaded by the including class."
+              }
+            },
+            "editdocumentform": {
+              "title" : "Métadonnées",
+              "edit" : "Éditer",
+              "visualize":  "Visualiser"
+            },
+            "editdocumentview": {
+              "items": {
+                "documenthistorylist": "Historique"
+              },
+              "errors" : {
+                "noderef":  "IllegalArgumentException! The provided nodeRef is not valid"
+              }
+            },
+            "noderefdeferredloading" :{
+              "errors" : {
+                "not-valid": "IllegalArgumentException! The provided document nodeRef is not valid"
+              }
+            }
           }
         }
 	},

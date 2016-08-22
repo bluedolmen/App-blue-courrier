@@ -11,7 +11,7 @@ Ext.define('Yamma.view.edit.EditDocumentForm', {
 		'Bluedolmen.view.forms.panel.EditFormPanel'
 	],
 	
-	title : 'Métadonnées',
+	title : i18n.t('view.dialog.display.editdocumentform.title'),
 	iconCls : 'icon-page_white_edit',
 	
 	layout : 'card',
@@ -73,7 +73,7 @@ Ext.define('Yamma.view.edit.EditDocumentForm', {
 					showCancelButton : false,
 					formId : formId,
 				} ,
-				title : hasWritePermission ? 'Éditer' : 'Visualiser',
+				title : hasWritePermission ? i18n.t('view.dialog.display.editdocumentform.edit') : i18n.t('view.dialog.display.editdocumentform.visualize'),
 				formxtype : hasWritePermission ? 'editformframe' : 'viewformframe'
 			} /* extra-config */
 		);		

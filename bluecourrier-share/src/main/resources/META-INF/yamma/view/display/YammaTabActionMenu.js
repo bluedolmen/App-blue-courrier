@@ -101,7 +101,7 @@ Ext.define('Yamma.view.display.YammaTabActionMenu', {
 	
 	isAvailable : function(menuitem) {
 		
-		if (!menuitem) Ext.Error.raise(i18n.t('view.dialog.display.yammatabactionmenu.errors.menuitem'),);
+		if (!menuitem) Ext.Error.raise(i18n.t('view.dialog.display.yammatabactionmenu.errors.menuitem'));
 		
 		var typeFilter = menuitem.typeFilter;
 		if (typeFilter) {
