@@ -6,7 +6,7 @@ Ext.define('Yamma.view.mails.itemactions.LinkToExistingMailAction', {
 		'Yamma.view.windows.LinkToWindow'
 	],
 	
-	text : 'Associer à un courrier existant',
+	text : i18n.t('view.mails.itemaction.linktoexistingmail.text'),//'Associer à un courrier existant',
 	
 	iconCls : Yamma.Constants.getIconDefinition('link').iconCls,
 	

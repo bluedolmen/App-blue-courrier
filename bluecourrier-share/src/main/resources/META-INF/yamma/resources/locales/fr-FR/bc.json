@@ -206,6 +206,44 @@
           "tooltip" :"Valider le courrier",
           "actionName": "Next"
         }
+      },
+      "itemaction": {
+        "circulate": {
+          "text": "Diffuser"
+        },
+        "downloadfile": {
+          "text": "Télécharger"
+        },
+        "gotoshare": {
+          "text" : "Ouvrir dans la GED"
+        },
+        "linktoexistingmail": {
+          "text" : "Associer à un courrier existant"
+        },
+        "managetask": {
+          "text": "Gérer les tâches"
+        },
+        "restartprocessing": {
+          "text": "Relancer le traitement du document"
+        },
+        "sharedocument": {
+          "text": "Partager",
+          "dialog": {
+            "title" : "Partager",
+            "buttons" :{
+              "share" :"Partager"
+            }
+          }
+        },
+        "showdetails": {
+          "text": "Fiche détaillée"
+        },
+        "startfollowing": {
+          "text" :"Ajouter aux courriers suivis"
+        },
+        "stopfollowing" : {
+          "text" : "Arrêter de suivre"
+        }
       }
     },
     "services": {

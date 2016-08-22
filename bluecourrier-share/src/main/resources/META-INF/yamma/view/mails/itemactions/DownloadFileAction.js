@@ -2,7 +2,7 @@ Ext.define('Yamma.view.mails.itemactions.DownloadFileAction', {
 	
 	extend : 'Bluedolmen.utils.alfresco.grid.ContextMenuAction',
 	
-	text : 'Télécharger',
+	text : i18n.t('view.mails.itemaction.downloadfile.text'), // 'Télécharger',
 	
 	iconCls : Yamma.Constants.getIconDefinition('page_white_get').iconCls,
 	

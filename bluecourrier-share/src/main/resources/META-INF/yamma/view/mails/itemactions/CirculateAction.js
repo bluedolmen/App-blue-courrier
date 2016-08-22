@@ -14,7 +14,7 @@ Ext.define('Yamma.view.mails.itemactions.CirculateAction', {
 		actionUrl : 'alfresco://bluedolmen/yamma/share-with'
 	},
 	
-	text : 'Diffuser',
+	text :  i18n.t('view.mails.itemaction.circulate.text'),
 	
 	iconCls : Yamma.Constants.getIconDefinition('transmit').iconCls,
 	

@@ -2,7 +2,7 @@ Ext.define('Yamma.view.mails.itemactions.GoToShareAction', {
 	
 	extend : 'Bluedolmen.utils.alfresco.grid.ContextMenuAction',
 	
-	text : 'Ouvrir dans la GED',
+	text : i18n.t('view.mails.itemaction.gotoshare.text'),//'Ouvrir dans la GED',
 	
 	iconCls : Yamma.Constants.getIconDefinition('database_go').iconCls,
 	

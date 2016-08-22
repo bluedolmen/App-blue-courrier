@@ -6,7 +6,7 @@ Ext.define('Yamma.view.mails.itemactions.ShowDetailsWindowAction', {
 		'Yamma.view.windows.DetailsWindow'
 	],	
 	
-	text : 'Fiche détaillée',
+	text : i18n.t('view.mails.itemaction.showdetails.text'),//'Fiche détaillée',
 	
 	iconCls : Yamma.Constants.getIconDefinition('application_view_detail').iconCls,
 	
