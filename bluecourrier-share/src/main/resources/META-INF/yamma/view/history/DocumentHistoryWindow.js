@@ -7,7 +7,7 @@ Ext.define('Yamma.view.history.DocumentHistoryWindow', {
 		'Yamma.view.history.DocumentHistoryList'
 	],
 	
-	title : 'Historique du courrier',
+	title : i18n.t('view.history.documenthistoryview.title'),
 	width : 800,
 	height : 300,
 	layout : 'fit',

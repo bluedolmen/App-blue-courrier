@@ -757,6 +757,26 @@
               "message" : "Combien de pages voulez-vous générer ?"
             }
           }
+        },
+        "history": {
+          "documenthistorylist": {
+            "title": "Historique du courrier",
+            "date_title" : "Date",
+            "type_title": "Libellé",
+            "comment_title":  "Commentaire",
+            "actor_title": "Acteur"
+            "columns" :{
+              "actiontypecolumn": {
+                "tooltip" :"Nature de l'évènement"
+              },
+              "eventcolumn": {
+                "text": "Description"
+              }
+            }
+          },
+          "documenthistoryview":  {
+            "title" : "Historique du courrier"
+          }
         }
 	},
 	"widget": {
