@@ -63,7 +63,7 @@ Ext.define('Yamma.view.mails.BatchActionable', {
 	    		plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls}),
 	    		resizable : false,
 				menuDisabled : true,
-	    		menuText : i18n.t('view.mails.batchactionnable.columns.check.menuText'),,
+	    		menuText : i18n.t('view.mails.batchactionnable.columns.check.menuText'),
 				sortable : false,
 				groupable : false,
 				hideable : false,

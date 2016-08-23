@@ -42,7 +42,7 @@ Ext.define('Yamma.view.digitalsigning.SelectSignatureZoneWindow', {
 		this.width = this.height * 0.75; // ratio for A paper series is 0.707 (1/2^(0.5))
 		
 		if (null == this.nodeRef) {
-			throw new Error(i18n.t('view.digitalsigning.selectsignaturezonewindow.errors.node-init'),);
+			throw new Error(i18n.t('view.digitalsigning.selectsignaturezonewindow.errors.node-init'));
 		}
 		
 		var

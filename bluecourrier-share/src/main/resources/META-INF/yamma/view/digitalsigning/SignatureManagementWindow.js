@@ -35,7 +35,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureManagementWindow', {
 			{
 				xtype : 'signaturedisplaybox',
 				itemId : 'signature-box',
-				signatureMissingMessage : i18n.t('view.digitalsigning.signaturemanagementwindow.items.signature-box.missingmessage'),,
+				signatureMissingMessage : i18n.t('view.digitalsigning.signaturemanagementwindow.items.signature-box.missingmessage'),
 				listeners : {
 					'load' : function() {
 						me._updateButtons();

@@ -137,7 +137,7 @@ Ext.define('Yamma.utils.Constants', {
 			'delivering' : Ext.apply(
 				{
 					title : i18n.t('utils.constants.resources.state.delivering.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.delivering.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.delivering.shortTitle')
 				}, 
 				this.getIconDefinition('lorry')
 			),
@@ -145,7 +145,7 @@ Ext.define('Yamma.utils.Constants', {
 			'validating!delivery' : Ext.apply(
 				{
 					title : i18n.t('utils.constants.resources.state.validating-delivery.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.validating-delivery.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.validating-delivery.shortTitle')
 				}, 
 				this.getIconDefinition('lorry_go') // TODO: should be lorry_tick (but does not exist yet)
 			),
@@ -153,7 +153,7 @@ Ext.define('Yamma.utils.Constants', {
 			'processing' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.processing.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.processing.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.processing.shortTitle')
 				}, 
 				this.getIconDefinition('pencil')
 			),
@@ -161,7 +161,7 @@ Ext.define('Yamma.utils.Constants', {
 			'revising' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.revising.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.revising.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.revising.shortTitle')
 				}, 
 				this.getIconDefinition('pencil_cross')
 			),
@@ -169,7 +169,7 @@ Ext.define('Yamma.utils.Constants', {
 			'validating!processed' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.validating-processed.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.validating-processed.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.validating-processed.shortTitle')
 				}, 
 				this.getIconDefinition('tick')
 			),
@@ -177,7 +177,7 @@ Ext.define('Yamma.utils.Constants', {
 			'certifying' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.certifying.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.certifying.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.certifying.shortTitle')
 				},
 				this.getIconDefinition('text_signature')
 			),
@@ -185,7 +185,7 @@ Ext.define('Yamma.utils.Constants', {
 			'sending' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.sending.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.sending.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.sending.shortTitle')
 				},
 				this.getIconDefinition('mail_send')
 			),
@@ -193,7 +193,7 @@ Ext.define('Yamma.utils.Constants', {
 			'processed' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.processed.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.processed.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.processed.shortTitle')
 				},
 				this.getIconDefinition('thumb_up')
 			),
@@ -201,7 +201,7 @@ Ext.define('Yamma.utils.Constants', {
 			'archived' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.archived.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.archived.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.archived.shortTitle')
 				},
 				this.getIconDefinition('package')
 			),
@@ -209,7 +209,7 @@ Ext.define('Yamma.utils.Constants', {
 			'UNKNOWN' : Ext.apply(
 				{
                     title : i18n.t('utils.constants.resources.state.UNKNOWN.title'),
-                    shortTitle : i18n.t('utils.constants.resources.state.UNKNOWN.shortTitle')'
+                    shortTitle : i18n.t('utils.constants.resources.state.UNKNOWN.shortTitle')
 				}, 
 				this.getIconDefinition('exclamation')
 			)			

@@ -177,7 +177,7 @@ Ext.define('Yamma.view.mails.MailsView', {
  */
 //        	   {"property":"@bluecourrier:object", "text":"Objet", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
 //        	   {"property":"@cm:created", "text":"Création", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"@bluecourrier:writingDate", "text":i18n.t('widget.mailsview.sorter.writing'),, "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"@bluecourrier:writingDate", "text":i18n.t('widget.mailsview.sorter.writing'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
         	   {"property":"@bluecourrier:sentDate", "text":i18n.t('widget.mailsview.sorter.sent'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
         	   {"property":"@bluecourrier:deliveryDate", "text":i18n.t('widget.mailsview.sorter.delivery'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
         	   {"property":"@bluecourrier:digitizedDate", "text":i18n.t('widget.mailsview.sorter.digitized'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},

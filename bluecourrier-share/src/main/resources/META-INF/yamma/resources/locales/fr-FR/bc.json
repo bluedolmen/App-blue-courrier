@@ -85,9 +85,9 @@
         "endoutgoingprocessing": {
           "tooltip" :"Terminer le traitement",
           "confirmTitle": "Envoyer sans validation ?",
-          "confirmMessage": "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",,
+          "confirmMessage": "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
           "initoutgoingvalidationdialog" : {
-            "title" : "Terminer le traitement",
+            "title" : "Terminer le traitement"
           }
         },
         "forwardforvalidation" : {
@@ -180,7 +180,7 @@
           "confirmMessage" : "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
           "dialog": {
             "title": "Envoyer sans validation",
-            "msg":  "<em>Votre document va être envoyé sans validation.</em><br/> Voulez-vous certifier votre document à l\'aide d\'une signature électronique ?",
+            "msg":  "<em>Votre document va être envoyé sans validation.</em><br/> Voulez-vous certifier votre document à l'aide d'une signature électronique ?",
             "buttons" : {
               "certify": "Certifier",
               "send": "Envoyer",
@@ -305,7 +305,7 @@
             "text": "Statut"
           },
           "incoming" : {
-            "text" : "Entrant",
+            "text" : "Entrant"
           },
           "incoming-delivering" : {
             "text" : "Distribution",
@@ -1147,8 +1147,7 @@
     },
     "services" : {
       "servicesview": {
-        "title" : "Services",
-
+        "title" : "Services"
       }
     },
     "window": {

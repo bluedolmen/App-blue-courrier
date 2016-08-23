@@ -189,7 +189,7 @@ Ext.define('Yamma.utils.ReplyUtils', {
 		
 		Bluedolmen.windows.ConfirmDialog.INSTANCE.askConfirmation(
 			i18n.t('utils.replyutil.dialog.removereply.title'), //'Supprimer la réponse ?', /* title */
-			i18n.t('utils.replyutil.dialog.removereply.message')//'Etes-vous certain de vouloir supprimer la réponse ?', /* message */
+			i18n.t('utils.replyutil.dialog.removereply.message'),//'Etes-vous certain de vouloir supprimer la réponse ?', /* message */
 			deleteReply /* onConfirmation */
 		);
 		
