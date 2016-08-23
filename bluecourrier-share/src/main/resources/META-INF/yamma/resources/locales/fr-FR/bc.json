@@ -1291,6 +1291,13 @@
         "errors" :{
           "failed" : "Échec de l'envoi du fichier"
         }
+      },
+      "mainview" : {
+        "taskview": "Tâches"
+      },
+      "referenceview" : {
+        "name_label": "Nom",
+        "title": "Documents associés"
       }
     }
   },

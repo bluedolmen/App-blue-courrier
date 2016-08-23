@@ -51,7 +51,7 @@ Ext.define('Yamma.view.MainView',{
 	  			    	items : [
 	 		 				{
 	 		 					xtype : 'tasksview',
-	 		 					title : 'Tâches',
+	 		 					title : i18n.t('view.window.mainview.taskview'),//'Tâches',
 	 		 					id : 'mailtasksview'
 	 		 				},
 	 		 				{
