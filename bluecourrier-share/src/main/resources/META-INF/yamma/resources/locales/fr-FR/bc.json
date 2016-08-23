@@ -1144,6 +1144,154 @@
           "copy-inbound": "Copies"
         }
       }
+    },
+    "services" : {
+      "servicesview": {
+        "title" : "Services",
+
+      }
+    },
+    "window": {
+      "assigntowindow" : {
+        "title": "(Ré)assigner une tâche",
+        "errors" : {
+          "init": "IllegalStateException! The window has to be initialized with a valid task-id"
+        },
+        "buttons": {
+          "assign": {
+            "text": "Assigner",
+            "tooltip" : "(Ré-)assigner la tâche à la personne sélectionnée"
+          },
+          "release" :{
+            "text" : "Relâcher",
+            "tooltip" : "Relâcher la tâche et l'affecter à tous les intervenants disponibles"
+          },
+          "cancel": {
+            "text" : "Annuler"
+          }
+        },
+        "grids" : {
+          "title" : "Tâche affectée à",
+          "columns" :{
+            "user": "Utilisateur"
+          }
+        }
+      },
+      "detailswindow": {
+        "title": "Fiche détaillée",
+        "errors" : {
+          "init" : "IllegalStateException! The window has to be initialized with a valid documentNodeRef"
+        }
+      },
+      "documentstatisticswinow" : {
+        "title" : "Statistiques du courrier",
+        "nextview" : "Vue suivante"
+      },
+      "dropwindow" : {
+        "title": "Add Documents",
+        "dropdocs": "Drop documents here",
+        "upload": "or upload your documents the traditional way"
+      },
+      "dropzone": {
+        "errors" :{
+          "browserevent": "Cannot get browserEvent from the ExtJS event-object",
+          "dataTransfer": "Cannot get the dataTransfer from the browser-event object. Drag&Dropping files probably not supported by your browser.",
+          "formdata":  "FormData does not exist. Drag&Drop of files will not be supported"
+        },
+        "message": {
+          "upload": {
+            "title" : "Uploading",
+            "msg" : "Please hold while uploading the documents"
+          }
+        }
+      },
+      "linktowindow": {
+        "title" : "Créer un lien",
+        "errors": {
+          "noderef": "IllegalStateException! The window has to be initialized with a valid documentNodeRef"
+        },
+        "buttons": {
+          "link": "Associer",
+          "cancel": "Annuler"
+        },
+        "items": {
+          "reply-to": "une réponse à",
+          "linktype" : "Ce courrier est",
+          "target": "Courrier",
+          "comment": "Commentaire"
+        }
+      },
+      "replieslist" : {
+        "title" : "Réponses au courrier",
+        "name_title" : "Nom du document",
+        "author_title" : "Auteur",
+        "writing_date_title" : "Date de rédaction",
+        "sent_date_title": "Date d'envoi",
+        "columns": {
+          "type": "Type"
+        }
+      },
+      "selectcmsfilewindow": {
+        "items": {
+          "move-checkbox" : "Déplacer le fichier",
+          "filename-textfield": "Nom du fichier"
+        }
+      },
+      "serviceuploadwindow": {
+        "buttons": {
+          "upload": "Téléverser",
+          "create" : "Créer",
+          "cancel" : "Annuler"
+        },
+        "items" : {
+          "services": "Service destination"
+        },
+        "mailtype" : {
+          "incoming": "Entrant",
+          "outgoint": "Sortant"
+        },
+        "uploadform": {
+          "emptytext" : "Choisissez un fichier",
+          "waitingmessage" : "Téléversement en cours...",
+          "namefield": "Nom",
+          "filefield": "Fichier"
+        },
+        "panel" : {
+          "upload": {
+            "title" : "Serveur"
+          }
+        },
+        "documentsview": {
+          "move": "Déplacer"
+        }
+      },
+      "uploadform" : {
+        "title" : "File upload form",
+        "empty": "Choose a file",
+        "waiting": "Uploading your file",
+        "submit": "Save",
+        "reset": "Reset",
+        "cancel": "Cancel",
+        "filefield" : "File",
+        "namefield": "Name",
+        "errors": {
+          "uploadurl" : "IllegalStateException! The uploadUrl has not been defined"
+        }
+      },
+      "uploadformwindow" : {
+        "config": {
+          "title" : "Téléverser un fichier",
+          "empty": "Choisissez un fichier",
+          "waiting" : "En cours d'envoi...",
+          "submit" : "Envoyer",
+          "cancel": "Annuler",
+          "filefield": "Fichier",
+          "namefield": "Nom"
+        },
+        "errors" :{
+          "failed" : "Échec de l'envoi du fichier"
+        }
+      }
     }
   },
   "widget": {

@@ -9,7 +9,7 @@ Ext.define('Yamma.view.windows.AssignToWindow', {
 		TASK_ASSIGN_URL : 'alfresco://bluedolmen/workflows/assign/{taskId}'
 	},
 	
-	title : '(Ré)assigner une tâche',
+	title : i18n.t('view.window.assigntowindow.title'),//'(Ré)assigner une tâche',
 	layout : 'border',
 	
 	height : 400,
@@ -35,16 +35,16 @@ Ext.define('Yamma.view.windows.AssignToWindow', {
 			taskId = this.getTaskId()
 		;
 		if (!taskId) {
-			Ext.Error.raise('IllegalStateException! The window has to be initialized with a valid task-id');
+			Ext.Error.raise(i18n.t('view.window.assigntowindow.errors.init'));
 		}
 		
 		this.items = this._getItems();
 		
 		this.buttons = [
 			{
-				text : 'Assigner',
+				text : i18n.t('view.window.assigntowindow.buttons.assign.text'),//'Assigner',
 				itemId : 'assign-button',
-				tooltip : "(Ré-)assigner la tâche à la personne sélectionnée",
+				tooltip : i18n.t('view.window.assigntowindow.buttons.assign.tooltip'),//"(Ré-)assigner la tâche à la personne sélectionnée",
 				iconCls : Yamma.Constants.getIconDefinition('link').iconCls,
 				handler : this.onAssignClick,
 				disabled : true,
@@ -53,9 +53,9 @@ Ext.define('Yamma.view.windows.AssignToWindow', {
 				
 			},
 			{
-				text : 'Relâcher',
+				text : i18n.t('view.window.assigntowindow.buttons.release.text'),//'Relâcher',
 				itemId : 'release-button',
-				tooltip : "Relâcher la tâche et l'affecter à tous les intervenants disponibles",
+				tooltip : i18n.t('view.window.assigntowindow.buttons.release.tooltip'),//"Relâcher la tâche et l'affecter à tous les intervenants disponibles",
 				iconCls : Yamma.Constants.getIconDefinition('link').iconCls,
 				handler : this.onReleaseClick,
 				disabled : true,
@@ -64,7 +64,7 @@ Ext.define('Yamma.view.windows.AssignToWindow', {
 				
 			},
 			{
-				text : 'Annuler',
+				text : i18n.t('view.window.assigntowindow.buttons.cancel.text'),//'Annuler',
 				itemId : 'cancel-button',
 				iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls,
 	        	handler : function() {
@@ -135,13 +135,13 @@ Ext.define('Yamma.view.windows.AssignToWindow', {
 			
 			availableActorsGrid = Ext.create('Ext.grid.Panel', {
 				itemId : 'availableactors',
-				title : 'Tâche affectée à',
+				title : i18n.t('view.window.assigntowindow.grids.title'),//'Tâche affectée à',
 				store : availableActorsStore,
 				hideHeaders : true,
 				region : 'center',
 				columns : [
 					{
-						text : 'Utilisateur',
+						text : i18n.t('view.window.assigntowindow.grids.columns.user'),//'Utilisateur',
 						dataIndex : 'displayName',
 						flex : 1
 					}

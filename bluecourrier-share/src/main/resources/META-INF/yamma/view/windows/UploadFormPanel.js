@@ -105,28 +105,28 @@ Ext.define('Yamma.view.windows.UploadFormPanel', {
 	frame : true,
 	bodyPadding : '10 10 0',
 
-	title : 'File Upload Form',
-	emptyTextLabel : 'Choose a file',
-	waitingMessage : 'Uploading your file...',
+	title : i18n.t('view.window.uploadform.title'),//'File Upload Form',
+	emptyTextLabel : i18n.t('view.window.uploadform.empty'),//'Choose a file',
+	waitingMessage : i18n.t('view.window.uploadform.waiting'),//'Uploading your file...',
 	
 	// buttons
 	showSubmitButton : true,
-	submitButtonLabel : 'Save',
+	submitButtonLabel : i18n.t('view.window.uploadform.submit'),//'Save',
 	
 	showResetButton : true,
-	resetButtonLabel : 'Reset',
+	resetButtonLabel : i18n.t('view.window.uploadform.reset'),//'Reset',
 	
 	showCancelButton : true,
-	cancelButtonLabel : 'Cancel',
+	cancelButtonLabel : i18n.t('view.window.uploadform.cancel'),//'Cancel',
 	
 	// file field
 	fileFieldName : 'filedata',
-	fileFieldLabel : 'File',
+	fileFieldLabel : i18n.t('view.window.uploadform.filefield'),//'File',
 	fileFieldIcon : 'icon-page_white_put',
 	
 	// name field
 	nameFieldName : 'filename',
-	nameFieldLabel : 'Name',
+	nameFieldLabel : i18n.t('view.window.uploadform.namefield'),//'Name',
 	
 	uploadUrl : null,
 	additionalFields : null,
@@ -284,7 +284,7 @@ Ext.define('Yamma.view.windows.UploadFormPanel', {
 		
 		var uploadUrl = this.uploadUrl || Yamma.view.windows.UploadFormPanel.ALFRESCO_UPLOAD_URL;
 		if (!uploadUrl) {
-			Ext.Error.raise('IllegalStateException! The uploadUrl has not been defined');
+			Ext.Error.raise(i18n.t('view.window.uploadform.errors.uploadurl'));//'IllegalStateException! The uploadUrl has not been defined');
 		}
 		
 		if (!this.fireEvent('beforeSubmit', form)) return;
