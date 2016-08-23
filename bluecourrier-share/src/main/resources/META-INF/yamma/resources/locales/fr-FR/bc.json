@@ -1115,6 +1115,35 @@
       "documenthistoryview": {
         "title": "Historique du courrier"
       }
+    },
+    "menu" : {
+      "advancedsearch" : {
+        "text" : "Rechercher..."
+      },
+      "mainmenu" :{
+        "title" : "Menu principal"
+      },
+      "mymenu" : {
+        "title" : "Mon Bureau"
+      },
+      "sitearchivesmenu": {
+        "title" : "Archives"
+      },
+      "sitetraysmenu": {
+        "title" :"Bannettes",
+        "tree" : {
+          "incomming": "Entrant",
+          "incomming-delivering": "Distribution",
+          "incomming-processing": "Traitement",
+          "incomming-processed": "Traité",
+          "outgoing": "Sortant",
+          "outgoing-processing": "Elaboration",
+          "outgoing-validation": "Validation",
+          "outgoing-sending": "Envoi",
+          "outgoing-processed": "Traité",
+          "copy-inbound": "Copies"
+        }
+      }
     }
   },
   "widget": {

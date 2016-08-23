@@ -9,7 +9,7 @@ Ext.define('Yamma.view.menus.MyMenu', {
 	
 	id : 'my-menu',
 	
-	title : 'Mon Bureau',
+	title : i18n.t('view.menu.mymenu.title'),
 	iconCls : 'icon-house',
 	
 	rootVisible : false,

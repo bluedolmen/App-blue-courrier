@@ -5,7 +5,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 	
 	id : 'sitetrays-menu',
 	
-	title : 'Bannettes',
+	title : i18n.t('view.menu.sitetraysmenu.title'),//'Bannettes',
 	iconCls : 'icon-folder_page_white',
 
 	border : 1,
@@ -27,12 +27,12 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 				expanded : true,
 				children : [
 					{
-						text : 'Entrant',
+						text : i18n.t('view.menu.sitetraysmenu.tree.incomming'),//'Entrant',
 						iconCls : Yamma.Constants.INBOUND_MAIL_TYPE_DEFINITION.iconCls,
 						expanded : true,
 						children : [
 							{
-								text : 'Distribution',
+								text : i18n.t('view.menu.sitetraysmenu.tree.incomming-delivering'),///'Distribution',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['delivering'].iconCls,
 								leaf : true,
 								filters : {
@@ -41,7 +41,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 								}
 							},
 							{
-								text : 'Traitement',
+								text : i18n.t('view.menu.sitetraysmenu.tree.incomming-processing'),//'Traitement',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processing'].iconCls,
 								leaf : true,
 								filters : {
@@ -50,7 +50,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 								}
 							},
 							{
-								text : 'Traité',
+								text : i18n.t('view.menu.sitetraysmenu.tree.incomming-processed'),///'Traité',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processed'].iconCls,
 								leaf : true,
 								filters : {
@@ -69,12 +69,12 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 						]
 					},
 					{
-						text : 'Sortant',
+						text : i18n.t('view.menu.sitetraysmenu.tree.outgoing'),//'Sortant',
 						iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
 						expanded : true,
 						children : [
 							{
-								text : 'Elaboration',
+								text : i18n.t('view.menu.sitetraysmenu.tree.outgoing-processing'),//'Elaboration',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processing'].iconCls,
 								leaf : true,
 								filters : {
@@ -83,7 +83,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 								}
 							},
 							{
-								text : 'Validation',
+								text : i18n.t('view.menu.sitetraysmenu.tree.outgoing-validation'),//'Validation',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['validating!processed'].iconCls,
 								leaf : true,
 								filters : {
@@ -92,7 +92,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 								}
 							},
 							{
-								text : 'Envoi',
+								text : i18n.t('view.menu.sitetraysmenu.tree.outgoing-sending'),//'Envoi',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['sending'].iconCls,
 								leaf : true,
 								filters : {
@@ -101,7 +101,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 								}
 							},
 							{
-								text : 'Traité',
+								text : i18n.t('view.menu.sitetraysmenu.tree.outgoing-processed'),//'Traité',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processed'].iconCls,
 								leaf : true,
 								filters : {
@@ -112,7 +112,7 @@ Ext.define('Yamma.view.menus.SiteTraysMenu', {
 						]
 					},
 					{
-						text : 'Copies',
+						text : i18n.t('view.menu.sitetraysmenu.tree.copy-inbound'),//'Copies',
 						iconCls : Yamma.Constants.getIconDefinition('page_white_stack').iconCls,
 						leaf : true,
 						filters : {

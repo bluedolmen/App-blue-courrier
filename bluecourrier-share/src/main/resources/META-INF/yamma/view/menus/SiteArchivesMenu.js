@@ -7,7 +7,7 @@ Ext.define('Yamma.view.menus.SiteArchivesMenu', {
 			
 	id : 'sitearchives-menu',
 	
-	title : 'Archives',
+	title : i18n.t('view.menu.sitearchivesmenu.title'),
 	iconCls : Yamma.utils.Constants.getIconDefinition('package').iconCls,
 
 	border : 1,
