@@ -21,7 +21,7 @@ Ext.define('Yamma.view.mails.sorters.StatusSorter', {
 	},
 	
 	property : Yamma.utils.datasources.Documents.STATUSABLE_STATE_QNAME, 
-	text : "Statut", 
+	text :  i18n.t('view.mails.sorter.status.text'),//"Statut",
 	iconCls : Yamma.Constants.getIconDefinition('cog_email').iconCls,
 	
 	sorterFn : function(o1, o2) {

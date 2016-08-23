@@ -30,7 +30,7 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 		
 		return [
 		    {
-		        type : 'Category',
+		        type : i18n.t('view.charts.bystatebar.axes.left'),
 		        position : 'left',
 		        fields : [this.STATUSABLE_STATE_QNAME],
 		        label : {
@@ -42,7 +42,7 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 		    },
 		
 			{
-		        type: 'Numeric',
+		        type: i18n.t('view.charts.bystatebar.axes.bottom'),
 		        position: 'bottom',
 		        fields: [this.LATE_STATE_ONTIME_QNAME, this.LATE_STATE_HURRY_QNAME,  this.LATE_STATE_LATE_QNAME, this.LATE_STATE_UNDETERMINED_QNAME],
 		        title: false,
@@ -69,7 +69,7 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 	        gutter: 80,
 	        xField: this.STATUSABLE_STATE_QNAME,
 	        yField: [this.LATE_STATE_ONTIME_QNAME, this.LATE_STATE_HURRY_QNAME, this.LATE_STATE_LATE_QNAME, this.LATE_STATE_UNDETERMINED_QNAME],
-	        title : ['Ok', 'Urgent', 'En retard', 'Indéterminé'],
+	        title : [i18n.t('view.charts.bystatebar.barchartdefinition.ontime'), i18n.t('view.charts.bystatebar.barchartdefinition.hurry'), i18n.t('view.charts.bystatebar.barchartdefinition.late'), i18n.t('view.charts.bystatebar.barchartdefinition.unknown')],
 	        stacked: true,
 	        tips: this.getTipsDefinition()
     	};
@@ -92,10 +92,10 @@ Ext.define('Yamma.view.charts.ByStateBarChart', {
 				height : 70,
 				tpl : new Ext.XTemplate(
 					'<p><b>{state} : {documentNumber}</b></p>',
-					'<p>Ok : {onTimeNumber}</p>',
-					'<p>Urgent : {hurryNumber}</p>',
-					'<p>Retard : {lateNumber}</p>',
-					'<p>Indeterminé : {undeterminedNumber}</p>'
+					'<p>'+ i18n.t('view.charts.bystatebar.barchartdefinition.ontime')+' : {onTimeNumber}</p>',
+					'<p>'+i18n.t('view.charts.bystatebar.barchartdefinition.hurry')+' : {hurryNumber}</p>',
+					'<p>'+i18n.t('view.charts.bystatebar.barchartdefinition.late')+' : {lateNumber}</p>',
+					'<p>'+i18n.t('view.charts.bystatebar.barchartdefinition.undetermined')+' : {undeterminedNumber}</p>'
 				),
 				renderer : function(record, item) {
 					

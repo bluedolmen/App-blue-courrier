@@ -7,7 +7,7 @@ Ext.define('Yamma.view.comments.PromptMessageBox', {
 		'Ext.form.field.HtmlEditor'
 	],
 	
-	title : 'Ajouter un commentaire',
+	title : i18n.t('view.comments.promptmessage.title'),
 	width : 450,
 	height : 250,
 	

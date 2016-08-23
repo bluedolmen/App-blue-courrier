@@ -9,7 +9,7 @@ Ext.define('Yamma.view.mails.SearchPanel', {
 	
 	alias : 'widget.searchpanel',
 	
-	title : 'Rechercher',
+	title : i18n.t('widget.searchpanel.title'),
 	
 	layout : 'border',
 	
@@ -31,7 +31,7 @@ Ext.define('Yamma.view.mails.SearchPanel', {
  				autoScroll : true,
  				margin : 2,
  				border : 1,
- 				title : 'Services (filtres)',
+ 				title : i18n.t('widget.searchpanel.items.filter.label'),
  				headerPosition : 'top',
  				split : true,
  				collapsible : true,
@@ -50,7 +50,7 @@ Ext.define('Yamma.view.mails.SearchPanel', {
  				region : 'center',
  				headerPosition : 'right',
  				iconCls : Yamma.Constants.getIconDefinition('magnifier').iconCls,
- 				title : 'Courriers',
+ 				title : i18n.t('widget.searchpanel.items.mail.label'),
  				border : '0 0 0 1px',
  				margin : '2px 2px 2px 2px',
  				id : 'servicemailsview',

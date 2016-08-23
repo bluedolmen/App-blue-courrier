@@ -59,7 +59,7 @@ Ext.define('Yamma.controller.header.OpenSearchController', {
     		term = combo.adaptQuery(value),
     	
     		context = Ext.create('Yamma.utils.Context', {
-	    		title : 'Recherche rapide',
+	    		title : i18n.t('controller.quicksearch.title'),
 	    		// server-side search does not accept a term only, a query has to be provided,
 	    		// that's why we define a filter
 	    		filters : [

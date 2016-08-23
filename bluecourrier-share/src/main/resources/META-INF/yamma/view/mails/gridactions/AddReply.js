@@ -7,7 +7,7 @@ Ext.define('Yamma.view.mails.gridactions.AddReply', {
 	],
 	
 	icon : Yamma.Constants.getIconDefinition('email_go_add').icon,
-	tooltip : 'Ajouter un fichier réponse',
+	tooltip : i18n.t('view.mails.gridactions.addreply.tooltip'),
 	taskName : 'bcinwf:processingTask',
 	actionName : 'Add Reply',
 //	availableIfOwner : true,

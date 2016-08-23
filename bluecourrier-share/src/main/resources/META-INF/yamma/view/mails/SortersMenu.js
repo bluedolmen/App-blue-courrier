@@ -44,7 +44,7 @@ Ext.define('Yamma.view.mails.SortersMenu', {
 	/*
 	 * @config
 	 */
-	defaultLabel : 'Trier par',
+	defaultLabel : i18n.t('view.mails.sortersmenu.defaultLabel'),//'Trier par',
 	
 	/*
 	 * @config
@@ -61,7 +61,7 @@ Ext.define('Yamma.view.mails.SortersMenu', {
     sortDirectionButton : null,
     
     sorters : [
-	   {"property":"", "text": "Aucun", "iconCls" : Yamma.Constants.getIconDefinition('cancel').iconCls}
+	   {"property":"", "text": i18n.t('view.mails.sortersmenu.none'), "iconCls" : Yamma.Constants.getIconDefinition('cancel').iconCls}
    	],
     
     initComponent : function() {
@@ -71,7 +71,7 @@ Ext.define('Yamma.view.mails.SortersMenu', {
     	if (this.showNoneSorter) {
     		availableSorters = [{
         		property : '',
-        		text : 'Aucun',
+        		text : i18n.t('view.mails.sortersmenu.none'),
         		iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls
         	}].concat(availableSorters);
     	}

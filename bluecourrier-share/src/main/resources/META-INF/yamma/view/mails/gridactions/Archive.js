@@ -6,14 +6,13 @@ Ext.define('Yamma.view.mails.gridactions.Archive', {
 		confirmedAction : 'Bluedolmen.utils.alfresco.grid.ConfirmedAction'
 	},
 	
-	confirmMessage : "Confirmez-vous l'archivage du(des) document(s) ?</br>" +
-							"Une fois le document archivé, le(s) document(s) ne sera(ont) plus disponible(s) dans l'application.",
-	confirmTitle : 'Archiver ?',
+	confirmMessage : i18n.t('view.mails.gridactions.archive.confirmMessage'),
+	confirmTitle : i18n.t('view.mails.gridactions.archive.confirmTitle'),
 	
 	supportBatchedNodes : true,
 	
 	icon : Yamma.Constants.getIconDefinition('package').icon,
-	tooltip : 'Archiver',
+	tooltip : i18n.t('view.mails.gridactions.archive.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/archive',
 	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_ARCHIVE,
 	

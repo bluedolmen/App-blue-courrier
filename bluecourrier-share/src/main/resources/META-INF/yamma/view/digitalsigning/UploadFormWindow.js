@@ -13,15 +13,15 @@ Ext.define('Yamma.view.digitalsigning.UploadFormWindow', {
 	width : 400,
 	height : 400,
 
-	title : "&nbsp;",
-	emptyTextLabel : 'Choisissez un fichier',
-	waitingMessage : 'Téléversement en cours...',
+	title : i18n.t('view.digitalsigning.uploadformwindow.title'),
+	emptyTextLabel :  i18n.t('view.digitalsigning.uploadformwindow.emptyTextLabel'),
+	waitingMessage :  i18n.t('view.digitalsigning.uploadformwindow.waiting'),
 	
-	errorTitle : 'Echec',
-	errorMessage : '<strong>Echec de la sauvegarde.</strong><br/><br/>',
+	errorTitle :  i18n.t('view.digitalsigning.uploadformwindow.errorTitle'),
+	errorMessage :  i18n.t('view.digitalsigning.uploadformwindow.errorMessage'),
 	
-	submitButtonLabel : 'Sauver',
-	cancelButtonLabel : 'Annuler',
+	submitButtonLabel :  i18n.t('view.digitalsigning.uploadformwindow.submit'),
+	cancelButtonLabel :  i18n.t('view.digitalsigning.uploadformwindow.cancel'),
 	
 	layout: {
 	    type: 'vbox',

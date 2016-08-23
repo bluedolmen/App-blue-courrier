@@ -45,7 +45,7 @@ Ext.define('Yaecma.view.header.CollectionManager', {
 				: this.COLLECTION_FULL_ICON.icon,
 				
 			text = (0 == documentNumber)
-				? 'Aucun'
+				? i18n.t('widget.collectionmanager.state.update.none')
 				: '' + documentNumber + ' doc.'
 		;
 		this.setIcon(icon);

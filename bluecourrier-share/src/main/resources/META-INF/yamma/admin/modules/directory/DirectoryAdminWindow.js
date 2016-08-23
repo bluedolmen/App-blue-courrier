@@ -7,7 +7,7 @@ Ext.define('Yamma.admin.modules.directory.DirectoryAdminWindow', {
 	requires : [
 	],
 				
-	title : 'Administration des Contacts',
+	title : i18n.t('widget.directoryadminwindow.title'),//'Administration des Contacts',
 	iconCls : Yamma.Constants.getIconDefinition('group').iconCls,
 
 	border : 1,
@@ -37,13 +37,13 @@ Ext.define('Yamma.admin.modules.directory.DirectoryAdminWindow', {
 				region : 'center',
 				hideHeaders : true,
 				columns : [
-					{ text : 'Nom', dataIndex : 'title', flex : 1},
+					{ text : i18n.t('widget.directoryadminwindow.columns.namecolumn.text'), dataIndex : 'title', flex : 1},
 					{ 
 						xtype : 'actioncolumn', 
 						width : 30,
 						items: [{
 							icon: Yamma.Constants.getIconDefinition('add').icon,
-							tooltip: 'Ajouter comme service',
+							tooltip: i18n.t('widget.directoryadminwindow.columns.actioncolumn.tooltip'),//'Ajouter comme service',
 							handler: addAsServiceHandler
 						}]
 					}

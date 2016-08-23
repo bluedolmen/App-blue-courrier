@@ -18,7 +18,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminPanel', {
 		'Yamma.admin.modules.services.CreateServiceForm'
 	],
 	
-	title : 'Administration des Services',
+	title : i18n.t('admin.modules.services.servicesadminpanel.title'),
 	iconCls : Yamma.Constants.getIconDefinition('group').iconCls,	
 	
 	layout : 'border',
@@ -46,8 +46,8 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminPanel', {
 		    grow : true,
 		    
 		    listConfig: {
-				loadingText: 'Recherche...',
-				emptyText: 'Aucun site trouvé.'		
+				loadingText: i18n.t('admin.modules.services.servicesadminpanel.message.searching'),
+				emptyText: i18n.t('admin.modules.services.servicesadminpanel.message.nosite')
 			},
 			
 			store : Ext.create('Yamma.store.services.ShareSites', {
@@ -141,8 +141,8 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminPanel', {
 		var me = this;
 		
 		Bluedolmen.windows.ConfirmDialog.FR.askConfirmation(
-			'Ajouter le service',
-			"Voulez-vous ajouter le site '" + siteShortName + "' en tant que service",
+			i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.title'),
+			i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.message.1') + siteShortName + i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.message.2')
 			onConfirmation
 		);
 		
@@ -182,7 +182,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminPanel', {
 			
 			createServiceWindow = Ext.create('Ext.window.Window', {
 			
-				title : 'Créer un nouveau service',
+				title : i18n.t('admin.modules.services.servicesadminpanel.dialog.createservice.window.title')
 				width : 300,
 				height : 300,
 				renderTo : Ext.getBody(),

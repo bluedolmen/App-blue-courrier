@@ -23,7 +23,7 @@ Ext.define('Yaecma.view.documents.DocumentsView', {
 	proxyConfigOptions : {
 	},
 	
-	title : 'Liste des contenus',
+	title : i18n.t('widget.documentsview.title'),
 	
 	/**
 	 * @cfg {String} rootRef
@@ -183,10 +183,10 @@ Ext.define('Yaecma.view.documents.DocumentsView', {
 			'</div>',
 			'<div class="audit">',
 				'<span class="{creationClass}">',
-					'<span class="created">Créé le {created}</span> <span class="{creatorClass}">par {creator}</span>',
+					'<span class="created">'+ i18n.t('widget.documentsview.template.description.created.text') +'{created}</span> <span class="{creatorClass}">'+ i18n.t('widget.documentsview.template.description.created.by') +'{creator}</span>',
 				'</span>',
 				'<span class="{modificationClass}">',
-					'<span class="created">Modifié le {modified}</span> <span class="modifier">par {modifier} (Créé le {created}<span class="{creatorClass}"> par {creator}</span>)</span>',
+					'<span class="created">'+ i18n.t('widget.documentsview.template.description.modified.text') +'{modified}</span> <span class="modifier">'+ i18n.t('widget.documentsview.template.description.modified.by') +'{modifier} ('+ i18n.t('widget.documentsview.template.description.created.text') +'{created}<span class="{creatorClass}"> '+ i18n.t('widget.documentsview.template.description.created.by') +'{creator}</span>)</span>',
 				'</span>',				
 			'</div>',
 			'<div class="{descriptionClass}">{description}</div>',
@@ -203,7 +203,7 @@ Ext.define('Yaecma.view.documents.DocumentsView', {
 			coldef = this.applyDefaultColumnDefinition (
 				{
 					flex : 1,
-					text : 'Description',
+					text : i18n.t('widget.documentsview.column.description.text'),
 					dataIndex : '',
 					
 					renderer : function(value, meta, record) {
@@ -306,7 +306,7 @@ Ext.define('Yaecma.view.documents.DocumentsView', {
 					width : 100,
 					minWidth : 100, // Circumvent a bug which decreases the width of the column when performing navigation
 					maxHeight : 100,
-					text : 'Miniature',
+					text : i18n.t('widget.documentsview.column.thumbnail.text'),
 					dataIndex : '',
 					
 					renderer : function(value, meta, record) {
@@ -381,7 +381,7 @@ Ext.define('Yaecma.view.documents.DocumentsView', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 50,
-				tooltip : 'Type de document', // if the plugin is applied on the containing table
+				tooltip : i18n.t('widget.documentsview.column.mimetype.tooltip'), // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', { iconCls : Bluedolmen.Constants.defaultMimetypeIconDefinition.iconCls }),
 				
 				items : [
@@ -404,7 +404,7 @@ Ext.define('Yaecma.view.documents.DocumentsView', {
 					isContainer = record.get('isContainer'),
 					typeDefinition = isContainer
 						? {
-							title : 'répertoire',
+							title : i18n.t('widget.documentsview.action.type.title'),
 							iconCls : me.folderIconCls
 						}
 						: Bluedolmen.Constants.getMimeTypeIconDefinition(mimetype)

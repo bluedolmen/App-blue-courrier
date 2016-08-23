@@ -22,17 +22,17 @@ Ext.define('Yamma.utils.ReplyUtils', {
 		
 		var
 			fileSelectionMenu = Ext.create('Ext.menu.Menu', {
-				title : "Source",
+				title : i18n.t('utils.replyutil.fileselectionmenu.title'),
 			    plain: true,
 			    renderTo: Ext.getBody(),
 			    items : [
 					{
-						text : 'Fichier local',
+						text : i18n.t('utils.replyutil.fileselectionmenu.items.uploadfile'),
 						iconCls : Yamma.Constants.getIconDefinition('page_add').iconCls,
 						action : 'uploadFile'
 					},
 					{
-						text : 'Fichier GED',
+						text : i18n.t('utils.replyutil.fileselectionmenu.items.selectfile'),
 						iconCls : Yamma.Constants.getIconDefinition('database_add').iconCls,
 						action : 'selectFile'
 					}
@@ -102,7 +102,7 @@ Ext.define('Yamma.utils.ReplyUtils', {
 
 		Ext.create('Yamma.view.windows.UploadFormWindow', {
 			
-			title : 'Choisissez un fichier en <b>réponse</b>',
+			title : i18n.t('utils.replyutil.uploadwindow.title'),//'Choisissez un fichier en <b>réponse</b>',
 			
 			formConfig : {
 				uploadUrl : this.REPLY_MAIL_HTML_URL, 
@@ -188,8 +188,8 @@ Ext.define('Yamma.utils.ReplyUtils', {
 		}
 		
 		Bluedolmen.windows.ConfirmDialog.INSTANCE.askConfirmation(
-			'Supprimer la réponse ?', /* title */
-			'Etes-vous certain de vouloir supprimer la réponse ?', /* message */
+			i18n.t('utils.replyutil.dialog.removereply.title'), //'Supprimer la réponse ?', /* title */
+			i18n.t('utils.replyutil.dialog.removereply.message'),//'Etes-vous certain de vouloir supprimer la réponse ?', /* message */
 			deleteReply /* onConfirmation */
 		);
 		
@@ -206,11 +206,6 @@ Ext.define('Yamma.utils.ReplyUtils', {
 					onSuccess :onSuccess
 				}
 			);
-			
 		}
-		
 	}
-	
-	
-	
 });

@@ -13,7 +13,7 @@ Ext.define('Yamma.admin.modules.init.RemoteInitAction', {
     constructor : function() {
     	
     	if (!this.id) {
-    		Ext.Error.raise('The id property has to be defined to a unique string');
+    		Ext.Error.raise(i18n.t('admin.modules.init.actions.remote.errors.unique-id'));
     	}
     	
     	this.callParent();

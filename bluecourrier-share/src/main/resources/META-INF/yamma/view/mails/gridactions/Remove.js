@@ -7,15 +7,15 @@ Ext.define('Yamma.view.mails.gridactions.Remove', {
 	},	
 	
 	icon : Yamma.Constants.getIconDefinition('email_cross').icon,
-	tooltip : 'Supprimer le courrier',
+	tooltip :  i18n.t('view.mails.gridactions.remove.tooltip'),
 	
 	supportBatchedNodes : false,
 	
 	taskName : 'bcinwf:pendingTask',
-	actionName : 'remove',
+	actionName : i18n.t('view.mails.gridactions.remove.actionName'),
 	
-	confirmMessage : "Confirmez-vous la suppression du courrier ?",
-	confirmTitle : 'Supprimer ?',
+	confirmMessage : i18n.t('view.mails.gridactions.remove.confirmMessage'),
+	confirmTitle : i18n.t('view.mails.gridactions.remove.confirmTitle'),
 	
 //	isAvailable : function(record, context) {
 //		

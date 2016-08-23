@@ -8,7 +8,7 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 		'Yamma.view.windows.RepliesList'
 	],
 	
-	title : 'Fiche détaillée',
+	title : i18n.t('view.window.assigntowindow.buttons.assign.text'),//'Fiche détaillée',
 	layout : 'vbox',
 	
 	config : {
@@ -27,7 +27,7 @@ Ext.define('Yamma.view.windows.DetailsWindow', {
 		
 		var documentNodeRef = this.getDocumentNodeRef();
 		if (!documentNodeRef) {
-			Ext.Error.raise('IllegalStateException! The window has to be initialized with a valid documentNodeRef');
+			Ext.Error.raise(i18n.t('view.window.detailswindow.errors.init'));
 		}
 		
 		this.items = this._getItems();

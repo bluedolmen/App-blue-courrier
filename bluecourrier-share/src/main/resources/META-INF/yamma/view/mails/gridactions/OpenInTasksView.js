@@ -7,7 +7,7 @@ Ext.define('Yamma.view.mails.gridactions.OpenInTasksView', {
 	],
 	
 	icon : Yamma.Constants.getIconDefinition('cog_go').icon,
-	tooltip : 'Ouvrir dans les tâches',
+	tooltip : i18n.t('view.mails.gridactions.openintask.tooltip'),
 	
 	supportBatchedNodes : false,
 	

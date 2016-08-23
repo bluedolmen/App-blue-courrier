@@ -7,7 +7,7 @@ Ext.define('Yaecma.view.windows.SelectFileWindow', {
 		'Yaecma.view.documents.DocumentsView'
 	],
 	
-	title : 'Sélectionner un fichier',
+	title : i18n.t('widget.selectfilewindow.title'),
 	
 	layout : 'vbox',
 	
@@ -23,7 +23,7 @@ Ext.define('Yaecma.view.windows.SelectFileWindow', {
 		
 		this.buttons = [
 			{
-				text : 'OK',
+				text :  i18n.t('widget.selectfilewindow.buttons.okButton'),
 				itemId : 'okButton',
 				iconCls : Yaecma.Constants.getIconDefinition('accept').iconCls,
 				handler : this.onOKClick,
@@ -31,7 +31,7 @@ Ext.define('Yaecma.view.windows.SelectFileWindow', {
 				
 			},
 			{
-				text : 'Annuler',
+				text : i18n.t('widget.selectfilewindow.buttons.okButton'),
 				itemId : 'cancelButton',
 				iconCls : Yaecma.Constants.getIconDefinition('cancel').iconCls,
 				handler : this.onCancelClick,
@@ -56,7 +56,7 @@ Ext.define('Yaecma.view.windows.SelectFileWindow', {
 		this.documentsView = Ext.create('Yaecma.view.documents.DocumentsView', 
 			Ext.apply({
 				xtype : 'documentsview',
-				title : 'Liste des contenus',
+				title : i18n.t('widget.view.documentsview'),
 				header : false,
 				hideHeaders : true,
 				flex : 1

@@ -53,7 +53,7 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 		
 		this.buttons = [
 			{
-				text : 'Téléverser',
+				text : i18n.t('view.window.serviceuploadwindow.buttons.upload'),//'Téléverser',
 				itemId : 'upload-button',
 				iconCls : Yamma.Constants.getIconDefinition('add').iconCls,
 				handler : function() {
@@ -64,7 +64,7 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 				
 			},
 			{
-				text : 'Créer',
+				text : i18n.t('view.window.serviceuploadwindow.buttons.create'),//'Créer',
 				itemId : 'create-button',
 				iconCls : Yamma.Constants.getIconDefinition('add').iconCls,
 				handler : function() {
@@ -74,7 +74,7 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 				scope : this			
 			},
 			{
-				text : 'Annuler',
+				text : i18n.t('view.window.serviceuploadwindow.buttons.cancel'),//'Annuler',
 				itemId : 'cancel-button',
 				iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls,
 	        	handler : function() {
@@ -107,7 +107,7 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 			serviceView = {
 				xtype : 'servicesview',
 				itemId : 'services',
-				title : 'Service destination',
+				title : i18n.t('view.window.serviceuploadwindow.items.services'),//'Service destination',
 				allowDeselect : false,
 				headerPosition : 'top',
 				initialSelection : this.initialService,
@@ -172,8 +172,8 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 			        	padding : 5
 			        },
 			        items: [
-			            { boxLabel: 'Entrant', name: 'type', inputValue: 'incoming' },
-			            { boxLabel: 'Sortant', name: 'type', inputValue: 'outgoing', checked : true}
+			            { boxLabel: i18n.t('view.window.serviceuploadwindow.mailtype.incoming'), name: 'type', inputValue: 'incoming' },
+			            { boxLabel: i18n.t('view.window.serviceuploadwindow.mailtype.outgoing'), name: 'type', inputValue: 'outgoing', checked : true}
 			        ],
 					listeners : {
 						'change' : me.updateButtons,
@@ -186,10 +186,10 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 		    	itemId : 'local-upload',
 		    	
 		    	title : 'Local',
-		    	emptyTextLabel : 'Choisissez un fichier',
-		    	waitingMessage : 'Téléversement en cours...',
-		    	nameFieldLabel : 'Nom',
-		    	fileFieldLabel : 'Fichier',
+		    	emptyTextLabel : i18n.t('view.window.serviceuploadwindow.uploadform.emptytext'),//'Choisissez un fichier',
+		    	waitingMessage : i18n.t('view.window.serviceuploadwindow.uploadform.waitingmessage'),//'Téléversement en cours...',
+		    	nameFieldLabel : i18n.t('view.window.serviceuploadwindow.uploadform.namefield'),//'Nom',
+		    	fileFieldLabel : i18n.t('view.window.serviceuploadwindow.uploadform.filefield'),//'Fichier',
 		    	
 		    	showSubmitButton : false,
 		    	showResetButton : false,
@@ -240,7 +240,7 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 		       		items : [
 		       		    uploadFormPanel,
 		       		    {
-		       		    	title : 'Serveur',
+		       		    	title :  i18n.t('view.window.serviceuploadwindow.panel.upload.title'),//'Serveur',
 		       		    	layout : {
 		       		    		type : 'vbox',
 		       		    		align : 'stretch'
@@ -271,7 +271,7 @@ Ext.define('Yamma.view.windows.ServiceUploadWindow', {
 										{
 											xtype : 'checkbox',
 											itemId : 'move-checkbox',
-											boxLabel : "Déplacer",
+											boxLabel :  i18n.t('view.window.serviceuploadwindow.documentsview.move'),//"Déplacer",
 											boxLabelAlign : 'after',
 											checked : false
 										},    	         

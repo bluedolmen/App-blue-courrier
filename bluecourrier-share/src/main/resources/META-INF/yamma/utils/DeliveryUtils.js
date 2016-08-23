@@ -17,9 +17,9 @@ Ext.define('Yamma.utils.DeliveryUtils', {
 	},
 	
 	ROLE_TITLE : {
-		'procg' : 'Traitement',
-		'col'   : 'Collaboration',
-		'inf'   : 'Information'
+		'procg' : i18n.t('utils.deliveryutil.roletile.procg'),
+		'col'   : i18n.t('utils.deliveryutil.roletile.col'),
+		'inf'   : i18n.t('utils.deliveryutil.roletile.inf')
 	},
 	
 	ROLE_LEVEL : {

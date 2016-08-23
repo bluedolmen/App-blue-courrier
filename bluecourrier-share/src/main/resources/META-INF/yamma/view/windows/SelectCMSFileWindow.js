@@ -21,7 +21,7 @@ Ext.define('Yamma.view.windows.SelectCMSFileWindow', {
 			xtype : 'checkbox',
 			height : '30px',
 			itemId : 'move-checkbox',
-			boxLabel : "Déplacer le fichier",
+			boxLabel : i18n.t('view.window.selectcmsfilewindow.items.move-checkbox'),//"Déplacer le fichier",
 			boxLabelAlign : 'after',
 			checked : false,
 			margin : '10 10 0 10'
@@ -31,7 +31,7 @@ Ext.define('Yamma.view.windows.SelectCMSFileWindow', {
 			xtype : 'textfield',
 			height : '30px',
 			itemId : 'filename-textfield',
-			fieldLabel : 'Nom du fichier',
+			fieldLabel : i18n.t('view.window.selectcmsfilewindow.items.filename-textfield'),//'Nom du fichier',
 			regex : /^[a-zA-Z_][\w \-\.]*\.\w+$/,
 			margin : '0 10 10 10',
 			disabled : true

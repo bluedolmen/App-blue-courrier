@@ -20,8 +20,8 @@ Ext.define('Yaecma.view.header.QuickSearch', {
     grow : true,
     
     listConfig: {
-		loadingText: 'Recherche...',
-		emptyText: 'Aucun document trouvé.',
+		loadingText: i18n.t('widget.quicksearch.config.loading'),
+		emptyText: i18n.t('widget.quicksearch.config.empty'),
 
 		//Custom rendering template for each item
 		getInnerTpl: function(displayField) {

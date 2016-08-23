@@ -15,22 +15,22 @@ Ext.define('Yamma.admin.modules.services.MembersAdminPanel', {
 		SERVICE_ROLES_DEFINITIONS : {
 		    "ServiceAssistant" : {
 		    	'id' : 'ServiceAssistant',
-		    	'label' : 'Assistant',
+		    	'label' : i18n.t('admin.modules.services.membersadminpanel.roles.ServiceAssistant'),
 		    	'iconCls' : Yamma.Constants.getIconDefinition('user_red').iconCls
 		    },
 		    "ServiceInstructor" : {
 		    	'id' : 'ServiceInstructor',
-		    	'label' : 'Instructeur',
+		    	'label' : i18n.t('admin.modules.services.membersadminpanel.roles.ServiceInstructor'),
 		    	'iconCls' : Yamma.Constants.getIconDefinition('user_green').iconCls
 		    },
 		    "ServiceManager" : {
 		    	'id' : 'ServiceManager',
-		    	'label' : 'Manager',
+		    	'label' : i18n.t('admin.modules.services.membersadminpanel.roles.ServiceManager'),
 		    	'iconCls' : Yamma.Constants.getIconDefinition('user_suit').iconCls
 		    },
 		    "ServiceSupervisor" : {
 		    	'id' : 'ServiceSupervisor',
-		    	'label' : 'Superviseur',
+		    	'label' : i18n.t('admin.modules.services.membersadminpanel.roles.ServiceSupervisor'),
 		    	'iconCls' : Yamma.Constants.getIconDefinition('user_suit').iconCls
 		    }
 			
@@ -38,7 +38,7 @@ Ext.define('Yamma.admin.modules.services.MembersAdminPanel', {
 		
 	},
 	
-	title : 'Administration des membres de services',
+	title : i18n.t('admin.modules.services.membersadminpanel.title'),
 	iconCls : Yamma.Constants.getIconDefinition('group').iconCls,	
 	
 	layout : 'border',
@@ -55,7 +55,7 @@ Ext.define('Yamma.admin.modules.services.MembersAdminPanel', {
 				DATASOURCE_URL : 'alfresco://bluedolmen/yamma/authorities',
 				
 				minChars : 3,
-			    fieldLabel: 'Membres',
+			    fieldLabel: i18n.t('admin.modules.services.membersadminpanel.field.member.label'),
 			    labelWidth : 50,
 			    queryMode: 'remote',
 			    queryParam: 'filter',
@@ -71,8 +71,8 @@ Ext.define('Yamma.admin.modules.services.MembersAdminPanel', {
 		        ),
 		        
 			    listConfig: {
-					loadingText: 'Recherche...',
-					emptyText: 'Aucune autorité trouvée.'		
+					loadingText: i18n.t('admin.modules.services.membersadminpanel.text.searching'),
+					emptyText: i18n.t('admin.modules.services.membersadminpanel.text.noauthorities')
 				},
 				
 				store : Ext.create('Yamma.store.Authorities'),
@@ -289,7 +289,7 @@ Ext.define('Yamma.view.admin.modules.Services.MembersAdminGrid', {
 			me = this,
 			memberTpl = new Ext.XTemplate('<div class="icon-and-label {iconCls}">{label}</div>'),
 			columns = [{
-				text: 'Name',
+				text: i18n.t('admin.modules.services.membersadmingrid.columns.displayName.text'),
 				flex: 1,
 				sortable: true,
 				dataIndex: 'displayName',
@@ -356,7 +356,7 @@ Ext.define('Yamma.view.admin.modules.Services.MembersAdminGrid', {
 		
 		columns.push({
 			
-			text: 'Action',
+			text: i18n.t('admin.modules.services.membersadmingrid.columns.action.text'),
 			width : 30,
 			xtype: 'alfrescoactioncolumn',
 			
@@ -402,8 +402,8 @@ Ext.define('Yamma.view.admin.modules.Services.MembersAdminGrid', {
 		}
 		
 		Bluedolmen.windows.ConfirmDialog.INSTANCE.askConfirmation(
-			'Supprimer le membre ?', /* title */
-			'Etes-vous certain de vouloir supprimer le membre du groupe ?', /* message */
+			i18n.t('admin.modules.services.membersadmingrid.dialog.removeauthorities.title'), /* title */
+			i18n.t('admin.modules.services.membersadmingrid.dialog.removeauthorities.message'), /* message */
 			removeMember /* onConfirmation */
 		);
 		

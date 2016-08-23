@@ -46,7 +46,7 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 				},
 				{
 					xtype : 'documenthistorylist',
-					title : 'Historique',
+					title : i18n.t('view.edit.editdocumentview.items.documenthistorylist'),
 					hideHeaders : true
 				},
 				{
@@ -81,7 +81,7 @@ Ext.define('Yamma.view.edit.EditDocumentView', {
 	updateContext : function(context) {
 		
 		var
-			nodeRef = context.get('nodeRef') || Ext.Error.raise('IllegalArgumentException! The provided nodeRef is not valid'),	
+			nodeRef = context.get('nodeRef') || Ext.Error.raise(i18n.t('view.edit.editdocumentview.errors.noderef')),
 			formId = this.getFormId(context),
 			permissions = context.get('permissions'),
 			

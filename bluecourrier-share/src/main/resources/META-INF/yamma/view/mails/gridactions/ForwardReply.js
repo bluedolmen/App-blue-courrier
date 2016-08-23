@@ -9,7 +9,7 @@ Ext.define('Yamma.view.mails.gridactions.ForwardReply', {
 	],
 		
 	icon : Yamma.Constants.getIconDefinition('group_go').icon,
-	tooltip : 'Transmettre au service',
+	tooltip : i18n.t('view.mails.gridactions.forwardreply.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/forward-reply',
 	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_VALIDATE,	
 		

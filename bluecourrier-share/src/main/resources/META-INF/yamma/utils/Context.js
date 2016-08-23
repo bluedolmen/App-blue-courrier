@@ -174,11 +174,11 @@ Ext.define('Yamma.utils.Context', {
 	getLabel : function() {
 		
 		if (this.isAdvancedSearchBased()) {
-			return "Recherche avancée";
+			return i18n.t('utils.context.label.advancedsearch');//"Recherche avancée";
 		}
 		
 		if (this.isTaskBased()) {
-			return "Mes tâches";
+			return i18n.t('utils.context.label.mytask');
 		}
 		
 		var title = this.getTitle();
@@ -189,13 +189,13 @@ Ext.define('Yamma.utils.Context', {
 			var service = this.getService();
 			
 			return Ext.String.format(
-				'Bannette {0} du service {1}',
+				i18n.t('utils.context.label.tray'),
 				tray.label || '',
 				service.label || ''
 			);
 		}
 		
-		return "Recherche filtrée";
+		return i18n.t('utils.context.label.default');
 	},
 	
 	merge : function(context) {

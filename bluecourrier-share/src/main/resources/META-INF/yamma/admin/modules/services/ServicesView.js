@@ -44,7 +44,7 @@ Ext.define('Yamma.admin.modules.services.ServicesView', {
 		;
 		
 		columns.push({
-			text: 'Action',
+			text: i18n.t('admin.modules.services.servicesadminview.columns.alfrescoactioncolumn.text'),
 			width : 100,
 			xtype: 'alfrescoactioncolumn',
 			
@@ -67,14 +67,14 @@ Ext.define('Yamma.admin.modules.services.ServicesView', {
 						
 						var isSignable = record.get(me.IS_SIGNABLE_RECORD_VALUE);
 						
-						meta.tdAttr = (isSignable ? 'Retirer' : 'Ajouter') + ' la capacité de signature au service';
+						meta.tdAttr = (isSignable ? i18n.t('admin.modules.services.servicesadminview.columns.alfrescoactioncolumn.items.text_signature.remove') : i18n.t('admin.modules.services.servicesadminview.columns.alfrescoactioncolumn.items.text_signature.add')) + i18n.t('admin.modules.services.servicesadminview.columns.alfrescoactioncolumn.items.text_signature.capacity');
 						return (isSignable ? me.IS_SIGNABLE_ICON_CLS : me.ISNOT_SIGNABLE_ICON_CLS);
 					}
 					
 				},
 				{
 //					icon: me.UNSET_SERVICE_ICON,
-					tooltip : 'Supprimer en tant que service (le site reste présent)',
+					tooltip :  i18n.t('admin.modules.services.servicesadminview.columns.alfrescoactioncolumn.items.unsetservice.tooltip'),
 					handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
 						var serviceName = record.getId();
 						unsetAsService(serviceName);
@@ -135,7 +135,7 @@ Ext.define('Yamma.admin.modules.services.ServicesView', {
 		
 		var me = this;
 		
-		this.loadingMask = new Ext.LoadMask(this, {msg:"Application des changements en cours..."});
+		this.loadingMask = new Ext.LoadMask(this, {msg:i18n.t('admin.modules.services.servicesadminview.columns.alfrescoactioncolumn.init.loading')});
 		
 		this.callParent(arguments);
 		

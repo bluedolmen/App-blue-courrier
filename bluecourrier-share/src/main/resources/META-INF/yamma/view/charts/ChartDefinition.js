@@ -16,7 +16,7 @@ Ext.define('Yamma.view.charts.ChartDefinition', {
 		if (null != this.chart) {
 			
 			if (this.dataStore == dataStore) return this.chart;
-			Ext.Error.raise('UnsupportedOperationException! Does not yet support reusing of the factory');
+			Ext.Error.raise(i18n.t('view.charts.definition.errors.factoryreuse'));
 			
 		}
 		
@@ -100,7 +100,7 @@ Ext.define('Yamma.view.charts.ChartDefinition', {
 	 */
 	checkDataStore : function() {
 		
-		if (null == this.dataStore) return 'The store has to be provided at object build-time'; 
+		if (null == this.dataStore) return i18n.t('view.charts.definition.errors.buildtime');
 		
 	},	
 	

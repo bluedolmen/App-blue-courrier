@@ -11,7 +11,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 	
 	store : null,
 	
-	title : 'Rapports statistiques des tâches en cours',
+	title : i18n.t('view.charts.chartsstatsview.title'),
 	
 	layout : {
 		type : 'hbox',
@@ -39,7 +39,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 		this._installToolBar();
 		
 		if (null == this.store) {
-			Ext.Error.raise("IllegalStateException! The store has to be provided");
+			Ext.Error.raise(i18n.t('view.charts.chartsstatsview.errors.nostore'));
 		}
 		
 		this._buildChartsMenuStore();
@@ -47,7 +47,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 		this.items = [
 			{
 				xtype : 'fieldset',
-				title : 'Rapports',
+				title : i18n.t('view.charts.chartsstatsview.items.reports.title'),
 				layout : {
 					type : 'vbox',
 					align : 'stretch'
@@ -82,7 +82,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 			},
 			{
 				xtype : 'fieldset',
-				title : 'Filtres',
+				title : i18n.t('view.charts.chartsstatsview.items.filter.title'),
 				width : 150,
 				margin : 5,
 				padding : 5,
@@ -124,9 +124,9 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 			'->',
 			{
 				xtype : 'button',
-				text : 'Manager',
+				text : i18n.t('view.charts.chartsstatsview.toolbar.buttons.manage.text'),
 				iconCls : Yamma.Constants.getIconDefinition('user_suit').iconCls,
-				tooltip : 'Basculer en mode Manager',
+				tooltip : i18n.t('view.charts.chartsstatsview.toolbar.buttons.manage.tooltip'),
 				iconAlign : 'bottom',
 				enableToggle : true,
 				listeners : {
@@ -137,16 +137,16 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 			},
 			{
 				xtype : 'button',
-				text : 'Exporter',
+				text : i18n.t('view.charts.chartsstatsview.toolbar.buttons.export.title'),
 				iconCls : Yamma.Constants.getIconDefinition('chart_curve').iconCls,
-				tooltip : 'Exporter le diagramme',
+				tooltip : i18n.t('view.charts.chartsstatsview.toolbar.buttons.export.tooltip'),
 				iconAlign : 'bottom',
 	            handler: function() {
 	            	
 	            	var chart = me._getCurrentChart();
 	            	if (!chart) return;
 	            	
-	                Ext.MessageBox.confirm('Confirmer l\'export', 'Voulez-vous télécharger le diagramme comme une image ?', function(choice) {
+	                Ext.MessageBox.confirm(i18n.t('view.charts.chartsstatsview.toolbar.buttons.export.confirm'), function(choice) {
 	                    if(choice == 'yes'){
 	                        chart.save({
 	                            type: 'image/png'
@@ -194,7 +194,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 		
  		return ({ 
 			xtype : 'button',
-			text : 'Entrant/Sortant',
+			text : i18n.t('view.charts.chartsstatsview.filter.mailtype-filter.text'),
 			iconCls : Yamma.Constants.MAIL_TYPE_DEFINITION.iconCls,
 			itemId : 'mailtype-filter',
 			menu : {
@@ -204,11 +204,11 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 				},
 				items : [
 					{
-						text : 'Entrant/Sortant',
+						text : i18n.t('view.charts.chartsstatsview.filter.mailtype-filter.menu.items.all'),
 						iconCls : Yamma.Constants.MAIL_TYPE_DEFINITION.iconCls
 					},
 					{
-						text : 'Entrant',
+						text :  i18n.t('view.charts.chartsstatsview.filter.mailtype-filter.menu.items.incomming'),
 						iconCls : Yamma.Constants.INBOUND_MAIL_TYPE_DEFINITION.iconCls,
 						filter : Ext.create('Ext.util.Filter', {
 							property : Yamma.utils.datasources.Documents.MAIL_KIND_QNAME, 
@@ -217,7 +217,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 						})
 					},
 					{
-						text : 'Sortant',
+						text :  i18n.t('view.charts.chartsstatsview.filter.mailtype-filter.menu.items.outgoing'),
 						iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
 						filter : Ext.create('Ext.util.Filter', {
 							property : Yamma.utils.datasources.Documents.MAIL_KIND_QNAME, 
@@ -235,7 +235,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 		
  		return ({ 
 			xtype : 'button',
-			text : 'Tous',
+			text : i18n.t('view.charts.chartsstatsview.filter.latestate-filter.text'),
 			iconCls : Yamma.Constants.getIconDefinition('clock').iconCls,
 			itemId : 'latestate-filter',
 			menu : {
@@ -245,11 +245,11 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 				},
 				items : [
 					{
-						text : 'Tous',
+						text : i18n.t('view.charts.chartsstatsview.filter.latestate-filter.items.all'),
 						iconCls : Yamma.Constants.getIconDefinition('clock').iconCls
 					},
 					{
-						text : 'Urgent',
+						text : i18n.t('view.charts.chartsstatsview.filter.latestate-filter.items.hurry'),
 						iconCls : Yamma.Constants.getIconDefinition('clock_error').iconCls,
 						filter : Ext.create('Ext.util.Filter', {
 							filterFn : function(item) {
@@ -261,7 +261,7 @@ Ext.define('Yamma.view.charts.ChartsStatsView', {
 						})
 					},
 					{
-						text : 'En retard',
+						text : i18n.t('view.charts.chartsstatsview.filter.latestate-filter.items.late'),
 						iconCls : Yamma.Constants.getIconDefinition('clock_red').iconCls,
 						filter : Ext.create('Ext.util.Filter', {
 							property : Yamma.utils.datasources.Documents.DOCUMENT_LATE_STATE_QNAME, 

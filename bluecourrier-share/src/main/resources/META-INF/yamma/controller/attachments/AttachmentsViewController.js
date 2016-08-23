@@ -62,17 +62,17 @@ Ext.define('Yamma.controller.attachments.AttachmentsViewController', {
 			),
 			
 			fileSelectionMenu = Ext.create('Ext.menu.Menu', {
-				title : "Source",
+				title :  i18n.t('controller.attachments.viewcontroller.addattachments.fileselectionmenu.title'),
 			    plain: true,
 			    renderTo: Ext.getBody(),
 			    items : [
 					{
-						text : 'Fichier local',
+						text : i18n.t('controller.attachments.viewcontroller.addattachments.fileselectionmenu.items.uploadfile'),
 						iconCls : Yamma.Constants.getIconDefinition('page_add').iconCls,
 						handler : uploadLocalFile
 					},
 					{
-						text : 'Fichier GED',
+						text : i18n.t('controller.attachments.viewcontroller.addattachments.fileselectionmenu.items.selectrepositoryfile'),
 						iconCls : Yamma.Constants.getIconDefinition('database_add').iconCls,
 						handler : selectRepositoryFile
 					}
@@ -86,7 +86,7 @@ Ext.define('Yamma.controller.attachments.AttachmentsViewController', {
 			
 			Ext.create('Yamma.view.windows.UploadFormWindow', {
 				
-				title : 'Choisissez un fichier à ajouter en <b>attachement</b>',
+				title : i18n.t('controller.attachments.viewcontroller.addattachments.uploadlocalfilewindow.title'),
 				
 				formConfig : {
 					uploadUrl : url + '?format=html', // force html response format due to ExtJS form submission restriction 

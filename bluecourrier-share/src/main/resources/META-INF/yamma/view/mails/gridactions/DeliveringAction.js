@@ -5,7 +5,7 @@ Ext.define('Yamma.view.mails.gridactions.DeliveringAction', {
 	actionUrl : 'alfresco://bluedolmen/yamma/distribute',
 	
 	taskName : 'bcinwf:deliveringTask',
-	taskTitle : 'Distribution',
+	taskTitle : i18n.t('view.mails.actions.Delivering.actionName'),
 	
 	supportBatchedNodes : true,
 	

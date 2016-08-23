@@ -5,7 +5,7 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 	requires : [
 	],
 	
-	title : 'Créer un lien',
+	title : i18n.t('view.window.linktowindow.title'),//'Créer un lien',
 	layout : 'fit',
 	
 	height : 400,
@@ -27,14 +27,14 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 			documentNodeRef = this.getDocumentNodeRef()
 		;
 		if (!documentNodeRef) {
-			Ext.Error.raise('IllegalStateException! The window has to be initialized with a valid documentNodeRef');
+			Ext.Error.raise(i18n.t('view.window.linktowindow.errors.noderef'));
 		}
 		
 		this.items = this._getItems();
 		
 		this.buttons = [
 			{
-				text : 'Associer',
+				text : i18n.t('view.window.linktowindow.buttons.link'),//'Associer',
 				itemId : 'link-button',
 				iconCls : Yamma.Constants.getIconDefinition('link').iconCls,
 				handler : this.onLinkClick,
@@ -43,7 +43,7 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 				
 			},
 			{
-				text : 'Annuler',
+				text : i18n.t('view.window.linktowindow.buttons.cancel'),//'Annuler',
 				itemId : 'cancel-button',
 				iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls,
 	        	handler : function() {
@@ -69,7 +69,7 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 			    data : [
 			        {
 			        	"id" : "reply-to", 
-			        	"title" : "une réponse à", 
+			        	"title" : i18n.t('view.window.linktowindow.items.reply-to'),//"une réponse à",
 			        	"filter" : { name : 'kind', value : 'outbound'}
 			        }
 			    ]
@@ -77,7 +77,7 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 			
 			linkTypeCombo = Ext.create('Ext.form.ComboBox', {
 				itemId : 'linktype',
-				fieldLabel : 'Ce courrier est',
+				fieldLabel : i18n.t('view.window.linktowindow.items.linktype'),//'Ce courrier est',
 				store : linkTypeStore,
 				queryMode : 'local',
 				valueField : 'id',
@@ -90,7 +90,7 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 			
 			searchCombo = Ext.create('Yamma.view.header.OpenSearch', {
 				itemId : 'target-document',
-				fieldLabel : 'Courrier',
+				fieldLabel :  i18n.t('view.window.linktowindow.items.target'),//'Courrier',
 			    labelClsExtra : null,
 			    labelWidth : 100,
 			    forceSelection : true,
@@ -112,7 +112,7 @@ Ext.define('Yamma.view.windows.LinkToWindow', {
 					itemId : 'comment',
 					grow : true,
 					name : 'comment',
-					fieldLabel : 'Commentaire',
+					fieldLabel : i18n.t('view.window.linktowindow.items.comment'),//'Commentaire',
 					anchor : '100%'
 			    }
 			          

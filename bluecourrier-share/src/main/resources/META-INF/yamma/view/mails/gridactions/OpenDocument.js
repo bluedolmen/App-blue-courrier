@@ -18,7 +18,7 @@ Ext.define('Yamma.view.mails.gridactions.DownloadDocument', {
 		
 		return	{
 			icon : Yamma.view.mails.gridactions.DownloadDocument.DOWNLOAD_DOCUMENT_ACTION_ICON.icon,
-			tooltip : 'Télécharger le document',
+			tooltip : i18n.t('view.mails.gridactions.opendocument.download.tooltip'),
 			handler : this.onDownloadAction,
 			scope : this,
 			getClass : function(value, meta, record) {

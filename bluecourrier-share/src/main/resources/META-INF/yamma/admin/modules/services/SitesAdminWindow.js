@@ -9,7 +9,7 @@ Ext.define('Yamma.admin.modules.services.SitesAdminWindow', {
 				
 	SET_AS_SERVICE_URL : 'alfresco://bluedolmen/yamma/services',
 	
-	title : 'Administration des Sites',
+	title : i18n.t('admin.modules.services.siteadminwindow.title'),//'Administration des Sites',
 	iconCls : Yamma.Constants.getIconDefinition('group').iconCls,
 
 	border : 1,
@@ -29,7 +29,7 @@ Ext.define('Yamma.admin.modules.services.SitesAdminWindow', {
 		this.addEvents('new-service');		
 		
 		if (null == this.availableSites) {
-			Ext.Error.raise('IllegalStateException! The servicesStore is not defined as expected');
+			Ext.Error.raise( i18n.t('admin.modules.services.siteadminwindow.error.servicestore') );
 		}
 
 		var
@@ -44,13 +44,13 @@ Ext.define('Yamma.admin.modules.services.SitesAdminWindow', {
 				region : 'center',
 				hideHeaders : true,
 				columns : [
-					{ text : 'Nom', dataIndex : 'title', flex : 1},
+					{ text : i18n.t('admin.modules.services.siteadminwindow.site.grid.columns.title'), dataIndex : 'title', flex : 1},
 					{ 
 						xtype : 'actioncolumn', 
 						width : 30,
 						items: [{
 							icon: Yamma.Constants.getIconDefinition('add').icon,
-							tooltip: 'Ajouter comme service',
+							tooltip: i18n.t('admin.modules.services.siteadminwindow.site.grid.columns.actionscolumn'),
 							handler: addAsServiceHandler
 						}]
 					}

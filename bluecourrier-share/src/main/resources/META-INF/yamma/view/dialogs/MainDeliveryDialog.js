@@ -17,39 +17,39 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 		ROLE_PARAMS : {
 			
 			'procg' : {
-				title : 'Service de traitement destination',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.procg'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['procg']).iconCls
 			},
 			'procg/from' : {
-				title : 'Service de traitement actuel',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.procg-from'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['procg'] + '_location').iconCls
 			},
 			'procg/to' : {
-				title : 'Service de traitement destination',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.procg-to'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['procg'] + '_go').iconCls
 			},
 			'col' : {
-				title : 'Service en collaboration',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.col'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['col']).iconCls
 			},
 			'col/from' : {
-				title : 'Service en collaboration actuel',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.col-from'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['col'] + '_location').iconCls
 			},
 			'col/to' : {
-				title : 'Service en collaboration destination',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.col-to'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['col'] + '_go').iconCls
 			},
 			'inf' : {
-				title : 'Service en information',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.inf'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['inf']).iconCls
 			},
 			'inf/from' : {
-				title : 'Service en information actuel',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.roles.col-from'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['inf'] + '_location').iconCls
 			},
 			'none' : {
-				title : 'Service non affecté',
+				title :i18n.t('view.comments.dialog.maindeliverydialog.roles.none'),
 				iconCls : 'unaffected-service'
 //				iconCls : Yamma.Constants.getIconDefinition('bullet_white').iconCls
 			}
@@ -66,35 +66,35 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 		
 		STATUS_PARAMS : {
 			'pending' : {
-				title : 'Enregistré mais non appliqué',
+				title :  i18n.t('view.comments.dialog.maindeliverydialog.status.pending'),
 				iconCls : Yamma.Constants.getIconDefinition('hourglass').iconCls
 			},
 			'edited' : {
-				title : 'Edité, mais non enregistré',
+				title :  i18n.t('view.comments.dialog.maindeliverydialog.status.edited'),
 				iconCls : Yamma.Constants.getIconDefinition('pencil').iconCls
 			},
 			'ongoing' : {
-				title : 'En cours',
+				title :  i18n.t('view.comments.dialog.maindeliverydialog.status.ongoing'),
 				iconCls : Yamma.Constants.getIconDefinition('group_gear').iconCls
 			},
 			'done' : {
-				title : 'Terminé',
+				title :  i18n.t('view.comments.dialog.maindeliverydialog.status.done'),
 				iconCls : Yamma.Constants.getIconDefinition('tick').iconCls
 			},
 			'procg/done' : {
-				title : 'Service de traitement destination traité',
+				title :  i18n.t('view.comments.dialog.maindeliverydialog.status.procg-done'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['procg'] + '_tick').iconCls
 			},
 			'col/done' : {
-				title : 'Service en collaboration traité',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.status.col-done'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['col'] + '_tick').iconCls
 			},
 			'inf/done' : {
-				title : 'Service en information traité',
+				title :  i18n.t('view.comments.dialog.maindeliverydialog.status.inf-done'),
 				iconCls : Yamma.Constants.getIconDefinition(Yamma.utils.DeliveryUtils.ICON_CLS_BASENAME['inf'] + '_tick').iconCls
 			},
 			'none' : {
-				title : '',
+				title : i18n.t('view.comments.dialog.maindeliverydialog.status.none'),
 				iconCls : ''
 			}
 			
@@ -102,7 +102,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 		
 	},
 	
-	title : 'Distribuer',
+	title : i18n.t('view.comments.dialog.maindeliverydialog.title'),
 	height : 500,
 	width : 500,
 	
@@ -164,7 +164,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 			
 			extend : 'Yamma.view.services.ServicesView',
 			
-			title : 'Services',
+			title : i18n.t('view.comments.dialog.maindeliverydialog.servicesview.title'),
 			allowDeselect : true,
 			headerPosition : 'top',
 			initialSelection : this.initialService,
@@ -202,7 +202,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 				}
 				
 				columns.push({
-					text: 'Action',
+					text: i18n.t('view.comments.dialog.maindeliverydialog.servicesview.columns.alfrescoactionscolumns'),
 					width : 30,
 					xtype: 'alfrescoactioncolumn',
 					
@@ -364,7 +364,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 		this.validationCombo = Ext.create('Ext.form.field.ComboBox', {
 			xtype : 'combobox',
 			itemId : 'process-combo',
-			fieldLabel : 'Circuit',
+			fieldLabel : i18n.t('view.comments.dialog.maindeliverydialog.validationCombo.fieldLabel'),
 			store : workflowStore,
 			queryMode : 'local',
 			displayField : 'label',
@@ -382,7 +382,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 		this.processKindCombo = Ext.create('Ext.form.field.ComboBox', {
 			xtype : 'combobox',
 			itemId : 'processing-roles-combo',
-			fieldLabel : 'Type de traitement',
+			fieldLabel : i18n.t('view.comments.dialog.maindeliverydialog.processKindCombo.fieldLabel'),
 			store : processKindStore,
 			queryMode : 'local',
 			displayField : 'label',
@@ -504,7 +504,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 	        { 
 	        	xtype: 'button',
 	        	itemId : 'save-button',
-	        	text: 'Enregistrer',
+	        	text: i18n.t('view.comments.dialog.maindeliverydialog.buttons.save-button'),
 	        	icon : Yamma.Constants.getIconDefinition('disk').icon,
 	        	hidden : !this.enableSave,
 	        	disabled : true,
@@ -514,7 +514,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 	        },
 	        { 
 	        	xtype: 'button', 
-	        	itemId : 'cancel-button',
+	        	itemId : i18n.t('view.comments.dialog.maindeliverydialog.buttons.cancel-button'),
 	        	text: 'Annuler',
 	        	icon : Yamma.Constants.getIconDefinition('cancel').icon,
 	        	handler : function() {
@@ -552,7 +552,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 		
 		this.roleOrder = Yamma.view.dialogs.MainDeliveryDialog.ROLE_ORDERS[serviceRole];
 		if (undefined === this.roleOrder) {
-			Ext.Error.raise('Cannot find a valid role-order for the provided role ' + serviceRole);
+			Ext.Error.raise(i18n.t('view.comments.dialog.maindeliverydialog.errors.role-order') + serviceRole);
 		}
 		
 //		this.baseRoleOrder = Ext.Array.map(this.roleOrder, function(roleOrder) {return roleOrder.replace(/\/to/,'');});

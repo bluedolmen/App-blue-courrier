@@ -8,7 +8,7 @@ Ext.define('Yamma.view.charts.StatesStatsView', {
 	],
 	
 	layout : 'card',
-	title : 'Statistiques états',
+	title : i18n.t('view.charts.statesstat.title'),
 	iconCls : 'icon-chart_curve',
 	
 	currentFilters : null,
@@ -28,7 +28,7 @@ Ext.define('Yamma.view.charts.StatesStatsView', {
 	tools:[
 		{
 		    type : 'next',
-		    tooltip : 'Vue suivante',
+		    tooltip : i18n.t('view.charts.statesstat.tools.nextview.tooltip'),
 		    itemId : 'nextView'
 		}
 	],

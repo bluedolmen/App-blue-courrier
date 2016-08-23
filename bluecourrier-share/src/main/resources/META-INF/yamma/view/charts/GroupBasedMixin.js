@@ -43,7 +43,7 @@ Ext.define('Yamma.view.charts.GroupBasedMixin', {
 		var me = this;
 		
 		if (!this.groupFieldName) {
-			Ext.Error.raise("IllegalStateException! The 'groupFieldName' property has to be defined to use this definition");
+			Ext.Error.raise(i18n.t('view.charts.groupbasedmixin.errors.groupfieldname.undefined'));
 		}
 		
 		return ({

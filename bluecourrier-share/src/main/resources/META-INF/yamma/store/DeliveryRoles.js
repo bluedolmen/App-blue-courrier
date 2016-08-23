@@ -31,13 +31,13 @@ Ext.define('Yamma.store.DeliveryRoles', {
 	personRoles : [
    	    {
    	    	id : 'opinion',
-   	    	name : 'Avis',
+   	    	name : i18n.t('store.deliveryrole.personrole.opinion'),
    	    	role : 'op',
    	    	icon : 'comment'
    	    },
    	    {
    	    	id : 'information',
-   	    	name : 'Information',
+   	    	name : i18n.t('store.deliveryrole.personrole.information'),
    	    	role : 'inf',
    	    	icon : 'newspaper'
    	    }
@@ -46,17 +46,17 @@ Ext.define('Yamma.store.DeliveryRoles', {
    	serviceRoles : [
    	    {
    	    	id : 'expected-processing',
-   	    	name : 'Traitement',
+   	    	name : i18n.t('store.deliveryrole.servicerole.expected-processing'),
    	    	role : 'ep/procg'
    	    },
    	    {
    	    	id : 'collaboration',
-   	    	name : 'Collaboration',
+   	    	name : i18n.t('store.deliveryrole.servicerole.collaboration'),
    	    	role : 'col/col'
    	    },
    	    {
    	    	id : 'information',
-   	    	name : 'Information',
+   	    	name : i18n.t('store.deliveryrole.servicerole.information'),
    	    	role : 'inf/inf'
    	    } 
    	],

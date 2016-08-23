@@ -32,7 +32,7 @@ Ext.define('Yaecma.view.explorer.Explorer', {
 		},
 		{
 			xtype : 'documentsview',
-			title : 'Liste des contenus',
+			title : i18n.t('widget.explorer.items.documentsview.title'),
 			header : false,
 			hideHeaders : true,
 			flex : 2,

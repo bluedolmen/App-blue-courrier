@@ -5,14 +5,14 @@ Ext.define('Yamma.view.digitalsigning.UploadSigningImageWindow', {
 	
 	uploadUrl : 'alfresco://bluedolmen/digital-signing/signature/image',
 	
-	title : "Ajout/Modification d'une image",
+	title :  i18n.t('view.digitalsigning.uploadsigningimagewindow.title'),
 	
-	errorTitle : 'Echec',
-	errorMessage : '<strong>Echec de la sauvegarde de l\'image.</strong><br/><br/>',
+	errorTitle : i18n.t('view.digitalsigning.uploadsigningimagewindow.errorTitle'),
+	errorMessage : '<strong>'+ i18n.t('view.digitalsigning.uploadsigningimagewindow.errorMessage'), +'</strong><br/><br/>',
 	
 	// Image field
 	imageFieldName : 'image',
-	imageFieldLabel : 'Image',
+	imageFieldLabel : i18n.t('view.digitalsigning.uploadsigningimagewindow.imageLabel'),
 	imageFieldIconCls : Yamma.Constants.getIconDefinition('page_white_camera').iconCls,
 	
 	getFormFields : function() {

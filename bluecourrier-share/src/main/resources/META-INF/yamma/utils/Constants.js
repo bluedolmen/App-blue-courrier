@@ -59,7 +59,7 @@ Ext.define('Yamma.utils.Constants', {
 		
 		this.ABSTRACT_DOCUMENT_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Document',
+				title : i18n.t('utils.constants.resources.definition.document'),
 				aspects : ['bluecourrier:document'],
 				kind : 'document',
 				"abstract" : true
@@ -69,14 +69,14 @@ Ext.define('Yamma.utils.Constants', {
 		
 		this.UNKNOWN_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Unknown'
+				title : i18n.t('utils.constants.resources.definition.unknowns'),
 			},
 			this.getIconDefinition('page_white')
 		);
 		
 		this.MAIL_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Courrier',
+				title : i18n.t('utils.constants.resources.definition.mail'),
 				aspects : ['bluecourrier:mail'],
 				kind : 'mail'
 			},
@@ -85,7 +85,7 @@ Ext.define('Yamma.utils.Constants', {
 		
 		this.INBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Courrier entrant',
+				title : i18n.t('utils.constants.resources.definition.incomming-mail'),
 				aspects : ['bluecourrier:inboundDocument', 'bluecourrier:mail'],
 				kind : 'incoming-mail'
 			},
@@ -94,7 +94,7 @@ Ext.define('Yamma.utils.Constants', {
 		
 		this.INBOUND_MAIL_FILLED_CONTENT_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Message manuel entrant',
+				title : i18n.t('utils.constants.resources.definition.incomming-mail-filtered'),
 				aspects : ['bluecourrier:inboundDocument', 'bluecourrier:mail'],
 				kind : 'incoming-mail!filled-content'
 			},
@@ -103,7 +103,7 @@ Ext.define('Yamma.utils.Constants', {
 		
 		this.OUTBOUND_MAIL_TYPE_DEFINITION = Ext.apply(
 			{
-				title : 'Courrier sortant',
+				title : i18n.t('utils.constants.resources.definition.outgoing-mail'),
 				aspects : ['bluecourrier:outboundDocument', 'bluecourrier:mail'],
 				kind : 'outgoing-mail'
 			},
@@ -127,8 +127,8 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'pending' : Ext.apply(
 				{
-					title : 'Courrier entrant en attente',
-					shortTitle : 'En attente'
+					title : i18n.t('utils.constants.resources.state.pending.title'),
+					shortTitle : i18n.t('utils.constants.resources.state.pending.shortTitle')
 				}, 
 				this.getIconDefinition('mailbox')
 //				this.getIconDefinition('hourglass')
@@ -136,84 +136,83 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'delivering' : Ext.apply(
 				{
-					title : 'En cours de distribution',
-					shortTitle : 'Distribution'
+					title : i18n.t('utils.constants.resources.state.delivering.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.delivering.shortTitle')
 				}, 
 				this.getIconDefinition('lorry')
 			),
 			
 			'validating!delivery' : Ext.apply(
 				{
-					title : 'En attente de validation de routage',
-					shortTitle : 'Validation routage'
+					title : i18n.t('utils.constants.resources.state.validating-delivery.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.validating-delivery.shortTitle')
 				}, 
 				this.getIconDefinition('lorry_go') // TODO: should be lorry_tick (but does not exist yet)
 			),
 			
 			'processing' : Ext.apply(
 				{
-					title : 'En cours de traitement',
-					shortTitle : 'Traitement'
+                    title : i18n.t('utils.constants.resources.state.processing.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.processing.shortTitle')
 				}, 
 				this.getIconDefinition('pencil')
 			),
 			
 			'revising' : Ext.apply(
 				{
-					title : 'En correction',
-					shortTitle : 'Correction'
+                    title : i18n.t('utils.constants.resources.state.revising.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.revising.shortTitle')
 				}, 
 				this.getIconDefinition('pencil_cross')
 			),
 			
 			'validating!processed' : Ext.apply(
 				{
-					title : 'En validation du courrier sortant',
-					shortTitle : 'Validation'
+                    title : i18n.t('utils.constants.resources.state.validating-processed.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.validating-processed.shortTitle')
 				}, 
 				this.getIconDefinition('tick')
 			),
 			
 			'certifying' : Ext.apply(
 				{
-					title : 'En cours de signature',
-					shortTitle : 'Signature'				
+                    title : i18n.t('utils.constants.resources.state.certifying.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.certifying.shortTitle')
 				},
 				this.getIconDefinition('text_signature')
 			),
 			
 			'sending' : Ext.apply(
 				{
-					title : "En cours d'envoi postal",
-					shortTitle : 'Envoi postal'
+                    title : i18n.t('utils.constants.resources.state.sending.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.sending.shortTitle')
 				},
 				this.getIconDefinition('mail_send')
 			),
 			
 			'processed' : Ext.apply(
 				{
-					title : 'Traité et validé',
-					shortTitle : 'Traité'
+                    title : i18n.t('utils.constants.resources.state.processed.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.processed.shortTitle')
 				},
 				this.getIconDefinition('thumb_up')
 			),
 			
 			'archived' : Ext.apply(
 				{
-					title : 'Archivé',
-					shortTitle : 'Archivé'
+                    title : i18n.t('utils.constants.resources.state.archived.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.archived.shortTitle')
 				},
 				this.getIconDefinition('package')
 			),
 			
 			'UNKNOWN' : Ext.apply(
 				{
-					title : 'Etat inconnu',
-					shortTitle : 'Inconnu'
+                    title : i18n.t('utils.constants.resources.state.UNKNOWN.title'),
+                    shortTitle : i18n.t('utils.constants.resources.state.UNKNOWN.shortTitle')
 				}, 
 				this.getIconDefinition('exclamation')
 			)			
-			
 		},
 		
 		// TODO: these definitions should probably be homogeneized with action definitions
@@ -229,321 +228,213 @@ Ext.define('Yamma.utils.Constants', {
 				
 			'addReply' : Ext.apply(
 				{
-					title : "Ajout d'une réponse",
-					shortTitle : 'Ajout réponse'
+					title : i18n.t('utils.constants.resources.history-event.addReply.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.addReply.shortTitle')
 				},
 				this.getIconDefinition('email_add')
 			),
 				
 			'archive' : Ext.apply(
 				{
-					title : 'Archivage du courrier',
-					shortTitle : 'archivage'
+					title : i18n.t('utils.constants.resources.history-event.archive.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.archive.shortTitle')
 				},
 				this.getIconDefinition('package')			
 			),
-			
-//			'assignInstructor' : Ext.apply(
-//				{
-//					title : 'Assignation instructeur',
-//					shortTitle : 'assignation'
-//				},
-//				this.getIconDefinition('user_go')
-//			),
-				
-//			'assignServices' : Ext.apply(
-//				{
-//					title : 'Distribution du document',
-//					shortTitle : 'distribution'
-//				},
-//				this.getIconDefinition('lorry_go')
-//			),
-
 			'attachment!add' : Ext.apply(
 				{
-					title : "Ajout d'un attachement",
-					shortTitle : 'Ajout attachement'
+					title : i18n.t('utils.constants.resources.history-event.attachment-add.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.attachment-add.shortTitle')
 				},
 				this.getIconDefinition('attach_add')
 			),
 
 			'attachment!delete' : Ext.apply(
 				{
-					title : "Suppression d'un attachement",
-					shortTitle : 'Suppression attachement'
+					title : i18n.t('utils.constants.resources.history-event.attachment-delete.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.attachment-delete.shortTitle')
 				},
 				this.getIconDefinition('attach_delete')
 			),
 			
 			'certify' : Ext.apply(
 				{
-					title : 'Certification',
-					shortTitle : 'Certification'
+					title : i18n.t('utils.constants.resources.history-event.certify.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.certify.shortTitle')
 				},
 				this.getIconDefinition('text_signature')			
 			),
 			
 			'circulate' : Ext.apply(
 				{
-					title : "Diffusion",
-					shortTitle : 'Diffusion'
+					title : i18n.t('utils.constants.resources.history-event.circulate.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.circulate.shortTitle')
 				},
 				this.getIconDefinition('transmit')
 			),
-
-//			'close' : Ext.apply(
-//				{
-//					title : 'Traitement terminé',
-//					shortTitle : 'Terminé'
-//				},
-//				this.getIconDefinition('thumb_up_go')			
-//			),
-				
 			'completeDelivering' : Ext.apply(
 				{
-					title : 'Fin de la distribution',
-					shortTitle : 'Fin distribution'
+					title : i18n.t('utils.constants.resources.history-event.completeDelivering.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.completeDelivering.shortTitle')
 				},
 				this.getIconDefinition('lorry')
 			),
 
 			'completeOutgoingProcessing' : Ext.apply(
 				{
-					title : 'Fin du traitement',
-					shortTitle : 'Fin traitement'
+					title : i18n.t('utils.constants.resources.history-event.completeOutgoingProcessing.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.completeOutgoingProcessing.shortTitle')
 				},
 				this.getIconDefinition('tick_go')
 			),
 
 			'completeProcessing' : Ext.apply(
 				{
-					title : 'Fin du traitement',
-					shortTitle : 'Fin traitement'
+					title : i18n.t('utils.constants.resources.history-event.completeProcessing.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.completeProcessing.shortTitle')
 				},
 				this.getIconDefinition('thumb_up_go')
 			),
 
 			'completeValidating' : Ext.apply(
 				{
-					title : 'Fin de la validation',
-					shortTitle : 'Fin validation'
+					title : i18n.t('utils.constants.resources.history-event.completeValidating.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.completeValidating.shortTitle')
 				},
 				this.getIconDefinition('tick')
 			),
-			
-			
-//			'distribution' : Ext.apply(
-//				{
-//					title : 'Distribution du document',
-//					shortTitle : 'distribution'
-//				},
-//				this.getIconDefinition('lorry_go')
-//			), 
-			
 			'forward-for-sending' : Ext.apply(
 				{
-					title : 'Transmission pour envoi postal',
-					shortTitle : 'Envoi postal'
+					title : i18n.t('utils.constants.resources.history-event.forward-for-sending.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.forward-for-sending.shortTitle')
 				},
 				this.getIconDefinition('email_go')
 			),
 			
 			'forward-for-signing' : Ext.apply(
 				{
-					title : 'Transmission pour signature par l\'élu',
-					shortTitle : 'Transmission signature'
+					title : i18n.t('utils.constants.resources.history-event.forward-for-signing.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.forward-for-signing.shortTitle')
 				},
 				this.getIconDefinition('text_signature_tick')
 			),
-				
-//			'forward-reply' : Ext.apply(
-//				{
-//					title : 'Transmission au service',
-//					shortTitle : 'Transmission service'
-//				},
-//				this.getIconDefinition('group_go')			
-//			),
-			
 			'linkTo' : Ext.apply(
 				{
-					title : 'Lien entre documents',
-					shortTitle : 'Lien'
+					title : i18n.t('utils.constants.resources.history-event.linkTo.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.linkTo.shortTitle')
 				},
 				this.getIconDefinition('link')
 			),
-			
-//			'markAsSent' : Ext.apply(
-//				{
-//					title : 'Envoi postal effectué',
-//					shortTitle : 'Envoi effectué'
-//				},
-//				this.getIconDefinition('stamp')
-//			), 
-
 			'reassign' : Ext.apply(
 				{
-					title : "Réassignation du traitement d'une tâche",
-					shortTitle : 'Réassignation'
+					title : i18n.t('utils.constants.resources.history-event.reassign.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.reassign.shortTitle')
 				},
 				this.getIconDefinition('user_edit')
 			),
-			
-//			'refuse-reply' : Ext.apply(
-//				{
-//					title : 'Refus de la réponse',
-//					shortTitle : 'Refus'
-//				},
-//				this.getIconDefinition('cross')			
-//			),
-			
-//			'refuseProcessing' : Ext.apply(
-//				{
-//					title : 'Refus prise en charge du document',
-//					shortTitle : 'traitement'
-//				},
-//				this.getIconDefinition('pencil_cross')
-//			),
-			
 			'removeReply' : Ext.apply(
 				{
-					title : "Suppression d'une réponse",
-					shortTitle : 'Suppression réponse'
+					title : i18n.t('utils.constants.resources.history-event.removeReply.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.removeReply.shortTitle')
 				},
 				this.getIconDefinition('email_cross')
 			),
-				
-//			'restart' : Ext.apply(
-//				{
-//					title : 'Redémarrage du traitement',
-//					shortTitle : 'Ré-ouverture'
-//				},
-//				this.getIconDefinition('pencil_go')
-//			),
-			
 			'send-outbound!sendOut' : Ext.apply(
 				{
-					title : 'Envoi courrier sortant',
-					shortTitle : 'Envoi'
+					title : i18n.t('utils.constants.resources.history-event.send-outbound-sendOut.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.send-outbound-sendOut.shortTitle')
 				},
 				this.getIconDefinition('email_go')
 			),
 
 			'send-outbound!sendToValidation' : Ext.apply(
 				{
-					title : 'Envoi courrier sortant en validation',
-					shortTitle : 'Envoi'
+					title : i18n.t('utils.constants.resources.history-event.send-outbound-sendToValidation.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.send-outbound-sendToValidation.shortTitle')
 				},
 				this.getIconDefinition('tick_go')
 			),
 			
 			'sent-outbound' : Ext.apply(
 				{
-					title : 'Envoi postal effectué',
-					shortTitle : 'Envoi effectué'
+					title : i18n.t('utils.constants.resources.history-event.sent-outbound.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.sent-outbound.shortTitle')
 				},
 				this.getIconDefinition('stamp')
-			), 
-			
-//			'sentWithoutValidation' : Ext.apply(
-//				{
-//					title : 'Transmission pour envoi postal',
-//					shortTitle : 'Envoi postal'
-//				},
-//				this.getIconDefinition('email_go')
-//			),
-			
-//			'sentWithValidation' : Ext.apply(
-//				{
-//					title : 'Transmission pour validation',
-//					shortTitle : 'Envoi validation'
-//				},
-//				this.getIconDefinition('tick_go')
-//			),
-			
+			),
 			'sharedWith' : Ext.apply(
 				{
-					title : "Partagé avec",
-					shortTitle : 'Partagé'
+					title : i18n.t('utils.constants.resources.history-event.sharedWith.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.sharedWith.shortTitle')
 				},
 				this.getIconDefinition('transmit')
 			),
-			
 			'signing!approve' : Ext.apply(
 				{
-					title : 'Approbation',
-					shortTitle : 'Approbation par signature électronique'
+					title : i18n.t('utils.constants.resources.history-event.signing-approve.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.signing-approve.shortTitle')
 				},
 				this.getIconDefinition('text_signature')
 			),
-			
 			'signing!certify' : Ext.apply(
 				{
-					title : 'Certification',
-					shortTitle : 'Certification par signature électronique'
+					title : i18n.t('utils.constants.resources.history-event.signing-certify.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.signing-certify.shortTitle')
 				},
 				this.getIconDefinition('rosette')
 			),
 			
 			'signing!reject' : Ext.apply(
 				{
-					title : 'Rejet',
-					shortTitle : 'Rejet du document'
+					title : i18n.t('utils.constants.resources.history-event.signing-reject.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.signing-reject.shortTitle')
 				},
 				this.getIconDefinition('cross')
 			),
 			
 			'signed-outbound' : Ext.apply(
 				{
-					title : 'Signature de la réponse',
-					shortTitle : 'Signature'
+					title : i18n.t('utils.constants.resources.history-event.signed-outbound.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.signed-outbound.shortTitle')
 				},
 				this.getIconDefinition('text_signature_tick')			
 			),
 			
 			'startDelivery' : Ext.apply(
 				{
-					title : 'Démarrage de la distribution',
-					shortTitle : 'Démarrage distribution'
+					title : i18n.t('utils.constants.resources.history-event.startDelivery.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.startDelivery.shortTitle')
 				},
 				this.getIconDefinition('lorry_go')
 			),
 			
 			'startProcessing' : Ext.apply(
 				{
-					title : 'Démarrage du traitement',
-					shortTitle : 'Démarrage traitement'
+					title : i18n.t('utils.constants.resources.history-event.startProcessing.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.startProcessing.shortTitle')
 				},
 				this.getIconDefinition('pencil_go')
 			),
-			
-//			'validation!abandon' : Ext.apply(
-//				{
-//					title : 'Abandon de la validation',
-//					shortTitle : 'Abandon validation'
-//				},
-//				this.getIconDefinition('cancel')			
-//			),
-			
 			'validation!accept' : Ext.apply(
 				{
-					title : 'Validé',
-					shortTitle : 'Validé'
+					title : i18n.t('utils.constants.resources.history-event.validation-accept.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.validation-accept.shortTitle')
 				},
 				this.getIconDefinition('tick')			
 			),
 			
 			'validation!reject' : Ext.apply(
 				{
-					title : 'Document rejeté',
-					shortTitle : 'Document rejeté'
+					title : i18n.t('utils.constants.resources.history-event.validation-reject.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.validation-reject.shortTitle')
 				},
 				this.getIconDefinition('cross')	
 			),
 			
 			'UNKNOWN' : Ext.apply(
 				{
-					title : 'Évènement inconnu',
-					shortTitle : 'inconnu'
+					title : i18n.t('utils.constants.resources.history-event.UNKNOWN.title'),
+					shortTitle : i18n.t('utils.constants.resources.history-event.UNKNOWN.shortTitle')
 				},
 				this.getIconDefinition('gear')
 			)
@@ -554,28 +445,28 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'application/pdf' : Ext.apply(
 				{
-					title : 'Document PDF'
+					title : i18n.t('utils.constants.resources.mimetype.application-pdf')
 				}, 
 				this.getIconDefinition('page_white_acrobat')
 			),
 			
 			'application/pdf*signed' : Ext.apply(
 				{
-					title : 'Document PDF certifié'
+					title : i18n.t('utils.constants.resources.mimetype.application-pdf-signed')
 				}, 
 				this.getIconDefinition('page_white_acrobat_certified')
 			),
 			
 			'text/html' : Ext.apply(
 				{
-					title : 'Document HTML'
+					title : i18n.t('utils.constants.resources.mimetype.text-html')
 				}, 
 				this.getIconDefinition('page_white_code')
 			),
 			
 			'text/plain' : Ext.apply(
 				{
-					title : 'Document texte'
+					title : i18n.t('utils.constants.resources.mimetype.text-plain')
 				}, 
 				this.getIconDefinition('page_white_text')
 			),
@@ -593,24 +484,25 @@ Ext.define('Yamma.utils.Constants', {
 				
 			'bcinwf:pendingTask' : Ext.apply(
 				{
-					title : 'Préparation du document',
-					shortTitle : 'Préparation'
+					title : i18n.t('utils.constants.resources.workflowtask.bcinwf-pendingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcinwf-pendingTask.shortTitle')
 				},
 				this.getIconDefinition('hourglass')
 			),
 			
 			'bcinwf:deliveringTask' : Ext.apply(
 				{
-					title : 'Distribution du document',
-					shortTitle : 'Distribution'
+					title : i18n.t('utils.constants.resources.workflowtask.bcinwf-deliveringTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcinwf-deliveringTask.shortTitle')
 				},
 				this.getIconDefinition('lorry_go')
 			), 
 			
 			'bcinwf:processingTask' : Ext.apply(
 				{
-					title : 'Traitement du document',
-					shortTitle : 'Traitement',
+
+					title : i18n.t('utils.constants.resources.workflowtask.bcinwf-processingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcinwf-processingTask.shortTitle'),
 					renderTitle : function(record) {
 						
 						if (!record) return '';
@@ -642,48 +534,48 @@ Ext.define('Yamma.utils.Constants', {
 			
 			'bcinwf:validatingTask' : Ext.apply(
 				{
-					title : 'Validation de la distribution',
-					shortTitle : 'Validation distribution'
+					title : i18n.t('utils.constants.resources.workflowtask.bcinwf-validatingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcinwf-validatingTask.shortTitle')
 				},
 				this.getIconDefinition('tick')
 			), 			
 			
 			'bcogwf:processingTask' : Ext.apply(
 				{
-					title : 'Traitement document sortant',
-					shortTitle : 'Traitement sortant'
+					title : i18n.t('utils.constants.resources.workflowtask.bcogwf-processingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcogwf-processingTask.shortTitle')
 				},
 				this.getIconDefinition('pencil')
 			),
 			
-			'bcinwf:validatingTask' : Ext.apply(
+			'bcogwf:validatingTask' : Ext.apply(
 				{
-					title : 'Validation document sortant',
-					shortTitle : 'Validation'
+					title : i18n.t('utils.constants.resources.workflowtask.bcogwf-validatingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcogwf-validatingTask.shortTitle')
 				},
 				this.getIconDefinition('tick')
 			),
 				
 			'bcogwf:certifyingTask' : Ext.apply(
 				{
-					title : 'Certification du document',
-					shortTitle : 'Certification'
+					title : i18n.t('utils.constants.resources.workflowtask.bcogwf-certifyingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcogwf-certifyingTask.shortTitle')
 				},
 				this.getIconDefinition('rosette')
 			),
 				
 			'bcogwf:sendingTask' : Ext.apply(
 				{
-					title : 'Envoi du document',
-					shortTitle : 'Envoi'
+					title : i18n.t('utils.constants.resources.workflowtask.bcogwf-sendingTask.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.bcogwf-sendingTask.shortTitle')
 				},
 				this.getIconDefinition('stamp')
 			),
 			
 			'default' : Ext.apply(
 				{
-					title : 'Tâche à traiter',
-					shortTitle : 'Tâche'
+					title : i18n.t('utils.constants.resources.workflowtask.default.title'),
+					shortTitle : i18n.t('utils.constants.resources.workflowtask.default.shortTitle')
 				},
 				this.getIconDefinition('cog')
 			)			

@@ -6,7 +6,7 @@ Ext.define('Yamma.view.mails.gridactions.AssignInstructor', {
 		'Yamma.view.dialogs.AssignmentDialog'
 	],
 	
-	taskTitle : 'Assignation du traitement à un instructeur',
+	taskTitle : i18n.t('view.mails.gridactions.assigntinstructor.tasktitle'),
 	
 	actionUrl : 'alfresco://bluedolmen/yamma/assign-processing',
 	

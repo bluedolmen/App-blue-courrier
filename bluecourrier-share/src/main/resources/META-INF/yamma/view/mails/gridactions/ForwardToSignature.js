@@ -3,7 +3,7 @@ Ext.define('Yamma.view.mails.gridactions.ForwardToSignature', {
 	extend : 'Yamma.view.mails.gridactions.SimpleNodeRefGridAction',
 	
 	icon : Yamma.Constants.getIconDefinition('text_signature_go').icon,
-	tooltip : 'Transmettre pour signature',
+	tooltip : i18n.t('view.mails.gridactions.forwardtosignature.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/forward-for-signing',
 	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_VALIDATE,	
 		

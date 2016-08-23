@@ -7,10 +7,10 @@ Ext.define('Yamma.view.ReferencesView', {
 	alias : 'widget.referencesview',
 	storeId : 'mailreferences',
 	
-	DOCUMENT_NAME_LABEL : 'Nom',
+	DOCUMENT_NAME_LABEL : i18n.t('view.window.referenceview.name_label'),//'Nom',
 	DOCUMENT_NAME_QNAME : 'cm:name',
 	
-	title : 'Documents associés',
+	title : i18n.t('view.window.reference.title'),//'Documents associés',
 	
 	getDockedItemDefinitions : function() {
 		return null; // no paging toolbar

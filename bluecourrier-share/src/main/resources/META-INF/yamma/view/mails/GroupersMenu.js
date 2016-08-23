@@ -8,7 +8,7 @@ Ext.define('Yamma.view.mails.GroupersMenu', {
 	
 	sortEventName : 'groupby',
 	
-	defaultLabel : 'Grouper par',
+	defaultLabel : i18n.t('view.mails.groupby.defaultlabel'),//'Grouper par',
 	
 	sortAscendingIcon : Yamma.Constants.getIconDefinition('shape_group'),
 	sortDescendingIcon : Yamma.Constants.getIconDefinition('shape_group'),

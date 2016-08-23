@@ -6,7 +6,7 @@ Ext.define('Yamma.view.mails.itemactions.ManageTasksAction', {
 		'Yamma.view.windows.AssignToWindow'
 	],
 	
-	text : 'Gérer les tâches',
+	text : i18n.t('view.mails.itemaction.managetask.text'),//'Gérer les tâches',
 	
 	iconCls : Yamma.Constants.getIconDefinition('cog').iconCls,
 	

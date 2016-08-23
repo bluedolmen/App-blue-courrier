@@ -10,7 +10,7 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
     displayField : 'title',
     
     grow : true,
-    fieldLabel: 'Filtre',
+    fieldLabel: i18n.t('view.mails.servicefilters.treestore.fieldLabel'),
     labelAlign : 'right',
     labelSeparator : '',
     labelStyle : 'font-size : 1em ; font-weight : bold ; color : #15498B',     
@@ -42,7 +42,7 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 			],
 			root : {
 				expanded : true,
-				text : '<b>Statut</b>',
+				text : '<b>'+i18n.t('view.mails.servicefilters.treestore.root.text')+'</b>',
 				iconCls : Yamma.Constants.getIconDefinition('cog_email').iconCls,
 				filters : {
 					type : null,
@@ -51,8 +51,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 				children : [
 					{
 						id : 'incoming',
-						text : 'Entrant',
-						title : 'Entrant',
+						text : i18n.t('view.mails.servicefilters.treestore.incoming.text'),
+						title : i18n.t('view.mails.servicefilters.treestore.incoming.text'),
 						iconCls : Yamma.Constants.INBOUND_MAIL_TYPE_DEFINITION.iconCls,
 						expanded : true,
 						filters : {
@@ -62,8 +62,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 						children : [
 							{
 								id : 'incoming!delivering',
-								text : 'Distribution',
-								title : 'Entrant en distribution',
+								text : i18n.t('view.mails.servicefilters.treestore.incoming-delivering.text'),
+								title : i18n.t('view.mails.servicefilters.treestore.incoming-delivering.title'),
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['delivering'].iconCls,
 								leaf : true,
 								filters : {
@@ -73,8 +73,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 							},
 							{
 								id : 'incoming!processing',
-								text : 'Traitement',
-								title : 'Entrant en traitement',
+								text : i18n.t('view.mails.servicefilters.treestore.incoming-processing.text'),
+								title : i18n.t('view.mails.servicefilters.treestore.incoming-processing.title'),
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processing'].iconCls,
 								leaf : true,
 								filters : {
@@ -84,8 +84,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 							},
 							{
 								id : 'incoming!processed',
-								text : 'Traité',
-								title : 'Entrant traité',
+								text : i18n.t('view.mails.servicefilters.treestore.incoming-processed.text'),
+								title : i18n.t('view.mails.servicefilters.treestore.incoming-processed.title'),
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processed'].iconCls,
 								leaf : true,
 								filters : {
@@ -97,8 +97,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 					},
 					{
 						id : 'outgoing',
-						text : 'Sortant',
-						title : 'Sortant',
+						text : i18n.t('view.mails.servicefilters.treestore.outgoing.text'),
+						title : i18n.t('view.mails.servicefilters.treestore.outgoing.text'),
 						iconCls : Yamma.Constants.OUTBOUND_MAIL_TYPE_DEFINITION.iconCls,
 						expanded : true,
 						filters : {
@@ -108,8 +108,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 						children : [
 							{
 								id : 'outgoing!processing',
-								text : 'Elaboration',
-								title : 'Sortant en élaboration',
+								text : i18n.t('view.mails.servicefilters.treestore.outgoing-processing.text'),//'Elaboration',
+								title : i18n.t('view.mails.servicefilters.treestore.outgoing-processing.title'),//'Sortant en élaboration',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processing'].iconCls,
 								leaf : true,
 								filters : {
@@ -119,8 +119,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 							},
 							{
 								id : 'outgoing!validating',
-								text : 'Validation',
-								title : 'Sortant en validation',
+								text : i18n.t('view.mails.servicefilters.treestore.outgoing-validating.text'),//'Validation',
+								title : i18n.t('view.mails.servicefilters.treestore.outgoing-validating.title'),//'Sortant en validation',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['validating!processed'].iconCls,
 								leaf : true,
 								filters : {
@@ -130,8 +130,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 							},
 							{
 								id : 'outgoing!sending',
-								text : 'Envoi',
-								title : 'Sortant en envoi',
+								text : i18n.t('view.mails.servicefilters.treestore.outgoing-sending.text'),//'Envoi',
+								title : i18n.t('view.mails.servicefilters.treestore.outgoing-sending.title'),//'Sortant en envoi',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['sending'].iconCls,
 								leaf : true,
 								filters : {
@@ -141,8 +141,8 @@ Ext.define('Yamma.view.mails.ServiceFiltersCombo', {
 							},
 							{
 								id : 'outgoing!processed',
-								text : 'Traité',
-								title : 'Sortant traité',
+								text : i18n.t('view.mails.servicefilters.treestore.outgoing-processed.text'),//'Traité',
+								title : i18n.t('view.mails.servicefilters.treestore.outgoing-processed.title'),//'Sortant traité',
 								iconCls : Yamma.Constants.DOCUMENT_STATE_DEFINITIONS['processed'].iconCls,
 								leaf : true,
 								filters : {

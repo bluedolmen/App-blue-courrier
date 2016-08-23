@@ -12,16 +12,16 @@ Ext.define('Yamma.view.windows.UploadFormWindow', {
 	layout : 'fit',
 	
 	uploadFormConfig : {
-		title : 'Téléverser un fichier',
-		emptyTextLabel : 'Choisissez un fichier',
-		waitingMessage : "En cours d'envoi...",
+		title : i18n.t('view.window.uploadformwindow.config.title'),//'Téléverser un fichier',
+		emptyTextLabel : i18n.t('view.window.uploadformwindow.config.empty'),//'Choisissez un fichier',
+		waitingMessage : i18n.t('view.window.uploadformwindow.config.waiting'),//"En cours d'envoi...",
 		showSubmitButton : true,
-		submitButtonLabel : 'Envoyer',
+		submitButtonLabel : i18n.t('view.window.uploadformwindow.config.submit'),//'Envoyer',
 		showResetButton : false,
 		showCancelButton : true,
-		cancelButtonLabel : 'Annuler',
-		fileFieldLabel : 'Fichier',
-		nameFieldLabel : 'Nom'
+		cancelButtonLabel : i18n.t('view.window.uploadformwindow.config.cancel'),//'Annuler',
+		fileFieldLabel : i18n.t('view.window.uploadformwindow.config.filefield'),//'Fichier',
+		nameFieldLabel : i18n.t('view.window.uploadformwindow.config.namefield'),//'Nom'
 	},
 	
 	constructor : function(config) {
@@ -75,7 +75,7 @@ Ext.define('Yamma.view.windows.UploadFormWindow', {
 				;
 					
 				Ext.MessageBox.show({
-					title : "Échec de l'envoi du fichier",
+					title : i18n.t('view.window.uploadformwindow.errors.failed'),//"Échec de l'envoi du fichier",
 					msg : htmlMessage,
 					icon : Ext.MessageBox.ERROR,
 					buttons: Ext.MessageBox.OK

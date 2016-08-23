@@ -3,8 +3,8 @@ Ext.define('Yamma.utils.grid.MailsViewGrouping', {
 	extend : 'Ext.grid.feature.Grouping',
 	alias : 'feature.mailsviewgrouping',
 	
-	groupByText : 'Grouper par',
-	showGroupsText :' Montrer en groupe',
+	groupByText : i18n.t('utils.grid.mailview.groupByText'),
+	showGroupsText : i18n.t('utils.grid.mailview.showGroupsText'),
 	
 	collapsible : false, // Circumvent a bug
 	

@@ -74,7 +74,7 @@ Ext.define('Yamma.admin.modules.init.InitAdminPanel',{
 			if (!Ext.isFunction(action.install)) return;
 			
 			if (!Ext.isFunction(action.getState)) {
-				Ext.Error.raise('Illegal action declaration');
+				Ext.Error.raise(i18n.t('admin.modules.init.panel.admin.error.create-action'));
 			}
 				
 			actions.push([
@@ -151,27 +151,27 @@ Ext.define('Yamma.admin.modules.init.InitAdminPanel',{
 	STATE_ICON_MAPPING : {
 		'state-busy' : {
 			icon : 'bullet_busy.gif',
-			tooltip : 'En cours'
+			tooltip : i18n.t('admin.modules.init.panel.admin.columns.state-busy')
 		},
 		'state-undetermined' : {
 			icon : 'bullet_black',
-			tooltip : 'Indéterminé'
+			tooltip : i18n.t('admin.modules.init.panel.admin.columns.state-undetermined')
 		},
 		'state-full' : {
 			icon : 'bullet_green',
-			tooltip : 'Complet'
+			tooltip : i18n.t('admin.modules.init.panel.admin.columns.state-full')
 		},
 		'state-partial' : {
 			icon : 'bullet_orange',
-			tooltip : 'Partiel'
+			tooltip : i18n.t('admin.modules.init.panel.admin.columns.state-partial')
 		},
 		'state-modified' : {
 			icon : 'bullet_orange',
-			tooltip : 'Modifié'
+			tooltip : i18n.t('admin.modules.init.panel.admin.columns.state-modified')
 		},
 		'state-no' : {
 			icon : 'bullet_red',
-			tooltip : 'Non installé'
+			tooltip : i18n.t('admin.modules.init.panel.admin.columns.state-no')
 		}
 	},
 	
@@ -183,7 +183,7 @@ Ext.define('Yamma.admin.modules.init.InitAdminPanel',{
 			xtype : 'actioncolumn',
 			dataIndex : 'state',
 			width : 25,
-			text : 'Etat',
+			text : i18n.t('admin.modules.init.panel.admin.columns.state'),
 			
 			items : [
 				{
@@ -243,14 +243,14 @@ Ext.define('Yamma.admin.modules.init.InitAdminPanel',{
 		}
 		
 		return ({ 
-			text : 'Action',
+			text : i18n.t('admin.modules.init.panel.admin.columns.action.text'),
 			xtype : 'actioncolumn',
 			dataIndex : 'state',
 			width : 65,
 			items: [
 				{
 					icon: Yamma.Constants.getIconDefinition('add').icon,
-					tooltip: 'Installer',
+					tooltip: i18n.t('admin.modules.init.panel.admin.columns.action.items.install'),
 					handler: function(view, row, col, item, e, record, row) {
 						
 						var
@@ -273,7 +273,7 @@ Ext.define('Yamma.admin.modules.init.InitAdminPanel',{
 				},
 				{
 					icon: Yamma.Constants.getIconDefinition('delete').icon,
-					tooltip: 'Désinstaller',
+					tooltip: i18n.t('admin.modules.init.panel.admin.columns.action.items.uninstall'),
 					handler: function(view, row, col, item, e, record, row) {
 						
 						var
