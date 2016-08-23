@@ -384,7 +384,7 @@
     "services": {
       "title": "Services",
       "storeconfig": {
-        "rootLabel": "Tous les services"
+        "rootLabel": "<b>Tous les services</b>"
       },
       "actions": {
         "close": {

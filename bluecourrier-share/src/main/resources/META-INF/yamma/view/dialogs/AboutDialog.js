@@ -21,7 +21,7 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 		
 	},
 	
-	title : i18n.t('view.comments.dialog.aboutdialog.title'),
+	title : i18n.t('view.dialog.aboutdialog.title'),
 	minHeight : 300,
 	width : 450,
 	modal : true,
@@ -60,14 +60,14 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 	            '->',
 	            {
 	            	xtype : 'button',
-	            	text : i18n.t('view.comments.dialog.aboutdialog.dockedItem.button.license'),
+	            	text : i18n.t('view.dialog.aboutdialog.dockedItem.button.license'),
 	            	iconCls : Yamma.Constants.getIconDefinition('rosette').iconCls,
 	            	menu : {
 //	            		floating : false,
 	            		plain : true,
 	            		items : [
 	            		    {
-	            		    	text : i18n.t('view.comments.dialog.aboutdialog.dockedItem.button.menu.update'),
+	            		    	text : i18n.t('view.dialog.aboutdialog.dockedItem.button.menu.update'),
 	            		    	iconCls : Yamma.Constants.getIconDefinition('page_white_go').iconCls,
 	            		    	handler : uploadLicenseFile
 	            		    }
@@ -88,7 +88,7 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 			
 			Ext.create('Yamma.view.windows.UploadFormWindow', {
 				
-				title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.title'),
+				title : i18n.t('view.dialog.aboutdialog.uploadwindow.title'),
 				
 				formConfig : {
 					uploadUrl : url + '?format=html', // force html response format due to ExtJS form submission restriction
@@ -103,9 +103,9 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 					
 					Ext.MessageBox.show({
 						
-						title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.updated.title'),
+						title : i18n.t('view.dialog.aboutdialog.uploadwindow.updated.title'),
 						icon : Ext.MessageBox.INFO,
-						msg: i18n.t('view.comments.dialog.aboutdialog.uploadwindow.updated.msg'),
+						msg: i18n.t('view.dialog.aboutdialog.uploadwindow.updated.msg'),
 						width:300,
 						buttons: Ext.MessageBox.OKCANCEL,
 						fn : function(button) {
@@ -122,8 +122,8 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 				onFailure : function(form, action) {
 					
 					Ext.MessageBox.show({
-						title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.failed.title'),
-						msg : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.failed.msg'),
+						title : i18n.t('view.dialog.aboutdialog.uploadwindow.failed.title'),
+						msg : i18n.t('view.dialog.aboutdialog.uploadwindow.failed.msg'),
 						icon : Ext.MessageBox.ERROR,
 						buttons: Ext.MessageBox.OK
 					});
@@ -248,9 +248,9 @@ Ext.define('Yamma.view.dialogs.AboutDialog', {
 			
 //			Yamma.view.dialogs.AboutDialog.getInstance().close();
 			Ext.MessageBox.show({
-				title : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.expired.title'),
+				title : i18n.t('view.dialog.aboutdialog.uploadwindow.expired.title'),
 				icon : Ext.MessageBox.INFO,
-				msg : i18n.t('view.comments.dialog.aboutdialog.uploadwindow.expired.msg'),
+				msg : i18n.t('view.dialog.aboutdialog.uploadwindow.expired.msg'),
 				modal : true,
 				toFrontOnShow : true
 			}, function() {

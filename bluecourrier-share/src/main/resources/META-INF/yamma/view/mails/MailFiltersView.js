@@ -57,7 +57,7 @@ Ext.define('Yamma.view.mails.MailFiltersView', {
 				}),
 				
 				storeConfig : {
-					rootLabel : '<b>'+ i18n.t('view.services.storeconfig.rootLabel') +'</b>',
+					rootLabel : i18n.t('view.services.storeconfig.rootLabel'),//"<b>Tous les services</b>",
 					showMembership : true,
 					computeAvailableAncestors : true,
 					disabledConvertFunction : function(value, record) {

@@ -44,7 +44,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'datalists-management',
-			text : i18n.t('view.header.userbutton.items.datalist-management'),
+			text : i18n.t('view.header.userbutton.items.datalist-management.title'),
 			iconCls : Yamma.Constants.getIconDefinition('text_list_bullets').iconCls,
 			listeners : {
 				click : this.onDataListsMenuItemClicked
@@ -69,7 +69,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'global-statistics',
-			text : i18n.t('view.header.userbutton.items.global-statistics'),
+			text : i18n.t('view.header.userbutton.items.global-statistics.title'),
 			iconCls : Yamma.Constants.getIconDefinition('chart_curve').iconCls,
 			listeners : {
 				click : this.onStatisticsMenuItemClicked
@@ -89,7 +89,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'label-generator',
-			text : i18n.t('view.header.userbutton.items.label-generator'),
+			text : i18n.t('view.header.userbutton.items.label-generator.title'),
 			iconCls : Yamma.Constants.getIconDefinition('stock_id').iconCls,
 			listeners : {
 				click : this.onCodeBarGeneratorMenuItemClicked
@@ -127,7 +127,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'signature-management',
-			text : i18n.t('view.header.userbutton.items.signature-management'),
+			text : i18n.t('view.header.userbutton.items.signature-management.title'),
 			iconCls : Yamma.Constants.getIconDefinition('text_signature').iconCls,
 			listeners : {
 				click : this.onSignatureManagementMenuItemClicked
@@ -147,7 +147,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 				itemId : 'bluecourrier-administration',
-				text : i18n.t('view.header.userbutton.items.bluecourrier-administration'),
+				text : i18n.t('view.header.userbutton.items.bluecourrier-administration.title'),
 				iconCls : Yamma.Constants.getIconDefinition('tools').iconCls,
 				listeners : {
 					
@@ -164,7 +164,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 				itemId : 'about-application',
-				text : i18n.t('view.header.userbutton.items.about-application'),
+				text : i18n.t('view.header.userbutton.items.about-application.title'),
 				iconCls : Yamma.Constants.getIconDefinition('information').iconCls,
 				listeners : {
 					
