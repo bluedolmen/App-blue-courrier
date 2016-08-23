@@ -379,16 +379,16 @@
         "errors" :{
           "noderef": "IllegalArgumentException! The provided document nodeRef is not valid"
         }
-      }
-    },
-    "services": {
-      "title": "Services",
-      "storeconfig": {
-        "rootLabel": "<b>Tous les services</b>"
       },
-      "actions": {
-        "close": {
-          "text": "Sélectionner tous les sous-services"
+      "mailfiltersview": {
+        "title": "Services",
+        "storeconfig": {
+          "rootLabel": "<b>Tous les services</b>"
+        },
+        "actions": {
+          "close": {
+            "text": "Sélectionner tous les sous-services"
+          }
         }
       }
     },

@@ -44,7 +44,7 @@ Ext.define('Yamma.view.mails.MailFiltersView', {
 		
 		this.items = [
 		    {
-		    	title : i18n.t('view.services.title'),
+		    	title : i18n.t('view.mails.mailfiltersview.title'),
 		    	itemId : 'servicefilter',
 		    	xtype : 'servicesview',
 		    	header : false,
@@ -57,7 +57,7 @@ Ext.define('Yamma.view.mails.MailFiltersView', {
 				}),
 				
 				storeConfig : {
-					rootLabel : i18n.t('view.services.storeconfig.rootLabel'),//"<b>Tous les services</b>",
+					rootLabel : i18n.t('view.mails.mailfiltersview.storeconfig.rootLabel'),//"<b>Tous les services</b>",
 					showMembership : true,
 					computeAvailableAncestors : true,
 					disabledConvertFunction : function(value, record) {
@@ -171,7 +171,7 @@ Ext.define('Yamma.view.mails.MailFiltersView', {
 			    renderTo: Ext.getBody(),
 			    items : [
 					{
-						text : i18n.t('view.services.actions.close.text'),
+						text : i18n.t('view.mails.mailfiltersview.actions.close.text'),
 						iconCls : Yamma.Constants.getIconDefinition('group_mail').iconCls,
 						handler : selectAllDescendants
 					}
