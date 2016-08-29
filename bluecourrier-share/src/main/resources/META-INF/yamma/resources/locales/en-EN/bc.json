@@ -308,74 +308,74 @@
             "text" : "Incoming"
           },
           "incoming-delivering" : {
-            "text" : "Distribution",
-            "title" : "Entrant en distribution"
+            "text" : "Delivering",
+            "title" : "Incoming mails in delivery"
           },
           "incoming-processing": {
-            "text" : "Traitement",
-            "title": "Entrant en traitement"
+            "text" : "Processing",
+            "title": "Incoming mails in process"
           },
           "incoming-processed": {
-            "text": "Traité",
-            "title" : "Entrant traité"
+            "text": "Processed",
+            "title" : "Incoming mails processed"
           },
           "outgoing" : {
-            "text" : "Sortant"
+            "text" : "Outgoing"
           },
           "outgoing-processing": {
-            "text": "Elaboration",
-            "title": "Sortant en élaboration"
+            "text": "Processing",
+            "title": "Outgoing mails in process"
           },
           "outgoing-validating" :{
             "text": "Validation",
-            "title" : "Sortant en validation"
+            "title" : "Outgoing mails in validation"
           },
           "outgoing-sending": {
-            "text" : "Envoi",
-            "title": "Sortant en envoi"
+            "text" : "Sending",
+            "title": "Outgoing mails for mailing"
           },
           "outgoing-processed": {
-            "text" : "Traité",
-            "title" : "Sortant traité"
+            "text" : "Processed",
+            "title" : "Outgoing mails processed"
           }
         }
       },
       "servicecombo": {
-        "fieldLabel": "Servicce"
+        "fieldLabel": "Service"
       },
       "sortersmenu": {
-        "defaultLabel": "Trier par",
-        "none" : "Aucun"
+        "defaultLabel": "Sort by",
+        "none" : "None"
       },
       "taskview": {
         "buttons": {
-          "show-charts": "Visualiser les rapports graphiques",
-          "include-followed": "Inclure les courriers suivis",
-          "reload": "Recharger"
+          "show-charts": "Display the charts",
+          "include-followed": "Add the followed mails",
+          "reload": "Reload"
         },
         "filter": {
-          "followed": "Courriers suivis"
+          "followed": "followed mails"
         },
         "sorter": {
-          "cancel" :"Aucun",
-          "reference" : "Référence",
-          "name" : "Nom",
-          "object": "Objet",
-          "sender": "Expéditeur (organisation)",
-          "enclosingservice": "Service (traitement)",
-          "writing": "Rédaction",
-          "sent" : "Envoi",
-          "delivery": "Réception",
-          "digitized" : "Numérisation",
-          "due": "Echéance",
-          "modified" : "Modification"
+          "cancel" :"None",
+          "reference" : "Reference",
+          "name" : "Name",
+          "object": "Object",
+          "sender": "Sende (organisation)",
+          "enclosingservice": "Service (treatment)",
+          "writing": "Writing",
+          "sent" : "Sent",
+          "delivery": "Delivery",
+          "digitized" : "Digitized",
+          "due": "Due date",
+          "modified" : "Modified"
         },
         "window": {
-          "title": "Rapports graphiques"
+          "title": "Charts"
         }
       },
       "threadedview" :{
-        "title" :"Fil de discussion",
+        "title" :"Discussion thread",
         "errors" :{
           "noderef": "IllegalArgumentException! The provided document nodeRef is not valid"
         }
@@ -703,81 +703,81 @@
             }
           },
           "assignmentdialog" : {
-              "title" : "Assigner",
+              "title" : "Assign",
               "columns": {
-                "displayName": "Nom",
+                "displayName": "Name",
               },
               "dockedItems" :{
                 "buttons": {
-                  "assign-button" : "Assigner",
-                  "cancel-button" : "Annuler"
+                  "assign-button" : "Assign",
+                  "cancel-button" : "Cancel"
                 }
               }
           },
           "circulatedialog": {
-            "title" : "Diffuser à",
+            "title" : "Diffuse to",
             "kindcolumn": {
-              "user": "Utilisateur",
-              "group": "Groupe",
+              "user": "User",
+              "group": "Group",
               "service": "Service"
             },
             "sharesGrid" : {
-              "title": "Diffuser",
-              "no-type": "Pas de type",
+              "title": "Diffus",
+              "no-type": "No-type",
               "columns": {
                 "kind" : "Kind",
-                "name" : "Nom",
+                "name" : "Name",
                 "actions": {
                   "text": "Actions",
                   "items": {
-                    "remove": "Enlever"
+                    "remove": "Remove"
                   }
                 }
               }
             }
           },
           "forwarddialog": {
-            "title": "Transmettre",
+            "title": "Forward",
             "items" : {
-              "approbe-check" : "Apposer un visa d'approbation",
-              "keep-sending-checkbox": "Affecter l'envoi à mon service"
+              "approbe-check" : "Add a stamp of approval",
+              "keep-sending-checkbox": "Affect to my service"
             },
             "dockedItems" : {
-              "forward-button": "Transmettre",
-              "cancel-button": "Annuler"
+              "forward-button": "Forward",
+              "cancel-button": "Cancel"
             }
           },
           "initoutgoingvalidation": {
-            "title" : "Lancer la validation",
+            "title" : "Initiate the validation",
             "buttons" :{
-              "launch-button" : "Lancer",
-              "cancel-button" : "Annuler"
+              "launch-button" : "Initiate",
+              "cancel-button" : "Cancel"
             }
           },
           "maindeliverydialog" : {
             "roles": {
-              "procg" : "Service de traitement destination",
-              "procg-from":  "Service de traitement actuel",
-              "procg-to": "Service de traitement destination",
-              "col": "Service en collaboration",
-              "col-from" : "Service en collaboration actuel",
-              "col-to" : "Service en collaboration destination",
-              "inf": "Service en information",
-              "inf-from" : "Service en information actuel",
-              "inf-to" :"Service en information destination",
-              "none": "Service non affecté"
+              "procg" : "Recipient treatment service",
+              "procg-from":  "Actual treatment service",
+              "procg-to": "Recipient treatment service",
+              "col": "Service in collaboration",
+              "col-from" : "Actual service in collaboration",
+              "col-to" : "Recipient service in collaboration",
+              "inf": "Service in information",
+              "inf-from" : "Actual service in information",
+              "inf-to" :"Recipient service in information",
+              "none": "Service unaffected"
             },
             "status":  {
-              "pending":  "Enregistrer mais non appliqué",
-              "edited": "Edité mais non enregistré",
-              "ongoing": "En cours",
-              "done": "Terminé",
-              "procg-done": "Service de traitement destination traité",
-              "col-done": "Service en collaboration traité",
-              "inf-done": "Service en information traité",
+              "pending":  "Save but not applied",
+              "edited": "Edit but not saved",
+              "ongoing": "Ongoing",
+              "done": "Done",
+              "procg-done": "Task done in the recipient treatment service",
+              "col-done": "Task done in the service in collaboration",
+              "inf-done": "Task done in the service in information",
               "none"
             },
-            "title": "Distribuer",
+            "title": "Deliver",
             "servicesview": {
               "title": "Services",
               "columns": {
@@ -788,46 +788,46 @@
               "fieldLabel": "Circuit"
             },
             "processKindCombo": {
-              "fieldLabel": "Type de traitement"
+              "fieldLabel": "Type of treatment"
             },
             "buttons": {
-              "save-button": "Enregistrer",
-              "cancel-button": "Annuler"
+              "save-button": "Save",
+              "cancel-button": "Cancel"
             },
             "errors": {
               "role-order": "Cannot find a valid role-order for the provided role "
             }
           },
           "outgoingsigningdialog" :{
-            "title": "Validation électronique",
+            "title": "Electronic validation",
             "actorsgrid": {
               "columns": {
                 "title": {
-                  "text": "Nom"
+                  "text": "Name"
                 },
                 "action": {
                   "text": "Actions",
                   "items": {
-                    "up": "Monter",
-                    "down": "Descendre",
-                    "remove": "Enlever"
+                    "up": "Up",
+                    "down": "Down",
+                    "remove": "Delete"
                   }
                 }
               },
               "personCombo" : {
-                "loadingText": "Recherche...",
+                "loadingText": "Serch...",
                 "empty": "Aucun utilisateur trouvé"
               },
               "forms": {
-                "validation-actors" : "Acteurs de la validation",
-                "signature-form": "Signature électronique"
+                "validation-actors" : "Validation actors",
+                "signature-form": "Electronic signature"
               }
             },
             "dockedItems": {
               "buttons": {
-                "accept-button" : "Accepter",
-                "reject-button" : "Refuser",
-                "cancel-button": "Annuler"
+                "accept-button" : "Accept",
+                "reject-button" : "Deny",
+                "cancel-button": "Cancel"
               }
             }
           },
@@ -836,75 +836,75 @@
             "actorsgrid": {
               "columns": {
                 "title": {
-                  "text": "Nom"
+                  "text": "Name"
                 },
                 "action": {
                   "text": "Actions",
                   "items": {
-                    "up": "Monter",
-                    "down": "Descendre",
-                    "remove": "Enlever"
+                    "up": "Up",
+                    "down": "Down",
+                    "remove": "Delete"
                   }
                 }
               }
           },
             "personCombo" : {
-              "loading": "Recherche...",
-              "empty": "Aucun utilisateur trouvé"
+              "loading": "Search...",
+              "empty": "No user found"
             },
             "propertiesForm" : {
-              "certify-checkbox": "Certifier",
+              "certify-checkbox": "Certify",
               "signer-combo": {
-                "loading" :"Recherche...",
-                "empty": "Aucun utilisateur trouvé."
+                "loading" :"Search...",
+                "empty": "No user found."
               },
-              "tome": "A moi"
+              "tome": "For me"
             },
-            "validation-actors": "Acteur de la validation",
+            "validation-actors": "Validation actors",
             "dockedItem": {
               "buttons": {
-                "accept-button": "Accepter",
-                "reject-button": "Refuser",
-                "cancel-button": "Annuler"
+                "accept-button": "Accept",
+                "reject-button": "Deny",
+                "cancel-button": "Cancel"
               }
             }
           },
           "digitalsigning" : {
             "generateform": {
-              "title": "Génération d'un certificat auto-signé",
-              "waitingMessage": "Génération en cours...",
-              "errorMessage":  "<strong>Echec de la génération du certificat auto-signé.</strong><br/><bt/>",
-              "submit" : "Générer",
+              "title": "Generate a self-signed certificate",
+              "waitingMessage": "Ongoing generation...",
+              "errorMessage":  "<strong>Cannot generate the self-signed certificate.</strong><br/><bt/>",
+              "submit" : "Generate",
               "fields" : {
-                "password" : "Mot de passe",
-                "duration": "Durée (jours)",
+                "password" : "Password",
+                "duration": "Duration (jours)",
                 "alias": "Alias"
               }
             },
             "selectsignaturezonewindow": {
-              "title" : "Sélectionner une zone de signature",
+              "title" : "Select a signature area",
               "errors": {
                 "node-init": "The nodeRef is not correctly initialized"
               },
               "buttons": {
                 "select-button" : {
-                  "text": "Sélectionner",
-                  "tooltip" :"Sélectionner la zone actuelle comme zone de signature"
+                  "text": "Select",
+                  "tooltip" :"Select the actuel area as signature area"
                 },
                 "cancel-button" : {
-                  "title" : "Annuler"
+                  "title" : "Cancel"
                 }
               }
             }
             "signaturedisplaybox": {
-              "missingMessage": "<strong>Pas encore de signature</strong>",
+              "missingMessage": "<strong>No signature yet</strong>",
 
             },
             "signaturemanagementwindow" : {
-              "title" : "Gestion de la signature électronique",
+              "title" : "Electronic signature management",
               "items":{
                 "signature-box": {
-                  "missingmessage": "<strong>Pas encore de signature.</strong><br/> Vous pouvez ajouter, ou générer une signature électronique. L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition.<br/><br/> <em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
+                  "missingmessage": "<strong>No signature yet.</strong><br/> You can add, or generate an electronic signature. The image associate with the signature can be add and modify with the editing action.<br/><br/> <em>Note: The sigature generation only create a self-signed certificate witout any legal validity!</em>"
                 }
               },
               "dockedItems": {
@@ -913,29 +913,29 @@
                     "text" :"Menu",
                     "items" :{
                       "generate-button" : {
-                        "text": "Générer",
-                        "tooltip": "Générer un certificat auto-signé"
+                        "text": "Generate",
+                        "tooltip": "Generate a self-signed certificate"
                       },
                       "add-button" : {
-                        "text": "Ajouter",
-                        "tooltip": "Ajouter un certificat pour la signature électronique",
+                        "text": "Add",
+                        "tooltip": "Add a certificate for your electronic signature",
                       },
                       "remove-button": {
-                        "text": "Supprimer",
-                        "tooltip" : "Supprimer la signature actuelle"
+                        "text": "Delete",
+                        "tooltip" : "Delete the current signature"
                       },
                       "editImage-button" :{
-                        "text" : "Modifier l'image",
-                        "tooltip" : "Editer l'image de signature"
+                        "text" : "Edit the image",
+                        "tooltip" : "Edit the signature image"
                       }
                     }
                   }
                 }
               },
               "uploadformwindow" :{
-                "title" : "Ajout/Modification d'une image",
-                "errorTitle": "Echec",
-                "errorMessage": "<strong>Echec de la sauvegardede l'image",
+                "title" : "Add/Modify an image",
+                "errorTitle": "Failure",
+                "errorMessage": "<strong>Failure to save the image",
                 "fields" :{
                   "image": "Image"
                 }
@@ -945,37 +945,37 @@
               "title": "Signatures",
               "dockedItems": {
                 "items": {
-                  "addAttachment": "Ajouter un attachement"
+                  "addAttachment": "Add an attachement"
                 }
               },
               "column": {
-                "actioncolumn": "Type de document",
-                "name": "Nom",
-                "humanReadableSize": "Taille"
+                "actioncolumn": "Type of document",
+                "name": "Name",
+                "humanReadableSize": "Size"
               }
             },
             "signdocumentpanel" : {
-              "title" : "Certification du document",
+              "title" : "Document certification",
               "items" :{
                 "information": "Informations",
-                "informationmissing": "<strong>Pas encore de signature.</strong><br/> Merci d'en ajouter une en utilisant le panneau de gestion de la signature électronique",
-                "password" : "Mot de passe",
-                "location" : "Localisation",
-                "reason": "Raison",
-                "position" : "Positionnement",
-                "location_not-visible" : "Non visible",
-                "location_field": "Champ",
-                "field-name": "Nom du champ",
+                "informationmissing": "<strong>No signature yet.</strong><br/> Thank you for adding a signature using the electronic signature pannel desk",
+                "password" : "Password",
+                "location" : "Location",
+                "reason": "Reason",
+                "position" : "Position",
+                "location_not-visible" : "Not visible",
+                "location_field": "Field",
+                "field-name": "Field name",
                 "location_page" : "Page",
                 "pageNumber": "Num.",
                 "positionmm" : "Position (mm)",
-                "size" : "Taille (mm)",
-                "select" : "Sélectionner"
+                "size" : "Size (mm)",
+                "select" : "Select"
               },
               "buttons": {
                 "sign": {
-                  "text": "Signer",
-                  "tooltip" :"Apposer sa signature pour certifier le document"
+                  "text": "Sign",
+                  "tooltip" :"Sign to certify the document"
                 }
               }
             },
