@@ -980,23 +980,23 @@
               }
             },
             "signdocumentwindow" : {
-              "title": "Certification du document"
+              "title": "Document certification"
             },
             "uploadformwindow": {
               "title" : "&nbsp;",
-              "emptyTextLabel" :"Choissisez un fichier",
-              "waiting" :"Téléversement en cours...",
-              "errorTitle": "Echec",
-              "errorMessage": "<strong>Echec de la sauvegarde</strong><br/><br/>",
-              "submit": "Sauver",
-              "cancel": "Annuler",
+              "emptyTextLabel" :"Select a file",
+              "waiting" :"Ongoing upload...",
+              "errorTitle": "Failure",
+              "errorMessage": "<strong>The backup has failed</strong><br/><br/>",
+              "submit": "Save",
+              "cancel": "Cancel",
               "errors" : {
                 "undefined-url": "IllegalStateException! The uploadUrl has not been defined"
               }
             },
             "uploadsignature" : {
-              "title" : "Ajout/Modification d'une signature",
-              "error" : "Echec",
+              "title" : "Add/Modify a signature",
+              "error" : "Failure",
               "errormessage": {
                 "1" : "Echec de la sauvegarde la signature.",
                 "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
