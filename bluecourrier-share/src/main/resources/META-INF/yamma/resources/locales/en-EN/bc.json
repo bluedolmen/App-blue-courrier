@@ -816,7 +816,7 @@
               },
               "personCombo" : {
                 "loadingText": "Serch...",
-                "empty": "Aucun utilisateur trouvé"
+                "empty": "No user found"
               },
               "forms": {
                 "validation-actors" : "Validation actors",
@@ -877,7 +877,7 @@
               "submit" : "Generate",
               "fields" : {
                 "password" : "Password",
-                "duration": "Duration (jours)",
+                "duration": "Duration (days)",
                 "alias": "Alias"
               }
             },
@@ -998,20 +998,20 @@
               "title" : "Add/Modify a signature",
               "error" : "Failure",
               "errormessage": {
-                "1" : "Echec de la sauvegarde la signature.",
-                "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
-                "3" : "Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.",
-                "4" : "Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps."
+                "1: "The signature backup has failed.",
+                "2": "Please check your security key (size, format, coherence between the format and the declaration).",
+                "3": "The password is mandatory and protect your secret key, who must stay private.",
+                "4": "The image is not mandatory, you can add one after."
               },
-              "keyLabel": "Certificat",
+              "keyLabel": "Certificate",
               "imageLabel" :"image",
-              "passwordLabel" : "Mot de passe",
+              "passwordLabel" : "Password",
               "keyTypeLabel": "Type"
             },
             "uploadsigningimagewindow" : {
-              "title": "Ajout/Modification d'une image",
-              "errorTitle": "Echec",
-              "errorMessage" : "Echec de la sauvegarde de l'image.",
+              "title": "Add/Modify an image",
+              "errorTitle": "Failure",
+              "errorMessage" : "The image backup has failed.",
               "imageLabel" : "Image"
             }
           }
@@ -1019,32 +1019,32 @@
 	},
 	"widget": {
 		"searchpanel" : {
-			"title" : "Rechercher",
+			"title" : "Search",
 			"items" : {
 				"filter": {
 					"label" : "Services (filtre)"
 				},
 				"mail" : {
-					"label" : "Courriers"
+					"label" : "Mails"
 				}
 			}
 		},
         "mailsview" : {
         "button" : {
-          "filter-button": "Filtrer"
+          "filter-button": "Filter"
         },
         "toolbar": {
           "button": {
             "reload": {
-              "tooltip" : "Recharger"
+              "tooltip" : "Reload"
             }
           }
         },
         "filters": {
-          "modified-recently-filter": "Modifiés récemment (7j)",
-          "duedate-filter": "Echéance",
-          "duedate-lessthan7days": "Moins de 7 jours",
-          "duedate-lessthan3days": "Moins de 3 jours"
+          "modified-recently-filter": "Recently modify (7d)",
+          "duedate-filter": "Due date",
+          "duedate-lessthan7days": "Less than 7 days",
+          "duedate-lessthan3days": "Less than 3 days"
         }
       },
         "mailfiltersview": {
@@ -1054,40 +1054,40 @@
             "title": "Attachements",
             "toolbar": {
                 "buttons": {
-                  "addAttachment-button" : "Ajouter un attachement"
+                  "addAttachment-button" : "Add an attachement"
                 }
             },
           "column" :{
-            "actioncolumn" : "Type de document",
-            "namecolumn": "Nom du fichier",
-            "sizecolumn": "Taille"
+            "actioncolumn" : "Document type",
+            "namecolumn": "File name",
+            "sizecolumn": "Size"
           },
           "actions": {
             "delete-action": {
-              "tooltip": "Supprimer l'attachement",
+              "tooltip": "Delete the attachement",
               "dialog": {
                 "confirmation": {
-                  "title": "Supprimer l'attachement ?",
-                  "content": "Êtes-vous certain de vouloir supprimer l'attachement<br/><b>{0}</b>"
+                  "title": "Delete the attachement?",
+                  "content": "Are you sure you want to delete the attachement?<br/><b>{0}</b>"
                 }
               }
             }
           }
         },
         "displayview": {
-            "title": "Prévisualisation des fichiers"
+            "title": "Files preview"
         },
         "documentsview": {
-          "title" : "Liste des contenus",
+          "title" : "List of content",
           "template" :{
             "description": {
               "created" : {
-                "text": "Créé le ",
-                "by" : "par "
+                "text": "Create the ",
+                "by" : "by "
               },
               "modified" : {
-                "text" : "Modifié le ",
-                "by" : "par "
+                "text" : "Modify the ",
+                "by" : "by "
               }
             }
           },
@@ -1096,59 +1096,59 @@
               "text": "Description"
             },
             "thumbnail": {
-              "text": "Miniature"
+              "text": "Thumbnail"
             },
             "mimetype": {
-              "tooltip" : "Type de document"
+              "tooltip" : "Document type"
             }
           },
           "action": {
             "type": {
-              "title": "répertoire"
+              "title": "repertoire"
             }
           }
         },
         "explorer": {
           "items": {
             "documentsview":{
-              "title": "Liste des contenus"
+              "title": "List of content"
             }
           }
         },
         "collectionmanager" : {
           "state" : {
             "update" : {
-              "none" : "Aucun"
+              "none" : "None"
             }
           }
         },
         "quicksearch": {
           "config": {
-            "loading": "Recherche...",
-            "empty": "Aucun document trouvé."
+            "loading": "Search...",
+            "empty": "No document found."
           }
         },
         "navigator": {
-          "title": "Navigateur"
+          "title": "Navigator"
         },
         "selectfilewindow": {
-          "title" : "Sélectionner un fichier",
+          "title" : "Select a file",
           "buttons": {
-            "okButton": "Ok",
-            "cancelButton": "Annuler"
+            "okButton": "OK",
+            "cancelButton": "Cancel"
           },
           "view": {
-            "documentsview": "Liste des contenus"
+            "documentsview": "List of content"
           }
         },
         "directoryadminwindow" : {
-            "title" : "Administration des Contacts",
+            "title" : "Contacts administration",
             "columns": {
               "namecolumn": {
-                  "text": "Nom"
+                  "text": "Name"
               },
               "actioncolumn": {
-                "tooltip" : "Ajouter comme service"
+                "tooltip" : "Add as a service"
               }
             }
         }
@@ -1157,58 +1157,58 @@
       "header": {
         "quicksearch": {
           "context": {
-            "description": "Termes "
+            "description": "Terms "
 =======
 >>>>>>> branch 'master' of ssh://git@git.bluexml.com/ycoulon/bluecourrier.git
           }
         }
       },
       "commentswindow": {
-        "title": "Commentaires"
+        "title": "Comments"
       },
       "deletecommentaction": {
         "definition": {
-          "tooltip": "Supprimer le commentaire"
+          "tooltip": "Delete the comment"
         },
         "dialog": {
           "confirm": {
-            "title": "Supprimer le commentaire ?",
-            "message": "êtes-vous certain de vouloir supprimer le commentaire ?"
+            "title": "Delete the comment?",
+            "message": "Are you sure you want to delete this comment?"
           }
         }
       },
       "editcommentaction": {
         "definition": {
-          "tooltip": "Éditer le commentaire"
+          "tooltip": "Edit the comment"
         },
         "dialog": {
           "add": {
-            "title": "Ajouter un commentaire"
+            "title": "Add a comment"
           }
         }
       },
       "promptdialog": {
-        "title": "Ajouter un commentaire",
+        "title": "Add a comment",
         "errors": {
           "invalidnoderef": "This windows has to be initialized with a valid nodeRef"
         },
         "personCombo": {
           "listconfig": {
-            "loadingtext": "Recherche...",
-            "emptyText": "Aucun utilisateur trouvé."
+            "loadingtext": "Search...",
+            "emptyText": "No user found."
           }
         },
         "actorsgrid": {
-          "title": "Acteurs",
+          "title": "Actors",
           "columns": {
             "title": {
-              "text": "Nom"
+              "text": "Name"
             },
             "actioncolumn": {
               "text": "Actions",
               "items": {
                 "remove": {
-                  "tooltip": "Elever"
+                  "tooltip": "Up"
                 }
               }
             }
@@ -1216,127 +1216,127 @@
         },
         "items": {
           "htmlEditor": {
-            "title": "Rendre privé"
+            "title": "Make private"
           }
         },
         "dockedItems": {
           "items": {
             "comment-button": {
-              "text": "Commenter"
+              "text": "Comment"
             },
             "cancel-button": {
-              "text": "Annuler"
+              "text": "Cancel"
             }
           }
         }
       },
       "promptmessage": {
-        "title": "Ajouter un commentaire"
+        "title": "Add a comment"
       }
     },
     "dialog": {
       "aboutdialog": {
-        "title": "A propos",
+        "title": "About",
         "dockedItem": {
           "button": {
-            "license": "Licence",
+            "license": "License",
             "menu": {
-              "update": "Mettre à jour"
+              "update": "Update"
             }
           }
         },
         "uploadwindow": {
-          "title": "Choisissez un fichier de <b>licence</b>",
+          "title": "Select a <b>license</b> file",
           "updated": {
-            "title": "Mise à jour réussie",
-            "msg": "La mise à jour de la licence nécessite le redémarrage de l'application"
+            "title": "Successful update",
+            "msg": "The license update need a restat of the application"
           },
           "failed": {
-            "title": "Échec de la mise à jour",
-            "msg": "La licence fournie n'est peut-etre pas valide. Veuillez contacter votre administrateur et au besoin votre revendeur."
+            "title": "Failure configuring the license update",
+            "msg": "The provided license is maybe not valaible. Please contact your system administrator or your dealer."
           },
           "expired": {
-            "title": "Licence expirée",
-            "msg": "La licence est expirée. Il est nécessaire de la mettre à jour afin de bénéficier du support. La version <b>community</b> permet de bénéficier de la version complète du produit sans le support."
+            "title": "Expired license",
+            "msg": "The license is expired. You need to update her in order to benefit from the support. The <b>community</b> version allow you to used this product without technical support."
           }
         }
       },
       "assignmentdialog": {
-        "title": "Assigner",
+        "title": "Assign",
         "columns": {
-          "displayName": "Nom"
+          "displayName": "Name"
         },
         "dockedItems": {
           "buttons": {
-            "assign-button": "Assigner",
-            "cancel-button": "Annuler"
+            "assign-button": "Assign",
+            "cancel-button": "Cancel"
           }
         }
       },
       "circulatedialog": {
-        "title": "Diffuser à",
+        "title": "Diffuse to",
         "kindcolumn": {
-          "user": "Utilisateur",
-          "group": "Groupe",
+          "user": "User",
+          "group": "Group",
           "service": "Service"
         },
         "sharesGrid": {
-          "title": "Diffuser",
-          "no-type": "Pas de type",
+          "title": "Diffuse",
+          "no-type": "No-type",
           "columns": {
             "kind": "Kind",
-            "name": "Nom",
+            "name": "Name",
             "actions": {
               "text": "Actions",
               "items": {
-                "remove": "Enlever"
+                "remove": "Remove"
               }
             }
           }
         }
       },
       "forwarddialog": {
-        "title": "Transmettre",
+        "title": "Forward",
         "items": {
-          "approbe-check": "Apposer un visa d'approbation",
-          "keep-sending-checkbox": "Affecter l'envoi à mon service"
+          "approbe-check": "Add a stamp of approval",
+          "keep-sending-checkbox": "Affect to my service"
         },
         "dockedItems": {
-          "forward-button": "Transmettre",
-          "cancel-button": "Annuler"
+          "forward-button": "Forward",
+          "cancel-button": "Cancel"
         }
       },
       "initoutgoingvalidation": {
-        "title": "Lancer la validation",
+        "title": "Initiate the validation",
         "buttons": {
-          "launch-button": "Lancer",
-          "cancel-button": "Annuler"
+          "launch-button": "Initiate",
+          "cancel-button": "Cancel"
         }
       },
       "maindeliverydialog": {
         "roles": {
-          "procg": "Service de traitement destination",
-          "procg-from": "Service de traitement actuel",
-          "procg-to": "Service de traitement destination",
-          "col": "Service en collaboration",
-          "col-from": "Service en collaboration actuel",
-          "col-to": "Service en collaboration destination",
-          "inf": "Service en information",
-          "inf-from": "Service en information actuel",
-          "inf-to": "Service en information destination",
-          "none": "Service non affecté"
+          "procg": "Recipient treatment service,
+          "procg-from": "Actual treatment service",
+          "procg-to": "Recipient treatment service",
+          "col": "Service in collaboration",
+          "col-from": "Actual service in collaboration",
+          "col-to": "Recipient service in collaboration",
+          "inf": "Service in information",
+          "inf-from": "Actual service in information",
+          "inf-to": "Recipient service in information",
+          "none": "Service unaffected"
         },
         "status": {
-          "pending": "Enregistrer mais non appliqué",
-          "edited": "Edité mais non enregistré",
-          "ongoing": "En cours",
-          "done": "Terminé",
-          "procg-done": "Service de traitement destination traité",
-          "col-done": "Service en collaboration traité",
-          "inf-done": "Service en information traité",
-          "none" : "Indéterminé"
+          "pending": "Saved but not applied",
+          "edited": "Edit but not saved",
+          "ongoing": "Ongoing",
+          "done": "Done",
+          "procg-done": "Task done in the recipient treatment service",
+          "col-done": "Task done in the service in collaboration",
+          "inf-done": "Task done in the service in information",
+          "none" : "Undetermined"
         },
-        "title": "Distribuer",
+        "title": "Deliver",
         "servicesview": {
           "title": "Services",
           "columns": {
@@ -1347,46 +1347,46 @@
           "fieldLabel": "Circuit"
         },
         "processKindCombo": {
-          "fieldLabel": "Type de traitement"
+          "fieldLabel": "Type of treatment"
         },
         "buttons": {
-          "save-button": "Enregistrer",
-          "cancel-button": "Annuler"
+          "save-button": "Save",
+          "cancel-button": "Cancel"
         },
         "errors": {
           "role-order": "Cannot find a valid role-order for the provided role "
         }
       },
       "outgoingsigningdialog": {
-        "title": "Validation électronique",
+        "title": "Electronic validation",
         "actorsgrid": {
           "columns": {
             "title": {
-              "text": "Nom"
+              "text": "Name"
             },
             "action": {
               "text": "Actions",
               "items": {
-                "up": "Monter",
-                "down": "Descendre",
-                "remove": "Enlever"
+                "up": "Up",
+                "down": "Down",
+                "remove": "Delete"
               }
             }
           },
           "personCombo": {
-            "loadingText": "Recherche...",
-            "empty": "Aucun utilisateur trouvé"
+            "loadingText": "Search...",
+            "empty": "No user found"
           },
           "forms": {
-            "validation-actors": "Acteurs de la validation",
-            "signature-form": "Signature électronique"
+            "validation-actors": "Validation actors",
+            "signature-form": "Electronic signature"
           }
         },
         "dockedItems": {
           "buttons": {
-            "accept-button": "Accepter",
-            "reject-button": "Refuser",
-            "cancel-button": "Annuler"
+            "accept-button": "Accept",
+            "reject-button": "Deny",
+            "cancel-button": "Cancel"
           }
         }
       },
@@ -1395,75 +1395,75 @@
         "actorsgrid": {
           "columns": {
             "title": {
-              "text": "Nom"
+              "text": "Name"
             },
             "action": {
               "text": "Actions",
               "items": {
-                "up": "Monter",
-                "down": "Descendre",
-                "remove": "Enlever"
+                "up": "Up",
+                "down": "Down",
+                "remove": "Delete"
               }
             }
           }
         },
         "personCombo": {
-          "loading": "Recherche...",
-          "empty": "Aucun utilisateur trouvé"
+          "loading": "Search...",
+          "empty": "No user found"
         },
         "propertiesForm": {
-          "certify-checkbox": "Certifier",
+          "certify-checkbox": "Certify",
           "signer-combo": {
-            "loading": "Recherche...",
-            "empty": "Aucun utilisateur trouvé."
+            "loading": "Search...",
+            "empty": "No user found."
           },
           "tome": "A moi"
         },
-        "validation-actors": "Acteur de la validation",
+        "validation-actors": "Validation actors",
         "dockedItem": {
           "buttons": {
-            "accept-button": "Accepter",
-            "reject-button": "Refuser",
-            "cancel-button": "Annuler"
+            "accept-button": "Accept",
+            "reject-button": "Deny",
+            "cancel-button": "Cancel"
           }
         }
       }
     },
     "digitalsigning": {
       "generateform": {
-        "title": "Génération d'un certificat auto-signé",
-        "waitingMessage": "Génération en cours...",
-        "errorMessage": "<strong>Echec de la génération du certificat auto-signé.</strong><br/><bt/>",
-        "submit": "Générer",
+        "title": "Generate a self-signed certificate",
+        "waitingMessage": "Ongoing generation...",
+        "errorMessage": "<strong>Cannot generate the self-signed certificate.</strong><br/><bt/>",
+        "submit": "Generate",
         "fields": {
-          "password": "Mot de passe",
-          "duration": "Durée (jours)",
+          "password": "Password",
+          "duration": "Duration (days)",
           "alias": "Alias"
         }
       },
       "selectsignaturezonewindow": {
-        "title": "Sélectionner une zone de signature",
+        "title": "Select a signature area",
         "errors": {
           "node-init": "The nodeRef is not correctly initialized"
         },
         "buttons": {
           "select-button": {
-            "text": "Sélectionner",
-            "tooltip": "Sélectionner la zone actuelle comme zone de signature"
+            "text": "Select",
+            "tooltip": "Select the actuel area as signature area"
           },
           "cancel-button": {
-            "title": "Annuler"
+            "title": "Cancel"
           }
         }
       },
       "signaturedisplaybox": {
-        "missingMessage": "<strong>Pas encore de signature</strong>"
+        "missingMessage": "<strong>No signature yet</strong>"
       },
       "signaturemanagementwindow": {
-        "title": "Gestion de la signature électronique",
+        "title": "Electronic signature management",
         "items": {
           "signature-box": {
-            "missingmessage": "<strong>Pas encore de signature.</strong><br/> Vous pouvez ajouter, ou générer une signature électronique. L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition.<br/><br/> <em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
+            "missingmessage": "<strong>No signature yet.</strong><br/> You can add, or generate an electronic signature. The image associate with the signature can be add and modify with the editing action.<br/><br/> <em>Note: The sigature generation only create a self-signed certificate witout any legal validity!</em>"
           }
         },
         "dockedItems": {
@@ -1472,29 +1472,29 @@
               "text": "Menu",
               "items": {
                 "generate-button": {
-                  "text": "Générer",
-                  "tooltip": "Générer un certificat auto-signé"
+                  "text": "Generate",
+                  "tooltip": "Generate a self-signed certificate"
                 },
                 "add-button": {
-                  "text": "Ajouter",
-                  "tooltip": "Ajouter un certificat pour la signature électronique"
+                  "text": "Add",
+                  "tooltip": "Add a certificate for your electronic signature"
                 },
                 "remove-button": {
-                  "text": "Supprimer",
-                  "tooltip": "Supprimer la signature actuelle"
+                  "text": "Delete",
+                  "tooltip": "Delete the current signature"
                 },
                 "editImage-button": {
-                  "text": "Modifier l'image",
-                  "tooltip": "Editer l'image de signature"
+                  "text": "Edit the image",
+                  "tooltip": "Edit the signature image"
                 }
               }
             }
           }
         },
         "uploadformwindow": {
-          "title": "Ajout/Modification d'une image",
-          "errorTitle": "Echec",
-          "errorMessage": "<strong>Echec de la sauvegardede l'image",
+          "title": "Add/Modify an image",
+          "errorTitle": "Failure",
+          "errorMessage": "<strong>Failure to save the image",
           "fields": {
             "image": "Image"
           }
@@ -1504,51 +1504,51 @@
         "title": "Signatures",
         "dockedItems": {
           "items": {
-            "addAttachment": "Ajouter un attachement"
+            "addAttachment": "Add an attachement"
           }
         },
         "column": {
-          "actioncolumn": "Type de document",
+          "actioncolumn": "Type of document",
           "name": "Nom",
-          "humanReadableSize": "Taille"
+          "humanReadableSize": "Size"
         }
       },
-      "signdocumentpanel": {
-        "title": "Certification du document",
-        "items": {
-          "information": "Informations",
-          "informationmissing": "<strong>Pas encore de signature.</strong><br/> Merci d'en ajouter une en utilisant le panneau de gestion de la signature électronique",
-          "password": "Mot de passe",
-          "location": "Localisation",
-          "reason": "Raison",
-          "position": "Positionnement",
-          "location_not-visible": "Non visible",
-          "location_field": "Champ",
-          "field-name": "Nom du champ",
-          "location_page": "Page",
-          "pageNumber": "Num.",
-          "positionmm": "Position (mm)",
-          "size": "Taille (mm)",
-          "select": "Sélectionner"
-        },
+        "signdocumentpanel" : {
+          "title" : "Document certification",
+          "items" :{
+            "information": "Informations",
+            "informationmissing": "<strong>No signature yet.</strong><br/> Thank you for adding a signature using the electronic signature pannel desk",
+            "password" : "Password",
+            "location" : "Location",
+            "reason": "Reason",
+            "position" : "Position",
+            "location_not-visible" : "Not visible",
+            "location_field": "Field",
+            "field-name": "Field name",
+            "location_page" : "Page",
+            "pageNumber": "Num.",
+            "positionmm" : "Position (mm)",
+            "size" : "Size (mm)",
+            "select" : "Select"
+              },
         "buttons": {
           "sign": {
-            "text": "Signer",
-            "tooltip": "Apposer sa signature pour certifier le document"
+            "text": "Sign",
+            "tooltip": "Sign to certify the document"
           }
         }
       },
       "signdocumentwindow": {
-        "title": "Certification du document"
+        "title": "Document certification"
       },
       "uploadformwindow": {
         "title": "&nbsp;",
-        "emptyTextLabel": "Choissisez un fichier",
-        "waiting": "Téléversement en cours...",
-        "errorTitle": "Echec",
-        "errorMessage": "<strong>Echec de la sauvegarde</strong><br/><br/>",
-        "submit": "Sauver",
-        "cancel": "Annuler",
+        "emptyTextLabel": "Select a file",
+        "waiting": "Ongoing upload...",
+        "errorTitle": "Failure",
+        "errorMessage": "<strong>The backup has failed</strong><br/><br/>",
+        "submit": "Save",
+        "cancel": "Cancel",
         "errors": {
           "undefined-url": "IllegalStateException! The uploadUrl has not been defined"
         }
