@@ -30,7 +30,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminModule', {
         return desktop.createWindow({
         	
         	id : 'services-admin-win',
-			title : i18n.t('admin.modules.services.services-admin.createwindow.text'),
+			title : i18n.t('admin.modules.services.services-admin.createwindow.title'),
 			iconCls : me.iconCls,
 
 			modal : true,

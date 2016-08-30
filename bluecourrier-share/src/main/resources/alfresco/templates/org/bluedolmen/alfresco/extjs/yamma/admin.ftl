@@ -14,6 +14,20 @@
 	<@link rel="stylesheet" type="text/css" href="${url.context}/res/yamma/resources/css/extjs-custom.css" />
 	<@link rel="stylesheet" type="text/css" href="${url.context}/res/yamma/resources/css/admin.css" />
 	<script type="text/javascript" src="${url.context}/res/bluedolmen/i18n/i18next.min.js"></script>
+	<script type="text/javascript">
+
+    		var options = {
+    			resGetPath : '${url.context}/res/yamma/resources/locales/__lng__/__ns__.json',
+    			lng : 'fr-FR',
+    			ns: {
+    				namespaces: ['bc'],
+    				defaultNs: 'bc'
+    			},
+    			fallbackNS: ['bc'] /* may be used for overloading */
+    		};
+    		i18n.init(options);
+
+    	</script>
     <#if DEBUG>	
 	<script type="text/javascript" src="${extjs.root.path}/ext-all-debug.js"></script>
 	<#else>
