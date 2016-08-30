@@ -2123,16 +2123,16 @@
             "title": "Sample email initialization"
           },
           "imap": {
-            "title": "Initialisation du répertoire de transfert IMAP"
+            "title": "Initialization of the IMAP transfert folder"
           },
           "remote-test": {
             "title": "Test (remote)"
           },
           "synchronize": {
-            "title": "Synchronisation de la liste de données de contacts"
+            "title": "Contacts datalist synchronization"
           },
           "test": {
-            "title": "Test d'initialisation"
+            "title": "Initialization test"
           }
         },
         "panel": {
@@ -2141,52 +2141,52 @@
               "create-action": "Illegal action declaration"
             },
             "columns": {
-              "title": "Nom",
-              "state": "Etat",
+              "title": "Name",
+              "state": "State",
               "action": {
                 "text": "Action",
                 "items": {
-                  "install": "Installer",
-                  "uninstall": "Désinstaller"
+                  "install": "Install",
+                  "uninstall": "Uninstall"
                 }
               },
-              "state-busy": "En cours",
-              "state-undetermined": "Indéterminé",
-              "state-full": "Complet",
-              "state-partial": "Partiel",
-              "state-modified": "Modifié",
-              "state-no": "Non installé"
+              "state-busy": "Ongoing",
+              "state-undetermined": "Undetermined",
+              "state-full": "Full",
+              "state-partial": "Partial",
+              "state-modified": "Modified",
+              "state-no": "Not installed"
             }
           }
         }
       },
       "services": {
         "createserviceform": {
-          "title": "Créer un nouveau service",
+          "title": "Add a new service",
           "message": {
-            "creating": "Création du site en cours...",
-            "adding": "Ajout d'un service en cours..."
+            "creating": "Service creation ongoing...",
+            "adding": "Service adding ongoing..."
           },
           "buttons": {
-            "create": "Créer le service"
+            "create": "Create"
           }
         },
         "membersadminpanel": {
-          "title": "Administration des membres de services",
+          "title": "Service members administration",
           "roles": {
             "ServiceAssistant": "Assistant",
-            "ServiceInstructor": "Assistant",
-            "ServiceManager": "Assistant",
-            "ServiceSupervisor": "Assistant"
+            "ServiceInstructor": "Instructor",
+            "ServiceManager": "Manager",
+            "ServiceSupervisor": "Supervisor"
           },
           "field": {
             "member": {
-              "label": "Membres"
+              "label": "Members"
             }
           },
           "text": {
-            "searching": "Recherche...",
-            "noauthorities": "Aucune autorité trouvée."
+            "searching": "Search...",
+            "noauthorities": "No autorities found."
           }
         },
         "membersadmingrid": {
@@ -2200,18 +2200,18 @@
           },
           "dialog": {
             "removeauthorities": {
-              "title": "Supprimer le membre ?",
-              "message": "Etes-vous certain de vouloir supprimer le membre du groupe ?"
+              "title": "Delete the member?",
+              "message": "Are you sure you want to delete this member?"
             }
           }
         },
         "serviceform": {
           "items": {
             "shortName": {
-              "text": "Nom"
+              "text": "Name"
             },
             "title": {
-              "text": "Titre"
+              "text": "Title"
             },
             "description": {
               "text": "Description"
@@ -2220,37 +2220,37 @@
               "text": "Preset"
             },
             "visibility": {
-              "text": "Visibilité"
+              "text": "Visibility"
             }
           }
         },
         "services-admin": {
           "launcher": {
-            "text": "Administration services"
+            "text": "Services administration"
           },
           "createwindow": {
-            "title": "Administration des services"
+            "title": "Services administration"
           }
         },
         "servicesadminpanel": {
-          "title": "Administration des Services",
+          "title": "Services administration",
           "message": {
-            "searching": "Recherche...",
-            "nosite": "Aucun site trouvé"
+            "searching": "Search...",
+            "nosite": "No site found"
           },
           "dialog": {
             "addservice": {
               "confirm": {
-                "title": "Ajouter le service",
+                "title": "Add a service",
                 "message": {
-                  "1": "Voulez-vous ajouter le site '",
-                  "2": "' en tant que service"
+                  "1": "Do you want to add this site",
+                  "2": "' as a service"
                 }
               }
             },
             "createservice": {
               "window": {
-                "title": "Créer un nouveau service"
+                "title": "Create a new service"
               }
             }
           }
@@ -2261,16 +2261,16 @@
               "text": "Action",
               "items": {
                 "text_signature": {
-                  "add": "Ajouter",
-                  "remove": "Retirer",
-                  "capacity": " la capacité de signature au service"
+                  "add": "Add",
+                  "remove": "Remove",
+                  "capacity": " Service capacity to sign"
                 },
                 "unsetservice": {
-                  "tooltip": "Supprimer en tant que service (le site reste présent)"
+                  "tooltip": "Delete as a service (The site stay active)"
                 }
               },
               "init": {
-                "loading": "Application des changements en cours..."
+                "loading": "Loading..."
               }
             }
           }
@@ -2281,17 +2281,17 @@
           },
           "message": {
             "add": {
-              "inprogress": "Ajout d'un service en cours..."
+              "inprogress": "Adding a service in progress..."
             }
           }
         },
         "siteadminwindow": {
-          "title": "Administration des Sites",
+          "title": "Sites administration",
           "site": {
             "grid": {
               "columns": {
-                "actionscolumn": "Ajouter comme service",
-                "title": "Nom"
+                "actionscolumn": "Add as a service",
+                "title": "Name"
               }
             }
           },
@@ -2305,18 +2305,18 @@
               "text": "Action",
               "items": {
                 "text_signature": {
-                  "add": "Ajouter",
-                  "remove": "Retirer",
-                  "capacity": " la capacité de signature au service"
+                  "add": "Add",
+                  "remove": "Remove",
+                  "capacity": " Service capacity to sign"
                 },
                 "unsetservice": {
-                  "tooltip": "Supprimer en tant que service (le site reste présent)"
+                  "tooltip": "Delete as a service (The site stay active)"
                 }
               }
             }
           },
           "init": {
-            "loading": "Application des changements en cours..."
+            "loading": "Loading..."
           }
         }
       }
@@ -2326,23 +2326,23 @@
         "start": "Menu"
       },
       "context": {
-        "onsettings": "Changer les paramètres"
+        "onsettings": "Modify the settings"
       },
       "shortcuts": {
-        "init-admin": "Initialisation",
-        "services-admin": "services-admin",
-        "categories-admin": "Catégories"
+        "init-admin": "Initialization",
+        "services-admin": "Services administration",
+        "categories-admin": "Categories"
       },
       "config": {
         "title": "BlueCourrier",
         "tool": {
-          "onsettings": "Paramètres",
-          "onlogout": "Déconnecter"
+          "onsettings": "Settings",
+          "onlogout": "Logout"
         },
         "dialog": {
           "exit": {
-            "title": "Quitter ?",
-            "message": "Etes-vous certain de vouloir quitter ?"
+            "title": "Exit?",
+            "message": "Are you sure you want to leave?"
           }
         }
       }
