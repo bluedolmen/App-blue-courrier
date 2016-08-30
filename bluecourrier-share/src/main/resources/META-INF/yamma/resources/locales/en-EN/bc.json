@@ -1554,50 +1554,50 @@
         }
       },
       "uploadsignature": {
-        "title": "Ajout/Modification d'une signature",
-        "error": "Echec",
+        "title": "Add/Modify a signature",
+        "error": "Failure",
         "errormessage": {
-          "1": "Echec de la sauvegarde la signature.",
-          "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
-          "3": "Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.",
-          "4": "Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps."
+          "1": "The signature backup has failed.",
+          "2": "Please check your security key (size, format, coherence between the format and the declaration).",
+          "3": "The password is mandatory and protect your secret key, who must stay private.",
+          "4": "The image is not mandatory, you can add one after."
         },
-        "keyLabel": "Certificat",
+        "keyLabel": "Certificate",
         "imageLabel": "image",
-        "passwordLabel": "Mot de passe",
+        "passwordLabel": "Password",
         "keyTypeLabel": "Type"
       },
       "uploadsigningimagewindow": {
-        "title": "Ajout/Modification d'une image",
-        "errorTitle": "Echec",
-        "errorMessage": "Echec de la sauvegarde de l'image.",
+        "title": "Add/Modify an image",
+        "errorTitle": "Failure",
+        "errorMessage": "The image backup has failed.",
         "imageLabel": "Image"
       }
     },
     "display": {
       "displayview": {
-        "title": "Prévisualisation des fichiers",
+        "title": "File preview",
         "tab": {
           "items": {
             "synchronize": {
-              "tooltip": "Synchroniser la prévisualisation"
+              "tooltip": "Synchronize the preview"
             }
           }
         }
       },
       "replyfilesbutton": {
         "items": {
-          "addReply": "Ajouter une réponse",
-          "uploadFile": "Fichier local",
-          "selectFile": "Fichier GED",
-          "removeReply": "Supprimer la réponse"
+          "addReply": "Add a reply",
+          "uploadFile": "Local file",
+          "selectFile": "ECM file",
+          "removeReply": "Delete the reply"
         }
       },
       "yammatabactionmenu": {
         "items": {
-          "download": "Télécharger",
-          "update": "Modifier",
-          "delete": "Supprimer"
+          "download": "Download",
+          "update": "Modify",
+          "delete": "Delete"
         },
         "errors": {
           "menuitem": "menuitem argument is mandatory"
@@ -1611,13 +1611,13 @@
         }
       },
       "editdocumentform": {
-        "title": "Métadonnées",
-        "edit": "Éditer",
-        "visualize": "Visualiser"
+        "title": "Metadata",
+        "edit": "Edit",
+        "visualize": "Visualize"
       },
       "editdocumentview": {
         "items": {
-          "documenthistorylist": "Historique"
+          "documenthistorylist": "History"
         },
         "errors": {
           "noderef": "IllegalArgumentException! The provided nodeRef is not valid"
@@ -1633,40 +1633,40 @@
       "userbutton": {
         "items": {
           "datalists-management": {
-            "title": "Liste de données"
+            "title": "Datalists"
           },
           "global-statistics": {
-            "title": "Statistiques"
+            "title": "Statistcs"
           },
           "label-generator": {
-            "title": "Code barres"
+            "title": "Barcode"
           },
           "signature-management": {
-            "title": "Signature électroniques"
+            "title": "electronic signature"
           },
           "bluecourrier-administration": {
             "title": "Administration"
           },
           "about-application": {
-            "title": "A propos"
+            "title": "About"
           }
         },
         "codebarprompt": {
-          "title": "Générateur de code-barres",
-          "message": "Combien de pages voulez-vous générer ?"
+          "title": "Barcode generator",
+          "message": "How many pages do you want to generate?"
         }
       }
     },
     "history": {
       "documenthistorylist": {
-        "title": "Historique du courrier",
+        "title": "History",
         "date_title": "Date",
-        "type_title": "Libellé",
-        "comment_title": "Commentaire",
-        "actor_title": "Acteur",
+        "type_title": "Wording",
+        "comment_title": "Comment",
+        "actor_title": "Actor",
         "columns": {
           "actiontypecolumn": {
-            "tooltip": "Nature de l'évènement"
+            "tooltip": "Event nature"
           },
           "eventcolumn": {
             "text": "Description"
@@ -1674,34 +1674,34 @@
         }
       },
       "documenthistoryview": {
-        "title": "Historique du courrier"
+        "title": "History"
       }
     },
     "menu" : {
       "advancedsearch" : {
-        "text" : "Rechercher..."
+        "text" : "Searcj..."
       },
       "mainmenu" :{
-        "title" : "Menu principal"
+        "title" : "Main menu"
       },
       "mymenu" : {
-        "title" : "Mon Bureau"
+        "title" : "My desk"
       },
       "sitearchivesmenu": {
         "title" : "Archives"
       },
       "sitetraysmenu": {
-        "title" :"Bannettes",
+        "title" :"Baskets",
         "tree" : {
-          "incomming": "Entrant",
-          "incomming-delivering": "Distribution",
-          "incomming-processing": "Traitement",
-          "incomming-processed": "Traité",
-          "outgoing": "Sortant",
-          "outgoing-processing": "Elaboration",
+          "incomming": "Incoming",
+          "incomming-delivering": "Delivering",
+          "incomming-processing": "Processing",
+          "incomming-processed": "Processed",
+          "outgoing": "Outgoing",
+          "outgoing-processing": "Procesing",
           "outgoing-validation": "Validation",
-          "outgoing-sending": "Envoi",
-          "outgoing-processed": "Traité",
+          "outgoing-sending": "Sending",
+          "outgoing-processed": "Processed",
           "copy-inbound": "Copies"
         }
       }
@@ -1713,39 +1713,39 @@
     },
     "window": {
       "assigntowindow" : {
-        "title": "(Ré)assigner une tâche",
+        "title": "(Re)assign a task",
         "errors" : {
           "init": "IllegalStateException! The window has to be initialized with a valid task-id"
         },
         "buttons": {
           "assign": {
-            "text": "Assigner",
-            "tooltip" : "(Ré-)assigner la tâche à la personne sélectionnée"
+            "text": "Assign",
+            "tooltip" : "(Re)assign the task to the selected agent"
           },
           "release" :{
-            "text" : "Relâcher",
-            "tooltip" : "Relâcher la tâche et l'affecter à tous les intervenants disponibles"
+            "text" : "Release",
+            "tooltip" : "Release the task and assign it to all the service instrutors"
           },
           "cancel": {
-            "text" : "Annuler"
+            "text" : "Cancel"
           }
         },
         "grids" : {
-          "title" : "Tâche affectée à",
+          "title" : "Task assign to",
           "columns" :{
-            "user": "Utilisateur"
+            "user": "User"
           }
         }
       },
       "detailswindow": {
-        "title": "Fiche détaillée",
+        "title": "Detail window",
         "errors" : {
           "init" : "IllegalStateException! The window has to be initialized with a valid documentNodeRef"
         }
       },
       "documentstatisticswinow" : {
-        "title" : "Statistiques du courrier",
-        "nextview" : "Vue suivante"
+        "title" : "Mail statistic",
+        "nextview" : Next view"
       },
       "dropwindow" : {
         "title": "Add Documents",
@@ -1766,42 +1766,42 @@
         }
       },
       "linktowindow": {
-        "title" : "Créer un lien",
+        "title" : "Create a link",
         "errors": {
           "noderef": "IllegalStateException! The window has to be initialized with a valid documentNodeRef"
         },
         "buttons": {
-          "link": "Associer",
-          "cancel": "Annuler"
+          "link": "Join",
+          "cancel": "Cancel"
         },
         "items": {
-          "reply-to": "une réponse à",
-          "linktype" : "Ce courrier est",
-          "target": "Courrier",
-          "comment": "Commentaire"
+          "reply-to": "A reply to",
+          "linktype" : "This mail is",
+          "target": "Mail",
+          "comment": "Comment"
         }
       },
       "replieslist" : {
-        "title" : "Réponses au courrier",
-        "name_title" : "Nom du document",
-        "author_title" : "Auteur",
-        "writing_date_title" : "Date de rédaction",
-        "sent_date_title": "Date d'envoi",
+        "title" : "Mail replies",
+        "name_title" : "File name",
+        "author_title" : "Autor",
+        "writing_date_title" : "Writing date",
+        "sent_date_title": "Sending date",
         "columns": {
           "type": "Type"
         }
       },
       "selectcmsfilewindow": {
         "items": {
-          "move-checkbox" : "Déplacer le fichier",
-          "filename-textfield": "Nom du fichier"
+          "move-checkbox" : "Move the file",
+          "filename-textfield": "File name"
         }
       },
       "serviceuploadwindow": {
         "buttons": {
-          "upload": "Téléverser",
-          "create" : "Créer",
-          "cancel" : "Annuler"
+          "upload": "Upload",
+          "create" : "Create",
+          "cancel" : "Cancel"
         },
         "items" : {
           "services": "Service destination"
