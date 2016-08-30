@@ -1840,52 +1840,52 @@
       },
       "uploadformwindow" : {
         "config": {
-          "title" : "Téléverser un fichier",
-          "empty": "Choisissez un fichier",
-          "waiting" : "En cours d'envoi...",
-          "submit" : "Envoyer",
-          "cancel": "Annuler",
-          "filefield": "Fichier",
-          "namefield": "Nom"
+          "title" : "Upload a file",
+          "empty": "Choose a file",
+          "waiting" : "Uploading your file",
+          "submit" : "Save",
+          "cancel": "Cancel",
+          "filefield": "File",
+          "namefield": "Name"
         },
         "errors" :{
-          "failed" : "Échec de l'envoi du fichier"
+          "failed" : "Failure to upload the file"
         }
       },
       "mainview" : {
-        "taskview": "Tâches"
+        "taskview": "Tasks"
       },
       "referenceview" : {
-        "name_label": "Nom",
-        "title": "Documents associés"
+        "name_label": "Name",
+        "title": "Associated files"
       }
     }
   },
   "widget": {
     "searchpanel": {
-      "title": "Rechercher",
+      "title": "Search",
       "items": {
         "filter": {
-          "label": "Services (filtre)"
+          "label": "Services (filter)"
         },
         "mail": {
-          "label": "Courriers"
+          "label": "Mails"
         }
       }
     },
     "mailsview": {
       "button": {
-        "filter-button": "Filtrer"
+        "filter-button": "Filter"
       },
       "toolbar": {
         "button": {
           "reload": {
-            "tooltip": "Recharger"
+            "tooltip": "Reload"
           }
         }
       },
       "filters": {
-        "selected": "Filtres sélectionnés",
+        "selected": "Selected filters",
         "modified-recently-filter": "Modifiés récemment (7j)",
         "duedate-filter": "Echéance",
         "duedate-lessthan7days": "Moins de 7 jours",
