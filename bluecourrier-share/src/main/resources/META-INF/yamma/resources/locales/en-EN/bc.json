@@ -361,7 +361,7 @@
           "reference" : "Reference",
           "name" : "Name",
           "object": "Object",
-          "sender": "Sende (organisation)",
+          "sender": "Sender (organization)",
           "enclosingservice": "Service (treatment)",
           "writing": "Writing",
           "sent" : "Sent",
@@ -1886,26 +1886,26 @@
       },
       "filters": {
         "selected": "Selected filters",
-        "modified-recently-filter": "Modifiés récemment (7j)",
+        "modified-recently-filter": "Recently modify (7d)",
         "duedate-filter": "Echéance",
-        "duedate-lessthan7days": "Moins de 7 jours",
-        "duedate-lessthan3days": "Moins de 3 jours"
+        "duedate-lessthan7days": "Less than 7 days",
+        "duedate-lessthan3days": "Less than 3 days"
       },
       "sorter": {
-        "cancel" :"Aucun",
-        "reference" : "Référence",
-        "name" : "Nom",
-        "sender": "Expéditeur (organisation)",
-        "writing": "Rédaction",
-        "sent" : "Envoi",
-        "delivery": "Réception",
-        "digitized" : "Numérisation",
-        "due": "Echéance",
-        "modified" : "Modification",
-        "size": "Taille",
+        "cancel" :"Cancel",
+        "reference" : "Reference",
+        "name" : "Name",
+        "sender": "Sender (organization)",
+        "writing": "Writing",
+        "sent" : "Sent",
+        "delivery": "Delivery",
+        "digitized" : "Digitized",
+        "due": "Due date",
+        "modified" : "Modified",
+        "size": "Size",
         "mimetype": "Type MIME",
-        "processkind" :"Processus",
-        "status": "Statut"
+        "processkind" :"Process",
+        "status": "Status"
       }
     },
     "mailfiltersview": {},
@@ -1913,40 +1913,40 @@
       "title": "Attachements",
       "toolbar": {
         "buttons": {
-          "addAttachment-button": "Ajouter un attachement"
+          "addAttachment-button": "Add an attachement"
         }
       },
       "column": {
-        "actioncolumn": "Type de document",
-        "namecolumn": "Nom du fichier",
-        "sizecolumn": "Taille"
+        "actioncolumn": "File type",
+        "namecolumn": "Name",
+        "sizecolumn": "Size"
       },
       "actions": {
         "delete-action": {
-          "tooltip": "Supprimer l'attachement",
+          "tooltip": "Delete the attachement",
           "dialog": {
             "confirmation": {
-              "title": "Supprimer l'attachement ?",
-              "content": "Êtes-vous certain de vouloir supprimer l'attachement<br/><b>{0}</b>"
+              "title": "Delete the attachement?",
+              "content": "Are you sure you want to delete the attachement<br/><b>{0}</b>"
             }
           }
         }
       }
     },
     "displayview": {
-      "title": "Prévisualisation des fichiers"
+      "title": "Files preview"
     },
     "documentsview": {
-      "title": "Liste des contenus",
+      "title": "List of content",
       "template": {
         "description": {
           "created": {
-            "text": "Créé le ",
-            "by": "par "
+            "text": "Create the ",
+            "by": "by "
           },
           "modified": {
-            "text": "Modifié le ",
-            "by": "par "
+            "text": "Modify the ",
+            "by": "by "
           }
         }
       },
@@ -1955,59 +1955,59 @@
           "text": "Description"
         },
         "thumbnail": {
-          "text": "Miniature"
+          "text": "Thumbnail"
         },
         "mimetype": {
-          "tooltip": "Type de document"
+          "tooltip": "Document type"
         }
       },
       "action": {
         "type": {
-          "title": "répertoire"
+          "title": "repertoire"
         }
       }
     },
     "explorer": {
       "items": {
         "documentsview": {
-          "title": "Liste des contenus"
+          "title": "List of content"
         }
       }
     },
     "collectionmanager": {
       "state": {
         "update": {
-          "none": "Aucun"
+          "none": "None"
         }
       }
     },
     "quicksearch": {
       "config": {
-        "loading": "Recherche...",
-        "empty": "Aucun document trouvé."
+        "loading": "Search...",
+        "empty": "No document found."
       }
     },
     "navigator": {
-      "title": "Navigateur"
+      "title": "Navigator"
     },
     "selectfilewindow": {
-      "title": "Sélectionner un fichier",
+      "title": "Select a file",
       "buttons": {
-        "okButton": "Ok",
-        "cancelButton": "Annuler"
+        "okButton": "OK",
+        "cancelButton": "Cancel"
       },
       "view": {
-        "documentsview": "Liste des contenus"
+        "documentsview": "List of content"
       }
     },
     "directoryadminwindow": {
-      "title": "Administration des Contacts",
+      "title": "Contacts administration",
       "columns": {
         "namecolumn": {
-          "text": "Nom"
+          "text": "Name"
         },
         "actioncolumn": {
-          "tooltip": "Ajouter comme service"
+          "tooltip": "Add as a service"
         }
       }
     }
@@ -2016,7 +2016,7 @@
     "header": {
       "quicksearch": {
         "context": {
-          "description": "Termes "
+          "description": "Terms "
         }
       }
     },
@@ -2026,12 +2026,12 @@
           "fileselectionmenu": {
             "title": "Source",
             "items": {
-              "uploadfile": "Fichier local",
-              "selectrepositoryfile": "Fichier GED"
+              "uploadfile": "Local file",
+              "selectrepositoryfile": "ECM file"
             }
           },
           "uploadlocalfilewindow": {
-            "title": "Choisissez un fichier à ajouter en <b>attachement</b>"
+            "title": "Select a file to add in <b>attachement</b>"
           }
         }
       }
@@ -2039,22 +2039,22 @@
     "upload": {
       "buttoncontroller": {
         "form": {
-          "title": "Choisissez un fichier"
+          "title": "Select a file"
         }
       }
     },
     "dropzone": {
       "uploadform": {
-        "title": "Choisissez un fichier"
+        "title": "Select a filer"
       }
     },
     "opensearch": {
       "quicksearch": {
-        "title": "Recherche rapide"
+        "title": "Quick search"
       }
     },
     "advancedsearch": {
-      "title": "Recherche avancée",
+      "title": "Advanced search",
       "error": {
         "mainAspect": "At least one main aspect has to be defined!"
       }
@@ -2062,12 +2062,12 @@
     "menus": {
       "sitearchives": {
         "context": {
-          "title": "Documents archivés du service {0}"
+          "title": "Archived file from this service {0}"
         }
       },
       "sitetrays": {
         "context": {
-          "title": "Documents du service '{0}' ayant l'état '{1}'"
+          "title": "File from this service '{0}' with the status '{1}'"
         }
       }
     }
