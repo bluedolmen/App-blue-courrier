@@ -2076,18 +2076,18 @@
     "modules": {
       "categories": {
         "launcher": {
-          "text": "Gestion des catégories"
+          "text": "Categories manager"
         },
         "window": {
-          "title": "Gestion des catégories"
+          "title": "Categories manager"
         }
       },
       "directory": {
         "launcher": {
-          "text": "Administration des contacts"
+          "text": "Contacts administration"
         },
         "window": {
-          "text": "Administration des services"
+          "text": "Services administration"
         }
       },
       "init": {
@@ -2098,29 +2098,29 @@
             }
           },
           "launcher": {
-            "text": "Initialisation de l'application"
+            "text": "Application initialization"
           },
           "window": {
-            "title": "Initialisation de l'application"
+            "title": "Application initialization"
           },
           "authorities": {
-            "title": "Initialisation des autorités BlueCourrier"
+            "title": "BlueCourrier autorities initialization"
           },
           "categories": {
-            "title": "Initialisation des catégories BlueCourrier"
+            "title": "BlueCourrier categories initialization"
           },
           "site": {
-            "title": "Initialisation du site de configuration de BlueCourrier",
+            "title": "BlueCourrier setting site initialization",
             "config": {
-              "site-title": "Configuration BlueCourrier",
-              "site-description": "Site de configuration de BlueCourrier",
+              "site-title": "BlueCourrier setting",
+              "site-description": "BlueCourrier setting site",
               "datalist": {
-                "title": "Initialisation des listes de données de BlueCourrier"
+                "title": "BlueCourrier datalists initialization"
               }
             }
           },
           "email": {
-            "title": "Initialisation des modèles d'email"
+            "title": "Sample email initialization"
           },
           "imap": {
             "title": "Initialisation du répertoire de transfert IMAP"
