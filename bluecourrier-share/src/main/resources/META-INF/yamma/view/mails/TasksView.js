@@ -82,7 +82,7 @@ Ext.define('Yamma.view.mails.TasksView', {
 		    	xtype : 'button',
 		    	itemId : 'show-charts-button',
 		    	iconCls : Yamma.Constants.getIconDefinition('chart_curve').iconCls,
-		    	tooltip : 'Visualiser les rapports graphiques',
+		    	tooltip : i18n.t('view.mails.taskview.buttons.show-charts'),//'Visualiser les rapports graphiques',
 		    	disabled : true,
 		    	hidden : true !== Yamma.config.stats.active,
 		    	handler : function() {
@@ -110,7 +110,7 @@ Ext.define('Yamma.view.mails.TasksView', {
 		    {
 		    	xtype : 'button',
 		    	iconCls : Yamma.Constants.getIconDefinition('feed').iconCls,
-		    	tooltip : 'Inclure les courriers suivis',
+		    	tooltip : i18n.t('view.mails.taskview.buttons.include-followed'),//'Inclure les courriers suivis',
 		    	enableToggle : true,
 		    	listeners : {
 		    		'toggle' : function(button, pressed) {
@@ -134,7 +134,7 @@ Ext.define('Yamma.view.mails.TasksView', {
 		    {
 		    	xtype : 'button',
 		    	iconCls : Ext.baseCSSPrefix + 'tbar-loading',
-		    	tooltip : 'Recharger',
+		    	tooltip : i18n.t('view.mails.taskview.buttons.reload'),//'Recharger',
 		    	handler : function() {
 		    		me.load();
 		    	}
@@ -214,7 +214,7 @@ Ext.define('Yamma.view.mails.TasksView', {
 		return [
 			{
 				xtype: 'menucheckitem',
-				text : 'Courriers suivis',
+				text : i18n.t('view.mails.taskview.filter.followed'),//'Courriers suivis',
 				itemId : 'filter-followed',
 				disabled : true,
 				iconCls : Yamma.Constants.getIconDefinition('feed').iconCls,
@@ -374,18 +374,18 @@ Ext.define('Yamma.view.mails.TasksView', {
 		this._sortersMenu =  Ext.create('Yamma.view.mails.SortersMenu', {
 	    	itemId : 'sorters-menu',
 	        sorters : [
-               {"property":"bluecourrier:reference", "text":"Référence", "iconCls" : Yamma.view.mails.SortersMenu.KEY_TYPE_ICON.iconCls},
-        	   {"property":"cm:name", "text":"Nom", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:object", "text":"Objet", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:senderOrganizationName", "text":"Expéditeur (organisation)", "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
-        	   {"property":"enclosingService", "text":"Service (traitement)", "iconCls" : Yamma.Constants.getIconDefinition('group_location').iconCls},
+               {"property":"bluecourrier:reference", "text": i18n.t('view.mails.taskview.sorter.reference'), "iconCls" : Yamma.view.mails.SortersMenu.KEY_TYPE_ICON.iconCls},
+        	   {"property":"cm:name", "text": i18n.t('view.mails.taskview.sorter.name'), "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:object", "text":i18n.t('view.mails.taskview.sorter.object'), "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:senderOrganizationName", "text":i18n.t('view.mails.taskview.sorter.sender'), "iconCls" : Yamma.view.mails.SortersMenu.TEXT_TYPE_ICON.iconCls},
+        	   {"property":"enclosingService", "text":i18n.t('view.mails.taskview.sorter.enclosingservice'), "iconCls" : Yamma.Constants.getIconDefinition('group_location').iconCls},
 //        	   {"property":"cm:created", "text":"Création", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:writingDate", "text":"Rédaction", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:sentDate", "text":"Envoi", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:deliveryDate", "text":"Réception", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:digitizedDate", "text":"Numérisation", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"bluecourrier:dueDate", "text":"Echéance", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
-        	   {"property":"cm:modified", "text":"Modification", "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:writingDate", "text":i18n.t('view.mails.taskview.sorter.writing'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:sentDate", "text":i18n.t('view.mails.taskview.sorter.sent'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:deliveryDate", "text":i18n.t('view.mails.taskview.sorter.delivery'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:digitizedDate", "text":i18n.t('view.mails.taskview.sorter.digitized'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"bluecourrier:dueDate", "text":i18n.t('view.mails.taskview.sorter.due'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
+        	   {"property":"cm:modified", "text":i18n.t('view.mails.taskview.sorter.modified'), "iconCls" : Yamma.view.mails.SortersMenu.DATE_TYPE_ICON.iconCls},
         	   Ext.create('Yamma.view.mails.sorters.ProcessKindSorter'),
         	   Ext.create('Yamma.view.mails.sorters.StatusSorter')
            	],
@@ -522,7 +522,7 @@ Ext.define('Yamma.view.mails.TasksView', {
 		
 		Ext.create('Ext.window.Window', {
 			
-			title : 'Rapports graphiques',
+			title : i18n.t('view.mails.taskview.window.title'),//'Rapports graphiques',
 			iconCls : Yamma.Constants.getIconDefinition('chart_curve').iconCls,			
 			height : (window.innerHeight || 600/0.9) * 0.9,
 			width : (window.innerWidth || 1000/0.8) * 0.8 ,

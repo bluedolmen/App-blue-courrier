@@ -2,7 +2,7 @@ Ext.define('Yamma.view.mails.itemactions.StopFollowingAction', {
 	
 	extend : 'Bluedolmen.utils.alfresco.grid.ContextMenuAction',
 	
-	text : 'Arrêter de suivre',
+	text : i18n.t('view.mails.itemaction.stopfollowing.text'),//'Arrêter de suivre',
 	
 	iconCls : Yamma.Constants.getIconDefinition('feed_delete').iconCls,
 	

@@ -7,7 +7,7 @@ Ext.define('Yamma.view.windows.DocumentStatisticsWindow', {
 		'Yamma.view.charts.StatesStatsView'
 	],
 	
-	title : 'Statistiques du courrier',
+	title :  i18n.t('view.window.documentstatisticswinow.title'),//'Statistiques du courrier',
 	width : 500,
 	height : 300,
 	layout : 'fit',
@@ -17,7 +17,7 @@ Ext.define('Yamma.view.windows.DocumentStatisticsWindow', {
 	tools:[
 		{
 		    type : 'next',
-		    tooltip : 'Vue suivante',
+		    tooltip : i18n.t('view.window.documentstatisticswinow.nextview'),//'Vue suivante',
 		    itemId : 'nextView'
 		}
 	],	

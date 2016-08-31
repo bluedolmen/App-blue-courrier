@@ -19,19 +19,19 @@ Ext.define('Yamma.view.dialogs.CirculateDialog', {
 			
 			'user' : {
 				iconCls : Yamma.Constants.getIconDefinition('user').iconCls,
-				title : 'Utilisateur',
+				title : i18n.t('view.comments.dialog.circulatedialog.kindcolumn.user'),
 				prefix : 'loc'
 			},
 			
 			'group' : {
 				iconCls : Yamma.Constants.getIconDefinition('group').iconCls,
-				title : 'Groupe',
+				title : i18n.t('view.comments.dialog.circulatedialog.kindcolumn.group'),
 				prefix : 'grp'
 			},
 			
 			'service' : {
 				iconCls : Yamma.Constants.getIconDefinition('group_mail').iconCls,
-				title : 'Service',
+				title : i18n.t('view.comments.dialog.circulatedialog.kindcolumn.service'),
 				prefix : 'ser'
 			}
 			
@@ -45,7 +45,7 @@ Ext.define('Yamma.view.dialogs.CirculateDialog', {
 		
 	},
 	
-	title : 'Diffuser',
+	title : i18n.t('view.comments.dialog.circulatedialog.title'),
 	height : 400,
 	width : 600,
 	
@@ -106,7 +106,7 @@ Ext.define('Yamma.view.dialogs.CirculateDialog', {
 
 		me.sharesGrid = Ext.create('Ext.grid.Panel', {
 			
-		    title: 'Diffuser à',
+		    title: i18n.t('view.comments.dialog.circulatedialog.sharesGrid.title'),
 		    cls : 'shares-grid',
 		    header : false,
 		    hideHeaders : true,
@@ -132,7 +132,7 @@ Ext.define('Yamma.view.dialogs.CirculateDialog', {
 		    
 		    columns: [
 		        {
-		        	text : 'Kind',
+		        	text : i18n.t('view.comments.dialog.circulatedialog.sharesGrid.columns.kind'),
 		        	xtype : 'actioncolumn',
 		        	dataIndex : 'kind',
 		        	width : 50,
@@ -152,19 +152,19 @@ Ext.define('Yamma.view.dialogs.CirculateDialog', {
 		        },
 		        
 		        { 
-		        	text: 'Nom', 
+		        	text: i18n.t('view.comments.dialog.circulatedialog.sharesGrid.columns.name'),
 		        	dataIndex: 'label', 
 		        	flex: 1 
 		        },
 		        
 		        {
-		        	text : 'Actions',
+		        	text : i18n.t('view.comments.dialog.circulatedialog.sharesGrid.columns.actions.text'),
 		        	xtype : 'actioncolumn',
 		        	width : 30,
 		        	items: [
 						{
 			                icon: Yamma.Constants.getIconDefinition('cross').icon,
-			                tooltip: 'Enlever',
+			                tooltip: i18n.t('view.comments.dialog.circulatedialog.sharesGrid.columns.actions.items.remove'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                	
 			                    var record = grid.getStore().getAt(rowIndex);

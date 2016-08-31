@@ -10,7 +10,7 @@ Ext.define('Yamma.view.mails.itemactions.ShareDocumentAction', {
 		'Yamma.view.mails.gridactions.Distribute'
 	],
 	
-	text : 'Partager',
+	text : i18n.t('view.mails.itemaction.sharedocument.text'),//'Partager',
 	
 	iconCls : Yamma.Constants.getIconDefinition('hand-share').iconCls,
 	
@@ -66,7 +66,7 @@ Ext.define('Yamma.view.mails.itemactions.ShareDocumentAction.ShareDialog', {
 	
 	extend : 'Yamma.view.dialogs.MainDeliveryDialog',
 	
-	title : 'Partager',
+	title : i18n.t('view.mails.itemaction.sharedocument.dialog.title'),//'Partager',
 	icon : Yamma.Constants.getIconDefinition('hand-share').icon,
 	
 	enableShareServiceSelection : false,
@@ -87,7 +87,7 @@ Ext.define('Yamma.view.mails.itemactions.ShareDocumentAction.ShareDialog', {
 	        { 
 	        	xtype: 'button',
 	        	itemId : 'share-button',
-	        	text: 'Partager',
+	        	text: i18n.t('view.mails.itemaction.sharedocument.dialog.buttons.share'),
 	        	icon : Yamma.Constants.getIconDefinition('hand-share').icon,
 	        	handler : function() {
 					me.share();

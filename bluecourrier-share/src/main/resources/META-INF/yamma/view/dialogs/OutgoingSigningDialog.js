@@ -9,7 +9,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 	
 	iconCls : Yamma.Constants.getIconDefinition('text_signature').iconCls,
 	
-	title : 'Validation électronique',
+	title : i18n.t('view.comments.dialog.outgoingsigningdialog.title'),
 	height : 500,
 	width : 800,
 	modal : true,
@@ -204,7 +204,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 		    
 		    columns: [
 		        { 
-		        	text: 'Nom', 
+		        	text: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.columns.title.text'),
 		        	dataIndex: 'title', 
 		        	flex: 1,
 		        	renderer : function (value, meta, record) {
@@ -220,12 +220,12 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 		        	}
 		        },
 		        {
-		        	text : 'Actions',
+		        	text : i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.columns.action.text'),
 		        	xtype : 'actioncolumn',
 		        	width : 60,
 		        	items: [
 						{
-			                tooltip: 'Monter',
+			                tooltip: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.columns.action.items.up'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                	
 			                	var 
@@ -248,7 +248,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 							}			                			                
 			            },
 						{
-			                tooltip: 'Descendre',
+			                tooltip: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.columns.action.items.down'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                	
 			                	var 
@@ -271,7 +271,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 							}			                			                
 			            },			            
 						{
-			                tooltip: 'Enlever',
+			                tooltip: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.columns.action.items.remove'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                    var record = grid.getStore().getAt(rowIndex);
 			                	removeActorChecked(record);
@@ -326,8 +326,8 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 		    hidden : true !== me.modifiable,
 		    
 		    listConfig: {
-				loadingText: 'Recherche...',
-				emptyText: 'Aucun utilisateur trouvé.'		
+				loadingText: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.personCombo.loadingText'),
+				emptyText: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.personCombo.empty')
 			},
 			
 			store : personStore,
@@ -393,7 +393,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 				region : 'center',
 				layout : 'vbox',
 				plain : true,
-			    title: 'Acteurs de la validation',
+			    title: i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.forms.validation-actors'),
 			    iconCls : Yamma.Constants.getIconDefinition('tick').iconCls,
 				defaults : {
 					width : '100%',
@@ -408,7 +408,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 				
 				xtype : 'signdocumentpanel',
 				itemId : 'signature-form',
-				title : 'Signature électronique',
+				title : i18n.t('view.comments.dialog.outgoingsigningdialog.actorsgrid.forms.signature-form'),
 				region : 'east',				
 				nodeRef : me.nodeRef,
 				showPositioning : false,
@@ -439,7 +439,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'accept-button',
-		        	text: 'Accepter',
+		        	text: i18n.t('view.comments.dialog.outgoingsigningdialog.dockedItems.buttons.accept-button'),
 		        	icon : Yamma.Constants.getIconDefinition('accept').icon,
 		        	handler : function() {
 						this.performOperation('Certify');
@@ -449,7 +449,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'reject-button',
-		        	text: 'Refuser',
+		        	text: i18n.t('view.comments.dialog.outgoingsigningdialog.dockedItems.buttons.reject-button'),
 		        	icon : Yamma.Constants.getIconDefinition('cross').icon,
 		        	handler : function() {
 		        		this.performOperation('Reject');
@@ -460,7 +460,7 @@ Ext.define('Yamma.view.dialogs.OutgoingSigningDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: 'Annuler',
+		        	text: i18n.t('view.comments.dialog.outgoingsigningdialog.dockedItems.buttons.cancel-button'),
 		        	icon : this.statics().ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

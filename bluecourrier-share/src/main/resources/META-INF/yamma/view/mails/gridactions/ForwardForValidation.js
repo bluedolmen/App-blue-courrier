@@ -3,11 +3,11 @@ Ext.define('Yamma.view.mails.gridactions.ForwardForValidation', {
 	extend : 'Yamma.view.mails.gridactions.SimpleTaskRefGridAction',
 	
 	icon : Yamma.Constants.getIconDefinition('tick_go').icon,
-	tooltip : 'Transmettre pour validation',
+	tooltip : i18n.t('view.mails.gridactions.forwardforvalidation.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/send-outbound',
 
 	taskName : 'bcogwf:processingTask',
-	actionName : 'Validate',
+	actionName : i18n.t('view.mails.gridactions.forwardforvalidation.actionName'),
 	
 	supportBatchedNodes : true,	
 	

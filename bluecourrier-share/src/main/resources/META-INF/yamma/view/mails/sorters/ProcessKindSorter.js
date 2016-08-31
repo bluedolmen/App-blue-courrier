@@ -25,7 +25,7 @@ Ext.define('Yamma.view.mails.sorters.ProcessKindSorter', {
 	},
 	
 	property : Yamma.utils.datasources.Documents.PROCESS_KIND_QNAME, 
-	text : "Processus", 
+	text : i18n.t('view.mails.sorter.processkind.text'),//"Processus",
 	iconCls : Yamma.Constants.getIconDefinition('cog_email').iconCls,
 	
 	sorterFn : function(o1, o2) {
@@ -51,7 +51,7 @@ Ext.define('Yamma.view.mails.sorters.ProcessKindSorter', {
 		
 		var 
 			processKindDef = Yamma.utils.DeliveryUtils.getProcessKinds()[processKind] || {},
-			title = processKindDef.label || 'Non fixé',
+			title = processKindDef.label ||  i18n.t('view.mails.sorter.processkind.default'),
 			iconCls = processKindDef.iconCls || '',
 			template = new Ext.Template(
 				'<span class="grouping-header-icon {iconCls}">',

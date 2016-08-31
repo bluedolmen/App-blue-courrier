@@ -2,12 +2,12 @@ Ext.define('Yamma.view.charts.byuser.ByDocumentNumber', {
 	
 	extend : 'Yamma.view.charts.byuser.ChartDefinition',
 
-	title : 'Documents par utilisateur',
+	title : i18n.t('view.charts.byuser.bydocumentnumber.title'),//'Documents par utilisateur',
 	
 	manager : true,
 	
 	aggregatedFields : ['documentsCount', 'lateDocumentsCount'],
-	aggregatedFieldTitles : ['Courriers', 'Courriers en retard'],
+	aggregatedFieldTitles : [ i18n.t('view.charts.byuser.bydocumentnumber.fields.documentsCount'), i18n.t('view.charts.byuser.bydocumentnumber.fields.lateDocumentsCount')],
 	
 	prepareUserRecord : function(userRecord) {
 		

@@ -8,7 +8,7 @@ Ext.define('Yamma.view.services.ServicesView', {
 		'Ext.ux.tree.plugin.NodeDisabled'
 	],
 	
-	title : 'Services',
+	title : i18n.t('view.services.servicesview.title'),//'Services',
 	iconCls : Yamma.Constants.getIconDefinition('group_mail').iconCls,
 
 	border : 1,
@@ -51,7 +51,7 @@ Ext.define('Yamma.view.services.ServicesView', {
 	getColumns : function() {
 		return [{
 			xtype: 'treecolumn', //this is so we know which column will show the tree
-			text: 'Service',
+			text: i18n.t('view.services.servicesview.title'),
 			flex: 2,
 			sortable: true,
 			dataIndex: 'text'

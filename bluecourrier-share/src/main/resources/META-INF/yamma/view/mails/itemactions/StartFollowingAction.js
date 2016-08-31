@@ -2,7 +2,7 @@ Ext.define('Yamma.view.mails.itemactions.StartFollowingAction', {
 	
 	extend : 'Bluedolmen.utils.alfresco.grid.ContextMenuAction',
 	
-	text : 'Ajouter aux courriers suivis',
+	text : i18n.t('view.mails.itemaction.startfollowing.text'),//'Ajouter aux courriers suivis',
 	
 	iconCls : Yamma.Constants.getIconDefinition('feed_add').iconCls,
 	

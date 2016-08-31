@@ -6,278 +6,278 @@
     "mails": {
       "filters": {
         "clear": {
-          "label": "Supprimer les filtres"
+          "label": "Delete filters"
         }
       },
       "actions": {
         "StartProcessing": {
-          "tooltip": "Traiter le document"
+          "tooltip": "Process the document"
         },
         "CloseProcessing": {
-          "tooltip": "Terminer le traitement"
+          "tooltip": "Complete the processing"
         },
         "CloseDelivering": {
-          "tooltip": "Terminer la distribution"
+          "tooltip": "End the delivering"
         },
         "Delivering": {
-          "actionName": "Distribution"
+          "actionName": "Delivering"
         }
       },
       "batchactionnable": {
         "button": {
           "actions-button": {
-            "tooltip": "Actions disponibles sur les éléments sélectionnés"
+            "tooltip": "Actions available on the selected elements"
           }
         },
         "columns": {
           "check": {
-            "tooltip": "Sélectionner le document",
-            "menuText": "(Dé)Selectionner"
+            "tooltip": "Select the document",
+             "menuText": "(De)Select"
           }
         },
         "menu": {
           "item": {
-            "select-all": "Sélectionner tout",
-            "unselect-all": "Déselectionner tout"
+            "select-all": "Select all",
+            "unselect-all": "Deselect all"
           }
         }
       },
       "gridactions": {
         "acceptdistribution": {
-          "tooltip": "Valider la distribution"
+          "tooltip": "Valid the delivering"
         },
         "acceptforsending": {
-          "tooltip": "Accepter pour envoi postal"
+          "tooltip": "Accept for sending"
         },
         "addreply": {
-          "tooltip": "Ajouter un fichier réponse"
+          "tooltip": "Add a reply"
         },
         "approvedocument": {
-          "tooltip": "Approuver électroniquement le document"
+          "tooltip": "Approve the document"
         },
         "archive": {
-          "tooltip": "Archiver",
-          "confirmMessage": "Confirmez-vous l'archivage du(des) document(s)? </br> Une fois le document archivé, le(s) document(s) ne sera(ont) plus disponible(s) dans l'application.",
-          "confirmTitle": "Archiver ?"
+          "tooltip": "Archive",
+          "confirmMessage": "Do you confirm the archive of this documents? </br> Once archived, your document(s) will not be available in the application."
+		  "confirmTitle": "Archive?"
         },
         "assigntinstructor": {
-          "tasktitle": "Assignation du traitement à un instructeur"
+          "tasktitle": "Assign the treatment to an instructor"
         },
         "certifydocument": {
-          "tooltip": "Certifier le document"
+          "tooltip": "Certify the document"
         },
         "distribute": {
-          "tasktitle": "Distribution aux services",
-          "actionName": "Distribuer",
+          "tasktitle": "Deliver to services",
+          "actionName": "Deliver",
           "operationdialog": {
-            "title" :"Traitement par lots",
-            "msg": "Cette opération vous permet d'<b>éditer</b> les valeurs <b>par lots</b> ou de <b>distribuer</b> selon les valeurs fixées précédemment.<br> <i>Attention!</i> Les valeurs actuelles (supposées combinées) ne sont pas présentées à l'utilisateur) <br><br> <i>Quelle opération voulez-vous effectuer ?</i>",
-            "buttons" :{
-              "cancel": "Annuler",
-              "edit": "Éditer",
-              "edit-tooltip" :"Éditer tous les courriers sélectionnés",
-              "distribute" : "Distribuer",
-              "distribute-tooltip": "Distribuer tous les courriers sélectionnés"
+            "title" :"Batch process",
+            "msg": "This operation allow you to <b>edit</b> the values <b>by batch</b> or to <b>deliber</b> according to the values fixed previously/</br> <i>Attention!</i> The currents values (assumed combined) are not display to the user.<br><br> <i>Which operation do you want to do?</i>",
+			  "buttons" :{
+              "cancel": "Cancel",
+              "edit": "Edit",
+              "edit-tooltip" :"Edit all the selected mails",
+              "distribute" : "Deliver",
+              "distribute-tooltip": "Deliver all the selected mails"
             }
           }
 
         },
         "endoutgoingprocessing": {
-          "tooltip" :"Terminer le traitement",
-          "confirmTitle": "Envoyer sans validation ?",
-          "confirmMessage": "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
+          "tooltip" :"End the processing",
+          "confirmTitle": "Send without validation?",
+          "confirmMessage": "The document(s) will be send without the validation of a certified person.</br> Do you confirm the sending?",
           "initoutgoingvalidationdialog" : {
-            "title" : "Terminer le traitement"
+            "title" : "End the processing"
           }
         },
         "forwardforvalidation" : {
-          "tooltip": "Transmettre pour validation",
+          "tooltip": "Send for validation",
           "actionName": "Validate"
         },
         "forwardreply": {
-          "tooltip" : "Transmettre au service"
+          "tooltip" : "Send to a service"
         },
         "forwardtosignature" : {
-          "tooltip" : "Transmettre pour signature"
+          "tooltip" : "Send to signature"
         },
         "gridaction": {
           "commonservicename" : {
             "msg": {
-              "title": "Services multiples!",
-              "content": "Vous essayer d'effectuer une opération mettant en oeuvre des services multiples. Ce type d'opération n'est pas supporté pour l'instant. Veuillez svp sélectionner les éléments correspondants à un unique service."
+              "title": "Multiple service!",
+              "content": "You want to realise an operation related to differents services. This type of operation are not supported yet. Please select only the elements related to an unique service." 
             }
           },
           "menu" :{
             "manager": {
-              "title": "En tant que"
+              "title": "As"
             }
           }
         },
         "managetask" :{
-          "title" : "Gérer la tâche"
+          "title" : "Manage the task"
         },
         "markassent": {
-          "tooltip" : "Marquer comme envoyé",
+          "tooltip" : "Mark as sent",
           "actionName": "Sent"
         },
         "markassigned": {
-          "tooltip" : "Marquer comme signé"
+          "tooltip" : "Mark as signed"
         },
         "opendocument": {
           "download": {
-            "tooltip": "Télécharger le document"
+            "tooltip": "Download the document"
           }
         },
         "openintask": {
-          "tooltip": "Ouvrir dans les tâches"
+          "tooltip": "Open in the task"
         },
         "pre-distribute": {
-          "tooltip" : "Pré-assigner les services"
+          "tooltip" : "Pre-assigned the services"
         },
         "printaspdf": {
-          "title" : "Imprimer (pdf)",
+          "title" : "Print (pdf)",
           "window": {
-            "title" : "Imprimer (pdf)",
+            "title" : "Print (pdf)",
             "items": {
-              "boxcover": "Couverture",
+              "boxcover": "Cover",
               "boxattachments": "Attachements",
-              "boxdouble-sided": "Recto-verso",
-              "boxbarcode": "Code barre"
+              "boxdouble-sided": "Double-sided",
+              "boxbarcode": "Barcode"
             },
             "buttons": {
-              "generate" :"Générer",
-              "cancel": "Annuler"
+              "generate" :"Generate",
+              "cancel": "Cancel"
             }
           }
         },
         "refuseprocessing": {
-          "tooltip" : "Refuser le traitement",
-          "confirmTitle" : "Refuser le tratement ?",
-          "confirmMessage": "Confirmez-vous le retour en distribution du courrier ?\n Cette opération est généralement réalisée lorsqu'une erreur de distribution a été effectuée.",
-          "actionName" :"Refuse"
+          "tooltip" : "Refuse the processing",
+          "confirmTitle" : "Refuse the processing?",
+          "confirmMessage": "Do you confirm you want to send back the mail to distribution?\n This operation is used when an error has been made in the distribution.",
+		  "actionName" :"Refuse"
         },
         "refusereply": {
-          "commentTitle" :"Refuser la réponse",
-          "commentMessage":  "Quelle est la raison de ce refus ?",
-          "tooltip" : "Refuser la réponse"
+          "commentTitle" :"Refuse the reply",
+          "commentMessage":  "What is the reason of your refusal?",
+          "tooltip" : "Refuse the reply"
         },
         "remove" :{
-          "tooltip" :"Supprimer le courrier",
-          "actionName": "remove",
-          "confirmMessage" : "Confirmez-vous la suppression du courrier ?",
-          "confirmTittle": "Supprimer ?"
+          "tooltip" :"Remove the mail",
+          "actionName": "Remove",
+          "confirmMessage" : "Do you confirm the deletion of the mail?",
+          "confirmTittle": "Remove?"
         },
         "removereply" :{
-          "tooltip" : "Supprimer un courrier sortant",
+          "tooltip" : "Remove a outgoing mail",
           "actionName": "Remove",
-          "confirmTitle": "Supprimer ?",
-          "confirmMessage": "Confirmez-vous la suppression de la réponse ?"
+          "confirmTitle": "Remove?",
+          "confirmMessage": "Do you confirm the deletion of the reply?"
         },
         "sendoutbound" : {
-          "tooltip" : "Transmettre pour envoi postal",
+          "tooltip" : "Transmite for sending",
           "actionName": "Send without validation",
-          "confirmTitle": "Envoyer sans validation ?",
-          "confirmMessage" : "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
+          "confirmTitle": "Send without validation?",
+          "confirmMessage" : "The document(s) will be send without the validation of a certified person.</br> Do you confirm the sending?",
           "dialog": {
-            "title": "Envoyer sans validation",
-            "msg":  "<em>Votre document va être envoyé sans validation.</em><br/> Voulez-vous certifier votre document à l'aide d'une signature électronique ?",
+            "title": "Send without validation",
+            "msg":  "<em>Your document will be send without a validation.</em><br/> Do you want to certified your mail with an electronic sign?",
             "buttons" : {
-              "certify": "Certifier",
-              "send": "Envoyer",
-              "cancel": "Annuler"
+              "certify": "Certify",
+              "send": "Send",
+              "cancel": "Cancel"
             }
           }
         },
         "startdistribution": {
-          "tooltip" : "Démrrer la distribution",
+          "tooltip" : "Start the distribution",
           "actionName" : "Start"
         },
         "startProcessing": {
           "status" : "Not Yet Started"
         },
         "validateDistribution": {
-          "taskTitle": "Valider la distribution",
-          "actionName": "accept",
+          "taskTitle": "Validate the distribution",
+          "actionName": "Validate",
           "dialog": {
-            "title" :"Valider la distribution"
+            "title" :"Validate the distribution"
           }
         },
         "validatestep": {
-          "tooltip" :"Valider le courrier",
+          "tooltip" :"Validate the mail",
           "actionName": "Next"
         }
       },
       "itemaction": {
         "circulate": {
-          "text": "Diffuser"
+          "text": "Diffuse"
         },
         "downloadfile": {
-          "text": "Télécharger"
+          "text": "Download"
         },
         "gotoshare": {
-          "text" : "Ouvrir dans la GED"
+          "text" : "Open in the ECM"
         },
         "linktoexistingmail": {
-          "text" : "Associer à un courrier existant"
+          "text" : "Link to an existing mail"
         },
         "managetask": {
-          "text": "Gérer les tâches"
+          "text": "Manage tasks"
         },
         "restartprocessing": {
-          "text": "Relancer le traitement du document"
+          "text": "Restart processing"
         },
         "sharedocument": {
-          "text": "Partager",
+          "text": "Share",
           "dialog": {
-            "title" : "Partager",
+            "title" : "Share",
             "buttons" :{
-              "share" :"Partager"
+              "share" :"Share"
             }
           }
         },
         "showdetails": {
-          "text": "Fiche détaillée"
+          "text": "Detailed sheet"
         },
         "startfollowing": {
-          "text" :"Ajouter aux courriers suivis"
+          "text" :"Add to the followed mails"
         },
         "stopfollowing" : {
-          "text" : "Arrêter de suivre"
+          "text" : "Stop following"
         }
       },
       "sorter": {
         "processkind": {
-          "text" : "Processus",
-          "default": "Non fixé"
+          "text" : "Process",
+          "default": "Non-fixed"
         },
         "status" :{
-          "text" : "Statut"
+          "text" : "Status"
         }
       },
       "exportbutton": {
-        "tooltip" :"Exporter en CSV"
+        "tooltip" :"Export in CSV"
       },
       "groupersmenu": {
-        "defaultlabel": "Grouper par"
+        "defaultlabel": "Group by"
       },
       "mailcolumndefinition": {
         "constants" :{
-          "subject": "Sujet",
-          "object" : "Objet",
-          "name": "Identifiant",
+          "subject": "Subject",
+          "object" : "Object",
+          "name": "ID",
           "service" :"Service",
           "assigned": "Distribution",
-          "delivery_date": "Date dépôt",
-          "due_date": "Date échéance",
+          "delivery_date": "Delivery date",
+          "due_date": "Due date",
           "dates" : "Dates",
-          "priority": "Priorité"
+          "priority": "Priority"
         },
         "columns": {
           "documenttype": {
-            "tooltip": "Type de document"
+            "tooltip": "Document type"
           },
           "state": {
-            "tooltip" : "État"
+            "tooltip" : "State"
           }
         },
         "template": {
@@ -299,13 +299,13 @@
         }
       },
       "servicefilters" : {
-        "fieldLabel": "Filtre",
+        "fieldLabel": "Filter",
         "treestore": {
           "root": {
             "text": "Statut"
           },
           "incoming" : {
-            "text" : "Entrant"
+            "text" : "Incoming"
           },
           "incoming-delivering" : {
             "text" : "Distribution",
@@ -380,105 +380,106 @@
           "noderef": "IllegalArgumentException! The provided document nodeRef is not valid"
         }
       },
+	  
       "mailfiltersview": {
         "title": "Services",
         "storeconfig": {
-          "rootLabel": "<b>Tous les services</b>"
+          "rootLabel": "<b>All the services</b>"
         },
         "actions": {
           "close": {
-            "text": "Sélectionner tous les sous-services"
+            "text": "Select all the sub-services"
           }
         }
       }
     },
     "display": {
       "displayview": {
-        "pin": "Garder sous le coude",
-        "restore": "Ouvrir dans une autre fenêtre"
+        "pin": "Pin the document",
+        "restore": "Open in an other window"
       }
     },
     "categories": {
       "columns": {
-        "categorie": "Catégorie",
+        "categorie": "Category",
         "alfrescoactioncolumn": "Action"
       },
       "window": {
         "create": {
-          "title": "Créer une nouvelle catégorie"
+          "title": "Create a new category"
         },
         "update": {
-          "title": "Mettre à jour une catégorie"
+          "title": "Update a category"
         }
       },
       "dialog": {
         "delete": {
-          "title": "Supprimer la catégorie ?",
-          "message": "Etes-vous certain de vouloir supprimer la catégorie et ses descendants ?"
+          "title": "Delete the category?",
+          "message": "Are you sure you want to delete this category and its sub-categories?"
         }
       }
     },
     "category": {
-      "waitingmessage": "Opération en cours..."
+      "waitingmessage": "Ongoing operation..."
     },
     "createcategory": {
-      "title": "Créer une nouvelle catégorie",
-      "buttonText": "Créer"
+      "title": "Create a new category",
+      "buttonText": "Create"
     },
     "updatecategory": {
-      "title": "Mise à jour d'une catégorie",
-      "buttonText": "Mise à jour"
+      "title": "Update a category",
+      "buttonText": "Update"
     },
     "charts": {
       "byservice": {
         "latestate": {
-          "title": "Retard par service",
+          "title": "Delay by service",
           "field": {
             "ontime": "OK",
             "hurry": "Urgent",
-            "late": "En retard",
-            "undetermined": "Indéterminé"
+            "late": "Late",
+            "undetermined": "Undetermined"
           }
         },
         "bypriority": {
-          "title": "Priorité par service"
+          "title": "Priority by service"
         },
-        "byprivacy": {
-          "title": "Confidentialité par service"
+        "byprivacy" : {
+          "title" : "Confidentiality by service"
         },
         "byrecordvalue": {
-          "undeterminedValueTitle": "Indéterminé",
+          "undeterminedValueTitle": "Undetermined",
           "errors": {
             "recordfiledname": "The recordFieldName has to be provided"
           }
         },
         "bystate": {
-          "title": "Etat par service"
+          "title": "State by service"
         },
         "bytask": {
-          "title": "Tâches par service"
+          "title": "Tasks by service"
         },
         "definition": {
-          "title": "Par service",
+          "title": "By service",
           "tips": {
-            "part0": " courrier",
+            "part0": "Mails",
             "part1": "s"
           }
         }
       },
       "byuser": {
         "bydocumentnumber": {
-          "title": "Documents par utilisateur",
+          "title": "Documents by user",
           "fields": {
-            "documentsCount": "Courriers",
-            "lateDocumentsCount": "Courriers en retard"
+            "documentsCount": "Mails",
+            "lateDocumentsCount": "Mails in hurry"
           }
         },
         "bytask": {
-          "title": "Tâches par utilisateur"
+          "title": "Tasks by user"
         },
         "definition": {
-          "title": "Par utilisateur"
+          "title": "By user"
         }
       },
       "bystatebar": {
@@ -489,15 +490,15 @@
         "barchartdefinition": {
           "ontime": "Ok",
           "hurry": "Urgent",
-          "late": "En retard",
-          "undetermined": "Indéterminé"
+          "late": "Late",
+          "undetermined": "Undetermined"
         }
       },
       "bytask": {
-        "title": "Tâches"
+        "title": "Tasks"
       },
       "bytaskmixin": {
-        "title": "Tâche"
+        "title": "Tasks"
       },
       "definition": {
         "errors": {
@@ -506,48 +507,48 @@
         }
       },
       "chartsstatsview": {
-        "title": "Rapports statistiques des tâches en cours",
+        "title": "Statistics report of the ongoing tasks",
         "errors": {
           "nostore": "IllegalStateException! The store has to be provided"
         },
         "items": {
           "reports": {
-            "title": "Rapports"
+            "title": "Reports"
           },
           "filter": {
-            "title": "Filtres"
+            "title": "Filter"
           }
         },
         "toolbar": {
           "buttons": {
             "manage": {
               "text": "Manager",
-              "tooltip": "Basculer en mode Manager"
+              "tooltip": "Access to the Manager mode"
             },
             "export": {
-              "text": "Exporter",
-              "tooltip": "Exporter le diagramme",
-              "confirm": "Confirmer l'export, Voulez-vous télécharger le diagramme comme une image ?"
+              "text": "Export",
+              "tooltip": "Export the diagram",
+              "confirm": "Confirm the export : Do you want to download the diagram as an image?"
             }
           }
         },
         "filter": {
           "mailtype-filter": {
-            "text": "Entrant/Sortant",
+            "text": "Incoming/Outgoing",
             "menu": {
               "items": {
-                "all": "Entrant/Sortant",
-                "incomming": "Entrant",
-                "outgoing": "Sortant"
+                "all": "Incoming/Outgoing",
+                "incomming": "Incoming",
+                "outgoing": "Outgoing"
               }
             }
           },
           "latestate-filter": {
-            "text": "Tous",
+            "text": "All",
             "items": {
-              "all": "Tous",
+              "all": "All",
               "hurry": "Urgent",
-              "late": "En retard"
+              "late": "Late"
             }
           }
         }
@@ -568,37 +569,597 @@
         }
       },
       "statesstat": {
-        "title": "Statistiques états",
+        "title": "States statistics",
         "tools": {
           "nextview": {
-            "tooltip": "Vue suivante"
+            "tooltip": "Next view"
           }
         }
       }
     },
     "comments": {
       "commentsview": {
-        "title": "Commentaires",
+        "title": "Comments",
         "button": {
-          "addcomment": "Ajouter un commentaires"
+          "addcomment": "Add a comments"
         },
         "columns": {
           "author": {
-            "text": "Autheur"
+            "text": "Author"
           },
           "comment": {
-            "text": "Commentaire"
+            "text": "Comments"
           }
         },
         "template": {
           "comment": {
-            "published": "Publié le {created:date(\"d/m/Y\")}",
-            "modified": " (modifié le {modified:date(\"d/m/Y\")})"
+            "published": "Published the {created:date(\"d/m/Y\")}",
+            "modified": " (Modified the {modified:date(\"d/m/Y\")})"
           }
         },
         "dialog": {
           "addcomment": {
-            "title": "Ajouter un commentaire"
+            "title": "Add a comment"
+<<<<<<< HEAD
+          }
+        }
+      },
+      "commentswindow": {
+        "title": "Comments"
+      },
+      "deletecommentaction": {
+        "definition": {
+          "tooltip": "Delete the comment"
+        },
+        "dialog": {
+          "confirm": {
+            "title": "Do you want to delete this comment?",
+            "message": "Are you sure you want to delete this comment?"
+          }
+        }
+      },
+      "editcommentaction": {
+        "definition": {
+          "tooltip": "Edit the comment"
+        },
+        "dialog": {
+          "add": {
+            "title": "Add a comment"
+          }
+        }
+      },
+      "promptdialog": {
+        "title": "Add a comment",
+        "errors": {
+          "invalidnoderef": "This windows has to be initialized with a valid nodeRef"
+        },
+        "personCombo": {
+          "listconfig": {
+            "loadingtext": "Search...",
+            "emptyText": "No user found."
+          }
+        },
+        "actorsgrid": {
+          "title": "Actors",
+          "columns": {
+            "title": {
+              "text": "Name"
+            },
+            "actioncolumn": {
+              "text": "Actions",
+              "items": {
+                "remove": {
+                  "tooltip": "Remove"
+                }
+              }
+            }
+          }
+        },
+        "items": {
+          "htmlEditor": {
+            "title": "Make private"
+          }
+        },
+        "dockedItems": {
+          "items": {
+            "comment-button": {
+              "text": "Comment"
+            },
+            "cancel-button": {
+              "text": "Cancel"
+            }
+          }
+        }
+      },
+      "promptmessage": {
+        "title": "Add a comment"
+      }
+    },
+    "dialog": {
+      "aboutdialog": {
+        "title": "About",
+        "dockedItem": {
+          "button": {
+            "license": "Licence",
+            "menu": {
+              "update": "Update"
+            }
+          }
+        },
+        "uploadwindow": {
+          "title": "Select a new <br>license</br> file",
+          "updated": {
+            "title": "Successful update",
+            "msg": "The license update need to restart the application"
+          },
+          "failed": {
+            "title": "Failure configuring the license update",
+            "msg": "The provided license is maybe not valid. Please contact your administrator or your dealer."
+          },
+          "expired": {
+            "title": "Expired license",
+                "msg" : "The license is expired. You need to update her in order to benefit from the support. The <b>community</b> version allow you to used this product without technical support."
+              }
+            }
+          },
+          "assignmentdialog" : {
+              "title" : "Assigner",
+              "columns": {
+                "displayName": "Nom",
+              },
+              "dockedItems" :{
+                "buttons": {
+                  "assign-button" : "Assigner",
+                  "cancel-button" : "Annuler"
+                }
+              }
+          },
+          "circulatedialog": {
+            "title" : "Diffuser à",
+            "kindcolumn": {
+              "user": "Utilisateur",
+              "group": "Groupe",
+              "service": "Service"
+            },
+            "sharesGrid" : {
+              "title": "Diffuser",
+              "no-type": "Pas de type",
+              "columns": {
+                "kind" : "Kind",
+                "name" : "Nom",
+                "actions": {
+                  "text": "Actions",
+                  "items": {
+                    "remove": "Enlever"
+                  }
+                }
+              }
+            }
+          },
+          "forwarddialog": {
+            "title": "Transmettre",
+            "items" : {
+              "approbe-check" : "Apposer un visa d'approbation",
+              "keep-sending-checkbox": "Affecter l'envoi à mon service"
+            },
+            "dockedItems" : {
+              "forward-button": "Transmettre",
+              "cancel-button": "Annuler"
+            }
+          },
+          "initoutgoingvalidation": {
+            "title" : "Lancer la validation",
+            "buttons" :{
+              "launch-button" : "Lancer",
+              "cancel-button" : "Annuler"
+            }
+          },
+          "maindeliverydialog" : {
+            "roles": {
+              "procg" : "Service de traitement destination",
+              "procg-from":  "Service de traitement actuel",
+              "procg-to": "Service de traitement destination",
+              "col": "Service en collaboration",
+              "col-from" : "Service en collaboration actuel",
+              "col-to" : "Service en collaboration destination",
+              "inf": "Service en information",
+              "inf-from" : "Service en information actuel",
+              "inf-to" :"Service en information destination",
+              "none": "Service non affecté"
+            },
+            "status":  {
+              "pending":  "Enregistrer mais non appliqué",
+              "edited": "Edité mais non enregistré",
+              "ongoing": "En cours",
+              "done": "Terminé",
+              "procg-done": "Service de traitement destination traité",
+              "col-done": "Service en collaboration traité",
+              "inf-done": "Service en information traité",
+              "none"
+            },
+            "title": "Distribuer",
+            "servicesview": {
+              "title": "Services",
+              "columns": {
+                "alfrescoactionscolumns": "Action"
+              }
+            },
+            "validationCombo": {
+              "fieldLabel": "Circuit"
+            },
+            "processKindCombo": {
+              "fieldLabel": "Type de traitement"
+            },
+            "buttons": {
+              "save-button": "Enregistrer",
+              "cancel-button": "Annuler"
+            },
+            "errors": {
+              "role-order": "Cannot find a valid role-order for the provided role "
+            }
+          },
+          "outgoingsigningdialog" :{
+            "title": "Validation électronique",
+            "actorsgrid": {
+              "columns": {
+                "title": {
+                  "text": "Nom"
+                },
+                "action": {
+                  "text": "Actions",
+                  "items": {
+                    "up": "Monter",
+                    "down": "Descendre",
+                    "remove": "Enlever"
+                  }
+                }
+              },
+              "personCombo" : {
+                "loadingText": "Recherche...",
+                "empty": "Aucun utilisateur trouvé"
+              },
+              "forms": {
+                "validation-actors" : "Acteurs de la validation",
+                "signature-form": "Signature électronique"
+              }
+            },
+            "dockedItems": {
+              "buttons": {
+                "accept-button" : "Accepter",
+                "reject-button" : "Refuser",
+                "cancel-button": "Annuler"
+              }
+            }
+          },
+          "outgoingvalidationdialog": {
+            "title": "Validation",
+            "actorsgrid": {
+              "columns": {
+                "title": {
+                  "text": "Nom"
+                },
+                "action": {
+                  "text": "Actions",
+                  "items": {
+                    "up": "Monter",
+                    "down": "Descendre",
+                    "remove": "Enlever"
+                  }
+                }
+              }
+          },
+            "personCombo" : {
+              "loading": "Recherche...",
+              "empty": "Aucun utilisateur trouvé"
+            },
+            "propertiesForm" : {
+              "certify-checkbox": "Certifier",
+              "signer-combo": {
+                "loading" :"Recherche...",
+                "empty": "Aucun utilisateur trouvé."
+              },
+              "tome": "A moi"
+            },
+            "validation-actors": "Acteur de la validation",
+            "dockedItem": {
+              "buttons": {
+                "accept-button": "Accepter",
+                "reject-button": "Refuser",
+                "cancel-button": "Annuler"
+              }
+            }
+          },
+          "digitalsigning" : {
+            "generateform": {
+              "title": "Génération d'un certificat auto-signé",
+              "waitingMessage": "Génération en cours...",
+              "errorMessage":  "<strong>Echec de la génération du certificat auto-signé.</strong><br/><bt/>",
+              "submit" : "Générer",
+              "fields" : {
+                "password" : "Mot de passe",
+                "duration": "Durée (jours)",
+                "alias": "Alias"
+              }
+            },
+            "selectsignaturezonewindow": {
+              "title" : "Sélectionner une zone de signature",
+              "errors": {
+                "node-init": "The nodeRef is not correctly initialized"
+              },
+              "buttons": {
+                "select-button" : {
+                  "text": "Sélectionner",
+                  "tooltip" :"Sélectionner la zone actuelle comme zone de signature"
+                },
+                "cancel-button" : {
+                  "title" : "Annuler"
+                }
+              }
+            }
+            "signaturedisplaybox": {
+              "missingMessage": "<strong>Pas encore de signature</strong>",
+
+            },
+            "signaturemanagementwindow" : {
+              "title" : "Gestion de la signature électronique",
+              "items":{
+                "signature-box": {
+                  "missingmessage": "<strong>Pas encore de signature.</strong><br/> Vous pouvez ajouter, ou générer une signature électronique. L'image associée à la signature peut être ajoutée et modifiée avec l'action d'édition.<br/><br/> <em>Note: La génération d'une signature crée uniquement un certificat auto-signé qui n'a aucune valeur légale !</em>"
+                }
+              },
+              "dockedItems": {
+                "items": {
+                  "menu": {
+                    "text" :"Menu",
+                    "items" :{
+                      "generate-button" : {
+                        "text": "Générer",
+                        "tooltip": "Générer un certificat auto-signé"
+                      },
+                      "add-button" : {
+                        "text": "Ajouter",
+                        "tooltip": "Ajouter un certificat pour la signature électronique",
+                      },
+                      "remove-button": {
+                        "text": "Supprimer",
+                        "tooltip" : "Supprimer la signature actuelle"
+                      },
+                      "editImage-button" :{
+                        "text" : "Modifier l'image",
+                        "tooltip" : "Editer l'image de signature"
+                      }
+                    }
+                  }
+                }
+              },
+              "uploadformwindow" :{
+                "title" : "Ajout/Modification d'une image",
+                "errorTitle": "Echec",
+                "errorMessage": "<strong>Echec de la sauvegardede l'image",
+                "fields" :{
+                  "image": "Image"
+                }
+              }
+            },
+            "signatureview": {
+              "title": "Signatures",
+              "dockedItems": {
+                "items": {
+                  "addAttachment": "Ajouter un attachement"
+                }
+              },
+              "column": {
+                "actioncolumn": "Type de document",
+                "name": "Nom",
+                "humanReadableSize": "Taille"
+              }
+            },
+            "signdocumentpanel" : {
+              "title" : "Certification du document",
+              "items" :{
+                "information": "Informations",
+                "informationmissing": "<strong>Pas encore de signature.</strong><br/> Merci d'en ajouter une en utilisant le panneau de gestion de la signature électronique",
+                "password" : "Mot de passe",
+                "location" : "Localisation",
+                "reason": "Raison",
+                "position" : "Positionnement",
+                "location_not-visible" : "Non visible",
+                "location_field": "Champ",
+                "field-name": "Nom du champ",
+                "location_page" : "Page",
+                "pageNumber": "Num.",
+                "positionmm" : "Position (mm)",
+                "size" : "Taille (mm)",
+                "select" : "Sélectionner"
+              },
+              "buttons": {
+                "sign": {
+                  "text": "Signer",
+                  "tooltip" :"Apposer sa signature pour certifier le document"
+                }
+              }
+            },
+            "signdocumentwindow" : {
+              "title": "Certification du document"
+            },
+            "uploadformwindow": {
+              "title" : "&nbsp;",
+              "emptyTextLabel" :"Choissisez un fichier",
+              "waiting" :"Téléversement en cours...",
+              "errorTitle": "Echec",
+              "errorMessage": "<strong>Echec de la sauvegarde</strong><br/><br/>",
+              "submit": "Sauver",
+              "cancel": "Annuler",
+              "errors" : {
+                "undefined-url": "IllegalStateException! The uploadUrl has not been defined"
+              }
+            },
+            "uploadsignature" : {
+              "title" : "Ajout/Modification d'une signature",
+              "error" : "Echec",
+              "errormessage": {
+                "1" : "Echec de la sauvegarde la signature.",
+                "2": "Veuillez vérifier votre clé (taille, format, cohérence du format avec la déclaration).",
+                "3" : "Le mot de passe est obligatoire et protège votre clé privée qui doit rester secrète.",
+                "4" : "Enfin, l'image n'est pas obligatoire et peut être modifiée dans un second temps."
+              },
+              "keyLabel": "Certificat",
+              "imageLabel" :"image",
+              "passwordLabel" : "Mot de passe",
+              "keyTypeLabel": "Type"
+            },
+            "uploadsigningimagewindow" : {
+              "title": "Ajout/Modification d'une image",
+              "errorTitle": "Echec",
+              "errorMessage" : "Echec de la sauvegarde de l'image.",
+              "imageLabel" : "Image"
+            }
+          }
+        }
+	},
+	"widget": {
+		"searchpanel" : {
+			"title" : "Rechercher",
+			"items" : {
+				"filter": {
+					"label" : "Services (filtre)"
+				},
+				"mail" : {
+					"label" : "Courriers"
+				}
+			}
+		},
+        "mailsview" : {
+        "button" : {
+          "filter-button": "Filtrer"
+        },
+        "toolbar": {
+          "button": {
+            "reload": {
+              "tooltip" : "Recharger"
+            }
+          }
+        },
+        "filters": {
+          "modified-recently-filter": "Modifiés récemment (7j)",
+          "duedate-filter": "Echéance",
+          "duedate-lessthan7days": "Moins de 7 jours",
+          "duedate-lessthan3days": "Moins de 3 jours"
+        }
+      },
+        "mailfiltersview": {
+
+        },
+        "attachmentsview": {
+            "title": "Attachements",
+            "toolbar": {
+                "buttons": {
+                  "addAttachment-button" : "Ajouter un attachement"
+                }
+            },
+          "column" :{
+            "actioncolumn" : "Type de document",
+            "namecolumn": "Nom du fichier",
+            "sizecolumn": "Taille"
+          },
+          "actions": {
+            "delete-action": {
+              "tooltip": "Supprimer l'attachement",
+              "dialog": {
+                "confirmation": {
+                  "title": "Supprimer l'attachement ?",
+                  "content": "Êtes-vous certain de vouloir supprimer l'attachement<br/><b>{0}</b>"
+                }
+              }
+            }
+          }
+        },
+        "displayview": {
+            "title": "Prévisualisation des fichiers"
+        },
+        "documentsview": {
+          "title" : "Liste des contenus",
+          "template" :{
+            "description": {
+              "created" : {
+                "text": "Créé le ",
+                "by" : "par "
+              },
+              "modified" : {
+                "text" : "Modifié le ",
+                "by" : "par "
+              }
+            }
+          },
+          "column": {
+            "description": {
+              "text": "Description"
+            },
+            "thumbnail": {
+              "text": "Miniature"
+            },
+            "mimetype": {
+              "tooltip" : "Type de document"
+            }
+          },
+          "action": {
+            "type": {
+              "title": "répertoire"
+            }
+          }
+        },
+        "explorer": {
+          "items": {
+            "documentsview":{
+              "title": "Liste des contenus"
+            }
+          }
+        },
+        "collectionmanager" : {
+          "state" : {
+            "update" : {
+              "none" : "Aucun"
+            }
+          }
+        },
+        "quicksearch": {
+          "config": {
+            "loading": "Recherche...",
+            "empty": "Aucun document trouvé."
+          }
+        },
+        "navigator": {
+          "title": "Navigateur"
+        },
+        "selectfilewindow": {
+          "title" : "Sélectionner un fichier",
+          "buttons": {
+            "okButton": "Ok",
+            "cancelButton": "Annuler"
+          },
+          "view": {
+            "documentsview": "Liste des contenus"
+          }
+        },
+        "directoryadminwindow" : {
+            "title" : "Administration des Contacts",
+            "columns": {
+              "namecolumn": {
+                  "text": "Nom"
+              },
+              "actioncolumn": {
+                "tooltip" : "Ajouter comme service"
+              }
+            }
+        }
+	},
+    "controller": {
+      "header": {
+        "quicksearch": {
+          "context": {
+            "description": "Termes "
+=======
+>>>>>>> branch 'master' of ssh://git@git.bluexml.com/ycoulon/bluecourrier.git
           }
         }
       },

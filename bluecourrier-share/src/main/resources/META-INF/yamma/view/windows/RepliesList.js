@@ -7,14 +7,14 @@ Ext.define('Yamma.view.windows.RepliesList', {
 		'Yamma.utils.datasources.Replies'
 	],
 	
-	title : 'Réponses au courrier',
+	title : i18n.t('view.window.replieslist.title'),//'Réponses au courrier',
 	storeId : 'Replies',
 	hasPaging : false,
 	
-	REPLY_NAME_TITLE : 'Nom du document',
-	REPLY_AUTHOR_TITLE : 'Auteur',
-	REPLY_WRITING_DATE_TITLE : 'Date de rédaction',
-	REPLY_SENT_DATE_TITLE : 'Date d\'envoi',
+	REPLY_NAME_TITLE : i18n.t('view.window.replieslist.name_title'),//'Nom du document',
+	REPLY_AUTHOR_TITLE : i18n.t('view.window.replieslist.author_title'),//'Auteur',
+	REPLY_WRITING_DATE_TITLE :i18n.t('view.window.replieslist.writing_date_title'),// 'Date de rédaction',
+	REPLY_SENT_DATE_TITLE : i18n.t('view.window.replieslist.sent_date_title'),//'Date d\'envoi',
 	
 	getColumns : function() {
 		
@@ -42,7 +42,7 @@ Ext.define('Yamma.view.windows.RepliesList', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 30,
-				tooltip : 'Type', // if the plugin is applied on the containing table
+				tooltip : i18n.t('view.window.replieslist.columns.type'),//'Type', // if the plugin is applied on the containing table
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.UNKNOWN_TYPE_DEFINITION.iconCls}),
 				
 				items : [

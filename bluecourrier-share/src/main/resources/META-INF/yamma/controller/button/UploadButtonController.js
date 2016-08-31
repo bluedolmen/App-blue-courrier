@@ -259,7 +259,7 @@ Ext.define('Yamma.controller.button.UploadButtonController', {
 		
 		Ext.create('Yamma.view.windows.UploadFormWindow', {
 			
-			title : 'Choisissez un fichier',
+			title : i18n.t('controller.upload.buttoncontroller.form.title'),
 			
 			formConfig : {
 				additionalFields : additionalFields

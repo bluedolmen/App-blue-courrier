@@ -12,7 +12,7 @@ Ext.define('Yamma.view.mails.BatchActionable', {
 			scale : 'small',
 			iconCls : Yamma.Constants.getIconDefinition('lightning').iconCls,
 			itemId : 'actions-button',
-			tooltip : 'Actions disponibles sur les éléments sélectionnés',
+			tooltip : i18n.t('view.mails.batchactionnable.button.actions-button.tooltip'),
 			showEmptyMenu : true,
 			menu : []
 		}
@@ -59,11 +59,11 @@ Ext.define('Yamma.view.mails.BatchActionable', {
 	    		xtype : 'checkcolumn',
 	    		itemId : 'select-column',
 	    		width : 30,
-	    		tooltip : 'Sélectionner le document',
+	    		tooltip : i18n.t('view.mails.batchactionnable.columns.check.tooltip'),
 	    		plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', {iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls}),
 	    		resizable : false,
 				menuDisabled : true,
-	    		menuText : '(Dé)Selectionner',
+	    		menuText : i18n.t('view.mails.batchactionnable.columns.check.menuText'),
 				sortable : false,
 				groupable : false,
 				hideable : false,
@@ -111,7 +111,7 @@ Ext.define('Yamma.view.mails.BatchActionable', {
 	        		itemId : 'select-submenu-separator'
 	        	},
         		{
-        			text : 'Sélectionner tout',
+        			text : i18n.t('view.mails.batchactionnable.menu.item.select-all'),
         			itemId : 'select-all',
         			iconCls : Yamma.Constants.getIconDefinition('checkbox').iconCls,
         			handler : function() {
@@ -120,7 +120,7 @@ Ext.define('Yamma.view.mails.BatchActionable', {
         			}
         		},
         		{
-        			text : 'Déselectionner tout',
+        			text : i18n.t('view.mails.batchactionnable.menu.item.unselect-all'),
         			itemId : 'unselect-all',
         			iconCls : Yamma.Constants.getIconDefinition('checkbox_unchecked').iconCls,
         			handler : function() {

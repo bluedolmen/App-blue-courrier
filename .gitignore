@@ -1,3 +1,6 @@
+*.iml
+*.iws
+*.ipr
 **/target/*
 /alf_data_dev/*
 *.log*

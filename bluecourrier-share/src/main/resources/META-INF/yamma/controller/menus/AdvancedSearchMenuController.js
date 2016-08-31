@@ -55,7 +55,7 @@ Ext.define('Yamma.controller.menus.AdvancedSearchMenuController', {
     		;
     		
     		if (null == mainAspect) {
-    			Ext.Error.raise('At least one main aspect has to be defined!');
+    			Ext.Error.raise(i18n.t('controller.advancedsearch.error.mainAspect'));
     		}
     		
     		searchFormWindow.load({
@@ -71,7 +71,7 @@ Ext.define('Yamma.controller.menus.AdvancedSearchMenuController', {
     		
     		var context = Ext.create('Yamma.utils.Context', {
     			
-    			label : 'Recherche avancée',
+    			label : i18n.t('controller.advancedsearch.title'),
     			query : query,
     			term : term
     			

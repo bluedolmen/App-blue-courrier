@@ -6,11 +6,11 @@ Ext.define('Yamma.view.mails.gridactions.RefuseReply', {
 		commentedAction : 'Bluedolmen.utils.alfresco.grid.CommentedAction'
 	},
 	
-	commentTitle : 'Refuser la réponse',
-	commentMessage : "Quelle est la raison de ce refus ?",
+	commentTitle :  i18n.t('view.mails.gridactions.refusereply.commentTitle'),
+	commentMessage :  i18n.t('view.mails.gridactions.refusereply.commentMessage'),
 		
 	icon : Yamma.Constants.getIconDefinition('cross').icon,
-	tooltip : 'Refuser la réponse',
+	tooltip : i18n.t('view.mails.gridactions.refusereply.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/refuse-reply',
 	
 	supportBatchedNodes : true,

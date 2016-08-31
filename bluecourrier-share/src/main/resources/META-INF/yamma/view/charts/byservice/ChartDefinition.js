@@ -2,7 +2,7 @@ Ext.define('Yamma.view.charts.byservice.ChartDefinition', {
 	
 	extend : 'Yamma.view.charts.GroupBasedChartDefinition',
 
-	title : 'Par service',
+	title : i18n.t('view.charts.byservice.definition.title'),
 	
 	groupFieldName : 'enclosingService',
 	
@@ -28,7 +28,7 @@ Ext.define('Yamma.view.charts.byservice.ChartDefinition', {
 	            trackMouse: true,
 	            width : 100,
 	            renderer: function(storeItem, item) {
-	                this.setTitle(String(item.value[1]) + ' courrier' + (item.value[1] > 1 ? 's' : ''));
+	                this.setTitle(String(item.value[1]) + i18n.t('view.charts.byservice.definition.tips.part0') + (item.value[1] > 1 ? i18n.t('view.charts.byservice.definition.tips.part1') : ''));
 	            }
 	        },
 	        renderer : function(sprite, record, attributes, index, store) {

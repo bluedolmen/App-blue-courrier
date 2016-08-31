@@ -1,6 +1,6 @@
 Ext.define('Yamma.view.windows.DropZone', {
     extend: 'Ext.window.Window',
-    title: 'Add Documents',
+    title: i18n.t('view.window.dropwindow.title'),//'Add Documents',
     modal: true,
     closable: false,
     width: 400,
@@ -10,7 +10,7 @@ Ext.define('Yamma.view.windows.DropZone', {
         xtype: 'container',
         height: 100,
         border: false,
-        html: '<div id="drop_zone" style="padding:26px 40px;">Drop documents here</div>',
+        html: '<div id="drop_zone" style="padding:26px 40px;">'+i18n.t('view.window.dropwindow.dropdocs')+'</div>',
         ddGroup: 'documentsDDGroup',
  
         style: { backgroundColor: '#fff', padding: '5px' },
@@ -45,7 +45,7 @@ Ext.define('Yamma.view.windows.DropZone', {
         style: { padding: '5px' },
  
         // Just adding a typical multipart file field here to a container
-        html: '<div style="padding:0 0 5px 0;">or upload your documents the traditional way...</div> <input id="upload_dataset_document" type="file" name="files" multiple="multiple" style="margin:0 0 0 30px;" />',
+        html: '<div style="padding:0 0 5px 0;">'+i18n.t('view.window.dropwindow.upload')+'</div> <input id="upload_dataset_document" type="file" name="files" multiple="multiple" style="margin:0 0 0 30px;" />',
         listeners: {
             afterrender: function () {
  

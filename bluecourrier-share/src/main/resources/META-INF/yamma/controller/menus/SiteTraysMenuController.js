@@ -70,7 +70,7 @@ Ext.define('Yamma.controller.menus.SiteTraysMenuController', {
 					
 					context.setTitle(
 						Ext.String.format(
-							"Documents du service '{0}' ayant l'état '{1}'",
+							i18n.t('controller.menu.sitetrays.context.title'),
 							serviceLabel,
 							stateDefinition.shortTitle
 						)

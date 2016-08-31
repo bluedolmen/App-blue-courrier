@@ -3,7 +3,7 @@ Ext.define('Yamma.view.mails.gridactions.AcceptForSending', {
 	extend : 'Yamma.view.mails.gridactions.SimpleNodeRefGridAction',
 	
 	icon : Yamma.Constants.getIconDefinition('email_go').icon,
-	tooltip : 'Accepter pour envoi postal',
+	tooltip : i18n.t('view.mails.gridactions.acceptforsending.tooltip'),//'Accepter pour envoi postal',
 	actionUrl : 'alfresco://bluedolmen/yamma/forward-for-sending',
 	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_VALIDATE,	
 		

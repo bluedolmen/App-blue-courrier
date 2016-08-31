@@ -6,7 +6,7 @@ Ext.define('Yamma.view.charts.byservice.ByTask', {
 		'bytask' : 'Yamma.view.charts.ByTaskMixin'
 	},
 	
-	title : 'Tâches par service',
+	title : i18n.t('view.charts.byservice.bytask.title'),
 	legendPosition : 'right',
 	
 	aggregatedFields : [],

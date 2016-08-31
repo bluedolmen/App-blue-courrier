@@ -6,7 +6,7 @@ Ext.define('Yamma.view.charts.byuser.ChartDefinition', {
 		'groupbased' : 'Yamma.view.charts.GroupBasedMixin'
 	},	
 
-	title : 'Par utilisateur',
+	title : i18n.t('view.charts.byuser.definition.title'),
 	
 	groupFieldName : 'userName',
 	

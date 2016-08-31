@@ -7,7 +7,7 @@ Ext.define('Yamma.view.mails.gridactions.ManageTask', {
 	],
 	
 	icon : Yamma.Constants.getIconDefinition('cog').icon,
-	tooltip : 'Gérer la tâche',
+	tooltip : i18n.t('view.mails.gridactions.managetask.title'),
 	
 	supportBatchedNodes : false,
 	

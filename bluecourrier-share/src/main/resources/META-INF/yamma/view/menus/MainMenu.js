@@ -11,7 +11,7 @@ Ext.define('Yamma.view.menus.MainMenu', {
 	],
 	
 	id : 'main-menu',
-	title : 'Menu principal',
+	title : i18n.t('view.menu.mainmenu.title'),
 	
 	/**
 	 * Store the state of the panel w.r.t. the pin/unpin actions

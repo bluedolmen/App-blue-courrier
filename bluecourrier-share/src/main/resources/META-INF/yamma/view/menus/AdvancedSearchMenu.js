@@ -3,7 +3,7 @@ Ext.define('Yamma.view.menus.AdvancedSearchMenu', {
 	extend : 'Ext.button.Button',
 	alias : 'widget.advancedsearchmenu',
 	
-	text : 'Rechercher...',
+	text : i18n.t('view.menu.advancedsearch.text'),
 	iconCls : 'icon-zoom',
 	id : 'searchButton',
 	

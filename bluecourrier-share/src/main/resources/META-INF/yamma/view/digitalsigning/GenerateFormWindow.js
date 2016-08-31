@@ -7,12 +7,12 @@ Ext.define('Yamma.view.digitalsigning.GenerateFormWindow', {
 	
 	height : 180,
 
-	title : "Génération d'un certificat auto-signé",
+	title : i18n.t('view.digitalsigning.generateform.title'),//"Génération d'un certificat auto-signé",
 	
-	waitingMessage : 'Génération en cours...',
-	errorMessage : '<strong>Echec de la génération du certificat auto-signé.</strong><br/><br/>',
+	waitingMessage : i18n.t('view.digitalsigning.generateform.waitingMessage'),
+	errorMessage : i18n.t('view.digitalsigning.generateform.errorMessage'),
 	
-	submitButtonLabel : 'Générer',
+	submitButtonLabel :  i18n.t('view.digitalsigning.generateform.submit'),
 	
 	iconCls : Yamma.Constants.getIconDefinition('cog_rosette').iconCls, 
 	
@@ -27,13 +27,13 @@ Ext.define('Yamma.view.digitalsigning.GenerateFormWindow', {
 			{
 				xtype : 'textfield',
 				inputType : 'password',
-				fieldLabel : 'Mot de passe',
+				fieldLabel : i18n.t('view.digitalsigning.generateform.fields.password'),
 				name : 'password',
 				allowBlank : false
 			},
 			{
 				xtype : 'numberfield',
-				fieldLabel : 'Durée (jours)',
+				fieldLabel : i18n.t('view.digitalsigning.generateform.fields.duration'),
 				name : 'duration',
 				minValue : 1,
 				maxValue : 3650,
@@ -41,7 +41,7 @@ Ext.define('Yamma.view.digitalsigning.GenerateFormWindow', {
 			},   
 			{
 				xtype : 'textfield',
-				fieldLabel : 'Alias',
+				fieldLabel : i18n.t('view.digitalsigning.generateform.fields.alias'),
 				name : 'alias'
 			},
 			{

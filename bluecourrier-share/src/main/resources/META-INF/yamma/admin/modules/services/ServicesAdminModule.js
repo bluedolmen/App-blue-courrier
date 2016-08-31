@@ -12,7 +12,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminModule', {
     
     init : function(){
         this.launcher = {
-            text: 'Aministration services',
+            text: i18n.t('admin.modules.services.services-admin.launcher.text'),
             iconCls : this.iconCls
         };
     },
@@ -30,7 +30,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminModule', {
         return desktop.createWindow({
         	
         	id : 'services-admin-win',
-			title : 'Administration des services',
+			title : i18n.t('admin.modules.services.services-admin.createwindow.text'),
 			iconCls : me.iconCls,
 
 			modal : true,

@@ -39,7 +39,7 @@ Ext.define('Yamma.controller.menus.SiteArchivesMenuController', {
 				});
 				
 				context.setTitle(
-					Ext.String.format('Documents archivés du service {0}', serviceName)
+					Ext.String.format(i18n.t('controller.menu.sitearchives.context.title'), serviceName)
 				);
 				
 			}

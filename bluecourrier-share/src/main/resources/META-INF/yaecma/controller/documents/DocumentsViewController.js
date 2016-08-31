@@ -78,7 +78,7 @@ Ext.define('Yaecma.controller.documents.DocumentsViewController', {
 			tools:[
 				{
 					type:'pin',
-					tooltip: 'Garder sous le coude',
+					tooltip: i18n.t('view.display.displayview.pin'),
 					handler: function(event, toolEl, header){
 						var 
 							previewWindow = header.ownerCt;
@@ -91,7 +91,7 @@ Ext.define('Yaecma.controller.documents.DocumentsViewController', {
 				},
 				{
 					type:'restore',
-					tooltip: 'Ouvrir dans une autre fenêtre',
+					tooltip: i18n.t('view.display.displayview.restore'),
 					handler: function(event, toolEl, header){
 						var 
 							previewWindow = header.ownerCt;

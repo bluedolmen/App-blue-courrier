@@ -8,7 +8,7 @@ Ext.define('Yamma.view.comments.EditCommentAction', {
 		
 		return	{
 			icon : this.EDIT_COMMENT_ACTION_ICON.icon,
-			tooltip : 'Éditer le commentaire',
+			tooltip : i18n.t('view.comments.editcommentaction.definition.tooltip'),
 			handler : this.onEditCommentAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -58,7 +58,7 @@ Ext.define('Yamma.view.comments.EditCommentAction', {
 		;
 		
 		Ext.create('Yamma.view.comments.PromptDialog', {
-			title : 'Ajouter un commentaire',
+			title : i18n.t('view.comments.editcommentaction.dialog.add.title'),
 			operation : Yamma.view.comments.PromptDialog.OPERATION_EDIT,
 			nodeRef : commentNodeRef,
 			comment : content,

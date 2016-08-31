@@ -12,7 +12,7 @@ Ext.define('Yamma.admin.modules.init.InitAdminModule', {
     
     init : function(){
         this.launcher = {
-            text: "Initialisation de l'application",
+            text: i18n.t('admin.modules.init.actions.launcher.text'),//"Initialisation de l'application",
             iconCls : this.iconCls
         };
     },
@@ -30,7 +30,7 @@ Ext.define('Yamma.admin.modules.init.InitAdminModule', {
         return desktop.createWindow({
         	
         	id : 'init-admin-win',
-			title : 'Initialisation de l\'application',
+			title : i18n.t('admin.modules.init.actions.window.title'),//'Initialisation de l\'application',
 			iconCls : me.iconCls,
 
 			modal : true,

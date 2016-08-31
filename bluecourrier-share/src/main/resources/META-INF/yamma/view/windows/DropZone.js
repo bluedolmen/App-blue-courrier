@@ -18,13 +18,13 @@ Ext.define('Yamma.view.windows.DropZone', {
 			
 			var browserEvent = eventObject.browserEvent;
 			if (!browserEvent) {
-				Ext.log('Cannot get browserEvent from the ExtJS event-object');
+				Ext.log(i18n.t('view.window.dropzone.errors.browserevent'));//'Cannot get browserEvent from the ExtJS event-object');
 				return null;
 			}
 			
 			var dataTransfer = browserEvent.dataTransfer;
 			if (!dataTransfer) {
-				Ext.log('Cannot get the dataTransfer from the browser-event object. Drag&Dropping files probably not supported by your browser.');
+				Ext.log( i18n.t('view.window.dropzone.errors.datatransfer'));
 				return null;
 			}
 			
@@ -85,8 +85,8 @@ Ext.define('Yamma.view.windows.DropZone', {
 		this.uploadMessage = Ext.window.MessageBox.create({ 
 			id: 'uploadMessage',
 			closable : false,
-			title:'Uploading...',
-			msg: 'Please hold while uploading the documents'
+			title:i18n.t('view.window.dropzone.message.upload.title'),//'Uploading...',
+			msg: i18n.t('view.window.dropzone.message.upload.msg'),//'Please hold while uploading the documents'
 		});
 		
 		this.addEvents({
@@ -95,7 +95,7 @@ Ext.define('Yamma.view.windows.DropZone', {
 		
 		this.dropActivated = ('undefined' != typeof FormData);
 		if (!this.dropActivated) {
-			Ext.log('FormData does not exist. Drag&Drop of files will not be supported');
+			Ext.log(i18n.t('view.window.dropzone.errors.formdata'));
 		}
 		
 		this.callParent(arguments);

@@ -8,7 +8,7 @@ Ext.define('Yamma.view.attachments.DeleteAttachmentAction', {
 		
 		return	{
 			icon : this.DELETE_ATTACHMENT_ACTION_ICON.icon,
-			tooltip : "Supprimer l'attachement",
+			tooltip : i18n.t('widget.attachmentsview.actions.delete-action.tooltip'),
 			handler : this.onDeleteAttachmentAction,
 			scope : this,
 			getClass : function(value, meta, record) {
@@ -56,8 +56,8 @@ Ext.define('Yamma.view.attachments.DeleteAttachmentAction', {
 		;
 		
 		Bluedolmen.windows.ConfirmDialog.INSTANCE.askConfirmation(
-			"Supprimer l'attachement ?", /* title */
-			Ext.String.format("Êtes-vous certain de vouloir supprimer l'attachement<br/><b>{0}</b>", attachmentName), /* message */
+			i18n.t('widget.attachmentsview.actions.delete-action.dialog.confirmation.title'), /* title */
+			Ext.String.format( i18n.t('widget.attachmentsview.actions.delete-action.dialog.confirmation.content'), attachmentName), /* message */
 			deleteAttachment /* onConfirmation */
 		);
 		

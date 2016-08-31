@@ -13,7 +13,7 @@ Ext.define('Yamma.view.dialogs.AssignmentDialog', {
 		PEOPLE_GET : 'alfresco://bluedolmen/yamma/datasource/ServicePeople/data'
 	},
 	
-	title : 'Assigner',
+	title : i18n.t('view.comments.dialog.assignmentdialog.title'),
 	height : 500,
 	width : 400,
 	modal : true,
@@ -70,7 +70,7 @@ Ext.define('Yamma.view.dialogs.AssignmentDialog', {
 		    store: servicePeopleStore,
 		    columns: [
 		        { 
-		        	text: 'Nom', 
+		        	text: i18n.t('view.comments.dialog.assignmentdialog.columns.displayName'),
 		        	dataIndex: 'displayName', 
 		        	flex: 1 
 		        }
@@ -142,7 +142,7 @@ Ext.define('Yamma.view.dialogs.AssignmentDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'assign-button',
-		        	text: 'Assigner',
+		        	text: i18n.t('view.comments.dialog.assignmentdialog.dockedItems.buttons.assign-button'),
 		        	icon : Yamma.view.dialogs.AssignmentDialog.ICON,
 		        	handler : function() {
 		        		var assigned = me.getAssigned();
@@ -152,7 +152,7 @@ Ext.define('Yamma.view.dialogs.AssignmentDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: 'Annuler',
+		        	text: i18n.t('view.comments.dialog.assignmentdialog.dockedItems.buttons.cancel-button'),
 		        	icon : Yamma.view.dialogs.AssignmentDialog.ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

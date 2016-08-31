@@ -2,7 +2,7 @@ Ext.define('Yamma.view.charts.byservice.ByState', {
 	
 	extend : 'Yamma.view.charts.byservice.ByRecordValueChartDefinition',
 	
-	title : 'Etat par service',
+	title : i18n.t('view.charts.byservice.bystate.title'), //'Etat par service',
 	
 	undeterminedValue : null, // discard since should never happen
 	aggregatedFields : ['pending', 'delivering', 'validating!delivery', 'processing','sending','processed'],

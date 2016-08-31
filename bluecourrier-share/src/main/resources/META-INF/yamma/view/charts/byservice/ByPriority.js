@@ -2,7 +2,7 @@ Ext.define('Yamma.view.charts.byservice.ByPriority', {
 	
 	extend : 'Yamma.view.charts.byservice.ByRecordValueChartDefinition',
 	
-	title : 'Priorité par service',
+	title : i18n.t('view.charts.byservice.bypriority.title'),
 	
 	aggregatedFields : [], // Important! to get them computed on the right prototype object
 	aggregatedFieldTitles : [],

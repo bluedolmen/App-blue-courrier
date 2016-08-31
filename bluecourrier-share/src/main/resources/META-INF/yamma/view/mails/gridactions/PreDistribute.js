@@ -7,7 +7,7 @@ Ext.define('Yamma.view.mails.gridactions.PreDistribute', {
 //	actionName : 'startDistribution',
 	
 	icon : Yamma.Constants.getIconDefinition('group_edit').icon,
-	tooltip : 'Pré-assigner les services',
+	tooltip : i18n.t('view.mails.gridactions.pre-distribute.tooltip'),
 	
 	dialogConfig : {
 		enableDistribution : false

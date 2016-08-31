@@ -12,7 +12,7 @@ Ext.define('Yamma.view.history.DocumentHistoryList', {
 		deferredloading : 'Yamma.view.edit.NodeRefDeferredLoading'
 	},	
 	
-	title : 'Historique du courrier',
+	title : i18n.t('view.history.documenthistorylist.title'),
 	iconCls : Yamma.Constants.getIconDefinition('date').iconCls,
 	cls : 'history',
 	
@@ -20,10 +20,10 @@ Ext.define('Yamma.view.history.DocumentHistoryList', {
 	hasPaging : false,
 	refreshable : true,
 	
-	EVENT_DATE_TITLE : 'Date',
-	EVENT_TYPE_TITLE : 'Libellé',
-	EVENT_COMMENT_TITLE : 'Commentaire',
-	EVENT_ACTOR_TITLE : 'Acteur',
+	EVENT_DATE_TITLE : i18n.t('view.history.documenthistorylist.date_title'),
+	EVENT_TYPE_TITLE : i18n.t('view.history.documenthistorylist.type_title'),
+	EVENT_COMMENT_TITLE : i18n.t('view.history.documenthistorylist.comment_title'),
+	EVENT_ACTOR_TITLE : i18n.t('view.history.documenthistorylist.actor_title'),
 	
 	storeConfigOptions : {
 		// Meant to be empty ! => see initComponent
@@ -211,7 +211,7 @@ Ext.define('Yamma.view.history.DocumentHistoryList', {
 			{
 				xtype : 'actioncolumn',
 				maxWidth : 40,
-				tooltip : "Nature de l'évènement",
+				tooltip : i18n.t('view.history.documenthistorylist.columns.actiontypecolumn.tooltip'),
 				plugins : Ext.create('Bluedolmen.utils.grid.column.HeaderImage', { iconCls : Yamma.Constants.getIconDefinition('lightning').iconCls }),
 				
 				items : [
@@ -255,7 +255,7 @@ Ext.define('Yamma.view.history.DocumentHistoryList', {
 		return {	
 			xtype : 'templatecolumn',
 			flex : 1,
-			text : 'Description',
+			text : i18n.t('view.history.documenthistorylist.columns.eventcolumn'),
 			tpl : this.EVENT_TEMPLATE, 
 			dataIndex :  Yamma.utils.datasources.History.EVENT_DATE_QNAME,
 			sortable : true

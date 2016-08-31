@@ -3,7 +3,7 @@ Ext.define('Yamma.view.mails.gridactions.PrintAsPdf.Window', {
 	extend : 'Ext.window.Window',
 	alias : 'widget.printaspdfwindow',
 	
-	title : 'Imprimer (pdf)',
+	title :  i18n.t('view.mails.gridactions.printaspdf.window.title'),
 	iconCls : Yamma.Constants.getIconDefinition('printer').iconCls,
 	layout : 'fit',
 	resizable : true,
@@ -25,22 +25,22 @@ Ext.define('Yamma.view.mails.gridactions.PrintAsPdf.Window', {
 	        
 			items : [
 				{
-					boxLabel : 'Couverture',
+					boxLabel : i18n.t('view.mails.gridactions.printaspdf.window.items.boxcover'),
 					itemId : 'boxcover',
 					checked : true
 				},
 				{
-					boxLabel : 'Attachements',
+					boxLabel : i18n.t('view.mails.gridactions.printaspdf.window.items.boxattachments'),
 					itemId : 'boxattachments',
 					checked : true
 				},
 				{
-					boxLabel : 'Recto-verso',
+					boxLabel : i18n.t('view.mails.gridactions.printaspdf.window.items.boxdoublesided'),
 					itemId : 'boxdoublesided',
 					checked : true
 				},
 				{
-					boxLabel : 'Code barre',
+					boxLabel : i18n.t('view.mails.gridactions.printaspdf.window.items.boxbarcode'),
 					itemId : 'boxbarcode'
 				}
 			]
@@ -66,7 +66,7 @@ Ext.define('Yamma.view.mails.gridactions.PrintAsPdf.Window', {
 		
 		this.buttons = [
 			{
-				text : 'Générer',
+				text : i18n.t('view.mails.gridactions.printaspdf.window.buttons.generate'),
 				itemId : 'generate-button',
 				iconCls : me.iconCls,
 				handler : me.onGenerate,
@@ -74,7 +74,7 @@ Ext.define('Yamma.view.mails.gridactions.PrintAsPdf.Window', {
 				
 			},
 			{
-				text : 'Annuler',
+				text : i18n.t('view.mails.gridactions.printaspdf.window.buttons.cancel'),
 				itemId : 'cancel-button',
 				iconCls : Yamma.Constants.getIconDefinition('cancel').iconCls,
 	        	handler : function() {
@@ -106,7 +106,7 @@ Ext.define('Yamma.view.mails.gridactions.PrintAsPdf', {
 	],
 	
 	icon : Yamma.Constants.getIconDefinition('printer').icon,
-	tooltip : 'Imprimer (pdf)',
+	tooltip : i18n.t('view.mails.gridactions.printaspdf.tooltip'),
 	
 	actionUrl : 'alfresco://bluedolmen/yamma/print-to-pdf',
 	method : 'GET',

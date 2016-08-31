@@ -12,7 +12,7 @@ Ext.define('Yamma.admin.modules.categories.CategoriesAdminModule', {
     
     init : function(){
         this.launcher = {
-            text: "Gestion des catégories",
+            text: i18n.t('admin.modules.categories.launcher.text'), //"Gestion des catégories",
             iconCls : this.iconCls
         };
     },
@@ -30,7 +30,7 @@ Ext.define('Yamma.admin.modules.categories.CategoriesAdminModule', {
         return desktop.createWindow({
         	
         	id : 'categories-admin-win',
-			title : 'Gestion des catégories',
+			title : i18n.t('admin.modules.categories.window.title'),
 			iconCls : me.iconCls,
 
 			modal : true,

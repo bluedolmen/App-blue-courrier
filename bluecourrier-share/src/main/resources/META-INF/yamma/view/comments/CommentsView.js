@@ -20,7 +20,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		countingtitle : 'Yamma.utils.grid.CountingTitle'
 	},
 	
-	title : 'Commentaires',
+	title : i18n.t('view.comments.commentsview.title'),
 	iconCls : Yamma.utils.Constants.getIconDefinition('comments').iconCls,
 	
 	storeId : 'Comments',
@@ -40,7 +40,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 	    			xtype : 'button',
 	    			itemId : 'addComment-button',
 	    			iconCls : 'icon-comment_add',
-	    			tooltip : 'Ajouter un commentaire',
+	    			tooltip : i18n.t('view.comments.commentsview.button.addcomment'),
 	    			disabled : true,
 	    			handler : this.onAddComment,
 	    			scope : this
@@ -166,7 +166,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 			
 			xtype : 'templatecolumn',
 			width : 80,
-			text : 'Auteur',
+			text : i18n.t('view.comments.commentsview.columns.author.text'),
 			tpl : new Ext.XTemplate(
 				'<div class="avatar"><img src="{avatarUrl}" width="64" ></img></div>'
 			)
@@ -181,8 +181,8 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		'<div class="content">{content}</div>',
 		'<div class="published">' +
 			'<div>',
-			'<span class="created">Publié le {created:date("d/m/Y")}</span>' + 
-			'<tpl if="isModified"><span class="modified"> (modifié le {modified:date("d/m/Y")})</span></tpl>' +
+			'<span class="created">'+ i18n.t('view.comments.commentsview.template.comment.published')+'</span>' +
+			'<tpl if="isModified"><span class="modified">'+i18n.t('view.comments.commentsview.template.modified')+'</span></tpl>' +
 			'</div>',
 			'<tpl if="isRestricted">',
 				'<div class="restricted">{restrictedTo}</div>',
@@ -195,7 +195,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		return {	
 			xtype : 'templatecolumn',
 			flex : 1,
-			text : 'Commentaire',
+			text : i18n.t('view.comments.commentsview.columns.comment.text'),
 			tpl : this.COMMENT_TEMPLATE 
 		};
 		
@@ -228,7 +228,7 @@ Ext.define('Yamma.view.comments.CommentsView', {
 		var me = this;
 		
 		Ext.create('Yamma.view.comments.PromptDialog', {
-			title : 'Ajouter un commentaire',
+			title : i18n.t('view.comments.commentsview.dialog.addcomment.title'),
 			operation : Yamma.view.comments.PromptDialog.OPERATION_ADD,
 			nodeRef : me.getDocumentNodeRef(),
 			listeners : {

@@ -51,13 +51,13 @@ Ext.define('Yamma.view.display.YammaTabActionMenu', {
 //
 //			},
 			{
-				text : 'Télécharger',
+				text : i18n.t('view.display.yammatabactionmenu.items.download'),
 				iconCls : Yamma.Constants.getIconDefinition('page_white_get').iconCls,
 				isAvailable : true,
 				handler : getHandler('downloadfile')
 			},
 			{
-				text : 'Modifier',
+				text : i18n.t('view.display.yammatabactionmenu.items.update'),
 				iconCls : Yamma.Constants.getIconDefinition('page_white_put').iconCls,
 				isAvailable : this.isUpdateReplyAvailable,
 				typeFilter : Yamma.utils.datasources.Documents.OUTGOING_MAIL_KIND,
@@ -71,7 +71,7 @@ Ext.define('Yamma.view.display.YammaTabActionMenu', {
 //				handler : getHandler('updatetosignedreply')
 //			},
 			{
-				text : 'Supprimer',
+				text : i18n.t('view.display.yammatabactionmenu.items.delete'),
 				iconCls : Yamma.Constants.getIconDefinition('delete').iconCls,
 				isAvailable : this.isRemoveReplyAvailable,
 				typeFilter : Yamma.utils.datasources.Documents.OUTGOING_MAIL_KIND,
@@ -101,7 +101,7 @@ Ext.define('Yamma.view.display.YammaTabActionMenu', {
 	
 	isAvailable : function(menuitem) {
 		
-		if (!menuitem) Ext.Error.raise('menuitem argument is mandatory');
+		if (!menuitem) Ext.Error.raise(i18n.t('view.display.yammatabactionmenu.errors.menuitem'));
 		
 		var typeFilter = menuitem.typeFilter;
 		if (typeFilter) {

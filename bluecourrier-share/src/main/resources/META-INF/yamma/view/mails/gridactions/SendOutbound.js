@@ -11,17 +11,16 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound', {
 	],
 	
 	icon : Yamma.Constants.getIconDefinition('email_go').icon,
-	tooltip : 'Transmettre pour envoi postal',
+	tooltip :  i18n.t('view.mails.gridactions.sendoutbound.tooltip'),
 	actionUrl : 'alfresco://bluedolmen/yamma/send-outbound',
 	
 	supportBatchedNodes : true,
 	
 	taskName : 'bcogwf:processingTask',
-	actionName : 'Send Without Validation',
+	actionName :  i18n.t('view.mails.gridactions.sendoutbound.actionName'),
 	
-	confirmTitle : "Envoyer sans validation ?",
-	confirmMessage : "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br>" +
-		"Confirmez-vous l'envoi ?",
+	confirmTitle : i18n.t('view.mails.gridactions.sendoutbound.confirmTitle'),
+	confirmMessage : i18n.t('view.mails.gridactions.sendoutbound.confirmMessage'),
 		
 	checkUserCanSkipValidation : false,
 	
@@ -68,7 +67,7 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound.Dialog', {
 	requires : [
 	],
 	
-	title : 'Envoyer sans validation.',
+	title : i18n.t('view.mails.gridactions.sendoutbound.dialog.title'),
 	height : 200,
 	width : 300,
 	modal : true,
@@ -82,8 +81,7 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound.Dialog', {
 		border : 1
 	},
 	
-	msg : '<em>Votre document va être envoyé sans validation.</em><br/>' + 
-		  'Voulez-vous certifier votre document à l\'aide d\'une signature électronique ?',
+	msg : i18n.t('view.mails.gridactions.sendoutbound.dialog.msg'),
 	
 	headerPosition : Yamma.utils.Preferences.getPV(Yamma.utils.Preferences.PREFERED_HEADER_POSITION),
 	
@@ -116,7 +114,7 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound.Dialog', {
 			        { 
 			        	xtype: 'button',
 			        	itemId : 'certify-button',
-			        	text: 'Certifier',
+			        	text: i18n.t('view.mails.gridactions.sendoutbound.dialog.buttons.certify'),
 			        	icon : Yamma.Constants.getIconDefinition('rosette').icon,
 			        	handler : function() {
 							me.certify();
@@ -126,7 +124,7 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound.Dialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'send-button',
-		        	text: 'Envoyer',
+		        	text: i18n.t('view.mails.gridactions.sendoutbound.dialog.buttons.send'),
 		        	icon : this.icon,
 		        	handler : function() {
 						me.forward();
@@ -135,7 +133,7 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound.Dialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: 'Annuler',
+		        	text: i18n.t('view.mails.gridactions.sendoutbound.dialog.buttons.cancel'),
 		        	icon : Yamma.Constants.getIconDefinition('cancel').icon,
 		        	handler : function() {
 		        		me.close();

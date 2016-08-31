@@ -8,7 +8,7 @@ Ext.define('Yamma.view.digitalsigning.SignatureDisplayBox', {
 	
 	nodeRef : null,
 	allowMissing : true,
-	signatureMissingMessage : "<strong>Pas encore de signature.</strong>",
+	signatureMissingMessage : i18n.t('view.digitalsigning.signaturedisplaybox.missingMessage'),//"<strong>Pas encore de signature.</strong>",
 	signatureMissing : true,
 	
 	alias : 'widget.signaturedisplaybox',
