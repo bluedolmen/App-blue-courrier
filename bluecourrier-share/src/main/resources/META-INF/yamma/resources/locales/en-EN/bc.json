@@ -2552,51 +2552,51 @@
         },
         "workflowtask": {
           "bcinwf-pendingTask": {
-            "title": "Préparation du document",
-            "shortTitle": "Préparation"
+            "title": "Document preparation",
+            "shortTitle": "Document preparation"
           },
           "bcinwf-deliveringTask": {
-            "title": "Distribution du document",
-            "shortTitle": "Distribution"
+            "title": "Document delivery",
+            "shortTitle": "Delivery"
           },
           "bcinwf-processingTask": {
-            "title": "Traitement du document",
-            "shortTitle": "Traitement"
+            "title": "Document processing",
+            "shortTitle": "Processing"
           },
           "bcinwf-validatingTask": {
-            "title": "Validation de la distribution",
-            "shortTitle": "Validation distribution"
+            "title": "Validation of the delivery",
+            "shortTitle": "Validation of the delivery"
           },
           "bcogwf-processingTask": {
-            "title": "Traitement document sortant",
-            "shortTitle": "Traitement sortant"
+            "title": "Outgoing mail processing",
+            "shortTitle": "Outgoing mail processing"
           },
           "bcogwf-validatingTask": {
-            "title": "Validation document sortant",
+            "title": "Outgoing mail validation",
             "shortTitle": "Validation"
           },
           "bcogwf-sendingTask": {
-            "title": "Envoi du document",
-            "shortTitle": "Envoi"
+            "title": "Document sending",
+            "shortTitle": "Sending"
           },
           "default": {
-            "title": "Tâche à traiter",
-            "shortTitle": "Tâche"
+            "title": "To do task",
+            "shortTitle": "Task"
           }
         }
       }
     },
     "context": {
       "label": {
-        "advancedsearch": "Recherche avancée",
-        "mytask": "Mes tâches",
-        "tray": "Bannette {0} du service {1}",
-        "default": "Recherche filtrée"
+        "advancedsearch": "Avandced search",
+        "mytask": "My tasks",
+        "tray": "Basket {0} of the service {1}",
+        "default": "Filtered search"
       }
     },
     "deliveryutil": {
       "roletile": {
-        "procg": "Traitement",
+        "procg": "Processing",
         "col": "Collaboration",
         "inf": "Information"
       }
@@ -2605,17 +2605,17 @@
       "fileselectionmenu": {
         "title": "Source",
         "items": {
-          "uploadfile": "Fichier local",
-          "selectfile": "Fichier GED"
+          "uploadfile": "Local file",
+          "selectfile": "ECM file"
         }
       },
       "uploadwindow": {
-        "title": "Choisissez un fichier en <b>réponse</b>"
+        "title": "Select a file in <b>reply</b>"
       },
       "dialog": {
         "removereply": {
-          "title": "Supprimer la réponse ?",
-          "message": "Etes-vous certain de vouloir supprimer la réponse ?"
+          "title": "Delete the reply?",
+          "message": "Are you sure you want to delete this reply?"
         }
       }
     }
