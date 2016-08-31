@@ -2351,16 +2351,16 @@
   "store": {
     "services": {
       "treestore": {
-        "rootlabel": "Tous"
+        "rootlabel": "All"
       }
     },
     "deliveryrole": {
       "personrole": {
-        "opinion": "Avis",
+        "opinion": "Opinion",
         "information": "Information"
       },
       "servicerole": {
-        "expected-processing": "Traitement",
+        "expected-processing": "Processing",
         "collaboration": "Collaboration",
         "information": "Information"
       }
@@ -2369,8 +2369,8 @@
   "utils": {
     "grid": {
       "mailview": {
-        "groupByText": "Grouper par",
-        "showGroupsText": "Montrer en groupe"
+        "groupByText": "Group by",
+        "showGroupsText": "Show as a group"
       }
     },
     "constants": {
@@ -2378,176 +2378,176 @@
         "definition": {
           "document": "Document",
           "unknown": "Unknown",
-          "mail": "Courrier",
-          "incomming-mail": "Courrier entrant",
-          "incomming-mail-filtered": "Message manuel entrant",
-          "outgoing-mail": "Courrier sortant"
+          "mail": "Mail",
+          "incomming-mail": "Incoming mail",
+          "incomming-mail-filtered": "Incoming manual mail",
+          "outgoing-mail": "Outgoing mail"
         },
         "state": {
           "pending": {
-            "title": "Courrier entrant en attente",
-            "shortTitle": "En attente"
+            "title": "Incoming mail on hold",
+            "shortTitle": "On hold"
           },
           "delivering": {
-            "title": "En cours de distribution",
-            "shortTitle": "Distribution"
+            "title": "Delivery ongoing",
+            "shortTitle": "Delivery"
           },
           "validating-delivery": {
-            "title": "En attente de validation de routage",
-            "shortTitle": "Validation routage"
+            "title": "Waiting for the delivery validation",
+            "shortTitle": "Delivery validation"
           },
           "processing": {
-            "title": "En cours de traitement",
-            "shortTitle": "Traitement"
+            "title": "Processing ongoing",
+            "shortTitle": "Processing"
           },
           "revising": {
-            "title": "En correction",
+            "title": "Correcting",
             "shortTitle": "Correction"
           },
           "validating-processed": {
-            "title": "En validation du courrier sortant",
+            "title": "Outgoing mail validation",
             "shortTitle": "Validation"
           },
           "certifying": {
-            "title": "En cours de signature",
+            "title": "Signature ongoing",
             "shortTitle": "Signature"
           },
           "sending": {
-            "title": "En cours d'envoi postal",
-            "shortTitle": "Envoi postal"
+            "title": "Sending ongoing",
+            "shortTitle": "Sending"
           },
           "processed": {
-            "title": "Traité et validé",
-            "shortTitle": "Traité"
+            "title": "Processed and validated",
+            "shortTitle": "Processed"
           },
           "archived": {
-            "title": "Archivé",
-            "shortTitle": "Archivé"
+            "title": "Archived",
+            "shortTitle": "Archived"
           },
           "UNKNOWN": {
-            "title": "Etat inconnu",
-            "shortTitle": "Inconnu"
+            "title": "Status unknow",
+            "shortTitle": "Status unknow"
           }
         },
         "history-event": {
           "addReply": {
-            "title": "Ajout d'une réponse",
-            "shortTitle": "Ajout réponse"
+            "title": "Add a reply",
+            "shortTitle": "Add a reply"
           },
           "archive": {
-            "title": "Archivage du courrier",
-            "shortTitle": "archivage"
+            "title": "Archive",
+            "shortTitle": "Archive"
           },
           "attachment-add": {
-            "title": "Ajout d'un attachement",
-            "shortTitle": "Ajout attachement"
+            "title": "Add an attachement",
+            "shortTitle": "Add an attachement"
           },
           "attachment-delete": {
-            "title": "Suppression d'un attachement",
-            "shortTitle": "Suppression attachement"
+            "title": "Delete an attachement",
+            "shortTitle": "Delete an attachement"
           },
           "certify": {
-            "title": "Certification",
-            "shortTitle": "Certification"
+            "title": "Certify",
+            "shortTitle": "Certify"
           },
           "circulate": {
-            "title": "Diffusion",
-            "shortTitle": "Diffusion"
+            "title": "Circulate",
+            "shortTitle": "Circulate"
           },
           "completeDelivering": {
-            "title": "Fin de la distribution",
-            "shortTitle": "Fin distribution"
+            "title": "End of the delivery",
+            "shortTitle": "End of the delivery"
           },
           "completeOutgoingProcessing": {
-            "title": "Fin du traitement",
-            "shortTitle": "Fin traitement"
+            "title": "End of the processing",
+            "shortTitle": "End of the processing"
           },
           "completeProcessing": {
-            "title": "Fin du traitement",
-            "shortTitle": "Fin traitement"
+            "title": "End of the processing",
+            "shortTitle": "End of the processing"
           },
           "completeValidating": {
-            "title": "Fin de la validation",
-            "shortTitle": "Fin validation"
+            "title": "End of the validation",
+            "shortTitle": "End of the validation"
           },
           "forward-for-sending": {
-            "title": "Transmission pour envoi postal",
-            "shortTitle": "Envoi postal"
+            "title": "Forward for sending",
+            "shortTitle": "Postal sending"
           },
           "forward-for-signing": {
-            "title": "Transmission pour signature par l'élu",
-            "shortTitle": "Transmission signature"
+            "title": "Forward for signature",
+            "shortTitle": "Forward for signature"
           },
           "linkTo": {
-            "title": "Lien entre documents",
-            "shortTitle": "Lien"
+            "title": "Link between two documents",
+            "shortTitle": "Link"
           },
           "reassign": {
-            "title": "Réassignation du traitement d'une tâche",
-            "shortTitle": "Réassignation"
+            "title": "Reassign a mail processing",
+            "shortTitle": "Reassign"
           },
           "removeReply": {
-            "title": "Suppression d'une réponse",
-            "shortTitle": "Suppression réponse"
+            "title": "Delete a reply",
+            "shortTitle": "Delete a reply"
           },
           "send-outbound-sendOut": {
-            "title": "Envoi courrier sortant",
-            "shortTitle": "Envoi"
+            "title": "Send an outgoing mail",
+            "shortTitle": "Send"
           },
           "send-outbound-sendToValidation": {
-            "title": "Envoi courrier sortant en validation",
-            "shortTitle": "Envoi"
+            "title": "Send an outgoing mail for validation",
+            "shortTitle": "Send"
           },
           "sent-outbound": {
-            "title": "Envoi postal effectué",
-            "shortTitle": "Envoi effectué"
+            "title": "Postal sending done",
+            "shortTitle": "Sending done"
           },
           "sharedWith": {
-            "title": "Partagé avec",
-            "shortTitle": "Partagé"
+            "title": "Share with",
+            "shortTitle": "Share"
           },
           "signing-approve": {
-            "title": "Approbation",
-            "shortTitle": "Approbation par signature électronique"
+            "title": "Approve",
+            "shortTitle": "Electronic signature approval"
           },
           "signing-certify": {
-            "title": "Certification",
-            "shortTitle": "Certification par signature électronique"
+            "title": "Certify",
+            "shortTitle": "Electronic signature certification"
           },
           "signing-reject": {
-            "title": "Rejet",
-            "shortTitle": "Rejet du document"
+            "title": "Reject",
+            "shortTitle": "Document reject"
           },
           "signed-outbound": {
-            "title": "Signature de la réponse",
+            "title": "Signinig of the reply",
             "shortTitle": "Signature"
           },
           "startDelivery": {
-            "title": "Démarrage de la distribution",
-            "shortTitle": "Démarrage distribution"
+            "title": "Start the delivery",
+            "shortTitle": "Start the delivery"
           },
           "startProcessing": {
-            "title": "Démarrage du traitement",
-            "shortTitle": "Démarrage traitement"
+            "title": "Start the processing",
+            "shortTitle": "Start the processing"
           },
           "validation-accept": {
-            "title": "Validé",
-            "shortTitle": "Validé"
+            "title": "Validated",
+            "shortTitle": "Validated"
           },
           "validation-reject": {
-            "title": "Document rejeté",
-            "shortTitle": "Document rejeté"
+            "title": "Document rejected",
+            "shortTitle": "Document rejected"
           },
           "UNKNOWN": {
-            "title": "Évènement inconnu",
-            "shortTitle": "inconnu"
+            "title": "Unknow",
+            "shortTitle": "Unknow"
           }
         },
         "mimetype": {
-          "application-pdf": "DocumentPDF",
-          "application-pdf-signed": "Document PDF certifié",
-          "text-html": "Documnet HTML",
-          "text-plain": "Document texte",
+          "application-pdf": "PDF document",
+          "application-pdf-signed": "PDF document certified",
+          "text-html": "HTML document",
+          "text-plain": "Text document",
           "default": ""
         },
         "workflowtask": {
