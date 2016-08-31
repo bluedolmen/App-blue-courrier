@@ -37,6 +37,38 @@
 		<module>runner</module>
 	</modules>
 
+        <profiles>
+
+                <profile>
+                        <id>licensemode-enterprise</id>
+                        <activation>
+                                <property>
+                                        <name>license</name>
+                                        <value>enterprise</value>
+                                </property>
+                        </activation>
+                        <properties>
+                                <licensemode>enterprise</licensemode>
+                                <nla>false</nla>
+                        </properties>
+                </profile>
+
+                <profile>
+                        <id>licensemode-community</id>
+                        <activation>
+                                <property>
+                                        <name>license</name>
+                                        <value>community</value>
+                                </property>
+                        </activation>
+                        <properties>
+                                <licensemode>community</licensemode>
+                                <nla>true</nla>
+                        </properties>
+                </profile>
+
+        </profiles>
+
 	<dependencyManagement>
 
 		<dependencies>
