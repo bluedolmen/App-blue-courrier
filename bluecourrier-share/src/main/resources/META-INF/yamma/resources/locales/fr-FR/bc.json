@@ -1614,9 +1614,9 @@
           "title": "Administration des membres de services",
           "roles": {
             "ServiceAssistant": "Assistant",
-            "ServiceInstructor": "Assistant",
-            "ServiceManager": "Assistant",
-            "ServiceSupervisor": "Assistant"
+            "ServiceInstructor": "Instructeur",
+            "ServiceManager": "Manager",
+            "ServiceSupervisor": "Superviseur"
           },
           "field": {
             "member": {
@@ -1769,7 +1769,7 @@
       },
       "shortcuts": {
         "init-admin": "Initialisation",
-        "services-admin": "services-admin",
+        "services-admin": "Services",
         "categories-admin": "Catégories"
       },
       "config": {

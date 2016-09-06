@@ -25,7 +25,7 @@ Ext.define('Yamma.admin.AdminDesktop', {
     },
     
     taskbarConfig : {
-    	startBtnText : i18n.t('admin.modules.adminmodule.button.start'),
+    	startBtnText : i18n.t('admin.adminmodule.button.start'),
     	startBtnScale : 'medium'
     },
 
@@ -39,24 +39,24 @@ Ext.define('Yamma.admin.AdminDesktop', {
         return Ext.apply(ret, {
 
             contextMenuItems: [
-                { text: i18n.t('admin.modules.adminmodule.context.onsettings'), handler: me.onSettings, scope: me }
+                { text: i18n.t('admin.adminmodule.context.onsettings'), handler: me.onSettings, scope: me }
             ],
 
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
                 	{ 
-                		name : i18n.t('admin.modules.adminmodule.shortcuts.init-admin'),
+                		name : i18n.t('admin.adminmodule.shortcuts.init-admin'),
                 		iconCls : Yamma.Constants.getIconDefinition('gear-sc').iconCls, 
                 		module : 'init-admin' 
                 	},
                 	{ 
-                		name : i18n.t('admin.modules.adminmodule.shortcuts.services-admin'),
+                		name : i18n.t('admin.adminmodule.shortcuts.services-admin'),
                 		iconCls : Yamma.Constants.getIconDefinition('services-sc').iconCls, 
                 		module : 'services-admin' 
                 	},
                 	{ 
-                		name : i18n.t('admin.modules.adminmodule.shortcuts.categories-admin'),
+                		name : i18n.t('admin.adminmodule.shortcuts.categories-admin'),
                 		iconCls : Yamma.Constants.getIconDefinition('categories-sc').iconCls, 
                 		module : 'categories-admin' 
                 	}
@@ -73,21 +73,21 @@ Ext.define('Yamma.admin.AdminDesktop', {
         var me = this, ret = me.callParent();
 
         return Ext.apply(ret, {
-            title: i18n.t('admin.modules.adminmodule.config.title'),
+            title: i18n.t('admin.adminmodule.config.title'),
             iconCls: 'user_suit',
             height: 300,
             toolConfig: {
                 width: 100,
                 items: [
                     {
-                        text : i18n.t('admin.modules.adminmodule.tool.onsettings'),//'Paramètres',
+                        text : i18n.t('admin.adminmodule.tool.onsettings'),//'Paramètres',
                         iconCls :'icon-tools',
                         handler : me.onSettings,
                         scope : me
                     },
                     '-',
                     {
-                        text : i18n.t('admin.modules.adminmodule.tool.onlogout'),
+                        text : i18n.t('admin.adminmodule.tool.onlogout'),
                         iconCls : 'icon-door_out',
                         handler : me.onLogout,
                         scope : me
@@ -114,8 +114,8 @@ Ext.define('Yamma.admin.AdminDesktop', {
     onLogout: function () {
     	
         Ext.Msg.confirm(
-        	i18n.t('admin.modules.adminmodule.dialog.exit.title'),
-        	i18n.t('admin.modules.adminmodule.dialog.exit.message'),
+        	i18n.t('admin.adminmodule.dialog.exit.title'),
+        	i18n.t('admin.adminmodule.dialog.exit.message'),
         	function callback(response) {
         		if ('yes' == response) {
         			window.location.href = 'dologout';
