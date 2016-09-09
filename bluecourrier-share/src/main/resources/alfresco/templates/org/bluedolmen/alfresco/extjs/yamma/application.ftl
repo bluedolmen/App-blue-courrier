@@ -20,8 +20,10 @@
 	
 		var options = {
 			resGetPath : '${url.context}/res/yamma/resources/locales/__lng__/__ns__.json',
-			lng : 'fr-FR',
-			ns: { 
+			lng: navigator.language,
+			supportedLngs: ['fr', 'en'],
+			fallback : 'en',
+    	ns: { 
 				namespaces: ['bc'], 
 				defaultNs: 'bc'
 			},

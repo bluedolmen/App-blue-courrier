@@ -142,7 +142,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminPanel', {
 		
 		Bluedolmen.windows.ConfirmDialog.FR.askConfirmation(
 			i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.title'),
-			i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.message.1') + siteShortName + i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.message.2')
+			i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.message.1') + siteShortName + i18n.t('admin.modules.services.servicesadminpanel.dialog.addservice.confirm.message.2'),
 			onConfirmation
 		);
 		
@@ -182,7 +182,7 @@ Ext.define('Yamma.admin.modules.services.ServicesAdminPanel', {
 			
 			createServiceWindow = Ext.create('Ext.window.Window', {
 			
-				title : i18n.t('admin.modules.services.servicesadminpanel.dialog.createservice.window.title')
+				title : i18n.t('admin.modules.services.servicesadminpanel.dialog.createservice.window.title'),
 				width : 300,
 				height : 300,
 				renderTo : Ext.getBody(),

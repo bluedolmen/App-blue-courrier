@@ -44,7 +44,7 @@ Ext.define('Yamma.view.header.YammaUserButtonMenu', {
 		
 		return ({
 			itemId : 'datalists-management',
-			text : i18n.t('view.header.userbutton.items.datalist-management.title'),
+			text : i18n.t('view.header.userbutton.items.datalists-management.title'),
 			iconCls : Yamma.Constants.getIconDefinition('text_list_bullets').iconCls,
 			listeners : {
 				click : this.onDataListsMenuItemClicked
