@@ -31,6 +31,11 @@
 		<bluecourrier.administrators-group>BLUECOURRIER_ADMINISTRATORS</bluecourrier.administrators-group>
 		<bluecourrier.wf.incoming.version>1.0.4</bluecourrier.wf.incoming.version>
 		<bluecourrier.wf.outgoing.version>1.0.2</bluecourrier.wf.outgoing.version>
+		
+	    <javaFilterDirectory>
+	      ${project.basedir}/target/filtered-sources/java
+	    </javaFilterDirectory>
+	    
 	</properties>
 
 	<dependencyManagement>
@@ -103,7 +108,32 @@
 		
 	</dependencies>
 	
-	<build>	
+	<build>
+	
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>${app.amp.folder}</directory>
+				<targetPath>${app.amp.output.folder}</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>${app.config.folder}</directory>
+				<targetPath>${app.config.target}/${app.module.prefix}${project.artifactId}</targetPath>
+				<filtering>true</filtering>
+			</resource>		
+			<resource>
+				<directory>src/main/filter-java</directory>
+				<targetPath>${javaFilterDirectory}</targetPath>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
+			</resource>
+		</resources>	
 	
 		<plugins>
 			<!-- This module is used as a library by extensions -->
@@ -128,6 +158,24 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${javaFilterDirectory}</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 		</plugins>
 		
 	</build>

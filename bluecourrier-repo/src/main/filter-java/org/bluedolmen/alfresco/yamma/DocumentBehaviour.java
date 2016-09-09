@@ -16,7 +16,6 @@ import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.cmr.workflow.WorkflowInstance;
 import org.alfresco.service.cmr.workflow.WorkflowService;
 import org.alfresco.service.namespace.QName;
-import org.alfresco.service.transaction.TransactionService;
 import org.alfresco.util.PropertyCheck;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,7 +33,6 @@ public final class DocumentBehaviour extends AbstractLifecycleBean implements Be
     private WorkflowService workflowService;
     @SuppressWarnings("unused")
 	private NodeService nodeService;
-    private TransactionService transactionService;
     private LicenseService licenseService;
     
     /**
@@ -133,10 +131,6 @@ public final class DocumentBehaviour extends AbstractLifecycleBean implements Be
     	this.workflowService = workflowService;
     }
     
-    public void setTransactionService(TransactionService transactionService) {
-    	this.transactionService = transactionService;
-    }
-    
     public void setNodeService(NodeService nodeService) {
     	this.nodeService = nodeService;
     }
@@ -145,7 +139,6 @@ public final class DocumentBehaviour extends AbstractLifecycleBean implements Be
     	
     	this.setWorkflowService(serviceRegistry.getWorkflowService());
     	this.setNodeService(serviceRegistry.getNodeService());
-    	this.setTransactionService(serviceRegistry.getTransactionService());
     	
     }
 
