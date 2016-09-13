@@ -189,7 +189,7 @@
           }
         },
         "startdistribution": {
-          "tooltip" : "Démrrer la distribution",
+          "tooltip" : "Démarrer la distribution",
           "actionName" : "Start"
         },
         "startProcessing": {
