@@ -289,7 +289,7 @@
             "without": "sans",
             "validation": "Validation"
           },
-          "dates_tip": {
+          "dates_tips": {
             "writed": "Rédaction",
             "send":"Envoi",
             "delivered": "Réception",
@@ -1118,7 +1118,7 @@
     },
     "menu" : {
       "advancedsearch" : {
-        "text" : "Searcj..."
+        "text" : "Search..."
       },
       "mainmenu" :{
         "title" : "Main menu"
