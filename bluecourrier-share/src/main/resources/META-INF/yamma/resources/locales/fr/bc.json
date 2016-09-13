@@ -189,7 +189,7 @@
           }
         },
         "startdistribution": {
-          "tooltip" : "Démrrer la distribution",
+          "tooltip" : "Démarrer la distribution",
           "actionName" : "Start"
         },
         "startProcessing": {
@@ -289,8 +289,8 @@
             "without": "sans",
             "validation": "Validation"
           },
-          "dates_tip": {
-            "writed": "Rédaction",
+          "dates_tips": {
+            "written": "Rédaction",
             "send":"Envoi",
             "delivered": "Réception",
             "updated": "Modification",
@@ -1247,7 +1247,7 @@
         },
         "mailtype" : {
           "incoming": "Entrant",
-          "outgoint": "Sortant"
+          "outgoing": "Sortant"
         },
         "uploadform": {
           "emptytext" : "Choisissez un fichier",

@@ -2,7 +2,7 @@ Ext.define('Yamma.view.mails.gridactions.Distribute', {
 	
 	extend : 'Yamma.view.mails.gridactions.DeliveringAction',
 	
-	taskTitle : i18n.t('view.mails.gridactions.distribute.taskTitle'),
+	taskTitle : i18n.t('view.mails.gridactions.distribute.tasktitle'),
 	
 	actionName : i18n.t('view.mails.gridactions.distribute.actionName'),
 	
