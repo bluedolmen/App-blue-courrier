@@ -64,7 +64,7 @@ Ext.define('Yamma.view.dialogs.InitOutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'launch-button',
-		        	text: i18n.t('view.comments.dialog.initoutgoingvalidation.buttons.launch-button'),
+		        	text: i18n.t('view.dialog.initoutgoingvalidation.buttons.launch-button'),
 		        	icon : Yamma.Constants.getIconDefinition('tick_go').icon,
 		        	handler : function() {
 						me.launch();
@@ -73,7 +73,7 @@ Ext.define('Yamma.view.dialogs.InitOutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: i18n.t('view.comments.dialog.initoutgoingvalidation.buttons.cancel-button'),
+		        	text: i18n.t('view.dialog.initoutgoingvalidation.buttons.cancel-button'),
 		        	icon : Yamma.Constants.getIconDefinition('cross').icon,
 		        	handler : function() {
 		        		me.close();

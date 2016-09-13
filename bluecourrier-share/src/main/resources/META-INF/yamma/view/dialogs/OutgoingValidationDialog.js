@@ -10,7 +10,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 	
 	iconCls : Yamma.Constants.getIconDefinition('accept').iconCls,
 	
-	title : i18n.t('view.comments.dialog.outgoingvalidationdialog.title'),
+	title : i18n.t('view.dialog.outgoingvalidationdialog.title'),
 	height : 400,
 	width : 800,
 	modal : true,
@@ -232,7 +232,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		    
 		    columns: [
 		        { 
-		        	text: i18n.t('view.comments.dialog.outgoingvalidationdialog.actorsgrid.columns.title.text'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.actorsgrid.columns.title.text'),
 		        	dataIndex: 'title', 
 		        	flex: 1,
 		        	renderer : function (value, meta, record) {
@@ -248,12 +248,12 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        	}
 		        },
 		        {
-		        	text : i18n.t('view.comments.dialog.outgoingvalidationdialog.actorsgrid.columns.action.text'),
+		        	text : i18n.t('view.dialog.outgoingvalidationdialog.actorsgrid.columns.action.text'),
 		        	xtype : 'actioncolumn',
 		        	width : 60,
 		        	items: [
 						{
-			                tooltip: i18n.t('view.comments.dialog.outgoingvalidationdialog.actorsgrid.columns.action.items.up'),
+			                tooltip: i18n.t('view.dialog.outgoingvalidationdialog.actorsgrid.columns.action.items.up'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                	
 			                	var 
@@ -275,7 +275,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 							}			                			                
 			            },
 						{
-			                tooltip: i18n.t('view.comments.dialog.outgoingvalidationdialog.actorsgrid.columns.action.items.down'),
+			                tooltip: i18n.t('view.dialog.outgoingvalidationdialog.actorsgrid.columns.action.items.down'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                	
 			                	var 
@@ -297,7 +297,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 							}			                			                
 			            },			            
 						{
-			                tooltip: i18n.t('view.comments.dialog.outgoingvalidationdialog.actorsgrid.columns.action.items.remove'),
+			                tooltip: i18n.t('view.dialog.outgoingvalidationdialog.actorsgrid.columns.action.items.remove'),
 			                handler: function(grid, rowIndex, colIndex) {
 			                    var record = grid.getStore().getAt(rowIndex);
 			                	removeActorChecked(record);
@@ -348,8 +348,8 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		    labelStyle : 'background-repeat:no-repeat ; background-position:center; padding: 1px;',
 		    
 		    listConfig: {
-				loadingText: i18n.t('view.comments.dialog.outgoingvalidationdialog.personCombo.loading'),
-				emptyText: i18n.t('view.comments.dialog.outgoingvalidationdialog.personCombo.empty')
+				loadingText: i18n.t('view.dialog.outgoingvalidationdialog.personCombo.loading'),
+				emptyText: i18n.t('view.dialog.outgoingvalidationdialog.personCombo.empty')
 			},
 			
 			store : personStore,
@@ -450,7 +450,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		 			    {
 					    	xtype : 'checkboxfield',
 					    	itemId : 'certify-checkbox',
-					    	boxLabel : i18n.t('view.comments.dialog.outgoingvalidationdialog.propertiesForm.certify-checkbox'),
+					    	boxLabel : i18n.t('view.dialog.outgoingvalidationdialog.propertiesForm.certify-checkbox'),
 					    	name : 'certify',
 					    	checked : false,
 						    labelClsExtra : Yamma.Constants.getIconDefinition('text_signature').iconCls,
@@ -493,8 +493,8 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 						    disabled : true,
 						    
 						    listConfig: {
-								loadingText: i18n.t('view.comments.dialog.outgoingvalidationdialog.propertiesForm.signer-combo.loadingText'),
-								emptyText: i18n.t('view.comments.dialog.outgoingvalidationdialog.propertiesForm.signer-combo.empty'),
+								loadingText: i18n.t('view.dialog.outgoingvalidationdialog.propertiesForm.signer-combo.loadingText'),
+								emptyText: i18n.t('view.dialog.outgoingvalidationdialog.propertiesForm.signer-combo.empty'),
 							},
 							
 							store : personStore,
@@ -510,7 +510,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 					    {
 					    	xtype : 'button',
 					    	itemId : 'assignToMe-button',
-					    	text : i18n.t('view.comments.dialog.outgoingvalidationdialog.propertiesForm.tome'),
+					    	text : i18n.t('view.dialog.outgoingvalidationdialog.propertiesForm.tome'),
 					    	disabled : true,
 					    	margin : '0 0 0 5px',
 					    	handler : function() {
@@ -534,7 +534,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 				region : 'center',
 				layout : 'vbox',
 				plain : true,
-			    title: i18n.t('view.comments.dialog.outgoingvalidationdialog.validation-actors'),
+			    title: i18n.t('view.dialog.outgoingvalidationdialog.validation-actors'),
 			    iconCls : Yamma.Constants.getIconDefinition('tick').iconCls,
 				defaults : {
 					width : '100%',
@@ -569,7 +569,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'accept-button',
-		        	text: i18n.t('view.comments.dialog.outgoingvalidationdialog.dockedItems.buttons.accept-button'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItems.buttons.accept-button'),
 		        	icon : Yamma.Constants.getIconDefinition('accept').icon,
 		        	handler : function() {
 						this.performOperation('Next');
@@ -579,7 +579,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'reject-button',
-		        	text: i18n.t('view.comments.dialog.outgoingvalidationdialog.dockedItems.buttons.reject-button'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItems.buttons.reject-button'),
 		        	icon : Yamma.Constants.getIconDefinition('cross').icon,
 		        	handler : function() {
 		        		this.performOperation('Reject');
@@ -590,7 +590,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: i18n.t('view.comments.dialog.outgoingvalidationdialog.dockedItems.buttons.cancel-button'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItems.buttons.cancel-button'),
 		        	icon : this.statics().ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

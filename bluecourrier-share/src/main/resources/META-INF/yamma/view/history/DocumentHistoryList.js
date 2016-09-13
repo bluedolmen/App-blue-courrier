@@ -255,7 +255,7 @@ Ext.define('Yamma.view.history.DocumentHistoryList', {
 		return {	
 			xtype : 'templatecolumn',
 			flex : 1,
-			text : i18n.t('view.history.documenthistorylist.columns.eventcolumn'),
+			text : i18n.t('view.history.documenthistorylist.columns.eventcolumn.text'),
 			tpl : this.EVENT_TEMPLATE, 
 			dataIndex :  Yamma.utils.datasources.History.EVENT_DATE_QNAME,
 			sortable : true
