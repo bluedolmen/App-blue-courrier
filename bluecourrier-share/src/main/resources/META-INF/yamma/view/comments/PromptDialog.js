@@ -211,7 +211,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 				collapsed : true,
 				region : 'east',
 				width : 180,
-				title : i18n.t('view.comments.promptdialog.actorsgrid.items.htmlEditor.title'),
+				title : i18n.t('view.comments.promptdialog.items.htmlEditor.title'),
 				layout : 'vbox',
 				align : 'stretch',
 				pack : 'center',
@@ -239,7 +239,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'comment-button',
-		        	text: i18n.t('view.comments.promptdialog.actorsgrid.dockedItems.items.comment-button.text'),
+		        	text: i18n.t('view.comments.promptdialog.dockedItems.items.comment-button.text'),
 		        	icon : Yamma.view.comments.PromptDialog.ICON,
 		        	handler : function() {
 		        		
@@ -263,7 +263,7 @@ Ext.define('Yamma.view.comments.PromptDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: i18n.t('view.comments.promptdialog.actorsgrid.dockedItems.items.cancel-button.text'),
+		        	text: i18n.t('view.comments.promptdialog.dockedItems.items.cancel-button.text'),
 		        	icon : Yamma.view.comments.PromptDialog.ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

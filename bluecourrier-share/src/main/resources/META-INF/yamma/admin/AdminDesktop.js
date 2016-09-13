@@ -80,14 +80,14 @@ Ext.define('Yamma.admin.AdminDesktop', {
                 width: 100,
                 items: [
                     {
-                        text : i18n.t('admin.adminmodule.tool.onsettings'),//'Paramètres',
+                        text : i18n.t('admin.adminmodule.config.tool.onsettings'),//'Paramètres',
                         iconCls :'icon-tools',
                         handler : me.onSettings,
                         scope : me
                     },
                     '-',
                     {
-                        text : i18n.t('admin.adminmodule.tool.onlogout'),
+                        text : i18n.t('admin.adminmodule.config.tool.onlogout'),
                         iconCls : 'icon-door_out',
                         handler : me.onLogout,
                         scope : me
