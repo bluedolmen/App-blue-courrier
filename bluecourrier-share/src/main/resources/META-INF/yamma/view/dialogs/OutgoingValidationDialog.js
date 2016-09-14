@@ -569,7 +569,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'accept-button',
-		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItems.buttons.accept-button'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItem.buttons.accept-button'),
 		        	icon : Yamma.Constants.getIconDefinition('accept').icon,
 		        	handler : function() {
 						this.performOperation('Next');
@@ -579,7 +579,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button',
 		        	itemId : 'reject-button',
-		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItems.buttons.reject-button'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItem.buttons.reject-button'),
 		        	icon : Yamma.Constants.getIconDefinition('cross').icon,
 		        	handler : function() {
 		        		this.performOperation('Reject');
@@ -590,7 +590,7 @@ Ext.define('Yamma.view.dialogs.OutgoingValidationDialog', {
 		        { 
 		        	xtype: 'button', 
 		        	itemId : 'cancel-button',
-		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItems.buttons.cancel-button'),
+		        	text: i18n.t('view.dialog.outgoingvalidationdialog.dockedItem.buttons.cancel-button'),
 		        	icon : this.statics().ICON_CANCEL,
 		        	handler : function() {
 		        		me.close();

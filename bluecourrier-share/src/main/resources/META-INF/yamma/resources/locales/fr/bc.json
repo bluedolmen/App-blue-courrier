@@ -748,8 +748,8 @@
       "initoutgoingvalidation": {
         "title": "Lancer la validation",
         "buttons": {
-          "launch-button": "Valider",
-          "cancel-button": "Refuser"
+          "launch-button": "Lancer",
+          "cancel-button": "Annuler"
         }
       },
       "maindeliverydialog": {
