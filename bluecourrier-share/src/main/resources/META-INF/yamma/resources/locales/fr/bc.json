@@ -203,7 +203,7 @@
           }
         },
         "validatestep": {
-          "tooltip" :"Valider le courrier",
+          "tooltip" :"Marquer comme envoyé ",
           "actionName": "Next"
         }
       },
@@ -748,8 +748,8 @@
       "initoutgoingvalidation": {
         "title": "Lancer la validation",
         "buttons": {
-          "launch-button": "Lancer",
-          "cancel-button": "Annuler"
+          "launch-button": "Valider",
+          "cancel-button": "Refuser"
         }
       },
       "maindeliverydialog": {
