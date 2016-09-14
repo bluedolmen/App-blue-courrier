@@ -83,11 +83,11 @@
 
         },
         "endoutgoingprocessing": {
-          "tooltip" :"Terminer le traitement",
+          "tooltip" :"Envoyer sans validation",
           "confirmTitle": "Envoyer sans validation ?",
           "confirmMessage": "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
           "initoutgoingvalidationdialog" : {
-            "title" : "Terminer le traitement"
+            "title" : "Envoyer sans validation"
           }
         },
         "forwardforvalidation" : {
