@@ -68,7 +68,6 @@
         },
         "distribute": {
           "tasktitle": "Distribution aux services",
-          "actionName": "Distribuer",
           "operationdialog": {
             "title" :"Traitement par lots",
             "msg": "Cette opération vous permet d'<b>éditer</b> les valeurs <b>par lots</b> ou de <b>distribuer</b> selon les valeurs fixées précédemment.<br> <i>Attention!</i> Les valeurs actuelles (supposées combinées) ne sont pas présentées à l'utilisateur) <br><br> <i>Quelle opération voulez-vous effectuer ?</i>",
@@ -79,15 +78,19 @@
               "distribute" : "Distribuer",
               "distribute-tooltip": "Distribuer tous les courriers sélectionnés"
             }
+          },
+          "compatiblerecords": {
+            "title" : "Edition par lots avancée",
+            "msg" : "Vous avez sélectionné plusieurs courriers avec des <b>affectations différentes</b>.<br> Les valeurs affichées correspondent au <b>premier courrier</b> sélectionné. <i>Les changements effectués sur ce courrier seront appliqués à l'ensemble des courriers sélectionnés.</i><br> <br> Assurez-vous au préalable de <b>la cohérence</b> de l'opération effectuée."
           }
 
         },
         "endoutgoingprocessing": {
-          "tooltip" :"Envoyer sans validation",
+          "tooltip" :"Transmettre pour validation",
           "confirmTitle": "Envoyer sans validation ?",
           "confirmMessage": "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
           "initoutgoingvalidationdialog" : {
-            "title" : "Envoyer sans validation"
+            "title" : "Transmettre pour validation"
           }
         },
         "forwardforvalidation" : {

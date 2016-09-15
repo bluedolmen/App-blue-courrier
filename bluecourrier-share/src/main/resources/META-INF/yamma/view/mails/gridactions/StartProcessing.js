@@ -7,8 +7,8 @@ Ext.define('Yamma.view.mails.gridactions.StartProcessing', {
 	
 	taskName : 'bcinwf:processingTask',
 //	discardIfOwner : true,
-	status :  i18n.t('view.mails.gridactions.startprocessing.status'),
-	
+	//status :  i18n.t('view.mails.gridactions.startprocessing.status'),
+	status :  "Not Yet Started",
 	getTip : function(value, metadata, record) {
 		
 		var 

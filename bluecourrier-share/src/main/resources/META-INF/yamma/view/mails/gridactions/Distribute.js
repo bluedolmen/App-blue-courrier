@@ -134,14 +134,10 @@ Ext.define('Yamma.view.mails.gridactions.Distribute', {
 		
 		if (!me.areRecordsCompatible(records)) {
 			
-			msg = 'Vous avez sélectionné plusieurs courriers avec des <b>affectations différentes</b>.<br>'
-				+ 'Les valeurs affichées correspondent au <b>premier courrier</b> sélectionné.'
-				+ '<i>Les changements effectués sur ce courrier seront appliqués à l\'ensemble des courriers sélectionnés.</i><br>'
-				+ '<br>'
-				+ 'Assurez-vous au préalable de <b>la cohérence</b> de l\'opération effectuée.'
+			msg = i18n.t('view.mails.gridactions.distribute.compatiblerecords.msg');
 			
 			Ext.Msg.show({
-				title : 'Edition par lots avancée',
+				title : i18n.t('view.mails.gridactions.distribute.compatiblerecords.title'),
 				msg : msg,
 				width : 320,
 				buttons : Ext.Msg.OK,
