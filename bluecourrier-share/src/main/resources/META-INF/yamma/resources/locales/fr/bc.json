@@ -86,11 +86,11 @@
 
         },
         "endoutgoingprocessing": {
-          "tooltip" :"Envoyer sans validation",
+          "tooltip" :"Transmettre pour validation",
           "confirmTitle": "Envoyer sans validation ?",
           "confirmMessage": "Le(s) document(s) va(vont) être envoyé(s) sans la validation d'une personne accréditée.</br> Confirmez-vous l'envoi ?",
           "initoutgoingvalidationdialog" : {
-            "title" : "Envoyer sans validation"
+            "title" : "Transmettre pour validation"
           }
         },
         "forwardforvalidation" : {
