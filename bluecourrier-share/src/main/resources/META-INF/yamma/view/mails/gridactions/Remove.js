@@ -12,7 +12,7 @@ Ext.define('Yamma.view.mails.gridactions.Remove', {
 	supportBatchedNodes : false,
 	
 	taskName : 'bcinwf:pendingTask',
-	actionName : i18n.t('view.mails.gridactions.remove.actionName'),
+	actionName : 'remove',
 	
 	confirmMessage : i18n.t('view.mails.gridactions.remove.confirmMessage'),
 	confirmTitle : i18n.t('view.mails.gridactions.remove.confirmTitle'),

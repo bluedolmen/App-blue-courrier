@@ -8,7 +8,7 @@ Ext.define('Yamma.view.mails.gridactions.ValidateDistribution', {
 	
 	supportBatchedNodes : true,
 	taskName : 'bcinwf:validatingTask',
-	actionName : i18n.t('view.mails.gridactions.validateDistribution.actionName'),
+	actionName : 'Accept',
 	
 	dialogConfig : {
 		icon : Yamma.Constants.getIconDefinition('lorry_accept').icon,

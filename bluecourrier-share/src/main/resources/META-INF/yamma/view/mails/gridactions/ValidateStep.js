@@ -10,7 +10,7 @@ Ext.define('Yamma.view.mails.gridactions.ValidateStep', {
 	tooltip : i18n.t('view.mails.gridactions.validatestep.tooltip'),
 	
 	taskName : 'bcogwf:validatingTask',
-	actionName : i18n.t('view.mails.gridactions.validatestep.actionName'),
+	actionName : 'Next',
 	actionUrl : 'alfresco://bluedolmen/yamma/review-outgoing',
 	
 	supportBatchedNodes : false,

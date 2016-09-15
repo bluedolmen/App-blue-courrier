@@ -13,7 +13,7 @@ Ext.define('Yamma.view.mails.gridactions.RefuseProcessing', {
 	confirmTitle : i18n.t('view.mails.gridactions.refuseprocessing.confirmTitle'),
 	
 	taskName : 'bcinwf:processingTask',
-	actionName : i18n.t('view.mails.gridactions.refuseprocessing.actionName'),
+	actionName : 'Refuse',
 	
 //	discardIfOwner : true,
 //	status : 'Not Yet Started',
