@@ -1247,7 +1247,7 @@
         },
         "mailtype" : {
           "incoming": "Entrant",
-          "outgoint": "Sortant"
+          "outgoing": "Sortant"
         },
         "uploadform": {
           "emptytext" : "Choisissez un fichier",
