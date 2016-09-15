@@ -6,7 +6,7 @@ Ext.define('Yamma.view.mails.gridactions.StartDistribution', {
 	tooltip : i18n.t('view.mails.gridactions.startdistribution.tooltip'),
 	
 	taskName : 'bcinwf:pendingTask',
-	actionName :  i18n.t('view.mails.gridactions.startdistribution.actionName'),
+	actionName :  'Start',
 	
 	supportBatchedNodes : true
 		

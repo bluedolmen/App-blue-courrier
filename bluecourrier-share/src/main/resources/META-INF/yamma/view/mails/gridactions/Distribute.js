@@ -4,7 +4,7 @@ Ext.define('Yamma.view.mails.gridactions.Distribute', {
 	
 	taskTitle : i18n.t('view.mails.gridactions.distribute.tasktitle'),
 	
-	actionName : i18n.t('view.mails.gridactions.distribute.actionName'),
+	actionName : 'Deliver',
 	
 	dialogConfig : {
 		enableMainRoleSelection : false

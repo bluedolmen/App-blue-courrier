@@ -7,7 +7,7 @@ Ext.define('Yamma.view.mails.gridactions.ForwardForValidation', {
 	actionUrl : 'alfresco://bluedolmen/yamma/send-outbound',
 
 	taskName : 'bcogwf:processingTask',
-	actionName : i18n.t('view.mails.gridactions.forwardforvalidation.actionName'),
+	actionName : 'Validate',
 	
 	supportBatchedNodes : true,	
 	

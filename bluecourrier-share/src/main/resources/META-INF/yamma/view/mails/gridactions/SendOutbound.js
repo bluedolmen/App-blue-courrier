@@ -17,7 +17,7 @@ Ext.define('Yamma.view.mails.gridactions.SendOutbound', {
 	supportBatchedNodes : true,
 	
 	taskName : 'bcogwf:processingTask',
-	actionName :  i18n.t('view.mails.gridactions.sendoutbound.actionName'),
+	actionName :  'Send Without Validation',
 	
 	confirmTitle : i18n.t('view.mails.gridactions.sendoutbound.confirmTitle'),
 	confirmMessage : i18n.t('view.mails.gridactions.sendoutbound.confirmMessage'),

@@ -18,7 +18,7 @@ Ext.define('Yamma.view.mails.gridactions.RemoveReply', {
 	discardRefreshOnSuccess : true, // signal an operation instead
 	
 	taskName : 'bcogwf:processingTask',
-	actionName : i18n.t('view.mails.gridactions.removereply.actionName'),
+	actionName : 'Remove',
 	
 	confirmMessage : i18n.t('view.mails.gridactions.removereply.confirmMessage'),
 	confirmTitle : i18n.t('view.mails.gridactions.removereply.confirmTitle'),

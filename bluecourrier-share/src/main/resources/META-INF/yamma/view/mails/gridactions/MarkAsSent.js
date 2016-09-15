@@ -9,6 +9,6 @@ Ext.define('Yamma.view.mails.gridactions.MarkAsSent', {
 	supportBatchedNodes : true,
 	
 	taskName : 'bcogwf:sendingTask',
-	actionName : i18n.t('view.mails.gridactions.markassent.actionName')
+	actionName : 'Sent'
 	
 });
