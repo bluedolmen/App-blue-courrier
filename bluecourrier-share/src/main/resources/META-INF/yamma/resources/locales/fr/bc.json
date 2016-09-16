@@ -206,7 +206,7 @@
           }
         },
         "validatestep": {
-          "tooltip" :"Marquer comme envoyé ",
+          "tooltip" :"Valider le courrier sortant",
           "actionName": "Next"
         }
       },
