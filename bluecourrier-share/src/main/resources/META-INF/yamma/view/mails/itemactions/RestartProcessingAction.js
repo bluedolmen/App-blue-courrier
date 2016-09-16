@@ -2,7 +2,7 @@ Ext.define('Yamma.view.mails.itemactions.RestartProcessingAction', {
 	
 	extend : 'Bluedolmen.utils.alfresco.grid.ContextMenuAction',
 	
-	text : i18n.t('view.mails.itemaction.circulate.text'),//'Relancer le traitement du document',
+	text : i18n.t('view.mails.itemaction.restartprocessing.text'),//'Relancer le traitement du document',
 	
 	iconCls : Yamma.Constants.getIconDefinition('pencil_go').iconCls,
 	
