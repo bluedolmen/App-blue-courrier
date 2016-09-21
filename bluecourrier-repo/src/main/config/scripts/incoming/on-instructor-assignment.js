@@ -19,10 +19,11 @@
 	var 
 		document = Utils.Alfresco.BPM.getFirstPackageResource(),
 		owner = Utils.wrapString(task.assignee), // is the task assigned?
-		previousInstructorName = Utils.asString(execution.getVariable('bcinwf_instructor')),
+		previousInstructorName = Utils.asString(task.getVariableLocal('bcinwf_instructor')),
 		hasActorChanged = owner != previousInstructorName,
-		serviceRole = Utils.asString(task.getVariable('bcinwf_serviceRole')),
-		firstTimeAssigned = execution.getVariableLocal('bcinwf_firstTimeInstructorAssigned') ;
+		serviceRole = Utils.asString(task.getVariableLocal('bcinwf_serviceRole')),
+		firstTimeAssigned = task.getVariableLocal('bcinwf_firstTimeInstructorAssigned'),
+		actorRole = ConfigUtils.getConfigValue('wf.incoming.processing.' + serviceRole + '.role')
 	;
 	
 	firstTimeAssigned = (null == firstTimeAssigned || true === firstTimeAssigned) || hasActorChanged;
@@ -31,9 +32,9 @@
 	
 	if (firstTimeAssigned && null != owner) {
 		
-		giveRightsToActor(document);
+		giveRightsToActor(document, actorRole);
 		sendEmailToUser();
-		execution.setVariableLocal('bcinwf_firstTimeInstructorAssigned', false); // update the flag
+		task.setVariableLocal('bcinwf_firstTimeInstructorAssigned', false); // update the flag
 		
 	}
 	
@@ -44,7 +45,7 @@
 	
 	function storeCurrentInstructor() {
 		
-		execution.setVariableLocal('bcinwf_instructor', owner);
+		task.setVariableLocal('bcinwf_instructor', owner);
 
 		if (!isProcessingRole()) return;
 		

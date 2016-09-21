@@ -3,6 +3,7 @@
 
 (function() {
 	
+	Utils.Debug.breakWithException();
 	var
 		instructorName = Utils.asString(BPMUtils.getContextVariable('bcinwf_instructor'))
 	;

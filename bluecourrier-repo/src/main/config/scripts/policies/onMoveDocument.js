@@ -16,6 +16,8 @@
 	
 	if (!DocumentUtils.isDocumentContainer(documentContainer)) return; // outside of the control scope (maybe initialization of the document)
 	
+//	if (documentContainer.nodeRef.equals(newChildAssoc.getParent().nodeRef)) return;
+	
 	tasks = workflowUtils.getTasksForNode(document);
 	filteredTasks = Utils.Array.filter(tasks, function(task) {
 		return Utils.Array.contains(['bcwfincoming:Pending','bcwfincoming:Delivering','bcwfincoming:Validating'], Utils.wrapString(task.name));

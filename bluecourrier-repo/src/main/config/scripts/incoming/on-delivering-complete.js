@@ -12,7 +12,9 @@
   	    'bcinwf_validateDelivering',
   	    'bcinwf_shares',
   	    'bcinwf_instructor'
-  	]);
+  	], true /* local */);
+	
+//	execution.setVariableLocal('bcinwf_instructor', task.getVariable('bcinwf_instructor')); // Do not set it globally
 	
 	addHistoryEvent();
 	addFollowing();
