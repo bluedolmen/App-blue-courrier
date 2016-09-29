@@ -69,7 +69,8 @@ Ext.define('Yamma.view.mails.gridactions.SimpleTaskRefGridAction', {
 			me = this,
 			isAvailable_ = this.callParent(arguments)
 		;
-		if (!this.taskName) return isAvailable_;
+		if (false === isAvailable_) return false;
+		if (!this.taskName) return true;
 		
 		var
 			actionName = this.actionName,

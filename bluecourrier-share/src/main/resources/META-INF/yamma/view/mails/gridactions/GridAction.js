@@ -28,7 +28,64 @@ Ext.define('Yamma.view.mails.gridactions.GridAction', {
 	constructor : function() {
 		
 		this.callParent();
+		
+		this.prepareAvailableConditions();
+		
 		this.on('actionComplete', this.onActionComplete, this);
+		
+	},
+	
+	prepareAvailableConditions : function() {
+		
+		var
+			me = this,
+			className = this.$className.split('.').slice(-1)[0],
+			availableConditions = Yamma.config.client['actions.available.' + className]
+		;
+		if (!availableConditions) return;
+		
+		this.availableConditions = {};
+		
+		availableConditions = availableConditions.split('&&');
+		Ext.Array.forEach(availableConditions, function(condition) {
+			
+			var propertyName, regexp;
+			
+			condition = condition.split('~~');
+			if (condition.length != 2) {
+				throw new Error("One of the available conditions for action '" + className + "' does not match PropertyName~Regexp");
+			}
+			propertyName = condition[0];
+			regexp = condition[1];
+			
+			if (!propertyName || !regexp) {
+				throw new Error("One of the available conditions for action '" + className + "' does not match PropertyName~Regexp");
+			}
+			
+			me.availableConditions[propertyName] = new RegExp(regexp);
+			
+		});
+		
+	},
+	
+	isAvailable : function(record, context) {
+		
+		var propertyName, regexp, propertyValue;
+		
+		if (this.availableConditions) {
+			
+			for (propertyName in this.availableConditions) {
+				
+				regexp = this.availableConditions[propertyName];
+				propertyValue = record.get(propertyName) || '';
+				
+				if (false === regexp.test(propertyValue)) return false;
+				
+			}
+			
+		}
+		
+		return this.callParent(arguments);
 		
 	},
 		
