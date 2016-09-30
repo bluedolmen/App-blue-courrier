@@ -10,7 +10,6 @@ Ext.define('Yamma.view.mails.gridactions.AssignInstructor', {
 	
 	actionUrl : 'alfresco://bluedolmen/yamma/assign-processing',
 	
-	availabilityField : Yamma.utils.datasources.Documents.DOCUMENT_USER_CAN_DISTRIBUTE,
 	actionName : 'Assign',
 	
 	supportBatchedNodes : true,
