@@ -311,11 +311,11 @@ Ext.define('Yamma.view.mails.MailColumnDefinitions', {
 	SUBJECT_TEMPLATE : new Ext.XTemplate(
 		'<div class="document-subject">',
 			'<div class="{senderClass}">',
-				'<span class="{organizationClass} icon-and-label">{senderOrganization}</span>',
-				'<span class="{instructorClass} icon-and-label">{senderInstructor}</span>',
+				'<span class="{organizationClass} icon-and-label ellipsed-text">{senderOrganization}</span>',
+				'<span class="{instructorClass} icon-and-label ellipsed-text">{senderInstructor}</span>',
 			'</div>',
-			'<div class="{nameClass}"><div class="privacy-extra-cls {addCls}"></div><span class="reference">{reference}</span>{name}</div>',
-			'<div class="{objectClass}">{object}<span class="paragraph-end"/></div>',
+			'<div class="{nameClass} ellipsed-text"><div class="privacy-extra-cls {addCls}"></div><span class="reference">{reference}</span>{name}</div>',
+			'<div class="{objectClass} ellipsed-text">{object}<span class="paragraph-end"/></div>',
 		'</div>'
 	),
 	

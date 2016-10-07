@@ -159,8 +159,6 @@
 .x-grid-cell div .object {
 	padding-top: 5px;
 	font-weight:bold;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 /*
@@ -227,8 +225,6 @@
 	background-image: url(../icons/user_go.png) !important;
 	padding-top : 2px;
 	max-width: 150px;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .x-grid-cell .document-subject .organization {
@@ -237,8 +233,6 @@
 	background-image: url(../icons/building_go.png) !important;
 	padding-top : 2px;
 	max-width: 150px;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .x-grid-cell .x-grid-checkheader {
@@ -575,3 +569,8 @@
 	background-position: left center;
 }
 
+.ellipsed-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
