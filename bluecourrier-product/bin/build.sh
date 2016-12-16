@@ -18,7 +18,7 @@ for project in "${PROJECTS[@]}"; do
 
 	test ! -d ${project} && continue
 	cd "${project}"
-	${MAVEN} ${MVN_OPTS} clean install || exit_with_failure "Error while building project $(basename "${project}")"
+	${MAVEN} ${MVN_OPTS} clean install deploy || exit_with_failure "Error while building project $(basename "${project}")"
 
 done
 
