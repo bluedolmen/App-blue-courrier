@@ -18,7 +18,7 @@ for project in "${PROJECTS[@]}"; do
 
 	test ! -d ${project} && continue
 	cd "${project}"
-	${MAVEN} ${MVN_OPTS} clean install deploy || exit_with_failure "Error while building project $(basename "${project}")"
+	${MAVEN} ${MVN_OPTS} clean install || exit_with_failure "Error while building project $(basename "${project}")"
 
 done
 
@@ -34,6 +34,7 @@ AMPS_DIRNAME="amps"
 AMPS_DIR="${ROOT_DIR}/target/${AMPS_DIRNAME}"
 mkdir -p "${AMPS_DIR}"
 for project in "${REPO_PROJECTS[@]}"; do
+	(cd "${project}" ; mvn deploy ; cd -)
 	cp "${project}"/target/*.amp "${AMPS_DIR}" || exit_with_failure "Cannot find amp files in $(basename "${project}")"
 done
 
@@ -41,6 +42,7 @@ if [ ${WEBAPPS_PACKAGING} -eq 1 ]; then
 	TARGET_WEBAPP="${TARGET}/alfresco"
 	mkdir -p "${TARGET_WEBAPP}"
 	for amp_file in "${AMPS_DIR}"/*.amp; do
+		(cd "${project}" ; mvn deploy ; cd -)
 		${APPLY_AMP} "${amp_file}" "${TARGET_WEBAPP}"
 	done
 fi
@@ -70,6 +72,7 @@ fi
 #########################################################
 
 for project in "${EXTRA_WEBAPPS_PROJECTS[@]}"; do
+	(cd "${project}" ; mvn deploy ; cd -)	
 	cp "${project}"/target/*.war "${TARGET}" || exit_with_failure "Cannot find war files in $(basename "${project}")"
 done
 
