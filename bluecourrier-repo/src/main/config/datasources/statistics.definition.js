@@ -104,20 +104,33 @@
 					}
 					
 				},
-				
+
 				{
 					name : 'instructor',
 					label : 'Instructeur',
 					evaluate : function(node) {
 						
-						var instructorName = Utils.asString(node.properties['bcinwf:instructorUserName']);
-						if (!instructorName) return '';
+						var processingEvents = HistoryUtils.getHistoryEvents(node, 'startProcessing');
+						if (Utils.isArrayEmpty(processingEvents)) return '';
 						
-						return Utils.Alfresco.getPersonDisplayName(instructorName, false /* displayUserName */) + '|' + instructorName;
+						return processingEvents[0].properties[YammaModel.EVENT_REFERRER_PROPNAME];
 						
 					}
 				},
 				
+//				{
+//					name : 'instructor',
+//					label : 'Instructeur',
+//					evaluate : function(node) {
+//						
+//						var instructorName = Utils.asString(node.properties['bcinwf:instructorUserName']);
+//						if (!instructorName) return '';
+//						
+//						return Utils.Alfresco.getPersonDisplayName(instructorName, false /* displayUserName */) + '|' + instructorName;
+//						
+//					}
+//				},
+//				
 				{
 					name : YammaModel.INBOUND_DOCUMENT_DELIVERY_DATE_PROPNAME,
 					label : "Date d'arrivée"
@@ -128,24 +141,17 @@
 					label : 'Date échéance'
 				},
 				
+				
 				{
 					name : 'startProcessingDate',
 					label : 'Date début traitement',
 					type : 'date',
 					evaluate : function(node) {
-						
-						// test residual property
-						var startProcessingDate = node.properties['bcinwf:startProcessingDate'];
-						if (null != startProcessingDate) {
-							return startProcessingDate;
-						}
-						
-						var processingEvents = HistoryUtils.getHistoryEvents(node, 'acceptProcessing');
+						var processingEvents = HistoryUtils.getHistoryEvents(node, 'startProcessing');
 						// may have several history events (task re-assignment)
 						if (Utils.isArrayEmpty(processingEvents)) return '';
 						
-						return processingEvents[0].properties['cm:created'];
-						
+						return processingEvents[0].properties[YammaModel.EVENT_DATE_PROPNAME];
 					}
 				},
 				
@@ -154,21 +160,42 @@
 					label : 'Date fin traitement',
 					type : 'date',
 					evaluate : function(node) {
-
-						// test residual property
-						var endProcessingDate = node.properties['bcinwf:endProcessingDate'];
-						if (null != endProcessingDate) {
-							return endProcessingDate;
-						}
-						
 						var processingEvents = HistoryUtils.getHistoryEvents(node, 'close');
 						if (Utils.isArrayEmpty(processingEvents)) return '';
 						
-						return processingEvents[0].properties['cm:created'];
+						return processingEvents[0].properties[YammaModel.EVENT_DATE_PROPNAME];
 					}
 				},
+				
 				{
-					name : YammaModel.STATUSABLE_STATUS_PROPNAME,
+					name : YammaModel.PRIORITY_TYPE_SHORTNAME + '_name',
+					label : 'Priorité',
+					type : 'string',
+					evaluate : function(node) {
+						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_PRIORITY_ASSOCNAME, priorityDisplay, true);
+					}
+				},				
+				
+				{
+					name : YammaModel.DELAY_TYPE_SHORTNAME + '_name',
+					label : 'Délai',
+					type : 'string',
+					evaluate : function(node) {
+						return this.evaluateAssocProperty(node, YammaModel.DUEABLE_DELAY_ASSOCNAME, 'cm:name', true);
+					}
+				},
+
+				{
+					name : YammaModel.PRIVACY_LEVEL_TYPE_SHORTNAME + '_name',
+					label : 'Confidentialité',
+					type : 'string',
+					evaluate : function(node) {
+						return this.evaluateAssocProperty(node, YammaModel.PRIVACY_PRIVACY_LEVEL_ASSOCNAME, 'cm:name', true);
+					}
+				},
+				
+				{
+					name : YammaModel.STATUSABLE_STATE_PROPNAME,
 					label : 'État'
 				},
 				
@@ -185,6 +212,7 @@
 						return AttachmentUtils.getAttachments(node).length;
 					}
 				},
+				
 				{
 					name : 'processKind',
 					label : 'Type de processus',
