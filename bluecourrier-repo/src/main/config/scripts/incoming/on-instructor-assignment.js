@@ -26,10 +26,9 @@
 		actorRole = ConfigUtils.getConfigValue('wf.incoming.processing.' + serviceRole + '.role')
 	;
 	
-	firstTimeAssigned = (null == firstTimeAssigned || true === firstTimeAssigned) || hasActorChanged;
-	
 	if (null == document) return;
 	
+	firstTimeAssigned = (null == firstTimeAssigned || true === firstTimeAssigned) || hasActorChanged;
 	if (firstTimeAssigned && null != owner) {
 		
 		giveRightsToActor(document, actorRole);
