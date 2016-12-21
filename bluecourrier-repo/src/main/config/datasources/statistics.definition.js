@@ -32,6 +32,98 @@
 		
 	}
 	
+	function listBCTasks(node, filter) {
+		
+		if (null == node) return [];
+		var filter_ = filter || function(task) {
+			var taskName = Utils.asString(task.name);
+			return Utils.String.startsWith(taskName, "bcinwf");
+		};
+		
+		var tasks_ = [];
+		
+		Utils.forEach(node.activeWorkflows || [], function(workflowInstance) {
+			
+			var tasks = BPMUtils.getTasksForWorkflow(workflowInstance) || [];
+			
+			tasks = BPMUtils.filterTasks(tasks, filter_);
+			
+			tasks_ = tasks_.concat(tasks);
+			
+		});
+		
+		return tasks_;
+		
+	}
+	
+    function getPooledActors(task) {
+
+        var
+            pooledActors = Utils.toArray(task.properties['bpm:pooledActors'])
+        ;
+
+        return Utils.Array.map(pooledActors, function(pooledActor) {
+        	
+            pooledActor = search.findNode(pooledActor);
+            
+            var pooledActor = Utils.asString(pooledActor.properties['cm:authorityName']);
+            if (pooledActor) return pooledActor;
+            
+            pooledActor = Utils.asString(pooledActor.properties['cm:userName']);
+            var actorEmail = pooledActor ? Utils.Alfresco.getPersonEmail(pooledActor) : '';
+            
+            return pooledActor + '|' + actorEmail;
+            
+        });
+
+    }	
+	
+    function getTaskDescription(task) {
+
+        var 
+            taskId = task.id,
+            taskName = task.name,
+            taskOwner = Utils.asString(task.properties['cm:owner']),
+            ownerEmail = taskOwner ? Utils.Alfresco.getPersonEmail(taskOwner) : '',
+            pooledActors = getPooledActors(task),
+            properties = Utils.Alfresco.BPM.getNonAlfrescoProperties(task),
+            status = Utils.asString(task.properties['bpm:status']),
+            description = {
+                id : taskId,
+                name : taskName,
+                status : status,
+                properties : properties,
+                owner : taskOwner + '|' + ownerEmail,
+                pooledActors : pooledActors
+            }
+        ;
+
+        return description;
+
+    }	
+	
+
+	function getEventDescription(event) {
+	
+		var 
+			eventDate = event.properties['cm:created'],
+			eventType = Utils.asString(event.properties[YammaModel.EVENT_EVENT_TYPE_PROPNAME]),
+			eventName = Utils.asString(event.properties[YammaModel.EVENT_DESCRIPTION_PROPNAME]),
+			eventReferrer = Utils.asString(event.properties[YammaModel.EVENT_REFERRER_PROPNAME]),
+//			eventDelegate = Utils.Alfresco.getPersonDisplayName(Utils.asString(event.properties[YammaModel.EVENT_DELEGATE_PROPNAME]) || 'unknown'),
+			description = {
+				date : eventDate,
+				type : eventType,
+				name : eventName,
+				referrer : (eventReferrer || 'unkown') + (eventReferrer ? '|' + Utils.Alfresco.getPersonDisplayName(eventReferrer) : '') + (eventReferrer ? '|' + Utils.Alfresco.getPersonEmail(eventReferrer) : '')
+//				delegate : eventDelegate
+			}
+		;
+	
+		return description;
+	
+	}
+
 	DatasourceDefinitions.register('Statistics',
 		{
 
@@ -106,17 +198,47 @@
 				},
 
 				{
-					name : 'instructor',
-					label : 'Instructeur',
+					name : 'tasks',
+					label : 'Tâches',
 					evaluate : function(node) {
-						
-						var processingEvents = HistoryUtils.getHistoryEvents(node, 'startProcessing');
-						if (Utils.isArrayEmpty(processingEvents)) return '';
-						
-						return processingEvents[0].properties[YammaModel.EVENT_REFERRER_PROPNAME];
+
+						var tasks = listBCTasks(node, ['bcinwf:validatingTask', 'bcinwf:processingTask','bcogwf:processingTask','bcogwf:validatingTask','bcogwf:certifyingTask','bcogwf:sendingTask']);
+
+						return Utils.Array.map(tasks, function(task) {
+							
+							return getTaskDescription(task);
+							
+						});
 						
 					}
 				},
+
+				{
+					name : 'history',
+					label : 'Historique',
+					evaluate : function(node) {
+
+						var events = HistoryUtils.getHistoryEvents(node);
+
+						return Utils.Array.map(events, function(event) {
+							return getEventDescription(event);
+						});
+						
+					}
+				},
+				
+//				{
+//					name : 'instructor',
+//					label : 'Instructeur',
+//					evaluate : function(node) {
+//						
+//						var processingEvents = HistoryUtils.getHistoryEvents(node, 'startProcessing');
+//						if (Utils.isArrayEmpty(processingEvents)) return '';
+//						
+//						return processingEvents[0].properties[YammaModel.EVENT_REFERRER_PROPNAME];
+//						
+//					}
+//				},
 				
 //				{
 //					name : 'instructor',
@@ -167,32 +289,32 @@
 					}
 				},
 				
-				{
-					name : YammaModel.PRIORITY_TYPE_SHORTNAME + '_name',
-					label : 'Priorité',
-					type : 'string',
-					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_PRIORITY_ASSOCNAME, priorityDisplay, true);
-					}
-				},				
-				
-				{
-					name : YammaModel.DELAY_TYPE_SHORTNAME + '_name',
-					label : 'Délai',
-					type : 'string',
-					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.DUEABLE_DELAY_ASSOCNAME, 'cm:name', true);
-					}
-				},
-
-				{
-					name : YammaModel.PRIVACY_LEVEL_TYPE_SHORTNAME + '_name',
-					label : 'Confidentialité',
-					type : 'string',
-					evaluate : function(node) {
-						return this.evaluateAssocProperty(node, YammaModel.PRIVACY_PRIVACY_LEVEL_ASSOCNAME, 'cm:name', true);
-					}
-				},
+//				{
+//					name : YammaModel.PRIORITY_TYPE_SHORTNAME + '_name',
+//					label : 'Priorité',
+//					type : 'string',
+//					evaluate : function(node) {
+//						return this.evaluateAssocProperty(node, YammaModel.PRIORITIZABLE_PRIORITY_ASSOCNAME, priorityDisplay, true);
+//					}
+//				},				
+//				
+//				{
+//					name : YammaModel.DELAY_TYPE_SHORTNAME + '_name',
+//					label : 'Délai',
+//					type : 'string',
+//					evaluate : function(node) {
+//						return this.evaluateAssocProperty(node, YammaModel.DUEABLE_DELAY_ASSOCNAME, 'cm:name', true);
+//					}
+//				},
+//
+//				{
+//					name : YammaModel.PRIVACY_LEVEL_TYPE_SHORTNAME + '_name',
+//					label : 'Confidentialité',
+//					type : 'string',
+//					evaluate : function(node) {
+//						return this.evaluateAssocProperty(node, YammaModel.PRIVACY_PRIVACY_LEVEL_ASSOCNAME, 'cm:name', true);
+//					}
+//				},
 				
 				{
 					name : YammaModel.STATUSABLE_STATE_PROPNAME,
