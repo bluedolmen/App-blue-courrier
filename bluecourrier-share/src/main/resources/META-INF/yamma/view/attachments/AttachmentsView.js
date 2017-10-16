@@ -18,7 +18,7 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 	
 	storeId : 'Attachments',
 	hasPaging : false,
-	hideHeaders : true,
+	hideHeaders : false,
 	
     getDockedItemDefinitions : function() {
     	return [{
@@ -68,9 +68,21 @@ Ext.define('Yamma.view.attachments.AttachmentsView', {
 			
     	}
     	
-		this.on('storeloaded', onStoreLoaded, this);
-		this.on('storecleared', onStoreCleared, this);
-		
+	this.on('storeloaded', onStoreLoaded, this);
+	this.on('storecleared', onStoreCleared, this);
+
+	me.storeConfigOptions = {
+                
+                sorters : [{
+                    property : 'cm:name',
+                    direction : 'ASC'
+                }],
+                remoteSort : false,
+                remoteGroup : false,
+                sortOnLoad : true
+                
+        }
+
     	this.mixins.countingtitle.init.call(this);
     	this.callParent(arguments);
     	
