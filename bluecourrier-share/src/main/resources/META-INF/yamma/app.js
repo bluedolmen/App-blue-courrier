@@ -120,6 +120,40 @@ function initApplication() {
 			hideLoadingMask : function() {
 			    Ext.get('loading-mask').fadeOut({remove:true});			
 			    Ext.get('loading').remove();			
+				console.log("sessionStorage : " + sessionStorage['reload']);
+				var IEVersion = this.detectIE(window.navigator.userAgent);
+				if (IEVersion && IEVersion <= 11) {
+					console.log("IE version <= : " + IEVersion);
+					if(!sessionStorage['reload']) {
+						console.log("Reloading IE for the first time.");
+						sessionStorage['reload'] = true;
+						window.location.reload();
+					}
+				}
+			},
+
+			detectIE : function(ua) {
+			  var msie = ua.indexOf('MSIE ');
+			  if (msie > 0) {
+			    // IE 10 or older => return version number
+			    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+			  }
+
+			  var trident = ua.indexOf('Trident/');
+			  if (trident > 0) {
+			    // IE 11 => return version number
+			    var rv = ua.indexOf('rv:');
+			    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+			  }
+
+			  var edge = ua.indexOf('Edge/');
+			  if (edge > 0) {
+			    // Edge (IE 12+) => return version number
+			    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+			  }
+
+			  // other browser
+			  return false;
 			}
 		}
 	);
