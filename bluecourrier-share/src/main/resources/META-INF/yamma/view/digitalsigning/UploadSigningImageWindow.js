@@ -8,7 +8,7 @@ Ext.define('Yamma.view.digitalsigning.UploadSigningImageWindow', {
 	title :  i18n.t('view.digitalsigning.uploadsigningimagewindow.title'),
 	
 	errorTitle : i18n.t('view.digitalsigning.uploadsigningimagewindow.errorTitle'),
-	errorMessage : '<strong>'+ i18n.t('view.digitalsigning.uploadsigningimagewindow.errorMessage'), +'</strong><br/><br/>',
+	errorMessage : '<strong>'+ i18n.t('view.digitalsigning.uploadsigningimagewindow.errorMessage') +'</strong><br/><br/>',
 	
 	// Image field
 	imageFieldName : 'image',

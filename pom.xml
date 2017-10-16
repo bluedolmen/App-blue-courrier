@@ -20,7 +20,7 @@
 		<alfresco.version>5.1.g</alfresco.version>
 		<alfresco.classifier>community</alfresco.classifier>
 
-		<alfresco-extensions.version>1.2-alf5.1</alfresco-extensions.version>
+		<alfresco-extensions.version>1.2.1-alf5.1</alfresco-extensions.version>
 		<digital-signing.version>1.0-alf5.1</digital-signing.version>
 
 		<extjs.version>4.2.1</extjs.version>
