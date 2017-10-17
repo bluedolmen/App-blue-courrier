@@ -127,7 +127,7 @@ function initApplication() {
 					if(!sessionStorage['reload']) {
 						console.log("Reloading IE for the first time.");
 						sessionStorage['reload'] = true;
-						window.location.reload();
+						window.location.reload(true);
 					}
 				}
 			},
