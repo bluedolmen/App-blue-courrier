@@ -125,13 +125,13 @@ function initApplication() {
 				if (IEVersion && IEVersion <= 11) {
 					console.log("IE version <= : " + IEVersion);
 					window.location.reload(true);
-/*
+
 					if(!sessionStorage['reload']) {
 						console.log("Reloading IE for the first time.");
 						sessionStorage['reload'] = true;
 						window.location.reload(true);
 					}
-*/
+
 				}
 			},
 
