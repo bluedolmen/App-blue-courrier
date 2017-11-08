@@ -152,11 +152,9 @@ Ext.define('Yamma.store.services.ServicesTreeStore', {
 				return isAvailableAncestor; // pre-computed
 			}
 			
-			if (node.isLeaf()) {
-				isAvailableAncestor = !node.get('disabled');
-			}
-			else {
-				isAvailableAncestor = false;
+			isAvailableAncestor = !node.get('disabled');
+			
+			if (!node.isLeaf()) {
 				Ext.Array.each(node.childNodes, function(child) {
 					isAvailableAncestor = isAvailableAncestor_(child) || isAvailableAncestor;
 				});
