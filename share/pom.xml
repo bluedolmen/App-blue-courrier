@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.bluedolmen.alfresco</groupId>
             <artifactId>extjs-integration-share</artifactId>
-            <version>1.1-alf5.1</version>
+            <version>1.2-alf5.1</version>
             <type>amp</type>
         </dependency>
         <!-- Uncomment if you are using RM (Records Management) module -->
