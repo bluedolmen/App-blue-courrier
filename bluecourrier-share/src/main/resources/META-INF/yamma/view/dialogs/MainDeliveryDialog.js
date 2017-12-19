@@ -254,7 +254,7 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 								if ('none' == role && 'done' == record.modified['status']) {
 									record.reject();
 								}
-								else if (record.isModified('role') || 'done' == record.modified['status']) {
+								else if (record.isModified('role') || 'done' == record.get('status')) {
 									record.set('status', 'edited');
 								}
 								else {
