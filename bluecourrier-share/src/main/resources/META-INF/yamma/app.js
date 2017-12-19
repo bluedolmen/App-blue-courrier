@@ -124,7 +124,6 @@ function initApplication() {
 				var IEVersion = this.detectIE(window.navigator.userAgent);
 				if (IEVersion && IEVersion <= 11) {
 					console.log("IE version <= : " + IEVersion);
-					window.location.reload(true);
 
 					if(!sessionStorage['reload']) {
 						console.log("Reloading IE for the first time.");
