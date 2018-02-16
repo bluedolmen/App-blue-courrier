@@ -125,12 +125,15 @@ function initApplication() {
 				if (IEVersion && IEVersion <= 11) {
 					console.log("IE version <= : " + IEVersion);
 
-					if(!sessionStorage['reload']) {
-						console.log("Reloading IE for the first time.");
-						sessionStorage['reload'] = true;
+					var currentTime = new Date().getTime().toString();
+					//currenttime is in ms so maxAge too
+					var maxAge = 5 * 60 * 1000;
+					if(!sessionStorage['reload']
+						|| (sessionStorage['reload'] != undefined && (currentTime - sessionStorage['reload'] > maxAge))) {
+						console.log("Reloading IE at: " + currentTime);
+						sessionStorage['reload'] = currentTime;
 						window.location.reload(true);
 					}
-
 				}
 			},
 
