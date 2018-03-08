@@ -137,8 +137,8 @@ Ext.define('Yamma.view.dialogs.MainDeliveryDialog', {
 	 		workflowStore = Ext.create('Ext.data.Store', {
 	 			fields : ['id','label'],
 	 			data : [
-					{ 'id' : 'with-validation', 'label' : 'Avec validation'},
 					{ 'id' : 'without-validation', 'label' : 'Sans validation'}
+					{ 'id' : 'with-validation', 'label' : 'Avec validation'},
 				]
 	 		}),
 	 		
