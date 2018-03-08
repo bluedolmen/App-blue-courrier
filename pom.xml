@@ -25,6 +25,9 @@
 
 		<extjs.version>4.2.1</extjs.version>
 		<dependency.surf.version>6.3</dependency.surf.version>
+		
+		<product.name>BlueCourrier</product.name>
+		<product.description>La gestion de courrier avec Alfresco</product.description>
 	</properties>
 
 	<modules>
